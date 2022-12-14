@@ -18,21 +18,13 @@ package net.somta.juggle;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
-/**
- * Nacos starter.
- *
- * @author nacos
- */
+
 @SpringBootApplication(scanBasePackages = "net.somta.juggle")
-@ServletComponentScan
-@EnableScheduling
 public class Application {
     
     public static void main(String[] args) {
-        SpringApplication.run(Nacos.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
 
