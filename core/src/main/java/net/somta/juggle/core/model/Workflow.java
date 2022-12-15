@@ -2,6 +2,11 @@ package net.somta.juggle.core.model;
 
 import java.util.List;
 
+/**
+ * 流程类
+ * @author husong
+ * @date 2022/12/14
+ **/
 public class Workflow {
     private String id;
     /**
@@ -15,15 +20,16 @@ public class Workflow {
     /**
      * 入参列表
      */
-    private List inputs;
+    private List<InputParameter> inputs;
     /**
      * 出参列表
      */
-    private List outputs;
+    private List<OutputParameter> outputs;
     /**
      * 变量列表
      */
-    private List variableList;
+    // TODO 变量类型分为独享和，共享（一个业务key的多个流程共享）
+    private List variables;
 
 
     public String getId() {
@@ -50,27 +56,27 @@ public class Workflow {
         this.description = description;
     }
 
-    public List getInputs() {
+    public List<InputParameter> getInputs() {
         return inputs;
     }
 
-    public void setInputs(List inputs) {
+    public void setInputs(List<InputParameter> inputs) {
         this.inputs = inputs;
     }
 
-    public List getOutputs() {
+    public List<OutputParameter> getOutputs() {
         return outputs;
     }
 
-    public void setOutputs(List outputs) {
+    public void setOutputs(List<OutputParameter> outputs) {
         this.outputs = outputs;
     }
 
-    public List getVariableList() {
-        return variableList;
+    public List getVariables() {
+        return variables;
     }
 
-    public void setVariableList(List variableList) {
-        this.variableList = variableList;
+    public void setVariables(List variables) {
+        this.variables = variables;
     }
 }
