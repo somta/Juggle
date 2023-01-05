@@ -1,4 +1,4 @@
-package net.somta.juggle.console.model;
+package net.somta.juggle.core.model;
 
 /**
  * TODO 类职责描述

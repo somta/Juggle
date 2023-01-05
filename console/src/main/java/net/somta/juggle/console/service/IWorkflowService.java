@@ -1,6 +1,6 @@
 package net.somta.juggle.console.service;
 
-import net.somta.juggle.console.model.WorkflowDefinition;
+import net.somta.juggle.core.model.WorkflowDefinition;
 
 public interface IWorkflowService {
     /**

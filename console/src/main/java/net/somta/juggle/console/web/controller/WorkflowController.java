@@ -1,6 +1,6 @@
 package net.somta.juggle.console.web.controller;
 
-import net.somta.juggle.console.model.WorkflowDefinition;
+import net.somta.juggle.core.model.WorkflowDefinition;
 import net.somta.juggle.console.service.IWorkflowDefinitionService;
 import net.somta.juggle.console.service.IWorkflowService;
 import org.apache.commons.lang3.StringUtils;
