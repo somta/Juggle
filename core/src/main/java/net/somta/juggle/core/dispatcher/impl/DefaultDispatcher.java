@@ -5,7 +5,7 @@ import net.somta.juggle.core.WorkRunnerImpl;
 import net.somta.juggle.core.dispatcher.AbstractDispatcher;
 
 /**
- * 默认基于内存的分发器
+ * 默认基于内存的调度器
  */
 public class DefaultDispatcher extends AbstractDispatcher {
 

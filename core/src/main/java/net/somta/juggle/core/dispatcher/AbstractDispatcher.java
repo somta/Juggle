@@ -3,6 +3,7 @@ package net.somta.juggle.core.dispatcher;
 import net.somta.juggle.core.IWorkRunner;
 import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.dispatcher.IDispatcher;
+import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.WorkflowDefinition;
 
@@ -33,12 +34,16 @@ public abstract class AbstractDispatcher implements IDispatcher {
     }
 
     /**
-     *
+     * 构建流程运行的RuntimeContext
      * @return
      */
-    RuntimeContext buildRuntimeContext(){
+    private RuntimeContext buildRuntimeContext(){
 
-        return null;
+        RuntimeContext runtimeContext = new RuntimeContext();
+        runtimeContext.setFlowStatus(FlowStatusEnum.INIT);
+
+
+        return runtimeContext;
     }
 
     protected abstract Boolean doSend(RuntimeContext runtimeContext);

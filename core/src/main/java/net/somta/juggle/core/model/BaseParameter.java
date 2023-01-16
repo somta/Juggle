@@ -1,5 +1,7 @@
 package net.somta.juggle.core.model;
 
+import net.somta.juggle.core.enums.DataTypeEnum;
+
 /**
  * 参数基类
  * @author husong
@@ -13,7 +15,7 @@ public class BaseParameter {
     /**
      * 参数类型 String,Boolean,int
      */
-    private String type;
+    private DataTypeEnum dataType;
 
     public String getName() {
         return name;
@@ -23,11 +25,11 @@ public class BaseParameter {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public DataTypeEnum getDataType() {
+        return dataType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDataType(DataTypeEnum dataType) {
+        this.dataType = dataType;
     }
 }

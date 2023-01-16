@@ -5,6 +5,9 @@ import net.somta.juggle.core.model.WorkflowDefinition;
 
 import java.util.List;
 
+/**
+ * 调度器接口
+ */
 public interface IDispatcher {
 
     /**

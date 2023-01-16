@@ -6,7 +6,8 @@ import net.somta.juggle.core.WorkRunnerImpl;
 import net.somta.juggle.core.dispatcher.AbstractDispatcher;
 
 /**
- * 基于MQ的分发器
+ * todo 应该在分发器中
+ * 基于MQ的分发器,
  */
 public class MqDispatcher extends AbstractDispatcher {
 
