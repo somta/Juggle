@@ -1,6 +1,6 @@
 package net.somta.juggle.console.service;
 
-import net.somta.juggle.core.model.WorkflowDefinition;
+import net.somta.juggle.core.model.FlowDefinition;
 
 public interface IWorkflowService {
     /**
@@ -8,5 +8,5 @@ public interface IWorkflowService {
      * @param workflowDefinition
      * @return
      */
-    Boolean startFlow(WorkflowDefinition workflowDefinition);
+    Boolean startFlow(FlowDefinition workflowDefinition);
 }

@@ -14,7 +14,15 @@ public class RuntimeContext {
 
 
     /**
-     *
+     * 流程Key,全局唯一
+     */
+    private String flowKey;
+    /**
+     * 租户ID
+     */
+    private String tenantId;
+    /**
+     * 流程元素Map
      */
     private Map<String, FlowElement> flowMap;
 
@@ -25,6 +33,21 @@ public class RuntimeContext {
      */
     private FlowStatusEnum flowStatus;
 
+    public String getFlowKey() {
+        return flowKey;
+    }
+
+    public void setFlowKey(String flowKey) {
+        this.flowKey = flowKey;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
 
     public Map<String, FlowElement> getFlowMap() {
         return flowMap;

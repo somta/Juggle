@@ -6,7 +6,7 @@ package net.somta.juggle.core.model;
  * @author husong
  * @date 2023/01/04
  */
-public class WorkflowDefinition {
+public class FlowDefinition {
 
     /**
      * 流程Key,全局唯一

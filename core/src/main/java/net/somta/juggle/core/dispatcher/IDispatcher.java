@@ -1,7 +1,7 @@
 package net.somta.juggle.core.dispatcher;
 
 import net.somta.juggle.core.model.Variable;
-import net.somta.juggle.core.model.WorkflowDefinition;
+import net.somta.juggle.core.model.FlowDefinition;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
 public interface IDispatcher {
 
     /**
-     * 分发请求
+     * 分发流程
      * @return
      */
-    Boolean send(WorkflowDefinition workflowDefinition, List<Variable> variables);
+    Boolean send(FlowDefinition workflowDefinition, List<Variable> variables);
 
 }

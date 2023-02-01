@@ -1,6 +1,6 @@
 package net.somta.juggle.console.service;
 
-import net.somta.juggle.core.model.WorkflowDefinition;
+import net.somta.juggle.core.model.FlowDefinition;
 
 public interface IWorkflowDefinitionService {
 
@@ -9,5 +9,5 @@ public interface IWorkflowDefinitionService {
      * @param flowKey
      * @return
      */
-    WorkflowDefinition getFlowDefinitionByKey(String flowKey);
+    FlowDefinition getFlowDefinitionByKey(String flowKey);
 }

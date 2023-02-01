@@ -1,6 +1,6 @@
 package net.somta.juggle.console.web.controller;
 
-import net.somta.juggle.core.model.WorkflowDefinition;
+import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.console.service.IWorkflowDefinitionService;
 import net.somta.juggle.console.service.IWorkflowService;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +26,7 @@ public class WorkflowController {
         if(StringUtils.isEmpty(flowKey)){
             System.out.println("抛出异常");
         }
-        WorkflowDefinition workflowDefinition = workflowDefinitionService.getFlowDefinitionByKey(flowKey);
+        FlowDefinition workflowDefinition = workflowDefinitionService.getFlowDefinitionByKey(flowKey);
         return workflowService.startFlow(workflowDefinition);
     }
 

@@ -6,6 +6,20 @@ package net.somta.juggle.core.enums;
  * @date 2022/12/15
  **/
 public enum FlowElementTypeEnum {
+    /**
+     * 开始节点
+     */
     START_EVENT,
-    END_EVENT;
+    /**
+     * 结束节点
+     */
+    END_EVENT,
+    /**
+     * 方法节点
+     */
+    METHOD,
+    /**
+     * 判断节点
+     */
+    CODITION;
 }
