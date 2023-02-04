@@ -1,5 +1,7 @@
 package net.somta.juggle.core.model.node;
 
+import net.somta.juggle.core.model.FlowElement;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * @author husong
  * @date 2023/01/17
  */
-public class StartEventNode extends EventNode {
+public class StartNode extends FlowElement {
     /**
      * 流程出口
      */

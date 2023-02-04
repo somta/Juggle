@@ -6,5 +6,6 @@ package net.somta.juggle.core.model.node;
  * @author husong
  * @date 2023/01/17
  */
-public class CoditionNode {
+public class ConditionNode extends FlowNode{
+
 }
