@@ -9,8 +9,14 @@ import net.somta.juggle.core.RuntimeContext;
  * @date 2023/02/06
  */
 public class MethodNodeExecutor extends ElementExecutor{
+
     @Override
-    public void execute(RuntimeContext runtimeContext) {
+    protected void doExecute(RuntimeContext runtimeContext) {
+        System.out.println("方法节点执行器，执行中。。。");
+    }
+
+    @Override
+    protected void doPostExecute(RuntimeContext runtimeContext) {
 
     }
 }

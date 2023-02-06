@@ -36,6 +36,8 @@ public class WorkRunnerImpl extends Thread implements IWorkRunner {
             try {
                 Runnable task = workQueue.take();
                 if (task != null) {
+                    System.out.println("获取到一个任务了"+task);
+
                     task.run();
                 }
             } catch (Throwable e) {

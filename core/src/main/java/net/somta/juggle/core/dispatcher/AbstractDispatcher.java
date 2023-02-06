@@ -47,6 +47,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         runtimeContext.setFlowKey(flowDefinition.getFlowKey());
         runtimeContext.setTenantId(flowDefinition.getTenantId());
         runtimeContext.setFlowMap(buildFlowElementMap(flowDefinition.getContent()));
+        runtimeContext.setCurrentNode(getFirstElement());
         return runtimeContext;
     }
 
@@ -89,6 +90,19 @@ public abstract class AbstractDispatcher implements IDispatcher {
         flowElementMap.put(endEventNode.getKey(),endEventNode);
 
         return flowElementMap;
+    }
+
+    /**
+     * 获取开始节点，先mock
+     * @return
+     */
+    private FlowElement getFirstElement(){
+        //开始节点
+        StartNode startEventNode = new StartNode();
+        startEventNode.setKey("start_2s49s");
+        startEventNode.setFlowElementType(FlowElementTypeEnum.START);
+        startEventNode.setOutgoings(Arrays.asList("method_8w9r3"));
+        return startEventNode;
     }
 
     protected abstract Boolean doSend(RuntimeContext runtimeContext);
