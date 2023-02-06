@@ -1,6 +1,7 @@
 package net.somta.juggle.console.service.impl;
 
 import net.somta.juggle.core.enums.DataTypeEnum;
+import net.somta.juggle.core.model.DataTypeInfo;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.console.service.IWorkflowService;
 import net.somta.juggle.core.dispatcher.IDispatcher;
@@ -22,9 +23,7 @@ public class WorkflowServiceImpl implements IWorkflowService {
         Variable variable = new Variable();
         variable.setKey("env_id");
         variable.setName("用户ID");
-        variable.setDataType(DataTypeEnum.Integer);
-
-
+        variable.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
 
         dispatcher.send(workflowDefinition,variables);
         return null;

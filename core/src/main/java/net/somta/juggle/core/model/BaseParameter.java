@@ -13,9 +13,9 @@ public class BaseParameter {
      */
     private String name;
     /**
-     * 参数类型 String,Boolean,int
+     * 参数类型
      */
-    private DataTypeEnum dataType;
+    private DataTypeInfo dataType;
 
     public String getName() {
         return name;
@@ -25,11 +25,11 @@ public class BaseParameter {
         this.name = name;
     }
 
-    public DataTypeEnum getDataType() {
+    public DataTypeInfo getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataTypeEnum dataType) {
+    public void setDataType(DataTypeInfo dataType) {
         this.dataType = dataType;
     }
 }

@@ -9,4 +9,17 @@ public interface IExecutor {
      * @param runtimeContext
      */
     void execute(RuntimeContext runtimeContext);
+    /**
+     * 执行流程
+     * @param runtimeContext
+     */
+    //void postExecute(RuntimeContext runtimeContext);
+
+
+    /**
+     * 获取节点元素的执行器
+     * @param runtimeContext
+     * @return
+     */
+    IExecutor getExecutor(RuntimeContext runtimeContext);
 }

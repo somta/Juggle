@@ -9,11 +9,11 @@ public enum FlowElementTypeEnum {
     /**
      * 开始节点
      */
-    START_EVENT,
+    START,
     /**
      * 结束节点
      */
-    END_EVENT,
+    END,
     /**
      * 方法节点
      */

@@ -23,7 +23,7 @@ public class Variable {
     /**
      * 数据类型
      */
-    private DataTypeEnum dataType;
+    private DataTypeInfo dataType;
 
     // todo 需要一个流程ID
 
@@ -43,11 +43,11 @@ public class Variable {
         this.name = name;
     }
 
-    public DataTypeEnum getDataType() {
+    public DataTypeInfo getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataTypeEnum dataType) {
+    public void setDataType(DataTypeInfo dataType) {
         this.dataType = dataType;
     }
 }

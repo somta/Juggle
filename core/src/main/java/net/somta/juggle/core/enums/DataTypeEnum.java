@@ -6,5 +6,6 @@ package net.somta.juggle.core.enums;
 public enum DataTypeEnum {
     Integer,
     String,
-    Boolean;
+    Boolean,
+    List;
 }

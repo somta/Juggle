@@ -63,7 +63,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         //开始节点
         StartNode startEventNode = new StartNode();
         startEventNode.setKey("start_2s49s");
-        startEventNode.setFlowElementType(FlowElementTypeEnum.START_EVENT);
+        startEventNode.setFlowElementType(FlowElementTypeEnum.START);
         startEventNode.setOutgoings(Arrays.asList("method_8w9r3"));
         flowElementMap.put(startEventNode.getKey(),startEventNode);
 
@@ -85,7 +85,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         //结束节点
         EndNode endEventNode = new EndNode();
         endEventNode.setKey("end_5g463");
-        endEventNode.setFlowElementType(FlowElementTypeEnum.END_EVENT);
+        endEventNode.setFlowElementType(FlowElementTypeEnum.END);
         flowElementMap.put(endEventNode.getKey(),endEventNode);
 
         return flowElementMap;

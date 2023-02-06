@@ -26,6 +26,11 @@ public class RuntimeContext {
      */
     private Map<String, FlowElement> flowMap;
 
+    /**
+     * 当前的流程元素
+     */
+    private FlowElement currentNode;
+
     // todo 变量管理器
 
     /**
@@ -55,6 +60,14 @@ public class RuntimeContext {
 
     public void setFlowMap(Map<String, FlowElement> flowMap) {
         this.flowMap = flowMap;
+    }
+
+    public FlowElement getCurrentNode() {
+        return currentNode;
+    }
+
+    public void setCurrentNode(FlowElement currentNode) {
+        this.currentNode = currentNode;
     }
 
     public FlowStatusEnum getFlowStatus() {
