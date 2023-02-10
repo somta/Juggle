@@ -33,7 +33,7 @@ public class FlowExecutor implements IExecutor{
     }
 
     private void preExecute(RuntimeContext runtimeContext) {
-        System.out.println("开始执行执行流程前的逻辑..... .");
+        System.out.println("开始执行执行流程前的逻辑......");
     }
 
     /**
