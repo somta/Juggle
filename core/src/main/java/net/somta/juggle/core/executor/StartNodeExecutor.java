@@ -11,12 +11,17 @@ import net.somta.juggle.core.RuntimeContext;
 public class StartNodeExecutor extends ElementExecutor{
 
     @Override
+    protected void doPreExecute(RuntimeContext runtimeContext) {
+        System.out.println("开始节点执行器，执行前。。。");
+    }
+
+    @Override
     protected void doExecute(RuntimeContext runtimeContext) {
         System.out.println("开始节点执行器，执行中。。。");
     }
 
     @Override
     protected void doPostExecute(RuntimeContext runtimeContext) {
-
+        System.out.println("开始节点执行器，执行后。。。");
     }
 }

@@ -20,6 +20,7 @@ public class WorkRunnerImpl extends Thread implements IWorkRunner {
     private volatile boolean isRunning;
 
     public WorkRunnerImpl() {
+        System.out.println("WorkRunnerImpl init....");
         this.setDaemon(true);
     }
 

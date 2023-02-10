@@ -4,7 +4,7 @@ import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 
 /**
- * 流程执行器
+ * 流程执行器,
  *
  * @author husong
  * @date 2023/02/04
@@ -37,7 +37,7 @@ public class FlowExecutor implements IExecutor{
     }
 
     /**
-     * 执行流程
+     * 执行具体每个流程
      * @param runtimeContext
      */
     private void doExecute(RuntimeContext runtimeContext) {

@@ -5,7 +5,7 @@ package net.somta.juggle.core.enums;
  * @author husong
  * @date 2022/12/15
  **/
-public enum FlowElementTypeEnum {
+public enum ElementTypeEnum {
     /**
      * 开始节点
      */
@@ -21,5 +21,5 @@ public enum FlowElementTypeEnum {
     /**
      * 判断节点
      */
-    CODITION;
+    CONDITION;
 }

@@ -1,6 +1,6 @@
 package net.somta.juggle.core.executor;
 
-import net.somta.juggle.core.enums.FlowElementTypeEnum;
+import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.model.FlowElement;
 
 /**
@@ -17,16 +17,21 @@ public class ExecutorFactory {
      * @return
      */
     public static ElementExecutor getElementExecutor(FlowElement flowElement) {
-        ElementExecutor elementExecutor = getElementExecutor(flowElement.getFlowElementType());
+        ElementExecutor elementExecutor = getElementExecutor(flowElement.getElementType());
         return elementExecutor;
     }
 
-    private static ElementExecutor getElementExecutor(FlowElementTypeEnum flowElementType) {
+    /**
+     * 获取元素的执行器
+     * @param flowElementType
+     * @return
+     */
+    private static ElementExecutor getElementExecutor(ElementTypeEnum flowElementType) {
         switch (flowElementType) {
             case START: return new StartNodeExecutor();
             case END: return new EndNodeExecutor();
             case METHOD: return new MethodNodeExecutor();
-            case CODITION: return new ConditionNodeExecutor();
+            case CONDITION: return new ConditionNodeExecutor();
             default: return null;
         }
     }

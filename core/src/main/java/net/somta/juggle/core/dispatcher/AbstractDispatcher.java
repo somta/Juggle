@@ -1,18 +1,18 @@
 package net.somta.juggle.core.dispatcher;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.juggle.core.IWorkRunner;
 import net.somta.juggle.core.RuntimeContext;
-import net.somta.juggle.core.enums.FlowElementTypeEnum;
+import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.FlowDefinition;
-import net.somta.juggle.core.model.node.ConditionNode;
-import net.somta.juggle.core.model.node.EndNode;
-import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.model.node.StartNode;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractDispatcher implements IDispatcher {
 
@@ -22,6 +22,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
     protected IWorkRunner workRunner;
 
     public AbstractDispatcher(IWorkRunner workRunner) {
+        System.out.println("AbstractDispatcher init.....");
         this.workRunner = workRunner;
     }
 
@@ -46,63 +47,44 @@ public abstract class AbstractDispatcher implements IDispatcher {
         runtimeContext.setFlowStatus(FlowStatusEnum.INIT);
         runtimeContext.setFlowKey(flowDefinition.getFlowKey());
         runtimeContext.setTenantId(flowDefinition.getTenantId());
-        runtimeContext.setFlowMap(buildFlowElementMap(flowDefinition.getContent()));
-        runtimeContext.setCurrentNode(getFirstElement());
+        Map<String, FlowElement> flowElementMap = buildFlowElementMap(flowDefinition.getContent());
+        if(flowElementMap == null){
+            System.out.println("流程元素错误了，直接报错");
+        }
+        runtimeContext.setFlowMap(flowElementMap);
+        runtimeContext.setCurrentNode(getFirstElement(flowElementMap));
         return runtimeContext;
     }
 
     /**
-     * todo 现在先mock，后面在解析
+     *
      * 构建流程元素Map
      * @param content
      * @return
      */
     private Map<String, FlowElement> buildFlowElementMap(String content){
-
-        Map<String, FlowElement> flowElementMap = new HashMap<>();
-
-        //开始节点
-        StartNode startEventNode = new StartNode();
-        startEventNode.setKey("start_2s49s");
-        startEventNode.setFlowElementType(FlowElementTypeEnum.START);
-        startEventNode.setOutgoings(Arrays.asList("method_8w9r3"));
-        flowElementMap.put(startEventNode.getKey(),startEventNode);
-
-
-        //方法节点
-        MethodNode methodNode = new MethodNode();
-        methodNode.setKey("method_8w9r3");
-        methodNode.setFlowElementType(FlowElementTypeEnum.METHOD);
-        methodNode.setUrl("http://baidu.com");
-        methodNode.setRequestType("GET");
-        methodNode.setIncomings(Arrays.asList("start_2s49s"));
-        methodNode.setOutgoings(Arrays.asList("end_5g463"));
-        flowElementMap.put(methodNode.getKey(),methodNode);
-
-        //判断节点
-        ConditionNode coditionNode = new ConditionNode();
-
-
-        //结束节点
-        EndNode endEventNode = new EndNode();
-        endEventNode.setKey("end_5g463");
-        endEventNode.setFlowElementType(FlowElementTypeEnum.END);
-        flowElementMap.put(endEventNode.getKey(),endEventNode);
-
-        return flowElementMap;
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            List<FlowElement> elementList = objectMapper.readValue(content, new TypeReference<List<FlowElement>>() {});
+            Map<String, FlowElement> flowElementMap = elementList.stream().collect(Collectors.toMap(FlowElement::getKey,e -> e));
+            return flowElementMap;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
-     * 获取开始节点，先mock
+     * 获取开始节点
      * @return
      */
-    private FlowElement getFirstElement(){
-        //开始节点
-        StartNode startEventNode = new StartNode();
-        startEventNode.setKey("start_2s49s");
-        startEventNode.setFlowElementType(FlowElementTypeEnum.START);
-        startEventNode.setOutgoings(Arrays.asList("method_8w9r3"));
-        return startEventNode;
+    private FlowElement getFirstElement(Map<String, FlowElement> flowElementMap){
+        for (FlowElement flowElement : flowElementMap.values()) {
+            if(flowElement.getElementType() == ElementTypeEnum.START){
+                return flowElement;
+            }
+        }
+        return null;
     }
 
     protected abstract Boolean doSend(RuntimeContext runtimeContext);

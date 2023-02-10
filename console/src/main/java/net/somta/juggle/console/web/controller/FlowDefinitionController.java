@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022/12/17
  **/
 @RestController
-public class WorkflowDefinitionController {
+public class FlowDefinitionController {
 }

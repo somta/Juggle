@@ -1,20 +1,20 @@
 package net.somta.juggle.console.web.controller;
 
 import net.somta.juggle.core.model.FlowDefinition;
-import net.somta.juggle.console.service.IWorkflowDefinitionService;
-import net.somta.juggle.console.service.IWorkflowService;
+import net.somta.juggle.console.service.IFlowDefinitionService;
+import net.somta.juggle.console.service.IFlowService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class WorkflowController {
+public class FlowController {
 
     @Autowired
-    private IWorkflowService workflowService;
+    private IFlowService flowService;
     @Autowired
-    private IWorkflowDefinitionService workflowDefinitionService;
+    private IFlowDefinitionService flowDefinitionService;
 
     /**
      * 触发流程
@@ -26,8 +26,8 @@ public class WorkflowController {
         if(StringUtils.isEmpty(flowKey)){
             System.out.println("抛出异常");
         }
-        FlowDefinition workflowDefinition = workflowDefinitionService.getFlowDefinitionByKey(flowKey);
-        return workflowService.startFlow(workflowDefinition);
+        FlowDefinition flowDefinition = flowDefinitionService.getFlowDefinitionByKey(flowKey);
+        return flowService.startFlow(flowDefinition);
     }
 
 }

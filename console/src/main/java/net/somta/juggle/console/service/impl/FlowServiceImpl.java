@@ -3,7 +3,7 @@ package net.somta.juggle.console.service.impl;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataTypeInfo;
 import net.somta.juggle.core.model.FlowDefinition;
-import net.somta.juggle.console.service.IWorkflowService;
+import net.somta.juggle.console.service.IFlowService;
 import net.somta.juggle.core.dispatcher.IDispatcher;
 import net.somta.juggle.core.dispatcher.impl.DefaultDispatcher;
 import net.somta.juggle.core.model.Variable;
@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class WorkflowServiceImpl implements IWorkflowService {
+public class FlowServiceImpl implements IFlowService {
+
+    private final IDispatcher dispatcher = new DefaultDispatcher();
+
     @Override
     public Boolean startFlow(FlowDefinition workflowDefinition) {
-        IDispatcher dispatcher = new DefaultDispatcher();
 
         //todo mock一些变量数据
         List<Variable> variables = new ArrayList<>();

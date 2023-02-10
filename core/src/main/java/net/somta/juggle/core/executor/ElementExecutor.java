@@ -27,6 +27,8 @@ public abstract class ElementExecutor implements IExecutor {
         return null;
     }
 
+    protected abstract void doPreExecute(RuntimeContext runtimeContext);
+
     protected abstract void doExecute(RuntimeContext runtimeContext);
 
     protected abstract void doPostExecute(RuntimeContext runtimeContext);
