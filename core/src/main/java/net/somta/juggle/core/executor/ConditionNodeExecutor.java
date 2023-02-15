@@ -22,6 +22,6 @@ public class ConditionNodeExecutor extends ElementExecutor{
 
     @Override
     protected void doPostExecute(RuntimeContext runtimeContext) {
-        System.out.println("判断节点执行器，执行后。。。");
+        System.out.println("判断节点执行器，执行后========================================");
     }
 }

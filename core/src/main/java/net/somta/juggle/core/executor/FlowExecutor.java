@@ -16,9 +16,10 @@ public class FlowExecutor implements IExecutor{
         try {
             preExecute(runtimeContext);
             doExecute(runtimeContext);
-        } catch (Exception pe) {
+        } catch (Exception e) {
             System.out.println("流程执行异常");
             processStatus = FlowStatusEnum.ABORT;
+            e.printStackTrace();
         } finally {
             runtimeContext.setFlowStatus(processStatus);
             postExecute(runtimeContext);

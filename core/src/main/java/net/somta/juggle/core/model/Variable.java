@@ -25,6 +25,11 @@ public class Variable {
      */
     private DataTypeInfo dataType;
 
+    /**
+     * 默认值
+     */
+    private String defaultValue;
+
     // todo 需要一个流程ID
 
     public String getKey() {
@@ -49,5 +54,13 @@ public class Variable {
 
     public void setDataType(DataTypeInfo dataType) {
         this.dataType = dataType;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 }

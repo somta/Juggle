@@ -24,8 +24,9 @@ public class FlowServiceImpl implements IFlowService {
         List<Variable> variables = new ArrayList<>();
         Variable variable = new Variable();
         variable.setKey("env_id");
-        variable.setName("用户ID");
+        variable.setName("用户ID变量");
         variable.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
+        variable.setDefaultValue("1");
 
         dispatcher.send(workflowDefinition,variables);
         return null;

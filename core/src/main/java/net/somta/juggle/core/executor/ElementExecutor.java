@@ -2,6 +2,10 @@ package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.model.FlowElement;
+import net.somta.juggle.core.model.node.ConditionNode;
+import net.somta.juggle.core.model.node.EndNode;
+import net.somta.juggle.core.model.node.MethodNode;
+import net.somta.juggle.core.model.node.StartNode;
 
 import java.util.List;
 import java.util.Map;
@@ -41,6 +45,25 @@ public abstract class ElementExecutor implements IExecutor {
      * @return
      */
     private FlowElement getNextNode(FlowElement currentNode, Map<String, FlowElement> flowElementMap) {
+        List<String> outgoingKeyList = null;
+        if(currentNode instanceof StartNode){
+            StartNode node = (StartNode)currentNode;
+            outgoingKeyList = node.getOutgoings();
+        }else if(currentNode instanceof EndNode){
+            return null;
+        }else if(currentNode instanceof MethodNode){
+            MethodNode node = (MethodNode)currentNode;
+            outgoingKeyList = node.getOutgoings();
+        }else if(currentNode instanceof ConditionNode){
+            ConditionNode node = (ConditionNode)currentNode;
+            outgoingKeyList = node.getOutgoings();
+        }
+
+        //todo 只返回第一个是不是有问题
+        String nextElementKey = outgoingKeyList.get(0);
+        FlowElement nextElement = flowElementMap.get(nextElementKey);
+        return nextElement;
+
         /*List<String> outgoingKeyList = currentNode.getOutgoing();
         String nextElementKey = outgoingKeyList.get(0);
         FlowElement nextFlowElement = FlowModelUtil.getFlowElement(flowElementMap, nextElementKey);
@@ -48,8 +71,6 @@ public abstract class ElementExecutor implements IExecutor {
             nextFlowElement = getUniqueNextNode(nextFlowElement, flowElementMap);
         }
         return nextFlowElement;*/
-
-        return null;
     }
 
 

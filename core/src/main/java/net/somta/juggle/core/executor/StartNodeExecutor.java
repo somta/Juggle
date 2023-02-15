@@ -22,6 +22,6 @@ public class StartNodeExecutor extends ElementExecutor{
 
     @Override
     protected void doPostExecute(RuntimeContext runtimeContext) {
-        System.out.println("开始节点执行器，执行后。。。");
+        System.out.println("开始节点执行器，执行后========================================");
     }
 }

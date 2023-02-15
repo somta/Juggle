@@ -51,7 +51,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         if(flowElementMap == null){
             System.out.println("流程元素错误了，直接报错");
         }
-        runtimeContext.setFlowMap(flowElementMap);
+        runtimeContext.setFlowElementMap(flowElementMap);
         runtimeContext.setCurrentNode(getFirstElement(flowElementMap));
         return runtimeContext;
     }

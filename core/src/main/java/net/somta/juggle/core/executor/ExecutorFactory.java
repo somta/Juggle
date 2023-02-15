@@ -17,6 +17,9 @@ public class ExecutorFactory {
      * @return
      */
     public static ElementExecutor getElementExecutor(FlowElement flowElement) {
+        if(flowElement == null){
+            return null;
+        }
         ElementExecutor elementExecutor = getElementExecutor(flowElement.getElementType());
         return elementExecutor;
     }
