@@ -1,19 +1,16 @@
-package net.somta.juggle.core.model.node;
+package net.somta.juggle.core.model;
 
+import net.somta.juggle.core.enums.RequestContentTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
-import net.somta.juggle.core.model.FillStruct;
-import net.somta.juggle.core.model.InputParameter;
-import net.somta.juggle.core.model.OutputParameter;
+import net.somta.juggle.core.model.node.MethodNode;
 
 import java.util.List;
 
 /**
- * 方法节点，主要承载接口请求
- *
- * @author husong
- * @date 2023/01/17
+ * 方法类，承载一个Http的请求信息
  */
-public class MethodNode extends FlowNode {
+public class Method {
+
     /**
      * 请求地址
      */
@@ -27,7 +24,7 @@ public class MethodNode extends FlowNode {
     /**
      * 请求内容类型 application/json; charset=UTF-8
      */
-    private RequestContentType requestContentType;
+    private RequestContentTypeEnum requestContentType;
 
     /**
      * 入参列表
@@ -66,11 +63,11 @@ public class MethodNode extends FlowNode {
         this.requestType = requestType;
     }
 
-    public RequestContentType getRequestContentType() {
+    public RequestContentTypeEnum getRequestContentType() {
         return requestContentType;
     }
 
-    public void setRequestContentType(RequestContentType requestContentType) {
+    public void setRequestContentType(RequestContentTypeEnum requestContentType) {
         this.requestContentType = requestContentType;
     }
 
@@ -104,14 +101,6 @@ public class MethodNode extends FlowNode {
 
     public void setOutputFillRules(List<FillStruct> outputFillRules) {
         this.outputFillRules = outputFillRules;
-    }
-
-    public enum RequestContentType {
-        application_json("application/json; charset=UTF-8"),
-        application_form("application/form; charset=UTF-8");
-
-        RequestContentType(String s) {
-        }
     }
 
 }

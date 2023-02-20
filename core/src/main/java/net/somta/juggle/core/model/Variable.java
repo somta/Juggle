@@ -26,6 +26,7 @@ public class Variable {
     private DataTypeInfo dataType;
 
     /**
+     * todo 感觉变量不应该有默认值
      * 默认值
      */
     private String defaultValue;

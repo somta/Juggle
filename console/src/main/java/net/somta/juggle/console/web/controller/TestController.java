@@ -14,12 +14,12 @@ public class TestController {
     /**
      * 测试方法
      * @param id 用户ID
-     * @return Boolean
+     * @return 用户姓名
      */
     @GetMapping("/test/info")
-    public Boolean triggerFlow(Integer id){
+    public String triggerFlow(Integer id){
         System.out.println("接收到的用户ID为："+id);
-        return true;
+        return "张三";
     }
 
 }

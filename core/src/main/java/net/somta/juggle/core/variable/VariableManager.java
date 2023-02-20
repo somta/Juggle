@@ -16,14 +16,14 @@ import java.util.Map;
 public abstract class VariableManager {
     private Map<String, DataTypeInfo> variableSchemaMap;
 
-    Object getVariableValue(String key) throws FlowException{
+    public Object getVariableValue(String key) throws FlowException{
         if(StringUtils.isEmpty(key)){
             throw new FlowException(ErrorEnum.ENV_KEY_ERROR);
         }
         return doGetVariableValue(key);
     }
 
-    Boolean setVariableValue(String key,String value) throws FlowException {
+    public Boolean setVariableValue(String key,String value) throws FlowException {
         if(StringUtils.isEmpty(key)){
             throw new FlowException(ErrorEnum.ENV_KEY_ERROR);
         }

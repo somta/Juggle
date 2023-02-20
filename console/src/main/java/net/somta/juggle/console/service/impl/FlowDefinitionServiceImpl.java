@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FildSourceEnum;
+import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.console.service.IFlowDefinitionService;
 import net.somta.juggle.core.model.node.ConditionNode;
@@ -52,7 +53,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         methodNode.setKey("method_8w9r3");
         methodNode.setElementType(ElementTypeEnum.METHOD);
         methodNode.setUrl("http://127.0.0.1:8080/test/info");
-        methodNode.setRequestType("GET");
+        methodNode.setRequestType(RequestTypeEnum.GET);
         //入参设置
         List<InputParameter> inputParameters = new ArrayList<>();
         InputParameter idParm = new InputParameter();
@@ -60,6 +61,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         idParm.setName("用户ID");
         idParm.setRequired(true);
         idParm.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
+        idParm.setDefaultValue("666");
         inputParameters.add(idParm);
         methodNode.setInputParameters(inputParameters);
 
@@ -74,6 +76,27 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         fillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.Integer));
         inputFillRules.add(fillStruct);
         methodNode.setInputFillRules(inputFillRules);
+
+        //出参设置
+        List<OutputParameter> outputParameters = new ArrayList<>();
+        OutputParameter nameParm = new OutputParameter();
+        nameParm.setKey("name");
+        nameParm.setName("用户名称");
+        nameParm.setDataType(new DataTypeInfo(DataTypeEnum.String));
+        outputParameters.add(nameParm);
+        methodNode.setOutputParameters(outputParameters);
+
+        //入参填充规则
+        List<FillStruct> outputFillRules = new ArrayList<>();
+        FillStruct outFillStruct = new FillStruct();
+        outFillStruct.setSource("name");
+        outFillStruct.setSourceType(FildSourceEnum.OUTPUTPARAM);
+        outFillStruct.setSourceDataType(new DataTypeInfo(DataTypeEnum.String));
+        outFillStruct.setTarget("env_name");
+        outFillStruct.setTargetType(FildSourceEnum.VARIABLE);
+        outFillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.String));
+        outputFillRules.add(outFillStruct);
+        methodNode.setOutputFillRules(outputFillRules);
 
         methodNode.setIncomings(Arrays.asList("start_2s49s"));
         methodNode.setOutgoings(Arrays.asList("condition_83jd3"));

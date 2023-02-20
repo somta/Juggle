@@ -3,6 +3,7 @@ package net.somta.juggle.core;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.event.EventPublisher;
 import net.somta.juggle.core.model.FlowElement;
+import net.somta.juggle.core.variable.MemoryVariableManager;
 import net.somta.juggle.core.variable.VariableManager;
 
 import java.util.Map;
@@ -53,6 +54,10 @@ public class RuntimeContext {
      */
     private EventPublisher eventPublisher;
 
+    public RuntimeContext() {
+        // 变量管理器只能根据流程的上下文来，因为不同的可以在不同流程中可能是会一样的
+        this.variableManager = new MemoryVariableManager();
+    }
 
     public String getFlowKey() {
         return flowKey;
