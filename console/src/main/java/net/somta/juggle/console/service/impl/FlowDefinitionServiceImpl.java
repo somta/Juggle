@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
@@ -86,7 +87,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         outputParameters.add(nameParm);
         methodNode.setOutputParameters(outputParameters);
 
-        //入参填充规则
+        //出参填充规则
         List<FillStruct> outputFillRules = new ArrayList<>();
         FillStruct outFillStruct = new FillStruct();
         outFillStruct.setSource("name");
@@ -108,6 +109,12 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         conditionNode.setElementType(ElementTypeEnum.CONDITION);
         conditionNode.setIncomings(Arrays.asList("method_8w9r3"));
         conditionNode.setOutgoings(Arrays.asList("end_5g463"));
+
+        LinkedHashMap<String,String> conditions = new LinkedHashMap<>();
+        conditions.put("end_5g463","env_name=zhansan");
+
+        conditionNode.setConditions(conditions);
+
         elementList.add(conditionNode);
 
         //结束节点
