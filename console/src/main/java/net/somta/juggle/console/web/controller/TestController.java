@@ -17,9 +17,23 @@ public class TestController {
      * @return 用户姓名
      */
     @GetMapping("/test/info")
-    public String triggerFlow(Integer id){
+    public User triggerFlow(Integer id){
         System.out.println("接收到的用户ID为："+id);
-        return "张三";
+        User user = new User();
+        user.setName("张三");
+        return user;
+    }
+
+    class User {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
 }

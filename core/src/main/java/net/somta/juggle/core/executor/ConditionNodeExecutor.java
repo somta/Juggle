@@ -9,6 +9,7 @@ import net.somta.juggle.core.variable.VariableManager;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,16 +62,25 @@ public class ConditionNodeExecutor extends ElementExecutor{
 
     public static void main(String[] args) {
         // todo 怎么把表达式中的变量找出来
-        String expression = "#{a}-(b-c)>100";
+        String expression = "a-(b-c)>100";
         // 编译表达式
         Expression compiledExp = AviatorEvaluator.getInstance().compile(expression);
+        // 获取所有的变量
+        List<String> vars1 = compiledExp.getVariableNames();
+        System.out.println(vars1);
         Map<String, Object> env = new HashMap<>();
-        env.put("#{a}", 100.3);
+        env.put("a", 100.3);
         env.put("b", 45);
         env.put("c", -199.100);
         // 执行表达式
         Boolean result = (Boolean) compiledExp.execute(env);
         System.out.println(result);  // false
+
+
+        Expression exp = AviatorEvaluator
+                .compile("b=2; if(a > 1) { a + b } elsif( a > 10) { return a + c; } else { return 10; }");
+        List<String> vars = exp.getVariableNames();
+        System.out.println(vars);
 
     }
 }

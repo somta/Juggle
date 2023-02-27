@@ -23,8 +23,6 @@ public abstract class ElementExecutor implements IExecutor {
         try {
             doPreExecute(runtimeContext);
             doExecute(runtimeContext);
-        } catch (Exception ex) {
-            System.out.println("执行流程出现异常了。。。。");
         } finally {
             doPostExecute(runtimeContext);
         }

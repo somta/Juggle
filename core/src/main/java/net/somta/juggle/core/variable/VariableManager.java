@@ -23,7 +23,7 @@ public abstract class VariableManager {
         return doGetVariableValue(key);
     }
 
-    public Boolean setVariableValue(String key,String value) throws FlowException {
+    public Boolean setVariableValue(String key,Object value) throws FlowException {
         if(StringUtils.isEmpty(key)){
             throw new FlowException(ErrorEnum.ENV_KEY_ERROR);
         }

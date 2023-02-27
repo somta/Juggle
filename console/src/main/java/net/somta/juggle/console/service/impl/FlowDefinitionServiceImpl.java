@@ -53,8 +53,10 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         MethodNode methodNode = new MethodNode();
         methodNode.setKey("method_8w9r3");
         methodNode.setElementType(ElementTypeEnum.METHOD);
-        methodNode.setUrl("http://127.0.0.1:8080/test/info");
-        methodNode.setRequestType(RequestTypeEnum.GET);
+
+        Method method = new Method();
+        method.setUrl("http://127.0.0.1:8080/test/info");
+        method.setRequestType(RequestTypeEnum.GET);
         //入参设置
         List<InputParameter> inputParameters = new ArrayList<>();
         InputParameter idParm = new InputParameter();
@@ -64,7 +66,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         idParm.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
         idParm.setDefaultValue("666");
         inputParameters.add(idParm);
-        methodNode.setInputParameters(inputParameters);
+        method.setInputParameters(inputParameters);
 
         //入参填充规则
         List<FillStruct> inputFillRules = new ArrayList<>();
@@ -76,7 +78,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         fillStruct.setTargetType(FildSourceEnum.FLOWINPUT);
         fillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.Integer));
         inputFillRules.add(fillStruct);
-        methodNode.setInputFillRules(inputFillRules);
+        method.setInputFillRules(inputFillRules);
 
         //出参设置
         List<OutputParameter> outputParameters = new ArrayList<>();
@@ -85,7 +87,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         nameParm.setName("用户名称");
         nameParm.setDataType(new DataTypeInfo(DataTypeEnum.String));
         outputParameters.add(nameParm);
-        methodNode.setOutputParameters(outputParameters);
+        method.setOutputParameters(outputParameters);
 
         //出参填充规则
         List<FillStruct> outputFillRules = new ArrayList<>();
@@ -97,7 +99,9 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         outFillStruct.setTargetType(FildSourceEnum.VARIABLE);
         outFillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.String));
         outputFillRules.add(outFillStruct);
-        methodNode.setOutputFillRules(outputFillRules);
+        method.setOutputFillRules(outputFillRules);
+
+        methodNode.setMethod(method);
 
         methodNode.setIncomings(Arrays.asList("start_2s49s"));
         methodNode.setOutgoings(Arrays.asList("condition_83jd3"));
