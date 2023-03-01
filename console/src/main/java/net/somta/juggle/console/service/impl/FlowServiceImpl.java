@@ -1,5 +1,6 @@
 package net.somta.juggle.console.service.impl;
 
+import net.somta.juggle.console.model.TriggerData;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataTypeInfo;
 import net.somta.juggle.core.model.FlowDefinition;
@@ -18,17 +19,8 @@ public class FlowServiceImpl implements IFlowService {
     private final IDispatcher dispatcher = new DefaultDispatcher();
 
     @Override
-    public Boolean startFlow(FlowDefinition workflowDefinition) {
-
-        //todo mock一些变量数据
-        List<Variable> variables = new ArrayList<>();
-        Variable variable = new Variable();
-        variable.setKey("env_id");
-        variable.setName("用户ID变量");
-        variable.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
-        variable.setDefaultValue("1");
-
-        dispatcher.send(workflowDefinition,variables);
+    public Boolean triggerFlow(FlowDefinition workflowDefinition,List<Variable> variables, TriggerData triggerData) {
+        dispatcher.send(workflowDefinition,variables,triggerData.getFlowData());
         return null;
     }
 }

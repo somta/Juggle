@@ -4,6 +4,7 @@ import net.somta.core.exception.BizException;
 import net.somta.juggle.core.enums.ErrorEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.DataTypeInfo;
+import net.somta.juggle.core.model.Variable;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
@@ -14,7 +15,11 @@ import java.util.Map;
  * @date 2022/2/13
  **/
 public abstract class VariableManager {
-    private Map<String, DataTypeInfo> variableSchemaMap;
+    private Map<String, Variable> variableSchemaMap;
+
+    public VariableManager(Map<String, Variable> variableSchemaMap) {
+        this.variableSchemaMap = variableSchemaMap;
+    }
 
     public Object getVariableValue(String key) throws FlowException{
         if(StringUtils.isEmpty(key)){

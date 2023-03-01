@@ -6,12 +6,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.*;
-import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
-import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -52,8 +49,6 @@ public class HttpClient {
             uriRequest.addHeader(e.getKey(), e.getValue());
         }*/
 
-        //HttpPost httpPost = new HttpPost(url);
-
         try {
             // 发送同步请求  https://blog.csdn.net/weixin_32265569/article/details/108606783
             CloseableHttpResponse httpResponse = httpClient.execute(uriRequest);
@@ -69,41 +64,6 @@ public class HttpClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    /*    httpClient.execute(uriRequest, new FutureCallback<HttpResponse>() {
-
-            @Override
-            public void completed(HttpResponse result) {
-                *//*Response response = new Response();
-                response.setStatusCode(result.getStatusLine().getStatusCode());
-                HttpHeaders headers = new DefaultHttpHeaders();
-                for (Header h : result.getAllHeaders()) {
-                    headers.add(h.getName(), h.getValue());
-                }
-                response.setResponseHeaders(headers);
-                try {
-                    if (result.getEntity() != null) {
-                        response.setResponseBody(EntityUtils.toByteArray(result.getEntity()));
-                    }
-                } catch (IOException e) {
-                    logger.error(e.getMessage());
-                    response.setErrorCode(ErrorCode.INNER_ERROR);
-                }
-
-                dispatcher.onRequestFinished(requestId, response);*//*
-            }
-
-            @Override
-            public void failed(Exception ex) {
-
-            }*//*dispatcher.onRequestFinished(requestId
-                        , new Response(ErrorCode.UPSTREAM_ERROR, "Upstream failed!" + ex.getMessage()));*//*
-
-            @Override
-            public void cancelled() {
-            }
-
-        });*/
     }
 
     /**

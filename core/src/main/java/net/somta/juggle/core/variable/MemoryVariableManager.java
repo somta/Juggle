@@ -1,5 +1,7 @@
 package net.somta.juggle.core.variable;
 
+import net.somta.juggle.core.model.Variable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,8 @@ public class MemoryVariableManager extends VariableManager{
 
     private final Map<String,Object> variableValueMap;
 
-    public MemoryVariableManager() {
+    public MemoryVariableManager(Map<String, Variable> variableSchemaMap) {
+        super(variableSchemaMap);
         this.variableValueMap = new HashMap<>();
     }
 

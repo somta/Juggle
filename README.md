@@ -3,7 +3,15 @@
 
 
 触发流程的地址
-http://localhost:8080/triggerFlow?flowKey=flow_123
+http://localhost:8080/triggerFlow
+
+{
+"flowKey": "flow_123",
+"flowData": {
+    "id":1,
+    "name":"明天的地平线"
+}
+}
 
 
 1.如何判断每个节点是否执行完成

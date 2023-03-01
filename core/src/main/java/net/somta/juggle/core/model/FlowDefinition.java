@@ -9,6 +9,11 @@ package net.somta.juggle.core.model;
 public class FlowDefinition {
 
     /**
+     * 主键
+     */
+    private Integer id;
+
+    /**
      * 流程Key,全局唯一
      */
     private String flowKey;
@@ -16,6 +21,8 @@ public class FlowDefinition {
      * 租户ID
      */
     private String tenantId;
+
+    // todo 是不是改有一个流程的入参和出参的字段定义
 
     /**
      * 流程Json
@@ -27,6 +34,13 @@ public class FlowDefinition {
      */
     private String remark;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getFlowKey() {
         return flowKey;
