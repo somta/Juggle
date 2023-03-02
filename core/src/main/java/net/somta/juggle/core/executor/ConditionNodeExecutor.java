@@ -1,8 +1,10 @@
 package net.somta.juggle.core.executor;
 
 import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
 import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.variable.VariableManager;
@@ -20,6 +22,8 @@ import java.util.Map;
  */
 public class ConditionNodeExecutor extends ElementExecutor{
 
+    private AviatorEvaluatorInstance aviatorEvaluatorInstance = AviatorEvaluator.getInstance();
+
     @Override
     protected void doPreExecute(RuntimeContext runtimeContext) {
         System.out.println("判断节点执行器，执行前。。。");
@@ -32,7 +36,7 @@ public class ConditionNodeExecutor extends ElementExecutor{
         for (String key : conditions.keySet()) {
             String expression = conditions.get(key);
             boolean result = executeExpression(expression,runtimeContext.getVariableManager());
-            System.out.println("key : " + key + "-----" + "val : " + expression);
+            System.out.println("key : " + key + "-----" + "val : " + expression + "result" + result);
             if(result){
                 return;
             }
@@ -54,9 +58,19 @@ public class ConditionNodeExecutor extends ElementExecutor{
      */
     private boolean executeExpression(String expression, VariableManager variableManager) {
 
-        //todo 校验表达式
-
-        return false;
+        Expression compiledExp = aviatorEvaluatorInstance.compile(expression);
+        List<String> variableKeys = compiledExp.getVariableNames();
+        Map<String, Object> env = new HashMap<>();
+        for (String key : variableKeys){
+            try {
+                env.put(key,variableManager.getVariableValue(key));
+            } catch (FlowException e) {
+                e.printStackTrace();
+            }
+        }
+        // 执行表达式
+        Boolean result = (Boolean) compiledExp.execute(env);
+        return result;
     }
 
 

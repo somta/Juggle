@@ -125,7 +125,8 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         conditionNode.setOutgoings(Arrays.asList("end_5g463"));
 
         LinkedHashMap<String,String> conditions = new LinkedHashMap<>();
-        conditions.put("end_5g463","env_name=zhansan");
+        //todo 字符串的条件一定要带单引号
+        conditions.put("end_5g463","env_name=='zhansan'");
 
         conditionNode.setConditions(conditions);
 
