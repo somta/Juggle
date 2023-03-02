@@ -2,6 +2,13 @@ package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.enums.FlowStatusEnum;
+import net.somta.juggle.core.exception.FlowException;
+import net.somta.juggle.core.model.OutputParameter;
+import net.somta.juggle.core.variable.VariableManager;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 流程执行器,整个流程从这里开始执行，然后让每个执行器去执行
@@ -61,6 +68,19 @@ public class FlowExecutor implements IExecutor{
      */
     private void postExecute(RuntimeContext runtimeContext) {
         System.out.println("执行流程全部完成......开始组装结果");
+        List<OutputParameter> outputParameters = runtimeContext.getOutputParameters();
+        VariableManager variableManager = runtimeContext.getVariableManager();
+        Map<String,Object> result = new HashMap<>();
+        for (OutputParameter parameter : outputParameters) {
+            Object value = null;
+            try {
+                value = variableManager.getVariableValue("env_"+parameter.getKey());
+            } catch (FlowException e) {
+                e.printStackTrace();
+            }
+            result.put(parameter.getKey(),value);
+        }
+        System.out.println("流程执行结果为："+result);
     }
 
 

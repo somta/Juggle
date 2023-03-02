@@ -35,6 +35,10 @@ public abstract class VariableManager {
         return doSetVariableValue(key,value);
     }
 
+    protected Variable getVariableSchema(String key){
+        return variableSchemaMap.get(key);
+    }
+
     protected abstract Object doGetVariableValue(String key);
 
     protected abstract Boolean doSetVariableValue(String key,Object value);

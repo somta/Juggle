@@ -12,6 +12,7 @@ import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.core.variable.VariableManager;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,8 +51,10 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * @param flowData
      */
     private void fillInputParameterVariable(VariableManager variableManager, Map<String,Object> flowData) throws FlowException {
-        for (String key : flowData.keySet()) {
-            variableManager.setVariableValue(key,flowData.get(key));
+        if(!CollectionUtils.isEmpty(flowData)){
+            for (String key : flowData.keySet()) {
+                variableManager.setVariableValue("env_"+key,flowData.get(key));
+            }
         }
     }
 
@@ -67,6 +70,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         runtimeContext.setFlowStatus(FlowStatusEnum.INIT);
         runtimeContext.setFlowKey(flowDefinition.getFlowKey());
         runtimeContext.setTenantId(flowDefinition.getTenantId());
+        runtimeContext.setOutputParameters(flowDefinition.getOutputParameters());
         Map<String, FlowElement> flowElementMap = buildFlowElementMap(flowDefinition.getContent());
         if(flowElementMap == null){
             System.out.println("流程元素错误了，直接报错");

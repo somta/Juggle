@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class FlowController {
      * @return Boolean
      */
     @PostMapping("/triggerFlow")
-    public Boolean triggerFlow(TriggerData triggerData){
+    public Boolean triggerFlow(@RequestBody TriggerData triggerData){
         if(StringUtils.isEmpty(triggerData.getFlowKey())){
             System.out.println("抛出异常");
         }

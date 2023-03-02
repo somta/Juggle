@@ -3,10 +3,12 @@ package net.somta.juggle.core;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.event.EventPublisher;
 import net.somta.juggle.core.model.FlowElement;
+import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.variable.MemoryVariableManager;
 import net.somta.juggle.core.variable.VariableManager;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +41,11 @@ public class RuntimeContext {
      * 下一个流程元素
      */
     private FlowElement nextNode;
+
+    /**
+     * 流程出参
+     */
+    private List<OutputParameter> outputParameters;
 
     /**
      * 变量管理器
@@ -98,6 +105,14 @@ public class RuntimeContext {
 
     public void setNextNode(FlowElement nextNode) {
         this.nextNode = nextNode;
+    }
+
+    public List<OutputParameter> getOutputParameters() {
+        return outputParameters;
+    }
+
+    public void setOutputParameters(List<OutputParameter> outputParameters) {
+        this.outputParameters = outputParameters;
     }
 
     public VariableManager getVariableManager() {

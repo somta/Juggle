@@ -28,6 +28,13 @@ public class VariableServiceImpl implements IVariableService {
         variableName.setDataType(new DataTypeInfo(DataTypeEnum.String));
         variables.add(variableName);
 
+
+        Variable variableUserName = new Variable();
+        variableUserName.setKey("env_userName");
+        variableUserName.setName("流程出参-用户姓名变量");
+        variableUserName.setDataType(new DataTypeInfo(DataTypeEnum.String));
+        variables.add(variableUserName);
+
         return variables;
     }
 }

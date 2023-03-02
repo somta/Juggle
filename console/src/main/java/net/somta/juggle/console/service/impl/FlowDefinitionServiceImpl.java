@@ -28,10 +28,20 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         workflowDefinition.setFlowKey("flow_123");
         workflowDefinition.setTenantId("66");
         workflowDefinition.setRemark("这是一个测试流程");
+        workflowDefinition.setOutputParameters(mockOutputParameters());
         workflowDefinition.setContent(getFlowDefinitionContent());
         return workflowDefinition;
     }
 
+    private List<OutputParameter> mockOutputParameters(){
+        List<OutputParameter>  outputParameters = new ArrayList<>();
+        OutputParameter userNameParm = new OutputParameter();
+        userNameParm.setKey("userName");
+        userNameParm.setName("流程出参-用户名称");
+        userNameParm.setDataType(new DataTypeInfo(DataTypeEnum.String));
+        outputParameters.add(userNameParm);
+        return outputParameters;
+    }
 
     /**
      * 获取流程的定义内容，先mock的数据,原本应该从数据库取
@@ -95,7 +105,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         outFillStruct.setSource("name");
         outFillStruct.setSourceType(FildSourceEnum.OUTPUTPARAM);
         outFillStruct.setSourceDataType(new DataTypeInfo(DataTypeEnum.String));
-        outFillStruct.setTarget("env_name");
+        outFillStruct.setTarget("env_userName");
         outFillStruct.setTargetType(FildSourceEnum.VARIABLE);
         outFillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.String));
         outputFillRules.add(outFillStruct);

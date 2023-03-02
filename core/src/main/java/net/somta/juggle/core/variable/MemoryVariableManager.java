@@ -1,5 +1,7 @@
 package net.somta.juggle.core.variable;
 
+import net.somta.juggle.core.enums.DataTypeEnum;
+import net.somta.juggle.core.model.DataTypeInfo;
 import net.somta.juggle.core.model.Variable;
 
 import java.util.HashMap;
@@ -27,7 +29,18 @@ public class MemoryVariableManager extends VariableManager{
 
     @Override
     protected Boolean doSetVariableValue(String key, Object value) {
-        variableValueMap.put(key,value);
+        Variable variable = super.getVariableSchema(key);
+        Object realValue = getRealDataType(value,variable.getDataType());
+        variableValueMap.put(key,realValue);
         return true;
+    }
+
+    private Object getRealDataType(Object value, DataTypeInfo dataType) {
+        if(DataTypeEnum.Integer == dataType.getType()){
+            value = Integer.valueOf(value.toString());
+        }else if(DataTypeEnum.String == dataType.getType()){
+            value = value.toString();
+        }
+        return value;
     }
 }

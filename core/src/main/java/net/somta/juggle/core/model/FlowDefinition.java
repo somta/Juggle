@@ -1,5 +1,7 @@
 package net.somta.juggle.core.model;
 
+import java.util.List;
+
 /**
  * TODO 类职责描述
  *
@@ -22,7 +24,15 @@ public class FlowDefinition {
      */
     private String tenantId;
 
-    // todo 是不是改有一个流程的入参和出参的字段定义
+    /**
+     * 流程入参
+     */
+    private List<InputParameter> inputParameters;
+
+    /**
+     * 流程出参
+     */
+    private List<OutputParameter> outputParameters;
 
     /**
      * 流程Json
@@ -56,6 +66,22 @@ public class FlowDefinition {
 
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public List<InputParameter> getInputParameters() {
+        return inputParameters;
+    }
+
+    public void setInputParameters(List<InputParameter> inputParameters) {
+        this.inputParameters = inputParameters;
+    }
+
+    public List<OutputParameter> getOutputParameters() {
+        return outputParameters;
+    }
+
+    public void setOutputParameters(List<OutputParameter> outputParameters) {
+        this.outputParameters = outputParameters;
     }
 
     public String getContent() {
