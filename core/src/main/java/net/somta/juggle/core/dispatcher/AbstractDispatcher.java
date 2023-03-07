@@ -12,6 +12,7 @@ import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.core.variable.VariableManager;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -30,7 +31,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
     }
 
     @Override
-    public Boolean send(FlowDefinition flowDefinition, List<Variable> variables,Map<String,Object> flowData) {
+    public Boolean doDispatcher(FlowDefinition flowDefinition, List<Variable> variables,Map<String,Object> flowData) {
         //1.校验流程正确性
 
         //2.构建流程运行的RuntimeContext
@@ -72,7 +73,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         runtimeContext.setTenantId(flowDefinition.getTenantId());
         runtimeContext.setOutputParameters(flowDefinition.getOutputParameters());
         Map<String, FlowElement> flowElementMap = buildFlowElementMap(flowDefinition.getContent());
-        if(flowElementMap == null){
+        if(MapUtils.isEmpty(flowElementMap)){
             System.out.println("流程元素错误了，直接报错");
         }
         runtimeContext.setFlowElementMap(flowElementMap);
@@ -95,7 +96,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return null;
+        return MapUtils.EMPTY_MAP;
     }
 
     /**

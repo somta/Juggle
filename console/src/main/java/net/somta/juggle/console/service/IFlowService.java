@@ -1,6 +1,6 @@
 package net.somta.juggle.console.service;
 
-import net.somta.juggle.console.model.TriggerData;
+import net.somta.juggle.console.model.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.core.model.Variable;
 
@@ -12,5 +12,5 @@ public interface IFlowService {
      * @param flowDefinition
      * @return
      */
-    Boolean triggerFlow(FlowDefinition flowDefinition, List<Variable> variables, TriggerData triggerData);
+    Boolean triggerFlow(FlowDefinition flowDefinition, List<Variable> variables, TriggerDataParam triggerData);
 }

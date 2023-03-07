@@ -13,7 +13,7 @@ public class InputParameter extends BaseParameter {
     private Boolean required;
 
     /**
-     * 默认值
+     * 默认值 todo 是否要这个默认值
      */
     private String defaultValue;
 

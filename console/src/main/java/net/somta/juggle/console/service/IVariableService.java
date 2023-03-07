@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface IVariableService {
 
+
+
+    void addVariable();
+
     List<Variable> getFlowVariableList(Integer flowDefinitionId);
 }

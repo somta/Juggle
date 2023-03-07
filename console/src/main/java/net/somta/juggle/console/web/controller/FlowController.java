@@ -1,6 +1,6 @@
 package net.somta.juggle.console.web.controller;
 
-import net.somta.juggle.console.model.TriggerData;
+import net.somta.juggle.console.model.param.TriggerDataParam;
 import net.somta.juggle.console.service.IVariableService;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.console.service.IFlowDefinitionService;
@@ -8,14 +8,11 @@ import net.somta.juggle.console.service.IFlowService;
 import net.somta.juggle.core.model.Variable;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class FlowController {
@@ -33,7 +30,7 @@ public class FlowController {
      * @return Boolean
      */
     @PostMapping("/triggerFlow")
-    public Boolean triggerFlow(@RequestBody TriggerData triggerData){
+    public Boolean triggerFlow(@RequestBody TriggerDataParam triggerData){
         if(StringUtils.isEmpty(triggerData.getFlowKey())){
             System.out.println("抛出异常");
         }

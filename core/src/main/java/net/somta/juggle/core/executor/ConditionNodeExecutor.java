@@ -33,14 +33,17 @@ public class ConditionNodeExecutor extends ElementExecutor{
     protected void doExecute(RuntimeContext runtimeContext) {
         ConditionNode conditionNode = (ConditionNode)runtimeContext.getCurrentNode();
         LinkedHashMap<String, String> conditions =  conditionNode.getConditions();
+        String hitOutGoingKey = null;
         for (String key : conditions.keySet()) {
             String expression = conditions.get(key);
             boolean result = executeExpression(expression,runtimeContext.getVariableManager());
             System.out.println("key : " + key + "-----" + "val : " + expression + "result" + result);
             if(result){
-                return;
+                hitOutGoingKey = key;
+                break;
             }
         }
+        runtimeContext.setCurrentNode(runtimeContext.getFlowElementMap().get(hitOutGoingKey));
         System.out.println("判断节点执行器，执行中。。。");
     }
 
@@ -57,7 +60,6 @@ public class ConditionNodeExecutor extends ElementExecutor{
      * @return
      */
     private boolean executeExpression(String expression, VariableManager variableManager) {
-
         Expression compiledExp = aviatorEvaluatorInstance.compile(expression);
         List<String> variableKeys = compiledExp.getVariableNames();
         Map<String, Object> env = new HashMap<>();
@@ -74,7 +76,7 @@ public class ConditionNodeExecutor extends ElementExecutor{
     }
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // todo 怎么把表达式中的变量找出来
         String expression = "a-(b-c)>100";
         // 编译表达式
@@ -96,5 +98,5 @@ public class ConditionNodeExecutor extends ElementExecutor{
         List<String> vars = exp.getVariableNames();
         System.out.println(vars);
 
-    }
+    }*/
 }

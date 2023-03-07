@@ -13,8 +13,11 @@ public interface IDispatcher {
 
     /**
      * 分发流程
+     * @param workflowDefinition
+     * @param variables
+     * @param flowData
      * @return
      */
-    Boolean send(FlowDefinition workflowDefinition, List<Variable> variables, Map<String,Object> flowData);
+    Boolean doDispatcher(FlowDefinition workflowDefinition, List<Variable> variables, Map<String,Object> flowData);
 
 }

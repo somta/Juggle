@@ -1,11 +1,11 @@
-package net.somta.juggle.console.model;
+package net.somta.juggle.console.model.param;
 
 import java.util.Map;
 
 /**
  * 触发流程的实体
  */
-public class TriggerData {
+public class TriggerDataParam {
     /**
      * 流程的触发Key
      */

@@ -12,6 +12,11 @@ import java.util.List;
 @Service
 public class VariableServiceImpl implements IVariableService {
     @Override
+    public void addVariable() {
+
+    }
+
+    @Override
     public List<Variable> getFlowVariableList(Integer flowDefinitionId) {
         //todo mock一些变量数据
         List<Variable> variables = new ArrayList<>();
