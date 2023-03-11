@@ -1,5 +1,6 @@
 package net.somta.juggle.console.web.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.juggle.console.model.param.TriggerDataParam;
 import net.somta.juggle.console.service.IVariableService;
 import net.somta.juggle.core.model.FlowDefinition;
@@ -10,11 +11,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "流程接口")
 @RestController
+@RequestMapping("/v1/flow")
 public class FlowController {
 
     @Autowired
