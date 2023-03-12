@@ -2,6 +2,7 @@ package net.somta.juggle.console.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.console.model.param.VariableParam;
 import net.somta.juggle.console.service.IVariableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class VariableController {
      */
     @Operation(summary = "新增变量")
     @PostMapping("/add")
-    public Boolean addVariable(@RequestBody VariableParam variableParam){
+    public ResponseDataResult<Boolean> addVariable(@RequestBody VariableParam variableParam){
         variableService.addVariable();
         return null;
     }

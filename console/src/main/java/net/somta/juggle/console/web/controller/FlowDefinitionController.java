@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author husong
  * @date 2022/12/17
  **/
-@Tag(name = "API接口")
+@Tag(name = "流程定义控制类")
 @RestController
 @RequestMapping("/v1/flow/definition")
 public class FlowDefinitionController {

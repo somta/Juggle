@@ -41,9 +41,9 @@ public class SwaggerConfiguration {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("XXX用户系统API")
+                        .title("Juggle微服务编排系统API")
                         .version("1.0")
-                        .description( "Knife4j集成springdoc-openapi示例")
+                        .description( "Juggle是一个微服务编排框架")
                         .termsOfService("http://somta.net")
                         .license(new License().name("Apache 2.0")
                         .url("http://somta.net")));
