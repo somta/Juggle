@@ -1,4 +1,4 @@
 package net.somta.juggle.console.mapper;
 
-public interface VariableMapper {
+public interface VariableInfoMapper {
 }

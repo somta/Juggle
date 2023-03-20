@@ -4,7 +4,7 @@ import net.somta.juggle.core.model.Variable;
 
 import java.util.List;
 
-public interface IVariableService {
+public interface IVariableInfoService {
 
 
 

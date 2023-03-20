@@ -2,7 +2,7 @@ package net.somta.juggle.console.web.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.juggle.console.model.param.TriggerDataParam;
-import net.somta.juggle.console.service.IVariableService;
+import net.somta.juggle.console.service.IVariableInfoService;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.console.service.IFlowDefinitionService;
 import net.somta.juggle.console.service.IFlowService;
@@ -26,7 +26,7 @@ public class FlowController {
     @Autowired
     private IFlowDefinitionService flowDefinitionService;
     @Autowired
-    private IVariableService variableService;
+    private IVariableInfoService variableService;
 
     /**
      * 触发流程
@@ -38,6 +38,7 @@ public class FlowController {
         if(StringUtils.isEmpty(triggerData.getFlowKey())){
             System.out.println("抛出异常");
         }
+        // todo 如果有单独的流程实体类，直接查询对应的已经发布的流程表就可以了
         FlowDefinition flowDefinition = flowDefinitionService.getFlowDefinitionByKey(triggerData.getFlowKey());
         List<Variable> variables = variableService.getFlowVariableList(flowDefinition.getId());
         return flowService.triggerFlow(flowDefinition,variables,triggerData);

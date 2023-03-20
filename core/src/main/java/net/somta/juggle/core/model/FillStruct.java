@@ -7,13 +7,13 @@ public class FillStruct {
 
     private FildSourceEnum sourceType;
 
-    private DataTypeInfo sourceDataType;
+    private DataType sourceDataType;
 
     private String target;
 
     private FildSourceEnum targetType;
 
-    private DataTypeInfo targetDataType;
+    private DataType targetDataType;
 
 
     public String getSource() {
@@ -32,11 +32,11 @@ public class FillStruct {
         this.sourceType = sourceType;
     }
 
-    public DataTypeInfo getSourceDataType() {
+    public DataType getSourceDataType() {
         return sourceDataType;
     }
 
-    public void setSourceDataType(DataTypeInfo sourceDataType) {
+    public void setSourceDataType(DataType sourceDataType) {
         this.sourceDataType = sourceDataType;
     }
 
@@ -56,11 +56,11 @@ public class FillStruct {
         this.targetType = targetType;
     }
 
-    public DataTypeInfo getTargetDataType() {
+    public DataType getTargetDataType() {
         return targetDataType;
     }
 
-    public void setTargetDataType(DataTypeInfo targetDataType) {
+    public void setTargetDataType(DataType targetDataType) {
         this.targetDataType = targetDataType;
     }
 }

@@ -6,6 +6,7 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.model.node.StartNode;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -57,9 +58,12 @@ public abstract class ElementExecutor implements IExecutor {
             outgoingKeyList = node.getOutgoings();
         }
 
-        //todo 只返回第一个是不是有问题
-        String nextElementKey = outgoingKeyList.get(0);
-        FlowElement nextElement = flowElementMap.get(nextElementKey);
+        FlowElement nextElement = null;
+        if(!CollectionUtils.isEmpty(outgoingKeyList)){
+            //todo 只返回第一个是不是有问题
+            String nextElementKey = outgoingKeyList.get(0);
+            nextElement = flowElementMap.get(nextElementKey);
+        }
         return nextElement;
 
         /*List<String> outgoingKeyList = currentNode.getOutgoing();

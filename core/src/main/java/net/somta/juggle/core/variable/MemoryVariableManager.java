@@ -1,7 +1,7 @@
 package net.somta.juggle.core.variable;
 
 import net.somta.juggle.core.enums.DataTypeEnum;
-import net.somta.juggle.core.model.DataTypeInfo;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Variable;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class MemoryVariableManager extends VariableManager{
         return true;
     }
 
-    private Object getRealDataType(Object value, DataTypeInfo dataType) {
+    private Object getRealDataType(Object value, DataType dataType) {
         if(DataTypeEnum.Integer == dataType.getType()){
             value = Integer.valueOf(value.toString());
         }else if(DataTypeEnum.String == dataType.getType()){

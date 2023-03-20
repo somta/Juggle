@@ -29,12 +29,12 @@ public class Method {
     /**
      * 入参列表
      */
-    private List<InputParameter> inputParameters;
+    //private List<InputParameter> inputParameters;
 
     /**
      * 出参列表
      */
-    private List<OutputParameter> outputParameters;
+    //private List<OutputParameter> outputParameters;
 
     /**
      * 入参的填充规则
@@ -71,7 +71,7 @@ public class Method {
         this.requestContentType = requestContentType;
     }
 
-    public List<InputParameter> getInputParameters() {
+    /*public List<InputParameter> getInputParameters() {
         return inputParameters;
     }
 
@@ -85,7 +85,7 @@ public class Method {
 
     public void setOutputParameters(List<OutputParameter> outputParameters) {
         this.outputParameters = outputParameters;
-    }
+    }*/
 
     public List<FillStruct> getInputFillRules() {
         return inputFillRules;

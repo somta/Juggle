@@ -1,7 +1,5 @@
 package net.somta.juggle.core.model;
 
-import net.somta.juggle.core.enums.DataTypeEnum;
-
 /**
  * 变量类
  *
@@ -23,7 +21,7 @@ public class Variable {
     /**
      * 数据类型
      */
-    private DataTypeInfo dataType;
+    private DataType dataType;
 
     /**
      * todo 感觉变量不应该有默认值
@@ -49,11 +47,11 @@ public class Variable {
         this.name = name;
     }
 
-    public DataTypeInfo getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataTypeInfo dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
 

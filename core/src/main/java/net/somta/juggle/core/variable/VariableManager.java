@@ -1,9 +1,7 @@
 package net.somta.juggle.core.variable;
 
-import net.somta.core.exception.BizException;
 import net.somta.juggle.core.enums.ErrorEnum;
 import net.somta.juggle.core.exception.FlowException;
-import net.somta.juggle.core.model.DataTypeInfo;
 import net.somta.juggle.core.model.Variable;
 import org.apache.commons.lang3.StringUtils;
 

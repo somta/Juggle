@@ -1,11 +1,22 @@
-package net.somta.juggle.console.model.param;
+package net.somta.juggle.console.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import net.somta.core.base.BaseModel;
 import net.somta.juggle.core.model.DataType;
 
-public class VariableParam {
+public class VariableInfo extends BaseModel {
+
     /**
-     * 变量Key
+     * 唯一ID
+     */
+    private Integer id;
+
+    /**
+     * 流程定义ID
+     */
+    private Integer flowDefinitionId;
+
+    /**
+     * 变量Key,同一流程内唯一
      */
     private String key;
 
@@ -17,13 +28,23 @@ public class VariableParam {
     /**
      * 数据类型
      */
-    @Schema
     private DataType dataType;
 
-    /**
-     * 流程ID
-     */
-    private Integer flowId;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getFlowDefinitionId() {
+        return flowDefinitionId;
+    }
+
+    public void setFlowDefinitionId(Integer flowDefinitionId) {
+        this.flowDefinitionId = flowDefinitionId;
+    }
 
     public String getKey() {
         return key;
@@ -47,13 +68,5 @@ public class VariableParam {
 
     public void setDataType(DataType dataType) {
         this.dataType = dataType;
-    }
-
-    public Integer getFlowId() {
-        return flowId;
-    }
-
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
     }
 }

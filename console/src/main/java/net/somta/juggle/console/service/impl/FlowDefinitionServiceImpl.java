@@ -38,7 +38,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         OutputParameter userNameParm = new OutputParameter();
         userNameParm.setKey("userName");
         userNameParm.setName("流程出参-用户名称");
-        userNameParm.setDataType(new DataTypeInfo(DataTypeEnum.String));
+        userNameParm.setDataType(new DataType(DataTypeEnum.String));
         outputParameters.add(userNameParm);
         return outputParameters;
     }
@@ -65,10 +65,10 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         methodNode.setElementType(ElementTypeEnum.METHOD);
 
         Method method = new Method();
-        method.setUrl("http://127.0.0.1:8080/test/info");
+        method.setUrl("http://127.0.0.1:8686/test/info");
         method.setRequestType(RequestTypeEnum.GET);
         //入参设置
-        List<InputParameter> inputParameters = new ArrayList<>();
+        /*List<InputParameter> inputParameters = new ArrayList<>();
         InputParameter idParm = new InputParameter();
         idParm.setKey("id");
         idParm.setName("用户ID");
@@ -76,38 +76,38 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         idParm.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
         idParm.setDefaultValue("666");
         inputParameters.add(idParm);
-        method.setInputParameters(inputParameters);
+        method.setInputParameters(inputParameters);*/
 
         //入参填充规则
         List<FillStruct> inputFillRules = new ArrayList<>();
         FillStruct fillStruct = new FillStruct();
         fillStruct.setSource("env_id");
         fillStruct.setSourceType(FildSourceEnum.VARIABLE);
-        fillStruct.setSourceDataType(new DataTypeInfo(DataTypeEnum.Integer));
+        fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
         fillStruct.setTarget("id");
         fillStruct.setTargetType(FildSourceEnum.FLOWINPUT);
-        fillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.Integer));
+        fillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
         inputFillRules.add(fillStruct);
         method.setInputFillRules(inputFillRules);
 
         //出参设置
-        List<OutputParameter> outputParameters = new ArrayList<>();
+       /* List<OutputParameter> outputParameters = new ArrayList<>();
         OutputParameter nameParm = new OutputParameter();
         nameParm.setKey("name");
         nameParm.setName("用户名称");
         nameParm.setDataType(new DataTypeInfo(DataTypeEnum.String));
         outputParameters.add(nameParm);
-        method.setOutputParameters(outputParameters);
+        method.setOutputParameters(outputParameters);*/
 
         //出参填充规则
         List<FillStruct> outputFillRules = new ArrayList<>();
         FillStruct outFillStruct = new FillStruct();
         outFillStruct.setSource("name");
         outFillStruct.setSourceType(FildSourceEnum.OUTPUTPARAM);
-        outFillStruct.setSourceDataType(new DataTypeInfo(DataTypeEnum.String));
+        outFillStruct.setSourceDataType(new DataType(DataTypeEnum.String));
         outFillStruct.setTarget("env_userName");
         outFillStruct.setTargetType(FildSourceEnum.VARIABLE);
-        outFillStruct.setTargetDataType(new DataTypeInfo(DataTypeEnum.String));
+        outFillStruct.setTargetDataType(new DataType(DataTypeEnum.String));
         outputFillRules.add(outFillStruct);
         method.setOutputFillRules(outputFillRules);
 

@@ -8,7 +8,7 @@ import net.somta.juggle.core.enums.DataTypeEnum;
  * @author husong
  * @date 2023/02/06
  */
-public class DataTypeInfo {
+public class DataType {
 
     /**
      * 数据类型
@@ -24,10 +24,10 @@ public class DataTypeInfo {
      */
     private String structureSchema;
 
-    public DataTypeInfo() {
+    public DataType() {
     }
 
-    public DataTypeInfo(DataTypeEnum type) {
+    public DataType(DataTypeEnum type) {
         this.type = type;
     }
 

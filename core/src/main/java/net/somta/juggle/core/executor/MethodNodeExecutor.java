@@ -11,6 +11,7 @@ import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.utils.HttpClient;
 import net.somta.juggle.core.variable.VariableManager;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -36,7 +37,7 @@ public class MethodNodeExecutor extends ElementExecutor{
         System.out.println("方法节点执行器，执行中。。。");
         MethodNode methodNode = (MethodNode)runtimeContext.getCurrentNode();
         try {
-            Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputParameters(),methodNode.getMethod().getInputFillRules(),runtimeContext.getVariableManager());
+            Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputFillRules(),runtimeContext.getVariableManager());
             Map<String,Object> resultData = sendHttpRequest(methodNode.getMethod(),parameterData);
             System.out.println("接口执行完，获得的结果为：" + resultData.toString());
 
@@ -66,33 +67,36 @@ public class MethodNodeExecutor extends ElementExecutor{
      * @return
      */
     private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> parameterData){
-        ResponseDataResult result = HttpClientUtil.doGet(method.getUrl());
-
-
         HttpClient httpClient = new HttpClient();
         HttpClient.Request request = new HttpClient.Request(method.getUrl());
         request.setRequestType(method.getRequestType());
-        httpClient.sendRequest(request);
-
-
-        String data = (String) result.getResult();
-        System.out.println(data);
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String,Object> map = null;
-        try {
-            map = objectMapper.readValue(data, Map.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return map;
+        Map<String,Object> result = httpClient.sendRequest(request);
+        return result;
     }
 
     /**
      * 根据填充结构和参数描述构建带数据的参数对象
      * @return
      */
-    private Map<String,Object> buildInputParameterData(List<InputParameter> parameters, List<FillStruct> inputFillRules, VariableManager variableManager) throws FlowException {
+    private Map<String,Object> buildInputParameterData(List<FillStruct> inputFillRules, VariableManager variableManager) throws FlowException {
+        if(CollectionUtils.isEmpty(inputFillRules)){
+            return MapUtils.EMPTY_MAP;
+        }
+        Map<String,Object> paramData = new HashMap<>(8);
+        // todo 如果是这种类型，怎么支持高级类型，user.id这样的结构，看看bizw是怎么做的
+        for(FillStruct fillStruct : inputFillRules){
+            String fieldKey = fillStruct.getTarget();
+            Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
+            paramData.put(fieldKey,variableValue);
+        }
+        return paramData;
+    }
+
+    /**
+     * 根据填充结构和参数描述构建带数据的参数对象
+     * @return
+     */
+/*    private Map<String,Object> buildInputParameterData2(List<InputParameter> parameters, List<FillStruct> inputFillRules, VariableManager variableManager) throws FlowException {
         Map<String,Object> paramData = new HashMap<>();
         for (InputParameter parameter : parameters){
             String fieldKey = parameter.getKey();
@@ -113,7 +117,7 @@ public class MethodNodeExecutor extends ElementExecutor{
             }
         }
         return paramData;
-    }
+    }*/
 
     /**
      * 处理填充出参数据
@@ -121,7 +125,6 @@ public class MethodNodeExecutor extends ElementExecutor{
      * @param variableManager
      */
     private void buildOutputParameterData(Method method,VariableManager variableManager, Map<String,Object> resultData) throws FlowException {
-        List<OutputParameter> outputParameters = method.getOutputParameters();
         List<FillStruct> outputFillRules = method.getOutputFillRules();
         if(CollectionUtils.isEmpty(outputFillRules)){
             return;
@@ -135,4 +138,25 @@ public class MethodNodeExecutor extends ElementExecutor{
             variableManager.setVariableValue(envKey,fieldValue);
         }
     }
+
+    /**
+     * 处理填充出参数据
+     * @param method
+     * @param variableManager
+     */
+    /*private void buildOutputParameterData2(Method method,VariableManager variableManager, Map<String,Object> resultData) throws FlowException {
+        List<OutputParameter> outputParameters = method.getOutputParameters();
+        List<FillStruct> outputFillRules = method.getOutputFillRules();
+        if(CollectionUtils.isEmpty(outputFillRules)){
+            return;
+        }
+        for (FillStruct fillStruct : outputFillRules) {
+            String fieldKey = fillStruct.getSource();
+            Object fieldValue = resultData.get(fieldKey);
+
+            //设置变量
+            String envKey = fillStruct.getTarget();
+            variableManager.setVariableValue(envKey,fieldValue);
+        }
+    }*/
 }

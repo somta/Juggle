@@ -1,6 +1,9 @@
 package net.somta.juggle.core.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
+import org.apache.commons.collections.MapUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -10,21 +13,28 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpClient {
 
     private CloseableHttpClient httpClient;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public HttpClient() {
         this.httpClient = HttpClients.createDefault();
-        //this.httpClient.start();
     }
 
-    public void sendRequest(Request request) {
+    /**
+     * 发送请求
+     * @param request
+     * @return
+     */
+    public Map<String,Object> sendRequest(Request request) {
         HttpRequestBase uriRequest = null;
         if (request.getRequestType() == RequestTypeEnum.GET) {
             uriRequest = new HttpGet(request.getReqUrl());
@@ -49,6 +59,7 @@ public class HttpClient {
             uriRequest.addHeader(e.getKey(), e.getValue());
         }*/
 
+        Map<String,Object> resultMap = new HashMap<>(8);
         try {
             // 发送同步请求  https://blog.csdn.net/weixin_32265569/article/details/108606783
             CloseableHttpResponse httpResponse = httpClient.execute(uriRequest);
@@ -56,14 +67,21 @@ public class HttpClient {
 
             HttpEntity entity = httpResponse.getEntity();
             // 获取响应体的字符串
-            String rst = EntityUtils.toString(entity);
+            String result = EntityUtils.toString(entity);
             // do something useful with the response body
             // and ensure it is fully consumed
+            try {
+                resultMap = objectMapper.readValue(result, Map.class);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
             EntityUtils.consume(entity);
             System.out.println(httpResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return resultMap;
     }
 
     /**
