@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.mapper.ApiMapper" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Api" >
+	<result column="id" property="id"/>
+	<result column="api_url" property="apiUrl"/>
+	<result column="api_name" property="apiName"/>
+	<result column="api_desc" property="apiDesc"/>
+	<result column="api_request_type" property="apiRequestType"/>
+	<result column="api_request_content_type" property="apiRequestContentType"/>
+</resultMap>
+       
+<!-- t_data_type_info table all fields -->
+<sql id="Base_Column_List" >
+	id, api_url, api_name, api_desc, api_request_type, api_request_content_type
+</sql>
+   
+<!--<insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
+	insert into t_data_type_info (id, data_type_classify, type, type_name, display_name, object_structure)
+	values (#{id},#{dataTypeClassify},#{type},#{typeName},#{displayName},#{objectStructure});
+</insert>-->
+
+<!--<delete id="deleteDataTypeById" parameterType="java.lang.Long">
+ delete from t_data_type_info where id=#{id}
+</delete>-->
+
+<!--<update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
+	update t_data_type_info set
+	<trim  suffixOverrides="," >
+	<if test="data_type_classify != null">
+		data_type_classify=#{dataTypeClassify},
+	</if>
+	<if test="type != null">
+		type=#{type},
+	</if>
+	<if test="typeName != null and typeName != ''">
+		type_name=#{typeName},
+	</if>
+	<if test="displayName != null and displayName != ''">
+		display_name=#{displayName},
+	</if>
+	<if test="objectStructure != null and objectStructure != ''">
+		object_structure=#{objectStructure},
+	</if>
+	</trim> where id=#{id}
+</update>-->
+
+<!--<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" /> 
+	from t_data_type_info where id = #{id}
+</select>-->
+
+<select id="queryApiList" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" /> 
+	from t_api
+</select>
+
+</mapper>   

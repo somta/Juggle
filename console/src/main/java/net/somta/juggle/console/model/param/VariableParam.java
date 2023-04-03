@@ -3,42 +3,58 @@ package net.somta.juggle.console.model.param;
 import io.swagger.v3.oas.annotations.media.Schema;
 import net.somta.juggle.core.model.DataType;
 
+@Schema(description = "变量入参对象")
 public class VariableParam {
+    /**
+     * 唯一ID
+     */
+    private Long id;
     /**
      * 变量Key
      */
-    private String key;
+    @Schema(description = "变量Key")
+    private String envKey;
 
     /**
      * 变量名称
      */
-    private String name;
+    @Schema(description = "变量名称")
+    private String envName;
 
     /**
      * 数据类型
      */
-    @Schema
+    @Schema(description = "变量类型对象")
     private DataType dataType;
 
     /**
-     * 流程ID
+     * 流程定义ID
      */
-    private Integer flowId;
+    @Schema(description = "流程定义ID")
+    private Integer flowDefinitionId;
 
-    public String getKey() {
-        return key;
+    public Long getId() {
+        return id;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getEnvKey() {
+        return envKey;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEnvKey(String envKey) {
+        this.envKey = envKey;
+    }
+
+    public String getEnvName() {
+        return envName;
+    }
+
+    public void setEnvName(String envName) {
+        this.envName = envName;
     }
 
     public DataType getDataType() {
@@ -49,11 +65,11 @@ public class VariableParam {
         this.dataType = dataType;
     }
 
-    public Integer getFlowId() {
-        return flowId;
+    public Integer getFlowDefinitionId() {
+        return flowDefinitionId;
     }
 
-    public void setFlowId(Integer flowId) {
-        this.flowId = flowId;
+    public void setFlowDefinitionId(Integer flowDefinitionId) {
+        this.flowDefinitionId = flowDefinitionId;
     }
 }

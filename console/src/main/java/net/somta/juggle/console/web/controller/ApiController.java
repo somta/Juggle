@@ -2,6 +2,7 @@ package net.somta.juggle.console.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.model.Api;
 import net.somta.juggle.console.service.IApiService;
@@ -26,9 +27,9 @@ public class ApiController {
      */
     @Operation(summary = "获取Api列表")
     @PostMapping("/list")
-    public ResponsePaginationDataResult<List<Api>> getApiList(){
-        apiService.getApiList();
-        return null;
+    public ResponseDataResult<List<Api>> getApiList(){
+        List<Api> apiList = apiService.getApiList();
+        return ResponseDataResult.setResponseResult(apiList);
     }
 
 }

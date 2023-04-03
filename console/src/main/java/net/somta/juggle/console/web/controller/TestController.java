@@ -14,11 +14,22 @@ public class TestController {
      * @param id 用户ID
      * @return 用户姓名
      */
-    @GetMapping("/test/info")
-    public User triggerFlow(Integer id){
+    @GetMapping("/test/getUserById")
+    public User getUserById(Integer id){
         System.out.println("接收到的用户ID为："+id);
         User user = new User();
         user.setName("张三");
+        return user;
+    }
+
+    /**
+     * 测试方法
+     * @param user 用户
+     * @return 用户姓名
+     */
+    @GetMapping("/test/updateUser")
+    public User updateUser(User user){
+        System.out.println("接收到的用户ID为："+user.getName());
         return user;
     }
 

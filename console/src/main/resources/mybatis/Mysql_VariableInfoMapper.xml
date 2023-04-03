@@ -4,40 +4,52 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.VariableInfoMapper" >
 <!-- Result Map-->
-<!--<resultMap id="BaseResultMap" type="com.somta.springboot.pojo.User" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.VariableInfo" >
 	<result column="id" property="id"/>
-	<result column="name" property="name"/>
-	<result column="age" property="age"/>
-</resultMap>-->
+	<result column="flow_definition_id" property="flowDefinitionId"/>
+	<result column="env_key" property="envKey"/>
+    <result column="env_name" property="envName"/>
+    <result column="data_type" property="dataType"/>
+</resultMap>
        
 <!-- th_role_user table all fields -->
-<!--<sql id="Base_Column_List" >
-	id, name, age
-</sql>-->
+<sql id="Base_Column_List" >
+	id, flow_definition_id, env_key, env_name,data_type
+</sql>
    
-<!--<insert id="addUser" parameterType="com.somta.springboot.pojo.User" >
-	insert into t_user (id, name, age) 
-	values (#{id},#{name},#{age});
-</insert>-->
+<insert id="addVariable" parameterType="net.somta.juggle.console.model.VariableInfo" >
+	insert into t_variable_info (id, flow_definition_id, env_key, env_name, data_type)
+	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{dataType});
+</insert>
 
-<!--<delete id="deleteUserById" parameterType="java.lang.Long">
- delete from t_user where id=#{id}
-</delete>-->
+<delete id="deleteVariableById" parameterType="java.lang.Long">
+ delete from t_variable_info where id=#{id}
+</delete>
 
-<!--<update id="updateUserById" parameterType="com.somta.springboot.pojo.User" >
-	update t_user set 
+<delete id="deleteVariable" parameterType="java.util.Map">
+	delete from t_variable_info where flow_definition_id=#{flowDefinitionId} and id=#{id}
+</delete>
+
+<update id="updateVariable" parameterType="net.somta.juggle.console.model.VariableInfo" >
+	update t_variable_info set
 	<trim  suffixOverrides="," >
-	<if test="id != null and id != ''">
+	<if test="id != null">
 		id=#{id},
 	</if>
-	<if test="name != null and name != ''">
-		name=#{name},
+	<if test="flowDefinitionId != null">
+		flow_definition_id=#{flowDefinitionId},
 	</if>
-	<if test="age != null and age != ''">
-		age=#{age},
+	<if test="envKey != null and envKey != ''">
+		env_key=#{envKey},
+	</if>
+	<if test="envName != null and envName != ''">
+		env_name=#{envName},
+	</if>
+	<if test="dataType != null and dataType != ''">
+		data_type=#{dataType},
 	</if>
 	</trim> where id=#{id}
-</update>-->
+</update>
 
 <!--<select id="queryUserById" resultMap="BaseResultMap" parameterType="java.lang.Long">
 	select <include refid="Base_Column_List" /> 

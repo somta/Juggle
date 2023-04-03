@@ -1,19 +1,46 @@
 package net.somta.juggle.console.service.impl;
 
+import net.somta.juggle.console.mapper.VariableInfoMapper;
+import net.somta.juggle.console.model.VariableInfo;
 import net.somta.juggle.console.service.IVariableInfoService;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Variable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class VariableInfoServiceImpl implements IVariableInfoService {
-    @Override
-    public void addVariable() {
 
+    @Autowired
+    private VariableInfoMapper variableInfoMapper;
+
+    @Override
+    public Boolean addVariable(VariableInfo variableInfo) {
+        // todo 这里要改成雪花ID
+        variableInfo.setId(2L);
+        variableInfoMapper.addVariable(variableInfo);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteVariable(Long flowDefinitionId, Long envId) {
+        Map<String,Long> parms = new HashMap<>();
+        parms.put("flowDefinitionId",flowDefinitionId);
+        parms.put("id",envId);
+        variableInfoMapper.deleteVariable(parms);
+        return true;
+    }
+
+    @Override
+    public Boolean updateVariable(VariableInfo variableInfo) {
+        variableInfoMapper.updateVariable(variableInfo);
+        return true;
     }
 
     @Override

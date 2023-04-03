@@ -4,10 +4,17 @@ import net.somta.core.base.BaseModel;
 
 public class Api extends BaseModel {
 
+    private Integer id;
+
     /**
      * api接口地址
      */
     private String apiUrl;
+
+    /**
+     * api接口名称
+     */
+    private String apiName;
 
     /**
      * api描述
@@ -24,12 +31,28 @@ public class Api extends BaseModel {
      */
     private String apiRequestContentType;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getApiUrl() {
         return apiUrl;
     }
 
     public void setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
+    }
+
+    public String getApiName() {
+        return apiName;
+    }
+
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
     }
 
     public String getApiDesc() {

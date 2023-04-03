@@ -21,20 +21,8 @@ public class SwaggerConfiguration {
     public GroupedOpenApi userApi(){
         String[] paths = { "/**" };
         String[] packagedToMatch = { "net.somta.juggle.console.web.controller" };
-        return GroupedOpenApi.builder().group("用户模块")
+        return GroupedOpenApi.builder().group("API接口")
                 .pathsToMatch(paths)
-                .addOperationCustomizer((operation, handlerMethod) -> {
-                    return operation.addParametersItem(
-                            new HeaderParameter()
-                            .name("groupCode")
-                            .example("测试")
-                            .description("集团code")
-                            .schema(new StringSchema()
-                                    ._default("BR")
-                                    .name("groupCode").
-                                            description("集团code"))
-                    );
-                })
                 .packagesToScan(packagedToMatch).build();
     }
     @Bean

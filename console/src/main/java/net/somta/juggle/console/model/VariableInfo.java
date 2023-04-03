@@ -8,7 +8,7 @@ public class VariableInfo extends BaseModel {
     /**
      * 唯一ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 流程定义ID
@@ -18,23 +18,23 @@ public class VariableInfo extends BaseModel {
     /**
      * 变量Key,同一流程内唯一
      */
-    private String key;
+    private String envKey;
 
     /**
      * 变量名称
      */
-    private String name;
+    private String envName;
 
     /**
      * 数据类型
      */
-    private DataType dataType;
+    private String dataType;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,27 +46,27 @@ public class VariableInfo extends BaseModel {
         this.flowDefinitionId = flowDefinitionId;
     }
 
-    public String getKey() {
-        return key;
+    public String getEnvKey() {
+        return envKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setEnvKey(String envKey) {
+        this.envKey = envKey;
     }
 
-    public String getName() {
-        return name;
+    public String getEnvName() {
+        return envName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEnvName(String envName) {
+        this.envName = envName;
     }
 
-    public DataType getDataType() {
+    public String getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataType dataType) {
+    public void setDataType(String dataType) {
         this.dataType = dataType;
     }
 }
