@@ -44,7 +44,7 @@ public class VariableInfoServiceImpl implements IVariableInfoService {
     }
 
     @Override
-    public List<Variable> getFlowVariableList(Integer flowDefinitionId) {
+    public List<Variable> getFlowVariableList(Long flowDefinitionId) {
         //todo mock一些变量数据
         List<Variable> variables = new ArrayList<>();
         Variable variableId = new Variable();

@@ -13,7 +13,7 @@ public class FlowDefinition {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 流程Key,全局唯一
@@ -40,15 +40,15 @@ public class FlowDefinition {
     private String content;
 
     /**
-     * 流程备注
+     * 流程描述
      */
     private String remark;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

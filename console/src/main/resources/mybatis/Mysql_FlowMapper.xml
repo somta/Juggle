@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.mapper.FlowMapper" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.FlowInfo" >
+	<result column="id" property="id"/>
+	<result column="flow_key" property="flowKey"/>
+	<result column="flow_name" property="flowName"/>
+	<result column="flow_content" property="flowContent"/>
+	<result column="version" property="version"/>
+	<result column="inputs" property="inputs"/>
+	<result column="outputs" property="outputs"/>
+	<result column="variables" property="variables"/>
+	<result column="tenant_id" property="tenantId"/>
+	<result column="remark" property="remark"/>
+</resultMap>
+       
+<!-- t_data_type_info table all fields -->
+<sql id="Base_Column_List" >
+	id, flow_key, flow_name,flow_content, version, inputs, outputs, variables, tenant_id, remark
+</sql>
+   
+<insert id="addFlow" parameterType="net.somta.juggle.console.model.FlowInfo" >
+	insert into t_flow (id, flow_key, flow_name,flow_content, version,inputs, outputs, variables, tenant_id, remark)
+	values (#{id},#{flowKey},#{flowName},#{flowContent},#{version},#{inputs},#{outputs},#{variables},#{tenantId},#{remark});
+</insert>
+
+<delete id="deleteFlowById" parameterType="java.lang.Long">
+ delete from t_flow where id=#{id}
+</delete>
+
+<!--<update id="updateFlowDefinitionById" parameterType="net.somta.juggle.console.model.FlowDefinitionInfo" >
+	update t_flow set
+	<trim  suffixOverrides="," >
+	<if test="flowKey != null and flowKey != ''">
+		flow_key=#{flowKey},
+	</if>
+	<if test="flowName != null and flowName != ''">
+		flow_name=#{flowName},
+	</if>
+	<if test="tenantId != null and tenantId != ''">
+		tenant_id=#{tenantId},
+	</if>
+	<if test="remark != null and remark != ''">
+		remark=#{remark},
+	</if>
+	</trim> where id=#{id}
+</update>-->
+
+<!--<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" /> 
+	from t_data_type_info where id = #{id}
+</select>-->
+
+<select id="queryFlowByFlowKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+	select <include refid="Base_Column_List" />
+	from t_flow where id = #{id}
+</select>
+
+<select id="queryFlowList" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" /> 
+	from t_flow
+</select>
+
+</mapper>   

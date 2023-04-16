@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.model.Api;
+import net.somta.juggle.console.model.dto.DataTypeDTO;
 import net.somta.juggle.console.model.dto.DataTypeOptionDTO;
 import net.somta.juggle.console.service.IApiService;
 import net.somta.juggle.console.service.IDataTypeInfoService;

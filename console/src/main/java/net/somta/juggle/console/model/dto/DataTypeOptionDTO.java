@@ -5,22 +5,31 @@ import net.somta.juggle.console.model.DataTypeInfo;
 import java.util.List;
 
 public class DataTypeOptionDTO {
-    private String lable;
-    private List<DataTypeInfo> childs;
+    private String key;
+    private String name;
+    private List<DataTypeDTO> children;
 
-    public String getLable() {
-        return lable;
+    public String getKey() {
+        return key;
     }
 
-    public void setLable(String lable) {
-        this.lable = lable;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public List<DataTypeInfo> getChilds() {
-        return childs;
+    public String getName() {
+        return name;
     }
 
-    public void setChilds(List<DataTypeInfo> childs) {
-        this.childs = childs;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<DataTypeDTO> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<DataTypeDTO> children) {
+        this.children = children;
     }
 }

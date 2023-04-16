@@ -8,19 +8,19 @@
 	<result column="id" property="id"/>
 	<result column="data_type_classify" property="dataTypeClassify"/>
 	<result column="type" property="type"/>
-	<result column="type_name" property="typeName"/>
 	<result column="display_name" property="displayName"/>
+	<result column="object_key" property="objectKey"/>
 	<result column="object_structure" property="objectStructure"/>
 </resultMap>
        
 <!-- t_data_type_info table all fields -->
 <sql id="Base_Column_List" >
-	id, data_type_classify, type, type_name, display_name, object_structure
+	id, data_type_classify, type, display_name, object_key, object_structure
 </sql>
    
 <insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	insert into t_data_type_info (id, data_type_classify, type, type_name, display_name, object_structure)
-	values (#{id},#{dataTypeClassify},#{type},#{typeName},#{displayName},#{objectStructure});
+	insert into t_data_type_info (id, data_type_classify, type, display_name, object_key, object_structure)
+	values (#{id},#{dataTypeClassify},#{type},#{displayName},#{objectKey},#{objectStructure});
 </insert>
 
 <delete id="deleteDataTypeById" parameterType="java.lang.Long">
@@ -36,11 +36,11 @@
 	<if test="type != null">
 		type=#{type},
 	</if>
-	<if test="typeName != null and typeName != ''">
-		type_name=#{typeName},
-	</if>
 	<if test="displayName != null and displayName != ''">
 		display_name=#{displayName},
+	</if>
+	<if test="objectKey != null and objectKey != ''">
+		object_key=#{objectKey},
 	</if>
 	<if test="objectStructure != null and objectStructure != ''">
 		object_structure=#{objectStructure},

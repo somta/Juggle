@@ -61,4 +61,11 @@
 	from t_user
 </select>-->
 
+<select id="queryVariableInfoListByDefinitionId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" />
+	from t_variable_info where flow_definition_id=#{flowDefinitionId}
+</select>
+
+
+
 </mapper>   

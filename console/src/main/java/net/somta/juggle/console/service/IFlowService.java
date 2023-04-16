@@ -1,5 +1,6 @@
 package net.somta.juggle.console.service;
 
+import net.somta.juggle.console.model.FlowInfo;
 import net.somta.juggle.console.model.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.core.model.Variable;
@@ -9,8 +10,15 @@ import java.util.List;
 public interface IFlowService {
     /**
      * 启动流程
-     * @param flowDefinition
+     * @param flowInfo
      * @return
      */
-    Boolean triggerFlow(FlowDefinition flowDefinition, List<Variable> variables, TriggerDataParam triggerData);
+    Boolean triggerFlow(FlowInfo flowInfo, TriggerDataParam triggerData);
+
+    /**
+     * 根据流程Key获取流程信息
+     * @param flowKey
+     * @return
+     */
+    FlowInfo getFlowByFlowKey(String flowKey);
 }

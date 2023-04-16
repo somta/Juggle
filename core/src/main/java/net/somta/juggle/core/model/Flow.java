@@ -7,16 +7,22 @@ import java.util.List;
  * @author husong
  * @date 2022/12/14
  **/
-public class Workflow {
-    private String id;
+public class Flow {
+
+    /**
+     * 流程Key
+     */
+    private String flowKey;
+
     /**
      * 流程名称
      */
-    private String name;
+    private String flowName;
+
     /**
-     * 流程描述
+     * 流程内容
      */
-    private String description;
+    private String flowContent;
     /**
      * 入参列表
      */
@@ -28,32 +34,30 @@ public class Workflow {
     /**
      * 变量列表
      */
-    // TODO 变量类型分为独享和，共享（一个业务key的多个流程共享）
-    private List variables;
+    private List<Variable> variables;
 
-
-    public String getId() {
-        return id;
+    public String getFlowKey() {
+        return flowKey;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFlowKey(String flowKey) {
+        this.flowKey = flowKey;
     }
 
-    public String getName() {
-        return name;
+    public String getFlowName() {
+        return flowName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFlowName(String flowName) {
+        this.flowName = flowName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getFlowContent() {
+        return flowContent;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFlowContent(String flowContent) {
+        this.flowContent = flowContent;
     }
 
     public List<InputParameter> getInputs() {
@@ -72,11 +76,11 @@ public class Workflow {
         this.outputs = outputs;
     }
 
-    public List getVariables() {
+    public List<Variable> getVariables() {
         return variables;
     }
 
-    public void setVariables(List variables) {
+    public void setVariables(List<Variable> variables) {
         this.variables = variables;
     }
 }

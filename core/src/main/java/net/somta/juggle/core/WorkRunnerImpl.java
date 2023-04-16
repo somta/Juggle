@@ -3,6 +3,8 @@ package net.somta.juggle.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class WorkRunnerImpl extends Thread implements IWorkRunner {
@@ -13,6 +15,9 @@ public class WorkRunnerImpl extends Thread implements IWorkRunner {
      * 存储处理请求线程的队列
      */
     private LinkedBlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>();
+
+    // todo 先用固定线程池池化一下，后面改成手动创建
+    ExecutorService executorService =  Executors.newFixedThreadPool(2);
 
     /**
      * 任务执行器是否在执行
@@ -39,7 +44,9 @@ public class WorkRunnerImpl extends Thread implements IWorkRunner {
                 if (task != null) {
                     System.out.println("获取到一个任务了"+task);
 
-                    task.run();
+                    //task.run();
+
+                    executorService.execute(task);
                 }
             } catch (Throwable e) {
                 logger.error(e.getMessage());

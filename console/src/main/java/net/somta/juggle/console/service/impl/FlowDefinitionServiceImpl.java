@@ -2,6 +2,22 @@ package net.somta.juggle.console.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.somta.common.utils.SnowflakeIdUtil;
+import net.somta.juggle.console.enums.ParameterSourceTypeEnum;
+import net.somta.juggle.console.enums.ParameterTypeEnum;
+import net.somta.juggle.console.mapper.FlowDefinitionMapper;
+import net.somta.juggle.console.mapper.FlowMapper;
+import net.somta.juggle.console.mapper.ParameterMapper;
+import net.somta.juggle.console.mapper.VariableInfoMapper;
+import net.somta.juggle.console.model.FlowDefinitionInfo;
+import net.somta.juggle.console.model.FlowInfo;
+import net.somta.juggle.console.model.Parameter;
+import net.somta.juggle.console.model.VariableInfo;
+import net.somta.juggle.console.model.param.FlowDefinitionPageParam;
+import net.somta.juggle.console.model.param.FlowDefinitionParam;
+import net.somta.juggle.console.model.param.InputParameterParam;
+import net.somta.juggle.console.model.param.OutputParameterParam;
+import net.somta.juggle.console.model.vo.ParameterVO;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FildSourceEnum;
@@ -12,15 +28,124 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.model.node.StartNode;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
+
+    @Autowired
+    private FlowDefinitionMapper flowDefinitionMapper;
+    @Autowired
+    private FlowMapper flowMapper;
+    @Autowired
+    private ParameterMapper parameterMapper;
+    @Autowired
+    private SnowflakeIdUtil snowflakeIdUtil;
+    @Autowired
+    private ObjectMapper objectMapper;
+    @Autowired
+    private VariableInfoMapper variableInfoMapper;
+
+    @Transactional
+    @Override
+    public Boolean addFlowDefinition(FlowDefinitionParam flowDefinitionParam) {
+        //todo 后面在把FlowDefinitionInfo名称改成FlowDefinition
+        FlowDefinitionInfo flowDefinition = new FlowDefinitionInfo();
+        Long flowDefinitionId = snowflakeIdUtil.nextId();
+        flowDefinition.setId(flowDefinitionId);
+        String flowKey = RandomStringUtils.random(10, true, true);
+        flowDefinition.setFlowKey(flowKey);
+        flowDefinition.setFlowName(flowDefinitionParam.getFlowName());
+        flowDefinitionMapper.addFlowDefinition(flowDefinition);
+        saveParameters(flowDefinitionId,flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
+        return true;
+    }
+
+    @Transactional
+    @Override
+    public Boolean deleteFlowDefinition(Long flowDefinitionId) {
+        flowDefinitionMapper.deleteFlowDefinitionById(flowDefinitionId);
+        ParameterVO parameterVO = new ParameterVO();
+        parameterVO.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
+        parameterVO.setSourceId(flowDefinitionId);
+        parameterMapper.deleteParameter(parameterVO);
+        return true;
+    }
+
+    @Override
+    public Boolean updateFlowDefinition(FlowDefinitionParam flowDefinitionParam) {
+        flowDefinitionMapper.updateFlowDefinitionById(flowDefinitionParam);
+        ParameterVO parameterVO = new ParameterVO();
+        parameterVO.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
+        parameterVO.setSourceId(flowDefinitionParam.getId());
+        parameterMapper.deleteParameter(parameterVO);
+        saveParameters(flowDefinitionParam.getId(),flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
+        return true;
+    }
+
+    @Override
+    public FlowDefinitionInfo getFlowDefinitionById(Long flowDefinitionId) {
+        return flowDefinitionMapper.queryFlowDefinitionById(flowDefinitionId);
+    }
+
+    @Override
+    public List<FlowDefinitionInfo> getFlowDefinitionList(FlowDefinitionPageParam flowDefinitionPageParam) {
+        List<FlowDefinitionInfo> list = flowDefinitionMapper.queryFlowDefinitionList(flowDefinitionPageParam);
+        return list;
+    }
+
+    @Transactional
+    @Override
+    public Boolean deployFlowDefinition(FlowDefinitionInfo flowDefinitionInfo,String version) {
+        FlowInfo flowInfo = new FlowInfo();
+        flowInfo.setId(snowflakeIdUtil.nextId());
+        flowInfo.setFlowKey(flowDefinitionInfo.getFlowKey());
+        flowInfo.setFlowName(flowDefinitionInfo.getFlowName());
+        flowInfo.setTenantId(flowDefinitionInfo.getTenantId());
+        flowInfo.setRemark(flowDefinitionInfo.getRemark());
+
+        //处理出入参数
+        ParameterVO parameterQueryVO = new ParameterVO();
+        parameterQueryVO.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
+        parameterQueryVO.setSourceId(flowDefinitionInfo.getId());
+        List<Parameter> parameterList = parameterMapper.getParameterListByVO(parameterQueryVO);
+        if(CollectionUtils.isNotEmpty(parameterList)){
+            List<Parameter> inputParameterList = parameterList.stream()
+                    .filter(parameter -> ParameterTypeEnum.INPUT_PARAM.getCode() == parameter.getParamType()).collect(Collectors.toList());
+            List<Parameter> outputParameterList = parameterList.stream()
+                    .filter(parameter -> ParameterTypeEnum.OUTPUT_PARAM.getCode() == parameter.getParamType()).collect(Collectors.toList());
+            try {
+                String inputParameterString = objectMapper.writeValueAsString(inputParameterList);
+                flowInfo.setInputs(inputParameterString);
+                String outputParameterString = objectMapper.writeValueAsString(outputParameterList);
+                flowInfo.setOutputs(outputParameterString);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //处理变量
+        List<VariableInfo> variableInfoList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionInfo.getId());
+        if(CollectionUtils.isNotEmpty(variableInfoList)){
+            String variableInfoListString = null;
+            try {
+                variableInfoListString = objectMapper.writeValueAsString(variableInfoList);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            flowInfo.setVariables(variableInfoListString);
+        }
+        flowMapper.addFlow(flowInfo);
+        return true;
+    }
+
     @Override
     public FlowDefinition getFlowDefinitionByKey(String flowKey) {
         //TODO 先mock一个流程定义数据
@@ -30,6 +155,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         workflowDefinition.setRemark("这是一个测试流程");
         workflowDefinition.setOutputParameters(mockOutputParameters());
         workflowDefinition.setContent(getFlowDefinitionContent());
+        System.out.println(getFlowDefinitionContent());
         return workflowDefinition;
     }
 
@@ -42,6 +168,44 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         outputParameters.add(userNameParm);
         return outputParameters;
     }
+
+    /**
+     * 保存参数
+     * @param flowDefinitionId
+     * @param inputParameterList
+     * @param outputParameterList
+     */
+    private void saveParameters(Long flowDefinitionId,List<InputParameterParam> inputParameterList,
+                                List<OutputParameterParam> outputParameterList){
+        List<Parameter> parameters = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(inputParameterList)){
+            for (InputParameterParam inputParameterParam : inputParameterList) {
+                Parameter parameter = new Parameter();
+                parameter.setId(snowflakeIdUtil.nextId());
+                parameter.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
+                parameter.setParamName(inputParameterParam.getParamName());
+                parameter.setDataType(inputParameterParam.getDataType());
+                parameter.setRequired(inputParameterParam.getRequired());
+                parameter.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
+                parameter.setSourceId(flowDefinitionId);
+                parameters.add(parameter);
+            }
+        }
+        if(CollectionUtils.isNotEmpty(outputParameterList)){
+            for (OutputParameterParam outputParameterParam : outputParameterList) {
+                Parameter parameter = new Parameter();
+                parameter.setId(snowflakeIdUtil.nextId());
+                parameter.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
+                parameter.setParamName(outputParameterParam.getParamName());
+                parameter.setDataType(outputParameterParam.getDataType());
+                parameter.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
+                parameter.setSourceId(flowDefinitionId);
+                parameters.add(parameter);
+            }
+        }
+        parameterMapper.batchAddParameter(parameters);
+    }
+
 
     /**
      * 获取流程的定义内容，先mock的数据,原本应该从数据库取
@@ -65,7 +229,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         methodNode.setElementType(ElementTypeEnum.METHOD);
 
         Method method = new Method();
-        method.setUrl("http://127.0.0.1:8686/test/info");
+        method.setUrl("http://127.0.0.1:8686/test/getUserById");
         method.setRequestType(RequestTypeEnum.GET);
         //入参设置
         /*List<InputParameter> inputParameters = new ArrayList<>();

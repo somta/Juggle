@@ -1,10 +1,17 @@
 package net.somta.juggle.console.mapper;
 
+import net.somta.juggle.console.model.FlowDefinitionInfo;
 import net.somta.juggle.console.model.VariableInfo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface VariableInfoMapper {
+    /**
+     * 新增变量
+     * @param variableInfo
+     * @return
+     */
     int addVariable(VariableInfo variableInfo);
 
     /**
@@ -21,5 +28,10 @@ public interface VariableInfoMapper {
      */
     int deleteVariable(Map<String, Long> parms);
 
-
+    /**
+     *
+     * @param flowDefinitionId
+     * @return
+     */
+    List<VariableInfo> queryVariableInfoListByDefinitionId(Long flowDefinitionId);
 }

@@ -11,9 +11,9 @@ public class DataTypeInfo {
 
     private String type;
 
-    private String typeName;
-
     private String displayName;
+
+    private String objectKey;
 
     private String objectStructure;
 
@@ -41,20 +41,20 @@ public class DataTypeInfo {
         this.type = type;
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
     public String getDisplayName() {
         return displayName;
     }
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getObjectKey() {
+        return objectKey;
+    }
+
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
     }
 
     public String getObjectStructure() {

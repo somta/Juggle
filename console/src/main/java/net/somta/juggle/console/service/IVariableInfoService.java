@@ -29,7 +29,12 @@ public interface IVariableInfoService {
      */
     Boolean updateVariable(VariableInfo variableInfo);
 
-    List<Variable> getFlowVariableList(Integer flowDefinitionId);
+    /**
+     * 获取流程变量列表
+     * @param flowDefinitionId
+     * @return
+     */
+    List<Variable> getFlowVariableList(Long flowDefinitionId);
 
 
 
