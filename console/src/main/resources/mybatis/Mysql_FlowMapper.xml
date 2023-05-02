@@ -8,6 +8,7 @@
 	<result column="id" property="id"/>
 	<result column="flow_key" property="flowKey"/>
 	<result column="flow_name" property="flowName"/>
+	<result column="flow_type" property="flowType"/>
 	<result column="flow_content" property="flowContent"/>
 	<result column="version" property="version"/>
 	<result column="inputs" property="inputs"/>
@@ -19,12 +20,12 @@
        
 <!-- t_data_type_info table all fields -->
 <sql id="Base_Column_List" >
-	id, flow_key, flow_name,flow_content, version, inputs, outputs, variables, tenant_id, remark
+	id, flow_key, flow_name,flow_type,flow_content, version, inputs, outputs, variables, tenant_id, remark
 </sql>
    
 <insert id="addFlow" parameterType="net.somta.juggle.console.model.FlowInfo" >
-	insert into t_flow (id, flow_key, flow_name,flow_content, version,inputs, outputs, variables, tenant_id, remark)
-	values (#{id},#{flowKey},#{flowName},#{flowContent},#{version},#{inputs},#{outputs},#{variables},#{tenantId},#{remark});
+	insert into t_flow (id, flow_key, flow_name,flow_type,flow_content, version,inputs, outputs, variables, tenant_id, remark)
+	values (#{id},#{flowKey},#{flowName},#{flowType},#{flowContent},#{version},#{inputs},#{outputs},#{variables},#{tenantId},#{remark});
 </insert>
 
 <delete id="deleteFlowById" parameterType="java.lang.Long">
@@ -56,7 +57,7 @@
 
 <select id="queryFlowByFlowKey" resultMap="BaseResultMap" parameterType="java.lang.String">
 	select <include refid="Base_Column_List" />
-	from t_flow where id = #{id}
+	from t_flow where flow_key = #{flowKey}
 </select>
 
 <select id="queryFlowList" resultMap="BaseResultMap">

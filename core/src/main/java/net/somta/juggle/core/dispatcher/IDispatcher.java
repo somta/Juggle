@@ -1,5 +1,6 @@
 package net.somta.juggle.core.dispatcher;
 
+import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.FlowDefinition;
 
@@ -13,11 +14,10 @@ public interface IDispatcher {
 
     /**
      * 分发流程
-     * @param workflowDefinition
-     * @param variables
+     * @param flow
      * @param flowData
      * @return
      */
-    Boolean doDispatcher(FlowDefinition workflowDefinition, List<Variable> variables, Map<String,Object> flowData);
+    Boolean doDispatcher(Flow flow, Map<String,Object> flowData);
 
 }

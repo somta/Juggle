@@ -13,7 +13,7 @@ public class VariableInfo extends BaseModel {
     /**
      * 流程定义ID
      */
-    private Integer flowDefinitionId;
+    private Long flowDefinitionId;
 
     /**
      * 变量Key,同一流程内唯一
@@ -30,6 +30,8 @@ public class VariableInfo extends BaseModel {
      */
     private String dataType;
 
+    // todo 需要有一个区分入参变量，还是出参变量
+
     public Long getId() {
         return id;
     }
@@ -38,11 +40,11 @@ public class VariableInfo extends BaseModel {
         this.id = id;
     }
 
-    public Integer getFlowDefinitionId() {
+    public Long getFlowDefinitionId() {
         return flowDefinitionId;
     }
 
-    public void setFlowDefinitionId(Integer flowDefinitionId) {
+    public void setFlowDefinitionId(Long flowDefinitionId) {
         this.flowDefinitionId = flowDefinitionId;
     }
 

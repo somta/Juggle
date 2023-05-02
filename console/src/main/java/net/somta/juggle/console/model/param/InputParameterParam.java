@@ -15,7 +15,7 @@ public class InputParameterParam {
     /**
      * 是否必填  0：非必填  1：必填
      */
-    private Integer required;
+    private Boolean required;
 
     public String getParamName() {
         return paramName;
@@ -33,11 +33,11 @@ public class InputParameterParam {
         this.dataType = dataType;
     }
 
-    public Integer getRequired() {
+    public Boolean getRequired() {
         return required;
     }
 
-    public void setRequired(Integer required) {
+    public void setRequired(Boolean required) {
         this.required = required;
     }
 }

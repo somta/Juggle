@@ -26,15 +26,21 @@ public class Flow {
     /**
      * 入参列表
      */
-    private List<InputParameter> inputs;
+    private List<InputParameter> inputParams;
     /**
      * 出参列表
      */
-    private List<OutputParameter> outputs;
+    private List<OutputParameter> outputParams;
     /**
      * 变量列表
      */
     private List<Variable> variables;
+
+    /**
+     * 租户ID
+     */
+    private String tenantId;
+
 
     public String getFlowKey() {
         return flowKey;
@@ -60,20 +66,20 @@ public class Flow {
         this.flowContent = flowContent;
     }
 
-    public List<InputParameter> getInputs() {
-        return inputs;
+    public List<InputParameter> getInputParams() {
+        return inputParams;
     }
 
-    public void setInputs(List<InputParameter> inputs) {
-        this.inputs = inputs;
+    public void setInputParams(List<InputParameter> inputParams) {
+        this.inputParams = inputParams;
     }
 
-    public List<OutputParameter> getOutputs() {
-        return outputs;
+    public List<OutputParameter> getOutputParams() {
+        return outputParams;
     }
 
-    public void setOutputs(List<OutputParameter> outputs) {
-        this.outputs = outputs;
+    public void setOutputParams(List<OutputParameter> outputParams) {
+        this.outputParams = outputParams;
     }
 
     public List<Variable> getVariables() {
@@ -82,5 +88,13 @@ public class Flow {
 
     public void setVariables(List<Variable> variables) {
         this.variables = variables;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 }

@@ -77,4 +77,6 @@ public class FlowController {
         return ResponseDataResult.setResponseResult(rst);
     }
 
+    //todo 获取异步流程的结果的方法
+
 }

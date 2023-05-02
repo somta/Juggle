@@ -20,6 +20,7 @@
 /nbdist/
 /.nb-gradle/
 build/
+node_modules/
 
 ### VS Code ###
 .vscode/

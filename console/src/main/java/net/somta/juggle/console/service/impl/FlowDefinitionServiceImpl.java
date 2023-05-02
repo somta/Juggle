@@ -101,6 +101,8 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         return list;
     }
 
+
+    // todo 在这里转成流程执行运行需要的对象，而不是在触发流程哪里转
     @Transactional
     @Override
     public Boolean deployFlowDefinition(FlowDefinitionInfo flowDefinitionInfo,String version) {
@@ -170,6 +172,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
     }
 
     /**
+     * todo 这里还要做保存变量的事情
      * 保存参数
      * @param flowDefinitionId
      * @param inputParameterList
@@ -203,7 +206,9 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
                 parameters.add(parameter);
             }
         }
-        parameterMapper.batchAddParameter(parameters);
+        if(CollectionUtils.isNotEmpty(parameters)){
+            parameterMapper.batchAddParameter(parameters);
+        }
     }
 
 

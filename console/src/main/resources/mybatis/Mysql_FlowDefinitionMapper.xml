@@ -8,18 +8,19 @@
 	<result column="id" property="id"/>
 	<result column="flow_key" property="flowKey"/>
 	<result column="flow_name" property="flowName"/>
+	<result column="flow_type" property="flowType"/>
 	<result column="tenant_id" property="tenantId"/>
 	<result column="remark" property="remark"/>
 </resultMap>
        
 <!-- t_data_type_info table all fields -->
 <sql id="Base_Column_List" >
-	id, flow_key, flow_name, tenant_id, remark
+	id, flow_key, flow_name,flow_type, tenant_id, remark
 </sql>
    
 <insert id="addFlowDefinition" parameterType="net.somta.juggle.console.model.FlowDefinitionInfo" >
-	insert into t_flow_definition (id, flow_key, flow_name, tenant_id, remark)
-	values (#{id},#{flowKey},#{flowName},#{tenantId},#{remark});
+	insert into t_flow_definition (id, flow_key, flow_name,flow_type, tenant_id, remark)
+	values (#{id},#{flowKey},#{flowName},#{flowType},#{tenantId},#{remark});
 </insert>
 
 <delete id="deleteFlowDefinitionById" parameterType="java.lang.Long">
@@ -34,6 +35,9 @@
 	</if>
 	<if test="flowName != null and flowName != ''">
 		flow_name=#{flowName},
+	</if>
+	<if test="flowType != null and flowType != ''">
+		flow_type=#{flowType},
 	</if>
 	<if test="tenantId != null and tenantId != ''">
 		tenant_id=#{tenantId},

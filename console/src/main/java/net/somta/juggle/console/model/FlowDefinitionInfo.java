@@ -17,6 +17,11 @@ public class FlowDefinitionInfo extends BaseModel {
     private String flowName;
 
     /**
+     * 流程类型  sync：同步  async：异步
+     */
+    private String flowType;
+
+    /**
      * 租户ID
      */
     private String tenantId;
@@ -49,6 +54,14 @@ public class FlowDefinitionInfo extends BaseModel {
 
     public void setFlowName(String flowName) {
         this.flowName = flowName;
+    }
+
+    public String getFlowType() {
+        return flowType;
+    }
+
+    public void setFlowType(String flowType) {
+        this.flowType = flowType;
     }
 
     public String getTenantId() {

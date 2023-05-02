@@ -12,11 +12,6 @@ public class InputParameter extends BaseParameter {
      */
     private Boolean required;
 
-    /**
-     * 默认值 todo 是否要这个默认值
-     */
-    private String defaultValue;
-
     // todo 复杂类型的对象或自定义对象应该如何定义
 
     public Boolean getRequired() {
@@ -25,13 +20,5 @@ public class InputParameter extends BaseParameter {
 
     public void setRequired(Boolean required) {
         this.required = required;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
     }
 }

@@ -8,6 +8,7 @@ import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.exception.FlowException;
+import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.FlowDefinition;
@@ -31,11 +32,11 @@ public abstract class AbstractDispatcher implements IDispatcher {
     }
 
     @Override
-    public Boolean doDispatcher(FlowDefinition flowDefinition, List<Variable> variables,Map<String,Object> flowData) {
+    public Boolean doDispatcher(Flow flow, Map<String,Object> flowData) {
         //1.校验流程正确性
 
         //2.构建流程运行的RuntimeContext
-        RuntimeContext runtimeContext = buildRuntimeContext(flowDefinition,variables);
+        RuntimeContext runtimeContext = buildRuntimeContext(flow);
 
         try {
             //3.将提交的入参的数据和入参的变量对应上，并将值设置到变量上，入参值后面要用
@@ -63,16 +64,16 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * 构建流程运行的RuntimeContext
      * @return
      */
-    private RuntimeContext buildRuntimeContext(FlowDefinition flowDefinition,List<Variable> variables){
+    private RuntimeContext buildRuntimeContext(Flow flow){
 
-        Map<String,Variable> variableSchemaMap = variables.stream().collect(Collectors.toMap(Variable::getKey, account -> account));
+        Map<String,Variable> variableSchemaMap = flow.getVariables().stream().collect(Collectors.toMap(Variable::getKey, account -> account));
 
         RuntimeContext runtimeContext = new RuntimeContext(variableSchemaMap);
         runtimeContext.setFlowStatus(FlowStatusEnum.INIT);
-        runtimeContext.setFlowKey(flowDefinition.getFlowKey());
-        runtimeContext.setTenantId(flowDefinition.getTenantId());
-        runtimeContext.setOutputParameters(flowDefinition.getOutputParameters());
-        Map<String, FlowElement> flowElementMap = buildFlowElementMap(flowDefinition.getContent());
+        runtimeContext.setFlowKey(flow.getFlowKey());
+        runtimeContext.setTenantId(flow.getTenantId());
+        runtimeContext.setOutputParameters(flow.getOutputParams());
+        Map<String, FlowElement> flowElementMap = buildFlowElementMap(flow.getFlowContent());
         if(MapUtils.isEmpty(flowElementMap)){
             System.out.println("流程元素错误了，直接报错");
         }

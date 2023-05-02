@@ -31,7 +31,7 @@ public class VariableParam {
      * 流程定义ID
      */
     @Schema(description = "流程定义ID")
-    private Integer flowDefinitionId;
+    private Long flowDefinitionId;
 
     public Long getId() {
         return id;
@@ -65,11 +65,11 @@ public class VariableParam {
         this.dataType = dataType;
     }
 
-    public Integer getFlowDefinitionId() {
+    public Long getFlowDefinitionId() {
         return flowDefinitionId;
     }
 
-    public void setFlowDefinitionId(Integer flowDefinitionId) {
+    public void setFlowDefinitionId(Long flowDefinitionId) {
         this.flowDefinitionId = flowDefinitionId;
     }
 }

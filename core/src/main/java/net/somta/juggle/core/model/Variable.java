@@ -29,8 +29,6 @@ public class Variable {
      */
     private String defaultValue;
 
-    // todo 需要一个流程ID
-
     public String getKey() {
         return key;
     }
