@@ -24,7 +24,7 @@ import static net.somta.juggle.console.enums.FlowDefinitionErrorEnum.FLOW_PARAM_
  * @author husong
  * @date 2022/12/17
  **/
-@Tag(name = "流程定义控制类")
+@Tag(name = "流程定义接口")
 @RestController
 @RequestMapping("/v1/flow/definition")
 public class FlowDefinitionController {

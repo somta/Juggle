@@ -2,6 +2,7 @@ package net.somta.juggle.console.model.param;
 
 public class OutputParameterParam {
 
+    private String paramKey;
     /**
      * 参数名称
      */
@@ -11,6 +12,14 @@ public class OutputParameterParam {
      * 参数的数据类型
      */
     private String dataType;
+
+    public String getParamKey() {
+        return paramKey;
+    }
+
+    public void setParamKey(String paramKey) {
+        this.paramKey = paramKey;
+    }
 
     public String getParamName() {
         return paramName;

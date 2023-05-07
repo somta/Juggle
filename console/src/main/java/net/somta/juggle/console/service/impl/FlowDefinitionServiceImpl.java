@@ -64,7 +64,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         flowDefinition.setFlowKey(flowKey);
         flowDefinition.setFlowName(flowDefinitionParam.getFlowName());
         flowDefinitionMapper.addFlowDefinition(flowDefinition);
-        saveParameters(flowDefinitionId,flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
+        saveParametersAndVariables(flowDefinitionId,flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
         return true;
     }
 
@@ -79,6 +79,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         return true;
     }
 
+    @Transactional
     @Override
     public Boolean updateFlowDefinition(FlowDefinitionParam flowDefinitionParam) {
         flowDefinitionMapper.updateFlowDefinitionById(flowDefinitionParam);
@@ -86,7 +87,8 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         parameterVO.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
         parameterVO.setSourceId(flowDefinitionParam.getId());
         parameterMapper.deleteParameter(parameterVO);
-        saveParameters(flowDefinitionParam.getId(),flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
+        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionParam.getId());
+        saveParametersAndVariables(flowDefinitionParam.getId(),flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
         return true;
     }
 
@@ -178,9 +180,10 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
      * @param inputParameterList
      * @param outputParameterList
      */
-    private void saveParameters(Long flowDefinitionId,List<InputParameterParam> inputParameterList,
+    private void saveParametersAndVariables(Long flowDefinitionId,List<InputParameterParam> inputParameterList,
                                 List<OutputParameterParam> outputParameterList){
         List<Parameter> parameters = new ArrayList<>();
+        List<VariableInfo> variableInfos = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(inputParameterList)){
             for (InputParameterParam inputParameterParam : inputParameterList) {
                 Parameter parameter = new Parameter();
@@ -192,6 +195,15 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
                 parameter.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
                 parameter.setSourceId(flowDefinitionId);
                 parameters.add(parameter);
+
+                VariableInfo variableInfo = new VariableInfo();
+                variableInfo.setId(snowflakeIdUtil.nextId());
+                variableInfo.setFlowDefinitionId(flowDefinitionId);
+                variableInfo.setEnvKey(inputParameterParam.getParamKey());
+                variableInfo.setEnvName(inputParameterParam.getParamName());
+                variableInfo.setEnvType(1);
+                variableInfo.setDataType(inputParameterParam.getDataType());
+                variableInfos.add(variableInfo);
             }
         }
         if(CollectionUtils.isNotEmpty(outputParameterList)){
@@ -204,10 +216,22 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
                 parameter.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
                 parameter.setSourceId(flowDefinitionId);
                 parameters.add(parameter);
+
+                VariableInfo variableInfo = new VariableInfo();
+                variableInfo.setId(snowflakeIdUtil.nextId());
+                variableInfo.setFlowDefinitionId(flowDefinitionId);
+                variableInfo.setEnvKey(outputParameterParam.getParamKey());
+                variableInfo.setEnvName(outputParameterParam.getParamName());
+                variableInfo.setEnvType(2);
+                variableInfo.setDataType(outputParameterParam.getDataType());
+                variableInfos.add(variableInfo);
             }
         }
         if(CollectionUtils.isNotEmpty(parameters)){
             parameterMapper.batchAddParameter(parameters);
+        }
+        if(CollectionUtils.isNotEmpty(variableInfos)){
+            variableInfoMapper.batchAddVariable(variableInfos);
         }
     }
 

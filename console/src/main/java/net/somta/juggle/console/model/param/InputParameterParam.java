@@ -2,6 +2,9 @@ package net.somta.juggle.console.model.param;
 
 public class InputParameterParam {
 
+
+    private String paramKey;
+
     /**
      * 参数名称
      */
@@ -16,6 +19,14 @@ public class InputParameterParam {
      * 是否必填  0：非必填  1：必填
      */
     private Boolean required;
+
+    public String getParamKey() {
+        return paramKey;
+    }
+
+    public void setParamKey(String paramKey) {
+        this.paramKey = paramKey;
+    }
 
     public String getParamName() {
         return paramName;

@@ -21,16 +21,19 @@ public class VariableInfo extends BaseModel {
     private String envKey;
 
     /**
-     * 变量名称
+     * variable name
      */
     private String envName;
 
     /**
-     * 数据类型
+     * variable type 1：入参变量   2：出参变量
+     */
+    private Integer envType;
+
+    /**
+     * data type
      */
     private String dataType;
-
-    // todo 需要有一个区分入参变量，还是出参变量
 
     public Long getId() {
         return id;
@@ -62,6 +65,14 @@ public class VariableInfo extends BaseModel {
 
     public void setEnvName(String envName) {
         this.envName = envName;
+    }
+
+    public Integer getEnvType() {
+        return envType;
+    }
+
+    public void setEnvType(Integer envType) {
+        this.envType = envType;
     }
 
     public String getDataType() {

@@ -9,21 +9,34 @@
 	<result column="flow_definition_id" property="flowDefinitionId"/>
 	<result column="env_key" property="envKey"/>
     <result column="env_name" property="envName"/>
+	<result column="env_type" property="envType"/>
     <result column="data_type" property="dataType"/>
 </resultMap>
        
 <!-- th_role_user table all fields -->
 <sql id="Base_Column_List" >
-	id, flow_definition_id, env_key, env_name,data_type
+	id, flow_definition_id, env_key, env_name,env_type,data_type
 </sql>
    
 <insert id="addVariable" parameterType="net.somta.juggle.console.model.VariableInfo" >
-	insert into t_variable_info (id, flow_definition_id, env_key, env_name, data_type)
-	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{dataType});
+	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
+	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{envType},#{dataType});
+</insert>
+
+<insert id="batchAddVariable">
+	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
+	values
+	<foreach collection ="variableInfoList" item="item" separator =",">
+		(#{item.id},#{item.flowDefinitionId},#{item.envKey},#{item.envName},#{item.envType},#{item.dataType})
+	</foreach>
 </insert>
 
 <delete id="deleteVariableById" parameterType="java.lang.Long">
- delete from t_variable_info where id=#{id}
+	delete from t_variable_info where id=#{id}
+</delete>
+
+<delete id="deleteVariableByFlowDefinitionId" parameterType="java.lang.Long">
+	delete from t_variable_info where flow_definition_id=#{flowDefinitionId}
 </delete>
 
 <delete id="deleteVariable" parameterType="java.util.Map">
@@ -44,6 +57,9 @@
 	</if>
 	<if test="envName != null and envName != ''">
 		env_name=#{envName},
+	</if>
+	<if test="envType != null">
+		env_type=#{envType},
 	</if>
 	<if test="dataType != null and dataType != ''">
 		data_type=#{dataType},
