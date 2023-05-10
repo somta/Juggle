@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "API接口")
+@Tag(name = "领域接口")
 @RestController
-@RequestMapping("/v1/api")
-public class ApiController {
+@RequestMapping("/v1/domain")
+public class DomainController {
 
     @Autowired
     private IApiService apiService;
 
     /**
-     * 获取API列表
+     * 获取领域列表
      * @return Boolean
      */
-    @Operation(summary = "获取Api列表")
+    @Operation(summary = "获取领域列表")
     @PostMapping("/list")
     public ResponseDataResult<List<Api>> getApiList(){
         List<Api> apiList = apiService.getApiList();

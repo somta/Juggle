@@ -1,7 +1,5 @@
 package net.somta.juggle.console.model;
 
-import sun.dc.pr.PRError;
-
 public class FlowInfo {
     private Long id;
 
