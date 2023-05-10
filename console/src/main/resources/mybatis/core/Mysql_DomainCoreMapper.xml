@@ -29,7 +29,7 @@
  delete from t_domain where id=#{id}
 </delete>
 
-<!--<update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
+<!-- <update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
 	update t_data_type_info set
 	<trim  suffixOverrides="," >
 	<if test="data_type_classify != null">
