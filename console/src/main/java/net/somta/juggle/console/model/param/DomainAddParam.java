@@ -1,20 +1,9 @@
-package net.somta.juggle.console.model;
+package net.somta.juggle.console.model.param;
 
-import net.somta.core.base.BaseModel;
-
-public class Domain extends BaseModel {
-    private Long id;
+public class DomainAddParam {
     private String domainCode;
     private String domainName;
     private String domainDesc;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDomainCode() {
         return domainCode;

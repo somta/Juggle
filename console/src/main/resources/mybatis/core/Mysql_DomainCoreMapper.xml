@@ -55,9 +55,9 @@
 	from t_data_type_info where id = #{id}
 </select>-->
 
-<select id="queryApiList" resultMap="BaseResultMap">
+<!--<select id="queryApiList" resultMap="BaseResultMap">
 	select <include refid="Base_Column_List" /> 
 	from t_api
-</select>
+</select>-->
 
 </mapper>   

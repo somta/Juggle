@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.DomainMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Domain" >
+<!--<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Domain" >
 	<result column="id" property="id"/>
 	<result column="domain_code" property="domainCode"/>
 	<result column="domain_name" property="domainName"/>
@@ -13,12 +13,12 @@
 	<result column="created_by" property="createdBy"/>
 	<result column="updated_at" property="updatedAt"/>
 	<result column="updated_by" property="updatedBy"/>
-</resultMap>
+</resultMap>-->
        
 <!-- t_domain table all fields -->
-<sql id="Base_Column_List" >
+<!--<sql id="Base_Column_List" >
 	id, domain_code, domain_name, domain_desc, created_at, created_by, updated_at, updated_by
-</sql>
+</sql>-->
    
 <!--<insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
 	insert into t_data_type_info (id, data_type_classify, type, type_name, display_name, object_structure)
@@ -55,9 +55,9 @@
 	from t_data_type_info where id = #{id}
 </select>-->
 
-<select id="queryApiList" resultMap="BaseResultMap">
+<select id="queryDomainList" resultMap="BaseResultMap">
 	select <include refid="Base_Column_List" /> 
-	from t_api
+	from t_domain
 </select>
 
 </mapper>   

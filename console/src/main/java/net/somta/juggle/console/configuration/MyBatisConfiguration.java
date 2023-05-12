@@ -43,8 +43,6 @@ public class MyBatisConfiguration {
         dataSource.setJdbcUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
-        //dataSource.setMaxActive(30);
-        //dataSource.setMinIdle(5);
         return dataSource;
     }
 
