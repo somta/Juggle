@@ -14,12 +14,19 @@
 	<result column="updated_at" property="updatedAt"/>
 	<result column="updated_by" property="updatedBy"/>
 </resultMap>
-       
+
+<sql id="Example_Where_Clause">
+	where 1=1
+	<if test="domainName != null and domainName != ''">
+		and domain_name=#{domainName}
+	</if>
+</sql>
+
 <!-- t_domain table all fields -->
 <sql id="Base_Column_List" >
 	id, domain_code, domain_name, domain_desc, created_at, created_by, updated_at, updated_by
 </sql>
-   
+
 <insert id="add" parameterType="net.somta.juggle.console.model.Domain" >
 	insert into t_domain (id, domain_code, domain_name, domain_desc, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{domainCode},#{domainName},#{domainDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
@@ -29,35 +36,43 @@
  delete from t_domain where id=#{id}
 </delete>
 
-<!-- <update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	update t_data_type_info set
+<update id="update" parameterType="net.somta.juggle.console.model.Domain" >
+	update t_domain set
 	<trim  suffixOverrides="," >
-	<if test="data_type_classify != null">
-		data_type_classify=#{dataTypeClassify},
+	<if test="domainCode != null and domainCode != ''">
+		domain_code=#{domainCode},
 	</if>
-	<if test="type != null">
-		type=#{type},
+	<if test="domainName != null and domainName != ''">
+		domain_name=#{domainName},
 	</if>
-	<if test="typeName != null and typeName != ''">
-		type_name=#{typeName},
+	<if test="domainDesc != null and domainDesc != ''">
+		domain_desc=#{domainDesc},
 	</if>
-	<if test="displayName != null and displayName != ''">
-		display_name=#{displayName},
+	<if test="createdAt != null">
+		created_at=#{createdAt},
 	</if>
-	<if test="objectStructure != null and objectStructure != ''">
-		object_structure=#{objectStructure},
+	<if test="createdBy != null">
+		created_by=#{createdBy},
+	</if>
+	<if test="updatedAt != null">
+		updated_at=#{updatedAt},
+	</if>
+	<if test="updatedBy != null">
+		updated_by=#{updatedBy},
 	</if>
 	</trim> where id=#{id}
-</update>-->
+</update>
 
-<!--<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" /> 
-	from t_data_type_info where id = #{id}
-</select>-->
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.model.param.DomainQueryParam">
+	select count(*)
+	from t_domain
+	<include refid="Example_Where_Clause"/>
+</select>
 
-<!--<select id="queryApiList" resultMap="BaseResultMap">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.model.param.DomainQueryParam">
 	select <include refid="Base_Column_List" /> 
-	from t_api
-</select>-->
+	from t_domain
+	<include refid="Example_Where_Clause"/>
+</select>
 
 </mapper>   

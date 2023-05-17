@@ -1,10 +1,6 @@
-package net.somta.juggle.console.model;
+package net.somta.juggle.console.model.param;
 
-import net.somta.core.base.BaseModel;
-
-public class Api extends BaseModel {
-
-    private Integer id;
+public class ApiAddParam {
 
     private Long domainId;
 
@@ -32,14 +28,6 @@ public class Api extends BaseModel {
      * api请求内容类型 application/json
      */
     private String apiRequestContentType;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Long getDomainId() {
         return domainId;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.enums.FlowDefinitionErrorEnum.FLOW_DEFINITION_NOT_EXIST;
 import static net.somta.juggle.console.enums.FlowDefinitionErrorEnum.FLOW_PARAM_ERROR;
 
@@ -26,7 +27,7 @@ import static net.somta.juggle.console.enums.FlowDefinitionErrorEnum.FLOW_PARAM_
  **/
 @Tag(name = "流程定义接口")
 @RestController
-@RequestMapping("/v1/flow/definition")
+@RequestMapping(JUGGLE_SERVER_VERSION + "/flow/definition")
 public class FlowDefinitionController {
 
     @Autowired

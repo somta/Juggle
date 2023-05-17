@@ -2,6 +2,8 @@ package net.somta.juggle.console.contants;
 
 public class ApplicationContants {
 
+    public static final String JUGGLE_SERVER_VERSION = "/v1";
+
     /**
      * 应用统一前缀
      */

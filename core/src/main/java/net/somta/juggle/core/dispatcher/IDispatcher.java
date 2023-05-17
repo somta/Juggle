@@ -1,10 +1,8 @@
 package net.somta.juggle.core.dispatcher;
 
 import net.somta.juggle.core.model.Flow;
-import net.somta.juggle.core.model.Variable;
-import net.somta.juggle.core.model.FlowDefinition;
+import net.somta.juggle.core.result.IFlowResultManager;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +16,6 @@ public interface IDispatcher {
      * @param flowData
      * @return
      */
-    Boolean doDispatcher(Flow flow, Map<String,Object> flowData);
+    Boolean doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager);
 
 }

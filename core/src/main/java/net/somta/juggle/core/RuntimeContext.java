@@ -5,6 +5,7 @@ import net.somta.juggle.core.event.EventPublisher;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.model.Variable;
+import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.MemoryVariableManager;
 import net.somta.juggle.core.variable.VariableManager;
 
@@ -19,6 +20,7 @@ import java.util.Map;
 public class RuntimeContext {
 
 
+    private String flowInstanceId;
     /**
      * 流程Key,全局唯一
      */
@@ -53,6 +55,11 @@ public class RuntimeContext {
     private VariableManager variableManager;
 
     /**
+     * 结果管理器
+     */
+    private IFlowResultManager flowResultManager;
+
+    /**
      * 流程状态
      */
     private FlowStatusEnum flowStatus;
@@ -65,6 +72,14 @@ public class RuntimeContext {
     public RuntimeContext(Map<String, Variable> variableSchemaMap) {
         // 变量管理器只能根据流程的上下文来，因为不同的可以在不同流程中可能是会一样的
         this.variableManager = new MemoryVariableManager(variableSchemaMap);
+    }
+
+    public String getFlowInstanceId() {
+        return flowInstanceId;
+    }
+
+    public void setFlowInstanceId(String flowInstanceId) {
+        this.flowInstanceId = flowInstanceId;
     }
 
     public String getFlowKey() {
@@ -117,6 +132,14 @@ public class RuntimeContext {
 
     public VariableManager getVariableManager() {
         return variableManager;
+    }
+
+    public IFlowResultManager getFlowResultManager() {
+        return flowResultManager;
+    }
+
+    public void setFlowResultManager(IFlowResultManager flowResultManager) {
+        this.flowResultManager = flowResultManager;
     }
 
     public FlowStatusEnum getFlowStatus() {

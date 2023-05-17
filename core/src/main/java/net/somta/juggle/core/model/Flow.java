@@ -9,6 +9,8 @@ import java.util.List;
  **/
 public class Flow {
 
+    private String flowInstanceId;
+
     /**
      * 流程Key
      */
@@ -41,6 +43,13 @@ public class Flow {
      */
     private String tenantId;
 
+    public String getFlowInstanceId() {
+        return flowInstanceId;
+    }
+
+    public void setFlowInstanceId(String flowInstanceId) {
+        this.flowInstanceId = flowInstanceId;
+    }
 
     public String getFlowKey() {
         return flowKey;

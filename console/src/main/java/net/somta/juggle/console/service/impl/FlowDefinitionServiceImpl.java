@@ -3,6 +3,7 @@ package net.somta.juggle.console.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.common.utils.SnowflakeIdUtil;
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.enums.ParameterTypeEnum;
 import net.somta.juggle.console.mapper.FlowDefinitionMapper;
@@ -121,30 +122,68 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         parameterQueryVO.setSourceId(flowDefinitionInfo.getId());
         List<Parameter> parameterList = parameterMapper.getParameterListByVO(parameterQueryVO);
         if(CollectionUtils.isNotEmpty(parameterList)){
+            // 处理入参
             List<Parameter> inputParameterList = parameterList.stream()
                     .filter(parameter -> ParameterTypeEnum.INPUT_PARAM.getCode() == parameter.getParamType()).collect(Collectors.toList());
+            if(CollectionUtils.isNotEmpty(inputParameterList)){
+                List<InputParameter> inputParams = new ArrayList<>();
+                for (Parameter parameter : inputParameterList) {
+                    InputParameter inputParameter = new InputParameter();
+                    inputParameter.setKey(parameter.getParamKey());
+                    inputParameter.setName(parameter.getParamName());
+                    inputParameter.setDataType(JsonSerializeHelper.deserialize(parameter.getDataType(),DataType.class));
+                    inputParameter.setRequired(parameter.getRequired());
+                    inputParams.add(inputParameter);
+                }
+                String inputParameterString = null;
+                try {
+                    inputParameterString = objectMapper.writeValueAsString(inputParams);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                flowInfo.setInputs(inputParameterString);
+            }
+
+            //处理出参
             List<Parameter> outputParameterList = parameterList.stream()
                     .filter(parameter -> ParameterTypeEnum.OUTPUT_PARAM.getCode() == parameter.getParamType()).collect(Collectors.toList());
-            try {
-                String inputParameterString = objectMapper.writeValueAsString(inputParameterList);
-                flowInfo.setInputs(inputParameterString);
-                String outputParameterString = objectMapper.writeValueAsString(outputParameterList);
-                flowInfo.setOutputs(outputParameterString);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
+            if(CollectionUtils.isNotEmpty(outputParameterList)){
+                List<OutputParameter> outputParams = new ArrayList<>();
+                for (Parameter parameter : outputParameterList) {
+                    OutputParameter outputParameter = new OutputParameter();
+                    outputParameter.setKey(parameter.getParamKey());
+                    outputParameter.setName(parameter.getParamName());
+                    outputParameter.setDataType(JsonSerializeHelper.deserialize(parameter.getDataType(),DataType.class));
+                    outputParams.add(outputParameter);
+                }
+                try {
+                    String outputParameterString = objectMapper.writeValueAsString(outputParameterList);
+                    flowInfo.setOutputs(outputParameterString);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
         //处理变量
         List<VariableInfo> variableInfoList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionInfo.getId());
         if(CollectionUtils.isNotEmpty(variableInfoList)){
-            String variableInfoListString = null;
+            List<Variable> variables = new ArrayList<>();
+            String variablesString = null;
+            for (VariableInfo variableInfo : variableInfoList) {
+                Variable variable = new Variable();
+                variable.setKey(variableInfo.getEnvKey());
+                variable.setName(variableInfo.getEnvName());
+                variable.setDataType(JsonSerializeHelper.deserialize(variableInfo.getDataType(),DataType.class));
+                variables.add(variable);
+            }
             try {
-                variableInfoListString = objectMapper.writeValueAsString(variableInfoList);
+                variablesString = objectMapper.writeValueAsString(variables);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-            flowInfo.setVariables(variableInfoListString);
+            flowInfo.setVariables(variablesString);
         }
         flowMapper.addFlow(flowInfo);
         return true;

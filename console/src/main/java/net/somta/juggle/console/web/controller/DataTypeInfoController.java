@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "数据类型接口")
+import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+
+@Tag(name = "数据类型接口（已完成）")
 @RestController
-@RequestMapping("/v1/dataType")
+@RequestMapping(JUGGLE_SERVER_VERSION + "/dataType")
 public class DataTypeInfoController {
 
     @Autowired

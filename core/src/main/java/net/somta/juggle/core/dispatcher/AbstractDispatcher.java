@@ -11,7 +11,7 @@ import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
-import net.somta.juggle.core.model.FlowDefinition;
+import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.VariableManager;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.util.CollectionUtils;
@@ -32,11 +32,12 @@ public abstract class AbstractDispatcher implements IDispatcher {
     }
 
     @Override
-    public Boolean doDispatcher(Flow flow, Map<String,Object> flowData) {
+    public Boolean doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager) {
         //1.校验流程正确性
 
         //2.构建流程运行的RuntimeContext
         RuntimeContext runtimeContext = buildRuntimeContext(flow);
+        runtimeContext.setFlowResultManager(flowResultManager);
 
         try {
             //3.将提交的入参的数据和入参的变量对应上，并将值设置到变量上，入参值后面要用
@@ -69,6 +70,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         Map<String,Variable> variableSchemaMap = flow.getVariables().stream().collect(Collectors.toMap(Variable::getKey, account -> account));
 
         RuntimeContext runtimeContext = new RuntimeContext(variableSchemaMap);
+        runtimeContext.setFlowInstanceId(flow.getFlowInstanceId());
         runtimeContext.setFlowStatus(FlowStatusEnum.INIT);
         runtimeContext.setFlowKey(flow.getFlowKey());
         runtimeContext.setTenantId(flow.getTenantId());

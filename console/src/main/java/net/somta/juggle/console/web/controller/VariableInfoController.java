@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+
 @Tag(name = "变量接口")
 @RestController
-@RequestMapping("/v1/variable")
+@RequestMapping(JUGGLE_SERVER_VERSION + "/variable")
 public class VariableInfoController {
 
     @Autowired

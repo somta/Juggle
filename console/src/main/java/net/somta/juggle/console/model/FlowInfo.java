@@ -1,11 +1,15 @@
 package net.somta.juggle.console.model;
 
+import net.somta.juggle.console.enums.FlowTypeEnum;
+
 public class FlowInfo {
     private Long id;
 
     private String flowKey;
 
     private String flowName;
+
+    private FlowTypeEnum flowType;
 
     private String flowContent;
 
@@ -43,6 +47,14 @@ public class FlowInfo {
 
     public void setFlowName(String flowName) {
         this.flowName = flowName;
+    }
+
+    public FlowTypeEnum getFlowType() {
+        return flowType;
+    }
+
+    public void setFlowType(FlowTypeEnum flowType) {
+        this.flowType = flowType;
     }
 
     public String getFlowContent() {

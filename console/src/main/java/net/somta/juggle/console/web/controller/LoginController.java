@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+
 
 @Tag(name = "登录接口")
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping(JUGGLE_SERVER_VERSION + "/user")
 public class LoginController {
 
     @Autowired

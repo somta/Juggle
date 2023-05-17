@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.mapper.ApiMapper" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Api" >
+	<result column="id" property="id"/>
+	<result column="domain_id" property="domainId"/>
+	<result column="api_url" property="apiUrl"/>
+	<result column="api_name" property="apiName"/>
+	<result column="api_desc" property="apiDesc"/>
+	<result column="api_request_type" property="apiRequestType"/>
+	<result column="api_request_content_type" property="apiRequestContentType"/>
+</resultMap>
+
+<sql id="Example_Where_Clause">
+	where 1=1
+	<if test="domainId != null">
+		and domain_id=#{domainId}
+	</if>
+	<if test="apiUrl != null and apiUrl != ''">
+		and api_url like concat("%", #{apiUrl}, "%")
+	</if>
+	<if test="apiName != null and apiName != ''">
+		and api_name like concat("%", #{apiName}, "%")
+	</if>
+</sql>
+       
+<!-- t_data_type_info table all fields -->
+<sql id="Base_Column_List" >
+	id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type
+</sql>
+
+<insert id="add" parameterType="net.somta.juggle.console.model.Api" >
+	insert into t_api (id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
+
+<delete id="deleteById" parameterType="java.lang.Long">
+ delete from t_api where id=#{id}
+</delete>
+
+<update id="update" parameterType="net.somta.juggle.console.model.Domain" >
+	update t_api set
+	<trim  suffixOverrides="," >
+		<if test="domainId != null">
+			domain_id=#{domainId},
+		</if>
+		<if test="apiUrl != null and apiUrl != ''">
+			api_url=#{apiUrl},
+		</if>
+		<if test="apiName != null and apiName != ''">
+			api_name=#{apiName},
+		</if>
+		<if test="apiDesc != null and apiDesc != ''">
+			api_desc=#{apiDesc},
+		</if>
+		<if test="apiRequestType != null and apiRequestType != ''">
+			api_request_type=#{apiRequestType},
+		</if>
+		<if test="apiRequestContentType != null and apiRequestContentType != ''">
+			api_request_content_type=#{apiRequestContentType},
+		</if>
+		<if test="createdAt != null">
+			created_at=#{createdAt},
+		</if>
+		<if test="createdBy != null">
+			created_by=#{createdBy},
+		</if>
+		<if test="updatedAt != null">
+			updated_at=#{updatedAt},
+		</if>
+		<if test="updatedBy != null">
+			updated_by=#{updatedBy},
+		</if>
+	</trim> where id=#{id}
+</update>
+
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+	select count(*)
+	from t_api
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+	select <include refid="Base_Column_List" />
+	from t_api
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>   

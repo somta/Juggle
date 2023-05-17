@@ -3,20 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.ApiMapper" >
-<!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Api" >
-	<result column="id" property="id"/>
-	<result column="api_url" property="apiUrl"/>
-	<result column="api_name" property="apiName"/>
-	<result column="api_desc" property="apiDesc"/>
-	<result column="api_request_type" property="apiRequestType"/>
-	<result column="api_request_content_type" property="apiRequestContentType"/>
-</resultMap>
-       
-<!-- t_data_type_info table all fields -->
-<sql id="Base_Column_List" >
-	id, api_url, api_name, api_desc, api_request_type, api_request_content_type
-</sql>
    
 <!--<insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
 	insert into t_data_type_info (id, data_type_classify, type, type_name, display_name, object_structure)
@@ -57,5 +43,12 @@
 	select <include refid="Base_Column_List" /> 
 	from t_api
 </select>
+
+<select id="queryApiListByDomainId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" />
+	from t_api where domain_id=#{domainId}
+</select>
+
+
 
 </mapper>   

@@ -4,6 +4,7 @@ import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.OutputParameter;
+import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.VariableManager;
 
 import java.util.HashMap;
@@ -81,6 +82,8 @@ public class FlowExecutor implements IExecutor{
             result.put(parameter.getKey(),value);
         }
         System.out.println("流程执行结果为："+result);
+        IFlowResultManager flowResultManager = runtimeContext.getFlowResultManager();
+        flowResultManager.putFlowResult(runtimeContext.getFlowInstanceId(),result);
     }
 
 
