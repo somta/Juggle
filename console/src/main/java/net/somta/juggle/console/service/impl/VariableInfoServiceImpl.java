@@ -29,10 +29,10 @@ public class VariableInfoServiceImpl implements IVariableInfoService {
     }
 
     @Override
-    public Boolean deleteVariable(Long flowDefinitionId, Long envId) {
+    public Boolean deleteVariable(Long flowDefinitionId, Long variableId) {
         Map<String,Long> parms = new HashMap<>();
         parms.put("flowDefinitionId",flowDefinitionId);
-        parms.put("id",envId);
+        parms.put("id",variableId);
         variableInfoMapper.deleteVariable(parms);
         return true;
     }

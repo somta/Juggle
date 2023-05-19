@@ -1,14 +1,15 @@
 package net.somta.juggle.console.service.impl;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.console.enums.FlowTypeEnum;
 import net.somta.juggle.console.mapper.FlowMapper;
 import net.somta.juggle.console.model.FlowInfo;
-import net.somta.juggle.console.model.dto.FlowResultDTO;
 import net.somta.juggle.console.model.param.TriggerDataParam;
+import net.somta.juggle.core.dispatcher.impl.SyncDispatcher;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.console.service.IFlowService;
 import net.somta.juggle.core.dispatcher.IDispatcher;
-import net.somta.juggle.core.dispatcher.impl.DefaultDispatcher;
+import net.somta.juggle.core.dispatcher.impl.AsyncDispatcher;
 import net.somta.juggle.core.result.IFlowResultManager;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,11 +27,10 @@ public class FlowServiceImpl implements IFlowService {
     @Autowired
     private IFlowResultManager flowResultManager;
 
-    private final IDispatcher dispatcher = new DefaultDispatcher();
+    private final IDispatcher dispatcher = new AsyncDispatcher();
 
     @Override
-    public FlowResultDTO triggerFlow(FlowInfo flowInfo, TriggerDataParam triggerData) {
-        FlowResultDTO flowResultDTO = new FlowResultDTO();
+    public FlowResult triggerFlow(FlowInfo flowInfo, TriggerDataParam triggerData) {
         String flowInstanceId = flowInfo.getFlowType() + "_" + RandomStringUtils.random(10, true, true);;
         Flow flow = new Flow();
         flow.setFlowInstanceId(flowInstanceId);
@@ -56,10 +56,15 @@ public class FlowServiceImpl implements IFlowService {
             flow.setVariables(variableList);
         }
 
-        dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager);
-
-        flowResultDTO.setFlowInstanceId(flowInstanceId);
-        return flowResultDTO;
+        FlowResult flowResult = null;
+        if(FlowTypeEnum.async == flowInfo.getFlowType()){
+            flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager);
+        }else{
+            IDispatcher dispatcher = new SyncDispatcher();
+            flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager);
+        }
+        flowResult.setFlowInstanceId(flowInstanceId);
+        return flowResult;
     }
 
     @Override

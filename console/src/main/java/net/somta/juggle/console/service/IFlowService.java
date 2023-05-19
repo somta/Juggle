@@ -1,12 +1,9 @@
 package net.somta.juggle.console.service;
 
 import net.somta.juggle.console.model.FlowInfo;
-import net.somta.juggle.console.model.dto.FlowResultDTO;
 import net.somta.juggle.console.model.param.TriggerDataParam;
-import net.somta.juggle.core.model.FlowDefinition;
-import net.somta.juggle.core.model.Variable;
+import net.somta.juggle.core.model.FlowResult;
 
-import java.util.List;
 import java.util.Map;
 
 public interface IFlowService {
@@ -15,7 +12,7 @@ public interface IFlowService {
      * @param flowInfo
      * @return
      */
-    FlowResultDTO triggerFlow(FlowInfo flowInfo, TriggerDataParam triggerData);
+    FlowResult triggerFlow(FlowInfo flowInfo, TriggerDataParam triggerData);
 
     /**
      * 根据流程Key获取流程信息

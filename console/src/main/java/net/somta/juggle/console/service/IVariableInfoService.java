@@ -17,10 +17,10 @@ public interface IVariableInfoService {
     /**
      * 删除变量
      * @param flowDefinitionId
-     * @param envId
+     * @param variableId
      * @return
      */
-    Boolean deleteVariable(Long flowDefinitionId, Long envId);
+    Boolean deleteVariable(Long flowDefinitionId, Long variableId);
 
     /**
      * 修改变量

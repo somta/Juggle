@@ -1,14 +1,13 @@
 package net.somta.juggle.console.web.controller;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
-import net.somta.juggle.console.enums.UserErrorEnum;
+import net.somta.juggle.console.enums.error.UserErrorEnum;
 import net.somta.juggle.console.model.User;
 import net.somta.juggle.console.model.param.LoginParam;
 import net.somta.juggle.console.service.IUserService;
+import net.somta.juggle.console.utils.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 
 
-@Tag(name = "登录接口")
+@Tag(name = "登录接口（已完成）")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/user")
 public class LoginController {
@@ -42,11 +44,10 @@ public class LoginController {
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
         if(loginParam.getPassword().equals(user.getPassword())){
-            /*Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
-            String token = JWT.create()
-                    .withIssuer("auth0")
-                    .sign(algorithm);*/
-            return ResponseDataResult.setResponseResult("234234");
+            Map<String, String> payload = new HashMap<>();
+            payload.put("id", String.valueOf(user.getId()));
+            String token = JwtUtil.generateToken(payload);
+            return ResponseDataResult.setResponseResult(token);
         }else {
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_PWD_ERROR);
         }

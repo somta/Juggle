@@ -4,7 +4,7 @@ MAINTAINER Gavin somta@qq.com
 
 ADD console/target/*.jar juggle.jar
 
-EXPOSE 8082
+EXPOSE 8686
 
 ENV JAVA_OPTS=" -Xss228k  -Xmx512m -Xms512m  -Duser.timezone=GMT+08 "
 

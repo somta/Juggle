@@ -4,11 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import net.somta.juggle.core.model.DataType;
 
 @Schema(description = "变量入参对象")
-public class VariableParam {
-    /**
-     * 唯一ID
-     */
-    private Long id;
+public class VariableAddParam {
     /**
      * 变量Key
      */
@@ -32,14 +28,6 @@ public class VariableParam {
      */
     @Schema(description = "流程定义ID")
     private Long flowDefinitionId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEnvKey() {
         return envKey;

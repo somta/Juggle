@@ -3,24 +3,26 @@ package net.somta.juggle.core.dispatcher.impl;
 import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.WorkRunnerImpl;
 import net.somta.juggle.core.dispatcher.AbstractDispatcher;
+import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.executor.FlowExecutor;
+import net.somta.juggle.core.model.FlowResult;
 
 /**
  * 默认基于内存的调度器
  */
-public class DefaultDispatcher extends AbstractDispatcher {
+public class AsyncDispatcher extends AbstractDispatcher {
 
     private FlowExecutor flowExecutor;
 
-    public DefaultDispatcher() {
+    public AsyncDispatcher() {
         super(new WorkRunnerImpl().startWork());
         flowExecutor = new FlowExecutor();
     }
 
     @Override
-    protected Boolean doSend(RuntimeContext runtimeContext) {
+    protected FlowResult doSend(RuntimeContext runtimeContext) {
         super.workRunner.postWork(() -> startFlow(runtimeContext) );
-        return true;
+        return new FlowResult().setStatus(FlowStatusEnum.INIT);
     }
 
     /**

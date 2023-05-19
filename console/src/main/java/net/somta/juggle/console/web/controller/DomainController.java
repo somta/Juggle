@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.enums.DomainErrorEnum;
+import net.somta.juggle.console.enums.error.DomainErrorEnum;
 import net.somta.juggle.console.model.Api;
 import net.somta.juggle.console.model.dto.DomainDTO;
 import net.somta.juggle.console.model.param.DomainAddParam;

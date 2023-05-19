@@ -17,9 +17,11 @@ import java.util.Map;
  * @author husong
  * @date 2023/02/04
  */
-public class FlowExecutor implements IExecutor{
-    @Override
-    public void execute(RuntimeContext runtimeContext) {
+public class FlowExecutor{
+
+
+    public Map<String,Object> execute(RuntimeContext runtimeContext) {
+        Map<String,Object> flowResult = null;
         FlowStatusEnum processStatus = FlowStatusEnum.FINISH;
         try {
             preExecute(runtimeContext);
@@ -30,11 +32,12 @@ public class FlowExecutor implements IExecutor{
             e.printStackTrace();
         } finally {
             runtimeContext.setFlowStatus(processStatus);
-            postExecute(runtimeContext);
+            flowResult = postExecute(runtimeContext);
         }
+        return flowResult;
     }
 
-    @Override
+    //@Override
     public IExecutor getExecutor(RuntimeContext runtimeContext) {
         //1.判断上一个节点是否执行完成了
 
@@ -67,7 +70,7 @@ public class FlowExecutor implements IExecutor{
      * 整个流程执行后需要执行的后置执行器
      * @param runtimeContext
      */
-    private void postExecute(RuntimeContext runtimeContext) {
+    private Map<String,Object> postExecute(RuntimeContext runtimeContext) {
         System.out.println("执行流程全部完成......开始组装结果");
         List<OutputParameter> outputParameters = runtimeContext.getOutputParameters();
         VariableManager variableManager = runtimeContext.getVariableManager();
@@ -84,6 +87,7 @@ public class FlowExecutor implements IExecutor{
         System.out.println("流程执行结果为："+result);
         IFlowResultManager flowResultManager = runtimeContext.getFlowResultManager();
         flowResultManager.putFlowResult(runtimeContext.getFlowInstanceId(),result);
+        return result;
     }
 
 

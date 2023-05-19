@@ -10,6 +10,7 @@ import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowElement;
+import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.VariableManager;
@@ -32,7 +33,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
     }
 
     @Override
-    public Boolean doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager) {
+    public FlowResult doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager) {
         //1.校验流程正确性
 
         //2.构建流程运行的RuntimeContext
@@ -115,5 +116,5 @@ public abstract class AbstractDispatcher implements IDispatcher {
         return null;
     }
 
-    protected abstract Boolean doSend(RuntimeContext runtimeContext);
+    protected abstract FlowResult doSend(RuntimeContext runtimeContext);
 }

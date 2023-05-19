@@ -1,22 +1,23 @@
-package net.somta.juggle.console.enums;
+package net.somta.juggle.console.enums.error;
 
 import net.somta.core.base.IBaseError;
 import net.somta.juggle.console.contants.ApplicationContants;
 
-public enum FlowErrorEnum implements IBaseError {
-    FLOW_NOT_EXIST(1000,  "流程不存在"),;
+public enum DomainErrorEnum implements IBaseError {
+    DOMAIN_EXIST_API_ERROR(1000,  "该领域下存在接口，不能删除"),
+    ;
 
     private int errorCode;
     private String errorMsg;
 
-    FlowErrorEnum(int errorCode, String errorMsg) {
+    DomainErrorEnum(int errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }
 
     @Override
     public long getErrorCode() {
-        return ApplicationContants.FLOW_CODE + errorCode;
+        return ApplicationContants.DOMAIN_CODE + errorCode;
     }
 
     @Override

@@ -2,14 +2,11 @@ package net.somta.juggle.console.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.model.FlowDefinitionInfo;
-import net.somta.juggle.console.model.VariableInfo;
 import net.somta.juggle.console.model.param.FlowDefinitionPageParam;
 import net.somta.juggle.console.model.param.FlowDefinitionParam;
-import net.somta.juggle.console.model.param.VariableParam;
 import net.somta.juggle.console.service.IFlowDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
-import static net.somta.juggle.console.enums.FlowDefinitionErrorEnum.FLOW_DEFINITION_NOT_EXIST;
-import static net.somta.juggle.console.enums.FlowDefinitionErrorEnum.FLOW_PARAM_ERROR;
+import static net.somta.juggle.console.enums.error.FlowDefinitionErrorEnum.FLOW_DEFINITION_NOT_EXIST;
+import static net.somta.juggle.console.enums.error.FlowDefinitionErrorEnum.FLOW_PARAM_ERROR;
 
 /**
  * 流程定义Controller

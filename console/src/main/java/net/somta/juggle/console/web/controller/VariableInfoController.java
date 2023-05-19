@@ -4,8 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
+import net.somta.juggle.console.enums.error.FlowDefinitionErrorEnum;
+import net.somta.juggle.console.enums.error.VariableErrorEnum;
 import net.somta.juggle.console.model.VariableInfo;
-import net.somta.juggle.console.model.param.VariableParam;
+import net.somta.juggle.console.model.param.VariableAddParam;
 import net.somta.juggle.console.service.IVariableInfoService;
 import net.somta.juggle.core.model.Variable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +27,20 @@ public class VariableInfoController {
 
     /**
      * 新增变量
-     * @param variableParam 变量实体参数
+     * @param variableAddParam 变量实体参数
      * @return Boolean
      */
     @Operation(summary = "新增变量")
     @PostMapping("/add")
-    public ResponseDataResult<Boolean> addVariable(@RequestBody VariableParam variableParam){
-        if(variableParam == null){
-            //todo 统一异常处理
+    public ResponseDataResult<Boolean> addVariable(@RequestBody VariableAddParam variableAddParam){
+        if(variableAddParam == null){
+            return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_PARAM_IS_NULL_ERROR);
         }
         VariableInfo variableInfo = new VariableInfo();
-        variableInfo.setEnvKey(variableParam.getEnvKey());
-        variableInfo.setEnvName(variableParam.getEnvName());
-        variableInfo.setDataType(JsonSerializeHelper.serialize(variableParam.getDataType()));
-        variableInfo.setFlowDefinitionId(variableParam.getFlowDefinitionId());
+        variableInfo.setEnvKey(variableAddParam.getEnvKey());
+        variableInfo.setEnvName(variableAddParam.getEnvName());
+        variableInfo.setDataType(JsonSerializeHelper.serialize(variableAddParam.getDataType()));
+        variableInfo.setFlowDefinitionId(variableAddParam.getFlowDefinitionId());
         Boolean result = variableService.addVariable(variableInfo);
         return ResponseDataResult.setResponseResult(result);
     }
@@ -49,30 +51,29 @@ public class VariableInfoController {
      * @return Boolean
      */
     @Operation(summary = "删除变量")
-    @DeleteMapping("/delete/{flowDefinitionId}/{envId}")
-    public ResponseDataResult<Boolean> deleteVariable(@PathVariable Long flowDefinitionId, @PathVariable Long envId){
-        // todo 条件判断
-        Boolean result = variableService.deleteVariable(flowDefinitionId, envId);
+    @DeleteMapping("/delete/{flowDefinitionId}/{variableId}")
+    public ResponseDataResult<Boolean> deleteVariable(@PathVariable Long flowDefinitionId, @PathVariable Long variableId){
+        if(flowDefinitionId == null){
+            return ResponseDataResult.setErrorResponseResult(FlowDefinitionErrorEnum.FLOW_DEFINITION_ID_IS_NULL_ERROR);
+        }
+        if(variableId == null){
+            return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_ID_IS_NULL_ERROR);
+        }
+        Boolean result = variableService.deleteVariable(flowDefinitionId, variableId);
         return ResponseDataResult.setResponseResult(result);
     }
 
     /**
      * 修改
-     * @param variableParam 变量实体参数
+     * @param variableInfo 变量实体参数
      * @return Boolean
      */
     @Operation(summary = "修改变量")
     @PutMapping("/update")
-    public ResponseDataResult<Boolean> updateVariable(@RequestBody VariableParam variableParam){
-        if(variableParam == null){
-            //todo 统一异常处理
+    public ResponseDataResult<Boolean> updateVariable(@RequestBody VariableInfo variableInfo){
+        if(variableInfo == null){
+            return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_PARAM_IS_NULL_ERROR);
         }
-        VariableInfo variableInfo = new VariableInfo();
-        variableInfo.setId(variableParam.getId());
-        variableInfo.setEnvKey(variableParam.getEnvKey());
-        variableInfo.setEnvName(variableParam.getEnvName());
-        variableInfo.setDataType(JsonSerializeHelper.serialize(variableParam.getDataType()));
-        variableInfo.setFlowDefinitionId(variableParam.getFlowDefinitionId());
         Boolean result = variableService.updateVariable(variableInfo);
         return ResponseDataResult.setResponseResult(result);
     }
@@ -85,6 +86,9 @@ public class VariableInfoController {
     @Operation(summary = "获取流程内的变量列表")
     @GetMapping("/list/{flowDefinitionId}")
     public ResponseDataResult<List<Variable>> getVariableInfoList(Long flowDefinitionId){
+        if(flowDefinitionId == null){
+            return ResponseDataResult.setErrorResponseResult(FlowDefinitionErrorEnum.FLOW_DEFINITION_ID_IS_NULL_ERROR);
+        }
         List<Variable> list = variableService.getFlowVariableList(flowDefinitionId);
         return ResponseDataResult.setResponseResult(list);
     }
