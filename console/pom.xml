@@ -63,5 +63,15 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <finalName>Juggle-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.6.11</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

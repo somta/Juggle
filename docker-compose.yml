@@ -1,0 +1,8 @@
+version: '3'
+services:
+  juggle:
+    image: somta-docker.pkg.coding.net/juggle/juggle-docker/juggle:v4
+    container_name: juggle
+    ports:
+      - "8686:8686"
+    restart: always
