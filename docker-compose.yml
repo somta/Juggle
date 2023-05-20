@@ -4,4 +4,5 @@ services:
     image: somta-docker.pkg.coding.net/juggle/juggle-docker/juggle:v4
     ports:
       - 8686:8686
-
+    volumes:
+      - ./conf/application.properties:/home/juggle/conf/application.properties

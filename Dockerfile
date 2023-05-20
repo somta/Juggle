@@ -8,4 +8,4 @@ EXPOSE 8686
 
 ENV JAVA_OPTS=" -Xss228k  -Xmx512m -Xms512m  -Duser.timezone=GMT+08 "
 
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /juggle.jar" ]
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /juggle.jar --spring.config.additional-location=/home/juggle/conf/application.properties" ]
