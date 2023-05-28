@@ -63,14 +63,14 @@ public class MyBatisConfiguration {
         return dataSource;
     }*/
 
-    @Bean(name="sqlSessionFactory")
-    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource);
-        //sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mybatis/**/*Mapper.xml"));
-        return sqlSessionFactoryBean;
-    }
+//    @Bean(name="sqlSessionFactory")
+//    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException {
+//        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//        sqlSessionFactoryBean.setDataSource(dataSource);
+//        //sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
+//        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mybatis/**/*Mapper.xml"));
+//        return sqlSessionFactoryBean;
+//    }
 
    /* @Primary
     @Bean

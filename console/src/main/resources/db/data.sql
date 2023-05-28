@@ -1,1 +1,1 @@
-INSERT INTO `t_user` (`id`, `user_name`, `password`) VALUES (1, 'juggle', 'juggle');
+INSERT INTO `t_user` (`id`, `user_name`, `password`) VALUES (1, 'juggle', 'a15fde2baca4e8fe74c483862720bb9e');

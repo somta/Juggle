@@ -32,11 +32,11 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.4</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.3</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -70,7 +70,7 @@
 
     </dependencies>
     <build>
-        <finalName>Juggle-${project.version}</finalName>
+        <finalName>juggle-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -92,10 +92,10 @@
                         <configuration>
                             <target>
                                 <property file="src/main/resources/application.properties" />
-                                <sql driver="org.h2.Driver" url="jdbc:h2:file:./db_juggle;MODE=MYSQL;IGNORECASE=TRUE;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1;" userid="sa" password="" onerror="continue" encoding="${project.build.sourceEncoding}">
+                                <sql driver="${spring.datasource.driver-class-name}" url="${spring.datasource.url}" userid="${spring.datasource.username}" password="${spring.datasource.password}" onerror="continue" encoding="${project.build.sourceEncoding}">
                                     <classpath refid="maven.test.classpath" />
                                     <transaction src="src/main/resources/db/schema.sql"/>
-                                    <!--<transaction src="src/main/resources/db/data.sql"/>-->
+                                    <transaction src="src/main/resources/db/data.sql"/>
                                 </sql>
                             </target>
                         </configuration>

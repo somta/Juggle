@@ -12,6 +12,10 @@
 	<result column="api_desc" property="apiDesc"/>
 	<result column="api_request_type" property="apiRequestType"/>
 	<result column="api_request_content_type" property="apiRequestContentType"/>
+	<result column="created_at" property="createdAt"/>
+	<result column="created_by" property="createdBy"/>
+	<result column="updated_at" property="updatedAt"/>
+	<result column="updated_by" property="updatedBy"/>
 </resultMap>
 
 <sql id="Example_Where_Clause">
@@ -29,7 +33,7 @@
        
 <!-- t_data_type_info table all fields -->
 <sql id="Base_Column_List" >
-	id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type
+	id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.model.Api" >

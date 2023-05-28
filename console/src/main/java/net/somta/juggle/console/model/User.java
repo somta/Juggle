@@ -1,6 +1,8 @@
 package net.somta.juggle.console.model;
 
-public class User {
+import net.somta.core.base.BaseModel;
+
+public class User extends BaseModel {
     private Long id;
     private String userName;
     private String password;
