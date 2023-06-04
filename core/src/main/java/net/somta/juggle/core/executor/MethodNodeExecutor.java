@@ -1,20 +1,14 @@
 package net.somta.juggle.core.executor;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.somta.common.utils.httpclient.HttpClientUtil;
-import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.core.RuntimeContext;
-import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.utils.HttpClient;
 import net.somta.juggle.core.variable.VariableManager;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +74,7 @@ public class MethodNodeExecutor extends ElementExecutor{
      */
     private Map<String,Object> buildInputParameterData(List<FillStruct> inputFillRules, VariableManager variableManager) throws FlowException {
         if(CollectionUtils.isEmpty(inputFillRules)){
-            return MapUtils.EMPTY_MAP;
+            return Collections.EMPTY_MAP;
         }
         Map<String,Object> paramData = new HashMap<>(8);
         // todo 如果是这种类型，怎么支持高级类型，user.id这样的结构，看看bizw是怎么做的

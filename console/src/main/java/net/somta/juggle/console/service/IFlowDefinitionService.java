@@ -1,5 +1,7 @@
 package net.somta.juggle.console.service;
 
+import net.somta.core.base.IBaseService;
+import net.somta.juggle.console.model.Api;
 import net.somta.juggle.console.model.FlowDefinitionInfo;
 import net.somta.juggle.console.model.param.FlowDefinitionPageParam;
 import net.somta.juggle.console.model.param.FlowDefinitionParam;
@@ -7,7 +9,7 @@ import net.somta.juggle.core.model.FlowDefinition;
 
 import java.util.List;
 
-public interface IFlowDefinitionService {
+public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfo> {
 
     /**
      * 创建流程

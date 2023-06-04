@@ -46,7 +46,7 @@ public class DataTypeInfoServiceImpl implements IDataTypeInfoService {
         List<DataTypeDTO> dataTypeDTOList = new ArrayList<>();
         for (DataTypeInfo dataTypeInfo : list ) {
             DataTypeDTO dataTypeDTO = new DataTypeDTO();
-            dataTypeDTO.setType(dataTypeInfo.getType());
+            dataTypeDTO.setType(dataTypeInfo.getDataType());
             dataTypeDTO.setDisplayName(dataTypeInfo.getDisplayName());
             dataTypeDTO.setObjectKey(dataTypeInfo.getObjectKey());
             dataTypeDTOList.add(dataTypeDTO);

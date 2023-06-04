@@ -6,7 +6,7 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.model.node.StartNode;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;

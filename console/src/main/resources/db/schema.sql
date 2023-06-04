@@ -44,3 +44,95 @@ CREATE TABLE `t_api` (
  `updated_by` int(11) DEFAULT NULL,
  PRIMARY KEY (`id`)
 );
+
+-- ----------------------------
+-- Table structure for t_data_type_info
+-- ----------------------------
+CREATE TABLE `t_data_type_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data_type_classify` int(2) DEFAULT NULL,
+  `data_type` varchar(20) DEFAULT NULL,
+  `display_name` varchar(20) DEFAULT NULL,
+  `object_key` varchar(30) DEFAULT NULL,
+  `object_structure` varchar(1000) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_flow_definition
+-- ----------------------------
+CREATE TABLE `t_flow_definition` (
+ `id` bigint(20) NOT NULL AUTO_INCREMENT,
+ `flow_key` varchar(20) DEFAULT NULL,
+ `flow_name` varchar(60) DEFAULT NULL,
+ `flow_type` varchar(8) DEFAULT NULL,
+ `tenant_id` varchar(30) DEFAULT NULL,
+ `remark` varchar(120) DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `created_by` bigint(20) DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL,
+ `updated_by` bigint(20) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_parameter
+-- ----------------------------
+CREATE TABLE `t_parameter` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `param_type` int(2) DEFAULT NULL,
+  `param_key` varchar(20) DEFAULT NULL,
+  `param_name` varchar(30) DEFAULT NULL,
+  `data_type` varchar(200) DEFAULT NULL,
+  `required` int(2) DEFAULT NULL,
+  `source_type` varchar(8) DEFAULT NULL,
+  `source_id` bigint(20) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_variable_info
+-- ----------------------------
+CREATE TABLE `t_variable_info` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `flow_definition_id` bigint(20) DEFAULT NULL,
+    `env_key` varchar(30) DEFAULT NULL,
+    `env_name` varchar(30) DEFAULT NULL,
+    `env_type` int(1) DEFAULT NULL,
+    `data_type` varchar(255) DEFAULT NULL,
+    `created_at` datetime DEFAULT NULL,
+    `created_by` int(11) DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL,
+    `updated_by` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_variable_info
+-- ----------------------------
+CREATE TABLE `t_flow` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `flow_key` varchar(20) DEFAULT NULL,
+  `flow_name` varchar(60) DEFAULT NULL,
+  `flow_type` varchar(8) DEFAULT NULL,
+  `flow_content` text,
+  `version` varchar(20) DEFAULT NULL,
+  `inputs` text,
+  `outputs` text,
+  `variables` text,
+  `tenant_id` varchar(30) DEFAULT NULL,
+  `remark` varchar(120) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` bigint(20) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
