@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
 </script>
-
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="main-view">
+    首页啥都没有
+  </div>
 </template>
+
+<style lang="less" scoped>
+.main-view {
+  height: 100%;
+}
+</style>
