@@ -3,58 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.DataTypeInfoMapper" >
-<!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.DataTypeInfo" >
-	<result column="id" property="id"/>
-	<result column="data_type_classify" property="dataTypeClassify"/>
-	<result column="type" property="type"/>
-	<result column="display_name" property="displayName"/>
-	<result column="object_key" property="objectKey"/>
-	<result column="object_structure" property="objectStructure"/>
-</resultMap>
-       
-<!-- t_data_type_info table all fields -->
-<sql id="Base_Column_List" >
-	id, data_type_classify, type, display_name, object_key, object_structure
-</sql>
-   
-<insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	insert into t_data_type_info (id, data_type_classify, type, display_name, object_key, object_structure)
-	values (#{id},#{dataTypeClassify},#{type},#{displayName},#{objectKey},#{objectStructure});
-</insert>
 
-<delete id="deleteDataTypeById" parameterType="java.lang.Long">
- delete from t_data_type_info where id=#{id}
-</delete>
-
-<update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	update t_data_type_info set
-	<trim  suffixOverrides="," >
-	<if test="data_type_classify != null">
-		data_type_classify=#{dataTypeClassify},
-	</if>
-	<if test="type != null">
-		type=#{type},
-	</if>
-	<if test="displayName != null and displayName != ''">
-		display_name=#{displayName},
-	</if>
-	<if test="objectKey != null and objectKey != ''">
-		object_key=#{objectKey},
-	</if>
-	<if test="objectStructure != null and objectStructure != ''">
-		object_structure=#{objectStructure},
-	</if>
-	</trim> where id=#{id}
-</update>
-
-<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" /> 
-	from t_data_type_info where id = #{id}
-</select>
-
-<select id="queryDataTypeList" resultMap="BaseResultMap">
-	select <include refid="Base_Column_List" /> 
+<select id="queryDataTypeList" resultType="net.somta.juggle.console.model.DataTypeInfo">
+	select id,
+	       data_type_classify as dataTypeClassify,
+	       data_type as dataType,
+	       display_name as displayName,
+	       object_key as objectKey,
+	       object_structure as objectStructure
 	from t_data_type_info
 </select>
 

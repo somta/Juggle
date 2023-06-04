@@ -3,59 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.FlowDefinitionMapper" >
-<!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.FlowDefinitionInfo" >
-	<result column="id" property="id"/>
-	<result column="flow_key" property="flowKey"/>
-	<result column="flow_name" property="flowName"/>
-	<result column="flow_type" property="flowType"/>
-	<result column="tenant_id" property="tenantId"/>
-	<result column="remark" property="remark"/>
-</resultMap>
-       
-<!-- t_data_type_info table all fields -->
-<sql id="Base_Column_List" >
-	id, flow_key, flow_name,flow_type, tenant_id, remark
-</sql>
-   
-<insert id="addFlowDefinition" parameterType="net.somta.juggle.console.model.FlowDefinitionInfo" >
-	insert into t_flow_definition (id, flow_key, flow_name,flow_type, tenant_id, remark)
-	values (#{id},#{flowKey},#{flowName},#{flowType},#{tenantId},#{remark});
-</insert>
 
-<delete id="deleteFlowDefinitionById" parameterType="java.lang.Long">
- delete from t_flow_definition where id=#{id}
-</delete>
-
-<update id="updateFlowDefinitionById" parameterType="net.somta.juggle.console.model.FlowDefinitionInfo" >
-	update t_flow_definition set
-	<trim  suffixOverrides="," >
-	<if test="flowKey != null and flowKey != ''">
-		flow_key=#{flowKey},
-	</if>
-	<if test="flowName != null and flowName != ''">
-		flow_name=#{flowName},
-	</if>
-	<if test="flowType != null and flowType != ''">
-		flow_type=#{flowType},
-	</if>
-	<if test="tenantId != null and tenantId != ''">
-		tenant_id=#{tenantId},
-	</if>
-	<if test="remark != null and remark != ''">
-		remark=#{remark},
-	</if>
-	</trim> where id=#{id}
-</update>
-
-<select id="queryFlowDefinitionById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" /> 
-	from t_flow_definition where id = #{id}
-</select>
-
-<select id="queryFlowDefinitionList" resultMap="BaseResultMap">
-	select <include refid="Base_Column_List" /> 
-	from t_flow_definition
-</select>
+    <insert id="addFlowDefinitionInfo" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.model.FlowDefinitionInfo" >
+        insert into t_flow_definition (id, flow_key, flow_name,flow_type, tenant_id, remark, created_at, created_by, updated_at, updated_by)
+        values (#{id},#{flowKey},#{flowName},#{flowType},#{tenantId},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+    </insert>
 
 </mapper>   

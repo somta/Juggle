@@ -14,8 +14,7 @@ import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.VariableManager;
-import org.apache.commons.collections.MapUtils;
-import org.springframework.util.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,7 +54,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * @param flowData
      */
     private void fillInputParameterVariable(VariableManager variableManager, Map<String,Object> flowData) throws FlowException {
-        if(!CollectionUtils.isEmpty(flowData)){
+        if(MapUtils.isNotEmpty(flowData)){
             for (String key : flowData.keySet()) {
                 variableManager.setVariableValue("env_"+key,flowData.get(key));
             }
@@ -100,7 +99,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return MapUtils.EMPTY_MAP;
+        return Collections.EMPTY_MAP;
     }
 
     /**

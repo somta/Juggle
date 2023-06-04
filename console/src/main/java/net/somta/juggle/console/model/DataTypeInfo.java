@@ -9,7 +9,7 @@ public class DataTypeInfo {
      */
     private Integer dataTypeClassify;
 
-    private String type;
+    private String dataType;
 
     private String displayName;
 
@@ -33,12 +33,12 @@ public class DataTypeInfo {
         this.dataTypeClassify = dataTypeClassify;
     }
 
-    public String getType() {
-        return type;
+    public String getDataType() {
+        return dataType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public String getDisplayName() {
