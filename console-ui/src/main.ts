@@ -16,10 +16,10 @@ async function startup () {
   // 检查登录状态
   const isLogin = await checkToken();
   if (!isLogin) {
-    router.push({ name: 'login' });
+    await router.push({ name: 'login' });
   }
-
   app.mount('#app');
+
 }
 
 startup();

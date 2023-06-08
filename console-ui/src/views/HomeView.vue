@@ -2,7 +2,7 @@
 </script>
 <template>
   <div class="main-view">
-    首页啥都没有
+    呵呵
   </div>
 </template>
 
