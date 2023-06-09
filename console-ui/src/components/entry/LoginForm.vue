@@ -36,6 +36,7 @@ async function submit () {
         placeholder="用户名"
         size="large"
         :prefix-icon="User"
+        @keyup.enter="submit"
       />
     </div>
     <div class="login-form-item">
@@ -46,6 +47,7 @@ async function submit () {
         show-password
         size="large"
         :prefix-icon="Lock"
+        @keyup.enter="submit"
       />
     </div>
     <div class="login-form-item">
