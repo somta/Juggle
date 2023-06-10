@@ -14,16 +14,19 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+      meta: { name: '登录' },
     },
     {
       path: '/',
       name: 'index',
       component: LayoutView,
+      meta: { name: '首页' },
       children: [
         {
           path: '',
           name: 'home',
           component: HomeView,
+          meta: { name: '首页' },
         },
         ...CommonRoutes,
         ...FlowRoutes,
@@ -32,6 +35,7 @@ const router = createRouter({
           path: '/:pathMatch(.*)*',
           name: 'notfound',
           component: NotFound,
+          meta: { name: '页面不存在' },
         },
       ],
     },

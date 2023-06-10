@@ -1,16 +1,28 @@
 
 import FlowDefine from './FlowDefine.vue';
 import FlowList from './FlowList.vue';
+import RouterNest from '@/views/RouterNest.vue';
 
 export const FlowRoutes = [
   {
-    path: 'flow/define',
-    name: 'flow-define',
-    component: FlowDefine,
-  },
-  {
-    path: 'flow/list',
-    name: 'flow-list',
-    component: FlowList,
+    path: 'flow',
+    name: 'flow',
+    component: RouterNest,
+    redirect: () => ({name: 'flow-define'}),
+    meta: { name: '流程' },
+    children: [
+      {
+        path: 'define',
+        name: 'flow-define',
+        component: FlowDefine,
+        meta: { name: '流程定义' },
+      },
+      {
+        path: 'list',
+        name: 'flow-list',
+        component: FlowList,
+        meta: { name: '流程列表' },
+      },
+    ],
   },
 ];
