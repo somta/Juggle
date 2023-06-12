@@ -33,9 +33,10 @@ export const request = createRequestInstance();
 
 // 返回结果 - 通用
 export type ResponseResult<T = any> = Promise<{
+  success: boolean;
+  result: T;
   errorCode?: string;
-  errorMessage?: string;
-  data?: T;
+  errorMsg?: string;
 }>
 
 // 返回结果 - 分页

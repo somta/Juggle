@@ -5,7 +5,7 @@ import router from './router';
 import ElementPlus from 'element-plus';
 import './assets/base.css';
 import 'element-plus/dist/index.css';
-import { checkToken } from './utils/user';
+import { userService } from './service';
 
 const app = createApp(App);
 
@@ -14,7 +14,7 @@ app.use(router);
 
 async function startup () {
   // 检查登录状态
-  const isLogin = await checkToken();
+  const isLogin = await userService.check();
   if (!isLogin) {
     await router.push({ name: 'login' });
   }

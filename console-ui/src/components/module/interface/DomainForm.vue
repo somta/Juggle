@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 const dialogVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -41,17 +41,19 @@ async function onSubmit () {
 }
 
 function open (item?: Record<string, any>) {
-  console.log(item, 'ww');
   isEdit.value = !!item;
-  if (formRef.value) {
-    formRef.value.resetFields();
-  }
-  if (item) {
-    formValue.code = item.code;
-    formValue.name = item.name;
-    formValue.description = item.description;
-  }
   dialogVisible.value = true;
+  nextTick(() => {
+    if (formRef.value) {
+      formRef.value.resetFields();
+    }
+    if (item) {
+      formValue.code = item.code;
+      formValue.name = item.name;
+      formValue.description = item.description;
+    }
+  });
+  
 }
 
 const title = computed(() => {

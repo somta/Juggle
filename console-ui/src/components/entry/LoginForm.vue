@@ -4,20 +4,23 @@ import { ref } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
-import { doLogin } from '@/utils/user';
+import { userService } from '@/service';
 const router = useRouter();
 
-const username = ref('');
+const userName = ref('');
 const password = ref('');
 const loading = ref(false);
 
 async function submit () {
-  if (!username.value || !password.value) {
+  if (!userName.value || !password.value) {
     ElMessage.error('用户名或密码为空');
     return;
   }
   loading.value = true;
-  const result = await doLogin(username.value, password.value);
+  const result = await userService.login({
+    userName: userName.value,
+    password: password.value,
+  });
   if (result) {
     router.push({name: 'home'});
   } else {
@@ -31,7 +34,7 @@ async function submit () {
   <div class="login-form">
     <div class="login-form-item">
       <el-input
-        v-model="username"
+        v-model="userName"
         type="text"
         placeholder="用户名"
         size="large"

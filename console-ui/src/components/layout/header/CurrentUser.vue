@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { doLogout } from '@/utils/user';
+import { userService } from '@/service';
 import { ElMessage } from 'element-plus';
 const $router = useRouter();
 async function logout () {
-  const res = await doLogout();
+  const res = await userService.logout();
   if (res) {
     $router.push('/login');
   } else {
