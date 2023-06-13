@@ -11,9 +11,8 @@ export async function login (data: Parameters<typeof userAPI.login>[0]) {
   const res = await userAPI.login({ userName, password });
   if (res.success) {
     window.localStorage.setItem(authKey, res.result);
-    return true;
   }
-  return false;
+  return res;
 }
 
 export function logout () {
@@ -27,4 +26,8 @@ export function check () {
     return Promise.resolve(true);
   }
   return Promise.resolve(false);
+}
+
+export function getAuth () {
+  return window.localStorage.getItem(authKey);
 }

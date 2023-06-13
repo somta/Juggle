@@ -1,8 +1,9 @@
 
 <script lang="ts" setup>
+import dayjs from 'dayjs';
 defineProps({
   dataRows: Array,
-  pageIndex: Number,
+  pageNum: Number,
   pageSize: Number,
   dataTotal: Number,
   loading: Boolean,
@@ -16,14 +17,26 @@ function deleteRow (row: any, index: number) {
 function editRow (row: any) {
   emit('edit', row);
 }
+
+function timeFormat (str: string) {
+  const val = dayjs(str);
+  if (val.isValid()) {
+    return val.format('YYYY-MM-DD HH:mm:ss');
+  }
+  return '-';
+}
 </script>
 
 <template>
   <el-table v-loading="loading" :data="dataRows" style="width: 100%">
-    <el-table-column prop="code" label="领域编码" width="180" />
-    <el-table-column prop="name" label="领域名称" width="180" />
-    <el-table-column prop="description" label="领域描述" />
-    <el-table-column prop="time" label="创建时间" width="180" />
+    <el-table-column prop="domainCode" label="领域编码" width="180" />
+    <el-table-column prop="domainName" label="领域名称" width="180" />
+    <el-table-column prop="domainDesc" label="领域描述" />
+    <el-table-column prop="createdAt" label="创建时间" width="180">
+      <template #default="scope">
+        {{ timeFormat(scope.row.createdAt) }}
+      </template>
+    </el-table-column>
     <el-table-column label="操作" width="180" >
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)">
@@ -37,7 +50,7 @@ function editRow (row: any) {
   </el-table>
   <div class="table-pagination">
     <el-pagination
-      :currentPage="pageIndex"
+      :currentPage="pageNum"
       :pageSize="pageSize"
       background
       hideOnSinglePage

@@ -21,10 +21,11 @@ async function submit () {
     userName: userName.value,
     password: password.value,
   });
-  if (result) {
+  console.log(result, 'ww');
+  if (result.success) {
     router.push({name: 'home'});
   } else {
-    ElMessage.error('用户名或密码错误');
+    ElMessage.error(result.errorMsg || '登录失败');
   }
   loading.value = false;
 }

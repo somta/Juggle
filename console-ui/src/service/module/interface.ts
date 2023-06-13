@@ -1,18 +1,18 @@
 
 import { interfaceAPI } from '../api';
 
-export async function queryDomain (params: Parameters<typeof interfaceAPI.queryDomain>[0]) {
-  return interfaceAPI.queryDomain(params);
+export async function domainQuery (params: Parameters<typeof interfaceAPI.domainQuery>[0]) {
+  return interfaceAPI.domainQuery(params);
 }
 
-export async function addDomain (params: Parameters<typeof interfaceAPI.addDomain>[0]) {
-  return interfaceAPI.addDomain(params);
+export async function domainAdd (params: Parameters<typeof interfaceAPI.domainAdd>[0]) {
+  return interfaceAPI.domainAdd(params);
 }
 
-export async function editDomain (params: Parameters<typeof interfaceAPI.editDomain>[0]) {
-  return interfaceAPI.editDomain(params);
+export async function domainUpdate (params: Parameters<typeof interfaceAPI.domainUpdate>[0]) {
+  return interfaceAPI.domainUpdate(params);
 }
 
-export async function deleteDomain (params: Parameters<typeof interfaceAPI.deleteDomain>[0]) {
-  return interfaceAPI.deleteDomain(params);
+export async function domainDelete (params: Parameters<typeof interfaceAPI.domainDelete>[0]) {
+  return interfaceAPI.domainDelete(params);
 }

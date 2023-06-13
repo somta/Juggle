@@ -3,17 +3,17 @@ import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 const dialogVisible = ref(false);
 const formRef = ref<FormInstance>();
-const isEdit = ref(false);
+const editItem = ref<Record<string, any>>();
 const formValue = reactive({
-  code: '',
-  name: '',
-  description: '',
+  domainCode: '',
+  domainName: '',
+  domainDesc: '',
 });
 const rules = reactive<FormRules>({
-  code: [
+  domainCode: [
     { required: true, message: '请输入领域编码', trigger: 'blur' },
   ],
-  name: [
+  domainName: [
     { required: true, message: '请输入领域名称', trigger: 'blur' },
   ],
 });
@@ -33,31 +33,31 @@ async function onSubmit () {
   }
 
   dialogVisible.value = false;
-  if (isEdit.value) {
-    emit('edit', formValue);
+  if (editItem.value) {
+    emit('edit', { ...editItem.value, ...formValue });
   } else {
     emit('add', formValue);
   }
 }
 
 function open (item?: Record<string, any>) {
-  isEdit.value = !!item;
+  editItem.value = item;
   dialogVisible.value = true;
   nextTick(() => {
     if (formRef.value) {
       formRef.value.resetFields();
     }
     if (item) {
-      formValue.code = item.code;
-      formValue.name = item.name;
-      formValue.description = item.description;
+      formValue.domainCode = item.domainCode;
+      formValue.domainName = item.domainName;
+      formValue.domainDesc = item.domainDesc;
     }
   });
   
 }
 
 const title = computed(() => {
-  if (isEdit.value) {
+  if (editItem.value) {
     return '编辑领域';
   }
   return '新增领域';
@@ -79,14 +79,14 @@ defineExpose({ open });
         :model="formValue"
         :rules="rules"
       >
-        <el-form-item label="领域代码" prop="code">
-          <el-input v-model="formValue.code" />
+        <el-form-item label="领域代码" prop="domainCode">
+          <el-input v-model="formValue.domainCode" />
         </el-form-item>
-        <el-form-item label="领域名称" prop="name">
-          <el-input v-model="formValue.name" />
+        <el-form-item label="领域名称" prop="domainName">
+          <el-input v-model="formValue.domainName" />
         </el-form-item>
-        <el-form-item label="领域描述" prop="description">
-          <el-input v-model="formValue.description" />
+        <el-form-item label="领域描述" prop="domainDesc">
+          <el-input v-model="formValue.domainDesc" />
         </el-form-item>
       </el-form>
     </div>

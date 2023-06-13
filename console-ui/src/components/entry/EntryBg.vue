@@ -52,6 +52,7 @@ function randomColor () {
     position: absolute;
     background: #fff;
     transform: rotate(45deg);
+    box-shadow: var(--el-box-shadow-dark);
   }
 }
 </style>

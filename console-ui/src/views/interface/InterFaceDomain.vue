@@ -5,7 +5,7 @@ import { DomainFilter, DomainTable, DomainForm } from '@/components/module/inter
 import { interfaceService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
-const pageIndex = ref(1);
+const pageNum = ref(1);
 const pageSize = ref(10);
 const dataTotal = ref(0);
 const dataRows = ref<Record<string, any>[]>([]);
@@ -15,20 +15,20 @@ const formRef = ref();
 
 async function queryPage () {
   loading.value = true;
-  const res = await interfaceService.queryDomain({
+  const res = await interfaceService.domainQuery({
     pageSize: pageSize.value,
-    pageIndex: pageIndex.value,
-    keywords: keywords.value,
+    pageNum: pageNum.value,
+    domainName: keywords.value,
   });
-  if (res.data) {
-    dataTotal.value = res.data.total;
-    dataRows.value = res.data.rows;
+  if (res.success) {
+    dataTotal.value = res.total;
+    dataRows.value = res.result;
   }
   loading.value = false;
 }
 
 function onPageChange (page: number) {
-  pageIndex.value = page;
+  pageNum.value = page;
   queryPage();
 }
 
@@ -63,8 +63,8 @@ function openDelete (row: any) {
 }
 
 async function addItem (row: any) {
-  const res = await interfaceService.addDomain(row);
-  if (res.data) {
+  const res = await interfaceService.domainAdd(row);
+  if (res.result) {
     ElMessage({ type: 'success', message: '新建成功' });
     queryPage();
   } else {
@@ -73,8 +73,8 @@ async function addItem (row: any) {
 }
 
 async function editItem (row: any) {
-  const res = await interfaceService.editDomain(row);
-  if (res.data) {
+  const res = await interfaceService.domainUpdate(row);
+  if (res.result) {
     ElMessage({ type: 'success', message: '编辑成功' });
     queryPage();
   } else {
@@ -83,8 +83,8 @@ async function editItem (row: any) {
 }
 
 async function deleteItem (row: any) {
-  const res = await interfaceService.deleteDomain(row.code);
-  if (res.data) {
+  const res = await interfaceService.domainDelete(row.id);
+  if (res.result) {
     ElMessage({ type: 'success', message: '删除成功' });
     queryPage();
   } else {
@@ -104,7 +104,7 @@ async function deleteItem (row: any) {
         <DomainTable
           :dataRows="dataRows"
           :dataTotal="dataTotal"
-          :pageIndex="pageIndex"
+          :pageNum="pageNum"
           :pageSize="pageSize"
           :loading="loading"
           @pageChange="onPageChange"
