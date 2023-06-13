@@ -1,9 +1,11 @@
 
 <script setup lang="ts">
 import LoginForm from '@/components/entry/LoginForm.vue';
+import EntryBg from '@/components/entry/EntryBg.vue';
 </script>
 
 <template>
+  <EntryBg />
   <div class="entry-view">
     <div class="entry-view-title">Juggle</div>
     <div class="entry-view-subtitle">一个微服务编排系统</div>
@@ -17,7 +19,7 @@ import LoginForm from '@/components/entry/LoginForm.vue';
 .entry-view {
   height: 100%;
   padding-top: 72px;
-  background: #f0f2f5;
+  position: relative;
 
   .entry-view-title {
     font-size: 34px;
