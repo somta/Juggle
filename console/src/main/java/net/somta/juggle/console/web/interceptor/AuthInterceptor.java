@@ -16,18 +16,14 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("Authorization");
-        if (token != null) {
-            try {
-                JwtUtil.verify(token);
-                return true;
-            } catch (Exception e) {
-                System.err.println("token无效");
-            }
+        Boolean isExpired = JwtUtil.verifyExpired(token);
+        if(!isExpired){
+            return true;
         }
         //错误信息响应到前台
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().print(JsonSerializeHelper.serialize(ResponseDataResult.setErrorResponseResult(USER_NOT_LOGIN_ERROR)));
-        response.setStatus(HttpStatus.FORBIDDEN.value());
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         return false;
     }
 }

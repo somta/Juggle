@@ -1,56 +1,83 @@
 package net.somta.juggle.console.utils;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParserBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import net.somta.juggle.console.model.UserToken;
+import org.apache.commons.lang3.StringUtils;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
-
+import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
 public class JwtUtil {
- 
-    private static final String SECRET = "somta";
+
+    public static final String TOKEN_HEADER_KEY = "Authorization";
+    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
  
     /**
      * 生成token
      * @param payload 载荷,需要在token中存放的数据
      * @return
      */
-    public static String generateToken(Map<String, String> payload) {
+    public static String generateToken(Map<String, Object> payload) {
         Calendar instance = Calendar.getInstance();
-        instance.add(Calendar.DATE, 7);
-        JWTCreator.Builder builder = JWT.create();
-        //载荷,生成token中保存的信息
-        payload.forEach(builder::withClaim);
-        return builder.
-                //签发对象
-                withAudience("admin")
+        instance.add(Calendar.HOUR, 2);
+        Date expireDate = instance.getTime();
+        return Jwts.builder()
+                .setClaims(payload)
+                .setIssuer("juggle")
                 //发行时间
-                .withIssuedAt(new Date())
+                .setIssuedAt(new Date())
                 //过期时间
-                .withExpiresAt(instance.getTime())
-                //加密算法+盐
-                .sign(Algorithm.HMAC256(SECRET));
+                .setExpiration(expireDate)
+                .signWith(key)
+                .compact();
     }
  
     /**
-     * 校验token,有异常,即为校验失败
+     * 校验token是否过期
      * @param token token数据
-     * @return
+     * @return ture:过期  false：未过期
      */
-    public static DecodedJWT verify(String token) {
-        return JWT.require(Algorithm.HMAC256(SECRET)).build().verify(token);
+    public static Boolean verifyExpired(String token) {
+        if(StringUtils.isEmpty(token)){
+            return true;
+        }
+        try {
+            Claims claimsJws = getClaimsJws(token);
+            return claimsJws.getExpiration().before(new Date());
+        } catch (Exception e) {
+            return true;
+        }
     }
- 
+
     /**
-     * 根据token获取载荷信息
+     * 解析token
      * @param token token数据
      * @return
      */
-    public static Map<String, Claim> getPayloadByToken(String token) {
-        return verify(token).getClaims();
+    public static UserToken parseToken(String token) {
+        Claims claimsJws = getClaimsJws(token);
+        Long userId = Long.valueOf((String) claimsJws.get(UserToken.USER_ID));
+        UserToken userToken = new UserToken();
+        userToken.setUserId(userId);
+        return userToken;
     }
+
+    /**
+     * 获取ClaimsJws
+     * @param token token数据
+     * @return
+     */
+    private static Claims getClaimsJws(String token) {
+        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder();
+        //设置签名的密钥
+        jwtParserBuilder.setSigningKey(key);
+        //解析内容,获得payload
+        return jwtParserBuilder.build().parseClaimsJws(token).getBody();
+    }
+
 }

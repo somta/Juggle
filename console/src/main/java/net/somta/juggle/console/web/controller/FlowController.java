@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.console.enums.error.FlowErrorEnum.FLOW_KEY_IS_EMPTY;
 import static net.somta.juggle.console.enums.error.FlowErrorEnum.FLOW_NOT_EXIST;
 
 @Tag(name = "流程接口")
@@ -40,7 +41,7 @@ public class FlowController {
     @PostMapping("/triggerFlow")
     public ResponseDataResult<FlowResult> triggerFlow(@RequestBody TriggerDataParam triggerData){
         if(StringUtils.isEmpty(triggerData.getFlowKey())){
-            System.out.println("抛出异常");
+            return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
         FlowInfo flowInfo = flowService.getFlowByFlowKey(triggerData.getFlowKey());
         if(flowInfo == null){
