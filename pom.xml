@@ -2,13 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>net.somta</groupId>
-        <artifactId>somta-boot-starter-parent</artifactId>
-        <version>1.3.1</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>net.somta</groupId>
     <artifactId>Juggle</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -20,20 +15,65 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <revision>1.0.0-SNAPSHOT</revision>
+        <somta-dependencies.varsion>1.3.1</somta-dependencies.varsion>
+        <somta-core.version>1.3.1</somta-core.version>
+        <somta-common.version>1.3.1</somta-common.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <h2.version>2.1.210</h2.version>
         <aviator.version>5.3.3</aviator.version>
         <httpclient.version>4.5.14</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
+        <!--<jackson-core.version>2.12.6</jackson-core.version>
+        <jackson-databind.version>2.12.6.1</jackson-databind.version>
+        <jackson.annotations.version>2.12.6</jackson.annotations.version>-->
     </properties>
 
     <dependencies>
+        <!--<dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.annotations.version}</version>
+        </dependency>-->
 
 
     </dependencies>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>net.somta</groupId>
+                <artifactId>somta-dependencies</artifactId>
+                <version>${somta-dependencies.varsion}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.somta</groupId>
+                <artifactId>juggle-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.somta</groupId>
+                <artifactId>somta-common</artifactId>
+                <version>${somta-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.somta</groupId>
+                <artifactId>somta-core</artifactId>
+                <version>${somta-core.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
