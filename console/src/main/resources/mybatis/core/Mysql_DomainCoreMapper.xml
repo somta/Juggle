@@ -18,7 +18,7 @@
 <sql id="Example_Where_Clause">
 	where 1=1
 	<if test="domainName != null and domainName != ''">
-		and domain_name=#{domainName}
+		and domain_name like concat("%",#{domainName},"%")
 	</if>
 </sql>
 

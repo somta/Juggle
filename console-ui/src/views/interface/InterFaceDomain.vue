@@ -88,7 +88,7 @@ async function deleteItem (row: any) {
     ElMessage({ type: 'success', message: '删除成功' });
     queryPage();
   } else {
-    ElMessage({ type: 'error', message: '删除失败' });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 

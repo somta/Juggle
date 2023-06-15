@@ -1,4 +1,4 @@
-package net.somta.juggle.console.model.param;
+package net.somta.juggle.console.model.param.user;
 
 public class LoginParam {
     private String userName;
