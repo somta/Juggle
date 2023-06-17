@@ -24,28 +24,9 @@
         <aviator.version>5.3.3</aviator.version>
         <httpclient.version>4.5.14</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
-        <!--<jackson-core.version>2.12.6</jackson-core.version>
-        <jackson-databind.version>2.12.6.1</jackson-databind.version>
-        <jackson.annotations.version>2.12.6</jackson.annotations.version>-->
     </properties>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.annotations.version}</version>
-        </dependency>-->
 
 
     </dependencies>
@@ -109,7 +90,6 @@
                 <artifactId>jjwt-jackson</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
