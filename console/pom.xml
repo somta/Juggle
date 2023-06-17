@@ -70,45 +70,23 @@
 
     </dependencies>
     <build>
-
+        <finalName>juggle-server</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>
-        <profile>
-            <id>release-juggle</id>
-            <build>
-                <finalName>juggle-server</finalName>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <configuration>
-                            <archive>
-                                <manifest>
-                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <mainClass>net.somta.juggle.Application</mainClass>
-                            <layout>ZIP</layout>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>repackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>refresh-db</id>
             <build>
