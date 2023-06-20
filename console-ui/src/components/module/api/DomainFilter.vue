@@ -3,22 +3,22 @@ import { reactive } from 'vue';
 const emit = defineEmits(['search']);
 
 const formValue = reactive({
-  domain: '',
+  domainName: '',
 });
 
 const onSubmit = () => {
-  emit('search', formValue.domain);
+  emit('search', formValue);
 };
 
 const onReset = () => {
-  formValue.domain = '';
+  formValue.domainName = '';
 };
 
 </script>
 <template>
   <el-form :inline="true" :model="formValue">
     <el-form-item label="领域名称">
-      <el-input v-model="formValue.domain" placeholder="请输入领域名称" />
+      <el-input v-model="formValue.domainName" placeholder="请输入领域名称" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">查询</el-button>

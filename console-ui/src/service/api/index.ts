@@ -1,10 +1,10 @@
 
 import * as userAPI from './user';
 import * as flowAPI from './flow';
-import * as interfaceAPI from './interface';
+import * as apiAPI from './api';
 
 export {
   userAPI,
   flowAPI,
-  interfaceAPI,
+  apiAPI,
 };

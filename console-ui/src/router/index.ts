@@ -4,7 +4,7 @@ import LoginView from '../views/LoginView.vue';
 import HomeView from '../views/HomeView.vue';
 import NotFound from '../views/NotFound.vue';
 import { FlowRoutes } from '../views/flow';
-import { InterfaceRoutes } from '../views/interface';
+import { ApiRoutes } from '../views/api';
 import { CommonRoutes } from '../views/common';
 
 const router = createRouter({
@@ -30,7 +30,7 @@ const router = createRouter({
         },
         ...CommonRoutes,
         ...FlowRoutes,
-        ...InterfaceRoutes,
+        ...ApiRoutes,
         {
           path: '/:pathMatch(.*)*',
           name: 'notfound',

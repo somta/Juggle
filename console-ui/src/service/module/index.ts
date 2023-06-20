@@ -1,10 +1,10 @@
 
 import * as userService from './user';
 import * as flowService from './flow';
-import * as interfaceService from './interface';
+import * as apiService from './api';
 
 export {
   userService,
   flowService,
-  interfaceService,
+  apiService,
 };
