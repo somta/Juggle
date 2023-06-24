@@ -1,6 +1,6 @@
 package net.somta.juggle.console.model.dto;
 
-import net.somta.core.base.BaseModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -9,6 +9,7 @@ public class DomainDTO {
     private String domainCode;
     private String domainName;
     private String domainDesc;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
 
     public Long getId() {

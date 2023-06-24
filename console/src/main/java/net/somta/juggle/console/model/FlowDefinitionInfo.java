@@ -1,6 +1,9 @@
 package net.somta.juggle.console.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.somta.core.base.BaseModel;
+
+import java.util.Date;
 
 public class FlowDefinitionInfo extends BaseModel {
 
@@ -30,6 +33,9 @@ public class FlowDefinitionInfo extends BaseModel {
      * 流程描述
      */
     private String remark;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
 
 
     public Long getId() {
@@ -78,5 +84,15 @@ public class FlowDefinitionInfo extends BaseModel {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

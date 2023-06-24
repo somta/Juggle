@@ -49,6 +49,42 @@
 	from t_api where domain_id=#{domainId}
 </select>
 
+<select id="queryApiCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+	select count(*)
+	from t_api where 1=1
+	<if test="domainId != null">
+	and domain_id=#{domainId}
+    </if>
+	<if test="apiUrl != null and apiUrl != ''">
+		and api_url like concat("%", #{apiUrl}, "%")
+	</if>
+	<if test="apiName != null and apiName != ''">
+		and api_name like concat("%", #{apiName}, "%")
+	</if>
+</select>
+
+<select id="queryApiPageList" resultType="net.somta.juggle.console.model.dto.ApiDTO" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+	select
+	a.id as id,
+	d.domain_name as domainName,
+	a.api_url as  apiUrl,
+	a.api_name as apiName,
+	a.api_desc as apiDesc,
+	a.api_request_type as apiRequestType,
+	a.created_at as createdAt
+	from t_api a inner join t_domain d on a.domain_id = d.id where 1=1
+	<if test="domainId != null">
+		and domain_id=#{domainId}
+	</if>
+	<if test="apiUrl != null and apiUrl != ''">
+		and api_url like concat("%", #{apiUrl}, "%")
+	</if>
+	<if test="apiName != null and apiName != ''">
+		and api_name like concat("%", #{apiName}, "%")
+	</if>
+</select>
+
+
 
 
 </mapper>   

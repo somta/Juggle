@@ -14,6 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '^/v(d*)': 'http://1985p77f79.imwork.net:28434',
+      //'^/v(d*)': 'http://127.0.0.1:8686',
     },
   },
 });

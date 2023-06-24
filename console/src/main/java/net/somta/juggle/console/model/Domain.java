@@ -1,12 +1,17 @@
 package net.somta.juggle.console.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.somta.core.base.BaseModel;
+
+import java.util.Date;
 
 public class Domain extends BaseModel {
     private Long id;
     private String domainCode;
     private String domainName;
     private String domainDesc;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
 
     public Long getId() {
         return id;
@@ -38,5 +43,15 @@ public class Domain extends BaseModel {
 
     public void setDomainDesc(String domainDesc) {
         this.domainDesc = domainDesc;
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -77,11 +77,10 @@ public class FlowDefinitionController {
      * @param flowDefinitionPageParam 变量实体参数
      * @return Boolean
      */
-    @Operation(summary = "获取流程列表")
-    @PostMapping("/list")
+    @Operation(summary = "获取流程定义分页列表")
+    @PostMapping("/page")
     public ResponsePaginationDataResult<FlowDefinitionInfo> getFlowDefinitionList(@RequestBody FlowDefinitionPageParam flowDefinitionPageParam){
-        List<FlowDefinitionInfo> list = flowDefinitionService.getFlowDefinitionList(flowDefinitionPageParam);
-        return ResponsePaginationDataResult.setPaginationDataResult(10L,list);
+        return flowDefinitionService.queryByPageList(flowDefinitionPageParam.getPageNum(),flowDefinitionPageParam.getPageSize(), flowDefinitionPageParam);
     }
 
     /**

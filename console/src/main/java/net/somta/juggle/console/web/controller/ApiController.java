@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.model.Api;
+import net.somta.juggle.console.model.dto.ApiDTO;
 import net.somta.juggle.console.model.dto.DomainDTO;
 import net.somta.juggle.console.model.param.ApiAddParam;
 import net.somta.juggle.console.model.param.ApiQueryParam;
@@ -66,8 +67,8 @@ public class ApiController {
 
     @Operation(summary = "查询接口分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<List<DomainDTO>> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
-        return apiService.queryByPageList(apiQueryParam.getPageNum(),apiQueryParam.getPageSize(), apiQueryParam);
+    public ResponsePaginationDataResult<List<ApiDTO>> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
+        return apiService.queryApiPageList(apiQueryParam);
     }
 
 }
