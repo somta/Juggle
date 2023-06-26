@@ -1,25 +1,3 @@
-<template>
-  <div class="page-interface-domain">
-    <el-container class="page-interface-domain">
-      <el-header class="page-header">
-        <FlowDefineFilter :keywords="searchParam" @search="onSearch" />
-        <el-button :icon="Plus" type="primary" @click="openflowDefineAdd">新建</el-button>
-      </el-header>
-      <el-main class="page-body">
-        <FlowDefineTable
-            :dataRows="dataRows"
-            :dataTotal="dataTotal"
-            :pageNum="pageNum"
-            :pageSize="pageSize"
-            :loading="loading"
-            @edit="openEdit"
-            @delete="openDelete"
-        />
-      </el-main>
-    </el-container>
-    <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" />
-  </div>
-</template>
 <script setup lang="ts">
 import { FlowDefineTable,FlowDefineDrawer,FlowDefineFilter } from '@/components/module/flowDefine';
 import {flowDefineService} from "@/service";
@@ -107,5 +85,27 @@ async function deleteFlowDefineItem (row: any) {
 function openEdit (row: any) {
   drawerRef.value.open(row);
 }
-
 </script>
+
+<template>
+  <div class="page-interface-domain">
+    <el-container class="page-interface-domain">
+      <el-header class="page-header">
+        <FlowDefineFilter :keywords="searchParam" @search="onSearch" />
+        <el-button :icon="Plus" type="primary" @click="openflowDefineAdd">新建</el-button>
+      </el-header>
+      <el-main class="page-body">
+        <FlowDefineTable
+            :dataRows="dataRows"
+            :dataTotal="dataTotal"
+            :pageNum="pageNum"
+            :pageSize="pageSize"
+            :loading="loading"
+            @edit="openEdit"
+            @delete="openDelete"
+        />
+      </el-main>
+    </el-container>
+    <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" />
+  </div>
+</template>

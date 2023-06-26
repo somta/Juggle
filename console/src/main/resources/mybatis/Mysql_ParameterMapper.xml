@@ -26,7 +26,7 @@
 </insert>
 
 
-<insert id="batchAddParameter">
+<insert id="batchAddParameter" parameterType="java.util.List">
 	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id)
 	values
 	<foreach collection ="parameterList" item="param" separator =",">

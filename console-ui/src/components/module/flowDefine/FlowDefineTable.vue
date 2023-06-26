@@ -1,3 +1,23 @@
+<script lang="ts" setup>
+defineProps({
+  dataRows: Array,
+  pageNum: Number,
+  pageSize: Number,
+  dataTotal: Number,
+  loading: Boolean,
+});
+const emit = defineEmits(['pageChange', 'edit', 'delete']);
+
+function deleteRow (row: any, index: number) {
+  emit('delete', row, index);
+}
+
+function editRow (row: any) {
+  emit('edit', row);
+}
+
+</script>
+
 <template>
   <el-table v-loading="loading" :data="dataRows" style="width: 100%">
     <el-table-column prop="flowKey" label="流程编码" width="180" />
@@ -38,25 +58,6 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-defineProps({
-  dataRows: Array,
-  pageNum: Number,
-  pageSize: Number,
-  dataTotal: Number,
-  loading: Boolean,
-});
-const emit = defineEmits(['pageChange', 'edit', 'delete']);
-
-function deleteRow (row: any, index: number) {
-  emit('delete', row, index);
-}
-
-function editRow (row: any) {
-  emit('edit', row);
-}
-
-</script>
 <style lang="less" scoped>
 .table-pagination {
   padding: 12px 0;

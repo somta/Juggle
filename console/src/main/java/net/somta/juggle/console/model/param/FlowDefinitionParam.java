@@ -1,7 +1,5 @@
 package net.somta.juggle.console.model.param;
 
-import net.somta.juggle.console.model.Parameter;
-
 import java.util.List;
 
 public class FlowDefinitionParam {

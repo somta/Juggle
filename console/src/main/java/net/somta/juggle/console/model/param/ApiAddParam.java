@@ -1,5 +1,7 @@
 package net.somta.juggle.console.model.param;
 
+import java.util.List;
+
 public class ApiAddParam {
 
     private Long domainId;
@@ -28,6 +30,10 @@ public class ApiAddParam {
      * api请求内容类型 application/json
      */
     private String apiRequestContentType;
+
+    private List<InputParameterParam> apiInputParams;
+
+    private List<OutputParameterParam> apiOutputParams;
 
     public Long getDomainId() {
         return domainId;
@@ -75,5 +81,21 @@ public class ApiAddParam {
 
     public void setApiRequestContentType(String apiRequestContentType) {
         this.apiRequestContentType = apiRequestContentType;
+    }
+
+    public List<InputParameterParam> getApiInputParams() {
+        return apiInputParams;
+    }
+
+    public void setApiInputParams(List<InputParameterParam> apiInputParams) {
+        this.apiInputParams = apiInputParams;
+    }
+
+    public List<OutputParameterParam> getApiOutputParams() {
+        return apiOutputParams;
+    }
+
+    public void setApiOutputParams(List<OutputParameterParam> apiOutputParams) {
+        this.apiOutputParams = apiOutputParams;
     }
 }

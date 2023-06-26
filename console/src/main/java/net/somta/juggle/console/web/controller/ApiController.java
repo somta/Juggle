@@ -7,10 +7,7 @@ import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.model.Api;
 import net.somta.juggle.console.model.dto.ApiDTO;
 import net.somta.juggle.console.model.dto.DomainDTO;
-import net.somta.juggle.console.model.param.ApiAddParam;
-import net.somta.juggle.console.model.param.ApiQueryParam;
-import net.somta.juggle.console.model.param.DomainQueryParam;
-import net.somta.juggle.console.model.param.DomainUpdateParam;
+import net.somta.juggle.console.model.param.*;
 import net.somta.juggle.console.service.IApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,15 +28,7 @@ public class ApiController {
     @Operation(summary = "新增接口")
     @PostMapping("/add")
     public ResponseDataResult<Boolean> addApi(@RequestBody ApiAddParam apiAddParam){
-        Api api = new Api();
-        api.setDomainId(apiAddParam.getDomainId());
-        api.setApiUrl(apiAddParam.getApiUrl());
-        api.setApiName(apiAddParam.getApiName());
-        api.setApiDesc(apiAddParam.getApiDesc());
-        api.setApiRequestType(apiAddParam.getApiRequestType());
-        api.setApiRequestContentType(apiAddParam.getApiRequestContentType());
-        apiService.add(api);
-        return ResponseDataResult.setResponseResult(true);
+        return apiService.addApi(apiAddParam);
     }
 
     @Operation(summary = "根据ID删除接口")
@@ -50,8 +39,8 @@ public class ApiController {
 
     @Operation(summary = "修改接口")
     @PutMapping("/update")
-    public ResponseDataResult<Boolean> addDomain(@RequestBody Api api){
-        return apiService.update(api);
+    public ResponseDataResult<Boolean> updateApi(@RequestBody ApiUpdateParam apiUpdateParam){
+        return apiService.updateApi(apiUpdateParam);
     }
 
     /**

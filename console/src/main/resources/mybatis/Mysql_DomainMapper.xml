@@ -3,57 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.DomainMapper" >
-<!-- Result Map-->
-<!--<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Domain" >
-	<result column="id" property="id"/>
-	<result column="domain_code" property="domainCode"/>
-	<result column="domain_name" property="domainName"/>
-	<result column="domain_desc" property="domainDesc"/>
-	<result column="created_at" property="createdAt"/>
-	<result column="created_by" property="createdBy"/>
-	<result column="updated_at" property="updatedAt"/>
-	<result column="updated_by" property="updatedBy"/>
-</resultMap>-->
-       
-<!-- t_domain table all fields -->
-<!--<sql id="Base_Column_List" >
-	id, domain_code, domain_name, domain_desc, created_at, created_by, updated_at, updated_by
-</sql>-->
-   
-<!--<insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	insert into t_data_type_info (id, data_type_classify, type, type_name, display_name, object_structure)
-	values (#{id},#{dataTypeClassify},#{type},#{typeName},#{displayName},#{objectStructure});
-</insert>-->
-
-<!--<delete id="deleteDataTypeById" parameterType="java.lang.Long">
- delete from t_data_type_info where id=#{id}
-</delete>-->
-
-<!--<update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	update t_data_type_info set
-	<trim  suffixOverrides="," >
-	<if test="data_type_classify != null">
-		data_type_classify=#{dataTypeClassify},
-	</if>
-	<if test="type != null">
-		type=#{type},
-	</if>
-	<if test="typeName != null and typeName != ''">
-		type_name=#{typeName},
-	</if>
-	<if test="displayName != null and displayName != ''">
-		display_name=#{displayName},
-	</if>
-	<if test="objectStructure != null and objectStructure != ''">
-		object_structure=#{objectStructure},
-	</if>
-	</trim> where id=#{id}
-</update>-->
-
-<!--<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" /> 
-	from t_data_type_info where id = #{id}
-</select>-->
 
 <select id="queryDomainList" resultMap="BaseResultMap">
 	select <include refid="Base_Column_List" /> 

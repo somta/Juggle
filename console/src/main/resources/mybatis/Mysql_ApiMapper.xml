@@ -3,41 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.mapper.ApiMapper" >
-   
-<!--<insert id="addDataType" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	insert into t_data_type_info (id, data_type_classify, type, type_name, display_name, object_structure)
-	values (#{id},#{dataTypeClassify},#{type},#{typeName},#{displayName},#{objectStructure});
-</insert>-->
 
-<!--<delete id="deleteDataTypeById" parameterType="java.lang.Long">
- delete from t_data_type_info where id=#{id}
-</delete>-->
-
-<!--<update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	update t_data_type_info set
-	<trim  suffixOverrides="," >
-	<if test="data_type_classify != null">
-		data_type_classify=#{dataTypeClassify},
-	</if>
-	<if test="type != null">
-		type=#{type},
-	</if>
-	<if test="typeName != null and typeName != ''">
-		type_name=#{typeName},
-	</if>
-	<if test="displayName != null and displayName != ''">
-		display_name=#{displayName},
-	</if>
-	<if test="objectStructure != null and objectStructure != ''">
-		object_structure=#{objectStructure},
-	</if>
-	</trim> where id=#{id}
-</update>-->
-
-<!--<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" /> 
-	from t_data_type_info where id = #{id}
-</select>-->
+<insert id="addApi" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.model.Api" >
+	insert into t_api (id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
 
 <select id="queryApiList" resultMap="BaseResultMap">
 	select <include refid="Base_Column_List" /> 

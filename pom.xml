@@ -10,6 +10,8 @@
     <modules>
         <module>core</module>
         <module>console</module>
+        <module>starter</module>
+        <module>example</module>
     </modules>
 
     <properties>
@@ -25,11 +27,6 @@
         <httpclient.version>4.5.14</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
     </properties>
-
-    <dependencies>
-
-
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>

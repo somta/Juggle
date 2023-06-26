@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import {nextTick, ref} from "vue";
+
+const flowDefineDrawer = ref(false);
+
+function open (item?: Record<string, any>) {
+  //editItem.value = item;
+  flowDefineDrawer.value = true;
+}
+
+defineExpose({ open });
+
+</script>
+
 <template>
   <el-drawer v-model="flowDefineDrawer"
              title="新增流程">
@@ -25,20 +39,6 @@
     </div>
   </el-drawer>
 </template>
-
-<script setup lang="ts">
-import {nextTick, ref} from "vue";
-
-const flowDefineDrawer = ref(false);
-
-function open (item?: Record<string, any>) {
-  //editItem.value = item;
-  flowDefineDrawer.value = true;
-}
-
-defineExpose({ open });
-
-</script>
 
 <style scoped>
 

@@ -1,3 +1,23 @@
+<script lang="ts" setup>
+import { reactive } from 'vue';
+const emit = defineEmits(['search']);
+
+const formValue = reactive({
+  flowName: '',
+  flowType: '',
+});
+
+const onSubmit = () => {
+  emit('search', formValue);
+};
+
+const onReset = () => {
+  formValue.flowName = '';
+  formValue.flowType = '';
+};
+
+</script>
+
 <template>
   <el-form :inline="true" :model="formValue">
     <el-form-item label="流程名称">
@@ -18,23 +38,3 @@
     </el-form-item>
   </el-form>
 </template>
-
-<script lang="ts" setup>
-import { reactive } from 'vue';
-const emit = defineEmits(['search']);
-
-const formValue = reactive({
-  flowName: '',
-  flowType: '',
-});
-
-const onSubmit = () => {
-  emit('search', formValue);
-};
-
-const onReset = () => {
-  formValue.flowName = '';
-  formValue.flowType = '';
-};
-
-</script>

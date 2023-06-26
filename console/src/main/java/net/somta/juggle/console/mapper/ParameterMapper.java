@@ -3,6 +3,7 @@ package net.somta.juggle.console.mapper;
 
 import net.somta.juggle.console.model.Parameter;
 import net.somta.juggle.console.model.vo.ParameterVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public interface ParameterMapper {
      * @param parameterList
      * @return
      */
-    int batchAddParameter(List<Parameter> parameterList);
+    int batchAddParameter(@Param("parameterList") List<Parameter> parameterList);
 
     /**
      * 根据sourceType和sourceId删除参数
@@ -31,5 +32,10 @@ public interface ParameterMapper {
      */
     int deleteParameter(ParameterVO parameterVO);
 
+    /**
+     *
+     * @param parameterQueryVO
+     * @return
+     */
     List<Parameter> getParameterListByVO(ParameterVO parameterQueryVO);
 }
