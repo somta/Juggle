@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.ParameterMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ParameterMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Parameter" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.Parameter" >
 	<result column="id" property="id"/>
 	<result column="param_type" property="paramType"/>
 	<result column="param_key" property="paramKey"/>
@@ -20,7 +20,7 @@
 	id, param_type, param_key, param_name, data_type, required, source_type, source_id
 </sql>
    
-<insert id="addParameter" parameterType="net.somta.juggle.console.model.Parameter" >
+<insert id="addParameter" parameterType="net.somta.juggle.console.infrastructure.model.Parameter" >
 	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id)
 	values (#{id},#{paramType},#{paramKey},#{paramName},#{dataType},#{required},#{sourceType},#{sourceId});
 </insert>
@@ -38,7 +38,7 @@
  delete from t_data_type_info where id=#{id}
 </delete>-->
 
-<delete id="deleteParameter" parameterType="net.somta.juggle.console.model.vo.ParameterVO">
+<delete id="deleteParameter" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
  delete from t_parameter where source_type=#{sourceType} and source_id=#{sourceId}
 </delete>
 
@@ -74,7 +74,7 @@
 </select>-->
 
 
-<select id="getParameterListByVO" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.model.vo.ParameterVO">
+<select id="getParameterListByVO" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
 	select <include refid="Base_Column_List" />
 	from t_parameter where 1=1
 	<if test="sourceType != null and sourceType != ''">

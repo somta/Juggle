@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
     @Bean
     public GroupedOpenApi userApi(){
         String[] paths = { "/**" };
-        String[] packagedToMatch = { "net.somta.juggle.console.web.controller" };
+        String[] packagedToMatch = { "net.somta.juggle.console.interfaces.controller" };
         return GroupedOpenApi.builder().group("API接口")
                 .pathsToMatch(paths)
                 .packagesToScan(packagedToMatch).build();

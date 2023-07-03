@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.DataTypeInfoMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.DataTypeInfoMapper" >
 
-<select id="queryDataTypeList" resultType="net.somta.juggle.console.model.DataTypeInfo">
+<select id="queryDataTypeList" resultType="net.somta.juggle.console.infrastructure.model.DataTypeInfo">
 	select id,
 	       data_type_classify as dataTypeClassify,
 	       data_type as dataType,

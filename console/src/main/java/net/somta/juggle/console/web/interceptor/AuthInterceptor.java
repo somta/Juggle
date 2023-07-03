@@ -9,7 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static net.somta.juggle.console.enums.error.UserErrorEnum.USER_NOT_LOGIN_ERROR;
+import static net.somta.juggle.console.domain.user.enums.UserErrorEnum.USER_NOT_LOGIN_ERROR;
 
 public class AuthInterceptor implements HandlerInterceptor {
 

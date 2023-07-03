@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.ApiMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ApiMapper" >
 
-<insert id="addApi" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.model.Api" >
+<insert id="addApi" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.model.Api" >
 	insert into t_api (id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -19,7 +19,7 @@
 	from t_api where domain_id=#{domainId}
 </select>
 
-<select id="queryApiCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+<select id="queryApiCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
 	select count(*)
 	from t_api where 1=1
 	<if test="domainId != null">
@@ -33,7 +33,7 @@
 	</if>
 </select>
 
-<select id="queryApiPageList" resultType="net.somta.juggle.console.model.dto.ApiDTO" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+<select id="queryApiPageList" resultType="net.somta.juggle.console.interfaces.dto.ApiDTO" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
 	select
 	a.id as id,
 	d.domain_name as domainName,

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.VariableInfoMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.VariableInfo" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.VariableInfo" >
 	<result column="id" property="id"/>
 	<result column="flow_definition_id" property="flowDefinitionId"/>
 	<result column="env_key" property="envKey"/>
@@ -18,7 +18,7 @@
 	id, flow_definition_id, env_key, env_name,env_type,data_type
 </sql>
    
-<insert id="addVariable" parameterType="net.somta.juggle.console.model.VariableInfo" >
+<insert id="addVariable" parameterType="net.somta.juggle.console.infrastructure.model.VariableInfo" >
 	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
 	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{envType},#{dataType});
 </insert>
@@ -43,7 +43,7 @@
 	delete from t_variable_info where flow_definition_id=#{flowDefinitionId} and id=#{id}
 </delete>
 
-<update id="updateVariable" parameterType="net.somta.juggle.console.model.VariableInfo" >
+<update id="updateVariable" parameterType="net.somta.juggle.console.infrastructure.model.VariableInfo" >
 	update t_variable_info set
 	<trim  suffixOverrides="," >
 	<if test="id != null">

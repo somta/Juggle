@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.DomainMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.DomainMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Domain" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.Domain" >
 	<result column="id" property="id"/>
 	<result column="domain_code" property="domainCode"/>
 	<result column="domain_name" property="domainName"/>
@@ -27,7 +27,7 @@
 	id, domain_code, domain_name, domain_desc, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.model.Domain" >
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.model.Domain" >
 	insert into t_domain (id, domain_code, domain_name, domain_desc, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{domainCode},#{domainName},#{domainDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -36,7 +36,7 @@
  delete from t_domain where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.model.Domain" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.model.Domain" >
 	update t_domain set
 	<trim  suffixOverrides="," >
 	<if test="domainCode != null and domainCode != ''">
@@ -68,13 +68,13 @@
 	from t_domain where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.model.param.DomainQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.DomainQueryParam">
 	select count(*)
 	from t_domain
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.model.param.DomainQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.DomainQueryParam">
 	select <include refid="Base_Column_List" /> 
 	from t_domain
 	<include refid="Example_Where_Clause"/>

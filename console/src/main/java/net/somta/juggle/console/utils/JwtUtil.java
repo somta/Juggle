@@ -4,7 +4,7 @@ import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import net.somta.juggle.console.model.UserToken;
+import net.somta.juggle.console.domain.user.vo.UserTokenVO;
 import org.apache.commons.lang3.StringUtils;
 
 import java.security.Key;
@@ -59,12 +59,12 @@ public class JwtUtil {
      * @param token token数据
      * @return
      */
-    public static UserToken parseToken(String token) {
+    public static UserTokenVO parseToken(String token) {
         Claims claimsJws = getClaimsJws(token);
-        Long userId = Long.valueOf((String) claimsJws.get(UserToken.USER_ID));
-        UserToken userToken = new UserToken();
-        userToken.setUserId(userId);
-        return userToken;
+        Long userId = Long.valueOf((String) claimsJws.get(UserTokenVO.USER_ID));
+        UserTokenVO userTokenVO = new UserTokenVO();
+        userTokenVO.setUserId(userId);
+        return userTokenVO;
     }
 
     /**

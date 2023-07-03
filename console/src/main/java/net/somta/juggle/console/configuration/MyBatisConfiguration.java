@@ -26,7 +26,7 @@ import java.util.Arrays;
  * @Version:     1.0.0
  */
 @Configuration
-@MapperScan(value = "net.somta.juggle.console.mapper")
+@MapperScan(value = "net.somta.juggle.console.infrastructure.mapper")
 public class MyBatisConfiguration {
 
 

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.ApiMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ApiMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.Api" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.Api" >
 	<result column="id" property="id"/>
 	<result column="domain_id" property="domainId"/>
 	<result column="api_url" property="apiUrl"/>
@@ -36,7 +36,7 @@
 	id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.model.Api" >
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.model.Api" >
 	insert into t_api (id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -45,7 +45,7 @@
  delete from t_api where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.model.Domain" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.model.Domain" >
 	update t_api set
 	<trim  suffixOverrides="," >
 		<if test="domainId != null">
@@ -86,13 +86,13 @@
 	from t_api where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
 	select count(*)
 	from t_api
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.model.param.ApiQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
 	select <include refid="Base_Column_List" />
 	from t_api
 	<include refid="Example_Where_Clause"/>

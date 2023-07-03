@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.mapper.FlowMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.model.FlowInfo" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.FlowInfo" >
 	<result column="id" property="id"/>
 	<result column="flow_key" property="flowKey"/>
 	<result column="flow_name" property="flowName"/>
@@ -23,7 +23,7 @@
 	id, flow_key, flow_name,flow_type,flow_content, version, inputs, outputs, variables, tenant_id, remark
 </sql>
    
-<insert id="addFlow" parameterType="net.somta.juggle.console.model.FlowInfo" >
+<insert id="addFlow" parameterType="net.somta.juggle.console.infrastructure.model.FlowInfo" >
 	insert into t_flow (id, flow_key, flow_name,flow_type,flow_content, version,inputs, outputs, variables, tenant_id, remark)
 	values (#{id},#{flowKey},#{flowName},#{flowType},#{flowContent},#{version},#{inputs},#{outputs},#{variables},#{tenantId},#{remark});
 </insert>
