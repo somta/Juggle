@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
+import DomainSelect from '@/components/form/DomainSelect.vue';
 import ParamSetting from './ParamSetting.vue';
+
 const dialogVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
 const formValue = reactive({
-  domainCode: '',
-  domainName: '',
-  domainDesc: '',
+  domainId: null,
 });
 const rules = reactive<FormRules>({
-  domainCode: [
+  domainId: [
     { required: true, message: '请输入领域编码', trigger: 'blur' },
-  ],
-  domainName: [
-    { required: true, message: '请输入领域名称', trigger: 'blur' },
   ],
 });
 
@@ -49,9 +46,7 @@ function open (item?: Record<string, any>) {
       formRef.value.resetFields();
     }
     if (item) {
-      formValue.domainCode = item.domainCode;
-      formValue.domainName = item.domainName;
-      formValue.domainDesc = item.domainDesc;
+      formValue.domainId = item.domainId;
     }
   });
   
@@ -59,9 +54,9 @@ function open (item?: Record<string, any>) {
 
 const title = computed(() => {
   if (editItem.value) {
-    return '编辑领域';
+    return '编辑接口';
   }
-  return '新增领域';
+  return '新增接口';
 });
 
 defineExpose({ open });
@@ -80,14 +75,8 @@ defineExpose({ open });
         :model="formValue"
         :rules="rules"
       >
-        <el-form-item label="领域代码" prop="domainCode">
-          <el-input v-model="formValue.domainCode" />
-        </el-form-item>
-        <el-form-item label="领域名称" prop="domainName">
-          <el-input v-model="formValue.domainName" />
-        </el-form-item>
-        <el-form-item label="领域描述" prop="domainDesc">
-          <el-input v-model="formValue.domainDesc" />
+        <el-form-item label="领域" prop="domainId">
+          <DomainSelect v-model="formValue.domainId" />
         </el-form-item>
         <el-form-item label="入参">
           <ParamSetting />

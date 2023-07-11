@@ -95,7 +95,7 @@ async function deleteItem (row: any) {
 </script>
 <template>
   <div class="page-interface-domain">
-    <el-container class="page-interface-domain">
+    <el-container>
       <el-header class="page-header">
         <DomainFilter @search="onSearch" />
         <el-button :icon="Plus" type="primary" @click="openAdd">新建</el-button>
