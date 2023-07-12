@@ -36,3 +36,4 @@ mvnw
 mvnw.*
 build/
 dist/
+.flattened-pom.xml

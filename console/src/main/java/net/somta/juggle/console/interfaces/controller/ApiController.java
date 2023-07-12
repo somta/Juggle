@@ -54,11 +54,12 @@ public class ApiController {
     }
 
     @Operation(summary = "查询接口详情")
-    @PutMapping("/info")
+    @GetMapping("/info")
     public ResponseDataResult<ApiInfoDTO> queryApi(Long id){
         ApiInfoDTO apiInfoDTO = new ApiInfoDTO();
         Api api = apiService.queryById(id);
         apiInfoDTO.setId(api.getId());
+        apiInfoDTO.setDomainId(api.getDomainId());
         apiInfoDTO.setApiName(api.getApiName());
         apiInfoDTO.setApiDesc(api.getApiDesc());
         List<Parameter> parameters = parameterService.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),id));
