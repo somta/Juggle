@@ -33,7 +33,7 @@ public class FlowDefinitionController {
      * @param flowDefinitionParam 变量实体参数
      * @return Boolean
      */
-    @Operation(summary = "创建流程")
+    @Operation(summary = "创建流程定义")
     @PostMapping("/add")
     public ResponseDataResult<Boolean> addFlowDefinition(@RequestBody FlowDefinitionParam flowDefinitionParam){
         if(flowDefinitionParam == null){
@@ -48,7 +48,7 @@ public class FlowDefinitionController {
      * @param flowDefinitionId 变量实体参数
      * @return Boolean
      */
-    @Operation(summary = "删除流程")
+    @Operation(summary = "删除流程定义")
     @DeleteMapping("/delete/{flowDefinitionId}")
     public ResponseDataResult<Boolean> deleteFlowDefinition(@PathVariable Long flowDefinitionId){
         Boolean result = flowDefinitionService.deleteFlowDefinition(flowDefinitionId);
@@ -60,7 +60,7 @@ public class FlowDefinitionController {
      * @param flowDefinitionParam 变量实体参数
      * @return Boolean
      */
-    @Operation(summary = "修改流程")
+    @Operation(summary = "修改流程定义")
     @PutMapping("/update")
     public ResponseDataResult<Boolean> updateFlowDefinition(@RequestBody FlowDefinitionParam flowDefinitionParam){
         if(flowDefinitionParam == null){

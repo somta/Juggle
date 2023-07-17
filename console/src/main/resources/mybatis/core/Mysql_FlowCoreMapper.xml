@@ -2,13 +2,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowDefinitionMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.FlowDefinitionInfo" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.FlowInfo" >
 	<result column="id" property="id"/>
 	<result column="flow_key" property="flowKey"/>
 	<result column="flow_name" property="flowName"/>
 	<result column="flow_type" property="flowType"/>
+	<result column="flow_status" property="flowStatus"/>
+	<result column="flow_content" property="flowContent"/>
+	<result column="inputs" property="inputs"/>
+	<result column="outputs" property="outputs"/>
+	<result column="variables" property="variables"/>
 	<result column="tenant_id" property="tenantId"/>
 	<result column="remark" property="remark"/>
 	<result column="created_at" property="createdAt"/>
@@ -28,19 +33,19 @@
 </sql>
        
 <sql id="Base_Column_List" >
-	id, flow_key, flow_name,flow_type, tenant_id, remark, created_at, created_by, updated_at, updated_by
+	id, flow_key, flow_name,flow_type,flow_status, flow_content, inputs, outputs, variables, tenant_id, remark, created_at, created_by, updated_at, updated_by
 </sql>
    
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.model.FlowDefinitionInfo" >
-	insert into t_flow_definition (id, flow_key, flow_name,flow_type, tenant_id, remark, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{flowKey},#{flowName},#{flowType},#{tenantId},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_flow (id, flow_key, flow_name,flow_type,flow_status, flow_content, inputs, outputs, variables, tenant_id, remark, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowKey},#{flowName},#{flowType},#{flowStatus},#{flowContent},#{inputs},#{outputs},#{variables},#{tenantId},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
- delete from t_flow_definition where id=#{id}
+ delete from t_flow where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.model.FlowDefinitionInfo" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.model.FlowInfo" >
 	update t_flow_definition set
 	<trim  suffixOverrides="," >
 	<if test="flowKey != null and flowKey != ''">
@@ -51,6 +56,21 @@
 	</if>
 	<if test="flowType != null and flowType != ''">
 		flow_type=#{flowType},
+	</if>
+	<if test="flowStatus != null">
+		flow_status=#{flowStatus},
+	</if>
+	<if test="flowContent != null and flowContent != ''">
+		flow_content=#{flowContent},
+	</if>
+	<if test="inputs != null and inputs != ''">
+		inputs=#{inputs},
+	</if>
+	<if test="outputs != null and outputs != ''">
+		outputs=#{outputs},
+	</if>
+	<if test="variables != null and variables != ''">
+		variables=#{variables},
 	</if>
 	<if test="tenantId != null and tenantId != ''">
 		tenant_id=#{tenantId},
@@ -75,18 +95,18 @@
 
 <select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Long">
 	select <include refid="Base_Column_List" /> 
-	from t_flow_definition where id = #{id}
+	from t_flow where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.FlowPageParam">
 	select count(*)
-	from t_flow_definition
+	from t_flow
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.FlowPageParam">
 	select <include refid="Base_Column_List" />
-	from t_flow_definition
+	from t_flow
 	<include refid="Example_Where_Clause"/>
 </select>
 

@@ -1,34 +1,17 @@
 package net.somta.juggle.console.infrastructure.mapper;
 
 
+import net.somta.core.base.IBaseMapper;
 import net.somta.juggle.console.infrastructure.model.FlowInfo;
 import net.somta.juggle.console.interfaces.param.FlowPageParam;
 
 import java.util.List;
 
-public interface FlowMapper {
+public interface FlowMapper extends IBaseMapper {
 
 
-    /**
-     * 创建流程
-     * @param flow
-     * @return
-     */
-    int addFlow(FlowInfo flow);
 
-    /**
-     * 根据ID删除流程
-     * @param flowDefinitionId
-     * @return
-     */
-    int deleteFlowById(Long flowDefinitionId);
-
-    /**
-     * 修改流程定义
-     * @param flowDefinitionParam
-     * @return
-     */
-    //int updateFlowDefinitionById(FlowDefinitionParam flowDefinitionParam);
+    FlowInfo querySimpleFlowInfo(Long flowId);
 
     /**
      * 根据流程key查询流程信息

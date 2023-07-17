@@ -11,6 +11,8 @@ public class FlowInfo {
 
     private FlowTypeEnum flowType;
 
+    private Integer flowStatus;
+
     private String flowContent;
 
     private String version;
@@ -55,6 +57,14 @@ public class FlowInfo {
 
     public void setFlowType(FlowTypeEnum flowType) {
         this.flowType = flowType;
+    }
+
+    public Integer getFlowStatus() {
+        return flowStatus;
+    }
+
+    public void setFlowStatus(Integer flowStatus) {
+        this.flowStatus = flowStatus;
     }
 
     public String getFlowContent() {

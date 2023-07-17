@@ -1,8 +1,11 @@
 package net.somta.juggle.console.application.service.impl;
 
+import net.somta.core.base.BaseServiceImpl;
+import net.somta.core.base.IBaseMapper;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.flow.enums.FlowTypeEnum;
 import net.somta.juggle.console.infrastructure.mapper.FlowMapper;
+import net.somta.juggle.console.infrastructure.model.FlowDefinitionInfo;
 import net.somta.juggle.console.infrastructure.model.FlowInfo;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.dispatcher.impl.SyncDispatcher;
@@ -20,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class FlowServiceImpl implements IFlowService {
+public class FlowServiceImpl extends BaseServiceImpl<FlowInfo> implements IFlowService {
 
     @Autowired
     private FlowMapper flowMapper;
@@ -28,6 +31,11 @@ public class FlowServiceImpl implements IFlowService {
     private IFlowResultManager flowResultManager;
 
     private final IDispatcher dispatcher = new AsyncDispatcher();
+
+    @Override
+    public IBaseMapper getMapper() {
+        return flowMapper;
+    }
 
     @Override
     public FlowResult triggerFlow(FlowInfo flowInfo, TriggerDataParam triggerData) {

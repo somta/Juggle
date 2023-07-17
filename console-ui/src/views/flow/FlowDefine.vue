@@ -75,7 +75,7 @@ function openDelete (row: any) {
 
 async function deleteFlowDefineItem (row: any) {
   const res = await flowDefineService.deleteFlowDefineById(row.id);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
     queryFlowDefinePage();
   } else {

@@ -180,7 +180,7 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
             }
             flowInfo.setVariables(variablesString);
         }
-        flowMapper.addFlow(flowInfo);
+        flowMapper.add(flowInfo);
         return true;
     }
 

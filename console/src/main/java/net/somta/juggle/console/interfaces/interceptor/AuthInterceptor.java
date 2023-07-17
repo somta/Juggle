@@ -1,4 +1,4 @@
-package net.somta.juggle.console.web.interceptor;
+package net.somta.juggle.console.interfaces.interceptor;
 
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
@@ -15,7 +15,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(JwtUtil.TOKEN_HEADER_KEY);
         Boolean isExpired = JwtUtil.verifyExpired(token);
         if(!isExpired){
             return true;

@@ -1,6 +1,6 @@
 package net.somta.juggle.console.configuration;
 
-import net.somta.juggle.console.web.interceptor.AuthInterceptor;
+import net.somta.juggle.console.interfaces.interceptor.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
