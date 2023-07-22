@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FlowDefineTable,FlowDefineDrawer,FlowDefineFilter } from '@/components/module/flowDefine';
+import { FlowDefineTable, FlowDefineDrawer, FlowDefineFilter } from './define';
 import {flowDefineService} from "@/service";
 import {ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";

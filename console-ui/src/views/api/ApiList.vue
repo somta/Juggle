@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import { ListFilter, ListTable, ListForm } from '@/components/module/api';
+import { ListFilter, ListTable, ListForm } from './list';
 import { apiService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 

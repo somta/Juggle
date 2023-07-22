@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FlowTable,FlowFilter } from '@/components/module/flow';
+import { FlowTable,FlowFilter } from './list';
 import {flowDefineService, flowService} from "@/service";
 import {ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";

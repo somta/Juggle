@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import { DomainFilter, DomainTable, DomainForm } from '@/components/module/api';
+import { DomainFilter, DomainTable, DomainForm } from './domain';
 import { apiService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
