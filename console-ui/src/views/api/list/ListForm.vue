@@ -3,12 +3,24 @@ import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ParamSetting from './ParamSetting.vue';
+import { apiService } from '@/service';
+import type { ApiInfo } from '@/typings';
+import { ApiRequestTypeMap } from '@/const';
+
+const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
 
 const dialogVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const formValue = reactive({
+const formValue = reactive<ApiInfo>({
+  id: null,
   domainId: null,
+  apiName: '',
+  apiDesc: '',
+  apiUrl: '',
+  apiRequestType: '',
+  apiInputParams: [],
+  apiOutputParams: [],
 });
 const rules = reactive<FormRules>({
   domainId: [
@@ -41,15 +53,24 @@ async function onSubmit () {
 function open (item?: Record<string, any>) {
   editItem.value = item;
   dialogVisible.value = true;
-  nextTick(() => {
+  nextTick(async () => {
     if (formRef.value) {
       formRef.value.resetFields();
     }
     if (item) {
-      formValue.domainId = item.domainId;
+      const res = await apiService.queryApiInfo(item.id);
+      if (res.success) {
+        formValue.id = res.result.id;
+        formValue.domainId = res.result.domainId;
+        formValue.apiName = res.result.apiName;
+        formValue.apiDesc = res.result.apiDesc;
+        formValue.apiUrl = res.result.apiUrl;
+        formValue.apiRequestType = res.result.apiRequestType;
+        formValue.apiInputParams = res.result.apiInputParams;
+        formValue.apiOutputParams = res.result.apiOutputParams;
+      }
     }
-  });
-  
+  }); 
 }
 
 const title = computed(() => {
@@ -63,10 +84,10 @@ defineExpose({ open });
 
 </script>
 <template>
-  <el-dialog
+  <el-drawer
     v-model="dialogVisible"
+    :size="480"
     :title="title"
-    width="400"
   >
     <div class="form">
       <el-form
@@ -76,20 +97,35 @@ defineExpose({ open });
         :rules="rules"
       >
         <el-form-item label="领域" prop="domainId">
-          <DomainSelect v-model="formValue.domainId" />
+          <DomainSelect v-model="formValue.domainId" :auto="true" />
+        </el-form-item>
+        <el-form-item label="接口名称" prop="apiName">
+          <el-input v-model="formValue.apiName" />
+        </el-form-item>
+        <el-form-item label="接口地址" prop="apiUrl">
+          <el-input v-model="formValue.apiUrl" />
+        </el-form-item>
+        <el-form-item label="请求类型" prop="apiRequestType">
+          <el-select v-model="formValue.apiRequestType">
+            <el-option v-for="op in ApiRequestTypes" :value="op" :key="op">{{ op }}</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="接口描述" prop="apiDesc">
+          <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" />
         </el-form-item>
         <el-form-item label="入参">
-          <ParamSetting />
+          <ParamSetting v-model="formValue.apiInputParams" />
+        </el-form-item>
+        <el-form-item label="出参">
+          <ParamSetting v-model="formValue.apiOutputParams" :required="false" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">确定</el-button>
+          <el-button @click="onCancel">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="onCancel">取消</el-button>
-        <el-button type="primary" @click="onSubmit">确定</el-button>
-      </span>
-    </template>
-  </el-dialog>
+  </el-drawer>
 </template>
 
 <style scoped>

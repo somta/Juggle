@@ -32,3 +32,7 @@ export async function listUpdate (params: Parameters<typeof apiAPI.listUpdate>[0
 export async function listDelete (params: Parameters<typeof apiAPI.listDelete>[0]) {
   return apiAPI.listDelete(params);
 }
+
+export async function queryApiInfo (params: Parameters<typeof apiAPI.queryApiInfo>[0]) {
+  return apiAPI.queryApiInfo(params);
+}

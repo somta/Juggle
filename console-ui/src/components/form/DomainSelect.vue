@@ -1,30 +1,34 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { apiService } from '@/service';
 
-const props = defineProps(['modelValue']);
+const props = defineProps(['modelValue', 'auto']);
 const emit = defineEmits(['update:modelValue']);
-
-watch(() => props.modelValue, (val) => {
-  console.log(val, 'sss');
-});
 
 const domainList = ref<Array<{ value: string; label: string; }>>([]);
 const domainLoading = ref(false);
 let domainLoaded = false;
 
-async function onVisibleChange (val: boolean) {
+if (props.auto) {
+  loadData();
+}
+
+async function loadData () {
+  domainLoading.value = true; 
+  const res = await apiService.domainQuery({ pageNum: 1, pageSize: 999 });
+  if (res.success) {
+    domainList.value = res.result.map(item => ({ label: item.domainName, value: item.id }));
+  }
+  domainLoaded = true;
+  domainLoading.value = false; 
+}
+
+function onVisibleChange (val: boolean) {
   if (domainLoaded) {
     return;
   }
   if (val) {
-    domainLoading.value = true; 
-    const res = await apiService.domainQuery({ pageNum: 1, pageSize: 999 });
-    if (res.success) {
-      domainList.value = res.result.map(item => ({ label: item.domainName, value: item.id }));
-    }
-    domainLoaded = true;
-    domainLoading.value = false; 
+    loadData();
   }
 }
 

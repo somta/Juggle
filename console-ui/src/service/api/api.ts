@@ -1,4 +1,5 @@
 
+import type { ApiInfo } from '@/typings';
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
 
 // 领域
@@ -69,4 +70,8 @@ export async function listUpdate (params: {
 
 export async function listDelete (id: string): ResponseResult<boolean> {
   return request.delete(`/v1/api/delete/${id}`);
+}
+
+export async function queryApiInfo (id: string | number): ResponseResult<ApiInfo> {
+  return request.get(`/v1/api/info?id=${id}`);
 }

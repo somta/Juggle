@@ -1,47 +1,79 @@
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
 type ParamItem = {
-  name: string;
-  type: string;
-  required?: boolean;
-  method?: string;
-  value?: string;
+  id?: number | null;
+  paramType: number;
+  paramName: string;
+  required: boolean;
 }
-const params = ref<ParamItem[]>([
-  { name: '参数', type: 'String', required: true, method: '=', value: '123' },
-  { name: '参数', type: 'String', required: true, method: '=', value: '123' },
-  { name: '参数', type: 'String', required: true, method: '=', value: '123' },
-]);
+
+const props = defineProps({
+  modelValue: Array,
+  required: {
+    type: Boolean,
+    default: true,
+  },
+});
+const emit = defineEmits(['update:modelValue']);
+
+watch(() => props.modelValue, (val: any) => {
+  if (val !== params.value) {
+    params.value = val;
+  }
+});
+
+const params = ref<ParamItem[]>([]);
 const columns = [
-  { name: '参数名称', prop: 'name' },
-  { name: '数据类型', prop: 'type' },
+  { name: '参数名称', prop: 'paramName' },
+  { name: '数据类型', prop: 'paramType' },
   { name: '必填', prop: 'required' },
-  { name: '赋值方式', prop: 'method' },
-  { name: '赋值', prop: 'value' },
 ];
 
 function addParam () {
   params.value.push({
-    name: '',
-    type: 'String',
-    required: true,
-    method: '',
-    value: '',
+    paramName: '',
+    paramType: 1,
+    required: false,
   });
+  onChange();
 }
+
+function onChange () {
+  emit('update:modelValue', params.value);
+}
+
 </script>
 
 <template>
   <div class="param-setting">
     <div class="param-setting-head">
       <div class="param-setting-tr">
-        <div class="param-setting-td" v-for="column in columns" :key="column.prop">{{ column.name }}</div>
+        <template v-for="column in columns" :key="column.prop">
+          <div class="param-setting-td" v-if="column.prop === 'paramName'">{{ column.name }}</div>
+          <div class="param-setting-td" v-if="column.prop === 'paramType'">{{ column.name }}</div>
+          <div class="param-setting-td" v-if="required && column.prop === 'required'">{{ column.name }}</div>
+        </template>
       </div>
     </div>
     <div class="param-setting-body">
       <div class="param-setting-tr" v-for="param, rowIndex in params" :key="rowIndex">
-        <div class="param-setting-td" v-for="column in columns" :key="column.prop">{{ param[column.prop] }}</div>
+        <template v-for="column in columns" :key="column.prop">
+          <div class="param-setting-td" v-if="column.prop === 'paramName'">
+            <el-input v-model="param.paramName" size="small" @change="onChange" />
+          </div>
+          <div class="param-setting-td" v-else-if="column.prop === 'paramType'">
+            <el-select v-model="param.paramType" size="small" @change="onChange">
+              <el-option :value="1" :key="1" label="String" />
+              <el-option :value="2" :key="2" label="Number" />
+              <el-option :value="3" :key="3" label="Object" />
+            </el-select>
+          </div>
+          <div class="param-setting-td" v-else-if="required && column.prop === 'required'">
+            <el-checkbox v-model="param.required" @change="onChange" />
+          </div>
+        </template>
       </div>
     </div>
     <div class="param-setting-foot">
@@ -64,7 +96,7 @@ function addParam () {
   &-tr {
     display: flex;
     border-bottom: 1px solid #f2f2f2;
-    height: 32px;
+    height: 36px;
   }
   &-td {
     flex: 1;
