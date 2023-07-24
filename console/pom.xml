@@ -68,6 +68,11 @@
         </dependency>
         <!-- jwt end -->
 
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>juggle-server</finalName>

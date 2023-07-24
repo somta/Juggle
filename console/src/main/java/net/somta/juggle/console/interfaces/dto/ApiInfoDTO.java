@@ -22,6 +22,8 @@ public class ApiInfoDTO {
 
     private String apiRequestType;
 
+    private String apiRequestContentType;
+
     private List<Parameter> apiInputParams;
 
     private List<Parameter> apiOutputParams;
@@ -72,6 +74,14 @@ public class ApiInfoDTO {
 
     public void setApiRequestType(String apiRequestType) {
         this.apiRequestType = apiRequestType;
+    }
+
+    public String getApiRequestContentType() {
+        return apiRequestContentType;
+    }
+
+    public void setApiRequestContentType(String apiRequestContentType) {
+        this.apiRequestContentType = apiRequestContentType;
     }
 
     public List<Parameter> getApiInputParams() {

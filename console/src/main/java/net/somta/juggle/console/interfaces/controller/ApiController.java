@@ -60,8 +60,11 @@ public class ApiController {
         Api api = apiService.queryById(id);
         apiInfoDTO.setId(api.getId());
         apiInfoDTO.setDomainId(api.getDomainId());
+        apiInfoDTO.setApiUrl(api.getApiUrl());
         apiInfoDTO.setApiName(api.getApiName());
         apiInfoDTO.setApiDesc(api.getApiDesc());
+        apiInfoDTO.setApiRequestType(api.getApiRequestType());
+        apiInfoDTO.setApiRequestContentType(api.getApiRequestContentType());
         List<Parameter> parameters = parameterService.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),id));
         List<Parameter> inputParams = parameters.stream()
                 .filter(parameter -> ParameterTypeEnum.INPUT_PARAM.getCode() == parameter.getParamType())
