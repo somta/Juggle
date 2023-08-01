@@ -69,7 +69,7 @@ function openDelete (row: any) {
 
 async function addItem (row: any) {
   const res = await apiService.listAdd(row);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
     queryPage();
   } else {
@@ -79,7 +79,7 @@ async function addItem (row: any) {
 
 async function editItem (row: any) {
   const res = await apiService.listUpdate(row);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });
     queryPage();
   } else {
@@ -89,7 +89,7 @@ async function editItem (row: any) {
 
 async function deleteItem (row: any) {
   const res = await apiService.listDelete(row.id);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
     queryPage();
   } else {

@@ -25,11 +25,6 @@ public class FlowDefinitionInfo extends BaseModel {
     private String flowType;
 
     /**
-     * 租户ID
-     */
-    private String tenantId;
-
-    /**
      * 流程描述
      */
     private String remark;
@@ -68,14 +63,6 @@ public class FlowDefinitionInfo extends BaseModel {
 
     public void setFlowType(String flowType) {
         this.flowType = flowType;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
     public String getRemark() {

@@ -66,7 +66,7 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
         flowDefinition.setFlowKey(flowKey);
         flowDefinition.setFlowName(flowDefinitionParam.getFlowName());
         flowDefinitionMapper.addFlowDefinitionInfo(flowDefinition);
-        saveParametersAndVariables(flowDefinition.getId(),flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
+        saveParametersAndVariables(flowDefinition.getId(),flowDefinitionParam.getFlowInputParams(), flowDefinitionParam.getFlowOutputParams());
         return true;
     }
 
@@ -88,7 +88,7 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
         flowDefinitionMapper.update(flowDefinitionInfo);
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(),flowDefinitionParam.getId()));
         variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionParam.getId());
-        saveParametersAndVariables(flowDefinitionParam.getId(),flowDefinitionParam.getInputs(), flowDefinitionParam.getOutputs());
+        saveParametersAndVariables(flowDefinitionParam.getId(),flowDefinitionParam.getFlowInputParams(), flowDefinitionParam.getFlowOutputParams());
         return true;
     }
 
@@ -111,7 +111,6 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
         FlowInfo flowInfo = new FlowInfo();
         flowInfo.setFlowKey(flowDefinitionInfo.getFlowKey());
         flowInfo.setFlowName(flowDefinitionInfo.getFlowName());
-        flowInfo.setTenantId(flowDefinitionInfo.getTenantId());
         flowInfo.setRemark(flowDefinitionInfo.getRemark());
 
         //处理出入参数

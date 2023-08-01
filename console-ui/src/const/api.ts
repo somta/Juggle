@@ -6,4 +6,10 @@ export const ApiRequestTypeMap = {
   DELETE: 'DELETE',
 };
 
+export const ApiRequestContentTypeMap = {
+  'application/json': 'application/json',
+  'x-www-form-urlencoded': 'x-www-form-urlencoded',
+};
+
 export type ApiRequestType = keyof typeof ApiRequestTypeMap;
+export type ApiRequestContentType = keyof typeof ApiRequestContentTypeMap;

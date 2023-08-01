@@ -15,7 +15,7 @@ if (props.auto) {
 
 async function loadData () {
   domainLoading.value = true; 
-  const res = await apiService.domainQuery({ pageNum: 1, pageSize: 999 });
+  const res = await apiService.domainList();
   if (res.success) {
     domainList.value = res.result.map(item => ({ label: item.domainName, value: item.id }));
   }

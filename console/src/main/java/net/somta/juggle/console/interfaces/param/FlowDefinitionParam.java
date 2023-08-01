@@ -2,17 +2,22 @@ package net.somta.juggle.console.interfaces.param;
 
 import java.util.List;
 
+/**
+ * @author Gavin
+ */
 public class FlowDefinitionParam {
 
     private Long id;
 
     private String flowName;
 
+    private String flowType;
+
     private String remark;
 
-    private List<InputParameterParam> inputs;
+    private List<InputParameterParam> flowInputParams;
 
-    private List<OutputParameterParam> outputs;
+    private List<OutputParameterParam> flowOutputParams;
 
     public Long getId() {
         return id;
@@ -30,6 +35,14 @@ public class FlowDefinitionParam {
         this.flowName = flowName;
     }
 
+    public String getFlowType() {
+        return flowType;
+    }
+
+    public void setFlowType(String flowType) {
+        this.flowType = flowType;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -38,19 +51,19 @@ public class FlowDefinitionParam {
         this.remark = remark;
     }
 
-    public List<InputParameterParam> getInputs() {
-        return inputs;
+    public List<InputParameterParam> getFlowInputParams() {
+        return flowInputParams;
     }
 
-    public void setInputs(List<InputParameterParam> inputs) {
-        this.inputs = inputs;
+    public void setFlowInputParams(List<InputParameterParam> flowInputParams) {
+        this.flowInputParams = flowInputParams;
     }
 
-    public List<OutputParameterParam> getOutputs() {
-        return outputs;
+    public List<OutputParameterParam> getFlowOutputParams() {
+        return flowOutputParams;
     }
 
-    public void setOutputs(List<OutputParameterParam> outputs) {
-        this.outputs = outputs;
+    public void setFlowOutputParams(List<OutputParameterParam> flowOutputParams) {
+        this.flowOutputParams = flowOutputParams;
     }
 }

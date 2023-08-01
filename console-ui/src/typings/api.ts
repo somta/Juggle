@@ -29,6 +29,7 @@ export interface ApiInfo {
   apiName: string;
   apiDesc: string;
   apiRequestType: string;
+  apiRequestContentType: string;
   apiInputParams: ApiInputParams[];
   apiOutputParams: ApiOutputParams[];
 }

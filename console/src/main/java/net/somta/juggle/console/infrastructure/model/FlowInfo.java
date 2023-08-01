@@ -23,8 +23,6 @@ public class FlowInfo {
 
     private String variables;
 
-    private String tenantId;
-
     private String remark;
 
     public Long getId() {
@@ -105,14 +103,6 @@ public class FlowInfo {
 
     public void setVariables(String variables) {
         this.variables = variables;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
     public String getRemark() {

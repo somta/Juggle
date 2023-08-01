@@ -5,9 +5,10 @@ import DomainSelect from '@/components/form/DomainSelect.vue';
 import ParamSetting from './ParamSetting.vue';
 import { apiService } from '@/service';
 import type { ApiInfo } from '@/typings';
-import { ApiRequestTypeMap } from '@/const';
+import {ApiRequestContentTypeMap, ApiRequestTypeMap} from '@/const';
 
 const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
+const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 
 const dialogVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -19,12 +20,13 @@ const formValue = reactive<ApiInfo>({
   apiDesc: '',
   apiUrl: '',
   apiRequestType: '',
+  apiRequestContentType: '',
   apiInputParams: [],
   apiOutputParams: [],
 });
 const rules = reactive<FormRules>({
   domainId: [
-    { required: true, message: '请输入领域编码', trigger: 'blur' },
+    { required: true, message: '请选择领域', trigger: 'blur' },
   ],
 });
 
@@ -108,6 +110,11 @@ defineExpose({ open });
         <el-form-item label="请求类型" prop="apiRequestType">
           <el-select v-model="formValue.apiRequestType">
             <el-option v-for="op in ApiRequestTypes" :value="op" :key="op">{{ op }}</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="请求内容类型" prop="apiRequestType">
+          <el-select v-model="formValue.apiRequestContentType">
+            <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="接口描述" prop="apiDesc">

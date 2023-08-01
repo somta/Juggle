@@ -5,6 +5,11 @@ export async function domainQuery (params: Parameters<typeof apiAPI.domainQuery>
   return apiAPI.domainQuery(params);
 }
 
+export async function domainList () {
+  return apiAPI.domainList();
+}
+
+
 export async function domainAdd (params: Parameters<typeof apiAPI.domainAdd>[0]) {
   return apiAPI.domainAdd(params);
 }

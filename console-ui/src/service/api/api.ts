@@ -11,6 +11,10 @@ export async function domainQuery (params: {
   return request.post('/v1/domain/page', params);
 }
 
+export async function domainList (): ResponseResult {
+  return request.get('/v1/domain/list');
+}
+
 export async function domainAdd (params: {
   domainCode: string;
   domainName: string;

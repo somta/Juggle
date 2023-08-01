@@ -68,7 +68,7 @@ public class DomainController {
      * @return Boolean
      */
     @Operation(summary = "查询领域列表")
-    @PostMapping("/list")
+    @GetMapping("/list")
     public ResponseDataResult<List<DomainDTO>> getDomainList(){
         List<DomainDTO> list = domainService.getDomainList();
         return ResponseDataResult.setResponseResult(list);
