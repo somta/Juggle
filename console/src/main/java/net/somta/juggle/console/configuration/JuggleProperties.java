@@ -1,4 +1,4 @@
-package net.somta.juggle.console.properties;
+package net.somta.juggle.console.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

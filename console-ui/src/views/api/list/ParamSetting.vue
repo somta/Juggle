@@ -4,6 +4,7 @@ import { ref, watch } from 'vue';
 
 type ParamItem = {
   id?: number | null;
+  paramKey: string;
   paramType: number;
   paramName: string;
   required: boolean;
@@ -26,6 +27,7 @@ watch(() => props.modelValue, (val: any) => {
 
 const params = ref<ParamItem[]>([]);
 const columns = [
+  { name: '参数编码', prop: 'paramKey' },
   { name: '参数名称', prop: 'paramName' },
   { name: '数据类型', prop: 'paramType' },
   { name: '必填', prop: 'required' },
@@ -33,6 +35,7 @@ const columns = [
 
 function addParam () {
   params.value.push({
+    paramKey: '',
     paramName: '',
     paramType: 1,
     required: false,
@@ -51,6 +54,7 @@ function onChange () {
     <div class="param-setting-head">
       <div class="param-setting-tr">
         <template v-for="column in columns" :key="column.prop">
+          <div class="param-setting-td" v-if="column.prop === 'paramKey'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="column.prop === 'paramName'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="column.prop === 'paramType'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="required && column.prop === 'required'">{{ column.name }}</div>
@@ -60,6 +64,9 @@ function onChange () {
     <div class="param-setting-body">
       <div class="param-setting-tr" v-for="param, rowIndex in params" :key="rowIndex">
         <template v-for="column in columns" :key="column.prop">
+          <div class="param-setting-td" v-if="column.prop === 'paramKey'">
+            <el-input v-model="param.paramKey" size="small" @change="onChange" />
+          </div>
           <div class="param-setting-td" v-if="column.prop === 'paramName'">
             <el-input v-model="param.paramName" size="small" @change="onChange" />
           </div>

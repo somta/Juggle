@@ -107,7 +107,7 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
     // todo 在这里转成流程执行运行需要的对象，而不是在触发流程哪里转
     @Transactional
     @Override
-    public Boolean deployFlowDefinition(FlowDefinitionInfo flowDefinitionInfo, String version) {
+    public Boolean deployFlowDefinition(FlowDefinitionInfo flowDefinitionInfo) {
         FlowInfo flowInfo = new FlowInfo();
         flowInfo.setFlowKey(flowDefinitionInfo.getFlowKey());
         flowInfo.setFlowName(flowDefinitionInfo.getFlowName());

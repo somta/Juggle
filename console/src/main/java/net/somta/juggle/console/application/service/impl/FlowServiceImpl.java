@@ -65,7 +65,7 @@ public class FlowServiceImpl extends BaseServiceImpl<FlowInfo> implements IFlowS
         }
 
         FlowResult flowResult = null;
-        if(FlowTypeEnum.async == flowInfo.getFlowType()){
+        if(FlowTypeEnum.ASYNC.getCode().equals(flowInfo.getFlowType())){
             flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager);
         }else{
             IDispatcher dispatcher = new SyncDispatcher();

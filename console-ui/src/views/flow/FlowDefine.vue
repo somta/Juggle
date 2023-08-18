@@ -59,6 +59,30 @@ async function addFlowDefineItem (row: any) {
   }*/
 }
 
+function openDeploy (row: any) {
+  ElMessageBox.confirm(
+      `确定部署'${row.flowName}'流程吗?`,
+      '操作确认',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      },
+  ).then(() => {
+    deployFlowDefine(row.id);
+  }).catch(() => {});
+}
+
+async function deployFlowDefine (flowDefineId: string) {
+  const res = await flowDefineService.deployFlowDefine(flowDefineId);
+  if (res.success) {
+    ElMessage({ type: 'success', message: '部署成功' });
+    queryFlowDefinePage();
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
 function openDelete (row: any) {
   ElMessageBox.confirm(
       `确定删除'${row.flowName}'流程吗?`,
@@ -102,6 +126,7 @@ function openEdit (row: any) {
             :pageNum="pageNum"
             :pageSize="pageSize"
             :loading="loading"
+            @deploy="openDeploy"
             @edit="openEdit"
             @delete="openDelete"
         />

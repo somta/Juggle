@@ -87,13 +87,13 @@ public class FlowDefinitionController {
      * @return Boolean
      */
     @Operation(summary = "部署流程")
-    @GetMapping("/deploy/{flowDefinitionId}/{version}")
-    public ResponseDataResult<Boolean> deployFlowDefinition(@PathVariable Long flowDefinitionId, @PathVariable String version){
+    @GetMapping("/deploy/{flowDefinitionId}")
+    public ResponseDataResult<Boolean> deployFlowDefinition(@PathVariable Long flowDefinitionId){
         FlowDefinitionInfo flowDefinitionInfo = flowDefinitionService.getFlowDefinitionById(flowDefinitionId);
         if(flowDefinitionInfo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionInfo,version);
+        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionInfo);
         return ResponseDataResult.setResponseResult(result);
     }
 }

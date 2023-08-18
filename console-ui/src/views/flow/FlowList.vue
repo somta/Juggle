@@ -44,6 +44,29 @@ function onPageChange (page:number) {
   queryFlowPage();
 }
 
+function openUpdateFlowStatus (row: any) {
+  ElMessageBox.confirm(
+      `确定${row.flowStatus == 0 ? "启用" : "禁用"}'${row.flowName}'流程吗?`,
+      '操作确认',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      },
+  ).then(() => {
+    updateFlowStatus(row);
+  }).catch(() => {});
+}
+
+async function updateFlowStatus (row: any) {
+  const res = await flowService.updateFlowStatus(row.id,row.flowStatus);
+  if (res.success) {
+    ElMessage({ type: 'success', message: '操作成功' });
+    queryFlowPage();
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
 
 function openDelete (row: any) {
   ElMessageBox.confirm(
@@ -68,10 +91,6 @@ async function deleteFlowItem (row: any) {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
-
-function openEdit (row: any) {
-  drawerRef.value.open(row);
-}
 </script>
 
 <template>
@@ -87,7 +106,7 @@ function openEdit (row: any) {
             :pageNum="pageNum"
             :pageSize="pageSize"
             :loading="loading"
-            @edit="openEdit"
+            @flowStatusChange="openUpdateFlowStatus"
             @delete="openDelete"
         />
       </el-main>

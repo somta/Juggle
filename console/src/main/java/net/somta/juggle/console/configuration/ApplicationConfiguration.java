@@ -1,7 +1,6 @@
 package net.somta.juggle.console.configuration;
 
 import net.somta.common.utils.SnowflakeIdUtil;
-import net.somta.juggle.console.properties.JuggleProperties;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.result.MemoryFlowResultManager;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,5 +1,9 @@
 import {flowAPI, flowDefineAPI} from "@/service/api";
 
+export async function updateFlowStatus(flowId: number, flowStatus: number) {
+    return flowAPI.updateFlowStatus(flowId,flowStatus);
+}
+
 export async function queryFlowPage (params: Parameters<typeof flowAPI.flowPage>[0]) {
     return flowAPI.flowPage(params);
 }

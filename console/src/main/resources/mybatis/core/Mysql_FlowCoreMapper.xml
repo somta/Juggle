@@ -45,7 +45,7 @@
 </delete>
 
 <update id="update" parameterType="net.somta.juggle.console.infrastructure.model.FlowInfo" >
-	update t_flow_definition set
+	update t_flow set
 	<trim  suffixOverrides="," >
 	<if test="flowKey != null and flowKey != ''">
 		flow_key=#{flowKey},

@@ -6,8 +6,11 @@ defineProps({
   dataTotal: Number,
   loading: Boolean,
 });
-const emit = defineEmits(['pageChange', 'edit', 'delete']);
+const emit = defineEmits(['pageChange','deploy', 'edit', 'delete']);
 
+function deployFlow (row: any) {
+  emit('deploy', row);
+}
 function deleteRow (row: any, index: number) {
   emit('delete', row, index);
 }
@@ -33,7 +36,7 @@ function editRow (row: any) {
         <el-button link type="primary" size="small">
           调试
         </el-button>
-        <el-button link type="primary" size="small">
+        <el-button link type="primary" size="small" @click.prevent="deployFlow(scope.row)">
           部署
         </el-button>
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)">

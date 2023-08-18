@@ -1,21 +1,23 @@
 package net.somta.juggle.console.infrastructure.model;
 
+import net.somta.core.base.BaseModel;
 import net.somta.juggle.console.domain.flow.enums.FlowTypeEnum;
 
-public class FlowInfo {
+public class FlowInfo extends BaseModel {
     private Long id;
 
     private String flowKey;
 
     private String flowName;
 
-    private FlowTypeEnum flowType;
+    private String flowType;
 
+    /**
+     * 流程状态   0:禁用  1:启用
+     */
     private Integer flowStatus;
 
     private String flowContent;
-
-    private String version;
 
     private String inputs;
 
@@ -49,11 +51,11 @@ public class FlowInfo {
         this.flowName = flowName;
     }
 
-    public FlowTypeEnum getFlowType() {
+    public String getFlowType() {
         return flowType;
     }
 
-    public void setFlowType(FlowTypeEnum flowType) {
+    public void setFlowType(String flowType) {
         this.flowType = flowType;
     }
 
@@ -71,14 +73,6 @@ public class FlowInfo {
 
     public void setFlowContent(String flowContent) {
         this.flowContent = flowContent;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     public String getInputs() {

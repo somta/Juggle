@@ -57,5 +57,5 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfo>
      * @param flowDefinitionInfo
      * @return
      */
-    Boolean deployFlowDefinition(FlowDefinitionInfo flowDefinitionInfo,String version);
+    Boolean deployFlowDefinition(FlowDefinitionInfo flowDefinitionInfo);
 }

@@ -6,14 +6,14 @@ defineProps({
   dataTotal: Number,
   loading: Boolean,
 });
-const emit = defineEmits(['pageChange', 'edit', 'delete']);
+const emit = defineEmits(['pageChange', 'flowStatusChange', 'delete']);
 
 function deleteRow (row: any, index: number) {
   emit('delete', row, index);
 }
 
-function editRow (row: any) {
-  emit('edit', row);
+function updateFlowStatus (row: any) {
+  emit('flowStatusChange', row);
 }
 
 // todo 应该有更优雅的写法
@@ -25,6 +25,14 @@ function flowTypeFormat(flowType: string){
     }else {
       return '未知';
     }
+}
+
+function flowStatusFormat(flowStatus: string){
+  if(flowStatus == 0){
+    return '启用';
+  }else {
+    return '禁用';
+  }
 }
 
 </script>
@@ -41,8 +49,8 @@ function flowTypeFormat(flowType: string){
     <el-table-column prop="remark" label="流程描述" width="420" />
     <el-table-column label="操作" width="250" >
       <template #default="scope">
-        <el-button link type="primary" size="small">
-          上线/下线
+        <el-button link type="primary" size="small" @click.prevent="updateFlowStatus(scope.row)">
+          {{ flowStatusFormat(scope.row.flowStatus) }}
         </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)">
           删除
