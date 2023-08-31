@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
 defineProps({
   dataRows: Array,
   pageNum: Number,
@@ -18,6 +20,14 @@ function deleteRow (row: any, index: number) {
 function editRow (row: any) {
   emit('edit', row);
 }
+function goDebugPage(flowKey: number) {
+  router.push({
+    name:'flow-debug',
+    params:{
+      flowKey: flowKey,
+    },
+  });
+}
 
 </script>
 
@@ -33,7 +43,7 @@ function editRow (row: any) {
         <el-button link type="primary" size="small">
           流程
         </el-button>
-        <el-button link type="primary" size="small">
+        <el-button link type="primary" size="small" @click="goDebugPage(scope.row.flowKey)">
           调试
         </el-button>
         <el-button link type="primary" size="small" @click.prevent="deployFlow(scope.row)">

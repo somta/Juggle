@@ -69,12 +69,12 @@ public class FlowController {
      * @return Boolean
      */
     @Operation(summary = "触发流程")
-    @PostMapping("/triggerFlow")
-    public ResponseDataResult<FlowResult> triggerFlow(@RequestBody TriggerDataParam triggerData){
-        if(StringUtils.isEmpty(triggerData.getFlowKey())){
+    @PostMapping("/triggerFlow/{flowKey}")
+    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
+        if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
-        FlowInfo flowInfo = flowService.getFlowByFlowKey(triggerData.getFlowKey());
+        FlowInfo flowInfo = flowService.getFlowByFlowKey(flowKey);
         if(flowInfo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
