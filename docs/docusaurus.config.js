@@ -115,29 +115,20 @@ module.exports = {
                 },
                 items: [
                     {
+                        to: '/',
+                        label: '首页',
+                        position: 'left',
+                    },
+                    {
                         type: 'docsVersion',
                         to: 'docs/quick-start',
                         label: '文档',
                         position: 'left',
                     },
                     {
-                        to: 'docs/middleware-sources',
-                        label: '中间件',
-                        activeBasePath: '/docs/middleware-sources',
-                        position: 'left',
-                        className: 'changelog',
-                    },
-                    {
-                        to: 'docs/oas',
-                        label: 'OAS规范',
-                        activeBasePath: '/docs/oas',
-                        position: 'left',
-                        className: 'changelog',
-                    },
-                    {
                         to: 'docs/action',
                         activeBasePath: '/docs/action',
-                        label: '实战指南',
+                        label: '博客',
                         position: 'left',
                         className: 'changelog',
                     },
@@ -192,10 +183,6 @@ module.exports = {
                             {
                                 label: '更新日志',
                                 to: 'docs/changelog',
-                            },
-                            {
-                                label: '升级到v4.0',
-                                to: 'docs/upgrading/upgrading-to-v4',
                             },
                         ],
                     }, {
