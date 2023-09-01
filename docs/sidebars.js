@@ -16,9 +16,18 @@ module.exports = {
         value: donateHtml,
         defaultStyle: true
     },
-        'quick-start/quick-start',
+        'guide/quick-start',
         'community/joinus',
         'community/contributing',
+    {
+        type: 'category',
+        label: 'Juggle是什么？',
+        collapsed: true,
+        items: [
+            'guide/introduce/introduce-index',
+            'guide/introduce/concept'
+        ],
+    },
     {
         type: 'category',
         label: '序章',
@@ -35,7 +44,7 @@ module.exports = {
             'introduction/gvp',
             'introduction/milestone'
         ],
-    }, {
+    },{
         type: 'category',
         label: '社区',
         collapsed: true,
@@ -48,9 +57,7 @@ module.exports = {
             'community/sourcecode',
             'community/apache',
             'community/changelog',
-
             'community/donate',
-
             'community/simple-demo',
         ],
     }],

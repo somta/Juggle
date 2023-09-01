@@ -121,8 +121,14 @@ module.exports = {
                     },
                     {
                         type: 'docsVersion',
-                        to: 'docs/quick-start',
+                        to: 'docs/guide/quick-start',
                         label: '文档',
+                        position: 'left',
+                    },
+                    {
+                        type: 'docsVersion',
+                        to: 'docs/quick-start2',
+                        label: '文档2',
                         position: 'left',
                     },
                     {
