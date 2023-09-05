@@ -126,14 +126,8 @@ module.exports = {
                         position: 'left',
                     },
                     {
-                        type: 'docsVersion',
-                        to: 'docs/quick-start2',
-                        label: '文档2',
-                        position: 'left',
-                    },
-                    {
-                        to: 'docs/action',
-                        activeBasePath: '/docs/action',
+                        to: 'docs/blog',
+                        activeBasePath: '/docs/blog',
                         label: '博客',
                         position: 'left',
                         className: 'changelog',

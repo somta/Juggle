@@ -17,8 +17,8 @@ module.exports = {
         defaultStyle: true
     },
         'guide/quick-start',
-        'community/joinus',
-        'community/contributing',
+        // 'community/joinus',
+        // 'community/contributing',
     {
         type: 'category',
         label: 'Juggle是什么？',
@@ -27,38 +27,20 @@ module.exports = {
             'guide/introduce/introduce-index',
             'guide/introduce/concept'
         ],
-    },
-    {
-        type: 'category',
-        label: '序章',
-        collapsed: true,
-        link: {
-            type: 'doc',
-            id: 'introduction/introduction-index',
-        },
-        items: [
-            'introduction/introduction-index',
-            'introduction/introduction-background',
-            'introduction/support',
-            'introduction/ui',
-            'introduction/gvp',
-            'introduction/milestone'
-        ],
     },{
+        type: 'category',
+        label: '开源共建',
+        collapsed: true,
+        items: [
+            'guide/open/contributing-flow'
+        ],
+     },{
         type: 'category',
         label: '社区',
         collapsed: true,
-        link: {
-            type: 'doc',
-            id: 'community/community',
-        },
         items: [
-            'community/community-get-helps',
-            'community/sourcecode',
-            'community/apache',
-            'community/changelog',
-            'community/donate',
-            'community/simple-demo',
+            'guide/community/community-get-help',
+            'guide/community/donate'
         ],
     }],
     "changelog": [{
@@ -100,97 +82,5 @@ module.exports = {
             },
         ]
     }
-    ],
-    "action": [
-        {
-            type: 'html',
-            value: donateHtml,
-            defaultStyle: true
-        },
-        "action/action-index",
-        "action/action-simple"
-        , {
-            type: 'category',
-            label: 'Spring 单体架构',
-            collapsed: true,
-            items: [
-                'action/mavenbom',
-                'action/springmvc',
-                'action/springboot'
-            ]
-        }
-        , {
-            type: 'category',
-            label: 'Spring微服务架构',
-            collapsed: true,
-            items: [
-                'action/springcloud-gateway',
-                'action/springcloud-zuul'
-            ]
-        }
-
-        , {
-            type: 'category',
-            label: 'OAuth2.0',
-            collapsed: true,
-            items: [
-                'action/oauth2-implicit',
-                'action/oauth2-authorization_code',
-                'action/oauth2-client_credentials',
-                'action/oauth2-password'
-            ]
-        }
-        , {
-            type: 'category',
-            label: '微服务聚合实战',
-            collapsed: true,
-            items: [
-                'action/aggregation-disk',
-                'action/aggregation-cloud',
-                'action/aggregation-eureka',
-                'action/aggregation-nacos',
-                'action/aggregation-docker'
-            ]
-        }
-        , {
-            type: 'category',
-            label: 'ASP.NET Core',
-            collapsed: true,
-            items: [
-                'action/dotnetcore-knife4j-how',
-                'action/dotnetcore-knife4j-guid'
-            ]
-        }, {
-            type: 'category',
-            label: 'Springfox 源码系列',
-            collapsed: true,
-            link: {
-                type: 'doc',
-                id: 'action/springfox/springfox-index',
-            },
-            items: [
-                'action/springfox/springfox1',
-                'action/springfox/springfox2',
-                'action/springfox/springfox3',
-                'action/springfox/springfox4',
-                'action/springfox/springfox5',
-                'action/springfox/springfox6',
-                'action/springfox/springfox7',
-                'action/springfox/springfox8',
-                'action/springfox/springfox9',
-                'action/springfox/springfox10',
-                'action/springfox/springfox11',
-                'action/springfox/springfox12',
-                'action/springfox/springfox13',
-                'action/springfox/springfox14',
-                'action/springfox/springfox15',
-                'action/springfox/springfox16',
-                'action/springfox/springfox17',
-                'action/springfox/springfox18',
-                'action/springfox/springfox19',
-                'action/springfox/springfox20',
-                'action/springfox/springfox21'
-            ]
-        }
     ]
 }
