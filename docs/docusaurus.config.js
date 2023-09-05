@@ -48,46 +48,6 @@ module.exports = {
     ]),
     plugins: [
         [
-            '@docusaurus/plugin-client-redirects',
-            {
-                redirects: [
-                    {
-                        from: '/docs',
-                        to: '/docs/quick-start',
-                    },
-                    {
-                        from: '/docs/guides/getting-started',
-                        to: '/docs/introduction',
-                    },
-                    {
-                        from: '/knife4j/documentation',
-                        to: '/docs/quick-start'
-                    }, {
-                        from: '/knife4j/documentation/get_start.html',
-                        to: '/docs/quick-start'
-                    }, {
-                        from: '/guide/useful.html',
-                        to: '/docs/quick-start'
-                    }, {
-                        from: '/knife4j',
-                        to: '/docs/quick-start'
-                    }, {
-                        from: '/knife4j/action',
-                        to: '/docs/action'
-                    }, {
-                        from: '/knife4j/changelog',
-                        to: '/docs/changelog'
-                    }, {
-                        from: '/guide',
-                        to: '/docs/quick-start'
-                    }, {
-                        from: '/knife4j/faq/knife4j-exception.html',
-                        to: '/docs/faq/knife4j-exception'
-                    }
-                ],
-            },
-        ],
-        [
             'docusaurus-gtm-plugin',
             {
                 id: 'GTM-TKBX678',
@@ -174,11 +134,7 @@ module.exports = {
                         items: [
                             {
                                 label: '文档',
-                                to: 'docs/quick-start',
-                            },
-                            {
-                                label: '示例',
-                                to: 'docs/community/simple-demo',
+                                to: 'docs/guide/quick-start',
                             },
                             {
                                 label: '更新日志',
@@ -214,17 +170,13 @@ module.exports = {
                                 href: 'https://docusaurus.io',
                             },
                             {
-                                label: 'Gitee',
-                                href: 'https://gitee.com/xiaoym/knife4j',
-                            },
-                            {
                                 label: 'GitHub',
-                                href: 'https://github.com/xiaoymin/swagger-bootstrap-ui',
+                                href: 'https://github.com/somta/Juggle',
                             },
                         ],
                     }
                 ],
-                copyright: `Apache License 2.0 | Copyright © 2018-${new Date().getFullYear()}-八一菜刀 浙ICP备18027673号-1 `
+                copyright: `Apache License 2.0 | Copyright © 2018-${new Date().getFullYear()}-明天的地平线 `
             },
         //todo 这里要换成自己的
             algolia: {

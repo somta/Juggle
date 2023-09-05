@@ -15,10 +15,10 @@ function Hero() {
                     <div className={clsx(styles.relative, 'row')}>
                         <div className="col">
                             <h1 className={styles.tagline}>
-                                Knife4j是一个集Swagger2 和 OpenAPI3<br />  为一体的增强解决方案
+                                Juggle是一个集Swagger2 和 OpenAPI3<br />  为一体的增强解决方案
                             </h1>
                             <h1 className={styles.tagline}>
-                                <span>Knife4j</span>是一个集<span>Swagger2</span> 和 <span>OpenAPI3<br /> </span> 为一体的<span>增强</span>解决方案
+                                <span>Juggle</span>是一个集<span>Swagger2</span> 和 <span>OpenAPI3<br /> </span> 为一体的<span>增强</span>解决方案
                             </h1>
                         </div>
                     </div>
@@ -30,7 +30,7 @@ function Hero() {
                     <div className="row">
                         <div className="col">
                             <div className={styles.heroButtons}>
-                                <Link to="docs/quick-start" className={styles.getStarted}>Get Started</Link>
+                                <Link to="docs/guide/quick-start" className={styles.getStarted}>Get Started</Link>
                                 <a href='https://gitee.com/xiaoym/knife4j/stargazers' className={styles.giteeStar}><img src='https://gitee.com/xiaoym/knife4j/badge/star.svg?theme=gvp' alt='star'></img></a>
 
                                 <iframe src="https://ghbtns.com/github-btn.html?user=xiaoymin&repo=knife4j&type=star&count=true&size=large" frameBorder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
@@ -142,14 +142,14 @@ function Knife4jFramWork() {
 
 
 function Contributors() {
-    const contributorDatas = require('../../static/json/contributors1.json');
+    const contributorDatas = require('../../static/json/contributors.json');
 
     return (
         <section className={clsx(styles.try, 'container')}>
             <div className="col">
                 <div className={styles.contributorsHeader}>
                     <h1>Contributors</h1>
-                    <div>Knife4j的发展离不开每一位Contributor的无私奉献～～！</div>
+                    <div>Juggle的每一点发展离不开每一位Contributor的无私奉献～～！</div>
                 </div>
                 <div className={styles.contributos}>
                     {
