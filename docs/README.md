@@ -1,3 +1,3 @@
-# knife4j 官方文档
+# Juggle 官方文档
 
-访问地址：https://doc.xiaominfo.com
+访问地址：https://juggle.plus

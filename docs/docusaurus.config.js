@@ -1,16 +1,14 @@
 /* eslint-disable global-require,import/no-extraneous-dependencies */
 const { externalLinkProcessor } = require('./tools/utils/externalLink');
 
-
-/** @type {Partial<import('@docusaurus/types').DocusaurusConfig>} */
 module.exports = {
-    title: 'Knife4j',
+    title: 'Juggle',
     tagline: '集Swagger2及OpenAPI3为一体的增强解决方案.',
-    url: 'https://doc.xiaominfo.com',
+    url: 'https://juggle.plus',
     baseUrl: '/',
     trailingSlash: false,
-    organizationName: 'xiaoymin',
-    projectName: 'swagger-bootstrap-ui',
+    organizationName: 'somta',
+    projectName: 'juggle-doc',
     scripts: ['/js/custom.js', '/js/baidu.js'],
     favicon: 'img/favicon.ico',
     i18n: {
@@ -22,7 +20,7 @@ module.exports = {
             html: true,
         },
         gaGtag: true,
-        repoUrl: 'https://gitee.com/xiaoym/knife4j',
+        repoUrl: 'https://github.com/somta/Juggle',
     },
     onBrokenLinks:
     /** @type {import('@docusaurus/types').ReportingSeverity} */ ('throw'),
@@ -107,7 +105,7 @@ module.exports = {
                         className: 'changelog',
                     },
                     {
-                        href: 'https://github.com/xiaoymin/swagger-bootstrap-ui',
+                        href: 'https://github.com/somta/Juggle',
                         label: 'GitHub',
                         title: 'View on GitHub',
                         position: 'right',
@@ -145,12 +143,12 @@ module.exports = {
                         title: '社区',
                         items: [
                             {
-                                label: 'Gitter',
-                                href: 'https://gitter.im/knife4j/knife4j',
+                                label: 'Bilibili',
+                                href: 'https://space.bilibili.com/100381077',
                             },
                             {
-                                label: '开源中国',
-                                href: 'https://www.oschina.net/question/tag/swagger-bootstrap-ui',
+                                label: '知乎',
+                                href: 'https://www.zhihu.com/people/songhu-83',
                             }
                         ],
                     },
@@ -158,7 +156,7 @@ module.exports = {
                         title: '关注公众号',
                         items: [
                             {
-                                html: '<img src="/images/website/qrcode.jpg" width="150"/>'
+                                html: '<img src="/images/website/gzh_qrcode.jpg" width="150"/>'
                             }
                         ],
                     },
