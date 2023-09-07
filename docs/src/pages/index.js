@@ -15,109 +15,29 @@ function Hero() {
                     <div className={clsx(styles.relative, 'row')}>
                         <div className="col">
                             <h1 className={styles.tagline}>
-                                Juggle是一个集Swagger2 和 OpenAPI3<br />  为一体的增强解决方案
+                                Juggle是一个可用于接口编排 ， 定制开发<br />  等场景的一套完整解决方案
                             </h1>
                             <h1 className={styles.tagline}>
-                                <span>Juggle</span>是一个集<span>Swagger2</span> 和 <span>OpenAPI3<br /> </span> 为一体的<span>增强</span>解决方案
+                                <span>Juggle</span>是一个可用于<span>接口编排</span> ， <span>定制开发<br /> </span> 等场景的一套<span>完整</span>解决方案
                             </h1>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <h2>帮助开发者快速聚合使用OpenAPI规范.</h2>
+                            <h2>大幅提高开发效率，为企业降本增效.</h2>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
                             <div className={styles.heroButtons}>
                                 <Link to="docs/guide/quick-start" className={styles.getStarted}>Get Started</Link>
-                                <a href='https://gitee.com/xiaoym/knife4j/stargazers' className={styles.giteeStar}><img src='https://gitee.com/xiaoym/knife4j/badge/star.svg?theme=gvp' alt='star'></img></a>
-
-                                <iframe src="https://ghbtns.com/github-btn.html?user=xiaoymin&repo=knife4j&type=star&count=true&size=large" frameBorder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
-
+                                {/*<a href='https://gitee.com/Somta' className={styles.giteeStar}><img src='' alt='star'></img></a>*/}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-    );
-}
-
-const example = `@Configuration
-@EnableSwagger2WebMvc
-public class Knife4jConfiguration {
-
-    @Bean(value = "dockerBean")
-    public Docket dockerBean() {
-        //指定使用Swagger2规范
-        Docket docket=new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfoBuilder()
-                //描述字段支持Markdown语法
-                .description("# Knife4j RESTful APIs")
-                .termsOfServiceUrl("https://doc.xiaominfo.com/")
-                .contact("xiaoymin@foxmail.com")
-                .version("1.0")
-                .build())
-                //分组名称
-                .groupName("用户服务")
-                .select()
-                //这里指定Controller扫描包路径
-                .apis(RequestHandlerSelectors.basePackage("com.github.xiaoymin.knife4j.controller"))
-                .paths(PathSelectors.any())
-                .build();
-        return docket;
-    }
-}
-`;
-
-const mavenDependency = `<!--引入Knife4j的官方start包,该指南选择Spring Boot版本<3.0,开发者需要注意-->
-<dependency>
-    <groupId>com.github.xiaoymin</groupId>
-    <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
-    <version>4.0.0</version>
-</dependency>
-
-`
-
-const controllerExample = `@Api(tags = "首页模块")
-@RestController
-public class IndexController {
-
-    @ApiImplicitParam(name = "name",value = "姓名",required = true)
-    @ApiOperation(value = "向客人问好")
-    @GetMapping("/sayHi")
-    public ResponseEntity<String> sayHi(@RequestParam(value = "name")String name){
-        return ResponseEntity.ok("Hi:"+name);
-    }
-}`
-
-function ActorExample() {
-    return (
-        <section className={clsx(styles.try, 'container')}>
-            <div className="col">
-                <h2>快速开始(Spring Boot 2 + OpenAPI2)</h2>
-
-                <p>不同规范以及Spring Boot3 OpenAPI3的使用请移步<a href='docs/quick-start'>详细文档</a></p>
-                <p>第一步：<a href='https://spring.io/guides/gs/spring-boot/'>创建Spring Boot项目</a>并且在pom.xml中引入<a href='https://search.maven.org/search?q=g:com.github.xiaoymin'>Knife4j的依赖包</a>，代码如下：</p>
-                <CodeBlock className="language-xml">
-                    {mavenDependency}
-
-                </CodeBlock>
-                <p>第二步：创建Swagger配置依赖，代码如下：：</p>
-                <CodeBlock className="language-javascript">
-                    {example}
-                </CodeBlock>
-                <p>第三步:新建一个接口Controller类，如下：</p>
-                <CodeBlock className="language-javascript">
-                    {controllerExample}
-                </CodeBlock>
-                <p>万事俱备，启动Spring Boot项目，浏览器访问Knife4j的文档地址即可查看效果</p>
-                <CodeBlock className="language-bash">
-                    http://localhost:8080/doc.html
-                </CodeBlock>
-            </div>
-        </section>
     );
 }
 
@@ -175,7 +95,6 @@ export default function Home() {
             <Hightlights />
             <Knife4jFramWork />
             <Contributors />
-            <ActorExample />
             <div className="container">
                 <div className="row">
                     <div className="col text--center padding-top--lg padding-bottom--xl">
