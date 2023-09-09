@@ -85,7 +85,7 @@ function Contributors() {
 
 
 export default function Home() {
-    const SvgLogo = require('../../static/img/knife4j-logo.svg').default;
+    const SvgLogo = require('../../static/img/juggle-logo.svg').default;
     const { siteConfig } = useDocusaurusContext();
     return (
         <Layout
@@ -93,7 +93,7 @@ export default function Home() {
             description={siteConfig.description}>
             <Hero />
             <Hightlights />
-            <Knife4jFramWork />
+            {/*<Knife4jFramWork />*/}
             <Contributors />
             <div className="container">
                 <div className="row">

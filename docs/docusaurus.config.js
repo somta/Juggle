@@ -3,10 +3,9 @@ const { externalLinkProcessor } = require('./tools/utils/externalLink');
 
 module.exports = {
     title: 'Juggle',
-    tagline: '集Swagger2及OpenAPI3为一体的增强解决方案.',
-    url: 'https://juggle.plus',
+    tagline: 'Juggle是一个可用于接口编排，定制开发等场景的一套完整解决方案',
+    url: 'https://tranquil-llama-ede5e7.netlify.app',
     baseUrl: '/',
-    trailingSlash: false,
     organizationName: 'somta',
     projectName: 'juggle-doc',
     scripts: ['/js/custom.js', '/js/baidu.js'],
@@ -65,11 +64,10 @@ module.exports = {
                 maxHeadingLevel: 5
             },
             navbar: {
-                hideOnScroll: true,
                 title: 'Juggle',
                 logo: {
-                    src: 'img/knife4j-light.svg',
-                    srcDark: 'img/knife4j-dark.svg',
+                    src: 'img/juggle-banner-light.png',
+                    srcDark: 'img/juggle-banner-dark.png',
                 },
                 items: [
                     {

@@ -14,8 +14,6 @@ module.exports = {
         defaultStyle: true
     },
         'guide/quick-start',
-        // 'community/joinus',
-        // 'community/contributing',
     {
         type: 'category',
         label: 'Juggle是什么？',
