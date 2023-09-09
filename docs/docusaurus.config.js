@@ -1,4 +1,3 @@
-/* eslint-disable global-require,import/no-extraneous-dependencies */
 const { externalLinkProcessor } = require('./tools/utils/externalLink');
 
 module.exports = {
@@ -21,11 +20,9 @@ module.exports = {
         gaGtag: true,
         repoUrl: 'https://github.com/somta/Juggle',
     },
-    onBrokenLinks:
-    /** @type {import('@docusaurus/types').ReportingSeverity} */ ('throw'),
-    onBrokenMarkdownLinks:
-    /** @type {import('@docusaurus/types').ReportingSeverity} */ ('throw'),
-    presets: /** @type {import('@docusaurus/types').PresetConfig[]} */ ([
+    onBrokenLinks: 'throw',
+    onBrokenMarkdownLinks: 'throw',
+    presets: ([
         [
             '@docusaurus/preset-classic',
             ({
@@ -36,6 +33,10 @@ module.exports = {
                     showLastUpdateTime: true,
                     sidebarPath: './sidebars.js',
                     rehypePlugins: [externalLinkProcessor],
+                },
+                blog: {
+                    blogSidebarTitle: '最新文章',
+                    showReadingTime: true,
                 },
                 theme: {
                     customCss: 'src/css/custom.css',
@@ -51,8 +52,7 @@ module.exports = {
             }
         ],
     ],
-    themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
+    themeConfig:({
             docs: {
                 versionPersistence: 'localStorage',
                 sidebar: {
@@ -82,11 +82,9 @@ module.exports = {
                         position: 'left',
                     },
                     {
-                        to: 'docs/blog',
-                        activeBasePath: '/docs/blog',
+                        to: '/blog',
                         label: '博客',
-                        position: 'left',
-                        className: 'changelog',
+                        position: 'left'
                     },
                     {
                         to: 'docs/changelog',
