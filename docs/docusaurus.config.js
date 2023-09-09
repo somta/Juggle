@@ -45,10 +45,10 @@ module.exports = {
     ]),
     plugins: [
         [
-            'docusaurus-gtm-plugin',
+            require.resolve('docusaurus-gtm'),
             {
-                id: 'GTM-TKBX678',
-            },
+                id: 'GTM-XXXXXXX', // GTM Container ID
+            }
         ],
     ],
     themeConfig:

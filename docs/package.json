@@ -1,17 +1,17 @@
 {
     "scripts": {
-        "examples": "docusaurus-examples",
+        "docusaurus": "docusaurus",
         "start": "rimraf .docusaurus && docusaurus start",
         "build": "rimraf .docusaurus && docusaurus build",
         "build-netlify": "rimraf .docusaurus && docusaurus build",
+        "serve": "docusaurus serve",
         "publish-gh-pages": "docusaurus-publish",
         "write-translations": "docusaurus write-translations",
         "version": "docusaurus version",
         "rename-version": "docusaurus rename-version",
         "prettify": "prettier --write --config ./tools/docs-prettier.config.js ./docs/guides/*.md",
         "swizzle": "docusaurus swizzle",
-        "deploy": "rimraf .docusaurus && docusaurus deploy",
-        "docusaurus": "docusaurus"
+        "deploy": "rimraf .docusaurus && docusaurus deploy"
     },
     "devDependencies": {
         "@apify/eslint-config-ts": "^0.2.3",
@@ -29,11 +29,11 @@
         "rimraf": "^3.0.2"
     },
     "dependencies": {
-        "@docusaurus/core": "2.0.1",
-        "@docusaurus/preset-classic": "2.0.1",
+        "@docusaurus/core": "2.4.1",
+        "@docusaurus/preset-classic": "2.4.1",
         "@giscus/react": "^2.2.0",
-        "clsx": "^1.1.1",
-        "docusaurus-gtm-plugin": "^0.0.2",
+        "clsx": "^1.2.1",
+        "docusaurus-gtm": "^1.0.3",
         "docusaurus-plugin-typedoc-api": "2.3.0",
         "prop-types": "^15.8.1",
         "raw-loader": "^4.0.2",
