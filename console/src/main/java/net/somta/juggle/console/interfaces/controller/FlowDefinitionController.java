@@ -4,16 +4,20 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.infrastructure.model.FlowDefinitionInfo;
+import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam;
 import net.somta.juggle.console.interfaces.param.FlowDefinitionParam;
 import net.somta.juggle.console.application.service.IFlowDefinitionService;
+import net.somta.juggle.console.interfaces.param.TriggerDataParam;
+import net.somta.juggle.core.model.FlowResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.definition.enums.FlowDefinitionErrorEnum.FLOW_DEFINITION_NOT_EXIST;
 import static net.somta.juggle.console.domain.definition.enums.FlowDefinitionErrorEnum.FLOW_PARAM_ERROR;
+import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 
 /**
  * 流程定义Controller
@@ -77,8 +81,27 @@ public class FlowDefinitionController {
      */
     @Operation(summary = "获取流程定义分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<FlowDefinitionInfo> getFlowDefinitionList(@RequestBody FlowDefinitionPageParam flowDefinitionPageParam){
+    public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionList(@RequestBody FlowDefinitionPageParam flowDefinitionPageParam){
         return flowDefinitionService.queryByPageList(flowDefinitionPageParam.getPageNum(),flowDefinitionPageParam.getPageSize(), flowDefinitionPageParam);
+    }
+
+    /**
+     * 调试流程
+     * @param triggerData 触发流程实体
+     * @return Boolean
+     */
+    @Operation(summary = "调试流程")
+    @PostMapping("/debug/{flowKey}")
+    public ResponseDataResult<FlowResult> debugFlow(@PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
+        if(StringUtils.isEmpty(flowKey)){
+            return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
+        }
+        FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionService.getFlowDefinitionByKey(flowKey);
+        if(flowDefinitionInfoPO == null){
+            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
+        }
+        FlowResult rst = flowDefinitionService.debugFlow(flowDefinitionInfoPO,triggerData);
+        return ResponseDataResult.setResponseResult(rst);
     }
 
     /**
@@ -89,11 +112,11 @@ public class FlowDefinitionController {
     @Operation(summary = "部署流程")
     @GetMapping("/deploy/{flowDefinitionId}")
     public ResponseDataResult<Boolean> deployFlowDefinition(@PathVariable Long flowDefinitionId){
-        FlowDefinitionInfo flowDefinitionInfo = flowDefinitionService.getFlowDefinitionById(flowDefinitionId);
-        if(flowDefinitionInfo == null){
+        FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionService.getFlowDefinitionById(flowDefinitionId);
+        if(flowDefinitionInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionInfo);
+        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionInfoPO);
         return ResponseDataResult.setResponseResult(result);
     }
 }

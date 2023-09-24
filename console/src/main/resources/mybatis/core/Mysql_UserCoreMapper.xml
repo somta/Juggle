@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.UserMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.User" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.UserPO" >
 	<result column="id" property="id"/>
 	<result column="user_name" property="userName"/>
 	<result column="password" property="password"/>
@@ -23,7 +23,7 @@
 	id, user_name, password, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.model.User" >
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.UserPO" >
 	insert into t_user (id, user_name, password, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{userName},#{password},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -32,7 +32,7 @@
 	delete from t_user where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.model.User" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.UserPO" >
 	update t_user set
 	<trim  suffixOverrides="," >
 		<if test="apiUrl != null and apiUrl != ''">

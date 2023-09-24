@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.VariableInfo" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
 	<result column="id" property="id"/>
 	<result column="flow_definition_id" property="flowDefinitionId"/>
 	<result column="env_key" property="envKey"/>
@@ -18,7 +18,7 @@
 	id, flow_definition_id, env_key, env_name,env_type,data_type
 </sql>
    
-<insert id="addVariable" parameterType="net.somta.juggle.console.infrastructure.model.VariableInfo" >
+<insert id="addVariable" parameterType="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
 	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
 	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{envType},#{dataType});
 </insert>
@@ -26,7 +26,7 @@
 <insert id="batchAddVariable">
 	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
 	values
-	<foreach collection ="variableInfoList" item="item" separator =",">
+	<foreach collection ="variableInfoPOList" item="item" separator =",">
 		(#{item.id},#{item.flowDefinitionId},#{item.envKey},#{item.envName},#{item.envType},#{item.dataType})
 	</foreach>
 </insert>
@@ -43,7 +43,7 @@
 	delete from t_variable_info where flow_definition_id=#{flowDefinitionId} and id=#{id}
 </delete>
 
-<update id="updateVariable" parameterType="net.somta.juggle.console.infrastructure.model.VariableInfo" >
+<update id="updateVariable" parameterType="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
 	update t_variable_info set
 	<trim  suffixOverrides="," >
 	<if test="id != null">

@@ -1,11 +1,11 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.infrastructure.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.somta.core.base.BaseModel;
 
 import java.util.Date;
 
-public class Domain extends BaseModel {
+public class DomainPO extends BaseModel {
     private Long id;
     private String domainCode;
     private String domainName;

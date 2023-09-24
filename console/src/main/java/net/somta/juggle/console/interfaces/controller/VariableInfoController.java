@@ -6,7 +6,7 @@ import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.console.domain.definition.enums.FlowDefinitionErrorEnum;
 import net.somta.juggle.console.domain.variable.enums.VariableErrorEnum;
-import net.somta.juggle.console.infrastructure.model.VariableInfo;
+import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.console.interfaces.param.VariableAddParam;
 import net.somta.juggle.console.application.service.IVariableInfoService;
 import net.somta.juggle.core.model.Variable;
@@ -36,12 +36,12 @@ public class VariableInfoController {
         if(variableAddParam == null){
             return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_PARAM_IS_NULL_ERROR);
         }
-        VariableInfo variableInfo = new VariableInfo();
-        variableInfo.setEnvKey(variableAddParam.getEnvKey());
-        variableInfo.setEnvName(variableAddParam.getEnvName());
-        variableInfo.setDataType(JsonSerializeHelper.serialize(variableAddParam.getDataType()));
-        variableInfo.setFlowDefinitionId(variableAddParam.getFlowDefinitionId());
-        Boolean result = variableService.addVariable(variableInfo);
+        VariableInfoPO variableInfoPO = new VariableInfoPO();
+        variableInfoPO.setEnvKey(variableAddParam.getEnvKey());
+        variableInfoPO.setEnvName(variableAddParam.getEnvName());
+        variableInfoPO.setDataType(JsonSerializeHelper.serialize(variableAddParam.getDataType()));
+        variableInfoPO.setFlowDefinitionId(variableAddParam.getFlowDefinitionId());
+        Boolean result = variableService.addVariable(variableInfoPO);
         return ResponseDataResult.setResponseResult(result);
     }
 
@@ -65,16 +65,16 @@ public class VariableInfoController {
 
     /**
      * 修改
-     * @param variableInfo 变量实体参数
+     * @param variableInfoPO 变量实体参数
      * @return Boolean
      */
     @Operation(summary = "修改变量")
     @PutMapping("/update")
-    public ResponseDataResult<Boolean> updateVariable(@RequestBody VariableInfo variableInfo){
-        if(variableInfo == null){
+    public ResponseDataResult<Boolean> updateVariable(@RequestBody VariableInfoPO variableInfoPO){
+        if(variableInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_PARAM_IS_NULL_ERROR);
         }
-        Boolean result = variableService.updateVariable(variableInfo);
+        Boolean result = variableService.updateVariable(variableInfoPO);
         return ResponseDataResult.setResponseResult(result);
     }
 

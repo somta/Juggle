@@ -29,8 +29,8 @@ import IconInterface from '@/components/icons/IconInterface.vue';
           <el-icon><IconInterface /></el-icon>
           <span>接口</span>
         </template>
-        <el-menu-item index="/api/domain">领域</el-menu-item>
-        <el-menu-item index="/api/list">接口列表</el-menu-item>
+        <el-menu-item index="/apiPO/domainPO">领域</el-menu-item>
+        <el-menu-item index="/apiPO/list">接口列表</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="/setting">
         <el-icon><Setting /></el-icon>

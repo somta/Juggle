@@ -1,6 +1,9 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.infrastructure.po;
 
-public class DataTypeInfo {
+/**
+ * @author Gavin
+ */
+public class DataTypeInfoPO {
 
     private Integer id;
 

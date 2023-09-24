@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.console.domain.user.enums.UserErrorEnum;
-import net.somta.juggle.console.infrastructure.model.User;
+import net.somta.juggle.console.infrastructure.po.UserPO;
 import net.somta.juggle.console.domain.user.vo.UserTokenVO;
 import net.somta.juggle.console.interfaces.dto.UserDTO;
 import net.somta.juggle.console.interfaces.param.user.LoginParam;
@@ -39,13 +39,13 @@ public class UserController {
         if(StringUtils.isEmpty(loginParam.getUserName()) || StringUtils.isEmpty(loginParam.getPassword())){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.LOGIN_PARAM_ERROR);
         }
-        User user = userService.queryUserByUserName(loginParam.getUserName());
-        if(user == null){
+        UserPO userPO = userService.queryUserByUserName(loginParam.getUserName());
+        if(userPO == null){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
-        if(loginParam.getPassword().equals(user.getPassword())){
+        if(loginParam.getPassword().equals(userPO.getPassword())){
             Map<String, Object> payload = new HashMap<>();
-            payload.put(UserTokenVO.USER_ID, user.getId().toString());
+            payload.put(UserTokenVO.USER_ID, userPO.getId().toString());
             String token = JwtUtil.generateToken(payload);
             return ResponseDataResult.setResponseResult(token);
         }else {
@@ -59,24 +59,24 @@ public class UserController {
         UserDTO userDTO = new UserDTO();
         String token = request.getHeader(JwtUtil.TOKEN_HEADER_KEY);
         UserTokenVO userTokenVO = JwtUtil.parseToken(token);
-        User user = userService.queryById(userTokenVO.getUserId());
-        userDTO.setId(user.getId());
-        userDTO.setUserName(user.getUserName());
+        UserPO userPO = userService.queryById(userTokenVO.getUserId());
+        userDTO.setId(userPO.getId());
+        userDTO.setUserName(userPO.getUserName());
         return ResponseDataResult.setResponseResult(userDTO);
     }
 
     @Operation(summary = "修改密码")
     @PutMapping("/updatePassword")
     public ResponseDataResult<Boolean> updatePassword(UpdatePasswordParam updatePasswordParam){
-        User user = userService.queryById(updatePasswordParam.getUserId());
-        if(user == null){
+        UserPO userPO = userService.queryById(updatePasswordParam.getUserId());
+        if(userPO == null){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
-        if(!updatePasswordParam.getOldPassword().equals(user.getPassword())){
+        if(!updatePasswordParam.getOldPassword().equals(userPO.getPassword())){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.OLD_PASSWORD_ERROR);
         }
-        user.setPassword(updatePasswordParam.getNewPassword());
-        userService.update(user);
+        userPO.setPassword(updatePasswordParam.getNewPassword());
+        userService.update(userPO);
         return ResponseDataResult.setResponseResult(true);
     }
 

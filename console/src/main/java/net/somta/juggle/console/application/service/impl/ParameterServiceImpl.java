@@ -5,15 +5,14 @@ import net.somta.core.base.IBaseMapper;
 import net.somta.juggle.console.application.service.IParameterService;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
-import net.somta.juggle.console.infrastructure.model.Api;
-import net.somta.juggle.console.infrastructure.model.Parameter;
+import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ParameterServiceImpl extends BaseServiceImpl<Parameter> implements IParameterService {
+public class ParameterServiceImpl extends BaseServiceImpl<ParameterPO> implements IParameterService {
 
     @Autowired
     private ParameterMapper parameterMapper;
@@ -23,7 +22,7 @@ public class ParameterServiceImpl extends BaseServiceImpl<Parameter> implements 
     }
 
     @Override
-    public List<Parameter> getParameterListByVO(ParameterVO parameterQueryVO) {
+    public List<ParameterPO> getParameterListByVO(ParameterVO parameterQueryVO) {
         return parameterMapper.getParameterListByVO(parameterQueryVO);
     }
 }

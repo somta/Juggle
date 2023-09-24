@@ -5,7 +5,7 @@
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowMapper" >
 
 
-<select id="querySimpleFlowInfo" resultType="net.somta.juggle.console.infrastructure.model.FlowInfo" parameterType="java.lang.Long">
+<select id="querySimpleFlowInfo" resultType="net.somta.juggle.console.infrastructure.po.FlowInfoPO" parameterType="java.lang.Long">
 	select id,flow_key,flow_name,flow_type,flow_status
 	from t_flow where id = #{flowId}
 </select>

@@ -1,5 +1,8 @@
 package net.somta.juggle.console.domain.parameter.vo;
 
+/**
+ * @author Gavin
+ */
 public class ParameterVO {
 
     /**

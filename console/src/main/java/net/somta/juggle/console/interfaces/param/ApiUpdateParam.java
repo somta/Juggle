@@ -1,5 +1,8 @@
 package net.somta.juggle.console.interfaces.param;
 
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+
 import java.util.List;
 
 public class ApiUpdateParam {
@@ -32,9 +35,9 @@ public class ApiUpdateParam {
      */
     private String apiRequestContentType;
 
-    private List<InputParameterParam> apiInputParams;
+    private List<InputParameterVO> apiInputParams;
 
-    private List<OutputParameterParam> apiOutputParams;
+    private List<OutputParameterVO> apiOutputParams;
 
     public Long getId() {
         return id;
@@ -92,19 +95,19 @@ public class ApiUpdateParam {
         this.apiRequestContentType = apiRequestContentType;
     }
 
-    public List<InputParameterParam> getApiInputParams() {
+    public List<InputParameterVO> getApiInputParams() {
         return apiInputParams;
     }
 
-    public void setApiInputParams(List<InputParameterParam> apiInputParams) {
+    public void setApiInputParams(List<InputParameterVO> apiInputParams) {
         this.apiInputParams = apiInputParams;
     }
 
-    public List<OutputParameterParam> getApiOutputParams() {
+    public List<OutputParameterVO> getApiOutputParams() {
         return apiOutputParams;
     }
 
-    public void setApiOutputParams(List<OutputParameterParam> apiOutputParams) {
+    public void setApiOutputParams(List<OutputParameterVO> apiOutputParams) {
         this.apiOutputParams = apiOutputParams;
     }
 }

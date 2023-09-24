@@ -1,9 +1,8 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.infrastructure.po;
 
 import net.somta.core.base.BaseModel;
-import net.somta.juggle.core.model.DataType;
 
-public class VariableInfo extends BaseModel {
+public class VariableInfoPO extends BaseModel {
 
     /**
      * 唯一ID

@@ -1,6 +1,6 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.infrastructure.po;
 
-public class Parameter {
+public class ParameterPO {
     /**
      *
      */

@@ -4,78 +4,109 @@ import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
+import net.somta.juggle.console.domain.api.ApiAO;
+import net.somta.juggle.console.domain.api.repository.IApiRepository;
+import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
-import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
+import net.somta.juggle.console.infrastructure.po.ApiPO;
+import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
 import net.somta.juggle.console.infrastructure.mapper.ApiMapper;
-import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
-import net.somta.juggle.console.infrastructure.model.Api;
-import net.somta.juggle.console.infrastructure.model.Parameter;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
-import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.application.service.IApiService;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ApiServiceImpl extends BaseServiceImpl<Api> implements IApiService {
+public class ApiServiceImpl extends BaseServiceImpl<ApiPO> implements IApiService {
 
     @Autowired
     private ApiMapper apiMapper;
+
     @Autowired
-    private ParameterMapper parameterMapper;
+    private IApiRepository apiRepository;
+
+
 
     @Override
     public IBaseMapper getMapper() {
         return apiMapper;
     }
 
-    @Transactional
     @Override
     public ResponseDataResult<Boolean> addApi(ApiAddParam apiAddParam) {
-        Api api = new Api();
-        api.setDomainId(apiAddParam.getDomainId());
-        api.setApiUrl(apiAddParam.getApiUrl());
-        api.setApiName(apiAddParam.getApiName());
-        api.setApiDesc(apiAddParam.getApiDesc());
-        api.setApiRequestType(apiAddParam.getApiRequestType());
-        api.setApiRequestContentType(apiAddParam.getApiRequestContentType());
-        apiMapper.addApi(api);
-        saveParameters(api.getId(),apiAddParam.getApiInputParams(), apiAddParam.getApiOutputParams());
+        ApiAO apiAO = new ApiAO();
+        apiAO.setDomainId(apiAddParam.getDomainId());
+        apiAO.setApiUrl(apiAddParam.getApiUrl());
+        apiAO.setApiName(apiAddParam.getApiName());
+        apiAO.setApiDesc(apiAddParam.getApiDesc());
+        apiAO.setApiRequestType(apiAddParam.getApiRequestType());
+        apiAO.setApiRequestContentType(apiAddParam.getApiRequestContentType());
+
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.setInputParameter(apiAddParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
+                       .setOutputParameter(apiAddParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());
+        apiAO.setParameterEntity(parameterEntity);
+        apiRepository.addApi(apiAO);
+        return ResponseDataResult.setResponseResult();
+    }
+
+    @Override
+    public ResponseDataResult<Boolean> deleteApi(Long apiId) {
+        apiRepository.deleteApi(apiId);
         return ResponseDataResult.setResponseResult();
     }
 
     @Override
     public ResponseDataResult<Boolean> updateApi(ApiUpdateParam apiUpdateParam) {
-        Api api = new Api();
-        api.setId(apiUpdateParam.getId());
-        api.setDomainId(apiUpdateParam.getDomainId());
-        api.setApiUrl(apiUpdateParam.getApiUrl());
-        api.setApiName(apiUpdateParam.getApiName());
-        api.setApiDesc(apiUpdateParam.getApiDesc());
-        api.setApiRequestType(apiUpdateParam.getApiRequestType());
-        api.setApiRequestContentType(apiUpdateParam.getApiRequestContentType());
-        apiMapper.update(api);
+        ApiAO apiAO = new ApiAO();
+        apiAO.setId(apiUpdateParam.getId());
+        apiAO.setDomainId(apiUpdateParam.getDomainId());
+        apiAO.setApiUrl(apiUpdateParam.getApiUrl());
+        apiAO.setApiName(apiUpdateParam.getApiName());
+        apiAO.setApiDesc(apiUpdateParam.getApiDesc());
+        apiAO.setApiRequestType(apiUpdateParam.getApiRequestType());
+        apiAO.setApiRequestContentType(apiUpdateParam.getApiRequestContentType());
 
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiUpdateParam.getId()));
-        saveParameters(apiUpdateParam.getId(),apiUpdateParam.getApiInputParams(), apiUpdateParam.getApiOutputParams());
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.setInputParameter(apiUpdateParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
+                .setOutputParameter(apiUpdateParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());
+        apiAO.setParameterEntity(parameterEntity);
+        apiRepository.updateApi(apiAO);
         return ResponseDataResult.setResponseResult();
     }
 
     @Override
-    public List<Api> getApiListByDomainId(Long domainId) {
-        return apiMapper.queryApiListByDomainId(domainId);
+    public ApiInfoDTO queryApiInfo(Long apiId) {
+        ApiInfoDTO apiInfoDTO = new ApiInfoDTO();
+        ApiAO apiAO = apiRepository.queryApi(apiId);
+        apiInfoDTO.setId(apiAO.getId());
+        apiInfoDTO.setDomainId(apiAO.getDomainId());
+        apiInfoDTO.setApiUrl(apiAO.getApiUrl());
+        apiInfoDTO.setApiName(apiAO.getApiName());
+        apiInfoDTO.setApiDesc(apiAO.getApiDesc());
+        apiInfoDTO.setApiRequestType(apiAO.getApiRequestType());
+        apiInfoDTO.setApiRequestContentType(apiAO.getApiRequestContentType());
+        apiInfoDTO.setApiInputParams(apiAO.getParameterEntity().getInputParameter());
+        apiInfoDTO.setApiOutputParams(apiAO.getParameterEntity().getOutputParameter());
+        return apiInfoDTO;
     }
 
     @Override
+    public List<ApiDTO> getApiListByDomainId(Long domainId) {
+        List<ApiDTO> apiDTOList = new ArrayList<>();
+        // todo 这里逻辑没写完，要转换到dto上
+        apiMapper.queryApiListByDomainId(domainId);
+        return apiDTOList;
+    }
+
+    /*@Override
     public List<Api> getApiList() {
         return apiMapper.queryApiList();
-    }
+    }*/
 
     @Override
     public ResponsePaginationDataResult<List<ApiDTO>> queryApiPageList(ApiQueryParam apiQueryParam) {
@@ -85,39 +116,6 @@ public class ApiServiceImpl extends BaseServiceImpl<Api> implements IApiService 
             apiList = apiMapper.queryApiPageList(apiQueryParam);
         }
         return ResponsePaginationDataResult.setPaginationDataResult(total,apiList);
-    }
-
-    private void saveParameters(Long apiId,List<InputParameterParam> apiInputParams,
-                                List<OutputParameterParam> apiOutputParams){
-        List<Parameter> parameters = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(apiInputParams)){
-            for (InputParameterParam apiInputParam : apiInputParams) {
-                Parameter parameter = new Parameter();
-                parameter.setParamKey(apiInputParam.getParamKey());
-                parameter.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
-                parameter.setParamName(apiInputParam.getParamName());
-                parameter.setDataType(apiInputParam.getDataType());
-                parameter.setRequired(apiInputParam.getRequired());
-                parameter.setSourceType(ParameterSourceTypeEnum.API.getCode());
-                parameter.setSourceId(apiId);
-                parameters.add(parameter);
-            }
-        }
-        if(CollectionUtils.isNotEmpty(apiOutputParams)){
-            for (OutputParameterParam apiOutputParam : apiOutputParams) {
-                Parameter parameter = new Parameter();
-                parameter.setParamKey(apiOutputParam.getParamKey());
-                parameter.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
-                parameter.setParamName(apiOutputParam.getParamName());
-                parameter.setDataType(apiOutputParam.getDataType());
-                parameter.setSourceType(ParameterSourceTypeEnum.API.getCode());
-                parameter.setSourceId(apiId);
-                parameters.add(parameter);
-            }
-        }
-        if(CollectionUtils.isNotEmpty(parameters)){
-            parameterMapper.batchAddParameter(parameters);
-        }
     }
 
 }

@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.domain.domain.enums.DomainErrorEnum;
-import net.somta.juggle.console.infrastructure.model.Api;
+import net.somta.juggle.console.interfaces.dto.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.DomainDTO;
 import net.somta.juggle.console.interfaces.param.DomainAddParam;
 import net.somta.juggle.console.interfaces.param.DomainQueryParam;
@@ -13,7 +13,6 @@ import net.somta.juggle.console.interfaces.param.DomainUpdateParam;
 import net.somta.juggle.console.application.service.IApiService;
 import net.somta.juggle.console.application.service.IDomainService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,10 +24,13 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
 @RequestMapping(JUGGLE_SERVER_VERSION + "/domain")
 public class DomainController {
 
-    @Autowired
-    private IDomainService domainService;
-    @Autowired
-    private IApiService apiService;
+    private final IDomainService domainService;
+    private final IApiService apiService;
+
+    public DomainController(IDomainService domainService, IApiService apiService) {
+        this.domainService = domainService;
+        this.apiService = apiService;
+    }
 
     /**
      * 新增领域
@@ -55,8 +57,8 @@ public class DomainController {
     @Operation(summary = "根据ID删除领域")
     @DeleteMapping("/delete/{domainId}")
     public ResponseDataResult<Boolean> deleteDomain(@PathVariable Long domainId){
-        List<Api> apis = apiService.getApiListByDomainId(domainId);
-        if(CollectionUtils.isNotEmpty(apis)){
+        List<ApiDTO> apiPOS = apiService.getApiListByDomainId(domainId);
+        if(CollectionUtils.isNotEmpty(apiPOS)){
             return ResponseDataResult.setErrorResponseResult(DomainErrorEnum.DOMAIN_EXIST_API_ERROR);
         }
         domainService.deleteDomain(domainId);

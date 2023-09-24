@@ -1,8 +1,8 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.infrastructure.po;
 
 import net.somta.core.base.BaseModel;
 
-public class User extends BaseModel {
+public class UserPO extends BaseModel {
     private Long id;
     private String userName;
     private String password;

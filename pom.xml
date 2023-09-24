@@ -75,7 +75,7 @@
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
+                <artifactId>jjwt-apiPO</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
             <dependency>

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.model.FlowInfo" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.FlowInfoPO" >
 	<result column="id" property="id"/>
 	<result column="flow_key" property="flowKey"/>
 	<result column="flow_name" property="flowName"/>
@@ -35,7 +35,7 @@
 	id, flow_key, flow_name,flow_type,flow_status, flow_content, inputs, outputs, variables, remark, created_at, created_by, updated_at, updated_by
 </sql>
    
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.model.FlowDefinitionInfo" >
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO" >
 	insert into t_flow (id, flow_key, flow_name,flow_type,flow_status, flow_content, inputs, outputs, variables, remark, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{flowKey},#{flowName},#{flowType},#{flowStatus},#{flowContent},#{inputs},#{outputs},#{variables},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -44,7 +44,7 @@
  delete from t_flow where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.model.FlowInfo" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.FlowInfoPO" >
 	update t_flow set
 	<trim  suffixOverrides="," >
 	<if test="flowKey != null and flowKey != ''">

@@ -1,13 +1,13 @@
 package net.somta.juggle.console.interfaces.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import net.somta.juggle.console.infrastructure.model.Parameter;
-import net.somta.juggle.console.interfaces.param.InputParameterParam;
-import net.somta.juggle.console.interfaces.param.OutputParameterParam;
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 
-import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Gavin
+ */
 public class ApiInfoDTO {
 
     private Long id;
@@ -24,9 +24,9 @@ public class ApiInfoDTO {
 
     private String apiRequestContentType;
 
-    private List<Parameter> apiInputParams;
+    private List<InputParameterVO> apiInputParams;
 
-    private List<Parameter> apiOutputParams;
+    private List<OutputParameterVO> apiOutputParams;
 
     public Long getId() {
         return id;
@@ -84,19 +84,19 @@ public class ApiInfoDTO {
         this.apiRequestContentType = apiRequestContentType;
     }
 
-    public List<Parameter> getApiInputParams() {
+    public List<InputParameterVO> getApiInputParams() {
         return apiInputParams;
     }
 
-    public void setApiInputParams(List<Parameter> apiInputParams) {
+    public void setApiInputParams(List<InputParameterVO> apiInputParams) {
         this.apiInputParams = apiInputParams;
     }
 
-    public List<Parameter> getApiOutputParams() {
+    public List<OutputParameterVO> getApiOutputParams() {
         return apiOutputParams;
     }
 
-    public void setApiOutputParams(List<Parameter> apiOutputParams) {
+    public void setApiOutputParams(List<OutputParameterVO> apiOutputParams) {
         this.apiOutputParams = apiOutputParams;
     }
 }

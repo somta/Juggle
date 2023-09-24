@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import { DomainFilter, DomainTable, DomainForm } from './domain';
+import { DomainFilter, DomainTable, DomainForm } from './domainPO';
 import { apiService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
@@ -94,7 +94,7 @@ async function deleteItem (row: any) {
 
 </script>
 <template>
-  <div class="page-interface-domain">
+  <div class="page-interface-domainPO">
     <el-container>
       <el-header class="page-header">
         <DomainFilter @search="onSearch" />
@@ -118,7 +118,7 @@ async function deleteItem (row: any) {
 </template>
 
 <style lang="less" scoped>
-.page-interface-domain {
+.page-interface-domainPO {
   .page-header {
     height: auto;
     padding: 24px 16px;

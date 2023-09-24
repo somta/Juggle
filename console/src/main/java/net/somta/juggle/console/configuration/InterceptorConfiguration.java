@@ -15,8 +15,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor())
+        // todo 先把登录校验关掉
+        /*registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/v1/**")
-                .excludePathPatterns("/v1/user/login");
+                .excludePathPatterns("/v1/user/login","/v1/flow/trigger/*");*/
     }
 }

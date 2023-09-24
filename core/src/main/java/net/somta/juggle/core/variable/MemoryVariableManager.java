@@ -10,7 +10,6 @@ import java.util.Map;
 /**
  * 基于内存的变量管 理器
  * @author husong
- * @date 2022/2/13
  **/
 public class MemoryVariableManager extends VariableManager{
 

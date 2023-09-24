@@ -2,7 +2,7 @@ package net.somta.juggle.console.application.service.impl;
 
 import net.somta.juggle.console.domain.datatype.enums.DataTypeClassifyEnum;
 import net.somta.juggle.console.infrastructure.mapper.DataTypeInfoMapper;
-import net.somta.juggle.console.infrastructure.model.DataTypeInfo;
+import net.somta.juggle.console.infrastructure.po.DataTypeInfoPO;
 import net.somta.juggle.console.interfaces.dto.DataTypeDTO;
 import net.somta.juggle.console.interfaces.dto.DataTypeOptionDTO;
 import net.somta.juggle.console.application.service.IDataTypeInfoService;
@@ -23,9 +23,9 @@ public class DataTypeInfoServiceImpl implements IDataTypeInfoService {
     @Override
     public List<DataTypeOptionDTO> getDataTypeOptions() {
         List<DataTypeOptionDTO> list = new ArrayList<>();
-        List<DataTypeInfo> dataTypeList = dataTypeInfoMapper.queryDataTypeList();
-        Map<Integer, List<DataTypeInfo>> dataTypeMap = dataTypeList.stream().collect(Collectors.groupingBy(DataTypeInfo::getDataTypeClassify));
-        for (Map.Entry<Integer, List<DataTypeInfo>> entry : dataTypeMap.entrySet()) {
+        List<DataTypeInfoPO> dataTypeList = dataTypeInfoMapper.queryDataTypeList();
+        Map<Integer, List<DataTypeInfoPO>> dataTypeMap = dataTypeList.stream().collect(Collectors.groupingBy(DataTypeInfoPO::getDataTypeClassify));
+        for (Map.Entry<Integer, List<DataTypeInfoPO>> entry : dataTypeMap.entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             DataTypeOptionDTO dataTypeOptionDTO = new DataTypeOptionDTO();
             dataTypeOptionDTO.setKey(DataTypeClassifyEnum.getKey(entry.getKey()));
@@ -42,13 +42,13 @@ public class DataTypeInfoServiceImpl implements IDataTypeInfoService {
      * @param list
      * @return
      */
-    private List<DataTypeDTO> transformDataType(List<DataTypeInfo> list){
+    private List<DataTypeDTO> transformDataType(List<DataTypeInfoPO> list){
         List<DataTypeDTO> dataTypeDTOList = new ArrayList<>();
-        for (DataTypeInfo dataTypeInfo : list ) {
+        for (DataTypeInfoPO dataTypeInfoPO : list ) {
             DataTypeDTO dataTypeDTO = new DataTypeDTO();
-            dataTypeDTO.setType(dataTypeInfo.getDataType());
-            dataTypeDTO.setDisplayName(dataTypeInfo.getDisplayName());
-            dataTypeDTO.setObjectKey(dataTypeInfo.getObjectKey());
+            dataTypeDTO.setType(dataTypeInfoPO.getDataType());
+            dataTypeDTO.setDisplayName(dataTypeInfoPO.getDisplayName());
+            dataTypeDTO.setObjectKey(dataTypeInfoPO.getObjectKey());
             dataTypeDTOList.add(dataTypeDTO);
         }
         return dataTypeDTOList;

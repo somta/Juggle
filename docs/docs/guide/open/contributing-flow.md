@@ -6,6 +6,11 @@
 
 ## 社区贡献
 
+- 点亮Star，照亮Knife4j开源之路!!
+    - [https://github.com/somta/Juggle](https://github.com/somta/Juggle)
+- 完善[Knife4j文档](joinus)
+- 在你自己的博客、微博、微信公众号、vlog 等自媒体分享有关Juggle的一切。也非常欢迎将实战内容通过PR进行贡献合并在Juggle的官方文档进行展示。
+- 把Juggle分享给更多的人
 
 
 ## 源码贡献

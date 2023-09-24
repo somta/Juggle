@@ -1,6 +1,6 @@
 package net.somta.juggle.console.application.service;
 
-import net.somta.juggle.console.infrastructure.model.VariableInfo;
+import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.core.model.Variable;
 
 import java.util.List;
@@ -10,9 +10,9 @@ public interface IVariableInfoService {
 
     /**
      * 新增变量
-     * @param variableInfo
+     * @param variableInfoPO
      */
-    Boolean addVariable(VariableInfo variableInfo);
+    Boolean addVariable(VariableInfoPO variableInfoPO);
 
     /**
      * 删除变量
@@ -24,10 +24,10 @@ public interface IVariableInfoService {
 
     /**
      * 修改变量
-     * @param variableInfo
+     * @param variableInfoPO
      * @return
      */
-    Boolean updateVariable(VariableInfo variableInfo);
+    Boolean updateVariable(VariableInfoPO variableInfoPO);
 
     /**
      * 获取流程变量列表

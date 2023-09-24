@@ -1,19 +1,26 @@
 package net.somta.juggle.console.infrastructure.mapper;
 
 import net.somta.core.base.IBaseMapper;
-import net.somta.juggle.console.infrastructure.model.Api;
+import net.somta.juggle.console.infrastructure.po.ApiPO;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
 import net.somta.juggle.console.interfaces.param.ApiQueryParam;
 
 import java.util.List;
 
+/**
+ * @author Gavin
+ */
 public interface ApiMapper extends IBaseMapper {
 
-    int addApi(Api api);
+    /**
+     * @param apiPO
+     * @return
+     */
+    int addApi(ApiPO apiPO);
 
-    List<Api> queryApiListByDomainId(Long domainId);
+    List<ApiPO> queryApiListByDomainId(Long domainId);
 
-    List<Api> queryApiList();
+    List<ApiPO> queryApiList();
 
     Long queryApiCount(ApiQueryParam apiQueryParam);
 

@@ -1,7 +1,7 @@
 package net.somta.juggle.console.application.service.impl;
 
 import net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper;
-import net.somta.juggle.console.infrastructure.model.VariableInfo;
+import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.console.application.service.IVariableInfoService;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataType;
@@ -21,10 +21,10 @@ public class VariableInfoServiceImpl implements IVariableInfoService {
     private VariableInfoMapper variableInfoMapper;
 
     @Override
-    public Boolean addVariable(VariableInfo variableInfo) {
+    public Boolean addVariable(VariableInfoPO variableInfoPO) {
         // todo 这里要改成雪花ID
-        variableInfo.setId(2L);
-        variableInfoMapper.addVariable(variableInfo);
+        variableInfoPO.setId(2L);
+        variableInfoMapper.addVariable(variableInfoPO);
         return true;
     }
 
@@ -38,8 +38,8 @@ public class VariableInfoServiceImpl implements IVariableInfoService {
     }
 
     @Override
-    public Boolean updateVariable(VariableInfo variableInfo) {
-        variableInfoMapper.updateVariable(variableInfo);
+    public Boolean updateVariable(VariableInfoPO variableInfoPO) {
+        variableInfoMapper.updateVariable(variableInfoPO);
         return true;
     }
 

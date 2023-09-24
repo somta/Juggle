@@ -97,16 +97,16 @@ distribution (with or without modification), making available to the
 public, and in some countries other activities as well.
 
   To "convey" a work means any kind of propagation that enables other
-parties to make or receive copies.  Mere interaction with a user through
+parties to make or receive copies.  Mere interaction with a userPO through
 a computer network, with no transfer of a copy, is not conveying.
 
-  An interactive user interface displays "Appropriate Legal Notices"
+  An interactive userPO interface displays "Appropriate Legal Notices"
 to the extent that it includes a convenient and prominently visible
 feature that (1) displays an appropriate copyright notice, and (2)
-tells the user that there is no warranty for the work (except to the
+tells the userPO that there is no warranty for the work (except to the
 extent that warranties are provided), that licensees may convey the
 work under this License, and how to view a copy of this License.  If
-the interface presents a list of user commands or options, such as a
+the interface presents a list of userPO commands or options, such as a
 menu, a prominent item in the list meets this criterion.
 
   1. Source Code.
@@ -227,7 +227,7 @@ terms of section 4, provided that you also meet all of these conditions:
     permission to license the work in any other way, but it does not
     invalidate such permission if you have separately received it.
 
-    d) If the work has interactive user interfaces, each must display
+    d) If the work has interactive userPO interfaces, each must display
     Appropriate Legal Notices; however, if the Program has interactive
     interfaces that do not display Appropriate Legal Notices, your
     work need not make them do so.
@@ -299,9 +299,9 @@ tangible personal property which is normally used for personal, family,
 or household purposes, or (2) anything designed or sold for incorporation
 into a dwelling.  In determining whether a product is a consumer product,
 doubtful cases shall be resolved in favor of coverage.  For a particular
-product received by a particular user, "normally used" refers to a
+product received by a particular userPO, "normally used" refers to a
 typical or common use of that class of product, regardless of the status
-of the particular user or of the way in which the particular user
+of the particular userPO or of the way in which the particular userPO
 actually uses, or expects or is expected to use, the product.  A product
 is a consumer product regardless of whether the product has substantial
 commercial, industrial or non-consumer uses, unless such uses represent

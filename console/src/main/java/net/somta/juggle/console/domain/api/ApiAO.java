@@ -1,8 +1,11 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.domain.api;
 
-import net.somta.core.base.BaseModel;
+import net.somta.juggle.console.domain.parameter.ParameterEntity;
 
-public class Api extends BaseModel {
+/**
+ * @author Gavin
+ */
+public class ApiAO {
 
     private Long id;
 
@@ -87,5 +90,15 @@ public class Api extends BaseModel {
 
     public void setApiRequestContentType(String apiRequestContentType) {
         this.apiRequestContentType = apiRequestContentType;
+    }
+
+    private ParameterEntity parameterEntity;
+
+    public ParameterEntity getParameterEntity() {
+        return parameterEntity;
+    }
+
+    public void setParameterEntity(ParameterEntity parameterEntity) {
+        this.parameterEntity = parameterEntity;
     }
 }

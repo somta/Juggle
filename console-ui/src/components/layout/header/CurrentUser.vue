@@ -13,14 +13,14 @@ async function logout () {
 }
 </script>
 <template>
-  <el-dropdown class="app-current-user-dropdown">
-    <div class="app-current-user">
+  <el-dropdown class="app-current-userPO-dropdown">
+    <div class="app-current-userPO">
       <el-avatar :size="32" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-      <span class="current-user-name">admin</span>
+      <span class="current-userPO-name">admin</span>
     </div>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item @click="$router.push('/user')">用户信息</el-dropdown-item>
+        <el-dropdown-item @click="$router.push('/userPO')">用户信息</el-dropdown-item>
         <el-dropdown-item @click="$router.push('/about')">关于我们</el-dropdown-item>
         <el-dropdown-item @click="logout" divided>退出</el-dropdown-item>
       </el-dropdown-menu>
@@ -28,18 +28,18 @@ async function logout () {
   </el-dropdown>
 </template>
 <style lang="less" scoped>
-.app-current-user-dropdown {
+.app-current-userPO-dropdown {
   height: 100%;
   padding: 0 20px;
 }
-.app-current-user {
+.app-current-userPO {
   height: 100%;
   display: flex;
   align-items: center;
   color: #fff;
   outline: none;
 
-  .current-user-name {
+  .current-userPO-name {
     font-size: 14px;
     margin-left: 8px;
   }

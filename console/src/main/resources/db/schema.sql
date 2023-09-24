@@ -70,6 +70,7 @@ CREATE TABLE `t_flow_definition` (
  `flow_key` varchar(20) DEFAULT NULL,
  `flow_name` varchar(60) DEFAULT NULL,
  `flow_type` varchar(8) DEFAULT NULL,
+ `flow_content` text,
  `remark` varchar(120) DEFAULT NULL,
  `created_at` datetime DEFAULT NULL,
  `created_by` bigint(20) DEFAULT NULL,

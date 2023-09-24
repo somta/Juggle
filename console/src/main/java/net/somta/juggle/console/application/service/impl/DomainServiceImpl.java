@@ -3,7 +3,7 @@ package net.somta.juggle.console.application.service.impl;
 import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
 import net.somta.juggle.console.infrastructure.mapper.DomainMapper;
-import net.somta.juggle.console.infrastructure.model.Domain;
+import net.somta.juggle.console.infrastructure.po.DomainPO;
 import net.somta.juggle.console.interfaces.dto.DomainDTO;
 import net.somta.juggle.console.interfaces.param.DomainAddParam;
 import net.somta.juggle.console.interfaces.param.DomainUpdateParam;
@@ -27,13 +27,13 @@ public class DomainServiceImpl extends BaseServiceImpl implements IDomainService
 
     @Override
     public void addDomain(DomainAddParam domainAddParam) {
-        Domain domain = new Domain();
+        DomainPO domainPO = new DomainPO();
         Date date = new Date();
-        domain.setDomainCode(domainAddParam.getDomainCode());
-        domain.setDomainName(domainAddParam.getDomainName());
-        domain.setDomainDesc(domainAddParam.getDomainDesc());
-        domain.setCreatedAt(date);
-        domainMapper.add(domain);
+        domainPO.setDomainCode(domainAddParam.getDomainCode());
+        domainPO.setDomainName(domainAddParam.getDomainName());
+        domainPO.setDomainDesc(domainAddParam.getDomainDesc());
+        domainPO.setCreatedAt(date);
+        domainMapper.add(domainPO);
     }
 
     @Override
@@ -43,13 +43,13 @@ public class DomainServiceImpl extends BaseServiceImpl implements IDomainService
 
     @Override
     public void updateDomain(DomainUpdateParam domainUpdateParam) {
-        Domain domain = new Domain();
-        domain.setId(domainUpdateParam.getId());
-        domain.setDomainCode(domainUpdateParam.getDomainCode());
-        domain.setDomainName(domainUpdateParam.getDomainName());
-        domain.setDomainDesc(domainUpdateParam.getDomainDesc());
-        domain.setUpdatedAt(new Date());
-        domainMapper.update(domain);
+        DomainPO domainPO = new DomainPO();
+        domainPO.setId(domainUpdateParam.getId());
+        domainPO.setDomainCode(domainUpdateParam.getDomainCode());
+        domainPO.setDomainName(domainUpdateParam.getDomainName());
+        domainPO.setDomainDesc(domainUpdateParam.getDomainDesc());
+        domainPO.setUpdatedAt(new Date());
+        domainMapper.update(domainPO);
     }
 
     @Override

@@ -2,28 +2,31 @@ package net.somta.juggle.console.infrastructure.mapper;
 
 
 import net.somta.core.base.IBaseMapper;
-import net.somta.juggle.console.infrastructure.model.Parameter;
+import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author Gavin
+ */
 public interface ParameterMapper extends IBaseMapper {
 
 
     /**
      * 新增参数
-     * @param parameter
+     * @param parameterPO
      * @return
      */
-    int addParameter(Parameter parameter);
+    int addParameter(ParameterPO parameterPO);
 
     /**
      * 批量新增参数
      * @param parameterList
      * @return
      */
-    int batchAddParameter(@Param("parameterList") List<Parameter> parameterList);
+    int batchAddParameter(@Param("parameterList") List<ParameterPO> parameterList);
 
     /**
      * 根据sourceType和sourceId删除参数
@@ -37,5 +40,5 @@ public interface ParameterMapper extends IBaseMapper {
      * @param parameterQueryVO
      * @return
      */
-    List<Parameter> getParameterListByVO(ParameterVO parameterQueryVO);
+    List<ParameterPO> getParameterListByVO(ParameterVO parameterQueryVO);
 }

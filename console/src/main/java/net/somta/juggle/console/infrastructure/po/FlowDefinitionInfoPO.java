@@ -1,31 +1,42 @@
-package net.somta.juggle.console.infrastructure.model;
+package net.somta.juggle.console.infrastructure.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.somta.core.base.BaseModel;
-import net.somta.juggle.console.domain.flow.enums.FlowTypeEnum;
 
-public class FlowInfo extends BaseModel {
+import java.util.Date;
+
+/**
+ * @author Gavin
+ */
+public class FlowDefinitionInfoPO extends BaseModel {
+
     private Long id;
 
+    /**
+     * 流程Key,全局唯一
+     */
     private String flowKey;
 
+    /**
+     * 流程名称
+     */
     private String flowName;
 
-    private String flowType;
-
     /**
-     * 流程状态   0:禁用  1:启用
+     * 流程类型  sync：同步  async：异步
      */
-    private Integer flowStatus;
+    private String flowType;
 
     private String flowContent;
 
-    private String inputs;
-
-    private String outputs;
-
-    private String variables;
-
+    /**
+     * 流程描述
+     */
     private String remark;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
+
 
     public Long getId() {
         return id;
@@ -59,14 +70,6 @@ public class FlowInfo extends BaseModel {
         this.flowType = flowType;
     }
 
-    public Integer getFlowStatus() {
-        return flowStatus;
-    }
-
-    public void setFlowStatus(Integer flowStatus) {
-        this.flowStatus = flowStatus;
-    }
-
     public String getFlowContent() {
         return flowContent;
     }
@@ -75,35 +78,21 @@ public class FlowInfo extends BaseModel {
         this.flowContent = flowContent;
     }
 
-    public String getInputs() {
-        return inputs;
-    }
-
-    public void setInputs(String inputs) {
-        this.inputs = inputs;
-    }
-
-    public String getOutputs() {
-        return outputs;
-    }
-
-    public void setOutputs(String outputs) {
-        this.outputs = outputs;
-    }
-
-    public String getVariables() {
-        return variables;
-    }
-
-    public void setVariables(String variables) {
-        this.variables = variables;
-    }
-
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

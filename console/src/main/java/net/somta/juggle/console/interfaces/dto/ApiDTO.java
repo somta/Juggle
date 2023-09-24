@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * @author husong
+ */
 public class ApiDTO {
 
     private Integer id;
