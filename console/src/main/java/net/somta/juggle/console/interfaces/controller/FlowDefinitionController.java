@@ -6,8 +6,9 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionParam;
+import net.somta.juggle.console.interfaces.param.FlowDefinitionAddParam;
 import net.somta.juggle.console.application.service.IFlowDefinitionService;
+import net.somta.juggle.console.interfaces.param.FlowDefinitionUpdateParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
@@ -34,16 +35,16 @@ public class FlowDefinitionController {
 
     /**
      * 创建流程
-     * @param flowDefinitionParam 变量实体参数
+     * @param flowDefinitionAddParam 变量实体参数
      * @return Boolean
      */
     @Operation(summary = "创建流程定义")
     @PostMapping("/add")
-    public ResponseDataResult<Boolean> addFlowDefinition(@RequestBody FlowDefinitionParam flowDefinitionParam){
-        if(flowDefinitionParam == null){
+    public ResponseDataResult<Boolean> addFlowDefinition(@RequestBody FlowDefinitionAddParam flowDefinitionAddParam){
+        if(flowDefinitionAddParam == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_PARAM_ERROR);
         }
-        Boolean result = flowDefinitionService.addFlowDefinition(flowDefinitionParam);
+        Boolean result = flowDefinitionService.addFlowDefinition(flowDefinitionAddParam);
         return ResponseDataResult.setResponseResult(result);
     }
 
@@ -61,16 +62,16 @@ public class FlowDefinitionController {
 
     /**
      * 修改流程
-     * @param flowDefinitionParam 变量实体参数
+     * @param flowDefinitionUpdateParam 变量实体参数
      * @return Boolean
      */
     @Operation(summary = "修改流程定义")
     @PutMapping("/update")
-    public ResponseDataResult<Boolean> updateFlowDefinition(@RequestBody FlowDefinitionParam flowDefinitionParam){
-        if(flowDefinitionParam == null){
+    public ResponseDataResult<Boolean> updateFlowDefinition(@RequestBody FlowDefinitionUpdateParam flowDefinitionUpdateParam){
+        if(flowDefinitionUpdateParam == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_PARAM_ERROR);
         }
-        Boolean result = flowDefinitionService.updateFlowDefinition(flowDefinitionParam);
+        Boolean result = flowDefinitionService.updateFlowDefinition(flowDefinitionUpdateParam);
         return ResponseDataResult.setResponseResult(result);
     }
 

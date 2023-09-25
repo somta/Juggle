@@ -7,6 +7,8 @@ import net.somta.core.base.IBaseMapper;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.application.service.IFlowDefinitionService;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
+import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
+import net.somta.juggle.console.domain.definition.repository.IFlowDefinitionRepository;
 import net.somta.juggle.console.domain.flow.repository.IFlowRepository;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
@@ -57,43 +59,49 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
     private IVariableInfoRepository variableInfoRepository;
     @Autowired
     private IFlowRepository flowRepository;
+    @Autowired
+    private IFlowDefinitionRepository flowDefinitionRepository;
 
     @Override
     public IBaseMapper getMapper() {
         return flowDefinitionMapper;
     }
 
-    @Transactional
     @Override
-    public Boolean addFlowDefinition(FlowDefinitionParam flowDefinitionParam) {
-        FlowDefinitionInfoPO flowDefinition = new FlowDefinitionInfoPO();
-        String flowKey = RandomStringUtils.random(10, true, true);
-        flowDefinition.setFlowKey(flowKey);
-        flowDefinition.setFlowName(flowDefinitionParam.getFlowName());
-        flowDefinitionMapper.addFlowDefinitionInfo(flowDefinition);
-        saveParametersAndVariables(flowDefinition.getId(),flowDefinitionParam.getFlowInputParams(), flowDefinitionParam.getFlowOutputParams());
-        return true;
+    public Boolean addFlowDefinition(FlowDefinitionAddParam flowDefinitionAddParam) {
+        FlowDefinitionAO flowDefinitionAO = new FlowDefinitionAO();
+        String flowKey = flowDefinitionAddParam.getFlowType() + "_" + RandomStringUtils.random(10, true, true);
+        flowDefinitionAO.setFlowKey(flowKey);
+        flowDefinitionAO.setFlowName(flowDefinitionAddParam.getFlowName());
+        flowDefinitionAO.setFlowType(flowDefinitionAddParam.getFlowType());
+        flowDefinitionAO.setRemark(flowDefinitionAddParam.getRemark());
+
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.setInputParameter(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode())
+                .setOutputParameter(flowDefinitionAddParam.getFlowOutputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode());
+        flowDefinitionAO.setParameterEntity(parameterEntity);
+        // 变量的entity里面应不应该包含PO,是不是应该先放到聚合根里面来
+
+
+        return flowDefinitionRepository.addFlowDefinition(flowDefinitionAO);
     }
 
-    @Transactional
     @Override
     public Boolean deleteFlowDefinition(Long flowDefinitionId) {
-        flowDefinitionMapper.deleteById(flowDefinitionId);
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(),flowDefinitionId));
-        return true;
+        return flowDefinitionRepository.deleteFlowDefinitionById(flowDefinitionId);
     }
 
     @Transactional
     @Override
-    public Boolean updateFlowDefinition(FlowDefinitionParam flowDefinitionParam) {
+    public Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam) {
         FlowDefinitionInfoPO flowDefinitionInfoPO = new FlowDefinitionInfoPO();
-        flowDefinitionInfoPO.setId(flowDefinitionParam.getId());
-        flowDefinitionInfoPO.setFlowName(flowDefinitionParam.getFlowName());
+        flowDefinitionInfoPO.setId(flowDefinitionUpdateParam.getId());
+        flowDefinitionInfoPO.setFlowName(flowDefinitionUpdateParam.getFlowName());
         // todo  这里逻辑不对
         flowDefinitionMapper.update(flowDefinitionInfoPO);
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(),flowDefinitionParam.getId()));
-        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionParam.getId());
-        saveParametersAndVariables(flowDefinitionParam.getId(),flowDefinitionParam.getFlowInputParams(), flowDefinitionParam.getFlowOutputParams());
+        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionUpdateParam.getId()));
+        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionUpdateParam.getId());
+        //saveParametersAndVariables(flowDefinitionParam.getId(),flowDefinitionParam.getFlowInputParams(), flowDefinitionParam.getFlowOutputParams());
         return true;
     }
 

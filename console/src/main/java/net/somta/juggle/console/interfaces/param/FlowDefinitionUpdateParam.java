@@ -1,12 +1,14 @@
 package net.somta.juggle.console.interfaces.param;
 
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+
 import java.util.List;
 
 /**
  * @author Gavin
  */
-public class FlowDefinitionParam {
-
+public class FlowDefinitionUpdateParam {
     private Long id;
 
     private String flowName;
@@ -15,9 +17,9 @@ public class FlowDefinitionParam {
 
     private String remark;
 
-    private List<InputParameterParam> flowInputParams;
+    private List<InputParameterVO> flowInputParams;
 
-    private List<OutputParameterParam> flowOutputParams;
+    private List<OutputParameterVO> flowOutputParams;
 
     public Long getId() {
         return id;
@@ -51,19 +53,19 @@ public class FlowDefinitionParam {
         this.remark = remark;
     }
 
-    public List<InputParameterParam> getFlowInputParams() {
+    public List<InputParameterVO> getFlowInputParams() {
         return flowInputParams;
     }
 
-    public void setFlowInputParams(List<InputParameterParam> flowInputParams) {
+    public void setFlowInputParams(List<InputParameterVO> flowInputParams) {
         this.flowInputParams = flowInputParams;
     }
 
-    public List<OutputParameterParam> getFlowOutputParams() {
+    public List<OutputParameterVO> getFlowOutputParams() {
         return flowOutputParams;
     }
 
-    public void setFlowOutputParams(List<OutputParameterParam> flowOutputParams) {
+    public void setFlowOutputParams(List<OutputParameterVO> flowOutputParams) {
         this.flowOutputParams = flowOutputParams;
     }
 }

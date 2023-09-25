@@ -1,5 +1,8 @@
 package net.somta.juggle.console.domain.parameter.enums;
 
+/**
+ * @author husong
+ */
 public enum ParameterTypeEnum {
     INPUT_PARAM(1,"入参"),
     OUTPUT_PARAM(2,"出参");

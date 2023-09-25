@@ -27,10 +27,10 @@
 
 
 <insert id="batchAddParameter" parameterType="java.util.List">
-	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id)
+	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id,created_at)
 	values
 	<foreach collection ="parameterList" item="param" separator =",">
-		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId})
+		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},#{param.createdAt})
 	</foreach>
 </insert>
 

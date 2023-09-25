@@ -11,11 +11,12 @@ import net.somta.juggle.core.model.OutputParameter;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Gavin
+ * @author husong
  */
 public class ParameterEntity {
 
@@ -57,6 +58,7 @@ public class ParameterEntity {
                 parameterPO.setRequired(inputParameterVO.getRequired());
                 parameterPO.setSourceType(sourceType);
                 parameterPO.setSourceId(sourceId);
+                parameterPO.setCreatedAt(new Date());
                 inputParameterPOList.add(parameterPO);
             }
         }
@@ -94,6 +96,7 @@ public class ParameterEntity {
             parameterPO.setDataType(outputParameterVO.getDataType());
             parameterPO.setSourceType(sourceType);
             parameterPO.setSourceId(sourceId);
+            parameterPO.setCreatedAt(new Date());
             outputParameterPOList.add(parameterPO);
         }
         return this;

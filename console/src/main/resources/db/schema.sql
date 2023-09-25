@@ -7,7 +7,7 @@ CREATE TABLE `t_user` (
   `password` varchar(60) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -22,7 +22,7 @@ CREATE TABLE `t_domain` (
   `domain_desc` varchar(30) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -40,7 +40,7 @@ CREATE TABLE `t_api` (
  `api_request_content_type` varchar(40) DEFAULT NULL,
  `created_at` datetime DEFAULT NULL,
  `created_by` int(11) DEFAULT NULL,
- `updated_at` datetime DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
  `updated_by` int(11) DEFAULT NULL,
  PRIMARY KEY (`id`)
 );
@@ -57,7 +57,7 @@ CREATE TABLE `t_data_type_info` (
   `object_structure` varchar(1000) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -74,7 +74,7 @@ CREATE TABLE `t_flow_definition` (
  `remark` varchar(120) DEFAULT NULL,
  `created_at` datetime DEFAULT NULL,
  `created_by` bigint(20) DEFAULT NULL,
- `updated_at` datetime DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
  `updated_by` bigint(20) DEFAULT NULL,
  PRIMARY KEY (`id`)
 );
@@ -93,7 +93,7 @@ CREATE TABLE `t_parameter` (
   `source_id` bigint(20) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -110,7 +110,7 @@ CREATE TABLE `t_variable_info` (
     `data_type` varchar(255) DEFAULT NULL,
     `created_at` datetime DEFAULT NULL,
     `created_by` int(11) DEFAULT NULL,
-    `updated_at` datetime DEFAULT NULL,
+    `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     `updated_by` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
@@ -131,7 +131,7 @@ CREATE TABLE `t_flow` (
   `remark` varchar(120) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );

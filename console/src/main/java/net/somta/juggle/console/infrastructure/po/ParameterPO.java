@@ -1,6 +1,11 @@
 package net.somta.juggle.console.infrastructure.po;
 
-public class ParameterPO {
+import net.somta.core.base.BaseModel;
+
+/**
+ * @author husong
+ */
+public class ParameterPO extends BaseModel {
     /**
      *
      */

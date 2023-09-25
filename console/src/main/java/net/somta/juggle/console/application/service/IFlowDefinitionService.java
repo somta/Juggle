@@ -3,7 +3,8 @@ package net.somta.juggle.console.application.service;
 import net.somta.core.base.IBaseService;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionParam;
+import net.somta.juggle.console.interfaces.param.FlowDefinitionAddParam;
+import net.somta.juggle.console.interfaces.param.FlowDefinitionUpdateParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.core.model.FlowResult;
@@ -14,10 +15,10 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
 
     /**
      * 创建流程
-     * @param flowDefinitionParam
+     * @param flowDefinitionAddParam
      * @return
      */
-    Boolean addFlowDefinition(FlowDefinitionParam flowDefinitionParam);
+    Boolean addFlowDefinition(FlowDefinitionAddParam flowDefinitionAddParam);
 
     /**
      * 删除流程
@@ -28,10 +29,10 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
 
     /**
      * 修改流程定义
-     * @param flowDefinitionParam
+     * @param flowDefinitionUpdateParam
      * @return
      */
-    Boolean updateFlowDefinition(FlowDefinitionParam flowDefinitionParam);
+    Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam);
 
     /**
      *
