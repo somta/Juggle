@@ -14,4 +14,6 @@ public interface IApiRepository {
     Boolean updateApi(ApiAO apiAO);
 
     ApiAO queryApi(Long apiId);
+
+    void getApiListByDomainId(Long domainId);
 }

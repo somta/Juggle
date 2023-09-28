@@ -32,13 +32,6 @@ public interface IApiService extends IBaseService<ApiPO> {
 
     List<ApiDTO> getApiListByDomainId(Long domainId);
 
-    /**
-     * 获取Api列表
-     * @return
-     */
-    /*List<Api> getApiList();*/
-
-
     ResponsePaginationDataResult<List<ApiDTO>> queryApiPageList(ApiQueryParam apiQueryParam);
 
 }

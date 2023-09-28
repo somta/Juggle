@@ -20,8 +20,6 @@ public interface ApiMapper extends IBaseMapper {
 
     List<ApiPO> queryApiListByDomainId(Long domainId);
 
-    List<ApiPO> queryApiList();
-
     Long queryApiCount(ApiQueryParam apiQueryParam);
 
     List<ApiDTO> queryApiPageList(ApiQueryParam apiQueryParam);

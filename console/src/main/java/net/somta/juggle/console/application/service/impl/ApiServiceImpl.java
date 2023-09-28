@@ -4,6 +4,7 @@ import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
+import net.somta.juggle.console.application.assembler.IApiAssembler;
 import net.somta.juggle.console.domain.api.ApiAO;
 import net.somta.juggle.console.domain.api.repository.IApiRepository;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
@@ -81,32 +82,19 @@ public class ApiServiceImpl extends BaseServiceImpl<ApiPO> implements IApiServic
 
     @Override
     public ApiInfoDTO queryApiInfo(Long apiId) {
-        ApiInfoDTO apiInfoDTO = new ApiInfoDTO();
         ApiAO apiAO = apiRepository.queryApi(apiId);
-        apiInfoDTO.setId(apiAO.getId());
-        apiInfoDTO.setDomainId(apiAO.getDomainId());
-        apiInfoDTO.setApiUrl(apiAO.getApiUrl());
-        apiInfoDTO.setApiName(apiAO.getApiName());
-        apiInfoDTO.setApiDesc(apiAO.getApiDesc());
-        apiInfoDTO.setApiRequestType(apiAO.getApiRequestType());
-        apiInfoDTO.setApiRequestContentType(apiAO.getApiRequestContentType());
-        apiInfoDTO.setApiInputParams(apiAO.getParameterEntity().getInputParameter());
-        apiInfoDTO.setApiOutputParams(apiAO.getParameterEntity().getOutputParameter());
+        ApiInfoDTO apiInfoDTO = IApiAssembler.IMPL.aoToDto(apiAO);
         return apiInfoDTO;
     }
 
     @Override
     public List<ApiDTO> getApiListByDomainId(Long domainId) {
         List<ApiDTO> apiDTOList = new ArrayList<>();
+        apiRepository.getApiListByDomainId(domainId);
         // todo 这里逻辑没写完，要转换到dto上
         apiMapper.queryApiListByDomainId(domainId);
         return apiDTOList;
     }
-
-    /*@Override
-    public List<Api> getApiList() {
-        return apiMapper.queryApiList();
-    }*/
 
     @Override
     public ResponsePaginationDataResult<List<ApiDTO>> queryApiPageList(ApiQueryParam apiQueryParam) {

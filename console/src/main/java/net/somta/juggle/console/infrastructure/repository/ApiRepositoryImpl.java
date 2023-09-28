@@ -103,4 +103,10 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiAO.setParameterEntity(parameterEntity);
         return apiAO;
     }
+
+    @Override
+    public void getApiListByDomainId(Long domainId) {
+        List<ApiPO> apiList = apiMapper.queryApiListByDomainId(domainId);
+        // todo 这里要转成vo
+    }
 }

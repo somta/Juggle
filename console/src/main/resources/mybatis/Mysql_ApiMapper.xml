@@ -9,11 +9,6 @@
 	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
-<select id="queryApiList" resultMap="BaseResultMap">
-	select <include refid="Base_Column_List" /> 
-	from t_api
-</select>
-
 <select id="queryApiListByDomainId" resultMap="BaseResultMap" parameterType="java.lang.Long">
 	select <include refid="Base_Column_List" />
 	from t_api where domain_id=#{domainId}
