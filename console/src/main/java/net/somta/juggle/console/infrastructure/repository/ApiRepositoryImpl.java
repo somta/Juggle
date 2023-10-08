@@ -49,12 +49,10 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPO.setCreatedAt(new Date());
         apiMapper.addApi(apiPO);
 
-        List<ParameterPO> parameterPOS = new ArrayList<>();
-        parameterPOS.addAll(apiAO.getParameterEntity().getInputParameterList());
-        parameterPOS.addAll(apiAO.getParameterEntity().getOutputParameterList());
-        if(CollectionUtils.isNotEmpty(parameterPOS)){
-            parameterPOS.stream().forEach(parameter -> parameter.setSourceId(apiPO.getId()));
-            parameterMapper.batchAddParameter(parameterPOS);
+        List<ParameterPO> parameterPoList = apiAO.getParameterEntity().getParameterPoList(apiPO.getId(),ParameterSourceTypeEnum.API.getCode());
+        if(CollectionUtils.isNotEmpty(parameterPoList)){
+            parameterPoList.stream().forEach(parameter -> parameter.setSourceId(apiPO.getId()));
+            parameterMapper.batchAddParameter(parameterPoList);
         }
         return true;
     }
@@ -81,11 +79,9 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiMapper.update(apiPO);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiAO.getId()));
-        List<ParameterPO> parameterPOS = new ArrayList<>();
-        parameterPOS.addAll(apiAO.getParameterEntity().getInputParameterList());
-        parameterPOS.addAll(apiAO.getParameterEntity().getOutputParameterList());
-        if(CollectionUtils.isNotEmpty(parameterPOS)){
-            parameterMapper.batchAddParameter(parameterPOS);
+        List<ParameterPO> parameterPoList = apiAO.getParameterEntity().getParameterPoList(apiPO.getId(),ParameterSourceTypeEnum.API.getCode());
+        if(CollectionUtils.isNotEmpty(parameterPoList)){
+            parameterMapper.batchAddParameter(parameterPoList);
         }
         return true;
     }

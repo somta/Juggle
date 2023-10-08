@@ -5,10 +5,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionAddParam;
+import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
+import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionPageParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionAddParam;
 import net.somta.juggle.console.application.service.IFlowDefinitionService;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionUpdateParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionUpdateParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
@@ -77,6 +80,23 @@ public class FlowDefinitionController {
         return ResponseDataResult.setResponseResult(result);
     }
 
+    @Operation(summary = "保存流程内容")
+    @PutMapping("/save")
+    public ResponseDataResult<Boolean> saveFlowDefinitionContent(@RequestBody FlowDefinitionContentParam flowDefinitionContentParam){
+        if(flowDefinitionContentParam == null){
+            return ResponseDataResult.setErrorResponseResult(FLOW_PARAM_ERROR);
+        }
+        Boolean result = flowDefinitionService.saveFlowDefinitionContent(flowDefinitionContentParam);
+        return ResponseDataResult.setResponseResult(result);
+    }
+
+    @Operation(summary = "查询流程定义详情")
+    @GetMapping("/info/{flowDefinitionId}")
+    public ResponseDataResult<FlowDefinitionInfoDTO> getFlowDefinitionInfo(@PathVariable Long flowDefinitionId){
+        FlowDefinitionInfoDTO flowDefinitionInfoDTO = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionId);
+        return ResponseDataResult.setResponseResult(flowDefinitionInfoDTO);
+    }
+
     /**
      * 获取流程列表
      * @param flowDefinitionPageParam 变量实体参数
@@ -115,6 +135,7 @@ public class FlowDefinitionController {
     @Operation(summary = "部署流程")
     @GetMapping("/deploy/{flowDefinitionId}")
     public ResponseDataResult<Boolean> deployFlowDefinition(@PathVariable Long flowDefinitionId){
+        //todo 根据ID查询的接口要去掉  重复了
         FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionService.getFlowDefinitionById(flowDefinitionId);
         if(flowDefinitionInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);

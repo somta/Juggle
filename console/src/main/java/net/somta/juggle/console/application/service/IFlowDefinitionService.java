@@ -2,15 +2,20 @@ package net.somta.juggle.console.application.service;
 
 import net.somta.core.base.IBaseService;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionPageParam;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionAddParam;
-import net.somta.juggle.console.interfaces.param.FlowDefinitionUpdateParam;
+import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionPageParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionAddParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionUpdateParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowDefinition;
 import net.somta.juggle.core.model.FlowResult;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoPO> {
 
     /**
@@ -34,6 +39,9 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
      */
     Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam);
 
+    Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam);
+
+    FlowDefinitionInfoDTO getFlowDefinitionInfo(Long flowDefinitionId);
     /**
      *
      * @param flowDefinitionId
@@ -75,4 +83,5 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
      * @return
      */
     FlowResult debugFlow(FlowDefinitionInfoPO flowDefinitionInfoPO, TriggerDataParam triggerData);
+
 }

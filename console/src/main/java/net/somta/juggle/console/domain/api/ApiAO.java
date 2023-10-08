@@ -36,6 +36,8 @@ public class ApiAO {
      */
     private String apiRequestContentType;
 
+    private ParameterEntity parameterEntity;
+
     public Long getId() {
         return id;
     }
@@ -91,8 +93,6 @@ public class ApiAO {
     public void setApiRequestContentType(String apiRequestContentType) {
         this.apiRequestContentType = apiRequestContentType;
     }
-
-    private ParameterEntity parameterEntity;
 
     public ParameterEntity getParameterEntity() {
         return parameterEntity;

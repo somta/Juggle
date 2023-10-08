@@ -2,6 +2,7 @@ package net.somta.juggle.console.infrastructure.mapper;
 
 import net.somta.core.base.IBaseMapper;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,10 @@ public interface VariableInfoMapper extends IBaseMapper {
 
     /**
      * 批量新增变量
-     * @param variableInfoPOList
+     * @param variableInfoList
      * @return
      */
-    int batchAddVariable(List<VariableInfoPO> variableInfoPOList);
+    int batchAddVariable(@Param("variableInfoList") List<VariableInfoPO> variableInfoList);
 
     /**
      * 根据流程定义ID删除变量

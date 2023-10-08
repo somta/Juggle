@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.console.application.assembler.IFlowDefinitionAssembler;
 import net.somta.juggle.console.application.service.IFlowDefinitionService;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
@@ -12,19 +13,19 @@ import net.somta.juggle.console.domain.definition.repository.IFlowDefinitionRepo
 import net.somta.juggle.console.domain.flow.repository.IFlowRepository;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
-import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.parameter.repository.IParameterRepository;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
 import net.somta.juggle.console.infrastructure.mapper.FlowDefinitionMapper;
-import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
-import net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
-import net.somta.juggle.console.infrastructure.po.ParameterPO;
-import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionAddParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionPageParam;
+import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionUpdateParam;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FildSourceEnum;
@@ -34,7 +35,6 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.model.node.StartNode;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,10 +47,6 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
 
     @Autowired
     private FlowDefinitionMapper flowDefinitionMapper;
-    @Autowired
-    private ParameterMapper parameterMapper;
-    @Autowired
-    private VariableInfoMapper variableInfoMapper;
     @Autowired
     private IFlowRuntimeService flowRuntimeService;
     @Autowired
@@ -69,19 +65,17 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
 
     @Override
     public Boolean addFlowDefinition(FlowDefinitionAddParam flowDefinitionAddParam) {
-        FlowDefinitionAO flowDefinitionAO = new FlowDefinitionAO();
+        FlowDefinitionAO flowDefinitionAO =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionAddParam);
         String flowKey = flowDefinitionAddParam.getFlowType() + "_" + RandomStringUtils.random(10, true, true);
         flowDefinitionAO.setFlowKey(flowKey);
-        flowDefinitionAO.setFlowName(flowDefinitionAddParam.getFlowName());
-        flowDefinitionAO.setFlowType(flowDefinitionAddParam.getFlowType());
-        flowDefinitionAO.setRemark(flowDefinitionAddParam.getRemark());
 
         ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameter(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode())
-                .setOutputParameter(flowDefinitionAddParam.getFlowOutputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode());
+        parameterEntity.setInputParameterList(flowDefinitionAddParam.getFlowInputParams());
+        parameterEntity.setOutputParameterList(flowDefinitionAddParam.getFlowOutputParams());
+        /*parameterEntity.setInputParameter(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode())
+                .setOutputParameter(flowDefinitionAddParam.getFlowOutputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode());*/
         flowDefinitionAO.setParameterEntity(parameterEntity);
-        // 变量的entity里面应不应该包含PO,是不是应该先放到聚合根里面来
-
+        // TODO 变量的entity里面应不应该包含PO,是不是应该先放到聚合根里面来
 
         return flowDefinitionRepository.addFlowDefinition(flowDefinitionAO);
     }
@@ -91,20 +85,31 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
         return flowDefinitionRepository.deleteFlowDefinitionById(flowDefinitionId);
     }
 
-    @Transactional
     @Override
     public Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam) {
+        FlowDefinitionAO flowDefinitionAO =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionUpdateParam);
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.setInputParameterList(flowDefinitionUpdateParam.getFlowInputParams());
+        parameterEntity.setOutputParameterList(flowDefinitionUpdateParam.getFlowOutputParams());
+        /*parameterEntity.setInputParameter(flowDefinitionUpdateParam.getFlowInputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode())
+                .setOutputParameter(flowDefinitionUpdateParam.getFlowOutputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode());*/
+        flowDefinitionAO.setParameterEntity(parameterEntity);
 
+        return flowDefinitionRepository.updateFlowDefinition(flowDefinitionAO);
+    }
 
-        FlowDefinitionInfoPO flowDefinitionInfoPO = new FlowDefinitionInfoPO();
-        flowDefinitionInfoPO.setId(flowDefinitionUpdateParam.getId());
-        flowDefinitionInfoPO.setFlowName(flowDefinitionUpdateParam.getFlowName());
-        // todo  这里逻辑不对
-        flowDefinitionMapper.update(flowDefinitionInfoPO);
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionUpdateParam.getId()));
-        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionUpdateParam.getId());
-        //saveParametersAndVariables(flowDefinitionParam.getId(),flowDefinitionParam.getFlowInputParams(), flowDefinitionParam.getFlowOutputParams());
-        return true;
+    @Override
+    public Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam) {
+        FlowDefinitionAO flowDefinitionAO = IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionContentParam);
+        return flowDefinitionRepository.saveFlowDefinitionContent(flowDefinitionAO);
+    }
+
+    @Override
+    public FlowDefinitionInfoDTO getFlowDefinitionInfo(Long flowDefinitionId) {
+        FlowDefinitionAO flowDefinitionAO = flowDefinitionRepository.queryFlowDefinitionInfo(flowDefinitionId);
+        //todo 这里的转换不对，缺少参数，应该把entity中的po改成vo
+        FlowDefinitionInfoDTO flowDefinitionInfoDTO = IFlowDefinitionAssembler.IMPL.aoToDto(flowDefinitionAO);
+        return flowDefinitionInfoDTO;
     }
 
     @Override
@@ -184,65 +189,6 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
         outputParameters.add(userNameParm);
         return outputParameters;
     }
-
-    /**
-     * todo 这里还要做保存变量的事情 这里要抽离到AO中做
-     * 保存参数
-     * @param flowDefinitionId
-     * @param inputParameterList
-     * @param outputParameterList
-     */
-    private void saveParametersAndVariables(Long flowDefinitionId,List<InputParameterParam> inputParameterList,
-                                List<OutputParameterParam> outputParameterList){
-        List<ParameterPO> parameterPOS = new ArrayList<>();
-        List<VariableInfoPO> variableInfoPOS = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(inputParameterList)){
-            for (InputParameterParam inputParameterParam : inputParameterList) {
-                ParameterPO parameterPO = new ParameterPO();
-                parameterPO.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
-                parameterPO.setParamName(inputParameterParam.getParamName());
-                parameterPO.setDataType(inputParameterParam.getDataType());
-                parameterPO.setRequired(inputParameterParam.getRequired());
-                parameterPO.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
-                parameterPO.setSourceId(flowDefinitionId);
-                parameterPOS.add(parameterPO);
-
-                VariableInfoPO variableInfoPO = new VariableInfoPO();
-                variableInfoPO.setFlowDefinitionId(flowDefinitionId);
-                variableInfoPO.setEnvKey(inputParameterParam.getParamKey());
-                variableInfoPO.setEnvName(inputParameterParam.getParamName());
-                variableInfoPO.setEnvType(1);
-                variableInfoPO.setDataType(inputParameterParam.getDataType());
-                variableInfoPOS.add(variableInfoPO);
-            }
-        }
-        if(CollectionUtils.isNotEmpty(outputParameterList)){
-            for (OutputParameterParam outputParameterParam : outputParameterList) {
-                ParameterPO parameterPO = new ParameterPO();
-                parameterPO.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
-                parameterPO.setParamName(outputParameterParam.getParamName());
-                parameterPO.setDataType(outputParameterParam.getDataType());
-                parameterPO.setSourceType(ParameterSourceTypeEnum.FLOW.getCode());
-                parameterPO.setSourceId(flowDefinitionId);
-                parameterPOS.add(parameterPO);
-
-                VariableInfoPO variableInfoPO = new VariableInfoPO();
-                variableInfoPO.setFlowDefinitionId(flowDefinitionId);
-                variableInfoPO.setEnvKey(outputParameterParam.getParamKey());
-                variableInfoPO.setEnvName(outputParameterParam.getParamName());
-                variableInfoPO.setEnvType(2);
-                variableInfoPO.setDataType(outputParameterParam.getDataType());
-                variableInfoPOS.add(variableInfoPO);
-            }
-        }
-        if(CollectionUtils.isNotEmpty(parameterPOS)){
-            parameterMapper.batchAddParameter(parameterPOS);
-        }
-        if(CollectionUtils.isNotEmpty(variableInfoPOS)){
-            variableInfoMapper.batchAddVariable(variableInfoPOS);
-        }
-    }
-
 
     /**
      * 获取流程的定义内容，先mock的数据,原本应该从数据库取

@@ -21,8 +21,8 @@ public interface IApiAssembler {
 
     ApiAO paramToAo(ApiUpdateParam apiUpdateParam);
 
-    @Mapping(target = "apiInputParams", expression = "java(apiAO.getParameterEntity().getInputParameter())")
-    @Mapping(target = "apiOutputParams", expression = "java(apiAO.getParameterEntity().getOutputParameter())")
+    @Mapping(target = "apiInputParams", expression = "java(apiAO.getParameterEntity().getInputParameterList())")
+    @Mapping(target = "apiOutputParams", expression = "java(apiAO.getParameterEntity().getOutputParameterList())")
     ApiInfoDTO aoToDto(ApiAO apiAO);
 
     List<ApiDTO> voListToDtoList(List<ApiVO> apiList);

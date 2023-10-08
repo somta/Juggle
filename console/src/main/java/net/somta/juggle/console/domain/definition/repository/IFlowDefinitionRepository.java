@@ -9,4 +9,10 @@ public interface IFlowDefinitionRepository {
     Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAO);
 
     Boolean deleteFlowDefinitionById(Long flowDefinitionId);
+
+    Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAO);
+
+    Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAO);
+
+    FlowDefinitionAO queryFlowDefinitionInfo(Long flowDefinitionId);
 }

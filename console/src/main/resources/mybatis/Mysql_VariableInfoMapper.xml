@@ -7,7 +7,7 @@
 <insert id="batchAddVariable">
 	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
 	values
-	<foreach collection ="variableInfoPOList" item="item" separator =",">
+	<foreach collection ="variableInfoList" item="item" separator =",">
 		(#{item.id},#{item.flowDefinitionId},#{item.envKey},#{item.envName},#{item.envType},#{item.dataType})
 	</foreach>
 </insert>

@@ -30,8 +30,10 @@ public class ApiServiceImpl implements IApiService {
         ApiAO apiAO = IApiAssembler.IMPL.paramToAo(apiAddParam);
 
         ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameter(apiAddParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
-                       .setOutputParameter(apiAddParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());
+        parameterEntity.setInputParameterList(apiAddParam.getApiInputParams());
+        parameterEntity.setOutputParameterList(apiAddParam.getApiOutputParams());
+        /*parameterEntity.setInputParameter(apiAddParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
+                       .setOutputParameter(apiAddParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());*/
         apiAO.setParameterEntity(parameterEntity);
         apiRepository.addApi(apiAO);
         return ResponseDataResult.setResponseResult();
@@ -48,8 +50,11 @@ public class ApiServiceImpl implements IApiService {
         ApiAO apiAO = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
 
         ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameter(apiUpdateParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
-                .setOutputParameter(apiUpdateParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());
+        parameterEntity.setInputParameterList(apiUpdateParam.getApiInputParams());
+        parameterEntity.setOutputParameterList(apiUpdateParam.getApiOutputParams());
+
+        /*parameterEntity.setInputParameter(apiUpdateParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
+                .setOutputParameter(apiUpdateParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());*/
         apiAO.setParameterEntity(parameterEntity);
         apiRepository.updateApi(apiAO);
         return ResponseDataResult.setResponseResult();

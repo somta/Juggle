@@ -4,6 +4,7 @@ import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+import net.somta.juggle.console.infrastructure.converter.IParameterConverter;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.InputParameter;
@@ -20,11 +21,11 @@ import java.util.stream.Collectors;
  */
 public class ParameterEntity {
 
-    private List<ParameterPO> inputParameterPOList;
+    private List<InputParameterVO> inputParameterList;
 
-    private List<ParameterPO> outputParameterPOList;
+    private List<OutputParameterVO> outputParameterList;
 
-    public List<InputParameterVO> getInputParameter(){
+    /*public List<InputParameterVO> getInputParameter(){
         List<InputParameterVO> inputParameterVOList = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(this.inputParameterPOList)){
             for (ParameterPO parameterPO : this.inputParameterPOList) {
@@ -37,7 +38,7 @@ public class ParameterEntity {
             }
         }
         return inputParameterVOList;
-    }
+    }*/
 
     /**
      *
@@ -46,8 +47,8 @@ public class ParameterEntity {
      * @param sourceType
      * @return
      */
-    public ParameterEntity setInputParameter(List<InputParameterVO> inputParameterVOS,Long sourceId, String sourceType){
-        this.inputParameterPOList = new ArrayList<>();
+    /*public ParameterEntity setInputParameter(List<InputParameterVO> inputParameterVOS,Long sourceId, String sourceType){
+        this.inputParameterList = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(inputParameterVOS)){
             for (InputParameterVO inputParameterVO : inputParameterVOS) {
                 ParameterPO parameterPO = new ParameterPO();
@@ -59,13 +60,13 @@ public class ParameterEntity {
                 parameterPO.setSourceType(sourceType);
                 parameterPO.setSourceId(sourceId);
                 parameterPO.setCreatedAt(new Date());
-                inputParameterPOList.add(parameterPO);
+                inputParameterList.add(parameterPO);
             }
         }
         return this;
-    }
+    }*/
 
-    public List<OutputParameterVO> getOutputParameter(){
+    /*public List<OutputParameterVO> getOutputParameter(){
         List<OutputParameterVO> outputParameterVOParameterVOList = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(this.outputParameterPOList)){
             for (ParameterPO parameterPO : this.outputParameterPOList) {
@@ -77,7 +78,7 @@ public class ParameterEntity {
             }
         }
         return outputParameterVOParameterVOList;
-    }
+    }*/
 
     /**
      *
@@ -86,8 +87,8 @@ public class ParameterEntity {
      * @param sourceType
      * @return
      */
-    public ParameterEntity setOutputParameter(List<OutputParameterVO> outputParameterVOS, Long sourceId, String sourceType){
-        this.outputParameterPOList = new ArrayList<>();
+  /*  public ParameterEntity setOutputParameter(List<OutputParameterVO> outputParameterVOS, Long sourceId, String sourceType){
+        this.outputParameterList = new ArrayList<>();
         for (OutputParameterVO outputParameterVO : outputParameterVOS) {
             ParameterPO parameterPO = new ParameterPO();
             parameterPO.setParamKey(outputParameterVO.getParamKey());
@@ -97,22 +98,58 @@ public class ParameterEntity {
             parameterPO.setSourceType(sourceType);
             parameterPO.setSourceId(sourceId);
             parameterPO.setCreatedAt(new Date());
-            outputParameterPOList.add(parameterPO);
+            outputParameterList.add(parameterPO);
         }
         return this;
-    }
+    }*/
 
     /**
-     *
+     * 将参数的po对象转成对应的出入参VO对象
      * @param parameterPOS
      */
     public void parseParameter(List<ParameterPO> parameterPOS) {
-        this.inputParameterPOList = parameterPOS.stream()
+        List<ParameterPO> inputParameterPoList = parameterPOS.stream()
                 .filter(parameter -> ParameterTypeEnum.INPUT_PARAM.getCode() == parameter.getParamType())
                 .collect(Collectors.toList());
-        this.outputParameterPOList = parameterPOS.stream()
+        this.inputParameterList = IParameterConverter.IMPL.inputParamerterPoListToVoList(inputParameterPoList);
+        List<ParameterPO> outputParameterPoList = parameterPOS.stream()
                 .filter(parameter -> ParameterTypeEnum.OUTPUT_PARAM.getCode() == parameter.getParamType())
                 .collect(Collectors.toList());
+        this.outputParameterList = IParameterConverter.IMPL.outputParamerterPoListToVoList(outputParameterPoList);
+    }
+
+    /**
+     * 根据出入参获取参数PO
+     * @return
+     */
+    public List<ParameterPO> getParameterPoList(Long sourceId,String sourceType){
+        List<ParameterPO> parameterPoList = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(this.inputParameterList)){
+            for (InputParameterVO inputParameterVO : this.inputParameterList) {
+                ParameterPO inputParameterPO = new ParameterPO();
+                inputParameterPO.setParamKey(inputParameterVO.getParamKey());
+                inputParameterPO.setParamType(ParameterTypeEnum.INPUT_PARAM.ordinal());
+                inputParameterPO.setParamName(inputParameterVO.getParamName());
+                inputParameterPO.setDataType(inputParameterVO.getDataType());
+                inputParameterPO.setRequired(inputParameterVO.getRequired());
+                inputParameterPO.setSourceId(sourceId);
+                inputParameterPO.setSourceType(sourceType);
+                parameterPoList.add(inputParameterPO);
+            }
+        }
+        if(CollectionUtils.isNotEmpty(this.outputParameterList)){
+            for (OutputParameterVO outputParameterVO : this.outputParameterList) {
+                ParameterPO outputParameterPO = new ParameterPO();
+                outputParameterPO.setParamKey(outputParameterVO.getParamKey());
+                outputParameterPO.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
+                outputParameterPO.setParamName(outputParameterVO.getParamName());
+                outputParameterPO.setDataType(outputParameterVO.getDataType());
+                outputParameterPO.setSourceId(sourceId);
+                outputParameterPO.setSourceType(sourceType);
+                parameterPoList.add(outputParameterPO);
+            }
+        }
+        return parameterPoList;
     }
 
     /**
@@ -121,15 +158,15 @@ public class ParameterEntity {
      */
     public List<InputParameter> getFlowRuntimeInputParameters(){
         List<InputParameter> inputParams = new ArrayList<>();
-        if(CollectionUtils.isEmpty(this.inputParameterPOList)){
+        if(CollectionUtils.isEmpty(this.inputParameterList)){
             return inputParams;
         }
-        for (ParameterPO parameterPO : inputParameterPOList) {
+        for (InputParameterVO inputParameterVO : inputParameterList) {
             InputParameter inputParameter = new InputParameter();
-            inputParameter.setKey(parameterPO.getParamKey());
-            inputParameter.setName(parameterPO.getParamName());
-            inputParameter.setDataType(JsonSerializeHelper.deserialize(parameterPO.getDataType(), DataType.class));
-            inputParameter.setRequired(parameterPO.getRequired());
+            inputParameter.setKey(inputParameterVO.getParamKey());
+            inputParameter.setName(inputParameterVO.getParamName());
+            inputParameter.setDataType(JsonSerializeHelper.deserialize(inputParameterVO.getDataType(), DataType.class));
+            inputParameter.setRequired(inputParameterVO.getRequired());
             inputParams.add(inputParameter);
         }
         return inputParams;
@@ -141,32 +178,32 @@ public class ParameterEntity {
      */
     public List<OutputParameter> getFlowRuntimeOutputParameters(){
         List<OutputParameter> outputParams = new ArrayList<>();
-        if(CollectionUtils.isEmpty(this.outputParameterPOList)){
+        if(CollectionUtils.isEmpty(this.outputParameterList)){
             return outputParams;
         }
-        for (ParameterPO parameterPO : outputParameterPOList) {
+        for (OutputParameterVO outputParameterVO : outputParameterList) {
             OutputParameter outputParameter = new OutputParameter();
-            outputParameter.setKey(parameterPO.getParamKey());
-            outputParameter.setName(parameterPO.getParamName());
-            outputParameter.setDataType(JsonSerializeHelper.deserialize(parameterPO.getDataType(),DataType.class));
+            outputParameter.setKey(outputParameterVO.getParamKey());
+            outputParameter.setName(outputParameterVO.getParamName());
+            outputParameter.setDataType(JsonSerializeHelper.deserialize(outputParameterVO.getDataType(),DataType.class));
             outputParams.add(outputParameter);
         }
         return outputParams;
     }
 
-    public List<ParameterPO> getInputParameterList() {
-        return inputParameterPOList;
+    public List<InputParameterVO> getInputParameterList() {
+        return inputParameterList;
     }
 
-    public List<ParameterPO> getOutputParameterList() {
-        return outputParameterPOList;
+    public void setInputParameterList(List<InputParameterVO> inputParameterList) {
+        this.inputParameterList = inputParameterList;
     }
 
-    public void setInputParameterList(List<ParameterPO> inputParameterPOList) {
-        this.inputParameterPOList = inputParameterPOList;
+    public List<OutputParameterVO> getOutputParameterList() {
+        return outputParameterList;
     }
 
-    public void setOutputParameterList(List<ParameterPO> outputParameterPOList) {
-        this.outputParameterPOList = outputParameterPOList;
+    public void setOutputParameterList(List<OutputParameterVO> outputParameterList) {
+        this.outputParameterList = outputParameterList;
     }
 }

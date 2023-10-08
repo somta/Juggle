@@ -1,36 +1,43 @@
-package net.somta.juggle.console.domain.definition;
+package net.somta.juggle.console.interfaces.dto;
 
-import net.somta.juggle.console.domain.parameter.ParameterEntity;
-import net.somta.juggle.console.domain.variable.VariableInfoEntity;
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+
+import java.util.List;
 
 /**
  * @author husong
  */
-public class FlowDefinitionAO {
+public class FlowDefinitionInfoDTO {
 
     private Long id;
+
     /**
      * 流程Key,全局唯一
      */
     private String flowKey;
+
     /**
      * 流程名称
      */
     private String flowName;
+
     /**
      * 流程类型  sync：同步  async：异步
      */
     private String flowType;
 
     private String flowContent;
+
     /**
      * 流程描述
      */
     private String remark;
 
-    private ParameterEntity parameterEntity;
+    private List<InputParameterVO> flowInputParams;
 
-    private VariableInfoEntity variableInfoEntity;
+    private List<OutputParameterVO> flowOutputParams;
+
 
     public Long getId() {
         return id;
@@ -80,19 +87,19 @@ public class FlowDefinitionAO {
         this.remark = remark;
     }
 
-    public ParameterEntity getParameterEntity() {
-        return parameterEntity;
+    public List<InputParameterVO> getFlowInputParams() {
+        return flowInputParams;
     }
 
-    public void setParameterEntity(ParameterEntity parameterEntity) {
-        this.parameterEntity = parameterEntity;
+    public void setFlowInputParams(List<InputParameterVO> flowInputParams) {
+        this.flowInputParams = flowInputParams;
     }
 
-    public VariableInfoEntity getVariableInfoEntity() {
-        return variableInfoEntity;
+    public List<OutputParameterVO> getFlowOutputParams() {
+        return flowOutputParams;
     }
 
-    public void setVariableInfoEntity(VariableInfoEntity variableInfoEntity) {
-        this.variableInfoEntity = variableInfoEntity;
+    public void setFlowOutputParams(List<OutputParameterVO> flowOutputParams) {
+        this.flowOutputParams = flowOutputParams;
     }
 }

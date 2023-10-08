@@ -1,4 +1,4 @@
-package net.somta.juggle.console.interfaces.param;
+package net.somta.juggle.console.interfaces.param.definition;
 
 import net.somta.core.base.page.PageParam;
 
