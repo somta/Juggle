@@ -1,8 +1,16 @@
 package net.somta.juggle.console.application.service.impl;
 
+import net.somta.juggle.console.application.assembler.IVariableInfoAssembler;
+import net.somta.juggle.console.domain.variable.VariableInfoEntity;
+import net.somta.juggle.console.domain.variable.enums.VariableTypeEnum;
+import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
+import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.console.application.service.IVariableInfoService;
+import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
+import net.somta.juggle.console.interfaces.param.VariableAddParam;
+import net.somta.juggle.console.interfaces.param.VariableUpdateParam;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Variable;
@@ -17,33 +25,39 @@ import java.util.Map;
 @Service
 public class VariableInfoServiceImpl implements IVariableInfoService {
 
-    @Autowired
-    private VariableInfoMapper variableInfoMapper;
+    private final IVariableInfoRepository variableInfoRepository;
+
+    public VariableInfoServiceImpl(IVariableInfoRepository variableInfoRepository) {
+        this.variableInfoRepository = variableInfoRepository;
+    }
 
     @Override
-    public Boolean addVariable(VariableInfoPO variableInfoPO) {
-        // todo 这里要改成雪花ID
-        variableInfoPO.setId(2L);
-        variableInfoMapper.addVariable(variableInfoPO);
-        return true;
+    public Boolean addVariable(VariableAddParam variableAddParam) {
+        VariableInfoEntity variableInfoEntity = IVariableInfoAssembler.IMPL.paramToEntity(variableAddParam);
+        variableInfoEntity.setEnvType(VariableTypeEnum.MIDDLE_VARIABLE);
+        return variableInfoRepository.addVariable(variableInfoEntity);
     }
 
     @Override
     public Boolean deleteVariable(Long flowDefinitionId, Long variableId) {
-        Map<String,Long> parms = new HashMap<>();
-        parms.put("flowDefinitionId",flowDefinitionId);
-        parms.put("id",variableId);
-        variableInfoMapper.deleteVariable(parms);
-        return true;
+        return variableInfoRepository.deleteVariableById(variableId);
     }
 
     @Override
-    public Boolean updateVariable(VariableInfoPO variableInfoPO) {
-        variableInfoMapper.updateVariable(variableInfoPO);
-        return true;
+    public Boolean updateVariable(VariableUpdateParam variableUpdateParam) {
+        VariableInfoEntity variableInfoEntity = IVariableInfoAssembler.IMPL.paramToEntity(variableUpdateParam);
+        variableInfoEntity.setEnvType(VariableTypeEnum.MIDDLE_VARIABLE);
+        return variableInfoRepository.updateVariable(variableUpdateParam.getId(), variableInfoEntity);
     }
 
     @Override
+    public List<VariableInfoDTO> getVariableInfoList(Long flowDefinitionId) {
+        List<VariableInfoVO> variableInfoList = variableInfoRepository.queryVariableInfoList(flowDefinitionId);
+        List<VariableInfoDTO> variableInfoDTOList = IVariableInfoAssembler.IMPL.voListToDtoList(variableInfoList);
+        return variableInfoDTOList;
+    }
+
+    // todo 这里是一个mock接口，后面要删除
     public List<Variable> getFlowVariableList(Long flowDefinitionId) {
         //todo mock一些变量数据
         List<Variable> variables = new ArrayList<>();

@@ -1,14 +1,15 @@
 package net.somta.juggle.console.application.service;
 
 
-import net.somta.core.base.IBaseService;
+import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.interfaces.dto.DomainDTO;
 import net.somta.juggle.console.interfaces.param.DomainAddParam;
+import net.somta.juggle.console.interfaces.param.DomainQueryParam;
 import net.somta.juggle.console.interfaces.param.DomainUpdateParam;
 
 import java.util.List;
 
-public interface IDomainService extends IBaseService {
+public interface IDomainService {
 
 
     void addDomain(DomainAddParam domainAddParam);
@@ -18,6 +19,7 @@ public interface IDomainService extends IBaseService {
 
     void updateDomain(DomainUpdateParam domainUpdateParam);
 
-    List<DomainDTO> getDomainList();
+    List<DomainDTO> getAllDomainList();
 
+    ResponsePaginationDataResult<List<DomainDTO>> getDomainPageList(DomainQueryParam domainQueryParam);
 }

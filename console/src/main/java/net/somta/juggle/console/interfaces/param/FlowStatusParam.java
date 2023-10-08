@@ -1,22 +1,20 @@
 package net.somta.juggle.console.interfaces.param;
 
-import java.util.List;
-
 /**
  * @author Gavin
  */
 public class FlowStatusParam {
 
-    private Long flowId;
+    private Long flowVersionId;
 
     private Integer flowStatus;
 
-    public Long getFlowId() {
-        return flowId;
+    public Long getFlowVersionId() {
+        return flowVersionId;
     }
 
-    public void setFlowId(Long flowId) {
-        this.flowId = flowId;
+    public void setFlowVersionId(Long flowVersionId) {
+        this.flowVersionId = flowVersionId;
     }
 
     public Integer getFlowStatus() {

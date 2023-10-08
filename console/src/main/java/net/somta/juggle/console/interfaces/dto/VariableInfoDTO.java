@@ -1,18 +1,13 @@
-package net.somta.juggle.console.infrastructure.po;
+package net.somta.juggle.console.interfaces.dto;
 
-import net.somta.core.base.BaseModel;
+import net.somta.juggle.core.model.DataType;
 
-public class VariableInfoPO extends BaseModel {
+public class VariableInfoDTO {
 
     /**
      * 唯一ID
      */
     private Long id;
-
-    /**
-     * 流程定义ID
-     */
-    private Long flowDefinitionId;
 
     /**
      * 变量Key,同一流程内唯一
@@ -40,14 +35,6 @@ public class VariableInfoPO extends BaseModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getFlowDefinitionId() {
-        return flowDefinitionId;
-    }
-
-    public void setFlowDefinitionId(Long flowDefinitionId) {
-        this.flowDefinitionId = flowDefinitionId;
     }
 
     public String getEnvKey() {

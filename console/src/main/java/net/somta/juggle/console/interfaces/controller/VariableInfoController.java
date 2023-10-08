@@ -7,10 +7,11 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.console.domain.definition.enums.FlowDefinitionErrorEnum;
 import net.somta.juggle.console.domain.variable.enums.VariableErrorEnum;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
 import net.somta.juggle.console.interfaces.param.VariableAddParam;
 import net.somta.juggle.console.application.service.IVariableInfoService;
+import net.somta.juggle.console.interfaces.param.VariableUpdateParam;
 import net.somta.juggle.core.model.Variable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +23,11 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
 @RequestMapping(JUGGLE_SERVER_VERSION + "/variable")
 public class VariableInfoController {
 
-    @Autowired
-    private IVariableInfoService variableService;
+    private final IVariableInfoService variableService;
+
+    public VariableInfoController(IVariableInfoService variableService) {
+        this.variableService = variableService;
+    }
 
     /**
      * 新增变量
@@ -36,12 +40,7 @@ public class VariableInfoController {
         if(variableAddParam == null){
             return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_PARAM_IS_NULL_ERROR);
         }
-        VariableInfoPO variableInfoPO = new VariableInfoPO();
-        variableInfoPO.setEnvKey(variableAddParam.getEnvKey());
-        variableInfoPO.setEnvName(variableAddParam.getEnvName());
-        variableInfoPO.setDataType(JsonSerializeHelper.serialize(variableAddParam.getDataType()));
-        variableInfoPO.setFlowDefinitionId(variableAddParam.getFlowDefinitionId());
-        Boolean result = variableService.addVariable(variableInfoPO);
+        Boolean result = variableService.addVariable(variableAddParam);
         return ResponseDataResult.setResponseResult(result);
     }
 
@@ -65,31 +64,31 @@ public class VariableInfoController {
 
     /**
      * 修改
-     * @param variableInfoPO 变量实体参数
+     * @param variableUpdateParam 变量实体参数
      * @return Boolean
      */
     @Operation(summary = "修改变量")
     @PutMapping("/update")
-    public ResponseDataResult<Boolean> updateVariable(@RequestBody VariableInfoPO variableInfoPO){
-        if(variableInfoPO == null){
+    public ResponseDataResult<Boolean> updateVariable(@RequestBody VariableUpdateParam variableUpdateParam){
+        if(variableUpdateParam == null){
             return ResponseDataResult.setErrorResponseResult(VariableErrorEnum.VARIABLE_PARAM_IS_NULL_ERROR);
         }
-        Boolean result = variableService.updateVariable(variableInfoPO);
+        Boolean result = variableService.updateVariable(variableUpdateParam);
         return ResponseDataResult.setResponseResult(result);
     }
 
 
     /**
-     * 修改
+     * 查询流程内变量列表
      * @return Boolean
      */
     @Operation(summary = "获取流程内的变量列表")
     @GetMapping("/list/{flowDefinitionId}")
-    public ResponseDataResult<List<Variable>> getVariableInfoList(Long flowDefinitionId){
+    public ResponseDataResult<List<VariableInfoDTO>> getVariableInfoList(@PathVariable Long flowDefinitionId){
         if(flowDefinitionId == null){
             return ResponseDataResult.setErrorResponseResult(FlowDefinitionErrorEnum.FLOW_DEFINITION_ID_IS_NULL_ERROR);
         }
-        List<Variable> list = variableService.getFlowVariableList(flowDefinitionId);
+        List<VariableInfoDTO> list = variableService.getVariableInfoList(flowDefinitionId);
         return ResponseDataResult.setResponseResult(list);
     }
 

@@ -1,9 +1,7 @@
 package net.somta.juggle.console.application.service;
 
-import net.somta.core.base.IBaseService;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.infrastructure.po.ApiPO;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.param.ApiAddParam;
@@ -15,7 +13,7 @@ import java.util.List;
 /**
  * @author Gavin
  */
-public interface IApiService extends IBaseService<ApiPO> {
+public interface IApiService {
 
     /**
      *

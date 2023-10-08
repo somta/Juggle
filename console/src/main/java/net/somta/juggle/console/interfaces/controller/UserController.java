@@ -12,7 +12,6 @@ import net.somta.juggle.console.interfaces.param.user.UpdatePasswordParam;
 import net.somta.juggle.console.application.service.IUserService;
 import net.somta.juggle.console.utils.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,8 +29,11 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
 @RequestMapping(JUGGLE_SERVER_VERSION + "/user")
 public class UserController {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
+
+    public UserController(IUserService userService) {
+        this.userService = userService;
+    }
 
     @Operation(summary = "登录")
     @PostMapping("/login")

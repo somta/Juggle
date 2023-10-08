@@ -1,6 +1,9 @@
 package net.somta.juggle.console.application.service;
 
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
+import net.somta.juggle.console.interfaces.param.VariableAddParam;
+import net.somta.juggle.console.interfaces.param.VariableUpdateParam;
 import net.somta.juggle.core.model.Variable;
 
 import java.util.List;
@@ -10,9 +13,9 @@ public interface IVariableInfoService {
 
     /**
      * 新增变量
-     * @param variableInfoPO
+     * @param variableAddParam
      */
-    Boolean addVariable(VariableInfoPO variableInfoPO);
+    Boolean addVariable(VariableAddParam variableAddParam);
 
     /**
      * 删除变量
@@ -24,18 +27,15 @@ public interface IVariableInfoService {
 
     /**
      * 修改变量
-     * @param variableInfoPO
+     * @param variableUpdateParam
      * @return
      */
-    Boolean updateVariable(VariableInfoPO variableInfoPO);
+    Boolean updateVariable(VariableUpdateParam variableUpdateParam);
 
     /**
      * 获取流程变量列表
      * @param flowDefinitionId
      * @return
      */
-    List<Variable> getFlowVariableList(Long flowDefinitionId);
-
-
-
+    List<VariableInfoDTO> getVariableInfoList(Long flowDefinitionId);
 }

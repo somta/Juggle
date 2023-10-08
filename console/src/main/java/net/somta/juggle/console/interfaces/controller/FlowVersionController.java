@@ -5,13 +5,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
+import net.somta.juggle.console.application.service.IFlowService;
 import net.somta.juggle.console.domain.flow.enums.FlowStatusEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowPageParam;
 import net.somta.juggle.console.interfaces.param.FlowStatusParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
-import net.somta.juggle.console.application.service.IFlowService;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +24,18 @@ import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 
 @Tag(name = "流程接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/flow")
-public class FlowController {
+@RequestMapping(JUGGLE_SERVER_VERSION + "/flow/version/")
+public class FlowVersionController {
 
     @Autowired
     private IFlowService flowService;
     @Autowired
     private IFlowRuntimeService flowRuntimeService;
 
-   /* @Operation(summary = "启用或禁用流程")
+    @Operation(summary = "启用或禁用流程")
     @PutMapping("/status")
     public ResponseDataResult<Boolean> updateFlowStatus(@RequestBody FlowStatusParam flowStatusParam){
-        FlowInfoPO flowInfoPO = flowService.queryById(flowStatusParam.getFlowId());
+        FlowInfoPO flowInfoPO = flowService.queryById(flowStatusParam.getFlowVersionId());
         if(flowInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
@@ -45,7 +45,7 @@ public class FlowController {
             flowInfoPO.setFlowStatus(FlowStatusEnum.DISABLED.getCode());
         }
         return flowService.update(flowInfoPO);
-    }*/
+    }
 
     @Operation(summary = "删除流程")
     @DeleteMapping("/delete/{flowId}")

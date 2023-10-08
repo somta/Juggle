@@ -1,18 +1,13 @@
-package net.somta.juggle.console.infrastructure.po;
+package net.somta.juggle.console.domain.variable.vo;
 
-import net.somta.core.base.BaseModel;
+import net.somta.juggle.console.domain.variable.enums.VariableTypeEnum;
+import net.somta.juggle.core.model.DataType;
 
-public class VariableInfoPO extends BaseModel {
-
-    /**
-     * 唯一ID
-     */
+/**
+ * @author husong
+ */
+public class VariableInfoVO {
     private Long id;
-
-    /**
-     * 流程定义ID
-     */
-    private Long flowDefinitionId;
 
     /**
      * 变量Key,同一流程内唯一
@@ -25,7 +20,7 @@ public class VariableInfoPO extends BaseModel {
     private String envName;
 
     /**
-     * variable type 1：入参变量   2：出参变量 3:中间变量
+     * variable type 1：入参变量   2：出参变量  3：中间变量
      */
     private Integer envType;
 
@@ -40,14 +35,6 @@ public class VariableInfoPO extends BaseModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getFlowDefinitionId() {
-        return flowDefinitionId;
-    }
-
-    public void setFlowDefinitionId(Long flowDefinitionId) {
-        this.flowDefinitionId = flowDefinitionId;
     }
 
     public String getEnvKey() {

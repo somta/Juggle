@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
+	<result column="id" property="id"/>
+	<result column="flow_definition_id" property="flowDefinitionId"/>
+	<result column="env_key" property="envKey"/>
+    <result column="env_name" property="envName"/>
+	<result column="env_type" property="envType"/>
+    <result column="data_type" property="dataType"/>
+	<result column="created_at" property="createdAt"/>
+	<result column="created_by" property="createdBy"/>
+	<result column="updated_at" property="updatedAt"/>
+	<result column="updated_by" property="updatedBy"/>
+</resultMap>
+
+<sql id="Example_Where_Clause">
+	where 1=1
+</sql>
+       
+<!-- t_variable_info table all fields -->
+<sql id="Base_Column_List" >
+	id, flow_definition_id, env_key, env_name,env_type,data_type, created_at, created_by, updated_at, updated_by
+</sql>
+   
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
+	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{envType},#{dataType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
+
+<delete id="deleteById" parameterType="java.lang.Long">
+	delete from t_variable_info where id=#{id}
+</delete>
+
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
+	update t_variable_info set
+	<trim  suffixOverrides="," >
+	<if test="id != null">
+		id=#{id},
+	</if>
+	<if test="flowDefinitionId != null">
+		flow_definition_id=#{flowDefinitionId},
+	</if>
+	<if test="envKey != null and envKey != ''">
+		env_key=#{envKey},
+	</if>
+	<if test="envName != null and envName != ''">
+		env_name=#{envName},
+	</if>
+	<if test="envType != null">
+		env_type=#{envType},
+	</if>
+	<if test="dataType != null and dataType != ''">
+		data_type=#{dataType},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" /> 
+	from t_variable_info where id = #{id}
+</select>
+
+<select id="queryListCount" resultType="java.lang.Long">
+	select count(*)
+	from t_variable_info
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<select id="queryByList" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" />
+	from t_variable_info
+	<include refid="Example_Where_Clause"/>
+</select>
+
+
+</mapper>   

@@ -1,5 +1,5 @@
 package net.somta.juggle.console.interfaces.param;
-
+// todo 这个类抽离不用后就删除掉
 public class OutputParameterParam {
 
     private String paramKey;

@@ -1,6 +1,11 @@
 package net.somta.juggle.console.domain.api.repository;
 
 import net.somta.juggle.console.domain.api.ApiAO;
+import net.somta.juggle.console.domain.api.vo.ApiVO;
+import net.somta.juggle.console.interfaces.dto.ApiDTO;
+import net.somta.juggle.console.interfaces.param.ApiQueryParam;
+
+import java.util.List;
 
 /**
  * @author Gavin
@@ -15,5 +20,9 @@ public interface IApiRepository {
 
     ApiAO queryApi(Long apiId);
 
-    void getApiListByDomainId(Long domainId);
+    List<ApiVO> getApiListByDomainId(Long domainId);
+
+    Long queryApiCount(ApiQueryParam apiQueryParam);
+
+    List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam);
 }

@@ -12,7 +12,6 @@ import net.somta.juggle.console.interfaces.param.FlowDefinitionUpdateParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
@@ -30,8 +29,11 @@ import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow/definition")
 public class FlowDefinitionController {
 
-    @Autowired
-    private IFlowDefinitionService flowDefinitionService;
+    private final IFlowDefinitionService flowDefinitionService;
+
+    public FlowDefinitionController(IFlowDefinitionService flowDefinitionService) {
+        this.flowDefinitionService = flowDefinitionService;
+    }
 
     /**
      * 创建流程

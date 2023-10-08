@@ -71,8 +71,8 @@ public class DomainController {
      */
     @Operation(summary = "查询领域列表")
     @GetMapping("/list")
-    public ResponseDataResult<List<DomainDTO>> getDomainList(){
-        List<DomainDTO> list = domainService.getDomainList();
+    public ResponseDataResult<List<DomainDTO>> getAllDomainList(){
+        List<DomainDTO> list = domainService.getAllDomainList();
         return ResponseDataResult.setResponseResult(list);
     }
 
@@ -83,7 +83,7 @@ public class DomainController {
     @Operation(summary = "查询领域分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<DomainDTO>> getDomainPageList(@RequestBody DomainQueryParam domainQueryParam){
-        return domainService.queryByPageList(domainQueryParam.getPageNum(),domainQueryParam.getPageSize(), domainQueryParam);
+        return domainService.getDomainPageList(domainQueryParam);
     }
 
 }

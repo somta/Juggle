@@ -28,7 +28,7 @@
 	</if>
 </select>
 
-<select id="queryApiPageList" resultType="net.somta.juggle.console.interfaces.dto.ApiDTO" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryApiPageList" resultType="net.somta.juggle.console.domain.api.vo.ApiVO" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
 	select
 	a.id as id,
 	d.domain_name as domainName,

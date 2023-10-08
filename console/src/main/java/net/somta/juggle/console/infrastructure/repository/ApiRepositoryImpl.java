@@ -1,14 +1,19 @@
 package net.somta.juggle.console.infrastructure.repository;
 
+import net.somta.core.exception.BizException;
 import net.somta.juggle.console.domain.api.ApiAO;
+import net.somta.juggle.console.domain.api.enums.ApiErrorEnum;
 import net.somta.juggle.console.domain.api.repository.IApiRepository;
+import net.somta.juggle.console.domain.api.vo.ApiVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
+import net.somta.juggle.console.infrastructure.converter.IApiConverter;
 import net.somta.juggle.console.infrastructure.mapper.ApiMapper;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
 import net.somta.juggle.console.infrastructure.po.ApiPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
+import net.somta.juggle.console.interfaces.param.ApiQueryParam;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,15 +92,11 @@ public class ApiRepositoryImpl implements IApiRepository {
 
     @Override
     public ApiAO queryApi(Long apiId) {
-        ApiAO apiAO = new ApiAO();
         ApiPO apiPO = apiMapper.queryById(apiId);
-        apiAO.setId(apiPO.getId());
-        apiAO.setDomainId(apiPO.getDomainId());
-        apiAO.setApiUrl(apiPO.getApiUrl());
-        apiAO.setApiName(apiPO.getApiName());
-        apiAO.setApiDesc(apiPO.getApiDesc());
-        apiAO.setApiRequestType(apiPO.getApiRequestType());
-        apiAO.setApiRequestContentType(apiPO.getApiRequestContentType());
+        if(apiPO == null){
+            throw new BizException(ApiErrorEnum.API_NOT_EXIST);
+        }
+        ApiAO apiAO = IApiConverter.IMPL.poToAo(apiPO);
 
         ParameterEntity parameterEntity = new ParameterEntity();
         List<ParameterPO> parameterPOS = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiId));
@@ -105,8 +106,19 @@ public class ApiRepositoryImpl implements IApiRepository {
     }
 
     @Override
-    public void getApiListByDomainId(Long domainId) {
+    public List<ApiVO> getApiListByDomainId(Long domainId) {
         List<ApiPO> apiList = apiMapper.queryApiListByDomainId(domainId);
-        // todo 这里要转成vo
+        List<ApiVO> apis = IApiConverter.IMPL.poListToVoList(apiList);
+        return apis;
+    }
+
+    @Override
+    public Long queryApiCount(ApiQueryParam apiQueryParam) {
+        return apiMapper.queryApiCount(apiQueryParam);
+    }
+
+    @Override
+    public List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam) {
+        return apiMapper.queryApiPageList(apiQueryParam);
     }
 }

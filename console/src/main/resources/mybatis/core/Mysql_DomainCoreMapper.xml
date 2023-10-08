@@ -68,13 +68,13 @@
 	from t_domain where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.DomainQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.domain.domain.vo.DomainQueryVO">
 	select count(*)
 	from t_domain
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.DomainQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.domain.vo.DomainQueryVO">
 	select <include refid="Base_Column_List" /> 
 	from t_domain
 	<include refid="Example_Where_Clause"/>
