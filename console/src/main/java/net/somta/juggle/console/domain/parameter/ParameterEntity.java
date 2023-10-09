@@ -124,16 +124,18 @@ public class ParameterEntity {
      */
     public List<ParameterPO> getParameterPoList(Long sourceId,String sourceType){
         List<ParameterPO> parameterPoList = new ArrayList<>();
+        Date currentDate = new Date();
         if(CollectionUtils.isNotEmpty(this.inputParameterList)){
             for (InputParameterVO inputParameterVO : this.inputParameterList) {
                 ParameterPO inputParameterPO = new ParameterPO();
                 inputParameterPO.setParamKey(inputParameterVO.getParamKey());
-                inputParameterPO.setParamType(ParameterTypeEnum.INPUT_PARAM.ordinal());
+                inputParameterPO.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
                 inputParameterPO.setParamName(inputParameterVO.getParamName());
                 inputParameterPO.setDataType(inputParameterVO.getDataType());
                 inputParameterPO.setRequired(inputParameterVO.getRequired());
                 inputParameterPO.setSourceId(sourceId);
                 inputParameterPO.setSourceType(sourceType);
+                inputParameterPO.setCreatedAt(currentDate);
                 parameterPoList.add(inputParameterPO);
             }
         }
@@ -146,6 +148,7 @@ public class ParameterEntity {
                 outputParameterPO.setDataType(outputParameterVO.getDataType());
                 outputParameterPO.setSourceId(sourceId);
                 outputParameterPO.setSourceType(sourceType);
+                outputParameterPO.setCreatedAt(currentDate);
                 parameterPoList.add(outputParameterPO);
             }
         }

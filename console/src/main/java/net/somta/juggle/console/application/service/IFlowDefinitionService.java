@@ -1,6 +1,7 @@
 package net.somta.juggle.console.application.service;
 
 import net.somta.core.base.IBaseService;
+import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
@@ -41,13 +42,7 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
 
     Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam);
 
-    FlowDefinitionInfoDTO getFlowDefinitionInfo(Long flowDefinitionId);
-    /**
-     *
-     * @param flowDefinitionId
-     * @return
-     */
-    FlowDefinitionInfoPO getFlowDefinitionById(Long flowDefinitionId);
+    FlowDefinitionAO getFlowDefinitionInfo(Long flowDefinitionId);
 
     /**
      * 获取流程定义
@@ -72,10 +67,10 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
 
     /**
      * 部署流程
-     * @param flowDefinitionInfoPO
+     * @param flowDefinitionAO
      * @return
      */
-    Boolean deployFlowDefinition(FlowDefinitionInfoPO flowDefinitionInfoPO);
+    Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAO);
 
     /**
      * @param flowDefinitionInfoPO

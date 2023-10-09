@@ -10,6 +10,7 @@ import net.somta.juggle.console.application.service.IFlowDefinitionService;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.domain.definition.repository.IFlowDefinitionRepository;
+import net.somta.juggle.console.domain.flow.FlowAO;
 import net.somta.juggle.console.domain.flow.repository.IFlowRepository;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
@@ -69,13 +70,14 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
         String flowKey = flowDefinitionAddParam.getFlowType() + "_" + RandomStringUtils.random(10, true, true);
         flowDefinitionAO.setFlowKey(flowKey);
 
-        ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameterList(flowDefinitionAddParam.getFlowInputParams());
-        parameterEntity.setOutputParameterList(flowDefinitionAddParam.getFlowOutputParams());
+        flowDefinitionAO.initParameterList(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAddParam.getFlowOutputParams());
+
+        //ParameterEntity parameterEntity = new ParameterEntity();
+        //parameterEntity.setInputParameterList(flowDefinitionAddParam.getFlowInputParams());
+        //parameterEntity.setOutputParameterList(flowDefinitionAddParam.getFlowOutputParams());
         /*parameterEntity.setInputParameter(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode())
                 .setOutputParameter(flowDefinitionAddParam.getFlowOutputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode());*/
-        flowDefinitionAO.setParameterEntity(parameterEntity);
-        // TODO 变量的entity里面应不应该包含PO,是不是应该先放到聚合根里面来
+        //flowDefinitionAO.setParameterEntity(parameterEntity);
 
         return flowDefinitionRepository.addFlowDefinition(flowDefinitionAO);
     }
@@ -88,12 +90,14 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
     @Override
     public Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam) {
         FlowDefinitionAO flowDefinitionAO =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionUpdateParam);
-        ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameterList(flowDefinitionUpdateParam.getFlowInputParams());
-        parameterEntity.setOutputParameterList(flowDefinitionUpdateParam.getFlowOutputParams());
+        flowDefinitionAO.initParameterList(flowDefinitionUpdateParam.getFlowInputParams(),flowDefinitionUpdateParam.getFlowOutputParams());
+
+        //ParameterEntity parameterEntity = new ParameterEntity();
+        //parameterEntity.setInputParameterList(flowDefinitionUpdateParam.getFlowInputParams());
+        //parameterEntity.setOutputParameterList(flowDefinitionUpdateParam.getFlowOutputParams());
         /*parameterEntity.setInputParameter(flowDefinitionUpdateParam.getFlowInputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode())
                 .setOutputParameter(flowDefinitionUpdateParam.getFlowOutputParams(),flowDefinitionAO.getId(),ParameterSourceTypeEnum.FLOW.getCode());*/
-        flowDefinitionAO.setParameterEntity(parameterEntity);
+        //flowDefinitionAO.setParameterEntity(parameterEntity);
 
         return flowDefinitionRepository.updateFlowDefinition(flowDefinitionAO);
     }
@@ -105,16 +109,11 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
     }
 
     @Override
-    public FlowDefinitionInfoDTO getFlowDefinitionInfo(Long flowDefinitionId) {
+    public FlowDefinitionAO getFlowDefinitionInfo(Long flowDefinitionId) {
         FlowDefinitionAO flowDefinitionAO = flowDefinitionRepository.queryFlowDefinitionInfo(flowDefinitionId);
         //todo 这里的转换不对，缺少参数，应该把entity中的po改成vo
         FlowDefinitionInfoDTO flowDefinitionInfoDTO = IFlowDefinitionAssembler.IMPL.aoToDto(flowDefinitionAO);
-        return flowDefinitionInfoDTO;
-    }
-
-    @Override
-    public FlowDefinitionInfoPO getFlowDefinitionById(Long flowDefinitionId) {
-        return flowDefinitionMapper.queryById(flowDefinitionId);
+        return flowDefinitionAO;
     }
 
     @Override
@@ -130,13 +129,27 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
 
     @Transactional
     @Override
-    public Boolean deployFlowDefinition(FlowDefinitionInfoPO flowDefinitionInfoPO) {
-        FlowInfoPO flowInfoPO = new FlowInfoPO();
+    public Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAO) {
+        FlowAO flowAO = new FlowAO();
+        flowAO.setFlowVersion(flowVersion);
+
+        ParameterEntity parameterEntity = flowDefinitionAO.getParameterEntity();
+        String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());
+        flowAO.setInputs(inputParameterString);
+        String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeOutputParameters());
+        flowAO.setOutputs(outputParameterString);
+
+        VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionAO.getId());
+        String variablesString = JsonSerializeHelper.serialize(variableInfoEntity.getFlowRuntimeVariables());
+        flowAO.setVariables(variablesString);
+
+        //TODO 这里要转成流程的AO
+       /* FlowInfoPO flowInfoPO = new FlowInfoPO();
         flowInfoPO.setFlowKey(flowDefinitionInfoPO.getFlowKey());
         flowInfoPO.setFlowName(flowDefinitionInfoPO.getFlowName());
         flowInfoPO.setRemark(flowDefinitionInfoPO.getRemark());
 
-        ParameterEntity parameterEntity = parameterRepository.getParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionInfoPO.getId()));
+        ParameterEntity parameterEntity = flowDefinitionAO.getParameterEntity();
         String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());
         flowInfoPO.setInputs(inputParameterString);
         String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeOutputParameters());
@@ -144,10 +157,9 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
 
         VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionInfoPO.getId());
         String variablesString = JsonSerializeHelper.serialize(variableInfoEntity.getFlowRuntimeVariables());
-        flowInfoPO.setVariables(variablesString);
+        flowInfoPO.setVariables(variablesString);*/
 
-        flowRepository.saveFlow(flowInfoPO);
-        return true;
+        return flowRepository.deployFlow(flowAO);
     }
 
     @Transactional

@@ -1,7 +1,11 @@
 package net.somta.juggle.console.domain.definition;
 
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
+
+import java.util.List;
 
 /**
  * @author husong
@@ -30,7 +34,12 @@ public class FlowDefinitionAO {
 
     private ParameterEntity parameterEntity;
 
-    private VariableInfoEntity variableInfoEntity;
+    public void initParameterList(List<InputParameterVO> flowInputParamList, List<OutputParameterVO> flowOutputParamList) {
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.setInputParameterList(flowInputParamList);
+        parameterEntity.setOutputParameterList(flowOutputParamList);
+        this.parameterEntity = parameterEntity;
+    }
 
     public Long getId() {
         return id;
@@ -88,11 +97,6 @@ public class FlowDefinitionAO {
         this.parameterEntity = parameterEntity;
     }
 
-    public VariableInfoEntity getVariableInfoEntity() {
-        return variableInfoEntity;
-    }
 
-    public void setVariableInfoEntity(VariableInfoEntity variableInfoEntity) {
-        this.variableInfoEntity = variableInfoEntity;
-    }
+
 }

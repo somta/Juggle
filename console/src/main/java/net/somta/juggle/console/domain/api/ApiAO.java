@@ -1,6 +1,10 @@
 package net.somta.juggle.console.domain.api;
 
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+
+import java.util.List;
 
 /**
  * @author Gavin
@@ -37,6 +41,18 @@ public class ApiAO {
     private String apiRequestContentType;
 
     private ParameterEntity parameterEntity;
+
+    /**
+     * 初始化参数实体
+     * @param apiInputParamList
+     * @param apiOutputParamList
+     */
+    public void initParameterList(List<InputParameterVO> apiInputParamList, List<OutputParameterVO> apiOutputParamList) {
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.setInputParameterList(apiInputParamList);
+        parameterEntity.setOutputParameterList(apiOutputParamList);
+        this.parameterEntity = parameterEntity;
+    }
 
     public Long getId() {
         return id;
@@ -101,4 +117,5 @@ public class ApiAO {
     public void setParameterEntity(ParameterEntity parameterEntity) {
         this.parameterEntity = parameterEntity;
     }
+
 }
