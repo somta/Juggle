@@ -5,13 +5,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
-import net.somta.juggle.console.domain.flow.enums.FlowStatusEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowPageParam;
-import net.somta.juggle.console.interfaces.param.FlowStatusParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
-import net.somta.juggle.console.application.service.IFlowService;
+import net.somta.juggle.console.application.service.IFlowInfoService;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,38 +20,24 @@ import java.util.Map;
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 
-@Tag(name = "流程接口")
+@Tag(name = "流程信息接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow")
-public class FlowController {
+public class FlowInfoController {
 
     @Autowired
-    private IFlowService flowService;
-    @Autowired
-    private IFlowRuntimeService flowRuntimeService;
+    private IFlowInfoService flowService;
 
-   /* @Operation(summary = "启用或禁用流程")
-    @PutMapping("/status")
-    public ResponseDataResult<Boolean> updateFlowStatus(@RequestBody FlowStatusParam flowStatusParam){
-        FlowInfoPO flowInfoPO = flowService.queryById(flowStatusParam.getFlowId());
-        if(flowInfoPO == null){
-            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
-        }
-        if(FlowStatusEnum.DISABLED.getCode().equals(flowStatusParam.getFlowStatus())){
-            flowInfoPO.setFlowStatus(FlowStatusEnum.ENABLE.getCode());
-        }else {
-            flowInfoPO.setFlowStatus(FlowStatusEnum.DISABLED.getCode());
-        }
-        return flowService.update(flowInfoPO);
-    }*/
+
 
     @Operation(summary = "删除流程")
     @DeleteMapping("/delete/{flowId}")
     public ResponseDataResult<Boolean> deleteFlow(@PathVariable Long flowId){
         FlowInfoPO flowInfoPO = flowService.queryById(flowId);
-        if(FlowStatusEnum.ENABLE.getCode().equals(flowInfoPO.getFlowStatus())){
+        // todo 删除流程前要查询该流程下是否还存在启用的版本
+        /*if(FlowStatusEnum.ENABLE.getCode().equals(flowInfoPO.getFlowStatus())){
             return ResponseDataResult.setErrorResponseResult(ENABLE_FLOW_NOT_DELETE);
-        }
+        }*/
         return flowService.deleteById(flowId);
     }
 
@@ -78,20 +62,15 @@ public class FlowController {
         if(flowInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
+        //todo 这个方法要移动到流程版本下
+        /*if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
-        }
+        }*/
 
         FlowResult rst = flowService.triggerFlow(flowInfoPO,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }
 
 
-    @Operation(summary = "获取异步流程结果")
-    @GetMapping("/getAsyncFlowResult/{flowInstanceId}")
-    public ResponseDataResult<Map<String,Object>> getAsyncFlowResult(@PathVariable String flowInstanceId){
-        Map<String,Object> flowResult = flowRuntimeService.getAsyncFlowResult(flowInstanceId);
-        return ResponseDataResult.setResponseResult(flowResult);
-    }
 
 }

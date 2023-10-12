@@ -8,7 +8,7 @@ import net.somta.core.base.BaseModel;
 public class FlowVersionPO extends BaseModel {
     private Long id;
 
-    private String flowId;
+    private Long flowId;
 
     private String flowVersion;
     /**
@@ -32,11 +32,11 @@ public class FlowVersionPO extends BaseModel {
         this.id = id;
     }
 
-    public String getFlowId() {
+    public Long getFlowId() {
         return flowId;
     }
 
-    public void setFlowId(String flowId) {
+    public void setFlowId(Long flowId) {
         this.flowId = flowId;
     }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowInfoMapper" >
+
+<insert id="addFlowInfo" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.FlowInfoPO" >
+	insert into t_flow_info (id, flow_key, flow_name,flow_type, remark, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowKey},#{flowName},#{flowType},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
+
+
+<select id="querySimpleFlowInfo" resultType="net.somta.juggle.console.infrastructure.po.FlowInfoPO" parameterType="java.lang.Long">
+	select id,flow_key,flow_name,flow_type
+	from t_flow_info where id = #{flowId}
+</select>
+
+<select id="queryFlowByFlowKey" resultType="net.somta.juggle.console.infrastructure.po.FlowInfoPO" parameterType="java.lang.String">
+	select id,flow_key, flow_name,flow_type, remark
+	from t_flow_info where flow_key = #{flowKey}
+</select>
+
+<select id="queryFlowList" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" /> 
+	from t_flow_info
+</select>
+
+</mapper>   

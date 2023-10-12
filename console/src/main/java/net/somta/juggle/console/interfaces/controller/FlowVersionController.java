@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
-import net.somta.juggle.console.application.service.IFlowService;
+import net.somta.juggle.console.application.service.IFlowInfoService;
 import net.somta.juggle.console.domain.flow.enums.FlowStatusEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
@@ -22,13 +22,13 @@ import java.util.Map;
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 
-@Tag(name = "流程接口")
+@Tag(name = "流程版本接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow/version/")
 public class FlowVersionController {
 
     @Autowired
-    private IFlowService flowService;
+    private IFlowInfoService flowService;
     @Autowired
     private IFlowRuntimeService flowRuntimeService;
 
@@ -39,11 +39,11 @@ public class FlowVersionController {
         if(flowInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowStatusEnum.DISABLED.getCode().equals(flowStatusParam.getFlowStatus())){
+        /*if(FlowStatusEnum.DISABLED.getCode().equals(flowStatusParam.getFlowStatus())){
             flowInfoPO.setFlowStatus(FlowStatusEnum.ENABLE.getCode());
         }else {
             flowInfoPO.setFlowStatus(FlowStatusEnum.DISABLED.getCode());
-        }
+        }*/
         return flowService.update(flowInfoPO);
     }
 
@@ -51,9 +51,9 @@ public class FlowVersionController {
     @DeleteMapping("/delete/{flowId}")
     public ResponseDataResult<Boolean> deleteFlow(@PathVariable Long flowId){
         FlowInfoPO flowInfoPO = flowService.queryById(flowId);
-        if(FlowStatusEnum.ENABLE.getCode().equals(flowInfoPO.getFlowStatus())){
+        /*if(FlowStatusEnum.ENABLE.getCode().equals(flowInfoPO.getFlowStatus())){
             return ResponseDataResult.setErrorResponseResult(ENABLE_FLOW_NOT_DELETE);
-        }
+        }*/
         return flowService.deleteById(flowId);
     }
 
@@ -78,9 +78,9 @@ public class FlowVersionController {
         if(flowInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
+        /*if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
-        }
+        }*/
 
         FlowResult rst = flowService.triggerFlow(flowInfoPO,triggerData);
         return ResponseDataResult.setResponseResult(rst);

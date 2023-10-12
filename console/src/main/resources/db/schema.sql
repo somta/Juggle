@@ -116,22 +116,36 @@ CREATE TABLE `t_variable_info` (
 );
 
 -- ----------------------------
--- Table structure for t_variable_info
+-- Table structure for t_flow
 -- ----------------------------
 CREATE TABLE `t_flow` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `flow_key` varchar(20) DEFAULT NULL,
   `flow_name` varchar(60) DEFAULT NULL,
   `flow_type` varchar(8) DEFAULT NULL,
-  `flow_status` int(2) DEFAULT '0',
-  `flow_content` text,
-  `inputs` text,
-  `outputs` text,
-  `variables` text,
   `remark` varchar(120) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` bigint(20) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_flow_version
+-- ----------------------------
+CREATE TABLE `t_flow_version` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `flow_id` varchar(20) DEFAULT NULL,
+  `flow_version` varchar(8) DEFAULT NULL,
+  `flow_status` int DEFAULT '0',
+  `flow_content` text,
+  `inputs` text,
+  `outputs` text,
+  `variables` text,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` bigint DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 );

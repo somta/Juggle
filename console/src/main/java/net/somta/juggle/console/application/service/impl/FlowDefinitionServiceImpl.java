@@ -19,7 +19,6 @@ import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
 import net.somta.juggle.console.infrastructure.mapper.FlowDefinitionMapper;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
-import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
@@ -132,6 +131,11 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
     public Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAO) {
         FlowAO flowAO = new FlowAO();
         flowAO.setFlowVersion(flowVersion);
+        flowAO.setFlowKey(flowDefinitionAO.getFlowKey());
+        flowAO.setFlowName(flowDefinitionAO.getFlowName());
+        flowAO.setFlowType(flowDefinitionAO.getFlowType());
+        flowAO.setFlowContent(flowDefinitionAO.getFlowContent());
+        flowAO.setRemark(flowDefinitionAO.getRemark());
 
         ParameterEntity parameterEntity = flowDefinitionAO.getParameterEntity();
         String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());

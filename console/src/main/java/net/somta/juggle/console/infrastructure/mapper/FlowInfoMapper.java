@@ -4,12 +4,17 @@ package net.somta.juggle.console.infrastructure.mapper;
 import net.somta.core.base.IBaseMapper;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowPageParam;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface FlowMapper extends IBaseMapper {
+/**
+ * @author husong
+ */
+public interface FlowInfoMapper extends IBaseMapper {
 
 
+    int addFlowInfo(FlowInfoPO flowInfoPO);
 
     FlowInfoPO querySimpleFlowInfo(Long flowId);
 
@@ -18,7 +23,7 @@ public interface FlowMapper extends IBaseMapper {
      * @param flowKey
      * @return
      */
-    FlowInfoPO queryFlowByFlowKey(String flowKey);
+    FlowInfoPO queryFlowByFlowKey(@Param("flowKey") String flowKey);
 
     /**
      * 查询流程列表

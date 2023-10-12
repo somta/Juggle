@@ -8,7 +8,7 @@ import net.somta.juggle.core.model.FlowResult;
 /**
  * @author Gavin
  */
-public interface IFlowService extends IBaseService<FlowInfoPO> {
+public interface IFlowInfoService extends IBaseService<FlowInfoPO> {
     /**
      * 触发流程
      * @param flowInfoPO

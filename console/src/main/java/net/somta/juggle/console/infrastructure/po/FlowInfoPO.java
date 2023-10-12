@@ -14,19 +14,6 @@ public class FlowInfoPO extends BaseModel {
 
     private String flowType;
 
-    /**
-     * 流程状态   0:禁用  1:启用
-     */
-    private Integer flowStatus;
-
-    private String flowContent;
-
-    private String inputs;
-
-    private String outputs;
-
-    private String variables;
-
     private String remark;
 
     public Long getId() {
@@ -59,46 +46,6 @@ public class FlowInfoPO extends BaseModel {
 
     public void setFlowType(String flowType) {
         this.flowType = flowType;
-    }
-
-    public Integer getFlowStatus() {
-        return flowStatus;
-    }
-
-    public void setFlowStatus(Integer flowStatus) {
-        this.flowStatus = flowStatus;
-    }
-
-    public String getFlowContent() {
-        return flowContent;
-    }
-
-    public void setFlowContent(String flowContent) {
-        this.flowContent = flowContent;
-    }
-
-    public String getInputs() {
-        return inputs;
-    }
-
-    public void setInputs(String inputs) {
-        this.inputs = inputs;
-    }
-
-    public String getOutputs() {
-        return outputs;
-    }
-
-    public void setOutputs(String outputs) {
-        this.outputs = outputs;
-    }
-
-    public String getVariables() {
-        return variables;
-    }
-
-    public void setVariables(String variables) {
-        this.variables = variables;
     }
 
     public String getRemark() {
