@@ -20,31 +20,29 @@ import java.util.Map;
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 
+/**
+ * @author husong
+ */
 @Tag(name = "流程信息接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow")
 public class FlowInfoController {
 
     @Autowired
-    private IFlowInfoService flowService;
-
+    private IFlowInfoService flowInfoService;
 
 
     @Operation(summary = "删除流程")
     @DeleteMapping("/delete/{flowId}")
-    public ResponseDataResult<Boolean> deleteFlow(@PathVariable Long flowId){
-        FlowInfoPO flowInfoPO = flowService.queryById(flowId);
-        // todo 删除流程前要查询该流程下是否还存在启用的版本
-        /*if(FlowStatusEnum.ENABLE.getCode().equals(flowInfoPO.getFlowStatus())){
-            return ResponseDataResult.setErrorResponseResult(ENABLE_FLOW_NOT_DELETE);
-        }*/
-        return flowService.deleteById(flowId);
+    public ResponseDataResult<Boolean> deleteFlowInfo(@PathVariable Long flowId){
+        Boolean result = flowInfoService.deleteFlowInfo(flowId);
+        return ResponseDataResult.setResponseResult(result);
     }
 
     @Operation(summary = "查询流程分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionList(@RequestBody FlowPageParam flowPageParam){
-        return flowService.queryByPageList(flowPageParam.getPageNum(),flowPageParam.getPageSize(), flowPageParam);
+        return flowInfoService.queryByPageList(flowPageParam.getPageNum(),flowPageParam.getPageSize(), flowPageParam);
     }
 
     /**
@@ -52,24 +50,24 @@ public class FlowInfoController {
      * @param triggerData 触发流程实体
      * @return Boolean
      */
-    @Operation(summary = "触发流程")
+    /*@Operation(summary = "触发流程")
     @PostMapping("/trigger/{flowKey}")
     public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
         if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
-        FlowInfoPO flowInfoPO = flowService.getFlowByFlowKey(flowKey);
+        FlowInfoPO flowInfoPO = flowInfoService.getFlowByFlowKey(flowKey);
         if(flowInfoPO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
         //todo 这个方法要移动到流程版本下
-        /*if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
+        *//*if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
-        }*/
+        }*//*
 
-        FlowResult rst = flowService.triggerFlow(flowInfoPO,triggerData);
+        FlowResult rst = flowInfoService.triggerFlow(flowInfoPO,triggerData);
         return ResponseDataResult.setResponseResult(rst);
-    }
+    }*/
 
 
 

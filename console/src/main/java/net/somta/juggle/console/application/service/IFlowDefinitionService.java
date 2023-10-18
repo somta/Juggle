@@ -1,10 +1,8 @@
 package net.somta.juggle.console.application.service;
 
 import com.github.pagehelper.PageInfo;
-import net.somta.core.base.IBaseService;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
-import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
 import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionPageParam;
 import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionAddParam;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * @author husong
  */
-public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoPO> {
+public interface IFlowDefinitionService {
 
     /**
      * 创建流程
@@ -50,7 +48,7 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
      * @param flowKey
      * @return
      */
-    FlowDefinitionInfoPO getFlowDefinitionByKey(String flowKey);
+    FlowDefinitionAO getFlowDefinitionByKey(String flowKey);
 
     PageInfo getFlowDefinitionPageList(FlowDefinitionPageParam flowDefinitionPageParam);
 
@@ -76,11 +74,11 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
     Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAO);
 
     /**
-     * @param flowDefinitionInfoPO
+     * @param flowDefinitionAO
      * @param triggerData
      * @return
      */
-    FlowResult debugFlow(FlowDefinitionInfoPO flowDefinitionInfoPO, TriggerDataParam triggerData);
+    FlowResult debugFlow(FlowDefinitionAO flowDefinitionAO, TriggerDataParam triggerData);
 
 
 }

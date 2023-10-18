@@ -6,7 +6,6 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
 import net.somta.juggle.console.application.service.IFlowInfoService;
-import net.somta.juggle.console.domain.flow.enums.FlowStatusEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.interfaces.param.FlowPageParam;

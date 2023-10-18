@@ -1,6 +1,13 @@
 package net.somta.juggle.console.domain.flow;
 
-public class FlowAO {
+import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
+import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class FlowInfoAO {
 
     private String flowVersion;
 
@@ -20,6 +27,23 @@ public class FlowAO {
 
     private String remark;
 
+    private List<FlowVersionVO> flowVersionList;
+
+    public void initFlowVersionList(List<FlowVersionVO> flowVersionList){
+        this.flowVersionList = flowVersionList;
+    }
+
+    public Boolean isExistEnableVersion(){
+        if(CollectionUtils.isEmpty(this.flowVersionList)){
+            return false;
+        }
+        List<FlowVersionVO> enableFlowVersionList = this.flowVersionList.stream().filter(v -> FlowVersionStatusEnum.ENABLE.getCode().equals(v.getFlowStatus()))
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(enableFlowVersionList)){
+            return false;
+        }
+        return true;
+    }
 
     public String getFlowVersion() {
         return flowVersion;
@@ -91,5 +115,9 @@ public class FlowAO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<FlowVersionVO> getFlowVersionList() {
+        return flowVersionList;
     }
 }

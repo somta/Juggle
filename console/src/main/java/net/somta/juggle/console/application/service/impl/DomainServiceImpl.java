@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Service
 public class DomainServiceImpl implements IDomainService {
 

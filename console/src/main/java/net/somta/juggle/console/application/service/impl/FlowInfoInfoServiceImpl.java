@@ -2,8 +2,11 @@ package net.somta.juggle.console.application.service.impl;
 
 import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
+import net.somta.core.exception.BizException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
+import net.somta.juggle.console.domain.flow.FlowInfoAO;
+import net.somta.juggle.console.domain.flow.repository.IFlowInfoRepository;
 import net.somta.juggle.console.infrastructure.mapper.FlowInfoMapper;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.ENABLE_FLOW_NOT_DELETE;
+
 @Service
 public class FlowInfoInfoServiceImpl extends BaseServiceImpl<FlowInfoPO> implements IFlowInfoService {
 
@@ -24,9 +29,21 @@ public class FlowInfoInfoServiceImpl extends BaseServiceImpl<FlowInfoPO> impleme
     @Autowired
     private IFlowRuntimeService flowRuntimeService;
 
+    @Autowired
+    private IFlowInfoRepository flowInfoRepository;
+
     @Override
     public IBaseMapper getMapper() {
         return flowInfoMapper;
+    }
+
+    @Override
+    public Boolean deleteFlowInfo(Long flowId) {
+        FlowInfoAO flowInfoAO = flowInfoRepository.queryFlowInfo(flowId);
+        if(flowInfoAO.isExistEnableVersion()){
+            throw new BizException(ENABLE_FLOW_NOT_DELETE);
+        }
+        return flowInfoRepository.deleteFlowInfoAndFlowVersion();
     }
 
     @Override

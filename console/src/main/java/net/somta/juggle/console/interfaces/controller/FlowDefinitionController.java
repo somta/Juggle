@@ -7,6 +7,7 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.assembler.IFlowDefinitionAssembler;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
+import net.somta.juggle.console.domain.definition.enums.FlowDefinitionErrorEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
@@ -121,11 +122,14 @@ public class FlowDefinitionController {
         if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
-        FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionService.getFlowDefinitionByKey(flowKey);
-        if(flowDefinitionInfoPO == null){
-            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
+        FlowDefinitionAO flowDefinitionAO = flowDefinitionService.getFlowDefinitionByKey(flowKey);
+        if(flowDefinitionAO == null){
+            return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        FlowResult rst = flowDefinitionService.debugFlow(flowDefinitionInfoPO,triggerData);
+        if(StringUtils.isEmpty(flowDefinitionAO.getFlowContent())){
+            return ResponseDataResult.setErrorResponseResult(FlowDefinitionErrorEnum.FLOW_DEFINITION_CONTENT_IS_NULL_ERROR);
+        }
+        FlowResult rst = flowDefinitionService.debugFlow(flowDefinitionAO,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }
 

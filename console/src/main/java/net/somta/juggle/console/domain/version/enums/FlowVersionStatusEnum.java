@@ -1,6 +1,10 @@
-package net.somta.juggle.console.domain.flow.enums;
+package net.somta.juggle.console.domain.version.enums;
 
-public enum FlowStatusEnum {
+/**
+ * @author husong
+ */
+
+public enum FlowVersionStatusEnum {
 
     DISABLED(0,"禁用"),
     ENABLE(1,"启用");
@@ -9,7 +13,7 @@ public enum FlowStatusEnum {
     private String desc;
 
 
-    FlowStatusEnum(Integer code, String desc) {
+    FlowVersionStatusEnum(Integer code, String desc) {
         this.code = code;
         this.desc = desc;
     }

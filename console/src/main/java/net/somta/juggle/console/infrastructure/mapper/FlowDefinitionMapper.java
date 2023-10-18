@@ -16,7 +16,6 @@ public interface FlowDefinitionMapper extends IBaseMapper {
 
     int addFlowDefinitionInfo(FlowDefinitionInfoPO flowDefinitionInfoPO);
 
-
     FlowDefinitionInfoPO queryFlowDefinitionByKey(String flowKey);
 
     List<FlowDefinitionInfoVO> queryFlowDefinitionList(FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVO);

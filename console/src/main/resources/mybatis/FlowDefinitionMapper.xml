@@ -9,8 +9,8 @@
         values (#{id},#{flowKey},#{flowName},#{flowType},#{flowContent},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
     </insert>
 
-    <select id="queryFlowDefinitionByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select <include refid="Base_Column_List" />
+    <select id="queryFlowDefinitionByKey" resultType="net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO" parameterType="java.lang.String">
+        select id, flow_key as flowKey, flow_name as flowName,flow_type as flowType,flow_content as flowContent, remark
         from t_flow_definition where flow_key = #{flowKey}
     </select>
 

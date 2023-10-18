@@ -91,6 +91,15 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     }
 
     @Override
+    public FlowDefinitionAO queryFlowDefinitionByKey(String flowKey) {
+        FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionMapper.queryFlowDefinitionByKey(flowKey);
+        FlowDefinitionAO flowDefinitionAO = IFlowDefinitionConverter.IMPL.poToAo(flowDefinitionInfoPO);
+        ParameterEntity parameterEntity = parameterRepository.getParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionInfoPO.getId()));
+        flowDefinitionAO.setParameterEntity(parameterEntity);
+        return flowDefinitionAO;
+    }
+
+    @Override
     public List<FlowDefinitionInfoVO> queryFlowDefinitionList(FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVO) {
         return flowDefinitionMapper.queryFlowDefinitionList(flowDefinitionInfoQueryVO);
     }
