@@ -1,6 +1,7 @@
 package net.somta.juggle.console.application.service;
 
 
+import com.github.pagehelper.PageInfo;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.interfaces.dto.DomainDTO;
 import net.somta.juggle.console.interfaces.param.DomainAddParam;
@@ -21,5 +22,5 @@ public interface IDomainService {
 
     List<DomainDTO> getAllDomainList();
 
-    ResponsePaginationDataResult<List<DomainDTO>> getDomainPageList(DomainQueryParam domainQueryParam);
+    PageInfo getDomainPageList(DomainQueryParam domainQueryParam);
 }

@@ -1,5 +1,8 @@
 package net.somta.juggle.console.application.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.assembler.IDomainAssembler;
 import net.somta.juggle.console.domain.domain.DomainEntity;
@@ -51,18 +54,14 @@ public class DomainServiceImpl implements IDomainService {
     }
 
     @Override
-    public ResponsePaginationDataResult<List<DomainDTO>> getDomainPageList(DomainQueryParam domainQueryParam) {
+    public PageInfo getDomainPageList(DomainQueryParam domainQueryParam) {
         DomainQueryVO domainQueryVO = IDomainAssembler.IMPL.paramToVo(domainQueryParam);
-
-        // todo 这里的分页查询是有问题的，要不要引用工具类呢
-        Long count = domainRepository.queryDomainListCount(domainQueryVO);
-        if (count > 0L) {
-            List<DomainVO> domainVOList = domainRepository.queryDomainList(domainQueryVO);
-            List<DomainDTO> domainDTOList = IDomainAssembler.IMPL.voListToDtoList(domainVOList);
-            return ResponsePaginationDataResult.setPaginationDataResult(count, domainDTOList);
-        } else {
-            return ResponsePaginationDataResult.setPaginationDataResult(0L, null);
-        }
+        Page<DomainDTO> page = PageHelper.startPage(domainQueryParam.getPageNum(), domainQueryParam.getPageSize());
+        List<DomainVO> domainVOList = domainRepository.queryDomainList(domainQueryVO);
+        List<DomainDTO> domainDTOList = IDomainAssembler.IMPL.voListToDtoList(domainVOList);
+        PageInfo pageInfo = new PageInfo(domainDTOList);
+        pageInfo.setTotal(page.getTotal());
+        return pageInfo;
     }
 
 }

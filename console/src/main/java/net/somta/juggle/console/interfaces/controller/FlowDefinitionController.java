@@ -1,5 +1,6 @@
 package net.somta.juggle.console.interfaces.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
@@ -105,7 +106,8 @@ public class FlowDefinitionController {
     @Operation(summary = "获取流程定义分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionPageList(@RequestBody FlowDefinitionPageParam flowDefinitionPageParam){
-        return flowDefinitionService.queryByPageList(flowDefinitionPageParam.getPageNum(),flowDefinitionPageParam.getPageSize(), flowDefinitionPageParam);
+        PageInfo pageInfo = flowDefinitionService.getFlowDefinitionPageList(flowDefinitionPageParam);
+        return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
     /**

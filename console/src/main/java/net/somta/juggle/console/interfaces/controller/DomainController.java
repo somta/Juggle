@@ -1,5 +1,6 @@
 package net.somta.juggle.console.interfaces.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
@@ -83,7 +84,8 @@ public class DomainController {
     @Operation(summary = "查询领域分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<DomainDTO>> getDomainPageList(@RequestBody DomainQueryParam domainQueryParam){
-        return domainService.getDomainPageList(domainQueryParam);
+        PageInfo pageInfo = domainService.getDomainPageList(domainQueryParam);
+        return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
 }

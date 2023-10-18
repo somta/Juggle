@@ -1,5 +1,8 @@
 package net.somta.juggle.console.application.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.assembler.IApiAssembler;
@@ -77,14 +80,13 @@ public class ApiServiceImpl implements IApiService {
     }
 
     @Override
-    public ResponsePaginationDataResult<List<ApiDTO>> queryApiPageList(ApiQueryParam apiQueryParam) {
-        List<ApiDTO> apiList = null;
-        Long total =  apiRepository.queryApiCount(apiQueryParam);
-        if(total > 0){
-            List<ApiVO> apiVoList = apiRepository.queryApiPageList(apiQueryParam);
-            apiList = IApiAssembler.IMPL.voListToDtoList(apiVoList);
-        }
-        return ResponsePaginationDataResult.setPaginationDataResult(total,apiList);
+    public PageInfo queryApiPageList(ApiQueryParam apiQueryParam) {
+        Page<ApiDTO> page = PageHelper.startPage(apiQueryParam.getPageNum(), apiQueryParam.getPageSize());
+        List<ApiVO> apiVoList = apiRepository.queryApiPageList(apiQueryParam);
+        List<ApiDTO> apiList = IApiAssembler.IMPL.voListToDtoList(apiVoList);
+        PageInfo pageInfo = new PageInfo(apiList);
+        pageInfo.setTotal(page.getTotal());
+        return pageInfo;
     }
 
 }

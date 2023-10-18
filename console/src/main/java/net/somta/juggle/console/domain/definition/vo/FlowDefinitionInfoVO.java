@@ -1,4 +1,4 @@
-package net.somta.juggle.console.infrastructure.po;
+package net.somta.juggle.console.domain.definition.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.somta.core.base.BaseModel;
@@ -6,9 +6,9 @@ import net.somta.core.base.BaseModel;
 import java.util.Date;
 
 /**
- * @author Gavin
+ * @author husong
  */
-public class FlowDefinitionInfoPO extends BaseModel {
+public class FlowDefinitionInfoVO {
 
     private Long id;
 
@@ -27,15 +27,10 @@ public class FlowDefinitionInfoPO extends BaseModel {
      */
     private String flowType;
 
-    private String flowContent;
-
     /**
      * 流程描述
      */
     private String remark;
-
-    private Date createdAt;
-
 
     public Long getId() {
         return id;
@@ -69,14 +64,6 @@ public class FlowDefinitionInfoPO extends BaseModel {
         this.flowType = flowType;
     }
 
-    public String getFlowContent() {
-        return flowContent;
-    }
-
-    public void setFlowContent(String flowContent) {
-        this.flowContent = flowContent;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -85,13 +72,4 @@ public class FlowDefinitionInfoPO extends BaseModel {
         this.remark = remark;
     }
 
-    @Override
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    @Override
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 }

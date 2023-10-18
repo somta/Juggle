@@ -47,11 +47,6 @@ public class DomainRepositoryImpl implements IDomainRepository {
     }
 
     @Override
-    public Long queryDomainListCount(DomainQueryVO domainQueryVO) {
-        return domainMapper.queryListCount(domainQueryVO);
-    }
-
-    @Override
     public List<DomainVO> queryDomainList(DomainQueryVO domainQueryVO) {
         List<DomainPO> domainPOList = domainMapper.queryByList(domainQueryVO);
         List<DomainVO> domainVOList = IDomainConverter.IMPL.poListToVoList(domainPOList);

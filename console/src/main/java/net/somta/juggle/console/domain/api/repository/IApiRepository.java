@@ -22,7 +22,5 @@ public interface IApiRepository {
 
     List<ApiVO> getApiListByDomainId(Long domainId);
 
-    Long queryApiCount(ApiQueryParam apiQueryParam);
-
     List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam);
 }

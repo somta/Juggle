@@ -2,6 +2,8 @@ package net.somta.juggle.console.infrastructure.repository;
 
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.domain.definition.repository.IFlowDefinitionRepository;
+import net.somta.juggle.console.domain.definition.vo.FlowDefinitionInfoQueryVO;
+import net.somta.juggle.console.domain.definition.vo.FlowDefinitionInfoVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
@@ -86,6 +88,11 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
         ParameterEntity parameterEntity = parameterRepository.getParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionId));
         flowDefinitionAO.setParameterEntity(parameterEntity);
         return flowDefinitionAO;
+    }
+
+    @Override
+    public List<FlowDefinitionInfoVO> queryFlowDefinitionList(FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVO) {
+        return flowDefinitionMapper.queryFlowDefinitionList(flowDefinitionInfoQueryVO);
     }
 
     private void saveParametersAndVariables(Long flowDefinitionId,FlowDefinitionAO flowDefinitionAO){

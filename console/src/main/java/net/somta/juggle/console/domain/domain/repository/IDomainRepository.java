@@ -15,7 +15,5 @@ public interface IDomainRepository {
 
     List<DomainVO> queryDomainListNoPage();
 
-    Long queryDomainListCount(DomainQueryVO domainQueryVO);
-
     List<DomainVO> queryDomainList(DomainQueryVO domainQueryVO);
 }

@@ -2,14 +2,21 @@ package net.somta.juggle.console.application.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.console.application.assembler.IApiAssembler;
 import net.somta.juggle.console.application.assembler.IFlowDefinitionAssembler;
 import net.somta.juggle.console.application.service.IFlowDefinitionService;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
+import net.somta.juggle.console.domain.api.vo.ApiVO;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.domain.definition.repository.IFlowDefinitionRepository;
+import net.somta.juggle.console.domain.definition.vo.FlowDefinitionInfoQueryVO;
+import net.somta.juggle.console.domain.definition.vo.FlowDefinitionInfoVO;
 import net.somta.juggle.console.domain.flow.FlowAO;
 import net.somta.juggle.console.domain.flow.repository.IFlowRepository;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
@@ -19,6 +26,7 @@ import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
 import net.somta.juggle.console.infrastructure.mapper.FlowDefinitionMapper;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
+import net.somta.juggle.console.interfaces.dto.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
@@ -118,6 +126,17 @@ public class FlowDefinitionServiceImpl extends BaseServiceImpl<FlowDefinitionInf
     @Override
     public FlowDefinitionInfoPO getFlowDefinitionByKey(String flowKey) {
         return flowDefinitionMapper.queryFlowDefinitionByKey(flowKey);
+    }
+
+    @Override
+    public PageInfo getFlowDefinitionPageList(FlowDefinitionPageParam flowDefinitionPageParam) {
+        FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVO = IFlowDefinitionAssembler.IMPL.paramToVo(flowDefinitionPageParam);
+        Page<FlowDefinitionInfoDTO> page = PageHelper.startPage(flowDefinitionPageParam.getPageNum(), flowDefinitionPageParam.getPageSize());
+        List<FlowDefinitionInfoVO> flowDefinitionList = flowDefinitionRepository.queryFlowDefinitionList(flowDefinitionInfoQueryVO);
+        List<FlowDefinitionInfoDTO> flowDefinitionInfoDTOList = IFlowDefinitionAssembler.IMPL.voListToDtoList(flowDefinitionList);
+        PageInfo pageInfo = new PageInfo(flowDefinitionInfoDTOList);
+        pageInfo.setTotal(page.getTotal());
+        return pageInfo;
     }
 
     @Override

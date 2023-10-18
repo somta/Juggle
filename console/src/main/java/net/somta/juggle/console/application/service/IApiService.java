@@ -1,5 +1,6 @@
 package net.somta.juggle.console.application.service;
 
+import com.github.pagehelper.PageInfo;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
@@ -30,6 +31,6 @@ public interface IApiService {
 
     List<ApiDTO> getApiListByDomainId(Long domainId);
 
-    ResponsePaginationDataResult<List<ApiDTO>> queryApiPageList(ApiQueryParam apiQueryParam);
+    PageInfo queryApiPageList(ApiQueryParam apiQueryParam);
 
 }

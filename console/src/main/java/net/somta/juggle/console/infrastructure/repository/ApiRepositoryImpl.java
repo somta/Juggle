@@ -109,11 +109,6 @@ public class ApiRepositoryImpl implements IApiRepository {
     }
 
     @Override
-    public Long queryApiCount(ApiQueryParam apiQueryParam) {
-        return apiMapper.queryApiCount(apiQueryParam);
-    }
-
-    @Override
     public List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam) {
         return apiMapper.queryApiPageList(apiQueryParam);
     }

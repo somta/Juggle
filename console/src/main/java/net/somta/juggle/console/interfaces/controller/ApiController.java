@@ -1,5 +1,6 @@
 package net.somta.juggle.console.interfaces.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
@@ -69,7 +70,8 @@ public class ApiController {
     @Operation(summary = "查询接口分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<ApiDTO>> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
-        return apiService.queryApiPageList(apiQueryParam);
+        PageInfo pageInfo = apiService.queryApiPageList(apiQueryParam);
+        return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
 }

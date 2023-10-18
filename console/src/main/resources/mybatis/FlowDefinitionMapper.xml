@@ -14,4 +14,16 @@
         from t_flow_definition where flow_key = #{flowKey}
     </select>
 
-</mapper>   
+    <select id="queryFlowDefinitionList" resultType="net.somta.juggle.console.domain.definition.vo.FlowDefinitionInfoVO" parameterType="net.somta.juggle.console.domain.definition.vo.FlowDefinitionInfoQueryVO">
+        select id, flow_key as flowKey, flow_name as flowName,flow_type as flowType, remark
+        from t_flow_definition
+        where 1=1
+        <if test="flowName != null and flowName != ''">
+            and flow_name like concat("%",#{flowName},"%")
+        </if>
+        <if test="flowType != null and flowType != ''">
+            and flow_type = #{flowType}
+        </if>
+    </select>
+
+</mapper>

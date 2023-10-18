@@ -1,5 +1,6 @@
 package net.somta.juggle.console.application.service;
 
+import com.github.pagehelper.PageInfo;
 import net.somta.core.base.IBaseService;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
@@ -51,6 +52,8 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
      */
     FlowDefinitionInfoPO getFlowDefinitionByKey(String flowKey);
 
+    PageInfo getFlowDefinitionPageList(FlowDefinitionPageParam flowDefinitionPageParam);
+
     /**
      * 获取流程定义
      * @param flowKey
@@ -78,5 +81,6 @@ public interface IFlowDefinitionService extends IBaseService<FlowDefinitionInfoP
      * @return
      */
     FlowResult debugFlow(FlowDefinitionInfoPO flowDefinitionInfoPO, TriggerDataParam triggerData);
+
 
 }
