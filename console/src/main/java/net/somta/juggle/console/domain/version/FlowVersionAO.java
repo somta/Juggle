@@ -1,22 +1,22 @@
-package net.somta.juggle.console.domain.flow;
+package net.somta.juggle.console.domain.version;
 
 import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
-import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
-import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.List;
-import java.util.stream.Collectors;
+public class FlowVersionAO {
+    private Long id;
 
-public class FlowInfoAO {
-
-    // todo 这个字段有用吗
-    private String flowVersion;
+    private Long flowId;
 
     private String flowKey;
 
     private String flowName;
-
     private String flowType;
+
+    private String flowVersion;
+    /**
+     * 流程状态   0:禁用  1:启用
+     */
+    private FlowVersionStatusEnum flowVersionStatus;
 
     private String flowContent;
 
@@ -26,28 +26,28 @@ public class FlowInfoAO {
 
     private String variables;
 
-    private String remark;
-
-   /* private List<FlowVersionVO> flowVersionList;
-
-    public Boolean isExistEnableVersion(){
-        if(CollectionUtils.isEmpty(this.flowVersionList)){
-            return false;
+    public void setNegateStatus(FlowVersionStatusEnum flowVersionStatus){
+        if(FlowVersionStatusEnum.DISABLED == flowVersionStatus){
+            this.flowVersionStatus = FlowVersionStatusEnum.ENABLE;
+        } else {
+            this.flowVersionStatus = FlowVersionStatusEnum.DISABLED;
         }
-        List<FlowVersionVO> enableFlowVersionList = this.flowVersionList.stream().filter(v -> FlowVersionStatusEnum.ENABLE.getCode().equals(v.getFlowStatus()))
-                .collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(enableFlowVersionList)){
-            return false;
-        }
-        return true;
-    }*/
-
-    public String getFlowVersion() {
-        return flowVersion;
     }
 
-    public void setFlowVersion(String flowVersion) {
-        this.flowVersion = flowVersion;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getFlowId() {
+        return flowId;
+    }
+
+    public void setFlowId(Long flowId) {
+        this.flowId = flowId;
     }
 
     public String getFlowKey() {
@@ -72,6 +72,22 @@ public class FlowInfoAO {
 
     public void setFlowType(String flowType) {
         this.flowType = flowType;
+    }
+
+    public String getFlowVersion() {
+        return flowVersion;
+    }
+
+    public void setFlowVersion(String flowVersion) {
+        this.flowVersion = flowVersion;
+    }
+
+    public FlowVersionStatusEnum getFlowVersionStatus() {
+        return flowVersionStatus;
+    }
+
+    public void setFlowVersionStatus(FlowVersionStatusEnum flowVersionStatus) {
+        this.flowVersionStatus = flowVersionStatus;
     }
 
     public String getFlowContent() {
@@ -105,13 +121,4 @@ public class FlowInfoAO {
     public void setVariables(String variables) {
         this.variables = variables;
     }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
 }

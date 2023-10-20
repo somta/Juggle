@@ -2,6 +2,8 @@ package net.somta.juggle.console.infrastructure.repository;
 
 import net.somta.juggle.console.domain.flow.FlowInfoAO;
 import net.somta.juggle.console.domain.flow.repository.IFlowInfoRepository;
+import net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO;
+import net.somta.juggle.console.domain.flow.vo.FlowInfoVO;
 import net.somta.juggle.console.infrastructure.converter.IFlowInfoConverter;
 import net.somta.juggle.console.infrastructure.converter.IFlowVersionConverter;
 import net.somta.juggle.console.infrastructure.mapper.FlowInfoMapper;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author husong
@@ -27,17 +30,7 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
         this.flowVersionMapper = flowVersionMapper;
     }
 
-    /*@Override
-    public Boolean saveFlow(FlowInfoPO flowInfoPO) {
-        FlowInfoPO flow = flowMapper.queryFlowByFlowKey(flowInfoPO.getFlowKey());
-        if(flow != null){
-            flowMapper.update(flow);
-        } else {
-            flowMapper.add(flowInfoPO);
-        }
-        return true;
-    }*/
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean deleteFlowInfoAndFlowVersion() {
         // todo 待完善
@@ -45,9 +38,17 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
     }
 
     @Override
-    public FlowInfoAO queryFlowInfo(Long flowId) {
-        //todo 待完善
-        return null;
+    public FlowInfoAO queryFlowInfo(Long flowInfoId) {
+        FlowInfoPO flowInfoPO = flowInfoMapper.queryById(flowInfoId);
+        FlowInfoAO flowInfoAO = IFlowInfoConverter.IMPL.poToAo(flowInfoPO);
+        return flowInfoAO;
+    }
+
+    @Override
+    public List<FlowInfoVO> queryFlowInfoList(FlowInfoQueryVO flowInfoQueryVO) {
+        List<FlowInfoPO> flowInfoList = flowInfoMapper.queryByList(flowInfoQueryVO);
+        List<FlowInfoVO> flowInfoVOList = IFlowInfoConverter.IMPL.poListToVoList(flowInfoList);
+        return flowInfoVOList;
     }
 
     @Transactional(rollbackFor = Exception.class)

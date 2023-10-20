@@ -2,7 +2,7 @@ package net.somta.juggle.console.interfaces.param;
 
 import net.somta.core.base.page.PageParam;
 
-public class FlowPageParam extends PageParam {
+public class FlowVersionPageParam extends PageParam {
 
     private String flowName;
 

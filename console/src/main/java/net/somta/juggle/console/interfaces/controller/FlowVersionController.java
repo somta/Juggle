@@ -1,65 +1,73 @@
 package net.somta.juggle.console.interfaces.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
-import net.somta.juggle.console.application.service.IFlowInfoService;
+import net.somta.juggle.console.application.service.IFlowVersionService;
+import net.somta.juggle.console.domain.version.FlowVersionAO;
+import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
-import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
-import net.somta.juggle.console.interfaces.param.FlowPageParam;
-import net.somta.juggle.console.interfaces.param.FlowStatusParam;
+import net.somta.juggle.console.interfaces.param.FlowVersionPageParam;
+import net.somta.juggle.console.interfaces.param.FlowVersionStatusParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
+import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
+import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.FLOW_NOT_ENABLE;
 
 @Tag(name = "流程版本接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow/version/")
 public class FlowVersionController {
 
-    @Autowired
-    private IFlowInfoService flowService;
-    @Autowired
-    private IFlowRuntimeService flowRuntimeService;
+    private final IFlowVersionService flowVersionService;
+    private final IFlowRuntimeService flowRuntimeService;
 
-    @Operation(summary = "启用或禁用流程")
+    public FlowVersionController(IFlowVersionService flowVersionService, IFlowRuntimeService flowRuntimeService) {
+        this.flowVersionService = flowVersionService;
+        this.flowRuntimeService = flowRuntimeService;
+    }
+
+    @Operation(summary = "启用或禁用流程版本")
     @PutMapping("/status")
-    public ResponseDataResult<Boolean> updateFlowStatus(@RequestBody FlowStatusParam flowStatusParam){
-        FlowInfoPO flowInfoPO = flowService.queryById(flowStatusParam.getFlowVersionId());
-        if(flowInfoPO == null){
+    public ResponseDataResult<Boolean> updateFlowVersionStatus(@RequestBody FlowVersionStatusParam flowVersionStatusParam){
+        FlowVersionAO flowVersionAO = flowVersionService.getFlowVersionInfo(flowVersionStatusParam.getFlowVersionId());
+        if(flowVersionAO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        /*if(FlowStatusEnum.DISABLED.getCode().equals(flowStatusParam.getFlowStatus())){
-            flowInfoPO.setFlowStatus(FlowStatusEnum.ENABLE.getCode());
-        }else {
-            flowInfoPO.setFlowStatus(FlowStatusEnum.DISABLED.getCode());
-        }*/
-        return flowService.update(flowInfoPO);
+        flowVersionAO.setNegateStatus(FlowVersionStatusEnum.getByCode(flowVersionStatusParam.getFlowVersionStatus()));
+        flowVersionService.updateFlowVersionStatus(flowVersionAO);
+        return ResponseDataResult.setResponseResult();
     }
 
-    @Operation(summary = "删除流程")
-    @DeleteMapping("/delete/{flowId}")
-    public ResponseDataResult<Boolean> deleteFlow(@PathVariable Long flowId){
-        FlowInfoPO flowInfoPO = flowService.queryById(flowId);
-        /*if(FlowStatusEnum.ENABLE.getCode().equals(flowInfoPO.getFlowStatus())){
+    @Operation(summary = "删除流程版本")
+    @DeleteMapping("/delete/{flowVersionId}")
+    public ResponseDataResult<Boolean> deleteFlowVersion(@PathVariable Long flowVersionId){
+        FlowVersionAO flowVersionAO = flowVersionService.getFlowVersionInfo(flowVersionId);
+        if(flowVersionAO == null){
+            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
+        }
+        if(FlowVersionStatusEnum.ENABLE == flowVersionAO.getFlowVersionStatus()){
             return ResponseDataResult.setErrorResponseResult(ENABLE_FLOW_NOT_DELETE);
-        }*/
-        return flowService.deleteById(flowId);
+        }
+        flowVersionService.deleteFlowVersion(flowVersionId);
+        return ResponseDataResult.setResponseResult();
     }
 
-    @Operation(summary = "查询流程分页列表")
+    @Operation(summary = "查询流程版本分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionList(@RequestBody FlowPageParam flowPageParam){
-        return flowService.queryByPageList(flowPageParam.getPageNum(),flowPageParam.getPageSize(), flowPageParam);
+    public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionList(@RequestBody FlowVersionPageParam flowVersionPageParam){
+        PageInfo pageInfo = flowVersionService.getFlowVersionPageList(flowVersionPageParam);
+        return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
     /**
@@ -68,20 +76,20 @@ public class FlowVersionController {
      * @return Boolean
      */
     @Operation(summary = "触发流程")
-    @PostMapping("/trigger/{flowKey}")
-    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
+    @PostMapping("/trigger/{flowVersion}/{flowKey}")
+    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowVersion, @PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
         if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
-        FlowInfoPO flowInfoPO = flowService.getFlowByFlowKey(flowKey);
-        if(flowInfoPO == null){
+        FlowVersionAO flowVersionAO = flowVersionService.getFlowVersionInfoByKey(flowKey,flowVersion);
+        if(flowVersionAO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        /*if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
+        if(FlowVersionStatusEnum.DISABLED == flowVersionAO.getFlowVersionStatus()){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
-        }*/
+        }
 
-        FlowResult rst = flowService.triggerFlow(flowInfoPO,triggerData);
+        FlowResult rst = flowVersionService.triggerFlow(flowVersionAO,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }
 

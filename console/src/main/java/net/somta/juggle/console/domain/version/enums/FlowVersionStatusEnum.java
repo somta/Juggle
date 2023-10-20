@@ -18,6 +18,16 @@ public enum FlowVersionStatusEnum {
         this.desc = desc;
     }
 
+    public static FlowVersionStatusEnum getByCode(Integer code){
+        for (FlowVersionStatusEnum status : FlowVersionStatusEnum.values()) {
+            if (status.getCode() == code) {
+                return status;
+            }
+        }
+        return null;
+    }
+
+
     public Integer getCode() {
         return code;
     }

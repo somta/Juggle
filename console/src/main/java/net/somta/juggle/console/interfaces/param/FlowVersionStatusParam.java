@@ -3,11 +3,11 @@ package net.somta.juggle.console.interfaces.param;
 /**
  * @author Gavin
  */
-public class FlowStatusParam {
+public class FlowVersionStatusParam {
 
     private Long flowVersionId;
 
-    private Integer flowStatus;
+    private Integer flowVersionStatus;
 
     public Long getFlowVersionId() {
         return flowVersionId;
@@ -17,11 +17,11 @@ public class FlowStatusParam {
         this.flowVersionId = flowVersionId;
     }
 
-    public Integer getFlowStatus() {
-        return flowStatus;
+    public Integer getFlowVersionStatus() {
+        return flowVersionStatus;
     }
 
-    public void setFlowStatus(Integer flowStatus) {
-        this.flowStatus = flowStatus;
+    public void setFlowVersionStatus(Integer flowVersionStatus) {
+        this.flowVersionStatus = flowVersionStatus;
     }
 }

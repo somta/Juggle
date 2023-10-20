@@ -1,17 +1,18 @@
-package net.somta.juggle.console.domain.flow.enums;
+package net.somta.juggle.console.domain.version.enums;
 
 import net.somta.core.base.IBaseError;
 import net.somta.juggle.console.contants.ApplicationContants;
 
-public enum FlowErrorEnum implements IBaseError {
-    FLOW_KEY_IS_EMPTY(1000,  "流程KEY不能为空"),
-    FLOW_NOT_EXIST(1001,  "流程不存在"),
+public enum FlowVersionErrorEnum implements IBaseError {
+    ENABLE_FLOW_NOT_DELETE(1000,  "存在启用的流程版本，不能删除"),
+
+    FLOW_NOT_ENABLE(1003,  "请启用流程后在调用流程"),
     ;
 
     private int errorCode;
     private String errorMsg;
 
-    FlowErrorEnum(int errorCode, String errorMsg) {
+    FlowVersionErrorEnum(int errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }

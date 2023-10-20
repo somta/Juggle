@@ -1,24 +1,16 @@
 package net.somta.juggle.console.interfaces.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.application.service.IFlowRuntimeService;
-import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
-import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
-import net.somta.juggle.console.interfaces.param.FlowPageParam;
-import net.somta.juggle.console.interfaces.param.TriggerDataParam;
+import net.somta.juggle.console.interfaces.dto.FlowInfoDTO;
+import net.somta.juggle.console.interfaces.param.FlowInfoPageParam;
 import net.somta.juggle.console.application.service.IFlowInfoService;
-import net.somta.juggle.core.model.FlowResult;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
-import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 
 /**
  * @author husong
@@ -28,9 +20,11 @@ import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow")
 public class FlowInfoController {
 
-    @Autowired
-    private IFlowInfoService flowInfoService;
+    private final IFlowInfoService flowInfoService;
 
+    public FlowInfoController(IFlowInfoService flowInfoService) {
+        this.flowInfoService = flowInfoService;
+    }
 
     @Operation(summary = "删除流程")
     @DeleteMapping("/delete/{flowId}")
@@ -41,8 +35,9 @@ public class FlowInfoController {
 
     @Operation(summary = "查询流程分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionList(@RequestBody FlowPageParam flowPageParam){
-        return flowInfoService.queryByPageList(flowPageParam.getPageNum(),flowPageParam.getPageSize(), flowPageParam);
+    public ResponsePaginationDataResult<FlowInfoDTO> getFlowInfoPageList(@RequestBody FlowInfoPageParam flowInfoPageParam){
+        PageInfo pageInfo = flowInfoService.getFlowInfoPageList(flowInfoPageParam);
+        return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
     /**

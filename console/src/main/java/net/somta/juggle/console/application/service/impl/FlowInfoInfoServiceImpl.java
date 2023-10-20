@@ -1,84 +1,54 @@
 package net.somta.juggle.console.application.service.impl;
 
-import net.somta.core.base.BaseServiceImpl;
-import net.somta.core.base.IBaseMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.somta.core.exception.BizException;
-import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.juggle.console.application.service.IFlowRuntimeService;
+import net.somta.juggle.console.application.assembler.IFlowInfoAssembler;
 import net.somta.juggle.console.domain.flow.FlowInfoAO;
 import net.somta.juggle.console.domain.flow.repository.IFlowInfoRepository;
-import net.somta.juggle.console.infrastructure.mapper.FlowInfoMapper;
-import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
-import net.somta.juggle.console.interfaces.param.TriggerDataParam;
-import net.somta.juggle.core.model.*;
 import net.somta.juggle.console.application.service.IFlowInfoService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO;
+import net.somta.juggle.console.domain.flow.vo.FlowInfoVO;
+import net.somta.juggle.console.domain.version.repository.IFlowVersionRepository;
+import net.somta.juggle.console.interfaces.dto.FlowInfoDTO;
+import net.somta.juggle.console.interfaces.param.FlowInfoPageParam;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.ENABLE_FLOW_NOT_DELETE;
+import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
 
 @Service
-public class FlowInfoInfoServiceImpl extends BaseServiceImpl<FlowInfoPO> implements IFlowInfoService {
+public class FlowInfoInfoServiceImpl implements IFlowInfoService {
 
-    @Autowired
-    private FlowInfoMapper flowInfoMapper;
+    private final IFlowInfoRepository flowInfoRepository;
+    private final IFlowVersionRepository flowVersionRepository;
 
-    @Autowired
-    private IFlowRuntimeService flowRuntimeService;
-
-    @Autowired
-    private IFlowInfoRepository flowInfoRepository;
-
-    @Override
-    public IBaseMapper getMapper() {
-        return flowInfoMapper;
+    public FlowInfoInfoServiceImpl(IFlowInfoRepository flowInfoRepository, IFlowVersionRepository flowVersionRepository) {
+        this.flowInfoRepository = flowInfoRepository;
+        this.flowVersionRepository = flowVersionRepository;
     }
 
     @Override
     public Boolean deleteFlowInfo(Long flowId) {
         FlowInfoAO flowInfoAO = flowInfoRepository.queryFlowInfo(flowId);
-        if(flowInfoAO.isExistEnableVersion()){
+        // todo 查询所有是否有启用版本，如果有很多版本，不应该在ao里面做，下面代码删除
+        /*if(flowInfoAO.isExistEnableVersion()){
             throw new BizException(ENABLE_FLOW_NOT_DELETE);
-        }
+        }*/
         return flowInfoRepository.deleteFlowInfoAndFlowVersion();
     }
 
     @Override
-    public FlowResult triggerFlow(FlowInfoPO flowInfoPO, TriggerDataParam triggerData) {
-        Flow flow = new Flow();
-        flow.setFlowKey(flowInfoPO.getFlowKey());
-        flow.setFlowName(flowInfoPO.getFlowName());
-       /* flow.setFlowContent(flowInfoPO.getFlowContent());
-
-        String inputParameters = flowInfoPO.getInputs();
-        if(StringUtils.isNotEmpty(inputParameters)){
-            List<InputParameter> inputParams = JsonSerializeHelper.deserialize(inputParameters,List.class,InputParameter.class);
-            flow.setInputParams(inputParams);
-        }
-
-        String outputParameters = flowInfoPO.getOutputs();
-        if(StringUtils.isNotEmpty(outputParameters)){
-            List<OutputParameter> outputParams = JsonSerializeHelper.deserialize(outputParameters,List.class,OutputParameter.class);
-            flow.setOutputParams(outputParams);
-        }
-
-        String variables = flowInfoPO.getVariables();
-        if(StringUtils.isNotEmpty(variables)){
-            List<Variable> variableList = JsonSerializeHelper.deserialize(variables,List.class,Variable.class);
-            flow.setVariables(variableList);
-        }*/
-
-        return flowRuntimeService.triggerFlow(flow, flowInfoPO.getFlowType(),triggerData);
+    public PageInfo getFlowInfoPageList(FlowInfoPageParam flowInfoPageParam) {
+        FlowInfoQueryVO flowInfoQueryVO = IFlowInfoAssembler.IMPL.paramToVo(flowInfoPageParam);
+        Page<FlowInfoDTO> page = PageHelper.startPage(flowInfoPageParam.getPageNum(), flowInfoPageParam.getPageSize());
+        List<FlowInfoVO> flowInfoList = flowInfoRepository.queryFlowInfoList(flowInfoQueryVO);
+        List<FlowInfoDTO> flowInfoDTOList = IFlowInfoAssembler.IMPL.voListToDtoList(flowInfoList);
+        PageInfo pageInfo = new PageInfo(flowInfoDTOList);
+        pageInfo.setTotal(page.getTotal());
+        return pageInfo;
     }
-
-    @Override
-    public FlowInfoPO getFlowByFlowKey(String flowKey) {
-        return flowInfoMapper.queryFlowByFlowKey(flowKey);
-    }
-
-
 
 }

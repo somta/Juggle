@@ -20,9 +20,4 @@
 	from t_flow_info where flow_key = #{flowKey}
 </select>
 
-<select id="queryFlowList" resultMap="BaseResultMap">
-	select <include refid="Base_Column_List" /> 
-	from t_flow_info
-</select>
-
 </mapper>   

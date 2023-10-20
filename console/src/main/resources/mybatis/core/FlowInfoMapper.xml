@@ -74,13 +74,13 @@
 	from t_flow_info where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.FlowPageParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO">
 	select count(*)
 	from t_flow_info
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.FlowPageParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO">
 	select <include refid="Base_Column_List" />
 	from t_flow_info
 	<include refid="Example_Where_Clause"/>
