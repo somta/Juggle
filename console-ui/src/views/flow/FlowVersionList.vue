@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FlowVersionTable } from './version';
+import { FlowVersionTable, FlowVersionFilter } from './version';
 import {flowVersionService} from "@/service";
 import {reactive, ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
@@ -9,7 +9,6 @@ const route = useRoute();
 let paramsData = reactive({
   params: route.params
 });
-console.log(paramsData);
 
 const pageNum = ref(1);
 const pageSize = ref(10);
@@ -18,9 +17,9 @@ const dataRows = ref<Record<string, any>[]>([]);
 const loading = ref(false);
 
 
-const drawerRef = ref();
 const filter = ref<{
   flowId: number;
+  flowVersionStatus?: number;
 }>({
   flowId : Number(paramsData.params.flowId)
 });
@@ -54,7 +53,7 @@ function onPageChange (page:number) {
 
 function openUpdateFlowStatus (row: any) {
   ElMessageBox.confirm(
-      `确定${row.flowStatus == 0 ? "启用" : "禁用"}'${row.flowName}'流程吗?`,
+      `确定${row.flowStatus == 0 ? "启用" : "禁用"}'${row.flowName}'流程的${row.flowVersion}版本吗?`,
       '操作确认',
       {
         confirmButtonText: '确定',
@@ -86,11 +85,11 @@ function openDelete (row: any) {
         type: 'warning',
       },
   ).then(() => {
-    deleteFlowItem(row);
+    deleteFlowVersionItem(row);
   }).catch(() => {});
 }
 
-async function deleteFlowItem (row: any) {
+async function deleteFlowVersionItem (row: any) {
   const res = await flowVersionService.deleteFlowVersionById(row.id);
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
@@ -105,7 +104,7 @@ async function deleteFlowItem (row: any) {
   <div class="page-flow">
     <el-container>
       <el-header class="page-header">
-        <FlowFilter @search="onSearch" />
+        <FlowVersionFilter @search="onSearch" />
       </el-header>
       <el-main class="page-body">
         <FlowVersionTable

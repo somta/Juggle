@@ -1,11 +1,9 @@
-package net.somta.juggle.console.interfaces.param;
-
-import net.somta.core.base.page.PageParam;
+package net.somta.juggle.console.domain.version.vo;
 
 /**
  * @author husong
  */
-public class FlowVersionPageParam extends PageParam {
+public class FlowVersionQueryVO {
 
     private Long flowId;
 

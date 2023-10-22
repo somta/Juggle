@@ -14,11 +14,14 @@ import net.somta.juggle.core.model.FlowResult;
 public interface IFlowVersionService {
 
     void deleteFlowVersion(Long flowVersionId);
+
     FlowVersionAO getFlowVersionInfo(Long flowVersionId);
 
     Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAO);
 
     FlowVersionAO getFlowVersionInfoByKey(String flowKey, String flowVersion);
+
+    String getLatestDeployVersion(String flowKey);
 
     PageInfo getFlowVersionPageList(FlowVersionPageParam flowVersionPageParam);
 

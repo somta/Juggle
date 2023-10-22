@@ -1,7 +1,10 @@
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
 
-export function deployFlowDefine(flowDefineId: string):ResponsePageResult {
-    return request.get('/v1/flow/definition/deploy/'+flowDefineId);
+export function deployFlowDefine(params: {
+    flowDefinitionId: string,
+    flowDeployVersion:string
+}):ResponsePageResult {
+    return request.post('/v1/flow/definition/deploy',params);
 }
 
 export async function flowDefinePage (params: {

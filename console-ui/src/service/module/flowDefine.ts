@@ -1,7 +1,7 @@
 import {flowDefineAPI} from "@/service/api";
 
-export async function deployFlowDefine(flowDefineId: string) {
-    return flowDefineAPI.deployFlowDefine(flowDefineId);
+export async function deployFlowDefine(params: Parameters<typeof flowDefineAPI.deployFlowDefine>[0]) {
+    return flowDefineAPI.deployFlowDefine(params);
 }
 
 

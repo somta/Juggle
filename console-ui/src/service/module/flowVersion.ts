@@ -1,7 +1,11 @@
 import {flowVersionAPI} from "@/service/api";
 
-export async function updateFlowVersionStatus(flowId: number, flowStatus: number) {
-    return flowVersionAPI.updateFlowVersionStatus(flowId,flowStatus);
+export async function getLatestDeployVersion(flowId: number) {
+    return flowVersionAPI.getLatestDeployVersion(flowId);
+}
+
+export async function updateFlowVersionStatus(flowVersionId: number, flowVersionStatus: number) {
+    return flowVersionAPI.updateFlowVersionStatus(flowVersionId,flowVersionStatus);
 }
 
 export async function queryFlowVersionPage (params: Parameters<typeof flowVersionAPI.flowVersionPage>[0]) {

@@ -144,23 +144,6 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionAO.getId());
         String variablesString = JsonSerializeHelper.serialize(variableInfoEntity.getFlowRuntimeVariables());
         flowInfoAO.setVariables(variablesString);
-
-        //TODO 这里要转成流程的AO
-       /* FlowInfoPO flowInfoPO = new FlowInfoPO();
-        flowInfoPO.setFlowKey(flowDefinitionInfoPO.getFlowKey());
-        flowInfoPO.setFlowName(flowDefinitionInfoPO.getFlowName());
-        flowInfoPO.setRemark(flowDefinitionInfoPO.getRemark());
-
-        ParameterEntity parameterEntity = flowDefinitionAO.getParameterEntity();
-        String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());
-        flowInfoPO.setInputs(inputParameterString);
-        String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeOutputParameters());
-        flowInfoPO.setOutputs(outputParameterString);
-
-        VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionInfoPO.getId());
-        String variablesString = JsonSerializeHelper.serialize(variableInfoEntity.getFlowRuntimeVariables());
-        flowInfoPO.setVariables(variablesString);*/
-
         return flowRepository.deployFlow(flowInfoAO);
     }
 
@@ -181,7 +164,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
 
     @Override
     public FlowDefinition getFlowDefinitionByKey2(String flowKey) {
-        //TODO 先mock一个流程定义数据
+        //TODO 先mock一个流程定义数据，后面删除掉
         FlowDefinition workflowDefinition = new FlowDefinition();
         workflowDefinition.setFlowKey("flow_123");
         workflowDefinition.setTenantId("66");

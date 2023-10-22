@@ -12,7 +12,6 @@ public interface IParameterRepository {
      * @param parameterQueryVO
      * @return
      */
-    // todo 在仓储层实现整个方法逻辑，然后去掉应用层直接使用mapper的
     ParameterEntity getParameter(ParameterVO parameterQueryVO);
 
 }

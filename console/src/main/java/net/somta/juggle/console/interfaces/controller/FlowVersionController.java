@@ -10,6 +10,7 @@ import net.somta.juggle.console.application.service.IFlowVersionService;
 import net.somta.juggle.console.domain.version.FlowVersionAO;
 import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
+import net.somta.juggle.console.interfaces.dto.FlowVersionDTO;
 import net.somta.juggle.console.interfaces.param.FlowVersionPageParam;
 import net.somta.juggle.console.interfaces.param.FlowVersionStatusParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
@@ -24,6 +25,9 @@ import static net.somta.juggle.console.domain.flow.enums.FlowErrorEnum.*;
 import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
 import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.FLOW_NOT_ENABLE;
 
+/**
+ * @author husong
+ */
 @Tag(name = "流程版本接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow/version/")
@@ -65,10 +69,23 @@ public class FlowVersionController {
 
     @Operation(summary = "查询流程版本分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionList(@RequestBody FlowVersionPageParam flowVersionPageParam){
+    public ResponsePaginationDataResult<FlowVersionDTO> getFlowVersionPageList(@RequestBody FlowVersionPageParam flowVersionPageParam){
         PageInfo pageInfo = flowVersionService.getFlowVersionPageList(flowVersionPageParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
+
+    @Operation(summary = "查询流程的最新部署版本")
+    @GetMapping("/latest/{flowKey}")
+    public ResponseDataResult<String> getLatestDeployVersion(@PathVariable String flowKey){
+        String currentLatestVersion = flowVersionService.getLatestDeployVersion(flowKey);
+        if(StringUtils.isEmpty(currentLatestVersion)){
+            return ResponseDataResult.setResponseResult("v1");
+        }
+        String numberVersion =  currentLatestVersion.substring(1);
+        String latestVersion = "v" + (Integer.valueOf(numberVersion) + 1);
+        return ResponseDataResult.setResponseResult(latestVersion);
+    }
+
 
     /**
      * 触发流程

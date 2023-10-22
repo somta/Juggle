@@ -141,11 +141,11 @@ public class FlowDefinitionController {
     @Operation(summary = "部署流程")
     @PostMapping("/deploy")
     public ResponseDataResult<Boolean> deployFlowDefinition(@RequestBody FlowDefinitionDeployParam flowDefinitionDeployParam){
-        FlowDefinitionAO flowDefinitionAO = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionDeployParam.getId());
+        FlowDefinitionAO flowDefinitionAO = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionDeployParam.getFlowDefinitionId());
         if(flowDefinitionAO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam.getFlowVersion(),flowDefinitionAO);
+        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam.getFlowDeployVersion(),flowDefinitionAO);
         return ResponseDataResult.setResponseResult(result);
     }
 }

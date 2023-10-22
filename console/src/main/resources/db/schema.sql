@@ -138,7 +138,7 @@ CREATE TABLE `t_flow_version` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `flow_id` varchar(20) DEFAULT NULL,
   `flow_version` varchar(8) DEFAULT NULL,
-  `flow_status` int DEFAULT '0',
+  `flow_version_status` int DEFAULT '0',
   `flow_content` text,
   `inputs` text,
   `outputs` text,

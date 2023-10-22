@@ -1,15 +1,28 @@
 package net.somta.juggle.console.application.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.somta.juggle.console.application.assembler.IFlowInfoAssembler;
+import net.somta.juggle.console.application.assembler.IFlowVersionAssembler;
 import net.somta.juggle.console.application.service.IFlowRuntimeService;
 import net.somta.juggle.console.application.service.IFlowVersionService;
+import net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO;
+import net.somta.juggle.console.domain.flow.vo.FlowInfoVO;
 import net.somta.juggle.console.domain.version.FlowVersionAO;
 import net.somta.juggle.console.domain.version.repository.IFlowVersionRepository;
+import net.somta.juggle.console.domain.version.view.FlowVersionView;
+import net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO;
+import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
+import net.somta.juggle.console.interfaces.dto.FlowInfoDTO;
+import net.somta.juggle.console.interfaces.dto.FlowVersionDTO;
 import net.somta.juggle.console.interfaces.param.FlowVersionPageParam;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author husong
@@ -27,12 +40,12 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
 
     @Override
     public void deleteFlowVersion(Long flowVersionId) {
-
+        flowVersionRepository.deleteFlowVersionById(flowVersionId);
     }
 
     @Override
     public FlowVersionAO getFlowVersionInfo(Long flowVersionId) {
-        return null;
+        return flowVersionRepository.getFlowVersionInfo(flowVersionId);
     }
 
     @Override
@@ -46,8 +59,19 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
     }
 
     @Override
+    public String getLatestDeployVersion(String flowKey) {
+        return flowVersionRepository.queryLatestVersion(flowKey);
+    }
+
+    @Override
     public PageInfo getFlowVersionPageList(FlowVersionPageParam flowVersionPageParam) {
-        return null;
+        FlowVersionQueryVO flowVersionQueryVO = IFlowVersionAssembler.IMPL.paramToVo(flowVersionPageParam);
+        Page<FlowInfoDTO> page = PageHelper.startPage(flowVersionPageParam.getPageNum(), flowVersionPageParam.getPageSize());
+        List<FlowVersionView> flowVersionViewList = flowVersionRepository.queryFlowVersionList(flowVersionQueryVO);
+        List<FlowVersionDTO> flowVersionDTOList = IFlowVersionAssembler.IMPL.viewListToDtoList(flowVersionViewList);
+        PageInfo pageInfo = new PageInfo(flowVersionDTOList);
+        pageInfo.setTotal(page.getTotal());
+        return pageInfo;
     }
 
     @Override

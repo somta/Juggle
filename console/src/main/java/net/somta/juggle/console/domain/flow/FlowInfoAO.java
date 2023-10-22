@@ -1,15 +1,8 @@
 package net.somta.juggle.console.domain.flow;
 
-import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
-import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
-import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class FlowInfoAO {
+    private Long id;
 
-    // todo 这个字段有用吗
     private String flowVersion;
 
     private String flowKey;
@@ -28,19 +21,13 @@ public class FlowInfoAO {
 
     private String remark;
 
-   /* private List<FlowVersionVO> flowVersionList;
+    public Long getId() {
+        return id;
+    }
 
-    public Boolean isExistEnableVersion(){
-        if(CollectionUtils.isEmpty(this.flowVersionList)){
-            return false;
-        }
-        List<FlowVersionVO> enableFlowVersionList = this.flowVersionList.stream().filter(v -> FlowVersionStatusEnum.ENABLE.getCode().equals(v.getFlowStatus()))
-                .collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(enableFlowVersionList)){
-            return false;
-        }
-        return true;
-    }*/
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFlowVersion() {
         return flowVersion;

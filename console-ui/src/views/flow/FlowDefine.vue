@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FlowDefineTable, FlowDefineDrawer, FlowDefineFilter } from './define';
-import {flowDefineService} from "@/service";
-import {ref} from "vue";
+import {flowDefineService, flowVersionService} from "@/service";
+import {reactive, ref} from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
 import {Plus} from "@element-plus/icons-vue";
 
@@ -15,6 +15,13 @@ const filter = ref<{
   flowName?: string;
   flowType?: string;
 }>({});
+
+const deployFormVisible = ref(false);
+let deployForm = reactive({
+  flowDefinitionId: '',
+  flowName: '',
+  flowDeployVersion: '',
+});
 
 // 初始加载
 queryFlowDefinePage();
@@ -59,25 +66,28 @@ async function addFlowDefineItem (row: any) {
   }*/
 }
 
-function openDeploy (row: any) {
-  ElMessageBox.confirm(
-      `确定部署'${row.flowName}'流程吗?`,
-      '操作确认',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      },
-  ).then(() => {
-    deployFlowDefine(row.id);
-  }).catch(() => {});
+function openDeployDialog (row: any) {
+  deployForm.flowDefinitionId = row.id;
+  deployForm.flowName = row.flowName;
+  flowVersionService.getLatestDeployVersion(row.flowKey).then(res => {
+    deployFormVisible.value = true;
+    deployForm.flowDeployVersion = res.result as string;
+  });
 }
 
-async function deployFlowDefine (flowDefineId: string) {
-  const res = await flowDefineService.deployFlowDefine(flowDefineId);
+async function onSubmitDeploy () {
+  await deployFlowDefine(deployForm.flowDefinitionId,deployForm.flowDeployVersion);
+}
+
+async function deployFlowDefine (flowDefinitionId: string, flowDeployVersion: string) {
+  const res = await flowDefineService.deployFlowDefine({
+    flowDefinitionId: flowDefinitionId,
+    flowDeployVersion:flowDeployVersion,
+  });
   if (res.success) {
     ElMessage({ type: 'success', message: '部署成功' });
-    queryFlowDefinePage();
+    deployFormVisible.value = false;
+    await queryFlowDefinePage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -101,7 +111,7 @@ async function deleteFlowDefineItem (row: any) {
   const res = await flowDefineService.deleteFlowDefineById(row.id);
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
-    queryFlowDefinePage();
+    await queryFlowDefinePage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -126,7 +136,7 @@ function openEdit (row: any) {
             :pageNum="pageNum"
             :pageSize="pageSize"
             :loading="loading"
-            @deploy="openDeploy"
+            @deploy="openDeployDialog"
             @edit="openEdit"
             @delete="openDelete"
         />
@@ -134,6 +144,28 @@ function openEdit (row: any) {
     </el-container>
     <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" />
   </div>
+
+  <el-dialog v-model="deployFormVisible"
+             :show-close=false
+             title="部署流程"
+             width="400"
+  >
+    <el-form :model="deployForm">
+      <el-form-item label="流程名称">
+        <el-input v-model="deployForm.flowName" disabled />
+      </el-form-item>
+      <el-form-item label="部署版本">
+        <el-input v-model="deployForm.flowDeployVersion" disabled />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="deployFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="onSubmitDeploy">部署</el-button>
+      </span>
+    </template>
+  </el-dialog>
+
 </template>
 
 <style lang="less" scoped>

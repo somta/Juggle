@@ -10,9 +10,14 @@ import net.somta.juggle.console.domain.flow.repository.IFlowInfoRepository;
 import net.somta.juggle.console.application.service.IFlowInfoService;
 import net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO;
 import net.somta.juggle.console.domain.flow.vo.FlowInfoVO;
+import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.domain.version.repository.IFlowVersionRepository;
+import net.somta.juggle.console.domain.version.view.FlowVersionView;
+import net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO;
+import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
 import net.somta.juggle.console.interfaces.dto.FlowInfoDTO;
 import net.somta.juggle.console.interfaces.param.FlowInfoPageParam;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,10 +38,13 @@ public class FlowInfoInfoServiceImpl implements IFlowInfoService {
     @Override
     public Boolean deleteFlowInfo(Long flowId) {
         FlowInfoAO flowInfoAO = flowInfoRepository.queryFlowInfo(flowId);
-        // todo 查询所有是否有启用版本，如果有很多版本，不应该在ao里面做，下面代码删除
-        /*if(flowInfoAO.isExistEnableVersion()){
+        FlowVersionQueryVO flowVersionQueryVO = new FlowVersionQueryVO();
+        flowVersionQueryVO.setFlowId(flowInfoAO.getId());
+        flowVersionQueryVO.setFlowVersionStatus(FlowVersionStatusEnum.ENABLE.getCode());
+        List<FlowVersionView> flowVersionViewList = flowVersionRepository.queryFlowVersionList(flowVersionQueryVO);
+        if(CollectionUtils.isNotEmpty(flowVersionViewList)){
             throw new BizException(ENABLE_FLOW_NOT_DELETE);
-        }*/
+        }
         return flowInfoRepository.deleteFlowInfoAndFlowVersion();
     }
 

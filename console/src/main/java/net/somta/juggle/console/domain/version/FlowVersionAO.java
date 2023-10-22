@@ -2,6 +2,9 @@ package net.somta.juggle.console.domain.version;
 
 import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 
+/**
+ * @author husong
+ */
 public class FlowVersionAO {
     private Long id;
 
@@ -10,12 +13,11 @@ public class FlowVersionAO {
     private String flowKey;
 
     private String flowName;
+
     private String flowType;
 
     private String flowVersion;
-    /**
-     * 流程状态   0:禁用  1:启用
-     */
+
     private FlowVersionStatusEnum flowVersionStatus;
 
     private String flowContent;

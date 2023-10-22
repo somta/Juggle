@@ -12,12 +12,20 @@ function deleteRow (row: any, index: number) {
   emit('delete', row, index);
 }
 
-function updateFlowStatus (row: any) {
+function updateFlowVersionStatus (row: any) {
   emit('flowStatusChange', row);
 }
 
-function flowStatusFormat(flowStatus: string){
-  if(flowStatus == 0){
+function flowVersionStatusFormat(flowVersionStatus: number){
+  if(flowVersionStatus == 0){
+    return '禁用';
+  }else {
+    return '启用';
+  }
+}
+
+function flowVersionStatusOptFormat(flowVersionStatus: number){
+  if(flowVersionStatus == 0){
     return '启用';
   }else {
     return '禁用';
@@ -28,14 +36,18 @@ function flowStatusFormat(flowStatus: string){
 
 <template>
   <el-table v-loading="loading" :data="dataRows" style="width: 100%">
-    <el-table-column prop="flowKey" label="流程编码" width="180" />
     <el-table-column prop="flowName" label="流程名称" width="220" />
-    <el-table-column prop="flowName" label="版本" width="100" />
-    <el-table-column prop="remark" label="访问地址" width="320" />
+    <el-table-column prop="flowVersion" label="版本" width="100" />
+    <el-table-column prop="flowVersion" label="流程状态" width="100" >
+      <template #default="scope">
+        {{ flowVersionStatusFormat(scope.row.flowType) }}
+      </template>
+    </el-table-column>
+    <el-table-column prop="triggerUrl" label="访问地址" width="380" />
     <el-table-column label="操作" width="250" >
       <template #default="scope">
-        <el-button link type="primary" size="small" @click.prevent="updateFlowStatus(scope.row)">
-          {{ flowStatusFormat(scope.row.flowStatus) }}
+        <el-button link type="primary" size="small" @click.prevent="updateFlowVersionStatus(scope.row)">
+          {{ flowVersionStatusOptFormat(scope.row.flowStatus) }}
         </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)">
           删除

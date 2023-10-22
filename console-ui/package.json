@@ -15,7 +15,7 @@
     "axios": "^1.4.0",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.8",
-    "element-plus": "^2.3.6",
+    "element-plus": "^2.4.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },

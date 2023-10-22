@@ -31,15 +31,7 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public ResponseDataResult<Boolean> addApi(ApiAddParam apiAddParam) {
         ApiAO apiAO = IApiAssembler.IMPL.paramToAo(apiAddParam);
-
         apiAO.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
-
-       /* ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameterList(apiAddParam.getApiInputParams());
-        parameterEntity.setOutputParameterList(apiAddParam.getApiOutputParams());*/
-        /*parameterEntity.setInputParameter(apiAddParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
-                       .setOutputParameter(apiAddParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());*/
-        //apiAO.setParameterEntity(parameterEntity);
         apiRepository.addApi(apiAO);
         return ResponseDataResult.setResponseResult();
     }
@@ -54,13 +46,6 @@ public class ApiServiceImpl implements IApiService {
     public ResponseDataResult<Boolean> updateApi(ApiUpdateParam apiUpdateParam) {
         ApiAO apiAO = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
         apiAO.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
-       /* ParameterEntity parameterEntity = new ParameterEntity();
-        parameterEntity.setInputParameterList(apiUpdateParam.getApiInputParams());
-        parameterEntity.setOutputParameterList(apiUpdateParam.getApiOutputParams());*/
-
-        /*parameterEntity.setInputParameter(apiUpdateParam.getApiInputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode())
-                .setOutputParameter(apiUpdateParam.getApiOutputParams(),apiAO.getId(),ParameterSourceTypeEnum.API.getCode());*/
-        //apiAO.setParameterEntity(parameterEntity);
         apiRepository.updateApi(apiAO);
         return ResponseDataResult.setResponseResult();
     }

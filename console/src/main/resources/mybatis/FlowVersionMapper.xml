@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowVersionMapper" >
+
+<select id="queryLatestVersion" resultType="java.lang.String" parameterType="java.lang.String">
+	select MAX(v.flow_version) as flowVersion
+	from t_flow_info i inner join t_flow_version v on i.id = v.flow_id  where i.flow_key = #{flowKey}
+</select>
+
+<select id="queryFlowVersionList" resultType="net.somta.juggle.console.domain.version.view.FlowVersionView" parameterType="net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO">
+	select v.id,
+	       i.flow_key as flowKey,
+	       i.flow_name as flowName,
+	       v.flow_version as flowVersion,
+	       v.flow_version_status as flowVersionStatus
+	from t_flow_info i left join t_flow_version v on i.id=v.flow_id
+	where 1=1
+	<if test="flowId != null">
+		and flow_id = #{flowId}
+	</if>
+	<if test="flowVersionStatus != null">
+		and flow_version_status = #{flowVersionStatus}
+	</if>
+</select>
+
+</mapper>   
