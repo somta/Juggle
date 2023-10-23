@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IFlowInfoRepository {
 
-    Boolean deleteFlowInfoAndFlowVersion();
+    Boolean deleteFlowInfoAndFlowVersion(Long flowId);
 
     FlowInfoAO queryFlowInfo(Long flowInfoId);
 

@@ -60,7 +60,7 @@ public class FlowVersionController {
         if(flowVersionAO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowVersionStatusEnum.ENABLE == flowVersionAO.getFlowVersionStatus()){
+        if(FlowVersionStatusEnum.ENABLE == flowVersionAO.getFlowVersionStatusEnum()){
             return ResponseDataResult.setErrorResponseResult(ENABLE_FLOW_NOT_DELETE);
         }
         flowVersionService.deleteFlowVersion(flowVersionId);
@@ -102,7 +102,7 @@ public class FlowVersionController {
         if(flowVersionAO == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowVersionStatusEnum.DISABLED == flowVersionAO.getFlowVersionStatus()){
+        if(FlowVersionStatusEnum.DISABLED == flowVersionAO.getFlowVersionStatusEnum()){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
         }
 

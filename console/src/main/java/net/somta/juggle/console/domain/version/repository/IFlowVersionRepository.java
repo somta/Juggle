@@ -13,11 +13,14 @@ import java.util.List;
 public interface IFlowVersionRepository {
     void deleteFlowVersionById(Long flowVersionId);
 
+    Boolean updateFlowVersion(FlowVersionAO flowVersionAO);
+
     String queryLatestVersion(String flowKey);
 
     FlowVersionAO getFlowVersionInfo(Long flowVersionId);
 
     List<FlowVersionView> queryFlowVersionList(FlowVersionQueryVO flowVersionQueryVO);
+
 
 
 }

@@ -18,11 +18,8 @@ const loading = ref(false);
 
 
 const filter = ref<{
-  flowId: number;
   flowVersionStatus?: number;
-}>({
-  flowId : Number(paramsData.params.flowId)
-});
+}>({});
 
 // 初始加载
 queryFlowVersionPage();
@@ -37,6 +34,7 @@ async function queryFlowVersionPage () {
   const res = await flowVersionService.queryFlowVersionPage({
     pageSize: pageSize.value,
     pageNum: pageNum.value,
+    flowId: Number(paramsData.params.flowId),
     ...filter.value,
   });
   if (res.success) {
@@ -51,9 +49,9 @@ function onPageChange (page:number) {
   queryFlowVersionPage();
 }
 
-function openUpdateFlowStatus (row: any) {
+function openUpdateFlowVersionStatus (row: any) {
   ElMessageBox.confirm(
-      `确定${row.flowStatus == 0 ? "启用" : "禁用"}'${row.flowName}'流程的${row.flowVersion}版本吗?`,
+      `确定${row.flowVersionStatus == 0 ? "启用" : "禁用"} ${row.flowName} 流程的 ${row.flowVersion} 版本吗?`,
       '操作确认',
       {
         confirmButtonText: '确定',
@@ -66,10 +64,10 @@ function openUpdateFlowStatus (row: any) {
 }
 
 async function updateFlowStatus (row: any) {
-  const res = await flowVersionService.updateFlowVersionStatus(row.id,row.flowStatus);
+  const res = await flowVersionService.updateFlowVersionStatus(row.id,row.flowVersionStatus);
   if (res.success) {
     ElMessage({ type: 'success', message: '操作成功' });
-    queryFlowVersionPage();
+    await queryFlowVersionPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -93,7 +91,7 @@ async function deleteFlowVersionItem (row: any) {
   const res = await flowVersionService.deleteFlowVersionById(row.id);
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
-    queryFlowVersionPage();
+    await queryFlowVersionPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -113,7 +111,8 @@ async function deleteFlowVersionItem (row: any) {
             :pageNum="pageNum"
             :pageSize="pageSize"
             :loading="loading"
-            @flowStatusChange="openUpdateFlowStatus"
+            @pageChange="onPageChange"
+            @flowVersionStatusChange="openUpdateFlowVersionStatus"
             @delete="openDelete"
         />
       </el-main>

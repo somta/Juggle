@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Swagger配置类
  * @author husong
- * @date 2022/7/11
  **/
 @Configuration
 public class SwaggerConfiguration {

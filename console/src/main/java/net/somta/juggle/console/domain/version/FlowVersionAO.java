@@ -18,7 +18,7 @@ public class FlowVersionAO {
 
     private String flowVersion;
 
-    private FlowVersionStatusEnum flowVersionStatus;
+    private FlowVersionStatusEnum flowVersionStatusEnum;
 
     private String flowContent;
 
@@ -30,9 +30,9 @@ public class FlowVersionAO {
 
     public void setNegateStatus(FlowVersionStatusEnum flowVersionStatus){
         if(FlowVersionStatusEnum.DISABLED == flowVersionStatus){
-            this.flowVersionStatus = FlowVersionStatusEnum.ENABLE;
+            this.flowVersionStatusEnum = FlowVersionStatusEnum.ENABLE;
         } else {
-            this.flowVersionStatus = FlowVersionStatusEnum.DISABLED;
+            this.flowVersionStatusEnum = FlowVersionStatusEnum.DISABLED;
         }
     }
 
@@ -84,12 +84,12 @@ public class FlowVersionAO {
         this.flowVersion = flowVersion;
     }
 
-    public FlowVersionStatusEnum getFlowVersionStatus() {
-        return flowVersionStatus;
+    public FlowVersionStatusEnum getFlowVersionStatusEnum() {
+        return flowVersionStatusEnum;
     }
 
-    public void setFlowVersionStatus(FlowVersionStatusEnum flowVersionStatus) {
-        this.flowVersionStatus = flowVersionStatus;
+    public void setFlowVersionStatusEnum(FlowVersionStatusEnum flowVersionStatusEnum) {
+        this.flowVersionStatusEnum = flowVersionStatusEnum;
     }
 
     public String getFlowContent() {

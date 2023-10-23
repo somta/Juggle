@@ -50,7 +50,7 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
 
     @Override
     public Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAO) {
-        return null;
+        return flowVersionRepository.updateFlowVersion(flowVersionAO);
     }
 
     @Override

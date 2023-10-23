@@ -21,7 +21,6 @@ import java.util.Arrays;
  *
  * MyBatis配置类
  *
- * @Date:        2021-02-03
  * @Author:      husong
  * @Version:     1.0.0
  */

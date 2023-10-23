@@ -20,7 +20,7 @@ import java.util.List;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 
-@Tag(name = "领域接口（已完成）")
+@Tag(name = "领域接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/domain")
 public class DomainController {

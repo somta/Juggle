@@ -24,7 +24,7 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
 /**
  * @author Gavin
  */
-@Tag(name = "登录接口（已完成）")
+@Tag(name = "登录接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/user")
 public class UserController {

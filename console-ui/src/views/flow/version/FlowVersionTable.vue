@@ -13,7 +13,7 @@ function deleteRow (row: any, index: number) {
 }
 
 function updateFlowVersionStatus (row: any) {
-  emit('flowStatusChange', row);
+  emit('flowVersionStatusChange', row);
 }
 
 function flowVersionStatusFormat(flowVersionStatus: number){
@@ -40,14 +40,14 @@ function flowVersionStatusOptFormat(flowVersionStatus: number){
     <el-table-column prop="flowVersion" label="版本" width="100" />
     <el-table-column prop="flowVersion" label="流程状态" width="100" >
       <template #default="scope">
-        {{ flowVersionStatusFormat(scope.row.flowType) }}
+        {{ flowVersionStatusFormat(scope.row.flowVersionStatus) }}
       </template>
     </el-table-column>
     <el-table-column prop="triggerUrl" label="访问地址" width="380" />
     <el-table-column label="操作" width="250" >
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="updateFlowVersionStatus(scope.row)">
-          {{ flowVersionStatusOptFormat(scope.row.flowStatus) }}
+          {{ flowVersionStatusOptFormat(scope.row.flowVersionStatus) }}
         </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)">
           删除

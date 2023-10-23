@@ -22,6 +22,7 @@ async function queryPage () {
   });
   if (res.success) {
     dataTotal.value = res.total;
+    console.log(dataTotal.value);
     dataRows.value = res.result;
   }
   loading.value = false;

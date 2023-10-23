@@ -20,10 +20,11 @@ function deleteRow (row: any, index: number) {
 function editRow (row: any) {
   emit('edit', row);
 }
-function goDebugPage(flowKey: number) {
+function goDebugPage(flowDefinitionId: number, flowKey: string) {
   router.push({
     name:'flow-debug',
     params:{
+      flowDefinitionId: flowDefinitionId,
       flowKey: flowKey,
     },
   });
@@ -43,7 +44,7 @@ function goDebugPage(flowKey: number) {
         <el-button link type="primary" size="small">
           流程
         </el-button>
-        <el-button link type="primary" size="small" @click="goDebugPage(scope.row.flowKey)">
+        <el-button link type="primary" size="small" @click="goDebugPage(scope.row.id,scope.row.flowKey)">
           调试
         </el-button>
         <el-button link type="primary" size="small" @click.prevent="deployFlow(scope.row)">

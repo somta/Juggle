@@ -1,5 +1,5 @@
 
-import ApiDomain from './ApiDomain.vue';
+import DomainList from './DomainList.vue';
 import ApiList from './ApiList.vue';
 import RouterNest from '@/views/RouterNest.vue';
 
@@ -13,8 +13,8 @@ export const ApiRoutes = [
     children: [
       {
         path: 'domain',
-        name: 'api-domain',
-        component: ApiDomain,
+        name: 'domain-list',
+        component: DomainList,
         meta: { name: '领域' },
       },
       {

@@ -4,7 +4,7 @@ import net.somta.core.base.IBaseError;
 import net.somta.juggle.console.contants.ApplicationContants;
 
 public enum FlowVersionErrorEnum implements IBaseError {
-    ENABLE_FLOW_NOT_DELETE(1000,  "存在启用的流程版本，不能删除"),
+    ENABLE_FLOW_NOT_DELETE(1000,  "启用中的流程不能删除"),
 
     FLOW_NOT_ENABLE(1003,  "请启用流程后在调用流程"),
     ;

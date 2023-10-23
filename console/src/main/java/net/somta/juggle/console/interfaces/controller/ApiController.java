@@ -20,7 +20,7 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
 /**
  * @author husong
  */
-@Tag(name = "API接口（已完成）")
+@Tag(name = "API接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/api")
 public class ApiController {

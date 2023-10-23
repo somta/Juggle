@@ -45,7 +45,7 @@ public class FlowInfoInfoServiceImpl implements IFlowInfoService {
         if(CollectionUtils.isNotEmpty(flowVersionViewList)){
             throw new BizException(ENABLE_FLOW_NOT_DELETE);
         }
-        return flowInfoRepository.deleteFlowInfoAndFlowVersion();
+        return flowInfoRepository.deleteFlowInfoAndFlowVersion(flowId);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package net.somta.juggle.console.infrastructure.repository;
 
 import net.somta.juggle.console.domain.version.FlowVersionAO;
+import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.domain.version.repository.IFlowVersionRepository;
 import net.somta.juggle.console.domain.version.view.FlowVersionView;
 import net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO;
@@ -27,6 +28,13 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
     @Override
     public void deleteFlowVersionById(Long flowVersionId) {
         flowVersionMapper.deleteById(flowVersionId);
+    }
+
+    @Override
+    public Boolean updateFlowVersion(FlowVersionAO flowVersionAO) {
+        FlowVersionPO flowVersionPO = IFlowVersionConverter.IMPL.aoToPo(flowVersionAO);
+        flowVersionMapper.update(flowVersionPO);
+        return true;
     }
 
     @Override

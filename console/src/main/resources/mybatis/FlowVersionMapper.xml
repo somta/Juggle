@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowVersionMapper" >
 
+<delete id="deleteFlowVersionByFlowId" parameterType="java.lang.Long">
+	delete from t_flow_version where flow_id=#{flowId}
+</delete>
+
 <select id="queryLatestVersion" resultType="java.lang.String" parameterType="java.lang.String">
 	select MAX(v.flow_version) as flowVersion
 	from t_flow_info i inner join t_flow_version v on i.id = v.flow_id  where i.flow_key = #{flowKey}

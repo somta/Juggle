@@ -143,28 +143,29 @@ function openEdit (row: any) {
       </el-main>
     </el-container>
     <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" />
-  </div>
 
-  <el-dialog v-model="deployFormVisible"
-             :show-close=false
-             title="部署流程"
-             width="400"
-  >
-    <el-form :model="deployForm">
-      <el-form-item label="流程名称">
-        <el-input v-model="deployForm.flowName" disabled />
-      </el-form-item>
-      <el-form-item label="部署版本">
-        <el-input v-model="deployForm.flowDeployVersion" disabled />
-      </el-form-item>
-    </el-form>
-    <template #footer>
+    <el-dialog v-model="deployFormVisible"
+               :show-close=false
+               title="部署流程"
+               width="400"
+    >
+      <el-form :model="deployForm">
+        <el-form-item label="流程名称">
+          <el-input v-model="deployForm.flowName" disabled />
+        </el-form-item>
+        <el-form-item label="部署版本">
+          <el-input v-model="deployForm.flowDeployVersion" disabled />
+        </el-form-item>
+      </el-form>
+      <template #footer>
       <span class="dialog-footer">
         <el-button @click="deployFormVisible = false">取消</el-button>
         <el-button type="primary" @click="onSubmitDeploy">部署</el-button>
       </span>
-    </template>
-  </el-dialog>
+      </template>
+    </el-dialog>
+
+  </div>
 
 </template>
 

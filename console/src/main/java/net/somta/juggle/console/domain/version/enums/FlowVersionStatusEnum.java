@@ -20,13 +20,12 @@ public enum FlowVersionStatusEnum {
 
     public static FlowVersionStatusEnum getByCode(Integer code){
         for (FlowVersionStatusEnum status : FlowVersionStatusEnum.values()) {
-            if (status.getCode() == code) {
+            if (status.getCode().equals(code)) {
                 return status;
             }
         }
         return null;
     }
-
 
     public Integer getCode() {
         return code;

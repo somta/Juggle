@@ -4,6 +4,7 @@ import net.somta.juggle.console.domain.flow.FlowInfoAO;
 import net.somta.juggle.console.domain.flow.repository.IFlowInfoRepository;
 import net.somta.juggle.console.domain.flow.vo.FlowInfoQueryVO;
 import net.somta.juggle.console.domain.flow.vo.FlowInfoVO;
+import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.infrastructure.converter.IFlowInfoConverter;
 import net.somta.juggle.console.infrastructure.converter.IFlowVersionConverter;
 import net.somta.juggle.console.infrastructure.mapper.FlowInfoMapper;
@@ -32,9 +33,10 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean deleteFlowInfoAndFlowVersion() {
-        // todo 待完善
-        return null;
+    public Boolean deleteFlowInfoAndFlowVersion(Long flowId) {
+        flowInfoMapper.deleteById(flowId);
+        flowVersionMapper.deleteFlowVersionByFlowId(flowId);
+        return true;
     }
 
     @Override
@@ -64,6 +66,7 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
 
         FlowVersionPO flowVersionPO = IFlowVersionConverter.IMPL.aoToPo(flowInfoAO);
         flowVersionPO.setFlowId(flowInfoPO.getId());
+        flowVersionPO.setFlowVersionStatus(FlowVersionStatusEnum.DISABLED.getCode());
         flowVersionPO.setCreatedAt(currentDate);
         flowVersionMapper.add(flowVersionPO);
         return true;

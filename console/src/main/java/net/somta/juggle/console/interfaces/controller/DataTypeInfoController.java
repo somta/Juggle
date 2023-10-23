@@ -14,7 +14,10 @@ import java.util.List;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 
-@Tag(name = "数据类型接口（已完成）")
+/**
+ * @author husong
+ */
+@Tag(name = "数据类型接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/dataType")
 public class DataTypeInfoController {
