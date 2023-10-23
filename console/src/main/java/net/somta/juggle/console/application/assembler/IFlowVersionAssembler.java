@@ -1,10 +1,8 @@
 package net.somta.juggle.console.application.assembler;
 
-import net.somta.juggle.console.domain.flow.vo.FlowInfoVO;
 import net.somta.juggle.console.domain.version.view.FlowVersionView;
 import net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO;
 import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
-import net.somta.juggle.console.interfaces.dto.FlowInfoDTO;
 import net.somta.juggle.console.interfaces.dto.FlowVersionDTO;
 import net.somta.juggle.console.interfaces.param.FlowVersionPageParam;
 import org.mapstruct.Mapper;
