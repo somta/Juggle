@@ -5,7 +5,7 @@ import { ref, watch } from 'vue';
 type ParamItem = {
   id?: number | null;
   paramKey: string;
-  paramType: number;
+  dataType: string;
   paramName: string;
   required: boolean;
 }
@@ -29,7 +29,7 @@ const params = ref<ParamItem[]>([]);
 const columns = [
   { name: '参数编码', prop: 'paramKey' },
   { name: '参数名称', prop: 'paramName' },
-  { name: '数据类型', prop: 'paramType' },
+  { name: '数据类型', prop: 'dataType' },
   { name: '必填', prop: 'required' },
 ];
 
@@ -37,7 +37,7 @@ function addParam () {
   params.value.push({
     paramKey: '',
     paramName: '',
-    paramType: 1,
+    dataType: 'String',
     required: false,
   });
   onChange();
@@ -46,6 +46,12 @@ function addParam () {
 function onChange () {
   emit('update:modelValue', params.value);
 }
+
+const dataTypeOptions = [
+  { label: 'String', value: 'String' },
+  { label: 'Number', value: 'Number' },
+  { label: 'Object', value: 'Object' },
+];
 
 </script>
 
@@ -56,7 +62,7 @@ function onChange () {
         <template v-for="column in columns" :key="column.prop">
           <div class="param-setting-td" v-if="column.prop === 'paramKey'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="column.prop === 'paramName'">{{ column.name }}</div>
-          <div class="param-setting-td" v-if="column.prop === 'paramType'">{{ column.name }}</div>
+          <div class="param-setting-td" v-if="column.prop === 'dataType'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="required && column.prop === 'required'">{{ column.name }}</div>
         </template>
       </div>
@@ -70,11 +76,9 @@ function onChange () {
           <div class="param-setting-td" v-if="column.prop === 'paramName'">
             <el-input v-model="param.paramName" size="small" @change="onChange" />
           </div>
-          <div class="param-setting-td" v-else-if="column.prop === 'paramType'">
-            <el-select v-model="param.paramType" size="small" @change="onChange">
-              <el-option :value="1" :key="1" label="String" />
-              <el-option :value="2" :key="2" label="Number" />
-              <el-option :value="3" :key="3" label="Object" />
+          <div class="param-setting-td" v-else-if="column.prop === 'dataType'">
+            <el-select v-model="param.dataType" size="small" @change="onChange">
+              <el-option v-for="option in dataTypeOptions" :value="option.value" :key="option.value" :label="option.label" />
             </el-select>
           </div>
           <div class="param-setting-td" v-else-if="required && column.prop === 'required'">

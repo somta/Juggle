@@ -77,5 +77,5 @@ export async function listDelete (id: string): ResponseResult<boolean> {
 }
 
 export async function queryApiInfo (id: string | number): ResponseResult<ApiInfo> {
-  return request.get(`/v1/api/info?id=${id}`);
+  return request.get(`/v1/api/info/${id}`);
 }
