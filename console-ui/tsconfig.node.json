@@ -4,6 +4,6 @@
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
-    "types": ["node"]
+    "types": ["node", "d3"]
   }
 }

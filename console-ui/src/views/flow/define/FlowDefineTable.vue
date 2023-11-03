@@ -29,6 +29,15 @@ function goDebugPage(flowDefinitionId: number, flowKey: string) {
     },
   });
 }
+function goDesignPage(flowDefinitionId: number, flowKey: string) {
+  router.push({
+    name:'flow-design',
+    params:{
+      flowDefinitionId: flowDefinitionId,
+      flowKey: flowKey,
+    },
+  });
+}
 
 </script>
 
@@ -41,7 +50,7 @@ function goDebugPage(flowDefinitionId: number, flowKey: string) {
     <el-table-column prop="remark" label="流程描述" width="300" />
     <el-table-column label="操作" width="250" >
       <template #default="scope">
-        <el-button link type="primary" size="small">
+        <el-button link type="primary" size="small" @click="goDesignPage(scope.row.id,scope.row.flowKey)">
           流程
         </el-button>
         <el-button link type="primary" size="small" @click="goDebugPage(scope.row.id,scope.row.flowKey)">

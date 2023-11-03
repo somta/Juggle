@@ -3,6 +3,7 @@ import FlowDefine from './FlowDefine.vue';
 import FlowList from './FlowList.vue';
 import FlowVersionList from './FlowVersionList.vue';
 import FlowDebug from './FlowDebug.vue';
+import FlowDesign from './FlowDesign.vue';
 import RouterNest from '@/views/RouterNest.vue';
 
 export const FlowRoutes = [
@@ -36,6 +37,12 @@ export const FlowRoutes = [
         name: 'flow-debug',
         component: FlowDebug,
         meta: { name: '流程调试' },
+      },
+      {
+        path: 'design/:flowDefinitionId/:flowKey',
+        name: 'flow-design',
+        component: FlowDesign,
+        meta: { name: '流程设计' },
       },
     ],
   },
