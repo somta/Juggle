@@ -13,7 +13,6 @@ module.exports = {
         value: donateHtml,
         defaultStyle: true
     },
-        'guide/quick-start',
     {
         type: 'category',
         label: 'Juggle是什么？',
@@ -23,6 +22,14 @@ module.exports = {
             'guide/introduce/concept'
         ],
     },{
+        type: 'category',
+        label: '快速开始',
+        collapsed: true,
+        items: [
+            'guide/start/quick-start',
+            'guide/start/start-with-docker'
+        ],
+     },{
         type: 'category',
         label: '开源共建',
         collapsed: true,

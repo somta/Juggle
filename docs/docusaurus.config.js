@@ -77,7 +77,7 @@ module.exports = {
                     },
                     {
                         type: 'docsVersion',
-                        to: 'docs/guide/quick-start',
+                        to: 'docs/guide/start/quick-start',
                         label: '文档',
                         position: 'left',
                     },
@@ -128,7 +128,7 @@ module.exports = {
                         items: [
                             {
                                 label: '文档',
-                                to: 'docs/guide/quick-start',
+                                to: 'docs/guide/start/quick-start',
                             },
                             {
                                 label: '更新日志',
@@ -176,7 +176,7 @@ module.exports = {
             algolia: {
                 appId: '3CRIMRK623',
                 apiKey: '69d77aed70b67e21c81c6b4a38d0cf1a', // search only (public) API key
-                indexName: 'xiaominfo',
+                indexName: '222',
                 algoliaOptions: {
                     facetFilters: ['version:VERSION'],
                 },

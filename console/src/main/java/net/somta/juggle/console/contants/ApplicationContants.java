@@ -1,5 +1,8 @@
 package net.somta.juggle.console.contants;
 
+/**
+ * @author husong
+ */
 public class ApplicationContants {
 
     public static final String JUGGLE_SERVER_VERSION = "/v1";

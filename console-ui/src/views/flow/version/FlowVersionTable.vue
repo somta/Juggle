@@ -32,6 +32,11 @@ function flowVersionStatusOptFormat(flowVersionStatus: number){
   }
 }
 
+function buildFullTriggerUrl(triggerUrl: string){
+  const origin = window.location.origin;
+  return origin + triggerUrl;
+}
+
 </script>
 
 <template>
@@ -43,7 +48,11 @@ function flowVersionStatusOptFormat(flowVersionStatus: number){
         {{ flowVersionStatusFormat(scope.row.flowVersionStatus) }}
       </template>
     </el-table-column>
-    <el-table-column prop="triggerUrl" label="访问地址" width="380" />
+    <el-table-column prop="triggerUrl" label="访问地址" width="480">
+      <template #default="scope">
+        {{ buildFullTriggerUrl(scope.row.triggerUrl) }}
+      </template>
+    </el-table-column>
     <el-table-column label="操作" width="250" >
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="updateFlowVersionStatus(scope.row)">

@@ -1,9 +1,16 @@
 package net.somta.juggle.console.application.service;
 
-import net.somta.core.base.IBaseService;
-import net.somta.juggle.console.infrastructure.po.UserPO;
+import net.somta.juggle.console.domain.user.UserAO;
 
-public interface IUserService extends IBaseService<UserPO> {
-    UserPO queryUserByUserName(String userName);
+/**
+ * @author husong
+ */
+public interface IUserService {
+
+    Boolean updateUser(UserAO userAO);
+
+    UserAO queryUserById(Long userId);
+
+    UserAO queryUserByUserName(String userName);
 
 }

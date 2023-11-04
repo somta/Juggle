@@ -118,7 +118,7 @@ CREATE TABLE `t_variable_info` (
 -- ----------------------------
 -- Table structure for t_flow
 -- ----------------------------
-CREATE TABLE `t_flow` (
+CREATE TABLE `t_flow_info` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `flow_key` varchar(20) DEFAULT NULL,
   `flow_name` varchar(60) DEFAULT NULL,
