@@ -1,6 +1,6 @@
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
 
-export async function getDefineInfo (id: number): ResponsePageResult {
+export async function getDefineInfo (id: number): ResponseResult {
     return request.get(`/v1/flow/definition/info/${id}`);
 }
 

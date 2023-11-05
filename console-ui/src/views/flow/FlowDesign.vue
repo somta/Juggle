@@ -1,93 +1,75 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, reactive } from 'vue';
 import ZoomTool from './design/ZoomTool.vue';
-import * as d3 from 'd3';
+import { FlowRenderer } from './design/renderer';
+import { flowDefineService } from '@/service';
+import { useRoute } from 'vue-router';
+import { ElMessage } from 'element-plus';
 
-const scaleExtent: [number, number] = [0.5, 5]; // Limit the scale between 0.5x and 5x
-
-const scale = ref(1);
-
-const d3Vars = {
-  svg: null as any,
-  pan: null as any,
-  root: null as any,
-  boundary: null as any,
-  zoom: null as any,
-};
-
-function init () {
-  const svg = d3.select('.flow-canvas')
-    .append('svg')
-    .attr('width', '100%')
-    .attr('height', '100%');
-
-  const boundary = svg.node()!.getBoundingClientRect();
-  const pan = svg.append('g');
-  const root = pan.append('g')
-    .attr('transform', `translate(${boundary.width / 2}, 60)`);
-
-  root.append('rect')
-    .attr('x', 0)
-    .attr('y', 0)
-    .attr('width', 100)
-    .attr('height', 100)
-    .attr('fill', 'blue');
-
-  const zoom = d3.zoom()
-    .scaleExtent(scaleExtent) 
-    .on('zoom', (event) => {
-      pan.attr('transform', event.transform);
-      scale.value = event.transform.k;
-    });
-
-  svg.call(zoom as any);
-  
-  d3Vars.svg = svg;
-  d3Vars.pan = pan;
-  d3Vars.root = root;
-  d3Vars.boundary = boundary;
-  d3Vars.zoom = zoom;
-}
-
-function onZoomToolChange (value: number) {
-  if (value < scaleExtent[0]) {
-    scale.value = scaleExtent[0];
-    return;
-  }
-  if (value > scaleExtent[1]) {
-    scale.value = scaleExtent[1];
-    return;
-  }
-  scale.value = value;
-  const oldTransform = d3Vars.pan.attr('transform');
-  if (oldTransform) {
-    d3Vars.pan.attr('transform', oldTransform.replace(/scale\([0-9.]+\)/, `scale(${value})`));
+const flowData = reactive({
+  flowKey: '',
+  flowName: '',
+  flowType: '',
+  flowContent: '',
+  flowInputParams: [],
+  flowOutputParams: [],
+  id: null,
+  remark: null,
+});
+const route = useRoute();
+async function queryFlowDefineInfo() {
+  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as unknown as number);
+  if (res.success) {
+    Object.assign(flowData, res.result);
   } else {
-    d3Vars.pan.attr('transform', `scale(${value})`);
+    ElMessage({type: 'error', message: res.errorMsg});
   }
 }
 
-onMounted(() => {
-  init();
+const flowCanvas = ref();
+let flowRenderer: FlowRenderer;
+const scale = ref(1);
+function onZoomToolChange (value: number) {
+  scale.value = flowRenderer.scaleFromTop(value);;
+}
+
+onMounted(async () => {
+  await queryFlowDefineInfo();
+  let content = [];
+  try {
+    content = JSON.parse(flowData.flowContent);
+  } catch (error) {
+    ElMessage({type: 'error', message: '流程定义内容解析失败'});
+    return;
+  }
+  flowRenderer = new FlowRenderer(flowCanvas.value, {
+    content: content,
+    onZoom: (event: any) => {
+      scale.value = event.transform.k;
+    },
+  });
 });
 
 </script>
 
 <template>
   <div class="page-flow-design">
-    <div class="flow-canvas">
+    <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
     </div>
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
 .page-flow-design {
   .flow-canvas {
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
+
+    .flow-node {
+    }
   }
 }
 </style>
