@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <artifactId>pagehelper</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -89,35 +89,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>refresh-db</id>
-                        &lt;!&ndash;插件目标绑定的构建阶段 &ndash;&gt;
-                        <phase>package</phase>
-                        &lt;!&ndash;插件目标 &ndash;&gt;
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        &lt;!&ndash;配置 &ndash;&gt;
-                        <configuration>
-                            &lt;!&ndash; 执行的任务 &ndash;&gt;
-                            <target>
-                                <echo message="清理阶段"/>
-                                <property file="src/main/resources/application.properties" />
-                                <sql driver="${spring.datasource.driver-class-name}" url="${spring.datasource.url}" userid="${spring.datasource.username}" password="${spring.datasource.password}" onerror="continue" encoding="${project.build.sourceEncoding}">
-                                    <classpath refid="maven.test.classpath" />
-                                    <transaction src="src/main/resources/db/schema.sql"/>
-                                    <transaction src="src/main/resources/db/data.sql"/>
-                                </sql>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 

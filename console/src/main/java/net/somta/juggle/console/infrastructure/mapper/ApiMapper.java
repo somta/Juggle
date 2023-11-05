@@ -13,10 +13,10 @@ import java.util.List;
 public interface ApiMapper extends IBaseMapper {
 
     /**
-     * @param apiPO
+     * @param apiPo
      * @return
      */
-    int addApi(ApiPO apiPO);
+    int addApi(ApiPO apiPo);
 
     List<ApiPO> queryApiListByDomainId(Long domainId);
 

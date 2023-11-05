@@ -79,4 +79,17 @@ public class ApiDTO {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "ApiDTO{" +
+                "id=" + id +
+                ", domainName='" + domainName + '\'' +
+                ", apiUrl='" + apiUrl + '\'' +
+                ", apiName='" + apiName + '\'' +
+                ", apiDesc='" + apiDesc + '\'' +
+                ", apiRequestType='" + apiRequestType + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

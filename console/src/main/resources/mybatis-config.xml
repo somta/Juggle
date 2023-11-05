@@ -32,8 +32,7 @@
             <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
             <!-- 和startPage中的pageNum效果一样-->
             <property name="offsetAsPageNum" value="true"/>
-            <!-- 该参数默认为false -->
-            <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+            <!-- 设置为true时，使用RowBounds分页会进行count查询，系统默认值是false -->
             <property name="rowBoundsWithCount" value="true"/>
             <!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
             <!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->

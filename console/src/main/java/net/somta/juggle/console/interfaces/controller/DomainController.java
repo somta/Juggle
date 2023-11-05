@@ -58,8 +58,8 @@ public class DomainController {
     @Operation(summary = "根据ID删除领域")
     @DeleteMapping("/delete/{domainId}")
     public ResponseDataResult<Boolean> deleteDomain(@PathVariable Long domainId){
-        List<ApiDTO> apiPOS = apiService.getApiListByDomainId(domainId);
-        if(CollectionUtils.isNotEmpty(apiPOS)){
+        List<ApiDTO> apis = apiService.getApiListByDomainId(domainId);
+        if(CollectionUtils.isNotEmpty(apis)){
             return ResponseDataResult.setErrorResponseResult(DomainErrorEnum.DOMAIN_EXIST_API_ERROR);
         }
         domainService.deleteDomain(domainId);

@@ -19,8 +19,8 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public Boolean updateUser(UserAO userAO) {
-        userRepository.updateUser(userAO);
+    public Boolean updateUser(UserAO userAo) {
+        userRepository.updateUser(userAo);
         return true;
     }
 
@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserAO queryUserByUserName(String userName) {
-        UserAO userAO = userRepository.getUserByUserName(userName);
-        return userAO;
+        UserAO userAo = userRepository.getUserByUserName(userName);
+        return userAo;
     }
 }

@@ -4,15 +4,15 @@ package net.somta.juggle.console.interfaces.param.definition;
  * @author husong
  */
 public class FlowDefinitionDeployParam {
-    private Long FlowDefinitionId;
+    private Long flowDefinitionId;
     private String flowDeployVersion;
 
     public Long getFlowDefinitionId() {
-        return FlowDefinitionId;
+        return flowDefinitionId;
     }
 
     public void setFlowDefinitionId(Long flowDefinitionId) {
-        FlowDefinitionId = flowDefinitionId;
+        this.flowDefinitionId = flowDefinitionId;
     }
 
     public String getFlowDeployVersion() {

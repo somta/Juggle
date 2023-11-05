@@ -30,9 +30,9 @@ public class ApiServiceImpl implements IApiService {
 
     @Override
     public ResponseDataResult<Boolean> addApi(ApiAddParam apiAddParam) {
-        ApiAO apiAO = IApiAssembler.IMPL.paramToAo(apiAddParam);
-        apiAO.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
-        apiRepository.addApi(apiAO);
+        ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiAddParam);
+        apiAo.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
+        apiRepository.addApi(apiAo);
         return ResponseDataResult.setResponseResult();
     }
 
@@ -44,24 +44,24 @@ public class ApiServiceImpl implements IApiService {
 
     @Override
     public ResponseDataResult<Boolean> updateApi(ApiUpdateParam apiUpdateParam) {
-        ApiAO apiAO = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
-        apiAO.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
-        apiRepository.updateApi(apiAO);
+        ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
+        apiAo.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
+        apiRepository.updateApi(apiAo);
         return ResponseDataResult.setResponseResult();
     }
 
     @Override
     public ApiInfoDTO queryApiInfo(Long apiId) {
-        ApiAO apiAO = apiRepository.queryApi(apiId);
-        ApiInfoDTO apiInfoDTO = IApiAssembler.IMPL.aoToDto(apiAO);
-        return apiInfoDTO;
+        ApiAO apiAo = apiRepository.queryApi(apiId);
+        ApiInfoDTO apiInfoDto = IApiAssembler.IMPL.aoToDto(apiAo);
+        return apiInfoDto;
     }
 
     @Override
     public List<ApiDTO> getApiListByDomainId(Long domainId) {
         List<ApiVO> apiVoList = apiRepository.getApiListByDomainId(domainId);
-        List<ApiDTO> apiDTOList = IApiAssembler.IMPL.voListToDtoList(apiVoList);
-        return apiDTOList;
+        List<ApiDTO> apiDtoList = IApiAssembler.IMPL.voListToDtoList(apiVoList);
+        return apiDtoList;
     }
 
     @Override

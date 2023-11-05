@@ -44,15 +44,15 @@ public class UserController {
         if(StringUtils.isEmpty(loginParam.getUserName()) || StringUtils.isEmpty(loginParam.getPassword())){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.LOGIN_PARAM_ERROR);
         }
-        UserAO userAO = userService.queryUserByUserName(loginParam.getUserName());
-        if(userAO == null){
+        UserAO userAo = userService.queryUserByUserName(loginParam.getUserName());
+        if(userAo == null){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
-        if(loginParam.getPassword().equals(userAO.getPassword())){
+        if(loginParam.getPassword().equals(userAo.getPassword())){
             Map<String, Object> payload = new HashMap<>();
-            payload.put(UserTokenVO.USER_ID, userAO.getId().toString());
+            payload.put(UserTokenVO.USER_ID, userAo.getId().toString());
             String token = JwtUtil.generateToken(payload);
-            loginDTO.setUserName(userAO.getUserName());
+            loginDTO.setUserName(userAo.getUserName());
             loginDTO.setToken(token);
             return ResponseDataResult.setResponseResult(loginDTO);
         }else {
@@ -66,24 +66,24 @@ public class UserController {
         UserDTO userDTO = new UserDTO();
         String token = request.getHeader(JwtUtil.TOKEN_HEADER_KEY);
         UserTokenVO userTokenVO = JwtUtil.parseToken(token);
-        UserAO userAO = userService.queryUserById(userTokenVO.getUserId());
-        userDTO.setId(userAO.getId());
-        userDTO.setUserName(userAO.getUserName());
+        UserAO userAo = userService.queryUserById(userTokenVO.getUserId());
+        userDTO.setId(userAo.getId());
+        userDTO.setUserName(userAo.getUserName());
         return ResponseDataResult.setResponseResult(userDTO);
     }
 
     @Operation(summary = "修改密码")
     @PutMapping("/updatePassword")
     public ResponseDataResult<Boolean> updatePassword(UpdatePasswordParam updatePasswordParam){
-        UserAO userAO = userService.queryUserById(updatePasswordParam.getUserId());
-        if(userAO == null){
+        UserAO userAo = userService.queryUserById(updatePasswordParam.getUserId());
+        if(userAo == null){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
-        if(!updatePasswordParam.getOldPassword().equals(userAO.getPassword())){
+        if(!updatePasswordParam.getOldPassword().equals(userAo.getPassword())){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.OLD_PASSWORD_ERROR);
         }
-        userAO.setPassword(updatePasswordParam.getNewPassword());
-        userService.updateUser(userAO);
+        userAo.setPassword(updatePasswordParam.getNewPassword());
+        userService.updateUser(userAo);
         return ResponseDataResult.setResponseResult(true);
     }
 

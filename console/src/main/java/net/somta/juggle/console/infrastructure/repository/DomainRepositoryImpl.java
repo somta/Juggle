@@ -22,9 +22,9 @@ public class DomainRepositoryImpl implements IDomainRepository {
 
     @Override
     public void addDomain(DomainEntity domainEntity) {
-        DomainPO domainPO = IDomainConverter.IMPL.entityToPo(domainEntity);
-        domainPO.setCreatedAt(new Date());
-        domainMapper.add(domainPO);
+        DomainPO domainPo = IDomainConverter.IMPL.entityToPo(domainEntity);
+        domainPo.setCreatedAt(new Date());
+        domainMapper.add(domainPo);
     }
 
     @Override
@@ -34,22 +34,22 @@ public class DomainRepositoryImpl implements IDomainRepository {
 
     @Override
     public void updateDomain(Long domainId, DomainEntity domainEntity) {
-        DomainPO domainPO = IDomainConverter.IMPL.entityToPo(domainEntity);
-        domainPO.setId(domainId);
-        domainMapper.update(domainPO);
+        DomainPO domainPo = IDomainConverter.IMPL.entityToPo(domainEntity);
+        domainPo.setId(domainId);
+        domainMapper.update(domainPo);
     }
 
     @Override
     public List<DomainVO> queryDomainListNoPage() {
-        List<DomainPO> domainPOList = domainMapper.queryDomainList();
-        List<DomainVO> domainVOList = IDomainConverter.IMPL.poListToVoList(domainPOList);
-        return domainVOList;
+        List<DomainPO> domainPoList = domainMapper.queryDomainList();
+        List<DomainVO> domainVoList = IDomainConverter.IMPL.poListToVoList(domainPoList);
+        return domainVoList;
     }
 
     @Override
     public List<DomainVO> queryDomainList(DomainQueryVO domainQueryVO) {
-        List<DomainPO> domainPOList = domainMapper.queryByList(domainQueryVO);
-        List<DomainVO> domainVOList = IDomainConverter.IMPL.poListToVoList(domainPOList);
-        return domainVOList;
+        List<DomainPO> domainPoList = domainMapper.queryByList(domainQueryVO);
+        List<DomainVO> domainVoList = IDomainConverter.IMPL.poListToVoList(domainPoList);
+        return domainVoList;
     }
 }
