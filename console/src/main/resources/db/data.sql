@@ -2,9 +2,8 @@ INSERT INTO `t_user` (`id`, `user_name`, `password`) VALUES (1, 'juggle', 'a15fd
 
 INSERT INTO `t_data_type_info` (`id`, `data_type_classify`, `data_type`, `display_name`, `object_key`, `object_structure`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (1, 1, 'Integer', '数字', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `t_data_type_info` (`id`, `data_type_classify`, `data_type`, `display_name`, `object_key`, `object_structure`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (2, 1, 'String', '字符串', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_data_type_info` (`id`, `data_type_classify`, `data_type`, `display_name`, `object_key`, `object_structure`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (3, 1, 'Boolean', '布尔', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `t_data_type_info` (`id`, `data_type_classify`, `data_type`, `display_name`, `object_key`, `object_structure`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (10, 2, 'List', '集合', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `t_data_type_info` (`id`, `data_type_classify`, `data_type`, `display_name`, `object_key`, `object_structure`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (11, 2, 'Set', 'Set', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `t_data_type_info` (`id`, `data_type_classify`, `data_type`, `display_name`, `object_key`, `object_structure`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (12, 2, 'Map', 'Map', NULL, NULL, NULL, NULL, NULL, NULL);
 
 INSERT INTO `t_domain` (`id`, `domain_code`, `domain_name`, `domain_desc`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (1, 'test_domain', '测试领域', '这是系统内置的一个测试领域', '2023-06-06 22:44:13', NULL, '2023-06-14 10:52:18', NULL);
 
