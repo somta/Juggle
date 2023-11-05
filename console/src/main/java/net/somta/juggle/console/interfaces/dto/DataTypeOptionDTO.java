@@ -1,33 +1,36 @@
 package net.somta.juggle.console.interfaces.dto;
 
-import java.util.List;
-
+/**
+ * @author husong
+ */
 public class DataTypeOptionDTO {
-    private String key;
-    private String name;
-    private List<DataTypeDTO> children;
+    private String type;
 
-    public String getKey() {
-        return key;
+    private String displayName;
+
+    private String objectKey;
+
+    public String getType() {
+        return type;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public List<DataTypeDTO> getChildren() {
-        return children;
+    public String getObjectKey() {
+        return objectKey;
     }
 
-    public void setChildren(List<DataTypeDTO> children) {
-        this.children = children;
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
     }
 }

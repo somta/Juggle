@@ -9,10 +9,7 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.variable.VariableManager;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 判断节点执行器
@@ -32,14 +29,14 @@ public class ConditionNodeExecutor extends ElementExecutor{
     @Override
     protected void doExecute(RuntimeContext runtimeContext) {
         ConditionNode conditionNode = (ConditionNode)runtimeContext.getCurrentNode();
-        LinkedHashMap<String, String> conditions =  conditionNode.getConditions();
+        List<ConditionNode.ConditionItem> conditions =  conditionNode.getConditions();
         String hitOutGoingKey = null;
-        for (String key : conditions.keySet()) {
-            String expression = conditions.get(key);
+        for (ConditionNode.ConditionItem conditionItem : conditions) {
+            String expression = conditionItem.getExpression();
             boolean result = executeExpression(expression,runtimeContext.getVariableManager());
-            System.out.println("key : " + key + "-----" + "val : " + expression + "result" + result);
+            System.out.println("key : " + conditionItem.getOutgoing() + "-----" + "val : " + expression + "result" + result);
             if(result){
-                hitOutGoingKey = key;
+                hitOutGoingKey = conditionItem.getOutgoing();
                 break;
             }
         }

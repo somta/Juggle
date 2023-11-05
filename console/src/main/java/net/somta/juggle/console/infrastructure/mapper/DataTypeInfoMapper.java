@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface DataTypeInfoMapper {
 
-    List<DataTypeInfoPO> queryDataTypeList();
+    List<DataTypeInfoPO> queryDataTypeList(Integer dataTypeClassify);
 }

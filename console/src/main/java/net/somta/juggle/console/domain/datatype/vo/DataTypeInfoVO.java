@@ -1,11 +1,9 @@
 package net.somta.juggle.console.domain.datatype.vo;
 
+/**
+ * @author husong
+ */
 public class DataTypeInfoVO {
-
-    /**
-     * 数据类型分类 1：基础类型  2：集合类型   3：高级类型
-     */
-    private Integer dataTypeClassify;
 
     private String dataType;
 
@@ -14,14 +12,6 @@ public class DataTypeInfoVO {
     private String objectKey;
 
     private String objectStructure;
-
-    public Integer getDataTypeClassify() {
-        return dataTypeClassify;
-    }
-
-    public void setDataTypeClassify(Integer dataTypeClassify) {
-        this.dataTypeClassify = dataTypeClassify;
-    }
 
     public String getDataType() {
         return dataType;

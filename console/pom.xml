@@ -89,22 +89,22 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>refresh-db</id>
-                        <!--插件目标绑定的构建阶段 -->
+                        &lt;!&ndash;插件目标绑定的构建阶段 &ndash;&gt;
                         <phase>package</phase>
-                        <!--插件目标 -->
+                        &lt;!&ndash;插件目标 &ndash;&gt;
                         <goals>
                             <goal>run</goal>
                         </goals>
-                        <!--配置 -->
+                        &lt;!&ndash;配置 &ndash;&gt;
                         <configuration>
-                            <!-- 执行的任务 -->
+                            &lt;!&ndash; 执行的任务 &ndash;&gt;
                             <target>
                                 <echo message="清理阶段"/>
                                 <property file="src/main/resources/application.properties" />
@@ -117,12 +117,13 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
     <profiles>
         <profile>
+            <!-- mvn antrun:run -Prefresh-db -->
             <id>refresh-db</id>
             <build>
                 <plugins>
@@ -132,8 +133,8 @@
                         <version>3.0.0</version>
                         <configuration>
                             <target>
-                                <property file="src/main/resources/application.properties" />
-                                <sql driver="${spring.datasource.driver-class-name}" url="${spring.datasource.url}" userid="${spring.datasource.username}" password="${spring.datasource.password}" onerror="continue" encoding="${project.build.sourceEncoding}">
+<!--                                <property file="src/main/resources/application.properties" />-->
+                                <sql driver="org.h2.Driver" url="jdbc:h2:file:/data/db_juggle;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;IGNORECASE=TRUE;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE" userid="sa" password="" onerror="continue" encoding="${project.build.sourceEncoding}">
                                     <classpath refid="maven.test.classpath" />
                                     <transaction src="src/main/resources/db/schema.sql"/>
                                     <transaction src="src/main/resources/db/data.sql"/>

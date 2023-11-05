@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.console.interfaces.dto.DataTypeOptionDTO;
 import net.somta.juggle.console.application.service.IDataTypeInfoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,9 +30,9 @@ public class DataTypeInfoController {
      * @return Boolean
      */
     @Operation(summary = "获取数据类型下拉列表")
-    @GetMapping("/list")
-    public ResponseDataResult<List<DataTypeOptionDTO>> getDataTypeOptions(){
-        List<DataTypeOptionDTO> list = dataTypeInfoService.getDataTypeOptions();
+    @GetMapping("/list/{dataTypeClassify}")
+    public ResponseDataResult<List<DataTypeOptionDTO>> getDataTypeOptions(@PathVariable Integer dataTypeClassify){
+        List<DataTypeOptionDTO> list = dataTypeInfoService.getDataTypeOptions(dataTypeClassify);
         return ResponseDataResult.setResponseResult(list);
     }
 

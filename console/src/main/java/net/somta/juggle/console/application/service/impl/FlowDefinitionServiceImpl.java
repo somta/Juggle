@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
 import net.somta.core.base.BaseServiceImpl;
 import net.somta.core.base.IBaseMapper;
 import net.somta.core.helper.JsonSerializeHelper;
@@ -189,7 +191,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
      * 获取流程的定义内容，先mock的数据,原本应该从数据库取
      * @return
      */
-    private String getFlowDefinitionContent() {
+    private static String getFlowDefinitionContent() {
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<FlowElement> elementList = new ArrayList<>();
@@ -197,6 +199,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         //开始节点
         StartNode startEventNode = new StartNode();
         startEventNode.setKey("start_2s49s");
+        startEventNode.setName("开始");
         startEventNode.setElementType(ElementTypeEnum.START);
         startEventNode.setOutgoings(Arrays.asList("method_8w9r3"));
         elementList.add(startEventNode);
@@ -204,6 +207,8 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         //方法节点
         MethodNode methodNode = new MethodNode();
         methodNode.setKey("method_8w9r3");
+        methodNode.setName("根据ID获取用户名称");
+        methodNode.setDesc("这是了一个节点的描述");
         methodNode.setElementType(ElementTypeEnum.METHOD);
 
         Method method = new Method();
@@ -262,21 +267,69 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         //判断节点
         ConditionNode conditionNode = new ConditionNode();
         conditionNode.setKey("condition_83jd3");
+        conditionNode.setName("判断用户名称");
         conditionNode.setElementType(ElementTypeEnum.CONDITION);
         conditionNode.setIncomings(Arrays.asList("method_8w9r3"));
         conditionNode.setOutgoings(Arrays.asList("end_5g463"));
 
-        LinkedHashMap<String,String> conditions = new LinkedHashMap<>();
+        List<ConditionNode.ConditionItem> conditions = new ArrayList();
+
+        ConditionNode.ConditionItem conditionItem1 = new ConditionNode.ConditionItem();
+        conditionItem1.setConditionName("判断用户名称是否为zhansan");
+        conditionItem1.setConditionType(ConditionNode.ConditionType.CUSTOM);
         //todo 字符串的条件一定要带单引号
-        conditions.put("end_5g463","env_name=='zhansan'");
+        conditionItem1.setExpression("env_name==\"zhansan\"");
+        conditionItem1.setOutgoing("end_5g463");
+        conditions.add(conditionItem1);
+
+        ConditionNode.ConditionItem conditionItem2 = new ConditionNode.ConditionItem();
+        conditionItem2.setConditionName("判断用户名称是否为lisi");
+        conditionItem2.setConditionType(ConditionNode.ConditionType.CUSTOM);
+        //todo 字符串的条件一定要带单引号
+        conditionItem2.setExpression("env_name==\"lisi\"");
+        conditionItem2.setOutgoing("method_23s45");
+        conditions.add(conditionItem2);
+
+        ConditionNode.ConditionItem conditionItem3 = new ConditionNode.ConditionItem();
+        conditionItem3.setConditionName("默认else分支");
+        conditionItem3.setConditionType(ConditionNode.ConditionType.DEFAULT);
+        conditionItem3.setOutgoing("end_5g463");
+        conditions.add(conditionItem3);
 
         conditionNode.setConditions(conditions);
-
         elementList.add(conditionNode);
+
+        //方法节点
+        MethodNode methodNode2 = new MethodNode();
+        methodNode2.setKey("method_23s45");
+        methodNode2.setName("新增用户");
+        methodNode2.setElementType(ElementTypeEnum.METHOD);
+        Method method2 = new Method();
+        method2.setUrl("http://127.0.0.1:8686/test/addUser");
+        method2.setRequestType(RequestTypeEnum.POST);
+
+        //入参填充规则
+        /*List<FillStruct> inputFillRules = new ArrayList<>();
+        FillStruct fillStruct = new FillStruct();
+        fillStruct.setSource("env_id");
+        fillStruct.setSourceType(FildSourceEnum.VARIABLE);
+        fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
+        fillStruct.setTarget("id");
+        fillStruct.setTargetType(FildSourceEnum.FLOWINPUT);
+        fillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
+        inputFillRules.add(fillStruct);
+        method2.setInputFillRules(inputFillRules);*/
+
+        methodNode2.setMethod(method2);
+
+        methodNode2.setIncomings(Arrays.asList("condition_83jd3"));
+        methodNode2.setOutgoings(Arrays.asList("end_5g463"));
+        elementList.add(methodNode2);
 
         //结束节点
         EndNode endEventNode = new EndNode();
         endEventNode.setKey("end_5g463");
+        endEventNode.setName("结束");
         endEventNode.setElementType(ElementTypeEnum.END);
         endEventNode.setIncomings(Arrays.asList("condition_83jd3"));
         elementList.add(endEventNode);
@@ -287,5 +340,16 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
             e.printStackTrace();
         }
         return content;
+    }
+
+    public static void main(String[] args) {
+        String flowContent = getFlowDefinitionContent();
+        System.out.println(flowContent);
+
+        Expression compiledExp = AviatorEvaluator.getInstance().compile("env_name==\"zhansan\"");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_name","zhansan");
+        Boolean result = (Boolean) compiledExp.execute(env);
+        System.out.println(result);
     }
 }

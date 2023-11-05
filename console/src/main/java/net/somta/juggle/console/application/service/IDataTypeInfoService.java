@@ -10,5 +10,5 @@ public interface IDataTypeInfoService {
      * 获取下拉的选项
      * @return
      */
-    List<DataTypeOptionDTO> getDataTypeOptions();
+    List<DataTypeOptionDTO> getDataTypeOptions(Integer dataTypeClassify);
 }
