@@ -1,13 +1,11 @@
 package net.somta.juggle.console.infrastructure.repository;
 
-import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.console.infrastructure.converter.IVariableInfoConverter;
 import net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
-import net.somta.juggle.core.model.DataType;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -28,16 +26,16 @@ public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
     @Override
     public VariableInfoEntity queryVariableInfo(Long flowDefinitionId) {
         VariableInfoEntity variableInfoEntity = new VariableInfoEntity();
-        List<VariableInfoPO> variableInfoPOList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionId);
-        variableInfoEntity.setVariableInfoList(variableInfoPOList);
+        List<VariableInfoPO> variableInfoPoList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionId);
+        variableInfoEntity.setVariableInfoList(variableInfoPoList);
         return variableInfoEntity;
     }
 
     @Override
     public Boolean addVariable(VariableInfoEntity variableInfoEntity) {
-        VariableInfoPO variableInfoPO = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
-        variableInfoPO.setCreatedAt(new Date());
-        variableInfoMapper.add(variableInfoPO);
+        VariableInfoPO variableInfoPo = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
+        variableInfoPo.setCreatedAt(new Date());
+        variableInfoMapper.add(variableInfoPo);
         return true;
     }
 
@@ -49,16 +47,16 @@ public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
 
     @Override
     public Boolean updateVariable(Long variableId,VariableInfoEntity variableInfoEntity) {
-        VariableInfoPO variableInfoPO = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
-        variableInfoPO.setId(variableId);
-        variableInfoMapper.update(variableInfoPO);
+        VariableInfoPO variableInfoPo = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
+        variableInfoPo.setId(variableId);
+        variableInfoMapper.update(variableInfoPo);
         return true;
     }
 
     @Override
     public List<VariableInfoVO> queryVariableInfoList(Long flowDefinitionId) {
-        List<VariableInfoPO> variableInfoPOList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionId);
-        List<VariableInfoVO> variableInfoVOList = IVariableInfoConverter.IMPL.poListToVoList(variableInfoPOList);
-        return variableInfoVOList;
+        List<VariableInfoPO> variableInfoPoList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionId);
+        List<VariableInfoVO> variableInfoVoList = IVariableInfoConverter.IMPL.poListToVoList(variableInfoPoList);
+        return variableInfoVoList;
     }
 }

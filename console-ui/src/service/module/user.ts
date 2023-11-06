@@ -2,6 +2,7 @@
 import { userAPI } from '@/service/api';
 import CryptoJS from 'crypto-js';
 
+const userNameKey = 'Juggle-userName';
 const authKey = 'Juggle-Authorization';
 
 export async function login (data: Parameters<typeof userAPI.login>[0]) {
@@ -10,7 +11,8 @@ export async function login (data: Parameters<typeof userAPI.login>[0]) {
   password = CryptoJS.MD5(data.password).toString();
   const res = await userAPI.login({ userName, password });
   if (res.success) {
-    window.localStorage.setItem(authKey, res.result);
+    window.localStorage.setItem(userNameKey, res.result.userName);
+    window.localStorage.setItem(authKey, res.result.token);
   }
   return res;
 }

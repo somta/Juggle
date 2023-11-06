@@ -6,13 +6,9 @@ import com.googlecode.aviator.Expression;
 import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.node.ConditionNode;
-import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.variable.VariableManager;
+import net.somta.juggle.core.variable.BaseVariableManager;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 判断节点执行器
@@ -20,7 +16,7 @@ import java.util.Map;
  * @author husong
  * @date 2023/02/06
  */
-public class ConditionNodeExecutor extends ElementExecutor{
+public class ConditionNodeExecutor extends AbstractElementExecutor {
 
     private AviatorEvaluatorInstance aviatorEvaluatorInstance = AviatorEvaluator.getInstance();
 
@@ -32,14 +28,14 @@ public class ConditionNodeExecutor extends ElementExecutor{
     @Override
     protected void doExecute(RuntimeContext runtimeContext) {
         ConditionNode conditionNode = (ConditionNode)runtimeContext.getCurrentNode();
-        LinkedHashMap<String, String> conditions =  conditionNode.getConditions();
+        List<ConditionNode.ConditionItem> conditions =  conditionNode.getConditions();
         String hitOutGoingKey = null;
-        for (String key : conditions.keySet()) {
-            String expression = conditions.get(key);
+        for (ConditionNode.ConditionItem conditionItem : conditions) {
+            String expression = conditionItem.getExpression();
             boolean result = executeExpression(expression,runtimeContext.getVariableManager());
-            System.out.println("key : " + key + "-----" + "val : " + expression + "result" + result);
+            System.out.println("key : " + conditionItem.getOutgoing() + "-----" + "val : " + expression + "result" + result);
             if(result){
-                hitOutGoingKey = key;
+                hitOutGoingKey = conditionItem.getOutgoing();
                 break;
             }
         }
@@ -59,10 +55,10 @@ public class ConditionNodeExecutor extends ElementExecutor{
      * @param variableManager 变量管理器
      * @return
      */
-    private boolean executeExpression(String expression, VariableManager variableManager) {
+    private boolean executeExpression(String expression, BaseVariableManager variableManager) {
         Expression compiledExp = aviatorEvaluatorInstance.compile(expression);
         List<String> variableKeys = compiledExp.getVariableNames();
-        Map<String, Object> env = new HashMap<>();
+        Map<String, Object> env = new HashMap<>(8);
         for (String key : variableKeys){
             try {
                 env.put(key,variableManager.getVariableValue(key));
@@ -71,7 +67,7 @@ public class ConditionNodeExecutor extends ElementExecutor{
             }
         }
         // 执行表达式
-        Boolean result = (Boolean) compiledExp.execute(env);
+        boolean result = (Boolean) compiledExp.execute(env);
         return result;
     }
 

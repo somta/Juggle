@@ -5,7 +5,7 @@ import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.utils.HttpClient;
-import net.somta.juggle.core.variable.VariableManager;
+import net.somta.juggle.core.variable.BaseVariableManager;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
@@ -19,7 +19,7 @@ import java.util.Map;
  * @author husong
  * @date 2023/02/06
  */
-public class MethodNodeExecutor extends ElementExecutor{
+public class MethodNodeExecutor extends AbstractElementExecutor {
 
     @Override
     protected void doPreExecute(RuntimeContext runtimeContext) {
@@ -72,7 +72,7 @@ public class MethodNodeExecutor extends ElementExecutor{
      * 根据填充结构和参数描述构建带数据的参数对象
      * @return
      */
-    private Map<String,Object> buildInputParameterData(List<FillStruct> inputFillRules, VariableManager variableManager) throws FlowException {
+    private Map<String,Object> buildInputParameterData(List<FillStruct> inputFillRules, BaseVariableManager variableManager) throws FlowException {
         if(CollectionUtils.isEmpty(inputFillRules)){
             return Collections.EMPTY_MAP;
         }
@@ -118,7 +118,7 @@ public class MethodNodeExecutor extends ElementExecutor{
      * @param method
      * @param variableManager
      */
-    private void buildOutputParameterData(Method method,VariableManager variableManager, Map<String,Object> resultData) throws FlowException {
+    private void buildOutputParameterData(Method method, BaseVariableManager variableManager, Map<String,Object> resultData) throws FlowException {
         List<FillStruct> outputFillRules = method.getOutputFillRules();
         if(CollectionUtils.isEmpty(outputFillRules)){
             return;

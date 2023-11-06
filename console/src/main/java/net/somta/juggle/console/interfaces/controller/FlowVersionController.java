@@ -44,23 +44,23 @@ public class FlowVersionController {
     @Operation(summary = "启用或禁用流程版本")
     @PutMapping("/status")
     public ResponseDataResult<Boolean> updateFlowVersionStatus(@RequestBody FlowVersionStatusParam flowVersionStatusParam){
-        FlowVersionAO flowVersionAO = flowVersionService.getFlowVersionInfo(flowVersionStatusParam.getFlowVersionId());
-        if(flowVersionAO == null){
+        FlowVersionAO flowVersionAo = flowVersionService.getFlowVersionInfo(flowVersionStatusParam.getFlowVersionId());
+        if(flowVersionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        flowVersionAO.setNegateStatus(FlowVersionStatusEnum.getByCode(flowVersionStatusParam.getFlowVersionStatus()));
-        flowVersionService.updateFlowVersionStatus(flowVersionAO);
+        flowVersionAo.setNegateStatus(FlowVersionStatusEnum.getByCode(flowVersionStatusParam.getFlowVersionStatus()));
+        flowVersionService.updateFlowVersionStatus(flowVersionAo);
         return ResponseDataResult.setResponseResult();
     }
 
     @Operation(summary = "删除流程版本")
     @DeleteMapping("/delete/{flowVersionId}")
     public ResponseDataResult<Boolean> deleteFlowVersion(@PathVariable Long flowVersionId){
-        FlowVersionAO flowVersionAO = flowVersionService.getFlowVersionInfo(flowVersionId);
-        if(flowVersionAO == null){
+        FlowVersionAO flowVersionAo = flowVersionService.getFlowVersionInfo(flowVersionId);
+        if(flowVersionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowVersionStatusEnum.ENABLE == flowVersionAO.getFlowVersionStatusEnum()){
+        if(FlowVersionStatusEnum.ENABLE == flowVersionAo.getFlowVersionStatusEnum()){
             return ResponseDataResult.setErrorResponseResult(ENABLE_FLOW_NOT_DELETE);
         }
         flowVersionService.deleteFlowVersion(flowVersionId);
@@ -98,15 +98,15 @@ public class FlowVersionController {
         if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
-        FlowVersionAO flowVersionAO = flowVersionService.getFlowVersionInfoByKey(flowKey,flowVersion);
-        if(flowVersionAO == null){
+        FlowVersionAO flowVersionAo = flowVersionService.getFlowVersionInfoByKey(flowKey,flowVersion);
+        if(flowVersionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
         }
-        if(FlowVersionStatusEnum.DISABLED == flowVersionAO.getFlowVersionStatusEnum()){
+        if(FlowVersionStatusEnum.DISABLED == flowVersionAo.getFlowVersionStatusEnum()){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
         }
 
-        FlowResult rst = flowVersionService.triggerFlow(flowVersionAO,triggerData);
+        FlowResult rst = flowVersionService.triggerFlow(flowVersionAo,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }
 

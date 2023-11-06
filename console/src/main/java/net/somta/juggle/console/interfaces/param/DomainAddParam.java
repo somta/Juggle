@@ -1,5 +1,8 @@
 package net.somta.juggle.console.interfaces.param;
 
+/**
+ * @author husong
+ */
 public class DomainAddParam {
     private String domainCode;
     private String domainName;

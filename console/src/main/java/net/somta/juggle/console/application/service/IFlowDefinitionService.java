@@ -68,17 +68,17 @@ public interface IFlowDefinitionService {
 
     /**
      * 部署流程
-     * @param flowDefinitionAO
+     * @param flowDefinitionAo
      * @return
      */
-    Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAO);
+    Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAo);
 
     /**
-     * @param flowDefinitionAO
+     * @param flowDefinitionAo
      * @param triggerData
      * @return
      */
-    FlowResult debugFlow(FlowDefinitionAO flowDefinitionAO, TriggerDataParam triggerData);
+    FlowResult debugFlow(FlowDefinitionAO flowDefinitionAo, TriggerDataParam triggerData);
 
 
 }

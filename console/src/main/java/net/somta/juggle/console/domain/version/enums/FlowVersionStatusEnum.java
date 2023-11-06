@@ -3,7 +3,6 @@ package net.somta.juggle.console.domain.version.enums;
 /**
  * @author husong
  */
-
 public enum FlowVersionStatusEnum {
 
     DISABLED(0,"禁用"),

@@ -46,12 +46,12 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAO) {
-        FlowDefinitionInfoPO flowDefinitionInfoPO = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAO);
-        flowDefinitionInfoPO.setCreatedAt(new Date());
-        flowDefinitionMapper.addFlowDefinitionInfo(flowDefinitionInfoPO);
+    public Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
+        FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
+        flowDefinitionInfoPo.setCreatedAt(new Date());
+        flowDefinitionMapper.addFlowDefinitionInfo(flowDefinitionInfoPo);
 
-        saveParametersAndVariables(flowDefinitionInfoPO.getId(),flowDefinitionAO);
+        saveParametersAndVariables(flowDefinitionInfoPo.getId(),flowDefinitionAo);
         return true;
     }
 
@@ -65,38 +65,38 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAO) {
-        FlowDefinitionInfoPO flowDefinitionInfoPO = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAO);
-        flowDefinitionMapper.update(flowDefinitionInfoPO);
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionAO.getId()));
-        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAO.getId());
-        saveParametersAndVariables(flowDefinitionInfoPO.getId(),flowDefinitionAO);
+    public Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
+        FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
+        flowDefinitionMapper.update(flowDefinitionInfoPo);
+        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionAo.getId()));
+        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAo.getId());
+        saveParametersAndVariables(flowDefinitionInfoPo.getId(),flowDefinitionAo);
         return true;
     }
 
     @Override
-    public Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAO) {
-        FlowDefinitionInfoPO flowDefinitionInfoPO = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAO);
-        flowDefinitionMapper.update(flowDefinitionInfoPO);
+    public Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAo) {
+        FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
+        flowDefinitionMapper.update(flowDefinitionInfoPo);
         return true;
     }
 
     @Override
     public FlowDefinitionAO queryFlowDefinitionInfo(Long flowDefinitionId) {
-        FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionMapper.queryById(flowDefinitionId);
-        FlowDefinitionAO flowDefinitionAO = IFlowDefinitionConverter.IMPL.poToAo(flowDefinitionInfoPO);
+        FlowDefinitionInfoPO flowDefinitionInfoPo = flowDefinitionMapper.queryById(flowDefinitionId);
+        FlowDefinitionAO flowDefinitionAo = IFlowDefinitionConverter.IMPL.poToAo(flowDefinitionInfoPo);
         ParameterEntity parameterEntity = parameterRepository.getParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionId));
-        flowDefinitionAO.setParameterEntity(parameterEntity);
-        return flowDefinitionAO;
+        flowDefinitionAo.setParameterEntity(parameterEntity);
+        return flowDefinitionAo;
     }
 
     @Override
     public FlowDefinitionAO queryFlowDefinitionByKey(String flowKey) {
-        FlowDefinitionInfoPO flowDefinitionInfoPO = flowDefinitionMapper.queryFlowDefinitionByKey(flowKey);
-        FlowDefinitionAO flowDefinitionAO = IFlowDefinitionConverter.IMPL.poToAo(flowDefinitionInfoPO);
-        ParameterEntity parameterEntity = parameterRepository.getParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionInfoPO.getId()));
-        flowDefinitionAO.setParameterEntity(parameterEntity);
-        return flowDefinitionAO;
+        FlowDefinitionInfoPO flowDefinitionInfoPo = flowDefinitionMapper.queryFlowDefinitionByKey(flowKey);
+        FlowDefinitionAO flowDefinitionAo = IFlowDefinitionConverter.IMPL.poToAo(flowDefinitionInfoPo);
+        ParameterEntity parameterEntity = parameterRepository.getParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionInfoPo.getId()));
+        flowDefinitionAo.setParameterEntity(parameterEntity);
+        return flowDefinitionAo;
     }
 
     @Override
@@ -104,25 +104,25 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
         return flowDefinitionMapper.queryFlowDefinitionList(flowDefinitionInfoQueryVO);
     }
 
-    private void saveParametersAndVariables(Long flowDefinitionId,FlowDefinitionAO flowDefinitionAO){
-        List<ParameterPO> parameterPoList = flowDefinitionAO.getParameterEntity().getParameterPoList(flowDefinitionId,ParameterSourceTypeEnum.FLOW.getCode());
-        List<VariableInfoPO> variableInfoPOList = new ArrayList<>();
-        flowDefinitionAO.getParameterEntity().getInputParameterList();
+    private void saveParametersAndVariables(Long flowDefinitionId,FlowDefinitionAO flowDefinitionAo){
+        List<ParameterPO> parameterPoList = flowDefinitionAo.getParameterEntity().getParameterPoList(flowDefinitionId,ParameterSourceTypeEnum.FLOW.getCode());
+        List<VariableInfoPO> variableInfoPoList = new ArrayList<>();
+        flowDefinitionAo.getParameterEntity().getInputParameterList();
         if(CollectionUtils.isNotEmpty(parameterPoList)){
             parameterPoList.stream().forEach(parameter -> {
                 parameter.setSourceId(flowDefinitionId);
-                VariableInfoPO variableInfoPO = new VariableInfoPO();
-                variableInfoPO.setFlowDefinitionId(flowDefinitionId);
-                variableInfoPO.setEnvKey(parameter.getParamKey());
-                variableInfoPO.setEnvName(parameter.getParamName());
-                variableInfoPO.setEnvType(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode() : VariableTypeEnum.OUTPUT_PARAM_VARIABLE.getCode());
-                variableInfoPO.setDataType(parameter.getDataType());
-                variableInfoPOList.add(variableInfoPO);
+                VariableInfoPO variableInfoPo = new VariableInfoPO();
+                variableInfoPo.setFlowDefinitionId(flowDefinitionId);
+                variableInfoPo.setEnvKey(parameter.getParamKey());
+                variableInfoPo.setEnvName(parameter.getParamName());
+                variableInfoPo.setEnvType(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode() : VariableTypeEnum.OUTPUT_PARAM_VARIABLE.getCode());
+                variableInfoPo.setDataType(parameter.getDataType());
+                variableInfoPoList.add(variableInfoPo);
             });
             parameterMapper.batchAddParameter(parameterPoList);
 
-            if(CollectionUtils.isNotEmpty(variableInfoPOList)){
-                variableInfoMapper.batchAddVariable(variableInfoPOList);
+            if(CollectionUtils.isNotEmpty(variableInfoPoList)){
+                variableInfoMapper.batchAddVariable(variableInfoPoList);
             }
         }
     }

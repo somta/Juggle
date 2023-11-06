@@ -12,10 +12,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * @author husong
+ */
 public class JwtUtil {
 
     public static final String TOKEN_HEADER_KEY = "Authorization";
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    private static final Key SIGN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
  
     /**
      * 生成token
@@ -33,7 +36,7 @@ public class JwtUtil {
                 .setIssuedAt(new Date())
                 //过期时间
                 .setExpiration(expireDate)
-                .signWith(key)
+                .signWith(SIGN_KEY)
                 .compact();
     }
  
@@ -75,7 +78,7 @@ public class JwtUtil {
     private static Claims getClaimsJws(String token) {
         JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder();
         //设置签名的密钥
-        jwtParserBuilder.setSigningKey(key);
+        jwtParserBuilder.setSigningKey(SIGN_KEY);
         //解析内容,获得payload
         return jwtParserBuilder.build().parseClaimsJws(token).getBody();
     }

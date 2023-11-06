@@ -24,6 +24,9 @@ import java.util.List;
 
 import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
 
+/**
+ * @author husong
+ */
 @Service
 public class FlowInfoInfoServiceImpl implements IFlowInfoService {
 
@@ -37,9 +40,9 @@ public class FlowInfoInfoServiceImpl implements IFlowInfoService {
 
     @Override
     public Boolean deleteFlowInfo(Long flowId) {
-        FlowInfoAO flowInfoAO = flowInfoRepository.queryFlowInfo(flowId);
+        FlowInfoAO flowInfoAo = flowInfoRepository.queryFlowInfo(flowId);
         FlowVersionQueryVO flowVersionQueryVO = new FlowVersionQueryVO();
-        flowVersionQueryVO.setFlowId(flowInfoAO.getId());
+        flowVersionQueryVO.setFlowId(flowInfoAo.getId());
         flowVersionQueryVO.setFlowVersionStatus(FlowVersionStatusEnum.ENABLE.getCode());
         List<FlowVersionView> flowVersionViewList = flowVersionRepository.queryFlowVersionList(flowVersionQueryVO);
         if(CollectionUtils.isNotEmpty(flowVersionViewList)){

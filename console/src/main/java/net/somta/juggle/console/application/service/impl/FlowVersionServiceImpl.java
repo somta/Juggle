@@ -49,8 +49,8 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
     }
 
     @Override
-    public Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAO) {
-        return flowVersionRepository.updateFlowVersion(flowVersionAO);
+    public Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAo) {
+        return flowVersionRepository.updateFlowVersion(flowVersionAo);
     }
 
     @Override
@@ -75,10 +75,10 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
     }
 
     @Override
-    public FlowResult triggerFlow(FlowVersionAO flowVersionAO, TriggerDataParam triggerData) {
+    public FlowResult triggerFlow(FlowVersionAO flowVersionAo, TriggerDataParam triggerData) {
         Flow flow = new Flow();
-        flow.setFlowKey(flowVersionAO.getFlowKey());
-        flow.setFlowName(flowVersionAO.getFlowName());
+        flow.setFlowKey(flowVersionAo.getFlowKey());
+        flow.setFlowName(flowVersionAo.getFlowName());
        /* flow.setFlowContent(flowInfoPO.getFlowContent());
 
         String inputParameters = flowInfoPO.getInputs();
@@ -99,6 +99,6 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
             flow.setVariables(variableList);
         }*/
 
-        return flowRuntimeService.triggerFlow(flow, flowVersionAO.getFlowType(),triggerData);
+        return flowRuntimeService.triggerFlow(flow, flowVersionAo.getFlowType(),triggerData);
     }
 }

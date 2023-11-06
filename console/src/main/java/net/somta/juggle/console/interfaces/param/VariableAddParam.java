@@ -3,6 +3,9 @@ package net.somta.juggle.console.interfaces.param;
 import io.swagger.v3.oas.annotations.media.Schema;
 import net.somta.juggle.core.model.DataType;
 
+/**
+ * @author husong
+ */
 @Schema(description = "变量入参对象")
 public class VariableAddParam {
     /**

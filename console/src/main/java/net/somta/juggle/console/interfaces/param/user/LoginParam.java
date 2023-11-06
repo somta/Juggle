@@ -1,5 +1,8 @@
 package net.somta.juggle.console.interfaces.param.user;
 
+/**
+ * @author husong
+ */
 public class LoginParam {
     private String userName;
     private String password;

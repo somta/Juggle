@@ -12,11 +12,11 @@ import java.util.List;
  */
 public interface IApiRepository {
 
-    Boolean addApi(ApiAO apiAO);
+    Boolean addApi(ApiAO apiAo);
 
     Boolean deleteApi(Long apiId);
 
-    Boolean updateApi(ApiAO apiAO);
+    Boolean updateApi(ApiAO apiAo);
 
     ApiAO queryApi(Long apiId);
 

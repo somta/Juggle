@@ -31,9 +31,9 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
     }
 
     @Override
-    public Boolean updateFlowVersion(FlowVersionAO flowVersionAO) {
-        FlowVersionPO flowVersionPO = IFlowVersionConverter.IMPL.aoToPo(flowVersionAO);
-        flowVersionMapper.update(flowVersionPO);
+    public Boolean updateFlowVersion(FlowVersionAO flowVersionAo) {
+        FlowVersionPO flowVersionPo = IFlowVersionConverter.IMPL.aoToPo(flowVersionAo);
+        flowVersionMapper.update(flowVersionPo);
         return true;
     }
 
@@ -44,9 +44,9 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
 
     @Override
     public FlowVersionAO getFlowVersionInfo(Long flowVersionId) {
-        FlowVersionPO flowVersionPO = flowVersionMapper.queryById(flowVersionId);
-        FlowVersionAO flowVersionAO = IFlowVersionConverter.IMPL.poToAo(flowVersionPO);
-        return flowVersionAO;
+        FlowVersionPO flowVersionPo = flowVersionMapper.queryById(flowVersionId);
+        FlowVersionAO flowVersionAo = IFlowVersionConverter.IMPL.poToAo(flowVersionPo);
+        return flowVersionAo;
     }
 
     @Override

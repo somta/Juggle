@@ -25,94 +25,16 @@ public class ParameterEntity {
 
     private List<OutputParameterVO> outputParameterList;
 
-    /*public List<InputParameterVO> getInputParameter(){
-        List<InputParameterVO> inputParameterVOList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(this.inputParameterPOList)){
-            for (ParameterPO parameterPO : this.inputParameterPOList) {
-                InputParameterVO inputParameterVO = new InputParameterVO();
-                inputParameterVO.setParamKey(parameterPO.getParamKey());
-                inputParameterVO.setParamName(parameterPO.getParamName());
-                inputParameterVO.setDataType(parameterPO.getDataType());
-                inputParameterVO.setRequired(parameterPO.getRequired());
-                inputParameterVOList.add(inputParameterVO);
-            }
-        }
-        return inputParameterVOList;
-    }*/
-
-    /**
-     *
-     * @param inputParameterVOS
-     * @param sourceId
-     * @param sourceType
-     * @return
-     */
-    /*public ParameterEntity setInputParameter(List<InputParameterVO> inputParameterVOS,Long sourceId, String sourceType){
-        this.inputParameterList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(inputParameterVOS)){
-            for (InputParameterVO inputParameterVO : inputParameterVOS) {
-                ParameterPO parameterPO = new ParameterPO();
-                parameterPO.setParamKey(inputParameterVO.getParamKey());
-                parameterPO.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
-                parameterPO.setParamName(inputParameterVO.getParamName());
-                parameterPO.setDataType(inputParameterVO.getDataType());
-                parameterPO.setRequired(inputParameterVO.getRequired());
-                parameterPO.setSourceType(sourceType);
-                parameterPO.setSourceId(sourceId);
-                parameterPO.setCreatedAt(new Date());
-                inputParameterList.add(parameterPO);
-            }
-        }
-        return this;
-    }*/
-
-    /*public List<OutputParameterVO> getOutputParameter(){
-        List<OutputParameterVO> outputParameterVOParameterVOList = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(this.outputParameterPOList)){
-            for (ParameterPO parameterPO : this.outputParameterPOList) {
-                OutputParameterVO outputParameterVO = new OutputParameterVO();
-                outputParameterVO.setParamKey(parameterPO.getParamKey());
-                outputParameterVO.setParamName(parameterPO.getParamName());
-                outputParameterVO.setDataType(parameterPO.getDataType());
-                outputParameterVOParameterVOList.add(outputParameterVO);
-            }
-        }
-        return outputParameterVOParameterVOList;
-    }*/
-
-    /**
-     *
-     * @param outputParameterVOS
-     * @param sourceId
-     * @param sourceType
-     * @return
-     */
-  /*  public ParameterEntity setOutputParameter(List<OutputParameterVO> outputParameterVOS, Long sourceId, String sourceType){
-        this.outputParameterList = new ArrayList<>();
-        for (OutputParameterVO outputParameterVO : outputParameterVOS) {
-            ParameterPO parameterPO = new ParameterPO();
-            parameterPO.setParamKey(outputParameterVO.getParamKey());
-            parameterPO.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
-            parameterPO.setParamName(outputParameterVO.getParamName());
-            parameterPO.setDataType(outputParameterVO.getDataType());
-            parameterPO.setSourceType(sourceType);
-            parameterPO.setSourceId(sourceId);
-            parameterPO.setCreatedAt(new Date());
-            outputParameterList.add(parameterPO);
-        }
-        return this;
-    }*/
-
     /**
      * 将参数的po对象转成对应的出入参VO对象
-     * @param parameterPOS
+     * @param parameterPoList
      */
-    public void parseParameter(List<ParameterPO> parameterPOS) {
-        List<ParameterPO> inputParameterPoList = parameterPOS.stream()
+    public void parseParameter(List<ParameterPO> parameterPoList) {
+        List<ParameterPO> inputParameterPoList = parameterPoList.stream()
                 .filter(parameter -> ParameterTypeEnum.INPUT_PARAM.getCode() == parameter.getParamType())
                 .collect(Collectors.toList());
         this.inputParameterList = IParameterConverter.IMPL.inputParamerterPoListToVoList(inputParameterPoList);
-        List<ParameterPO> outputParameterPoList = parameterPOS.stream()
+        List<ParameterPO> outputParameterPoList = parameterPoList.stream()
                 .filter(parameter -> ParameterTypeEnum.OUTPUT_PARAM.getCode() == parameter.getParamType())
                 .collect(Collectors.toList());
         this.outputParameterList = IParameterConverter.IMPL.outputParamerterPoListToVoList(outputParameterPoList);
@@ -127,29 +49,29 @@ public class ParameterEntity {
         Date currentDate = new Date();
         if(CollectionUtils.isNotEmpty(this.inputParameterList)){
             for (InputParameterVO inputParameterVO : this.inputParameterList) {
-                ParameterPO inputParameterPO = new ParameterPO();
-                inputParameterPO.setParamKey(inputParameterVO.getParamKey());
-                inputParameterPO.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
-                inputParameterPO.setParamName(inputParameterVO.getParamName());
-                inputParameterPO.setDataType(inputParameterVO.getDataType());
-                inputParameterPO.setRequired(inputParameterVO.getRequired());
-                inputParameterPO.setSourceId(sourceId);
-                inputParameterPO.setSourceType(sourceType);
-                inputParameterPO.setCreatedAt(currentDate);
-                parameterPoList.add(inputParameterPO);
+                ParameterPO inputParameterPo = new ParameterPO();
+                inputParameterPo.setParamKey(inputParameterVO.getParamKey());
+                inputParameterPo.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
+                inputParameterPo.setParamName(inputParameterVO.getParamName());
+                inputParameterPo.setDataType(inputParameterVO.getDataType());
+                inputParameterPo.setRequired(inputParameterVO.getRequired());
+                inputParameterPo.setSourceId(sourceId);
+                inputParameterPo.setSourceType(sourceType);
+                inputParameterPo.setCreatedAt(currentDate);
+                parameterPoList.add(inputParameterPo);
             }
         }
         if(CollectionUtils.isNotEmpty(this.outputParameterList)){
             for (OutputParameterVO outputParameterVO : this.outputParameterList) {
-                ParameterPO outputParameterPO = new ParameterPO();
-                outputParameterPO.setParamKey(outputParameterVO.getParamKey());
-                outputParameterPO.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
-                outputParameterPO.setParamName(outputParameterVO.getParamName());
-                outputParameterPO.setDataType(outputParameterVO.getDataType());
-                outputParameterPO.setSourceId(sourceId);
-                outputParameterPO.setSourceType(sourceType);
-                outputParameterPO.setCreatedAt(currentDate);
-                parameterPoList.add(outputParameterPO);
+                ParameterPO outputParameterPo = new ParameterPO();
+                outputParameterPo.setParamKey(outputParameterVO.getParamKey());
+                outputParameterPo.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
+                outputParameterPo.setParamName(outputParameterVO.getParamName());
+                outputParameterPo.setDataType(outputParameterVO.getDataType());
+                outputParameterPo.setSourceId(sourceId);
+                outputParameterPo.setSourceType(sourceType);
+                outputParameterPo.setCreatedAt(currentDate);
+                parameterPoList.add(outputParameterPo);
             }
         }
         return parameterPoList;

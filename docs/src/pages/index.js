@@ -30,7 +30,7 @@ function Hero() {
                     <div className="row">
                         <div className="col">
                             <div className={styles.heroButtons}>
-                                <Link to="docs/guide/quick-start" className={styles.getStarted}>Get Started</Link>
+                                <Link to="docs/guide/start/quick-start" className={styles.getStarted}>Get Started</Link>
                                 {/*<a href='https://gitee.com/Somta' className={styles.giteeStar}><img src='' alt='star'></img></a>*/}
                             </div>
                         </div>
@@ -50,7 +50,7 @@ function Contributor({ name, url, avatar }) {
 }
 
 
-function Knife4jFramWork() {
+function JuggleFramWork() {
     return (
         <section className={clsx(styles.try, 'container')}>
             <div className="col">
@@ -93,7 +93,7 @@ export default function Home() {
             description={siteConfig.description}>
             <Hero />
             <Hightlights />
-            {/*<Knife4jFramWork />*/}
+            {/*<JuggleFramWork />*/}
             <Contributors />
             <div className="container">
                 <div className="row">

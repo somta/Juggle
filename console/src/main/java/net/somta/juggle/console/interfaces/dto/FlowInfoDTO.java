@@ -53,4 +53,15 @@ public class FlowInfoDTO {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "FlowInfoDTO{" +
+                "id=" + id +
+                ", flowKey='" + flowKey + '\'' +
+                ", flowName='" + flowName + '\'' +
+                ", flowType='" + flowType + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

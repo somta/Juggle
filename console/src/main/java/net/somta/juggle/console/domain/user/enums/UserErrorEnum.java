@@ -3,6 +3,9 @@ package net.somta.juggle.console.domain.user.enums;
 import net.somta.core.base.IBaseError;
 import net.somta.juggle.console.contants.ApplicationContants;
 
+/**
+ * @author husong
+ */
 public enum UserErrorEnum implements IBaseError {
     LOGIN_PARAM_ERROR(1000,  "用户名或密码不能为空"),
     USER_NOT_EXIST_ERROR(1001,  "用户不存在"),

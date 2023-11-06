@@ -5,12 +5,15 @@ import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IFlowDefinitionConverter {
 
     IFlowDefinitionConverter IMPL = Mappers.getMapper(IFlowDefinitionConverter.class);
 
-    FlowDefinitionInfoPO aoToPo(FlowDefinitionAO flowDefinitionAO);
+    FlowDefinitionInfoPO aoToPo(FlowDefinitionAO flowDefinitionAo);
 
-    FlowDefinitionAO poToAo(FlowDefinitionInfoPO flowDefinitionInfoPO);
+    FlowDefinitionAO poToAo(FlowDefinitionInfoPO flowDefinitionInfoPo);
 }

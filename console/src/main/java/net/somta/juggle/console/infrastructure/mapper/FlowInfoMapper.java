@@ -15,7 +15,7 @@ import java.util.List;
 public interface FlowInfoMapper extends IBaseMapper {
 
 
-    int addFlowInfo(FlowInfoPO flowInfoPO);
+    int addFlowInfo(FlowInfoPO flowInfoPo);
 
     FlowInfoPO querySimpleFlowInfo(Long flowId);
 

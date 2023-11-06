@@ -70,7 +70,7 @@ CREATE TABLE `t_flow_definition` (
  `flow_key` varchar(20) DEFAULT NULL,
  `flow_name` varchar(60) DEFAULT NULL,
  `flow_type` varchar(8) DEFAULT NULL,
- `flow_content` text,
+ `flow_content` mediumtext,
  `remark` varchar(120) DEFAULT NULL,
  `created_at` datetime DEFAULT NULL,
  `created_by` bigint(20) DEFAULT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE `t_variable_info` (
 -- ----------------------------
 -- Table structure for t_flow
 -- ----------------------------
-CREATE TABLE `t_flow` (
+CREATE TABLE `t_flow_info` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `flow_key` varchar(20) DEFAULT NULL,
   `flow_name` varchar(60) DEFAULT NULL,
@@ -136,10 +136,10 @@ CREATE TABLE `t_flow` (
 -- ----------------------------
 CREATE TABLE `t_flow_version` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `flow_id` varchar(20) DEFAULT NULL,
+  `flow_id` bigint DEFAULT NULL,
   `flow_version` varchar(8) DEFAULT NULL,
-  `flow_version_status` int DEFAULT '0',
-  `flow_content` text,
+  `flow_version_status` int(1) DEFAULT 0,
+  `flow_content` mediumtext,
   `inputs` text,
   `outputs` text,
   `variables` text,

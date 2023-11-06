@@ -29,6 +29,10 @@ public class FlowElement {
      */
     private String key;
     /**
+     * 流程元素名称
+     */
+    private String name;
+    /**
      * 流程元素类型
      */
     private ElementTypeEnum elementType;
@@ -39,6 +43,14 @@ public class FlowElement {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ElementTypeEnum getElementType() {

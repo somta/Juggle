@@ -2,6 +2,10 @@ package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.RuntimeContext;
 
+
+/**
+ * @author husong
+ */
 public interface IExecutor {
 
     /**

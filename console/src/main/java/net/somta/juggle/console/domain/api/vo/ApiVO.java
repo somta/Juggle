@@ -2,6 +2,9 @@ package net.somta.juggle.console.domain.api.vo;
 
 import java.util.Date;
 
+/**
+ * @author husong
+ */
 public class ApiVO {
     private Integer id;
 

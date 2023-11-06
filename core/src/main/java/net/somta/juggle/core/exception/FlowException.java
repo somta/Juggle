@@ -2,6 +2,9 @@ package net.somta.juggle.core.exception;
 
 import net.somta.juggle.core.enums.ErrorEnum;
 
+/**
+ * @author husong
+ */
 public class FlowException extends Exception{
 
     private int errCode;

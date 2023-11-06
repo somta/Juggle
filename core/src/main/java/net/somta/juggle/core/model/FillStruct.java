@@ -2,6 +2,9 @@ package net.somta.juggle.core.model;
 
 import net.somta.juggle.core.enums.FildSourceEnum;
 
+/**
+ * @author husong
+ */
 public class FillStruct {
     private String source;
 

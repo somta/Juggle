@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <artifactId>pagehelper</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -94,6 +94,7 @@
 
     <profiles>
         <profile>
+            <!-- mvn antrun:run -Prefresh-db -->
             <id>refresh-db</id>
             <build>
                 <plugins>
@@ -103,8 +104,8 @@
                         <version>3.0.0</version>
                         <configuration>
                             <target>
-                                <property file="src/main/resources/application.properties" />
-                                <sql driver="${spring.datasource.driver-class-name}" url="${spring.datasource.url}" userid="${spring.datasource.username}" password="${spring.datasource.password}" onerror="continue" encoding="${project.build.sourceEncoding}">
+<!--                                <property file="src/main/resources/application.properties" />-->
+                                <sql driver="org.h2.Driver" url="jdbc:h2:file:/data/db_juggle;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;IGNORECASE=TRUE;AUTO_SERVER=TRUE;OLD_INFORMATION_SCHEMA=TRUE" userid="sa" password="" onerror="continue" encoding="${project.build.sourceEncoding}">
                                     <classpath refid="maven.test.classpath" />
                                     <transaction src="src/main/resources/db/schema.sql"/>
                                     <transaction src="src/main/resources/db/data.sql"/>

@@ -10,14 +10,23 @@ import java.util.List;
  * @date 2022/12/15
  **/
 public class FlowNode extends FlowElement {
+    private String desc;
     /**
-     * 流程入口
+     * 节点入口
      */
     private List<String> incomings;
     /**
-     * 流程出口
+     * 节点出口
      */
     private List<String> outgoings;
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public List<String> getIncomings() {
         return incomings;

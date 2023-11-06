@@ -10,6 +10,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IVariableInfoAssembler {
 

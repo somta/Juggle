@@ -5,6 +5,9 @@ import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public class ApiUpdateParam {
     private Long id;
 

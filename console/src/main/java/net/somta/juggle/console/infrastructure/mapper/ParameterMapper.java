@@ -16,10 +16,10 @@ public interface ParameterMapper extends IBaseMapper {
 
     /**
      * 新增参数
-     * @param parameterPO
+     * @param parameterPo
      * @return
      */
-    int addParameter(ParameterPO parameterPO);
+    int addParameter(ParameterPO parameterPo);
 
     /**
      * 批量新增参数
@@ -30,15 +30,15 @@ public interface ParameterMapper extends IBaseMapper {
 
     /**
      * 根据sourceType和sourceId删除参数
-     * @param parameterVO
+     * @param parameterVo
      * @return
      */
-    int deleteParameter(ParameterVO parameterVO);
+    int deleteParameter(ParameterVO parameterVo);
 
     /**
      *
-     * @param parameterQueryVO
+     * @param parameterQueryVo
      * @return
      */
-    List<ParameterPO> getParameterListByVO(ParameterVO parameterQueryVO);
+    List<ParameterPO> getParameterListByVO(ParameterVO parameterQueryVo);
 }

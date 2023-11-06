@@ -17,7 +17,7 @@ public interface IFlowVersionService {
 
     FlowVersionAO getFlowVersionInfo(Long flowVersionId);
 
-    Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAO);
+    Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAo);
 
     FlowVersionAO getFlowVersionInfoByKey(String flowKey, String flowVersion);
 
@@ -27,9 +27,9 @@ public interface IFlowVersionService {
 
     /**
      * 触发流程
-     * @param flowVersionAO
+     * @param flowVersionAo
      * @return
      */
-    FlowResult triggerFlow(FlowVersionAO flowVersionAO, TriggerDataParam triggerData);
+    FlowResult triggerFlow(FlowVersionAO flowVersionAo, TriggerDataParam triggerData);
 
 }

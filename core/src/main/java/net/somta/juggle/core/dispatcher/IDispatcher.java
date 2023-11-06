@@ -8,6 +8,7 @@ import java.util.Map;
 
 /**
  * 调度器接口
+ * @author husong
  */
 public interface IDispatcher {
 

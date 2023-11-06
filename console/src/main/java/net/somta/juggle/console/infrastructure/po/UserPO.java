@@ -2,6 +2,9 @@ package net.somta.juggle.console.infrastructure.po;
 
 import net.somta.core.base.BaseModel;
 
+/**
+ * @author husong
+ */
 public class UserPO extends BaseModel {
     private Long id;
     private String userName;

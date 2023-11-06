@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Component
 public class DataTypeInfoRepositoryImpl implements IDataTypeInfoRepository {
 
@@ -19,9 +22,9 @@ public class DataTypeInfoRepositoryImpl implements IDataTypeInfoRepository {
     }
 
     @Override
-    public List<DataTypeInfoVO> queryDataTypeList() {
-        List<DataTypeInfoPO> dataTypeInfoPOList = dataTypeInfoMapper.queryDataTypeList();
-        List<DataTypeInfoVO> dataTypeInfoVOList = IDataTypeInfoConverter.IMPL.poListToVoList(dataTypeInfoPOList);
-        return dataTypeInfoVOList;
+    public List<DataTypeInfoVO> queryDataTypeList(Integer dataTypeClassify) {
+        List<DataTypeInfoPO> dataTypeInfoPoList = dataTypeInfoMapper.queryDataTypeList(dataTypeClassify);
+        List<DataTypeInfoVO> dataTypeInfoVoList = IDataTypeInfoConverter.IMPL.poListToVoList(dataTypeInfoPoList);
+        return dataTypeInfoVoList;
     }
 }

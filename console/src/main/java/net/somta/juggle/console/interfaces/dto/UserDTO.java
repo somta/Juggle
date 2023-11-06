@@ -1,5 +1,8 @@
 package net.somta.juggle.console.interfaces.dto;
 
+/**
+ * @author husong
+ */
 public class UserDTO {
     private Long id;
     private String userName;
@@ -18,5 +21,13 @@ public class UserDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }

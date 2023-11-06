@@ -4,6 +4,7 @@ import java.util.Map;
 
 /**
  * 触发流程的实体
+ * @author husong
  */
 public class TriggerDataParam {
     /**

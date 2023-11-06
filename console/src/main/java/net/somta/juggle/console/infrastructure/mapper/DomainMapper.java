@@ -6,6 +6,9 @@ import net.somta.juggle.console.infrastructure.po.DomainPO;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public interface DomainMapper extends IBaseMapper {
 
     List<DomainPO> queryDomainList();

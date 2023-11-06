@@ -6,6 +6,9 @@ import net.somta.juggle.console.domain.domain.vo.DomainVO;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public interface IDomainRepository {
     void addDomain(DomainEntity domainEntity);
 

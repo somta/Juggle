@@ -3,6 +3,9 @@ package net.somta.juggle.console.domain.api.enums;
 import net.somta.core.base.IBaseError;
 import net.somta.juggle.console.contants.ApplicationContants;
 
+/**
+ * @author husong
+ */
 public enum ApiErrorEnum implements IBaseError {
     API_NOT_EXIST(1000,  "api接口不存在"),
     ;

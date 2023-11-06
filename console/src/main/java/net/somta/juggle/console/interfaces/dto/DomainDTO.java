@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * @author husong
+ */
 public class DomainDTO {
     private Long id;
     private String domainCode;
@@ -50,5 +53,16 @@ public class DomainDTO {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "DomainDTO{" +
+                "id=" + id +
+                ", domainCode='" + domainCode + '\'' +
+                ", domainName='" + domainName + '\'' +
+                ", domainDesc='" + domainDesc + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

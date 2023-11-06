@@ -12,6 +12,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IApiAssembler {
     IApiAssembler IMPL = Mappers.getMapper(IApiAssembler.class);
@@ -21,9 +24,9 @@ public interface IApiAssembler {
 
     ApiAO paramToAo(ApiUpdateParam apiUpdateParam);
 
-    @Mapping(target = "apiInputParams", expression = "java(apiAO.getParameterEntity().getInputParameterList())")
-    @Mapping(target = "apiOutputParams", expression = "java(apiAO.getParameterEntity().getOutputParameterList())")
-    ApiInfoDTO aoToDto(ApiAO apiAO);
+    @Mapping(target = "apiInputParams", expression = "java(apiAo.getParameterEntity().getInputParameterList())")
+    @Mapping(target = "apiOutputParams", expression = "java(apiAo.getParameterEntity().getOutputParameterList())")
+    ApiInfoDTO aoToDto(ApiAO apiAo);
 
     List<ApiDTO> voListToDtoList(List<ApiVO> apiList);
 }

@@ -1,12 +1,14 @@
 package net.somta.juggle.core;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
+/**
+ * @author husong
+ */
 public class WorkRunnerImpl extends Thread implements IWorkRunner {
 
     private final Logger logger = LoggerFactory.getLogger(WorkRunnerImpl.class);
@@ -16,8 +18,13 @@ public class WorkRunnerImpl extends Thread implements IWorkRunner {
      */
     private LinkedBlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>();
 
-    // todo 先用固定线程池池化一下，后面改成手动创建
-    ExecutorService executorService =  Executors.newFixedThreadPool(2);
+    private ThreadPoolExecutor executorService = new ThreadPoolExecutor(
+            5,
+            10,
+            10,
+            TimeUnit.SECONDS,
+            new ArrayBlockingQueue<>(500),
+            new BasicThreadFactory.Builder().namingPattern("flowWorkThreadFactory-").build());
 
     /**
      * 任务执行器是否在执行

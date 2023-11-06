@@ -25,7 +25,7 @@ public class SwaggerConfiguration {
                 .packagesToScan(packagedToMatch).build();
     }
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info()
                         .title("Juggle微服务编排系统API")

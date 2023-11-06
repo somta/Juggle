@@ -99,4 +99,19 @@ public class ApiInfoDTO {
     public void setApiOutputParams(List<OutputParameterVO> apiOutputParams) {
         this.apiOutputParams = apiOutputParams;
     }
+
+    @Override
+    public String toString() {
+        return "ApiInfoDTO{" +
+                "id=" + id +
+                ", domainId=" + domainId +
+                ", apiUrl='" + apiUrl + '\'' +
+                ", apiName='" + apiName + '\'' +
+                ", apiDesc='" + apiDesc + '\'' +
+                ", apiRequestType='" + apiRequestType + '\'' +
+                ", apiRequestContentType='" + apiRequestContentType + '\'' +
+                ", apiInputParams=" + apiInputParams +
+                ", apiOutputParams=" + apiOutputParams +
+                '}';
+    }
 }

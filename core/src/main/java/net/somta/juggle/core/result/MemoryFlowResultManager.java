@@ -4,6 +4,9 @@ import org.apache.commons.collections4.map.LRUMap;
 
 import java.util.Map;
 
+/**
+ * @author husong
+ */
 public class MemoryFlowResultManager implements IFlowResultManager {
 
     private LRUMap<String, Map<String,Object>> result = new LRUMap<>(2000,500);

@@ -43,7 +43,7 @@ public class VariableInfoEntity {
      */
     private DataType dataType;
 
-    private List<VariableInfoPO> variableInfoPOList;
+    private List<VariableInfoPO> variableInfoPoList;
 
     public Long getFlowDefinitionId() {
         return flowDefinitionId;
@@ -91,12 +91,12 @@ public class VariableInfoEntity {
      */
     public List<Variable> getFlowRuntimeVariables(){
         List<Variable> variables = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(this.variableInfoPOList)){
-            for (VariableInfoPO variableInfoPO : variableInfoPOList) {
+        if(CollectionUtils.isNotEmpty(this.variableInfoPoList)){
+            for (VariableInfoPO variableInfoPo : variableInfoPoList) {
                 Variable variable = new Variable();
-                variable.setKey(variableInfoPO.getEnvKey());
-                variable.setName(variableInfoPO.getEnvName());
-                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoPO.getDataType(),DataType.class));
+                variable.setKey(variableInfoPo.getEnvKey());
+                variable.setName(variableInfoPo.getEnvName());
+                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoPo.getDataType(),DataType.class));
                 variables.add(variable);
             }
         }
@@ -110,21 +110,21 @@ public class VariableInfoEntity {
      */
     public void convertParameterToVariables(List<ParameterPO> parameters,Long flowDefinitionId){
         if(CollectionUtils.isNotEmpty(parameters)){
-            for (ParameterPO parameterPO : parameters) {
-                VariableInfoPO variableInfoPO = new VariableInfoPO();
-                variableInfoPO.setEnvKey(parameterPO.getParamKey());
-                variableInfoPO.setEnvName(parameterPO.getParamName());
-                variableInfoPO.setEnvType(parameterPO.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode()
+            for (ParameterPO parameterPo : parameters) {
+                VariableInfoPO variableInfoPo = new VariableInfoPO();
+                variableInfoPo.setEnvKey(parameterPo.getParamKey());
+                variableInfoPo.setEnvName(parameterPo.getParamName());
+                variableInfoPo.setEnvType(parameterPo.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode()
                         : VariableTypeEnum.OUTPUT_PARAM_VARIABLE.getCode());
-                variableInfoPO.setDataType(parameterPO.getDataType());
-                variableInfoPO.setFlowDefinitionId(flowDefinitionId);
-                variableInfoPO.setCreatedAt(new Date());
-                variableInfoPOList.add(variableInfoPO);
+                variableInfoPo.setDataType(parameterPo.getDataType());
+                variableInfoPo.setFlowDefinitionId(flowDefinitionId);
+                variableInfoPo.setCreatedAt(new Date());
+                variableInfoPoList.add(variableInfoPo);
             }
         }
     }
 
-    public void setVariableInfoList(List<VariableInfoPO> variableInfoPOList) {
-        this.variableInfoPOList = variableInfoPOList;
+    public void setVariableInfoList(List<VariableInfoPO> variableInfoPoList) {
+        this.variableInfoPoList = variableInfoPoList;
     }
 }

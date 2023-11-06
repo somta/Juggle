@@ -4,11 +4,14 @@ import net.somta.juggle.console.interfaces.dto.DataTypeOptionDTO;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public interface IDataTypeInfoService {
 
     /**
      * 获取下拉的选项
      * @return
      */
-    List<DataTypeOptionDTO> getDataTypeOptions();
+    List<DataTypeOptionDTO> getDataTypeOptions(Integer dataTypeClassify);
 }

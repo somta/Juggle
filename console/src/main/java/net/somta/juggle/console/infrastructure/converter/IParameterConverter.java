@@ -20,7 +20,7 @@ public interface IParameterConverter {
 
     IParameterConverter IMPL = Mappers.getMapper(IParameterConverter.class);
 
-    List<InputParameterVO> inputParamerterPoListToVoList(List<ParameterPO> inputParameterPOList);
+    List<InputParameterVO> inputParamerterPoListToVoList(List<ParameterPO> inputParameterPoList);
 
-    List<OutputParameterVO> outputParamerterPoListToVoList(List<ParameterPO> outputParameterPOList);
+    List<OutputParameterVO> outputParamerterPoListToVoList(List<ParameterPO> outputParameterPoList);
 }

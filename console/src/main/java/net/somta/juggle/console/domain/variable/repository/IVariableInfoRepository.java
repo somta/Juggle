@@ -5,7 +5,9 @@ import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 
 import java.util.List;
 
-
+/**
+ * @author husong
+ */
 public interface IVariableInfoRepository {
     VariableInfoEntity queryVariableInfo(Long flowDefinitionId);
 

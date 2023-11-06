@@ -14,7 +14,7 @@ import java.util.List;
 public interface FlowDefinitionMapper extends IBaseMapper {
 
 
-    int addFlowDefinitionInfo(FlowDefinitionInfoPO flowDefinitionInfoPO);
+    int addFlowDefinitionInfo(FlowDefinitionInfoPO flowDefinitionInfoPo);
 
     FlowDefinitionInfoPO queryFlowDefinitionByKey(String flowKey);
 

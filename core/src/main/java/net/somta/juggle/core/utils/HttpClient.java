@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author husong
+ */
 public class HttpClient {
 
     private CloseableHttpClient httpClient;

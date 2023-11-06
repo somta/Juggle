@@ -1,8 +1,10 @@
 package net.somta.juggle.console.domain.domain;
 
-
 import java.util.Date;
 
+/**
+ * @author husong
+ */
 public class DomainEntity {
 
     private String domainCode;

@@ -4,6 +4,9 @@ import net.somta.juggle.core.enums.FlowStatusEnum;
 
 import java.util.Map;
 
+/**
+ * @author husong
+ */
 public class FlowResult {
     private String flowInstanceId;
     private FlowStatusEnum status;

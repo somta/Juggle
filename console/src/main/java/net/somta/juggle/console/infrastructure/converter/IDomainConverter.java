@@ -8,11 +8,14 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IDomainConverter {
     IDomainConverter IMPL = Mappers.getMapper(IDomainConverter.class);
 
     DomainPO entityToPo(DomainEntity domainEntity);
 
-    List<DomainVO> poListToVoList(List<DomainPO> domainPOList);
+    List<DomainVO> poListToVoList(List<DomainPO> domainPoList);
 }
