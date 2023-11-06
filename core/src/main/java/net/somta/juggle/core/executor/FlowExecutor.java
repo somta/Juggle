@@ -5,7 +5,7 @@ import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.result.IFlowResultManager;
-import net.somta.juggle.core.variable.VariableManager;
+import net.somta.juggle.core.variable.BaseVariableManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +37,6 @@ public class FlowExecutor{
         return flowResult;
     }
 
-    //@Override
     public IExecutor getExecutor(RuntimeContext runtimeContext) {
         //1.判断上一个节点是否执行完成了
 
@@ -73,8 +72,8 @@ public class FlowExecutor{
     private Map<String,Object> postExecute(RuntimeContext runtimeContext) {
         System.out.println("执行流程全部完成......开始组装结果");
         List<OutputParameter> outputParameters = runtimeContext.getOutputParameters();
-        VariableManager variableManager = runtimeContext.getVariableManager();
-        Map<String,Object> result = new HashMap<>();
+        BaseVariableManager variableManager = runtimeContext.getVariableManager();
+        Map<String,Object> result = new HashMap<>(16);
         for (OutputParameter parameter : outputParameters) {
             Object value = null;
             try {

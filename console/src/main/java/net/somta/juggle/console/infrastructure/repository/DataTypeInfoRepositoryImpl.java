@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Component
 public class DataTypeInfoRepositoryImpl implements IDataTypeInfoRepository {
 

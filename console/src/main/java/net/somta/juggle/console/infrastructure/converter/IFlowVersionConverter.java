@@ -11,16 +11,19 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IFlowVersionConverter {
     IFlowVersionConverter IMPL = Mappers.getMapper(IFlowVersionConverter.class);
 
-    FlowVersionPO aoToPo(FlowInfoAO flowInfoAO);
+    FlowVersionPO aoToPo(FlowInfoAO flowInfoAo);
 
-    @Mapping(target = "flowVersionStatus", expression = "java(flowVersionAO.getFlowVersionStatusEnum().getCode())")
-    FlowVersionPO aoToPo(FlowVersionAO flowVersionAO);
+    @Mapping(target = "flowVersionStatus", expression = "java(flowVersionAo.getFlowVersionStatusEnum().getCode())")
+    FlowVersionPO aoToPo(FlowVersionAO flowVersionAo);
 
-    @Mapping(target = "flowVersionStatusEnum", expression = "java(net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum.getByCode(flowVersionPO.getFlowVersionStatus()))")
-    FlowVersionAO poToAo(FlowVersionPO flowVersionPO);
+    @Mapping(target = "flowVersionStatusEnum", expression = "java(net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum.getByCode(flowVersionPo.getFlowVersionStatus()))")
+    FlowVersionAO poToAo(FlowVersionPO flowVersionPo);
 
 }

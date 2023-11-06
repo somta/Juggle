@@ -1,7 +1,8 @@
 package net.somta.juggle.console.interfaces.dto;
 
-import net.somta.juggle.core.model.DataType;
-
+/**
+ * @author husong
+ */
 public class VariableInfoDTO {
 
     /**
@@ -67,5 +68,16 @@ public class VariableInfoDTO {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    @Override
+    public String toString() {
+        return "VariableInfoDTO{" +
+                "id=" + id +
+                ", envKey='" + envKey + '\'' +
+                ", envName='" + envName + '\'' +
+                ", envType=" + envType +
+                ", dataType='" + dataType + '\'' +
+                '}';
     }
 }

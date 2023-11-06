@@ -1,5 +1,8 @@
 package net.somta.juggle.console.domain.flow.vo;
 
+/**
+ * @author husong
+ */
 public class FlowInfoVO {
     private Long id;
 

@@ -1,6 +1,8 @@
 package net.somta.juggle.console.domain.domain.vo;
 
-
+/**
+ * @author husong
+ */
 public class DomainQueryVO {
     private String domainName;
 

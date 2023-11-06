@@ -16,12 +16,12 @@ public class ExecutorFactory {
      * @param flowElement
      * @return
      */
-    public static ElementExecutor getElementExecutor(FlowElement flowElement) {
+    public static AbstractElementExecutor getElementExecutor(FlowElement flowElement) {
         if(flowElement == null){
             return null;
         }
-        ElementExecutor elementExecutor = getElementExecutor(flowElement.getElementType());
-        return elementExecutor;
+        AbstractElementExecutor abstractElementExecutor = getElementExecutor(flowElement.getElementType());
+        return abstractElementExecutor;
     }
 
     /**
@@ -29,7 +29,7 @@ public class ExecutorFactory {
      * @param flowElementType
      * @return
      */
-    private static ElementExecutor getElementExecutor(ElementTypeEnum flowElementType) {
+    private static AbstractElementExecutor getElementExecutor(ElementTypeEnum flowElementType) {
         switch (flowElementType) {
             case START: return new StartNodeExecutor();
             case END: return new EndNodeExecutor();

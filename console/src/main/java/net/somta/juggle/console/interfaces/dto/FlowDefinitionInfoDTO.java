@@ -102,4 +102,18 @@ public class FlowDefinitionInfoDTO {
     public void setFlowOutputParams(List<OutputParameterVO> flowOutputParams) {
         this.flowOutputParams = flowOutputParams;
     }
+
+    @Override
+    public String toString() {
+        return "FlowDefinitionInfoDTO{" +
+                "id=" + id +
+                ", flowKey='" + flowKey + '\'' +
+                ", flowName='" + flowName + '\'' +
+                ", flowType='" + flowType + '\'' +
+                ", flowContent='" + flowContent + '\'' +
+                ", remark='" + remark + '\'' +
+                ", flowInputParams=" + flowInputParams +
+                ", flowOutputParams=" + flowOutputParams +
+                '}';
+    }
 }

@@ -8,7 +8,7 @@ import net.somta.juggle.core.RuntimeContext;
  * @author husong
  * @date 2023/02/06
  */
-public class EndNodeExecutor extends ElementExecutor{
+public class EndNodeExecutor extends AbstractElementExecutor {
 
     @Override
     protected void doPreExecute(RuntimeContext runtimeContext) {

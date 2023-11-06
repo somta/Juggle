@@ -1,13 +1,14 @@
 package net.somta.juggle.console.application.service;
 
-import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
 import net.somta.juggle.console.interfaces.param.VariableAddParam;
 import net.somta.juggle.console.interfaces.param.VariableUpdateParam;
-import net.somta.juggle.core.model.Variable;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public interface IVariableInfoService {
 
 

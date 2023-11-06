@@ -2,6 +2,9 @@ package net.somta.juggle.console.interfaces.param;
 
 import net.somta.core.base.page.PageParam;
 
+/**
+ * @author husong
+ */
 public class ApiQueryParam extends PageParam {
     private Long domainId;
 

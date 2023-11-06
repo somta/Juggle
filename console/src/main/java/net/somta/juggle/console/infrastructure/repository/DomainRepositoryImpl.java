@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Component
 public class DomainRepositoryImpl implements IDomainRepository {
     private final DomainMapper domainMapper;

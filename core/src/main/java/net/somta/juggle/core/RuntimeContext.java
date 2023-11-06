@@ -7,7 +7,7 @@ import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.MemoryVariableManager;
-import net.somta.juggle.core.variable.VariableManager;
+import net.somta.juggle.core.variable.BaseVariableManager;
 
 import java.util.List;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class RuntimeContext {
     /**
      * 变量管理器
      */
-    private VariableManager variableManager;
+    private BaseVariableManager variableManager;
 
     /**
      * 结果管理器
@@ -129,7 +129,7 @@ public class RuntimeContext {
         this.outputParameters = outputParameters;
     }
 
-    public VariableManager getVariableManager() {
+    public BaseVariableManager getVariableManager() {
         return variableManager;
     }
 

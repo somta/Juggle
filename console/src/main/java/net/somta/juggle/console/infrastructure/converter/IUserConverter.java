@@ -12,7 +12,7 @@ import org.mapstruct.factory.Mappers;
 public interface IUserConverter {
     IUserConverter IMPL = Mappers.getMapper(IUserConverter.class);
 
-    UserAO poToAo(UserPO userPO);
+    UserAO poToAo(UserPO userPo);
 
-    UserPO aoToPo(UserAO userAO);
+    UserPO aoToPo(UserAO userAo);
 }

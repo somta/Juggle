@@ -10,18 +10,18 @@ import java.util.List;
  * @author husong
  */
 public interface IFlowDefinitionRepository {
-    Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAO);
+    Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAo);
 
     Boolean deleteFlowDefinitionById(Long flowDefinitionId);
 
-    Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAO);
+    Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAo);
 
-    Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAO);
+    Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAo);
 
     FlowDefinitionAO queryFlowDefinitionInfo(Long flowDefinitionId);
 
     FlowDefinitionAO queryFlowDefinitionByKey(String flowKey);
 
-    List<FlowDefinitionInfoVO> queryFlowDefinitionList(FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVO);
+    List<FlowDefinitionInfoVO> queryFlowDefinitionList(FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVo);
 
 }

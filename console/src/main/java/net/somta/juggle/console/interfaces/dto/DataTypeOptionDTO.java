@@ -33,4 +33,13 @@ public class DataTypeOptionDTO {
     public void setObjectKey(String objectKey) {
         this.objectKey = objectKey;
     }
+
+    @Override
+    public String toString() {
+        return "DataTypeOptionDTO{" +
+                "type='" + type + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", objectKey='" + objectKey + '\'' +
+                '}';
+    }
 }

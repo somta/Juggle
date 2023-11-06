@@ -6,8 +6,7 @@ import com.googlecode.aviator.Expression;
 import net.somta.juggle.core.RuntimeContext;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.node.ConditionNode;
-import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.variable.VariableManager;
+import net.somta.juggle.core.variable.BaseVariableManager;
 
 import java.util.*;
 
@@ -17,7 +16,7 @@ import java.util.*;
  * @author husong
  * @date 2023/02/06
  */
-public class ConditionNodeExecutor extends ElementExecutor{
+public class ConditionNodeExecutor extends AbstractElementExecutor {
 
     private AviatorEvaluatorInstance aviatorEvaluatorInstance = AviatorEvaluator.getInstance();
 
@@ -56,10 +55,10 @@ public class ConditionNodeExecutor extends ElementExecutor{
      * @param variableManager 变量管理器
      * @return
      */
-    private boolean executeExpression(String expression, VariableManager variableManager) {
+    private boolean executeExpression(String expression, BaseVariableManager variableManager) {
         Expression compiledExp = aviatorEvaluatorInstance.compile(expression);
         List<String> variableKeys = compiledExp.getVariableNames();
-        Map<String, Object> env = new HashMap<>();
+        Map<String, Object> env = new HashMap<>(8);
         for (String key : variableKeys){
             try {
                 env.put(key,variableManager.getVariableValue(key));
@@ -68,7 +67,7 @@ public class ConditionNodeExecutor extends ElementExecutor{
             }
         }
         // 执行表达式
-        Boolean result = (Boolean) compiledExp.execute(env);
+        boolean result = (Boolean) compiledExp.execute(env);
         return result;
     }
 

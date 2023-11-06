@@ -10,8 +10,10 @@ import net.somta.juggle.console.interfaces.param.DomainUpdateParam;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 public interface IDomainService {
-
 
     void addDomain(DomainAddParam domainAddParam);
 

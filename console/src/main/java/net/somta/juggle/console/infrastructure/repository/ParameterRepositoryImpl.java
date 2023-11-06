@@ -29,16 +29,16 @@ public class ParameterRepositoryImpl implements IParameterRepository {
     @Override
     public ParameterEntity getParameter(ParameterVO parameterQueryVO) {
         ParameterEntity parameterEntity = new ParameterEntity();
-        List<ParameterPO> parameterPOList = parameterMapper.getParameterListByVO(parameterQueryVO);
-        List<ParameterPO> inputParameterPOList = parameterPOList.stream()
+        List<ParameterPO> parameterPoList = parameterMapper.getParameterListByVO(parameterQueryVO);
+        List<ParameterPO> inputParameterPoList = parameterPoList.stream()
                 .filter(parameter -> ParameterTypeEnum.INPUT_PARAM.getCode() == parameter.getParamType()).collect(Collectors.toList());
-        List<InputParameterVO> inputParameterVOList = IParameterConverter.IMPL.inputParamerterPoListToVoList(inputParameterPOList);
-        parameterEntity.setInputParameterList(inputParameterVOList);
+        List<InputParameterVO> inputParameterVoList = IParameterConverter.IMPL.inputParamerterPoListToVoList(inputParameterPoList);
+        parameterEntity.setInputParameterList(inputParameterVoList);
 
-        List<ParameterPO> outputParameterPOList = parameterPOList.stream()
+        List<ParameterPO> outputParameterPoList = parameterPoList.stream()
                 .filter(parameter -> ParameterTypeEnum.OUTPUT_PARAM.getCode() == parameter.getParamType()).collect(Collectors.toList());
-        List<OutputParameterVO> outputParameterVOList = IParameterConverter.IMPL.outputParamerterPoListToVoList(outputParameterPOList);
-        parameterEntity.setOutputParameterList(outputParameterVOList);
+        List<OutputParameterVO> outputParameterVoList = IParameterConverter.IMPL.outputParamerterPoListToVoList(outputParameterPoList);
+        parameterEntity.setOutputParameterList(outputParameterVoList);
         return parameterEntity;
     }
 }

@@ -2,6 +2,7 @@ package net.somta.juggle.core;
 
 /**
  * 执行具体的任务
+ * @author husong
  */
 public interface IWorkRunner {
 

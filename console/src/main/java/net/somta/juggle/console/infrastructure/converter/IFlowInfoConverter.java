@@ -8,13 +8,16 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IFlowInfoConverter {
     IFlowInfoConverter IMPL = Mappers.getMapper(IFlowInfoConverter.class);
 
-    FlowInfoPO aoToPo(FlowInfoAO flowInfoAO);
+    FlowInfoPO aoToPo(FlowInfoAO flowInfoAo);
 
-    FlowInfoAO poToAo(FlowInfoPO flowInfoPO);
+    FlowInfoAO poToAo(FlowInfoPO flowInfoPo);
 
     List<FlowInfoVO> poListToVoList(List<FlowInfoPO> flowInfoList);
 }

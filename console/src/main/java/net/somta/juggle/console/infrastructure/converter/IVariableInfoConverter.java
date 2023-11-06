@@ -9,6 +9,9 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
+/**
+ * @author husong
+ */
 @Mapper
 public interface IVariableInfoConverter {
 
@@ -18,5 +21,5 @@ public interface IVariableInfoConverter {
     @Mapping(target = "envType", expression = "java(variableInfoEntity.getEnvType().getCode())")
     VariableInfoPO entityToPo(VariableInfoEntity variableInfoEntity);
 
-    List<VariableInfoVO> poListToVoList(List<VariableInfoPO> variableInfoPOList);
+    List<VariableInfoVO> poListToVoList(List<VariableInfoPO> variableInfoPoList);
 }

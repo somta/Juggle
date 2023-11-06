@@ -2,6 +2,7 @@ package net.somta.juggle.core.enums;
 
 /**
  * 流程的状态枚举
+ * @author husong
  */
 public enum FlowStatusEnum {
     /**

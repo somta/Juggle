@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author husong
+ */
 @Service
 public class VariableInfoServiceImpl implements IVariableInfoService {
 
@@ -57,7 +60,11 @@ public class VariableInfoServiceImpl implements IVariableInfoService {
         return variableInfoDTOList;
     }
 
-    // todo 这里是一个mock接口，后面要删除
+    /**
+     * todo 这里是一个mock接口，后面要删除
+     * @param flowDefinitionId
+     * @return
+     */
     public List<Variable> getFlowVariableList(Long flowDefinitionId) {
         //todo mock一些变量数据
         List<Variable> variables = new ArrayList<>();

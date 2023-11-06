@@ -13,12 +13,15 @@ import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.result.IFlowResultManager;
-import net.somta.juggle.core.variable.VariableManager;
+import net.somta.juggle.core.variable.BaseVariableManager;
 import org.apache.commons.collections4.MapUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author husong
+ */
 public abstract class AbstractDispatcher implements IDispatcher {
 
     /**
@@ -53,7 +56,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * @param variableManager
      * @param flowData
      */
-    private void fillInputParameterVariable(VariableManager variableManager, Map<String,Object> flowData) throws FlowException {
+    private void fillInputParameterVariable(BaseVariableManager variableManager, Map<String,Object> flowData) throws FlowException {
         if(MapUtils.isNotEmpty(flowData)){
             for (String key : flowData.keySet()) {
                 variableManager.setVariableValue("env_"+key,flowData.get(key));

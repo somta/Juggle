@@ -5,6 +5,9 @@ import net.somta.core.base.BaseModel;
 
 import java.util.Date;
 
+/**
+ * @author husong
+ */
 public class DomainPO extends BaseModel {
     private Long id;
     private String domainCode;

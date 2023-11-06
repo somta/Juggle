@@ -49,7 +49,7 @@ public class UserController {
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
         if(loginParam.getPassword().equals(userAo.getPassword())){
-            Map<String, Object> payload = new HashMap<>();
+            Map<String, Object> payload = new HashMap<>(4);
             payload.put(UserTokenVO.USER_ID, userAo.getId().toString());
             String token = JwtUtil.generateToken(payload);
             loginDTO.setUserName(userAo.getUserName());

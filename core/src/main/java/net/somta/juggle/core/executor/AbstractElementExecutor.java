@@ -17,7 +17,7 @@ import java.util.Map;
  * @author husong
  * @date 2023/02/06
  */
-public abstract class ElementExecutor implements IExecutor {
+public abstract class AbstractElementExecutor implements IExecutor {
 
     @Override
     public void execute(RuntimeContext runtimeContext) {

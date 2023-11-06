@@ -2,6 +2,7 @@ package net.somta.juggle.core.enums;
 
 /**
  * 字段的数据来源枚举
+ * @author husong
  */
 public enum FildSourceEnum {
     VARIABLE,

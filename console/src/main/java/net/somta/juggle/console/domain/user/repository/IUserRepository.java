@@ -7,7 +7,7 @@ import net.somta.juggle.console.domain.user.UserAO;
  */
 public interface IUserRepository {
 
-    void updateUser(UserAO userAO);
+    void updateUser(UserAO userAo);
 
     UserAO getUserById(Long userId);
 

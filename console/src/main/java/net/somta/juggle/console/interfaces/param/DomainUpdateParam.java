@@ -1,5 +1,8 @@
 package net.somta.juggle.console.interfaces.param;
 
+/**
+ * @author husong
+ */
 public class DomainUpdateParam {
     private Long id;
     private String domainCode;

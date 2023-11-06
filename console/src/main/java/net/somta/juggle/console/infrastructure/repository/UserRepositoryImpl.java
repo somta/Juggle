@@ -19,22 +19,22 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public void updateUser(UserAO userAO) {
-        UserPO userPO = IUserConverter.IMPL.aoToPo(userAO);
-        userMapper.update(userPO);
+    public void updateUser(UserAO userAo) {
+        UserPO userPo = IUserConverter.IMPL.aoToPo(userAo);
+        userMapper.update(userPo);
     }
 
     @Override
     public UserAO getUserById(Long userId) {
-        UserPO userPO = userMapper.queryById(userId);
-        UserAO userAO = IUserConverter.IMPL.poToAo(userPO);
-        return userAO;
+        UserPO userPo = userMapper.queryById(userId);
+        UserAO userAo = IUserConverter.IMPL.poToAo(userPo);
+        return userAo;
     }
 
     @Override
     public UserAO getUserByUserName(String userName) {
-        UserPO userPO = userMapper.getUserByUserName(userName);
-        UserAO userAO = IUserConverter.IMPL.poToAo(userPO);
-        return userAO;
+        UserPO userPo = userMapper.getUserByUserName(userName);
+        UserAO userAo = IUserConverter.IMPL.poToAo(userPo);
+        return userAo;
     }
 }

@@ -3,6 +3,9 @@ package net.somta.juggle.console.domain.domain.enums;
 import net.somta.core.base.IBaseError;
 import net.somta.juggle.console.contants.ApplicationContants;
 
+/**
+ * @author husong
+ */
 public enum DomainErrorEnum implements IBaseError {
     DOMAIN_EXIST_API_ERROR(1000,  "该领域下存在接口，不能删除"),
     ;

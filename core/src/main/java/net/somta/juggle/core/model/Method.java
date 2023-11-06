@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 方法类，承载一个Http的请求信息
+ * @author husong
  */
 public class Method {
 
@@ -70,22 +71,6 @@ public class Method {
     public void setRequestContentType(RequestContentTypeEnum requestContentType) {
         this.requestContentType = requestContentType;
     }
-
-    /*public List<InputParameter> getInputParameters() {
-        return inputParameters;
-    }
-
-    public void setInputParameters(List<InputParameter> inputParameters) {
-        this.inputParameters = inputParameters;
-    }
-
-    public List<OutputParameter> getOutputParameters() {
-        return outputParameters;
-    }
-
-    public void setOutputParameters(List<OutputParameter> outputParameters) {
-        this.outputParameters = outputParameters;
-    }*/
 
     public List<FillStruct> getInputFillRules() {
         return inputFillRules;

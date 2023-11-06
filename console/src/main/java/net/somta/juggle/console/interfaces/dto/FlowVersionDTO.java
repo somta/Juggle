@@ -54,4 +54,15 @@ public class FlowVersionDTO {
     public void setFlowVersionStatus(Integer flowVersionStatus) {
         this.flowVersionStatus = flowVersionStatus;
     }
+
+    @Override
+    public String toString() {
+        return "FlowVersionDTO{" +
+                "id=" + id +
+                ", flowName='" + flowName + '\'' +
+                ", flowVersion='" + flowVersion + '\'' +
+                ", triggerUrl='" + triggerUrl + '\'' +
+                ", flowVersionStatus=" + flowVersionStatus +
+                '}';
+    }
 }

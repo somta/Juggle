@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static net.somta.juggle.console.domain.user.enums.UserErrorEnum.USER_NOT_LOGIN_ERROR;
 
+/**
+ * @author husong
+ */
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Override

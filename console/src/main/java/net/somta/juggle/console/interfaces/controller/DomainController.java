@@ -20,6 +20,9 @@ import java.util.List;
 
 import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 
+/**
+ * @author husong
+ */
 @Tag(name = "领域接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/domain")

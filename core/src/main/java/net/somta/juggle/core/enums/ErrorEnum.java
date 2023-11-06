@@ -1,5 +1,8 @@
 package net.somta.juggle.core.enums;
 
+/**
+ * @author husong
+ */
 public enum ErrorEnum {
 
     ENV_KEY_ERROR(1001, "变量的key不能为空"),

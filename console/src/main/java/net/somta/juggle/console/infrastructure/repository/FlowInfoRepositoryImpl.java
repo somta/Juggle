@@ -41,9 +41,9 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
 
     @Override
     public FlowInfoAO queryFlowInfo(Long flowInfoId) {
-        FlowInfoPO flowInfoPO = flowInfoMapper.queryById(flowInfoId);
-        FlowInfoAO flowInfoAO = IFlowInfoConverter.IMPL.poToAo(flowInfoPO);
-        return flowInfoAO;
+        FlowInfoPO flowInfoPo = flowInfoMapper.queryById(flowInfoId);
+        FlowInfoAO flowInfoAo = IFlowInfoConverter.IMPL.poToAo(flowInfoPo);
+        return flowInfoAo;
     }
 
     @Override
@@ -55,20 +55,20 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean deployFlow(FlowInfoAO flowInfoAO) {
+    public Boolean deployFlow(FlowInfoAO flowInfoAo) {
         Date currentDate = new Date();
-        FlowInfoPO flowInfoPO = flowInfoMapper.queryFlowByFlowKey(flowInfoAO.getFlowKey());
-        if(flowInfoPO == null){
-            flowInfoPO = IFlowInfoConverter.IMPL.aoToPo(flowInfoAO);
-            flowInfoPO.setCreatedAt(currentDate);
-            flowInfoMapper.addFlowInfo(flowInfoPO);
+        FlowInfoPO flowInfoPo = flowInfoMapper.queryFlowByFlowKey(flowInfoAo.getFlowKey());
+        if(flowInfoPo == null){
+            flowInfoPo = IFlowInfoConverter.IMPL.aoToPo(flowInfoAo);
+            flowInfoPo.setCreatedAt(currentDate);
+            flowInfoMapper.addFlowInfo(flowInfoPo);
         }
 
-        FlowVersionPO flowVersionPO = IFlowVersionConverter.IMPL.aoToPo(flowInfoAO);
-        flowVersionPO.setFlowId(flowInfoPO.getId());
-        flowVersionPO.setFlowVersionStatus(FlowVersionStatusEnum.DISABLED.getCode());
-        flowVersionPO.setCreatedAt(currentDate);
-        flowVersionMapper.add(flowVersionPO);
+        FlowVersionPO flowVersionPo = IFlowVersionConverter.IMPL.aoToPo(flowInfoAo);
+        flowVersionPo.setFlowId(flowInfoPo.getId());
+        flowVersionPo.setFlowVersionStatus(FlowVersionStatusEnum.DISABLED.getCode());
+        flowVersionPo.setCreatedAt(currentDate);
+        flowVersionMapper.add(flowVersionPo);
         return true;
     }
 }

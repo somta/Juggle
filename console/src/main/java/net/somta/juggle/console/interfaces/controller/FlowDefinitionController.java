@@ -94,9 +94,9 @@ public class FlowDefinitionController {
     @Operation(summary = "查询流程定义详情")
     @GetMapping("/info/{flowDefinitionId}")
     public ResponseDataResult<FlowDefinitionInfoDTO> getFlowDefinitionInfo(@PathVariable Long flowDefinitionId){
-        FlowDefinitionAO flowDefinitionAO = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionId);
-        FlowDefinitionInfoDTO flowDefinitionInfoDTO = IFlowDefinitionAssembler.IMPL.aoToDto(flowDefinitionAO);
-        return ResponseDataResult.setResponseResult(flowDefinitionInfoDTO);
+        FlowDefinitionAO flowDefinitionAo = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionId);
+        FlowDefinitionInfoDTO flowDefinitionInfoDto = IFlowDefinitionAssembler.IMPL.aoToDto(flowDefinitionAo);
+        return ResponseDataResult.setResponseResult(flowDefinitionInfoDto);
     }
 
     /**
@@ -122,14 +122,14 @@ public class FlowDefinitionController {
         if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
-        FlowDefinitionAO flowDefinitionAO = flowDefinitionService.getFlowDefinitionByKey(flowKey);
-        if(flowDefinitionAO == null){
+        FlowDefinitionAO flowDefinitionAo = flowDefinitionService.getFlowDefinitionByKey(flowKey);
+        if(flowDefinitionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        if(StringUtils.isEmpty(flowDefinitionAO.getFlowContent())){
+        if(StringUtils.isEmpty(flowDefinitionAo.getFlowContent())){
             return ResponseDataResult.setErrorResponseResult(FlowDefinitionErrorEnum.FLOW_DEFINITION_CONTENT_IS_NULL_ERROR);
         }
-        FlowResult rst = flowDefinitionService.debugFlow(flowDefinitionAO,triggerData);
+        FlowResult rst = flowDefinitionService.debugFlow(flowDefinitionAo,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }
 
@@ -141,11 +141,11 @@ public class FlowDefinitionController {
     @Operation(summary = "部署流程")
     @PostMapping("/deploy")
     public ResponseDataResult<Boolean> deployFlowDefinition(@RequestBody FlowDefinitionDeployParam flowDefinitionDeployParam){
-        FlowDefinitionAO flowDefinitionAO = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionDeployParam.getFlowDefinitionId());
-        if(flowDefinitionAO == null){
+        FlowDefinitionAO flowDefinitionAo = flowDefinitionService.getFlowDefinitionInfo(flowDefinitionDeployParam.getFlowDefinitionId());
+        if(flowDefinitionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam.getFlowDeployVersion(),flowDefinitionAO);
+        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam.getFlowDeployVersion(),flowDefinitionAo);
         return ResponseDataResult.setResponseResult(result);
     }
 }

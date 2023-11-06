@@ -27,9 +27,9 @@ public interface IFlowDefinitionAssembler {
 
     FlowDefinitionAO paramToAo(FlowDefinitionContentParam flowDefinitionContentParam);
 
-    @Mapping(target = "flowInputParams", expression = "java(flowDefinitionAO.getParameterEntity().getInputParameterList())")
-    @Mapping(target = "flowOutputParams", expression = "java(flowDefinitionAO.getParameterEntity().getOutputParameterList())")
-    FlowDefinitionInfoDTO aoToDto(FlowDefinitionAO flowDefinitionAO);
+    @Mapping(target = "flowInputParams", expression = "java(flowDefinitionAo.getParameterEntity().getInputParameterList())")
+    @Mapping(target = "flowOutputParams", expression = "java(flowDefinitionAo.getParameterEntity().getOutputParameterList())")
+    FlowDefinitionInfoDTO aoToDto(FlowDefinitionAO flowDefinitionAo);
 
     List<FlowDefinitionInfoDTO> voListToDtoList(List<FlowDefinitionInfoVO> flowDefinitionList);
 

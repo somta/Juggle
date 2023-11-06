@@ -52,6 +52,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+/**
+ * @author husong
+ */
 @Service
 public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
 
@@ -70,13 +73,13 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
 
     @Override
     public Boolean addFlowDefinition(FlowDefinitionAddParam flowDefinitionAddParam) {
-        FlowDefinitionAO flowDefinitionAO =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionAddParam);
+        FlowDefinitionAO flowDefinitionAo =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionAddParam);
         String flowKey = flowDefinitionAddParam.getFlowType() + "_" + RandomStringUtils.random(10, true, true);
-        flowDefinitionAO.setFlowKey(flowKey);
+        flowDefinitionAo.setFlowKey(flowKey);
 
-        flowDefinitionAO.initParameterList(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAddParam.getFlowOutputParams());
+        flowDefinitionAo.initParameterList(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAddParam.getFlowOutputParams());
 
-        return flowDefinitionRepository.addFlowDefinition(flowDefinitionAO);
+        return flowDefinitionRepository.addFlowDefinition(flowDefinitionAo);
     }
 
     @Override
@@ -86,22 +89,22 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
 
     @Override
     public Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam) {
-        FlowDefinitionAO flowDefinitionAO =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionUpdateParam);
-        flowDefinitionAO.initParameterList(flowDefinitionUpdateParam.getFlowInputParams(),flowDefinitionUpdateParam.getFlowOutputParams());
+        FlowDefinitionAO flowDefinitionAo =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionUpdateParam);
+        flowDefinitionAo.initParameterList(flowDefinitionUpdateParam.getFlowInputParams(),flowDefinitionUpdateParam.getFlowOutputParams());
 
-        return flowDefinitionRepository.updateFlowDefinition(flowDefinitionAO);
+        return flowDefinitionRepository.updateFlowDefinition(flowDefinitionAo);
     }
 
     @Override
     public Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam) {
-        FlowDefinitionAO flowDefinitionAO = IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionContentParam);
-        return flowDefinitionRepository.saveFlowDefinitionContent(flowDefinitionAO);
+        FlowDefinitionAO flowDefinitionAo = IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionContentParam);
+        return flowDefinitionRepository.saveFlowDefinitionContent(flowDefinitionAo);
     }
 
     @Override
     public FlowDefinitionAO getFlowDefinitionInfo(Long flowDefinitionId) {
-        FlowDefinitionAO flowDefinitionAO = flowDefinitionRepository.queryFlowDefinitionInfo(flowDefinitionId);
-        return flowDefinitionAO;
+        FlowDefinitionAO flowDefinitionAo = flowDefinitionRepository.queryFlowDefinitionInfo(flowDefinitionId);
+        return flowDefinitionAo;
     }
 
     @Override
@@ -111,11 +114,11 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
 
     @Override
     public PageInfo getFlowDefinitionPageList(FlowDefinitionPageParam flowDefinitionPageParam) {
-        FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVO = IFlowDefinitionAssembler.IMPL.paramToVo(flowDefinitionPageParam);
+        FlowDefinitionInfoQueryVO flowDefinitionInfoQueryVo = IFlowDefinitionAssembler.IMPL.paramToVo(flowDefinitionPageParam);
         Page<FlowDefinitionInfoDTO> page = PageHelper.startPage(flowDefinitionPageParam.getPageNum(), flowDefinitionPageParam.getPageSize());
-        List<FlowDefinitionInfoVO> flowDefinitionList = flowDefinitionRepository.queryFlowDefinitionList(flowDefinitionInfoQueryVO);
-        List<FlowDefinitionInfoDTO> flowDefinitionInfoDTOList = IFlowDefinitionAssembler.IMPL.voListToDtoList(flowDefinitionList);
-        PageInfo pageInfo = new PageInfo(flowDefinitionInfoDTOList);
+        List<FlowDefinitionInfoVO> flowDefinitionList = flowDefinitionRepository.queryFlowDefinitionList(flowDefinitionInfoQueryVo);
+        List<FlowDefinitionInfoDTO> flowDefinitionInfoDtoList = IFlowDefinitionAssembler.IMPL.voListToDtoList(flowDefinitionList);
+        PageInfo pageInfo = new PageInfo(flowDefinitionInfoDtoList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
     }
@@ -126,42 +129,42 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         return list;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAO) {
-        FlowInfoAO flowInfoAO = new FlowInfoAO();
-        flowInfoAO.setFlowVersion(flowVersion);
-        flowInfoAO.setFlowKey(flowDefinitionAO.getFlowKey());
-        flowInfoAO.setFlowName(flowDefinitionAO.getFlowName());
-        flowInfoAO.setFlowType(flowDefinitionAO.getFlowType());
-        flowInfoAO.setFlowContent(flowDefinitionAO.getFlowContent());
-        flowInfoAO.setRemark(flowDefinitionAO.getRemark());
+    public Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAo) {
+        FlowInfoAO flowInfoAo = new FlowInfoAO();
+        flowInfoAo.setFlowVersion(flowVersion);
+        flowInfoAo.setFlowKey(flowDefinitionAo.getFlowKey());
+        flowInfoAo.setFlowName(flowDefinitionAo.getFlowName());
+        flowInfoAo.setFlowType(flowDefinitionAo.getFlowType());
+        flowInfoAo.setFlowContent(flowDefinitionAo.getFlowContent());
+        flowInfoAo.setRemark(flowDefinitionAo.getRemark());
 
-        ParameterEntity parameterEntity = flowDefinitionAO.getParameterEntity();
+        ParameterEntity parameterEntity = flowDefinitionAo.getParameterEntity();
         String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());
-        flowInfoAO.setInputs(inputParameterString);
+        flowInfoAo.setInputs(inputParameterString);
         String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeOutputParameters());
-        flowInfoAO.setOutputs(outputParameterString);
+        flowInfoAo.setOutputs(outputParameterString);
 
-        VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionAO.getId());
+        VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionAo.getId());
         String variablesString = JsonSerializeHelper.serialize(variableInfoEntity.getFlowRuntimeVariables());
-        flowInfoAO.setVariables(variablesString);
-        return flowRepository.deployFlow(flowInfoAO);
+        flowInfoAo.setVariables(variablesString);
+        return flowRepository.deployFlow(flowInfoAo);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public FlowResult debugFlow(FlowDefinitionAO flowDefinitionAO, TriggerDataParam triggerData) {
+    public FlowResult debugFlow(FlowDefinitionAO flowDefinitionAo, TriggerDataParam triggerData) {
         Flow flow = new Flow();
-        flow.setFlowKey(flowDefinitionAO.getFlowKey());
-        flow.setFlowName(flowDefinitionAO.getFlowName());
-        flow.setFlowContent(flowDefinitionAO.getFlowContent());
-        flow.setInputParams(flowDefinitionAO.getParameterEntity().getFlowRuntimeInputParameters());
-        flow.setOutputParams(flowDefinitionAO.getParameterEntity().getFlowRuntimeOutputParameters());
+        flow.setFlowKey(flowDefinitionAo.getFlowKey());
+        flow.setFlowName(flowDefinitionAo.getFlowName());
+        flow.setFlowContent(flowDefinitionAo.getFlowContent());
+        flow.setInputParams(flowDefinitionAo.getParameterEntity().getFlowRuntimeInputParameters());
+        flow.setOutputParams(flowDefinitionAo.getParameterEntity().getFlowRuntimeOutputParameters());
 
-        VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionAO.getId());
+        VariableInfoEntity variableInfoEntity = variableInfoRepository.queryVariableInfo(flowDefinitionAo.getId());
         flow.setVariables(variableInfoEntity.getFlowRuntimeVariables());
-        return flowRuntimeService.triggerFlow(flow, flowDefinitionAO.getFlowType(),triggerData);
+        return flowRuntimeService.triggerFlow(flow, flowDefinitionAo.getFlowType(),triggerData);
     }
 
     @Override
@@ -347,7 +350,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         System.out.println(flowContent);
 
         Expression compiledExp = AviatorEvaluator.getInstance().compile("env_name==\"zhansan\"");
-        Map<String, Object> env = new HashMap<>();
+        Map<String, Object> env = new HashMap<>(8);
         env.put("env_name","zhansan");
         Boolean result = (Boolean) compiledExp.execute(env);
         System.out.println(result);

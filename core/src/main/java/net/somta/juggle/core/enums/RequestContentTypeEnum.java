@@ -1,5 +1,8 @@
 package net.somta.juggle.core.enums;
 
+/**
+ * @author husong
+ */
 public enum RequestContentTypeEnum {
 
     application_json("application/json; charset=UTF-8"),
