@@ -1,9 +1,10 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
     "composite": true,
+    "skipLibCheck": true,
     "module": "ESNext",
-    "types": ["node", "d3"]
-  }
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["vite.config.ts", "local.config.ts"]
 }

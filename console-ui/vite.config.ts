@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { ApiProxy } from './local.config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,9 +14,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      //'^/v(d*)': 'http://1985p77f79.imwork.net:28434',
-      '^/v(d*)': 'http://127.0.0.1:8686',
-      //'^/v(d*)': 'http://ttshangxiang.com:8686',
+      '^/v(d*)': ApiProxy,
     },
   },
 });
