@@ -33,7 +33,7 @@ public class MyBatisConfiguration {
     @Value("${spring.datasource.username:sa}")
     private String username;
 
-    @Value("${spring.datasource.password:}")
+    @Value("${spring.datasource.password:juggle}")
     private String password;
 
     @Bean
