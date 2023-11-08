@@ -14,7 +14,8 @@ import java.util.List;
 @Mapper
 public interface IDataTypeInfoAssembler {
     IDataTypeInfoAssembler IMPL = Mappers.getMapper(IDataTypeInfoAssembler.class);
-
     @Mapping(target = "type", source = "dataType")
+    DataTypeOptionDTO voToDto(DataTypeInfoVO dataTypeInfoVo);
+
     List<DataTypeOptionDTO> voListToDtoList(List<DataTypeInfoVO> dataTypeList);
 }
