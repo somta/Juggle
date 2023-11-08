@@ -63,7 +63,7 @@ JAVA_OPT="${JAVA_OPT} -Djuggle.home=${BASE_DIR}"
 JAVA_OPT="${JAVA_OPT} -jar ${BASE_DIR}/target/${SERVER}.jar"
 JAVA_OPT="${JAVA_OPT} ${JAVA_OPT_EXT}"
 JAVA_OPT="${JAVA_OPT} --spring.config.additional-location=${CUSTOM_SEARCH_LOCATIONS}"
-#JAVA_OPT="${JAVA_OPT} --logging.config=${BASE_DIR}/conf/juggle-logback.xml"
+JAVA_OPT="${JAVA_OPT} --logging.config=${BASE_DIR}/conf/juggle-logback.xml"
 
 if [ ! -d "${BASE_DIR}/logs" ]; then
   mkdir ${BASE_DIR}/logs

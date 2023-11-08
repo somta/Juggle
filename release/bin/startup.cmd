@@ -23,8 +23,7 @@ rem set juggle spring config location
 set "JUGGLE_CONFIG_OPTS=--spring.config.additional-location=%CUSTOM_SEARCH_LOCATIONS%"
 
 rem set juggle log4j file location
-rem set "JUGGLE_LOG4J_OPTS=--logging.config=%BASE_DIR%/conf/juggle-logback.xml"
-
+set "JUGGLE_LOG4J_OPTS=--logging.config=%BASE_DIR%/conf/juggle-logback.xml"
 
 set COMMAND="%JAVA%" %JUGGLE_JVM_OPTS% %JUGGLE_OPTS% %JUGGLE_CONFIG_OPTS% %JUGGLE_LOG4J_OPTS% juggle.juggle %*
 
