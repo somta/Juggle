@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "node build/predev.js && vite",
     "build": "run-p type-check build-only && node build/copyDist.js",
     "preview": "vite preview",
     "build-only": "vite build",
