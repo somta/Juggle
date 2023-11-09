@@ -17,5 +17,17 @@ export enum ElementType {
   START = 'START',
   METHOD = 'METHOD',
   CONDITION = 'CONDITION',
-  END = 'END'
+  END = 'END',
+
+  // 前端创建的
+  CONDITION_BRANCH = 'CONDITION_BRANCH',
+  CONDITION_START = 'CONDITION_START',
 };
+
+export type NodeLayout = {
+  position: number[];
+  size: number[];
+  linesTo: string[];
+  node: NodeData;
+  children?: NodeLayout[];
+}

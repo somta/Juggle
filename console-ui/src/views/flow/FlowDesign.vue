@@ -43,7 +43,7 @@ onMounted(async () => {
     return;
   }
   flowRenderer = new FlowRenderer(flowCanvas.value, {
-    content: content,
+    nodes: content,
     onZoom: (event: any) => {
       scale.value = event.transform.k;
     },
