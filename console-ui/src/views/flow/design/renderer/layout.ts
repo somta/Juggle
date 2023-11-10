@@ -1,19 +1,20 @@
 
-import { NodeData, ElementType, NodeLayout } from '../types';
+import { NodeData, ElementType } from '../types';
+import { LayoutNode } from './layoutNode';
 
 export class FlowLayout {
 
-  private nodeSize = [160, 80];
+  private nodeSize = { width: 160, height: 80 };
 
-  private nodeSpacing = [80, 80];
+  private spacing = { vertical: 80, horizontal: 80 };
 
   private startTop = 40;
 
   readonly nodeMap: Map<string, NodeData> = new Map();
 
-  readonly layoutMap: Map<string, NodeLayout> = new Map();
+  readonly layoutMap: Map<string, LayoutNode> = new Map();
 
-  private mainBranch: NodeLayout[] = [];
+  private mainBranch: LayoutNode[] = [];
 
   public calculate (nodes: NodeData[]) {
     this.analysis(nodes);
@@ -21,15 +22,16 @@ export class FlowLayout {
     const start = this.nodeMap.get('_start') as NodeData;
     const end = this.nodeMap.get('_end') as NodeData;
     // 起始位置
-    const pos = [0, this.startTop];
+    const pos = { left: 0, top: this.startTop };
     // 从开始依次处理节点
     const layouts = this.listNodeInOrder(start, end, pos);
     const last = layouts[layouts.length - 1];
     // 处理结束节点
-    const endPos = [0, last.position[1] + last.size[1] + this.nodeSpacing[1]];
+    const endPos = { left: 0, top: last.bottom + this.spacing.vertical };
     const endLayout = this.handleNormalNode(end, endPos);
-    // 返回主节点
+    // 主分支
     this.mainBranch = [...layouts, endLayout];
+    // 计算绝对位置
     return this.mainBranch;
   }
 
@@ -49,7 +51,7 @@ export class FlowLayout {
     }
   }
 
-  listNodeInOrder (start: NodeData, end: NodeData, position: number[]) {
+  listNodeInOrder (start: NodeData, end: NodeData, position: { left: number, top: number }) {
     let current: NodeData = start;
     let pos = position;
     const result = [];
@@ -58,7 +60,7 @@ export class FlowLayout {
       if (current === end) {
         break;
       }
-      let layout: NodeLayout;
+      let layout: LayoutNode;
       if (current.elementType === ElementType.CONDITION) {
         layout = this.handleConditionNode(current, pos);
       } else {
@@ -66,7 +68,7 @@ export class FlowLayout {
       }
       result.push(layout);
       // 加上下边距
-      pos = [pos[0], pos[1] + layout.size[1] + this.nodeSpacing[1]];
+      pos = { left: pos.left, top: pos.top + layout.height + this.spacing.horizontal };
       // 下一个节点
       const nextKey = current.outgoings?.[0];
       current = this.nodeMap.get(nextKey) as NodeData;
@@ -74,80 +76,87 @@ export class FlowLayout {
     return result;
   }
 
-  adjustNodePosition (layout: NodeLayout, offsetX: number) {
-    layout.position[0] -= offsetX;
+  adjustNodeRect (layout: LayoutNode) {
+    layout.setRelative(layout.left - layout.width / 2, layout.top);
   }
 
-  handleNormalNode (node: NodeData, position: number[]) {
-    const size = this.nodeSize;
-    const layout =  { size: [...size], position: [...position], node, linesTo: [] };
-    this.layoutMap.set(node.key, layout);
-    this.adjustNodePosition(layout, layout.size[0] / 2);
+  handleNormalNode (data: NodeData, position: { left: number, top: number }) {
+    const layout = new LayoutNode({
+      left: position.left,
+      top: position.top,
+      width: this.nodeSize.width,
+      height: this.nodeSize.height,
+      data,
+      linesTo: [],
+    });
+    this.layoutMap.set(data.key, layout);
+    this.adjustNodeRect(layout);
     return layout;
   }
 
-  handleConditionNode (node: NodeData, position: number[]) {
-    const size = this.nodeSize;
+  handleConditionNode (data: NodeData, position: { left: number, top: number }) {
     // 条件父节点
-    const layout: NodeLayout = { size: [0, 0], position: [...position], node, linesTo: [], children: [] };
+    const conditionLayout = new LayoutNode({
+      left: position.left,
+      top: position.top,
+      width: 0,
+      height: 0,
+      data,
+      linesTo: [],
+    });
 
     // 创建分支开始节点
     const startNode = {
-      key: `branch_${node.key}_start`,
-      name: node.name,
-      outgoings: node.outgoings,
+      key: `branch_${data.key}_start`,
+      name: data.name,
+      outgoings: data.outgoings,
       elementType: ElementType.CONDITION_START,
     };
     this.nodeMap.set(startNode.key, startNode);
-    const startLayout = this.handleNormalNode(startNode, [0, 0]);
-    layout.children!.push(startLayout);
+    const startLayout = this.handleNormalNode(startNode, { left: 0, top: 0 });
+    conditionLayout.addChild(startLayout);
 
     // 处理分支节点
-    if (node.conditions && Array.isArray(node.conditions)) {
-      node.conditions.forEach((condition, index) => {
+    let maxRight = 0;
+    let maxBottom = 0;
+    if (data.conditions && Array.isArray(data.conditions)) {
+      data.conditions.forEach((condition, index) => {
         const branchNode = {
-          key: `branch_${node.key}_${index}}`,
+          key: `branch_${data.key}_${index}}`,
           name: condition.conditionName,
           outgoings: [condition.outgoing],
           elementType: ElementType.CONDITION_BRANCH,
         };
-        const end = this.nodeMap.get(node.outgoings?.[0]) as NodeData;
-        const position = [
-          index * (size[0] + this.nodeSpacing[0]),
-          startLayout.size[1] + this.nodeSpacing[1],
-        ];
+        const end = this.nodeMap.get(data.outgoings?.[0]) as NodeData;
+        const position = {
+          left: maxRight + (index === 0 ? 0 : this.spacing.horizontal),
+          top: startLayout.bottom + this.spacing.vertical,
+        };
         const layouts = this.listNodeInOrder(branchNode, end, position);
-        layout.children!.push(...layouts);
-        const listSize = this.getListSize(layouts);
-        // 计算宽度
-        layout.size[0] = layout.size[0] + listSize[0];
-        // 加上右边距
-        if (index < node.conditions!.length - 1) {
-          layout.size[0] += this.nodeSpacing[0];
-        }
-        // 计算最高高度
-        layout.size[1] = Math.max(layout.size[1], listSize[1]);
+        const last = layouts[layouts.length - 1];
+
+        // 最大宽度
+        const maxWidth = Math.max(...layouts.map((layout) => layout.width));
+        layouts.forEach((layout) => {
+          // 整体右移动最大宽度的一半
+          layout.setRelative(layout.left + maxWidth / 2, layout.top);
+          conditionLayout.addChild(layout);
+        });
+        
+        // 最右
+        maxRight = Math.max(maxRight, Math.max(...layouts.map((layout) => layout.right)));
+        // 最底
+        maxBottom = Math.max(maxBottom, last.bottom);
       });
     }
 
+    // 设置条件父节点宽度
+    conditionLayout.setSize(maxRight, maxBottom);
     // 条件开始节点居中
-    this.adjustNodePosition(startLayout, -layout.size[0] / 2);
+    startLayout.setRelative(startLayout.left + conditionLayout.width / 2, startLayout.top);
     // 条件整体居中
-    this.adjustNodePosition(layout, layout.size[0] / 2);
-    this.layoutMap.set(node.key, layout);
-    return layout;
-  }
-
-  getListSize (list: NodeLayout[]) {
-    const size = [0, 0];
-    let top = 0;
-    let bottom = 0;
-    list.forEach((layout) => {
-      size[0] = Math.max(size[0], layout.size[0]);
-      top = Math.min(top, layout.position[1]);
-      bottom = Math.max(bottom, layout.position[1] + layout.size[1]);
-    });
-    size[1] = bottom - top;
-    return size;
+    this.adjustNodeRect(conditionLayout);
+    this.layoutMap.set(data.key, conditionLayout);
+    return conditionLayout;
   }
 }

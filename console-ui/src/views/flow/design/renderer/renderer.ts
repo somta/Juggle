@@ -1,7 +1,8 @@
 
 import * as d3 from 'd3';
-import { NodeData, ElementType, NodeLayout } from '../types';
+import { NodeData, ElementType } from '../types';
 import { FlowLayout } from './layout';
+import { LayoutNode } from './layoutNode';
 
 type D3Element = d3.Selection<any, any, any, any>;
 
@@ -76,8 +77,8 @@ export class FlowRenderer {
     });
   }
 
-  drawNode (container: D3Element, layout: NodeLayout) {
-    switch (layout.node.elementType) {
+  drawNode (container: D3Element, layout: LayoutNode) {
+    switch (layout.data.elementType) {
       case ElementType.START:
       case ElementType.END:
       case ElementType.METHOD:
@@ -91,15 +92,15 @@ export class FlowRenderer {
     }
   }
 
-  drawNormalNode (container: D3Element, layout: NodeLayout) {
-    const { position, size, node } = layout;
+  drawNormalNode (container: D3Element, layout: LayoutNode) {
+    const { left, top, width, height, data } = layout;
     const g = container.append('g');
     g.attr('class', 'node-warp')
-      .attr('transform', `translate(${position[0]}, ${position[1]})`);
+      .attr('transform', `translate(${left}, ${top})`);
     g.append('rect')
       .attr('class', 'flow-node')
-      .attr('width', size[0])
-      .attr('height', size[1])
+      .attr('width', width)
+      .attr('height', height)
       .attr('fill', '#fff')
       .attr('stroke', '#aaa')
       .attr('stroke-width', 1)
@@ -109,20 +110,21 @@ export class FlowRenderer {
     g.append('text')
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
-      .attr('x', size[0] / 2)
-      .attr('y', size[1] / 2)
-      .text(node.name);
+      .attr('x', width / 2)
+      .attr('y', height / 2)
+      .text(data.name);
   }
 
-  drawConditionNode (container: D3Element, layout: NodeLayout) {
-    const { position, children, size } = layout;
+  drawConditionNode (container: D3Element, layout: LayoutNode) {
+    const { left, top, width, height } = layout;
+    const children = layout.getChildren();
     const g = container.append('g')
       .attr('class', 'node-condition-warp')
-      .attr('transform', `translate(${position[0]}, ${position[1]})`);
+      .attr('transform', `translate(${left}, ${top})`);
     g.append('rect')
       .attr('class', 'flow-node')
-      .attr('width', size[0])
-      .attr('height', size[1])
+      .attr('width', width)
+      .attr('height', height)
       .attr('fill', '#fff')
       .attr('stroke', '#aaa')
       .attr('stroke-width', 1)

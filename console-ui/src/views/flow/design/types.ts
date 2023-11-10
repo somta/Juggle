@@ -1,3 +1,4 @@
+
 export type NodeCondition = {
   conditionName: string;
   conditionType: string;
@@ -24,10 +25,3 @@ export enum ElementType {
   CONDITION_START = 'CONDITION_START',
 };
 
-export type NodeLayout = {
-  position: number[];
-  size: number[];
-  linesTo: string[];
-  node: NodeData;
-  children?: NodeLayout[];
-}
