@@ -1,6 +1,6 @@
 
-import { NodeData } from '../types';
-import { TreeNode } from './treeNode';
+import { NodeData } from '../../types';
+import { TreeNode } from './TreeNode';
 
 export class LayoutNode extends TreeNode {
 
@@ -13,15 +13,15 @@ export class LayoutNode extends TreeNode {
     linesTo: string[];
   }) {
     super();
-    this.data = params.data;
-    this.linesTo = params.linesTo;
+    this._data = params.data;
+    this._linesTo = params.linesTo;
     this.setSize(params.width, params.height);
     this.setRelative(params.left, params.top);
   }
 
-  data: NodeData;
+  private _data: NodeData;
 
-  linesTo: string[];
+  private _linesTo: string[] = [];
 
   private _width = 0;
 
@@ -30,6 +30,14 @@ export class LayoutNode extends TreeNode {
   private _top = 0;
 
   private _left = 0;
+
+  get data() {
+    return this._data;
+  }
+
+  get linesTo () {
+    return this._linesTo;
+  }
 
   get width () {
     return this._width;
@@ -57,14 +65,14 @@ export class LayoutNode extends TreeNode {
 
   get x () {
     const parent = this.getParent();
-    const parentX: number = parent.x || 0;
+    const parentX: number = parent?.x || 0;
     return this.left + parentX;
   }
 
   get y () {
     const parent = this.getParent();
-    const parentY: number = parent.x || 0;
-    return this.left + parentY;
+    const parentY: number = parent?.y || 0;
+    return this.top + parentY;
   }
 
   setSize (width: number, height: number) {
@@ -83,5 +91,9 @@ export class LayoutNode extends TreeNode {
 
   public getParent() {
     return super.getParent() as LayoutNode;
+  }
+
+  public line (key: string) {
+    this._linesTo.push(key);
   }
 }

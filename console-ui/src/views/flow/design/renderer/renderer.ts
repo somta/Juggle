@@ -1,8 +1,7 @@
 
 import * as d3 from 'd3';
-import { NodeData, ElementType } from '../types';
-import { FlowLayout } from './layout';
-import { LayoutNode } from './layoutNode';
+import { NodeData } from '../types';
+import { VerticalLayout } from './layout';
 
 type D3Element = d3.Selection<any, any, any, any>;
 
@@ -20,12 +19,12 @@ export class FlowRenderer {
 
   private zoom: d3.ZoomBehavior<Element, unknown>;
 
-  private nodes: NodeData[];
+  private datas: NodeData[];
 
-  private layout = new FlowLayout();
+  private layout: VerticalLayout;
 
   constructor (el: HTMLElement, options: {
-    nodes: any[];
+    datas: any[];
     onZoom?: (event: any) => any
   }) {
     this.svg = d3.select(el)
@@ -35,8 +34,7 @@ export class FlowRenderer {
 
     this.boundary = el.getBoundingClientRect();
     this.pan = this.svg.append('g');
-    this.container = this.pan.append('g')
-      .attr('transform', `translate(${this.boundary.width / 2}, 0)`);
+    this.container = this.pan.append('g');
 
     this.zoom = d3.zoom()
       .scaleExtent(this.scaleExtent)
@@ -48,9 +46,11 @@ export class FlowRenderer {
       });
     this.svg.call(this.zoom as any);
 
-    this.nodes = options.nodes;
-    this.layout = new FlowLayout();
-    this.draw();
+    this.datas = options.datas;
+    this.layout = new VerticalLayout(this.container, this.boundary);
+    this.layout.calculate(this.datas);
+    this.layout.draw();
+    this.addEvents();
   }
 
   scaleFromTop (scale: number) {
@@ -70,70 +70,14 @@ export class FlowRenderer {
     return scale;
   }
 
-  draw () {
-    const mainBranch = this.layout.calculate(this.nodes);
-    mainBranch.forEach((layout) => {
-      this.drawNode(this.container, layout);
+  addEvents () {
+    d3.selectAll('.flow-node').on('click', function(event, d) {
+      console.log('flow-node元素被点击了');
+      console.log(event, d);
     });
-  }
-
-  drawNode (container: D3Element, layout: LayoutNode) {
-    switch (layout.data.elementType) {
-      case ElementType.START:
-      case ElementType.END:
-      case ElementType.METHOD:
-      case ElementType.CONDITION_START:
-      case ElementType.CONDITION_BRANCH:
-        this.drawNormalNode(container, layout);
-        break;
-      case ElementType.CONDITION:
-        this.drawConditionNode(container, layout);
-        break;
-    }
-  }
-
-  drawNormalNode (container: D3Element, layout: LayoutNode) {
-    const { left, top, width, height, data } = layout;
-    const g = container.append('g');
-    g.attr('class', 'node-warp')
-      .attr('transform', `translate(${left}, ${top})`);
-    g.append('rect')
-      .attr('class', 'flow-node')
-      .attr('width', width)
-      .attr('height', height)
-      .attr('fill', '#fff')
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', 1)
-      .attr('rx', 4)
-      .attr('ry', 4);
-
-    g.append('text')
-      .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
-      .attr('x', width / 2)
-      .attr('y', height / 2)
-      .text(data.name);
-  }
-
-  drawConditionNode (container: D3Element, layout: LayoutNode) {
-    const { left, top, width, height } = layout;
-    const children = layout.getChildren();
-    const g = container.append('g')
-      .attr('class', 'node-condition-warp')
-      .attr('transform', `translate(${left}, ${top})`);
-    g.append('rect')
-      .attr('class', 'flow-node')
-      .attr('width', width)
-      .attr('height', height)
-      .attr('fill', '#fff')
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', 1)
-      .attr('rx', 4)
-      .attr('ry', 4);
-    if (children && Array.isArray(children)) {
-      children.forEach((child) => {
-        this.drawNode(g, child);
-      });
-    }
+    d3.selectAll('.flow-add-btn').on('click', function(event, d) {
+      console.log('flow-add-btn元素被点击了');
+      console.log(event, d);
+    });
   }
 }

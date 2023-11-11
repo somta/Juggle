@@ -21,7 +21,8 @@ export enum ElementType {
   END = 'END',
 
   // 前端创建的
+  CONDITION_WRAPPER = 'CONDITION_START',
   CONDITION_BRANCH = 'CONDITION_BRANCH',
-  CONDITION_START = 'CONDITION_START',
 };
 
+export type D3Element = d3.Selection<any, any, any, any>;
