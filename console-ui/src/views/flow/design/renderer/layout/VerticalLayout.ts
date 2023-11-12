@@ -147,7 +147,7 @@ export class VerticalLayout {
         const end = this.dataMap.get(data.outgoings?.[0]) as NodeData;
         const position = {
           left: maxRight + (index === 0 ? 0 : this.spacing.horizontal),
-          top: startLayout.bottom + this.spacing.vertical,
+          top: startLayout.bottom + this.spacing.vertical / 2,
         };
         const layouts = this.listNodeInOrder(branchNode, end, position);
         const last = layouts[layouts.length - 1];
@@ -234,7 +234,11 @@ export class VerticalLayout {
       .attr('y', height / 2)
       .text(data.name);
 
-    if (node.data.elementType !== ElementType.END) {
+    if ([
+      ElementType.START,
+      ElementType.METHOD,
+      ElementType.CONDITION_BRANCH,
+    ].includes(data.elementType)) {
       this.drawAddIcon(g, node);
     }
   }
