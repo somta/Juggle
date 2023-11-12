@@ -30,6 +30,17 @@ module.exports = {
             'guide/start/start-with-docker'
         ],
      },{
+            type: 'category',
+            label: '使用手册',
+            collapsed: true,
+            items: [
+                'guide/user/domain',
+                'guide/user/api',
+                'guide/user/flow-definition',
+                'guide/user/flow-version',
+                'guide/user/data-type-info',
+            ],
+     },{
         type: 'category',
         label: '开源共建',
         collapsed: true,

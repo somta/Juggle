@@ -1,7 +1,13 @@
 package net.somta.juggle.core;
 
 import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
+import com.googlecode.aviator.runtime.function.AbstractFunction;
+import com.googlecode.aviator.runtime.function.FunctionUtils;
+import com.googlecode.aviator.runtime.type.AviatorDouble;
+import com.googlecode.aviator.runtime.type.AviatorObject;
+import net.somta.juggle.core.expression.StringEmptyFunction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -10,21 +16,154 @@ import java.util.Map;
 
 public class ExpressionTest {
 
-
-    // todo 这里单侧没有生效
     @Test
     public void stringExpressionTest(){
-        Expression compiledExp = AviatorEvaluator.getInstance().compile("env_name=='zhansan'");
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+        //加载自定义的方法函数
+        AviatorEvaluator.addFunction(new StringEmptyFunction());
+
+        //等于,字符串的值要用引号引起来
+        Expression compiledExp = instance.compile("env_name==\"zhansan\"");
         Map<String, Object> env = new HashMap<>();
         env.put("env_name","zhansan");
         Boolean result = (Boolean) compiledExp.execute(env);
         Assertions.assertEquals(result, true);
+
+        //不等于,字符串的值要用引号引起来
+        Expression compiledExp2 = instance.compile("env_name!='zhansan'");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_name","lisi");
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+
+        //为空
+        Expression compiledExp3 = instance.compile("string.empty(env_name)");
+        Map<String, Object> env3 = new HashMap<>();
+        //以下两种空都支持
+        env3.put("env_name",null);
+        //env3.put("env_name","");
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+        //不为空
+        Expression compiledExp4 = instance.compile("!string.empty(env_name)");
+        Map<String, Object> env4 = new HashMap<>();
+        //env4.put("env_name",null);
+        env4.put("env_name","");
+        Boolean result4 = (Boolean) compiledExp4.execute(env4);
+        Assertions.assertEquals(result4, false);
+
+
+        //包含 s1字符串包含s2字符串
+        Expression compiledExp5 = instance.compile("string.contains(s1,s2)");
+        Map<String, Object> env5 = new HashMap<>();
+        env5.put("s1","zhansan");
+        env5.put("s2","zhan");
+        Boolean result5 = (Boolean) compiledExp5.execute(env5);
+        Assertions.assertEquals(result5, true);
+
+        //包含 s1字符串包含s2字符串
+        Expression compiledExp6 = instance.compile("!string.contains(s1,s2)");
+        Map<String, Object> env6 = new HashMap<>();
+        env6.put("s1","zhansan");
+        env6.put("s2","zhan");
+        Boolean result6 = (Boolean) compiledExp6.execute(env6);
+        Assertions.assertEquals(result6, false);
     }
 
-    public static void main(String[] args) {
-        ExpressionTest expressionTest = new ExpressionTest();
-        expressionTest.stringExpressionTest();
+    @Test
+    public void integerExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //等于
+        Expression compiledExp = instance.compile("env_age==18");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_age",18);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不等于
+        Expression compiledExp2 = instance.compile("env_name!=18");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_age",30);
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+    }
+
+    @Test
+    public void doubleExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //等于
+        Expression compiledExp = instance.compile("env_money==100.23");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_money",100.23);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不等于
+        Expression compiledExp2 = instance.compile("env_money!=100.23");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_money",200.52);
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+    }
+
+    @Test
+    public void booleanExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //等于
+        Expression compiledExp = instance.compile("env_is_login==true");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_is_login",true);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不等于
+        Expression compiledExp2 = instance.compile("env_is_login!=true");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_is_login",false);
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+    }
+
+    @Test
+    public void dateTimeExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //等于
+        Expression compiledExp = instance.compile("env_is_login==true");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_is_login",true);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不等于
+        Expression compiledExp2 = instance.compile("env_is_login!=true");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_is_login",false);
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+    }
+
+    @Test
+    public void stringExpressionTest3(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+        AviatorEvaluator.addFunction(new StringEmptyFunction());
+
+        //等于,字符串的值要用引号引起来
+        Expression compiledExp3 = instance.compile("string.empty(env_name)");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_name",null);
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
 
     }
+
+
+
+
 
 }
