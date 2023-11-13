@@ -1,6 +1,6 @@
 package net.somta.juggle.core.dispatcher.impl;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.WorkRunnerImpl;
 import net.somta.juggle.core.dispatcher.AbstractDispatcher;
 import net.somta.juggle.core.enums.FlowStatusEnum;
@@ -21,17 +21,17 @@ public class AsyncDispatcher extends AbstractDispatcher {
     }
 
     @Override
-    protected FlowResult doSend(RuntimeContext runtimeContext) {
-        super.workRunner.postWork(() -> startFlow(runtimeContext) );
+    protected FlowResult doSend(FlowRuntimeContext flowRuntimeContext) {
+        super.workRunner.postWork(() -> startFlow(flowRuntimeContext) );
         return new FlowResult().setStatus(FlowStatusEnum.INIT);
     }
 
     /**
      * 开始执行流程
-     * @param runtimeContext
+     * @param flowRuntimeContext
      */
-    private void startFlow(RuntimeContext runtimeContext){
+    private void startFlow(FlowRuntimeContext flowRuntimeContext){
         System.out.println("startFlow.......");
-        flowExecutor.execute(runtimeContext);
+        flowExecutor.execute(flowRuntimeContext);
     }
 }

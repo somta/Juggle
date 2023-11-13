@@ -19,10 +19,6 @@ public class FlowDefinition {
      * 流程Key,全局唯一
      */
     private String flowKey;
-    /**
-     * 租户ID
-     */
-    private String tenantId;
 
     /**
      * 流程入参
@@ -58,14 +54,6 @@ public class FlowDefinition {
 
     public void setFlowKey(String flowKey) {
         this.flowKey = flowKey;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
     public List<InputParameter> getInputParameters() {

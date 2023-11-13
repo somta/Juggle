@@ -24,14 +24,6 @@ public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
     }
 
     @Override
-    public VariableInfoEntity queryVariableInfo(Long flowDefinitionId) {
-        VariableInfoEntity variableInfoEntity = new VariableInfoEntity();
-        List<VariableInfoPO> variableInfoPoList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionId);
-        variableInfoEntity.setVariableInfoList(variableInfoPoList);
-        return variableInfoEntity;
-    }
-
-    @Override
     public Boolean addVariable(VariableInfoEntity variableInfoEntity) {
         VariableInfoPO variableInfoPo = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
         variableInfoPo.setCreatedAt(new Date());

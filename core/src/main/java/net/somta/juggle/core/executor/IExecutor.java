@@ -1,6 +1,6 @@
 package net.somta.juggle.core.executor;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 
 
 /**
@@ -10,14 +10,14 @@ public interface IExecutor {
 
     /**
      * 执行流程
-     * @param runtimeContext
+     * @param flowRuntimeContext
      */
-    void execute(RuntimeContext runtimeContext);
+    void execute(FlowRuntimeContext flowRuntimeContext);
 
     /**
      * 获取节点元素的执行器
-     * @param runtimeContext
+     * @param flowRuntimeContext
      * @return
      */
-    IExecutor getExecutor(RuntimeContext runtimeContext);
+    IExecutor getExecutor(FlowRuntimeContext flowRuntimeContext);
 }

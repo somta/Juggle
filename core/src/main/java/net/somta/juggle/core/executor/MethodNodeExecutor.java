@@ -1,6 +1,6 @@
 package net.somta.juggle.core.executor;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
@@ -22,23 +22,23 @@ import java.util.Map;
 public class MethodNodeExecutor extends AbstractElementExecutor {
 
     @Override
-    protected void doPreExecute(RuntimeContext runtimeContext) {
+    protected void doPreExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("方法节点执行器，执行前。。。");
     }
 
     @Override
-    protected void doExecute(RuntimeContext runtimeContext) {
+    protected void doExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("方法节点执行器，执行中。。。");
-        MethodNode methodNode = (MethodNode)runtimeContext.getCurrentNode();
+        MethodNode methodNode = (MethodNode) flowRuntimeContext.getCurrentNode();
         try {
-            Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputFillRules(),runtimeContext.getVariableManager());
+            Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputFillRules(), flowRuntimeContext.getVariableManager());
             Map<String,Object> resultData = sendHttpRequest(methodNode.getMethod(),parameterData);
             System.out.println("接口执行完，获得的结果为：" + resultData.toString());
 
-            buildOutputParameterData(methodNode.getMethod(),runtimeContext.getVariableManager(),resultData);
+            buildOutputParameterData(methodNode.getMethod(), flowRuntimeContext.getVariableManager(),resultData);
 
             //从变量管理器中获取看看
-            Object envName = runtimeContext.getVariableManager().getVariableValue("env_name");
+            Object envName = flowRuntimeContext.getVariableManager().getVariableValue("env_name");
             System.out.println(envName);
 
         } catch (FlowException e) {
@@ -49,7 +49,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
 
 
     @Override
-    protected void doPostExecute(RuntimeContext runtimeContext) {
+    protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("方法节点执行器，执行后========================================");
     }
 

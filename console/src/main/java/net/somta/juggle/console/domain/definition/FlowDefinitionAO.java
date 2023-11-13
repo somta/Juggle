@@ -1,10 +1,17 @@
 package net.somta.juggle.console.domain.definition;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
+import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
+import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import net.somta.juggle.core.model.DataType;
+import net.somta.juggle.core.model.Variable;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +21,7 @@ public class FlowDefinitionAO {
 
     private Long id;
     /**
-     * 流程Key,全局唯一
+     * flow Key, globally unique
      */
     private String flowKey;
     /**
@@ -34,11 +41,32 @@ public class FlowDefinitionAO {
 
     private ParameterEntity parameterEntity;
 
+    private List<VariableInfoVO> variableInfoList;
+
+
     public void initParameterList(List<InputParameterVO> flowInputParamList, List<OutputParameterVO> flowOutputParamList) {
         ParameterEntity parameterEntity = new ParameterEntity();
         parameterEntity.setInputParameterList(flowInputParamList);
         parameterEntity.setOutputParameterList(flowOutputParamList);
         this.parameterEntity = parameterEntity;
+    }
+
+    /**
+     * 获取运行时的变量列表
+     * @return
+     */
+    public List<Variable> getFlowRuntimeVariables(){
+        List<Variable> variables = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(this.variableInfoList)){
+            for (VariableInfoVO variableInfoVo : variableInfoList) {
+                Variable variable = new Variable();
+                variable.setKey(variableInfoVo.getEnvKey());
+                variable.setName(variableInfoVo.getEnvName());
+                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoVo.getDataType(), DataType.class));
+                variables.add(variable);
+            }
+        }
+        return variables;
     }
 
     public Long getId() {
@@ -97,6 +125,11 @@ public class FlowDefinitionAO {
         this.parameterEntity = parameterEntity;
     }
 
+    public List<VariableInfoVO> getVariableInfoList() {
+        return variableInfoList;
+    }
 
-
+    public void setVariableInfoList(List<VariableInfoVO> variableInfoList) {
+        this.variableInfoList = variableInfoList;
+    }
 }

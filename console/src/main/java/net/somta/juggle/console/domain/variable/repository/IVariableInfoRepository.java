@@ -9,7 +9,6 @@ import java.util.List;
  * @author husong
  */
 public interface IVariableInfoRepository {
-    VariableInfoEntity queryVariableInfo(Long flowDefinitionId);
 
     Boolean addVariable(VariableInfoEntity variableInfoEntity);
 

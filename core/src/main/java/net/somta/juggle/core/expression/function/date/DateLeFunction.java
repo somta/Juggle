@@ -12,10 +12,10 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * 大于
+ * 小于等于
  * @author husong
  */
-public class DateGtFunction extends AbstractFunction {
+public class DateLeFunction extends AbstractFunction {
 
     @Override
     public AviatorObject call(Map<String, Object> env, AviatorObject sourceArg, AviatorObject targetArg) {
@@ -29,7 +29,7 @@ public class DateGtFunction extends AbstractFunction {
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);
-                boolean rst = sourceDate.after(targetDate);
+                boolean rst = sourceDate.before(targetDate) || sourceDate.compareTo(targetDate) == 0;
                 return rst ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
@@ -41,7 +41,7 @@ public class DateGtFunction extends AbstractFunction {
 
     @Override
     public String getName() {
-        return "date.gt";
+        return "date.le";
     }
 
 }

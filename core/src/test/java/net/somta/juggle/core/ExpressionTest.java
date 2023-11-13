@@ -80,11 +80,40 @@ public class ExpressionTest {
         Assertions.assertEquals(result, true);
 
         //不等于
-        Expression compiledExp2 = instance.compile("env_name!=18");
+        Expression compiledExp2 = instance.compile("env_age!=18");
         Map<String, Object> env2 = new HashMap<>();
         env2.put("env_age",30);
         Boolean result2 = (Boolean) compiledExp2.execute(env2);
         Assertions.assertEquals(result2, true);
+
+        //大于
+        Expression compiledExp3 = instance.compile("env_age>18");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_age",30);
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+        //大于等于
+        Expression compiledExp4 = instance.compile("env_age>=18");
+        Map<String, Object> env4 = new HashMap<>();
+        env4.put("env_age",30);
+        Boolean result4 = (Boolean) compiledExp4.execute(env4);
+        Assertions.assertEquals(result4, true);
+
+        //小于
+        Expression compiledExp5 = instance.compile("env_age<18");
+        Map<String, Object> env5 = new HashMap<>();
+        env5.put("env_age",10);
+        Boolean result5 = (Boolean) compiledExp5.execute(env5);
+        Assertions.assertEquals(result5, true);
+
+        //小于等于
+        Expression compiledExp6 = instance.compile("env_age<=18");
+        Map<String, Object> env6 = new HashMap<>();
+        env6.put("env_age",10);
+        Boolean result6 = (Boolean) compiledExp6.execute(env6);
+        Assertions.assertEquals(result6, true);
+
     }
 
     @Test
@@ -104,6 +133,34 @@ public class ExpressionTest {
         env2.put("env_money",200.52);
         Boolean result2 = (Boolean) compiledExp2.execute(env2);
         Assertions.assertEquals(result2, true);
+
+        //大于
+        Expression compiledExp3 = instance.compile("env_money>100.23");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_money",120.50);
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+        //大于等于
+        Expression compiledExp4 = instance.compile("env_money>=100.23");
+        Map<String, Object> env4 = new HashMap<>();
+        env4.put("env_money",120.50);
+        Boolean result4 = (Boolean) compiledExp4.execute(env4);
+        Assertions.assertEquals(result4, true);
+
+        //小于
+        Expression compiledExp5 = instance.compile("env_money<100.23");
+        Map<String, Object> env5 = new HashMap<>();
+        env5.put("env_money",50);
+        Boolean result5 = (Boolean) compiledExp5.execute(env5);
+        Assertions.assertEquals(result5, true);
+
+        //小于等于
+        Expression compiledExp6 = instance.compile("env_money<=100.23");
+        Map<String, Object> env6 = new HashMap<>();
+        env6.put("env_money",50);
+        Boolean result6 = (Boolean) compiledExp6.execute(env6);
+        Assertions.assertEquals(result6, true);
     }
 
     @Test
@@ -150,6 +207,28 @@ public class ExpressionTest {
         Boolean result3 = (Boolean) compiledExp3.execute(env3);
         Assertions.assertEquals(result3, true);
 
+        //大于等于
+        Expression compiledExp4 = instance.compile("date.ge(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env4 = new HashMap<>();
+        env4.put("env_birthday","2023-12-13 18:14:34");
+        //env4.put("env_birthday","2023-12-25 18:14:34");
+        Boolean result4 = (Boolean) compiledExp4.execute(env4);
+        Assertions.assertEquals(result4, true);
+
+        //小于
+        Expression compiledExp5 = instance.compile("date.lt(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env5 = new HashMap<>();
+        env5.put("env_birthday","2023-9-13 18:14:34");
+        Boolean result5 = (Boolean) compiledExp5.execute(env5);
+        Assertions.assertEquals(result5, true);
+
+        //小于等于
+        Expression compiledExp6 = instance.compile("date.le(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env6 = new HashMap<>();
+        env6.put("env_birthday","2023-9-13 18:14:34");
+        //env6.put("env_birthday","2023-12-13 18:14:34");
+        Boolean result6 = (Boolean) compiledExp6.execute(env6);
+        Assertions.assertEquals(result6, true);
 
     }
 
@@ -158,33 +237,7 @@ public class ExpressionTest {
     public void stringExpressionTest3() throws ParseException {
         AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
 
-        //等于,字符串的值要用引号引起来
-       /* Expression compiledExp3 = instance.compile("string.empty(env_name)");
-        Map<String, Object> env3 = new HashMap<>();
-        env3.put("env_name",null);
-        Boolean result3 = (Boolean) compiledExp3.execute(env3);
-        Assertions.assertEquals(result3, true);
-
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        sdf.applyPattern("yyyyMMddHHmmss");
-
-        Date date = new Date();
-        String formattedDate = sdf.format(date);
-        System.out.println(formattedDate);
-
-        System.out.println(System.currentTimeMillis());*/
-
-
-        //sdf.parse("");
-        Expression compiledExp2 = instance.compile("date.eq(env_birthday,'2023-12-13 18:14:34')");
-        Map<String, Object> env2 = new HashMap<>();
-        env2.put("env_birthday","2023-12-13 18:15:34");
-        Boolean result2 = (Boolean) compiledExp2.execute(env2);
-        Assertions.assertEquals(result2, true);
-
     }
-
-
 
 
 

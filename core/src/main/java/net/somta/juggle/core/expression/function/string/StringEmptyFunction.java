@@ -13,8 +13,8 @@ import java.util.Map;
 public class StringEmptyFunction extends AbstractFunction {
 
     @Override
-    public AviatorObject call(Map<String, Object> env, AviatorObject arg1) {
-        String target = FunctionUtils.getStringValue(arg1, env);
+    public AviatorObject call(Map<String, Object> env, AviatorObject targetArg) {
+        String target = FunctionUtils.getStringValue(targetArg, env);
         if(target == null){
             return AviatorBoolean.TRUE;
         } else {

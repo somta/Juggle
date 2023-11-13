@@ -1,6 +1,6 @@
 package net.somta.juggle.core.engine;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 
 /**
  * 运行时的执行引擎实现  目前没用到
@@ -11,7 +11,7 @@ public class RuntimeProcessEngine implements IProcessEngine{
     @Override
     public void startProcess() {
 
-        RuntimeContext runtimeContext = null;
+        FlowRuntimeContext flowRuntimeContext = null;
         try {
             //1.param validate
             //ParamValidator.validate(startProcessParam);

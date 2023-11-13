@@ -1,6 +1,6 @@
 package net.somta.juggle.core.executor;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 
 /**
  * 开始节点的执行器
@@ -11,17 +11,17 @@ import net.somta.juggle.core.RuntimeContext;
 public class EndNodeExecutor extends AbstractElementExecutor {
 
     @Override
-    protected void doPreExecute(RuntimeContext runtimeContext) {
+    protected void doPreExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("结束节点执行器，执行前。。。");
     }
 
     @Override
-    protected void doExecute(RuntimeContext runtimeContext) {
+    protected void doExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("结束节点执行器，执行中。。。");
     }
 
     @Override
-    protected void doPostExecute(RuntimeContext runtimeContext) {
+    protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("结束节点执行器，执行后========================================");
     }
 }

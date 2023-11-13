@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.juggle.core.IWorkRunner;
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.exception.FlowException;
@@ -39,16 +39,16 @@ public abstract class AbstractDispatcher implements IDispatcher {
         //1.校验流程正确性
 
         //2.构建流程运行的RuntimeContext
-        RuntimeContext runtimeContext = buildRuntimeContext(flow);
-        runtimeContext.setFlowResultManager(flowResultManager);
+        FlowRuntimeContext flowRuntimeContext = buildRuntimeContext(flow);
+        flowRuntimeContext.setFlowResultManager(flowResultManager);
 
         try {
             //3.将提交的入参的数据和入参的变量对应上，并将值设置到变量上，入参值后面要用
-            fillInputParameterVariable(runtimeContext.getVariableManager(),flowData);
+            fillInputParameterVariable(flowRuntimeContext.getVariableManager(),flowData);
         } catch (FlowException e) {
             e.printStackTrace();
         }
-        return doSend(runtimeContext);
+        return doSend(flowRuntimeContext);
     }
 
     /**
@@ -68,23 +68,23 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * 构建流程运行的RuntimeContext
      * @return
      */
-    private RuntimeContext buildRuntimeContext(Flow flow){
+    private FlowRuntimeContext buildRuntimeContext(Flow flow){
 
         Map<String,Variable> variableSchemaMap = flow.getVariables().stream().collect(Collectors.toMap(Variable::getKey, account -> account));
 
-        RuntimeContext runtimeContext = new RuntimeContext(variableSchemaMap);
-        runtimeContext.setFlowInstanceId(flow.getFlowInstanceId());
-        runtimeContext.setFlowStatus(FlowStatusEnum.INIT);
-        runtimeContext.setFlowKey(flow.getFlowKey());
-        runtimeContext.setTenantId(flow.getTenantId());
-        runtimeContext.setOutputParameters(flow.getOutputParams());
+        FlowRuntimeContext flowRuntimeContext = new FlowRuntimeContext(variableSchemaMap);
+        flowRuntimeContext.setFlowInstanceId(flow.getFlowInstanceId());
+        flowRuntimeContext.setFlowStatus(FlowStatusEnum.INIT);
+        flowRuntimeContext.setFlowKey(flow.getFlowKey());
+        flowRuntimeContext.setTenantId(flow.getTenantId());
+        flowRuntimeContext.setOutputParameters(flow.getOutputParams());
         Map<String, FlowElement> flowElementMap = buildFlowElementMap(flow.getFlowContent());
         if(MapUtils.isEmpty(flowElementMap)){
             System.out.println("流程元素错误了，直接报错");
         }
-        runtimeContext.setFlowElementMap(flowElementMap);
-        runtimeContext.setCurrentNode(getFirstElement(flowElementMap));
-        return runtimeContext;
+        flowRuntimeContext.setFlowElementMap(flowElementMap);
+        flowRuntimeContext.setCurrentNode(getFirstElement(flowElementMap));
+        return flowRuntimeContext;
     }
 
     /**
@@ -118,5 +118,5 @@ public abstract class AbstractDispatcher implements IDispatcher {
         return null;
     }
 
-    protected abstract FlowResult doSend(RuntimeContext runtimeContext);
+    protected abstract FlowResult doSend(FlowRuntimeContext flowRuntimeContext);
 }

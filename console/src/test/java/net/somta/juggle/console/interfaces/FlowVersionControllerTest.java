@@ -1,4 +1,4 @@
-package net.somta.juggle.interfaces;
+package net.somta.juggle.console.interfaces;
 
 public class FlowVersionControllerTest {
 

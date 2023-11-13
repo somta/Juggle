@@ -1,6 +1,6 @@
 package net.somta.juggle.core.dispatcher.impl;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.dispatcher.AbstractDispatcher;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.executor.FlowExecutor;
@@ -21,8 +21,8 @@ public class SyncDispatcher extends AbstractDispatcher {
     }
 
     @Override
-    protected FlowResult doSend(RuntimeContext runtimeContext) {
-        Map<String,Object> data = flowExecutor.execute(runtimeContext);
+    protected FlowResult doSend(FlowRuntimeContext flowRuntimeContext) {
+        Map<String,Object> data = flowExecutor.execute(flowRuntimeContext);
         FlowResult flowResult = new FlowResult()
                 .setStatus(FlowStatusEnum.FINISH)
                 .setData(data);

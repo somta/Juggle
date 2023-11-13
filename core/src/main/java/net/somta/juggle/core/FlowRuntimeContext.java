@@ -16,7 +16,7 @@ import java.util.Map;
  * 流程执行的上下文
  * @author husong
  **/
-public class RuntimeContext {
+public class FlowRuntimeContext {
 
 
     private String flowInstanceId;
@@ -68,7 +68,7 @@ public class RuntimeContext {
      */
     private EventPublisher eventPublisher;
 
-    public RuntimeContext(Map<String, Variable> variableSchemaMap) {
+    public FlowRuntimeContext(Map<String, Variable> variableSchemaMap) {
         // 变量管理器只能根据流程的上下文来，因为不同的可以在不同流程中可能是会一样的
         this.variableManager = new MemoryVariableManager(variableSchemaMap);
     }

@@ -1,6 +1,6 @@
 package net.somta.juggle.core.executor;
 
-import net.somta.juggle.core.RuntimeContext;
+import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
@@ -20,20 +20,20 @@ import java.util.Map;
 public abstract class AbstractElementExecutor implements IExecutor {
 
     @Override
-    public void execute(RuntimeContext runtimeContext) {
+    public void execute(FlowRuntimeContext flowRuntimeContext) {
         try {
-            doPreExecute(runtimeContext);
-            doExecute(runtimeContext);
+            doPreExecute(flowRuntimeContext);
+            doExecute(flowRuntimeContext);
         } finally {
-            doPostExecute(runtimeContext);
+            doPostExecute(flowRuntimeContext);
         }
     }
 
     @Override
-    public IExecutor getExecutor(RuntimeContext runtimeContext) {
-        Map<String, FlowElement> flowElementMap = runtimeContext.getFlowElementMap();
-        FlowElement flowElement = getNextNode(runtimeContext.getCurrentNode(), flowElementMap);
-        runtimeContext.setCurrentNode(flowElement);
+    public IExecutor getExecutor(FlowRuntimeContext flowRuntimeContext) {
+        Map<String, FlowElement> flowElementMap = flowRuntimeContext.getFlowElementMap();
+        FlowElement flowElement = getNextNode(flowRuntimeContext.getCurrentNode(), flowElementMap);
+        flowRuntimeContext.setCurrentNode(flowElement);
         return ExecutorFactory.getElementExecutor(flowElement);
     }
 
@@ -76,9 +76,9 @@ public abstract class AbstractElementExecutor implements IExecutor {
     }
 
 
-    protected abstract void doPreExecute(RuntimeContext runtimeContext);
+    protected abstract void doPreExecute(FlowRuntimeContext flowRuntimeContext);
 
-    protected abstract void doExecute(RuntimeContext runtimeContext);
+    protected abstract void doExecute(FlowRuntimeContext flowRuntimeContext);
 
-    protected abstract void doPostExecute(RuntimeContext runtimeContext);
+    protected abstract void doPostExecute(FlowRuntimeContext flowRuntimeContext);
 }

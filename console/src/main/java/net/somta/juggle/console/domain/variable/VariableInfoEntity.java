@@ -1,17 +1,7 @@
 package net.somta.juggle.console.domain.variable;
 
-import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.variable.enums.VariableTypeEnum;
-import net.somta.juggle.console.infrastructure.po.ParameterPO;
-import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.core.model.DataType;
-import net.somta.juggle.core.model.Variable;
-import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author husong
@@ -42,8 +32,6 @@ public class VariableInfoEntity {
      * data type
      */
     private DataType dataType;
-
-    private List<VariableInfoPO> variableInfoPoList;
 
     public Long getFlowDefinitionId() {
         return flowDefinitionId;
@@ -86,29 +74,11 @@ public class VariableInfoEntity {
     }
 
     /**
-     * 获取运行时的变量列表
-     * @return
-     */
-    public List<Variable> getFlowRuntimeVariables(){
-        List<Variable> variables = new ArrayList<>();
-        if(CollectionUtils.isNotEmpty(this.variableInfoPoList)){
-            for (VariableInfoPO variableInfoPo : variableInfoPoList) {
-                Variable variable = new Variable();
-                variable.setKey(variableInfoPo.getEnvKey());
-                variable.setName(variableInfoPo.getEnvName());
-                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoPo.getDataType(),DataType.class));
-                variables.add(variable);
-            }
-        }
-        return variables;
-    }
-
-    /**
      * 将出入参数转换成变量
      * @param parameters
      * @param flowDefinitionId
      */
-    public void convertParameterToVariables(List<ParameterPO> parameters,Long flowDefinitionId){
+    /*public void convertParameterToVariables(List<ParameterPO> parameters,Long flowDefinitionId){
         if(CollectionUtils.isNotEmpty(parameters)){
             for (ParameterPO parameterPo : parameters) {
                 VariableInfoPO variableInfoPo = new VariableInfoPO();
@@ -122,9 +92,5 @@ public class VariableInfoEntity {
                 variableInfoPoList.add(variableInfoPo);
             }
         }
-    }
-
-    public void setVariableInfoList(List<VariableInfoPO> variableInfoPoList) {
-        this.variableInfoPoList = variableInfoPoList;
-    }
+    }*/
 }

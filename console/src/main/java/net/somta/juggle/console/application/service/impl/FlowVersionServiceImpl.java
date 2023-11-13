@@ -79,26 +79,6 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
         Flow flow = new Flow();
         flow.setFlowKey(flowVersionAo.getFlowKey());
         flow.setFlowName(flowVersionAo.getFlowName());
-       /* flow.setFlowContent(flowInfoPO.getFlowContent());
-
-        String inputParameters = flowInfoPO.getInputs();
-        if(StringUtils.isNotEmpty(inputParameters)){
-            List<InputParameter> inputParams = JsonSerializeHelper.deserialize(inputParameters,List.class,InputParameter.class);
-            flow.setInputParams(inputParams);
-        }
-
-        String outputParameters = flowInfoPO.getOutputs();
-        if(StringUtils.isNotEmpty(outputParameters)){
-            List<OutputParameter> outputParams = JsonSerializeHelper.deserialize(outputParameters,List.class,OutputParameter.class);
-            flow.setOutputParams(outputParams);
-        }
-
-        String variables = flowInfoPO.getVariables();
-        if(StringUtils.isNotEmpty(variables)){
-            List<Variable> variableList = JsonSerializeHelper.deserialize(variables,List.class,Variable.class);
-            flow.setVariables(variableList);
-        }*/
-
         return flowRuntimeService.triggerFlow(flow, flowVersionAo.getFlowType(),triggerData);
     }
 }
