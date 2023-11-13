@@ -1,4 +1,4 @@
-package net.somta.juggle.core.expression;
+package net.somta.juggle.core.expression.function.string;
 
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.function.FunctionUtils;

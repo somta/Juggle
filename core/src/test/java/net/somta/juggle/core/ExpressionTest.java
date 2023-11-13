@@ -3,14 +3,13 @@ package net.somta.juggle.core;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
-import com.googlecode.aviator.runtime.function.AbstractFunction;
-import com.googlecode.aviator.runtime.function.FunctionUtils;
-import com.googlecode.aviator.runtime.type.AviatorDouble;
-import com.googlecode.aviator.runtime.type.AviatorObject;
-import net.somta.juggle.core.expression.StringEmptyFunction;
+import net.somta.juggle.core.expression.function.string.StringEmptyFunction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +18,6 @@ public class ExpressionTest {
     @Test
     public void stringExpressionTest(){
         AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
-        //加载自定义的方法函数
-        AviatorEvaluator.addFunction(new StringEmptyFunction());
 
         //等于,字符串的值要用引号引起来
         Expression compiledExp = instance.compile("env_name==\"zhansan\"");
@@ -129,36 +126,61 @@ public class ExpressionTest {
     }
 
     @Test
-    public void dateTimeExpressionTest(){
+    public void dateExpressionTest(){
         AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
 
         //等于
-        Expression compiledExp = instance.compile("env_is_login==true");
+        Expression compiledExp = instance.compile("date.eq(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env = new HashMap<>();
-        env.put("env_is_login",true);
+        env.put("env_birthday","2023-12-13 18:14:34");
         Boolean result = (Boolean) compiledExp.execute(env);
         Assertions.assertEquals(result, true);
 
         //不等于
-        Expression compiledExp2 = instance.compile("env_is_login!=true");
+        Expression compiledExp2 = instance.compile("!date.eq(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env2 = new HashMap<>();
-        env2.put("env_is_login",false);
+        env2.put("env_birthday","2023-12-15 18:14:34");
         Boolean result2 = (Boolean) compiledExp2.execute(env2);
         Assertions.assertEquals(result2, true);
+
+        //大于
+        Expression compiledExp3 = instance.compile("date.gt(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_birthday","2023-12-25 18:14:34");
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+
     }
 
+
     @Test
-    public void stringExpressionTest3(){
+    public void stringExpressionTest3() throws ParseException {
         AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
-        AviatorEvaluator.addFunction(new StringEmptyFunction());
 
         //等于,字符串的值要用引号引起来
-        Expression compiledExp3 = instance.compile("string.empty(env_name)");
+       /* Expression compiledExp3 = instance.compile("string.empty(env_name)");
         Map<String, Object> env3 = new HashMap<>();
         env3.put("env_name",null);
         Boolean result3 = (Boolean) compiledExp3.execute(env3);
         Assertions.assertEquals(result3, true);
 
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("yyyyMMddHHmmss");
+
+        Date date = new Date();
+        String formattedDate = sdf.format(date);
+        System.out.println(formattedDate);
+
+        System.out.println(System.currentTimeMillis());*/
+
+
+        //sdf.parse("");
+        Expression compiledExp2 = instance.compile("date.eq(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_birthday","2023-12-13 18:15:34");
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
 
     }
 
