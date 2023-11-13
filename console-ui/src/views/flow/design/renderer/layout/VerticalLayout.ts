@@ -183,9 +183,39 @@ export class VerticalLayout {
   }
 
   drawLines () {
+    const lines: { from: string; to: string; }[] = [];
     this.nodeMap.forEach((node) => {
-      this.drawLine(node);
+      const { linesTo, data } = node;
+      linesTo.forEach((to) => {
+        const line = {
+          from: data.key,
+          to,
+        };
+        lines.push(line);
+      });
     });
+    this.container.selectAll('.flow-line')
+      .data(lines, (d: any) => `${d.from}-${d.to}`)
+      .enter()
+      .append('path')
+        .attr('d', (d) => {
+          const fromNode = this.nodeMap.get(d.from);
+          let toNode = this.nodeMap.get(d.to);
+          // 条件节点的线条指向条件开始节点
+          if (toNode && toNode.data.elementType === ElementType.CONDITION) {
+            toNode = toNode.getChildren().find((child) => child.data.elementType === ElementType.CONDITION_START);
+          }
+          if (fromNode && toNode) {
+            const polyLine = this.getPolyline(fromNode, toNode);
+            return this.line(polyLine);
+          }
+          return '';
+        })
+        .attr('class', 'flow-line')
+        .attr('fill', 'none')
+        .attr('stroke', '#aaa')
+      .exit()
+      .remove();
   }
 
   drawNodes () {
