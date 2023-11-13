@@ -121,7 +121,7 @@ public class FlowDefinitionHelper {
         ConditionNode.ConditionItem conditionItem2 = new ConditionNode.ConditionItem();
         conditionItem2.setConditionName("判断用户名称是否为lisi");
         conditionItem2.setConditionType(ConditionNode.ConditionType.CUSTOM);
-        //todo 字符串的条件一定要带单引号
+        //注意：字符串的条件一定要带单引号或者双引号
         conditionItem2.setExpression("env_name==\"lisi\"");
         conditionItem2.setOutgoing("method_23s45");
         conditions.add(conditionItem2);

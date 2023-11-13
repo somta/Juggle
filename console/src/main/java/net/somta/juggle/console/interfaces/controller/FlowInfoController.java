@@ -40,30 +40,4 @@ public class FlowInfoController {
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
-    /**
-     * 触发流程
-     * @param triggerData 触发流程实体
-     * @return Boolean
-     */
-    /*@Operation(summary = "触发流程")
-    @PostMapping("/trigger/{flowKey}")
-    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
-        if(StringUtils.isEmpty(flowKey)){
-            return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
-        }
-        FlowInfoPO flowInfoPO = flowInfoService.getFlowByFlowKey(flowKey);
-        if(flowInfoPO == null){
-            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
-        }
-        //todo 这个方法要移动到流程版本下
-        *//*if(FlowStatusEnum.DISABLED.getCode().equals(flowInfoPO.getFlowStatus())){
-            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
-        }*//*
-
-        FlowResult rst = flowInfoService.triggerFlow(flowInfoPO,triggerData);
-        return ResponseDataResult.setResponseResult(rst);
-    }*/
-
-
-
 }

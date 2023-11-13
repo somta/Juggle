@@ -60,34 +60,4 @@ public class VariableInfoServiceImpl implements IVariableInfoService {
         return variableInfoDTOList;
     }
 
-    /**
-     * todo 这里是一个mock接口，后面要删除
-     * @param flowDefinitionId
-     * @return
-     */
-    public List<Variable> getFlowVariableList(Long flowDefinitionId) {
-        //todo mock一些变量数据
-        List<Variable> variables = new ArrayList<>();
-        Variable variableId = new Variable();
-        variableId.setKey("env_id");
-        variableId.setName("入参-用户ID变量");
-        variableId.setDataType(new DataType(DataTypeEnum.Integer));
-        variableId.setDefaultValue("1");
-        variables.add(variableId);
-
-        Variable variableName = new Variable();
-        variableName.setKey("env_name");
-        variableName.setName("入参-用户姓名变量");
-        variableName.setDataType(new DataType(DataTypeEnum.String));
-        variables.add(variableName);
-
-
-        Variable variableUserName = new Variable();
-        variableUserName.setKey("env_userName");
-        variableUserName.setName("流程出参-用户姓名变量");
-        variableUserName.setDataType(new DataType(DataTypeEnum.String));
-        variables.add(variableUserName);
-
-        return variables;
-    }
 }
