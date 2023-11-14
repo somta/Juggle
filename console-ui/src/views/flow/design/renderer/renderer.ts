@@ -1,7 +1,8 @@
 
 import * as d3 from 'd3';
 import { NodeData } from '../types';
-import { VerticalLayout } from './layout';
+import { LayoutNode, VerticalLayout } from './layout';
+import { loadSvgIcon } from './icon';
 
 type D3Element = d3.Selection<any, any, any, any>;
 
@@ -23,19 +24,27 @@ export class FlowRenderer {
 
   private layout: VerticalLayout;
 
-  constructor (el: HTMLElement, options: {
+  private options: {
     datas: any[];
     onZoom?: (event: any) => any
-  }) {
+    onAdd?: (node: LayoutNode) => any
+    onEdit?: (node: LayoutNode) => any
+    onDelete?: (node: LayoutNode) => any
+  };
+
+  constructor (el: HTMLElement, options: FlowRenderer['options']) {
     this.svg = d3.select(el)
       .append('svg')
       .attr('width', '100%')
       .attr('height', '100%');
 
+    loadSvgIcon(this.svg);
+
     this.boundary = el.getBoundingClientRect();
     this.pan = this.svg.append('g');
     this.container = this.pan.append('g');
 
+    this.options = options;
     this.zoom = d3.zoom()
       .scaleExtent(this.scaleExtent)
       .on('zoom', (event) => {
@@ -48,9 +57,18 @@ export class FlowRenderer {
 
     this.datas = options.datas;
     this.layout = new VerticalLayout(this.container, this.boundary);
+    this.refresh();
+    this.addEvents();
+  }
+
+  updateDatas (datas: NodeData[]) {
+    this.datas = datas;
+    this.refresh();
+  }
+
+  refresh () {
     this.layout.calculate(this.datas);
     this.layout.draw();
-    this.addEvents();
   }
 
   scaleFromTop (scale: number) {
@@ -71,13 +89,20 @@ export class FlowRenderer {
   }
 
   addEvents () {
-    d3.selectAll('.flow-node').on('click', function(event, d) {
-      console.log('flow-node元素被点击了');
-      console.log(event, d);
+    this.container.selectAll('.flow-btn-edit').on('click', (_, d) => {
+      if (typeof this.options.onEdit === 'function') {
+        this.options.onEdit(d as LayoutNode);
+      }
     });
-    d3.selectAll('.flow-add-btn').on('click', function(event, d) {
-      console.log('flow-add-btn元素被点击了');
-      console.log(event, d);
+    this.container.selectAll('.flow-btn-add').on('click', (_, d) => {
+      if (typeof this.options.onAdd === 'function') {
+        this.options.onAdd(d as LayoutNode);
+      }
+    });
+    this.container.selectAll('.flow-btn-delete').on('click', (_, d) => {
+      if (typeof this.options.onDelete === 'function') {
+        this.options.onDelete(d as LayoutNode);
+      }
     });
   }
 }
