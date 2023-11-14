@@ -7,8 +7,8 @@ export const ApiRequestTypeMap = {
 };
 
 export const ApiRequestContentTypeMap = {
-  'application/json': 'application/json',
-  'x-www-form-urlencoded': 'x-www-form-urlencoded',
+  'application/json': 'APPLICATION_JSON',
+  'application/x-www-form-urlencoded': 'APPLICATION_FORM',
 };
 
 export type ApiRequestType = keyof typeof ApiRequestTypeMap;

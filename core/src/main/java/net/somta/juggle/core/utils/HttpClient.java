@@ -35,15 +35,15 @@ public class HttpClient {
     public Map<String,Object> sendRequest(Request request) {
         HttpRequestBase uriRequest = null;
         if (request.getRequestType() == RequestTypeEnum.GET) {
-            uriRequest = new HttpGet(request.getReqUrl());
+            uriRequest = new HttpGet(request.getRequestUrl());
         }else if (request.getRequestType() == RequestTypeEnum.DELETE) {
-            uriRequest = new HttpDelete(request.getReqUrl());
+            uriRequest = new HttpDelete(request.getRequestUrl());
         } else {
             HttpEntityEnclosingRequestBase r = null;
             if (request.getRequestType() == RequestTypeEnum.PUT) {
-                r = new HttpPut(request.getReqUrl());
+                r = new HttpPut(request.getRequestUrl());
             } else {
-                r = new HttpPost(request.getReqUrl());
+                r = new HttpPost(request.getRequestUrl());
             }
             if (request.getReqBody() != null) {
                 r.setEntity(new ByteArrayEntity(request.getReqBody()));
@@ -87,46 +87,41 @@ public class HttpClient {
      */
     public static class Request {
 
-        public final static String HTTP_SCHEME = "http";
-
         /**
-         * 请求URI,带域名的完整地址
+         * 请求url,带域名的完整地址
          */
-        private String reqUrl;
+        private String requestUrl;
         /**
-         * 请求方法类型 GET POST
+         * 请求方法类型 GET POST PUT DELETE
          */
         private RequestTypeEnum requestType;
         /**
          * 请求头
          */
-        private HttpHeaders reqHeaders;
+        private HttpHeaders requestHeaders;
         /**
          * 请求体
          */
         private byte[] reqBody;
 
-        public Request(String reqUrl) {
-            if (reqUrl == null) {
+        public Request(RequestTypeEnum requestType, String requestUrl) {
+            if (requestUrl == null) {
                 throw new IllegalArgumentException("reqMethod,reqHeaders,reqBody should not be null");
             }
-            this.reqUrl = reqUrl;
+            this.requestType = requestType;
+            this.requestUrl = requestUrl;
         }
 
-        public String getReqUrl() {
-            return reqUrl;
+        public String getRequestUrl() {
+            return requestUrl;
         }
 
         public RequestTypeEnum getRequestType() {
             return requestType;
         }
 
-        public void setRequestType(RequestTypeEnum requestType) {
-            this.requestType = requestType;
-        }
-
-        public HttpHeaders getReqHeaders() {
-            return reqHeaders;
+        public HttpHeaders getRequestHeaders() {
+            return requestHeaders;
         }
 
         public void setReqBody(byte[] reqBody) {

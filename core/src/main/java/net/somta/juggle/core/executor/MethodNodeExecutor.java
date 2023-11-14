@@ -62,8 +62,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
      */
     private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> parameterData){
         HttpClient httpClient = new HttpClient();
-        HttpClient.Request request = new HttpClient.Request(method.getUrl());
-        request.setRequestType(method.getRequestType());
+        HttpClient.Request request = new HttpClient.Request(method.getRequestType(),method.getUrl());
         Map<String,Object> result = httpClient.sendRequest(request);
         return result;
     }

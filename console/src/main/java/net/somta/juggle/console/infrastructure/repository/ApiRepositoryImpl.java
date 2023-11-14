@@ -44,7 +44,7 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPo.setApiUrl(apiAo.getApiUrl());
         apiPo.setApiName(apiAo.getApiName());
         apiPo.setApiDesc(apiAo.getApiDesc());
-        apiPo.setApiRequestType(apiAo.getApiRequestType());
+        apiPo.setApiRequestType(apiAo.getApiRequestType().name());
         apiPo.setApiRequestContentType(apiAo.getApiRequestContentType());
         apiPo.setCreatedAt(new Date());
         apiMapper.addApi(apiPo);
@@ -74,7 +74,7 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPo.setApiUrl(apiAo.getApiUrl());
         apiPo.setApiName(apiAo.getApiName());
         apiPo.setApiDesc(apiAo.getApiDesc());
-        apiPo.setApiRequestType(apiAo.getApiRequestType());
+        apiPo.setApiRequestType(apiAo.getApiRequestType().name());
         apiPo.setApiRequestContentType(apiAo.getApiRequestContentType());
         apiMapper.update(apiPo);
 

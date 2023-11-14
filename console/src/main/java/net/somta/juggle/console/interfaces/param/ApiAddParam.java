@@ -2,6 +2,7 @@ package net.somta.juggle.console.interfaces.param;
 
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+import net.somta.juggle.core.enums.RequestTypeEnum;
 
 import java.util.List;
 
@@ -30,8 +31,9 @@ public class ApiAddParam {
     /**
      * api请求类型  GET POST PUT
      */
-    private String apiRequestType;
+    private RequestTypeEnum apiRequestType;
 
+    //todo 这里也换成core包中的枚举，但是要前端支持才行
     /**
      * api请求内容类型 application/json
      */
@@ -73,11 +75,11 @@ public class ApiAddParam {
         this.apiDesc = apiDesc;
     }
 
-    public String getApiRequestType() {
+    public RequestTypeEnum getApiRequestType() {
         return apiRequestType;
     }
 
-    public void setApiRequestType(String apiRequestType) {
+    public void setApiRequestType(RequestTypeEnum apiRequestType) {
         this.apiRequestType = apiRequestType;
     }
 
