@@ -1,7 +1,7 @@
 
+import * as d3 from 'd3';
 import { NodeData, ElementType, D3Element } from '../../types';
 import { LayoutNode } from './LayoutNode';
-import * as d3 from 'd3';
 
 type D3Point = [number, number];
 
@@ -11,9 +11,15 @@ export class VerticalLayout {
     this.container = container;
     // 居中
     container.attr('transform', `translate(${boundary.width / 2}, 0)`);
+    this.lineContainer = container.append('g');
+    this.nodeContainer = container.append('g');
   }
   
   private container: D3Element;
+
+  private nodeContainer: D3Element;
+
+  private lineContainer: D3Element;
 
   private nodeSize = { width: 160, height: 60 };
 
@@ -130,7 +136,6 @@ export class VerticalLayout {
     this.dataMap.set(startNode.key, startNode);
     const startLayout = this.handleNormalNode(startNode, { left: 0, top: 0 });
     conditionLayout.addChild(startLayout);
-    console.log('startLayout', startLayout);
 
     // 处理分支节点
     let maxRight = 0;
@@ -138,7 +143,7 @@ export class VerticalLayout {
     if (data.conditions && Array.isArray(data.conditions)) {
       data.conditions.forEach((condition, index) => {
         const branchNode = {
-          key: `branch_${data.key}_${index}}`,
+          key: `branch_${data.key}_${index}`,
           name: condition.conditionName,
           outgoings: [condition.outgoing],
           elementType: ElementType.CONDITION_BRANCH,
@@ -179,7 +184,7 @@ export class VerticalLayout {
 
   public draw () {
     this.drawLines();
-    this.drawNodes();
+    this.drawNodes(this.nodeContainer, this.mainBranch);
   }
 
   drawLines () {
@@ -194,34 +199,49 @@ export class VerticalLayout {
         lines.push(line);
       });
     });
-    this.container.selectAll('.flow-line')
-      .data(lines, (d: any) => `${d.from}-${d.to}`)
-      .enter()
+    const flowLines = this.lineContainer.selectAll('.flow-line')
+      .data(lines, (d: any) => `${d.from}-${d.to}`);
+    
+    // 更新
+    flowLines.filter('path')
+      .attr('d', (d) => this.getPathD(d));
+
+    // 新增
+    flowLines.enter()
       .append('path')
-        .attr('d', (d) => {
-          const fromNode = this.nodeMap.get(d.from);
-          let toNode = this.nodeMap.get(d.to);
-          // 条件节点的线条指向条件开始节点
-          if (toNode && toNode.data.elementType === ElementType.CONDITION) {
-            toNode = toNode.getChildren().find((child) => child.data.elementType === ElementType.CONDITION_START);
-          }
-          if (fromNode && toNode) {
-            const polyLine = this.getPolyline(fromNode, toNode);
-            return this.line(polyLine);
-          }
-          return '';
-        })
+        .attr('d', (d) => this.getPathD(d))
         .attr('class', 'flow-line')
         .attr('fill', 'none')
-        .attr('stroke', '#aaa')
-      .exit()
+        .attr('stroke', '#aaa');
+    // 删除
+    flowLines.exit()
       .remove();
   }
 
-  drawNodes () {
-    this.mainBranch.forEach((node) => {
-      this.drawNode(this.container, node);
-    });
+  getPathD (d: { from: string; to: string; }) {
+    const fromNode = this.nodeMap.get(d.from);
+    let toNode = this.nodeMap.get(d.to);
+    // 条件节点的线条指向条件开始节点
+    if (toNode && toNode.data.elementType === ElementType.CONDITION) {
+      toNode = toNode.getChildren().find((child) => child.data.elementType === ElementType.CONDITION_START);
+    }
+    if (fromNode && toNode) {
+      const polyLine = this.getPolyline(fromNode, toNode);
+      return this.line(polyLine);
+    }
+    return '';
+  }
+
+  drawNodes (container: D3Element, nodes: LayoutNode[]) {
+    container.selectChildren('.node-wrap')
+      .data(nodes, (d: any) => d.data.key)
+      .join('g')
+        .attr('class', 'node-wrap')
+        .attr('transform', (d) => `translate(${d.left}, ${d.top})`)
+        .each((d, i, nodes) => {
+          const g = d3.select(nodes[i]);
+          this.drawNode(g, d);
+        });
   }
 
   private drawNode (container: D3Element, node: LayoutNode) {
@@ -240,14 +260,10 @@ export class VerticalLayout {
   }
 
   drawNormalNode (container: D3Element, node: LayoutNode) {
-    const { left, top, width, height, data } = node;
-    const g = container.append('g');
-    g.attr('class', 'node-warp')
-      .attr('transform', `translate(${left}, ${top})`);
-
-    const flowNode = g.append('g')
-      .data([node])
+    const { width, height, data } = node;
+    const flowNode = container.append('g')
       .attr('class', 'flow-node');
+
     flowNode.append('rect')
       .attr('width', width)
       .attr('height', height)
@@ -257,89 +273,102 @@ export class VerticalLayout {
       .attr('rx', 4)
       .attr('ry', 4);
 
-      flowNode.append('text')
+    flowNode.append('text')
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('x', width / 2)
       .attr('y', height / 2)
       .text(data.name);
 
+    this.drawHoverButtons(flowNode, node);
+
     if ([
       ElementType.START,
       ElementType.METHOD,
       ElementType.CONDITION_BRANCH,
     ].includes(data.elementType)) {
-      this.drawAddIcon(g, node);
+      this.drawAddIcon(container, node);
     }
   }
 
   drawConditionNode (container: D3Element, node: LayoutNode) {
-    const { left, top } = node;
     const children = node.getChildren();
-    const g = container.append('g')
-      .attr('class', 'node-condition-warp')
-      .attr('transform', `translate(${left}, ${top})`);
-    this.drawAddIcon(g, node);
+    this.drawAddIcon(container, node);
     if (children && Array.isArray(children)) {
-      children.forEach((child) => {
-        this.drawNode(g, child);
-      });
+      this.drawNodes(container, children);
     }
   }
 
   drawAddIcon (container: D3Element, node: LayoutNode) {
     const { width, height } = node;
     const btn_radius = 16;
-    const icon_radius = 6;
     const addButton = container.append('g')
-      .data([node])
-      .attr('class', 'flow-add-btn')
+      .attr('class', 'flow-btn flow-btn-add')
       .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`);
     addButton.append('circle')
       .attr('cx', 0)
       .attr('cy', 0)
       .attr('r', btn_radius)
       .attr('fill', '#fff')
-      .attr('stroke', '#aaa');
+      .attr('stroke', '#777');
     
-    // 创建一个垂直的线，形成加号的一部分
-    addButton.append('line')
-      .attr('x1', 0)
-      .attr('y1', -icon_radius)
-      .attr('x2', 0)
-      .attr('y2', icon_radius)
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', 2);
-
-    // 创建一个水平的线，形成加号的一部分
-    addButton.append('line')
-      .attr('x1', -icon_radius)
-      .attr('y1', 0)
-      .attr('x2', +icon_radius)
-      .attr('y2', 0)
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', 2);
+    addButton.append('use')
+      .attr('href', '#icon-plus')
+      .attr('width', 24)
+      .attr('height', 24)
+      .attr('x', -12)
+      .attr('y', -12)
+      .attr('fill', '#777');
   }
 
-  drawLine (node: LayoutNode) {
-    const { linesTo, data } = node;
-    linesTo.forEach((key) => {
-      const fromNode = this.nodeMap.get(data.key);
-      let toNode = this.nodeMap.get(key);
-      // 条件节点的线条指向条件开始节点
-      if (toNode && toNode.data.elementType === ElementType.CONDITION) {
-        toNode = toNode.getChildren().find((child) => child.data.elementType === ElementType.CONDITION_START);
-      }
-      if (fromNode && toNode) {
-        const polyLine = this.getPolyline(fromNode, toNode);
-        this.container.append('path')
-          .attr('d', this.line(polyLine))
-          .attr('class', 'flow-line')
-          .attr('fill', 'none')
-          .attr('stroke', '#aaa');
-      }
+  drawHoverButtons (container: D3Element, node: LayoutNode) {
+    const { width, data } = node;
+    let btns = ['delete', 'edit'];
+    if ([ElementType.START, ElementType.END].includes(data.elementType)) {
+      btns = ['edit'];
+    }
+    btns.forEach((btn, i) => {
+      const flowBtns = container.append('g')
+        .attr('class', `flow-btn flow-btn-${btn}`)
+        .attr('transform', `translate(${width - i * 36}, 0)`);
+      flowBtns.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', '15')
+        .attr('fill', '#fff')
+        .attr('stroke', '#777');
+      
+      flowBtns.append('use')
+        .attr('href', `#icon-${btn}`)
+        .attr('width', 16)
+        .attr('height', 16)
+        .attr('x', -8)
+        .attr('y', -8)
+        .attr('fill', '#777');
     });
   }
+
+  // drawRemoveIcon (container: D3Element, node: LayoutNode) {
+  //   const { width, height } = node;
+  //   const btn_radius = 16;
+  //   const addButton = container.append('g')
+  //     .attr('class', 'flow-add-btn')
+  //     .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`);
+  //   addButton.append('circle')
+  //     .attr('cx', 0)
+  //     .attr('cy', 0)
+  //     .attr('r', btn_radius)
+  //     .attr('fill', '#fff')
+  //     .attr('stroke', '#777');
+    
+  //   addButton.append('use')
+  //     .attr('href', '#icon-plus')
+  //     .attr('width', 24)
+  //     .attr('height', 24)
+  //     .attr('x', -12)
+  //     .attr('y', -12)
+  //     .attr('fill', '#777');
+  // }
 
   getPolyline (fromNode: LayoutNode, toNode: LayoutNode): D3Point[] {
     const from: D3Point = [fromNode.x + fromNode.width / 2, fromNode.y + fromNode.height / 2];
