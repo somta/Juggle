@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.definition;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
@@ -7,11 +8,17 @@ import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.model.DataType;
+import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
+import net.somta.juggle.core.model.node.EndNode;
+import net.somta.juggle.core.model.node.StartNode;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,6 +50,27 @@ public class FlowDefinitionAO {
 
     private List<VariableInfoVO> variableInfoList;
 
+    public void initDefaultFlowContent(String flowName) {
+        List<FlowElement> elementList = new ArrayList<>();
+
+        String startNodeKey = "start_" + RandomStringUtils.random(8, true, true);
+        String endNodeKey = "end_" + RandomStringUtils.random(8, true, true);
+        StartNode startEventNode = new StartNode();
+        startEventNode.setKey(startNodeKey);
+        startEventNode.setName(flowName);
+        startEventNode.setElementType(ElementTypeEnum.START);
+        startEventNode.setOutgoings(Arrays.asList(endNodeKey));
+        elementList.add(startEventNode);
+
+        EndNode endEventNode = new EndNode();
+        endEventNode.setKey(endNodeKey);
+        endEventNode.setName("结束");
+        endEventNode.setElementType(ElementTypeEnum.END);
+        endEventNode.setIncomings(Arrays.asList(startNodeKey));
+        elementList.add(endEventNode);
+        String content = JsonSerializeHelper.serialize(elementList);
+        this.flowContent = content;
+    }
 
     public void initParameterList(List<InputParameterVO> flowInputParamList, List<OutputParameterVO> flowOutputParamList) {
         ParameterEntity parameterEntity = new ParameterEntity();
@@ -132,4 +160,6 @@ public class FlowDefinitionAO {
     public void setVariableInfoList(List<VariableInfoVO> variableInfoList) {
         this.variableInfoList = variableInfoList;
     }
+
+
 }

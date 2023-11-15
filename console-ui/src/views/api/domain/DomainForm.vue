@@ -79,7 +79,7 @@ defineExpose({ open });
         :model="formValue"
         :rules="rules"
       >
-        <el-form-item label="领域代码" prop="domainCode">
+        <el-form-item label="领域编码" prop="domainCode">
           <el-input v-model="formValue.domainCode" />
         </el-form-item>
         <el-form-item label="领域名称" prop="domainName">

@@ -2,7 +2,7 @@ const donateHtml = `
 <div class="sidebar_donate">
     <div class="sidebar_sponsor">虚位以待</div>
     <div class="sidebar_sponsor_submit">
-        <a href="/docs/community/donate">成为赞助商</a>
+        <a href="/docs/guide/community/donate">成为赞助商</a>
     </div>
 <div>
 `
@@ -39,6 +39,7 @@ module.exports = {
                 'guide/user/flow-definition',
                 'guide/user/flow-version',
                 'guide/user/data-type-info',
+                'guide/user/example-api',
             ],
      },{
         type: 'category',

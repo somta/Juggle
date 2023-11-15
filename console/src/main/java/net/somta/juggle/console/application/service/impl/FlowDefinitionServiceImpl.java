@@ -54,7 +54,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         FlowDefinitionAO flowDefinitionAo =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionAddParam);
         String flowKey = flowDefinitionAddParam.getFlowType() + "_" + RandomStringUtils.random(10, true, true);
         flowDefinitionAo.setFlowKey(flowKey);
-
+        flowDefinitionAo.initDefaultFlowContent(flowDefinitionAddParam.getFlowName());
         flowDefinitionAo.initParameterList(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAddParam.getFlowOutputParams());
 
         return flowDefinitionRepository.addFlowDefinition(flowDefinitionAo);
