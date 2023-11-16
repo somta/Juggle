@@ -12,9 +12,9 @@ export class FlowRenderer {
 
   private pan: D3Element;
 
-  private container: D3Element;
+  public container: D3Element;
 
-  private boundary: DOMRect;
+  public boundary: DOMRect;
 
   private scaleExtent: [number, number] = [0.5, 2];
 
@@ -24,7 +24,7 @@ export class FlowRenderer {
 
   private layout: VerticalLayout;
 
-  private options: {
+  public options: {
     datas: any[];
     onZoom?: (event: any) => any
     onAdd?: (node: LayoutNode) => any
@@ -56,9 +56,8 @@ export class FlowRenderer {
     this.svg.call(this.zoom as any);
 
     this.datas = options.datas;
-    this.layout = new VerticalLayout(this.container, this.boundary);
+    this.layout = new VerticalLayout(this);
     this.refresh();
-    this.addEvents();
   }
 
   updateDatas (datas: NodeData[]) {
@@ -86,23 +85,5 @@ export class FlowRenderer {
     ];
     this.zoom.scaleTo(this.svg, scale, point);
     return scale;
-  }
-
-  addEvents () {
-    this.container.selectAll('.flow-btn-edit').on('click', (_, d) => {
-      if (typeof this.options.onEdit === 'function') {
-        this.options.onEdit(d as LayoutNode);
-      }
-    });
-    this.container.selectAll('.flow-btn-add').on('click', (_, d) => {
-      if (typeof this.options.onAdd === 'function') {
-        this.options.onAdd(d as LayoutNode);
-      }
-    });
-    this.container.selectAll('.flow-btn-delete').on('click', (_, d) => {
-      if (typeof this.options.onDelete === 'function') {
-        this.options.onDelete(d as LayoutNode);
-      }
-    });
   }
 }

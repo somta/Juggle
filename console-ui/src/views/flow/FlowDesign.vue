@@ -80,6 +80,7 @@ onMounted(async () => {
           condition.outgoing = newData.key;
         }
       }
+      // 常规节点 - 修改自身出口、入口的出口
       newData.outgoings = d.data.outgoings;
       d.data.outgoings = [newData.key];
       content = [...content, newData];
@@ -89,7 +90,42 @@ onMounted(async () => {
       console.log(d);
     },
     onDelete: (d) => {
-      console.log(d);
+      function deleteByKey (key: string) {
+        const index = content.findIndex((item) => item.key === key);
+        if (index > -1) {
+          content.splice(index, 1);
+        }
+      }
+      if (d.data.elementType === ElementType.CONDITION_START) {
+        const parent = d.getParent();
+        // 更改上下节点出口
+        const from = content.find((item) => item.outgoings?.[0] === parent.data.key);
+        const to = content.find((item) => item.key === parent.data.outgoings?.[0]);
+        if (from && to) {
+          from.outgoings = [to.key];
+        }
+        // 删除节点
+        deleteByKey(parent.data.key);
+        // 删除所有子节点
+        parent.getChildren().forEach(item => {
+          deleteByKey(item.data.key);
+        });
+        // 删除布局节点
+        d.delete();
+        flowRenderer.updateDatas(content);
+      } else {
+        // 更改上下节点出口
+        const from = content.find((item) => item.outgoings?.[0] === d.data.key);
+        const to = content.find((item) => item.key === d.data.outgoings?.[0]);
+        if (from && to) {
+          from.outgoings = [to.key];
+        }
+        // 删除节点
+        deleteByKey(d.data.key);
+        // 删除布局节点
+        d.delete();
+        flowRenderer.updateDatas(content);
+      }
     },
   });
 });

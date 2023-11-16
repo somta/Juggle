@@ -2,20 +2,21 @@
 import * as d3 from 'd3';
 import { NodeData, ElementType, D3Element } from '../../types';
 import { LayoutNode } from './LayoutNode';
+import { FlowRenderer } from '../renderer';
 
 type D3Point = [number, number];
 
 export class VerticalLayout {
 
-  constructor (container: D3Element, boundary: DOMRect) {
-    this.container = container;
+  constructor (renderer: FlowRenderer) {
     // 居中
-    container.attr('transform', `translate(${boundary.width / 2}, 0)`);
-    this.lineContainer = container.append('g');
-    this.nodeContainer = container.append('g');
+    renderer.container.attr('transform', `translate(${renderer.boundary.width / 2}, 0)`);
+    this.lineContainer = renderer.container.append('g');
+    this.nodeContainer = renderer.container.append('g');
+    this.renderer = renderer;
   }
   
-  private container: D3Element;
+  private renderer: FlowRenderer;
 
   private nodeContainer: D3Element;
 
@@ -304,7 +305,10 @@ export class VerticalLayout {
     const btn_radius = 16;
     const addButton = container.append('g')
       .attr('class', 'flow-btn flow-btn-add')
-      .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`);
+      .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`)
+      .on('click', (_, d) => {
+        this.renderer.options.onAdd?.(d);
+      });
     addButton.append('circle')
       .attr('cx', 0)
       .attr('cy', 0)
@@ -324,13 +328,21 @@ export class VerticalLayout {
   drawHoverButtons (container: D3Element, node: LayoutNode) {
     const { width, data } = node;
     let btns = ['delete', 'edit'];
-    if ([ElementType.START, ElementType.END].includes(data.elementType)) {
+    if ([ElementType.START, ElementType.END, ElementType.CONDITION_BRANCH].includes(data.elementType)) {
       btns = ['edit'];
     }
     btns.forEach((btn, i) => {
       const flowBtns = container.append('g')
         .attr('class', `flow-btn flow-btn-${btn}`)
-        .attr('transform', `translate(${width - i * 36}, 0)`);
+        .attr('transform', `translate(${width - i * 36}, 0)`)
+        .on('click', (_, d) => {
+          if (btn === 'edit') {
+            this.renderer.options.onEdit?.(d);
+          }
+          if (btn === 'delete') {
+            this.renderer.options.onDelete?.(d);
+          }
+        });
       flowBtns.append('circle')
         .attr('cx', 0)
         .attr('cy', 0)
