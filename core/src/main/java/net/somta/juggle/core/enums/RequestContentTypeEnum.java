@@ -6,8 +6,24 @@ package net.somta.juggle.core.enums;
 public enum RequestContentTypeEnum {
 
     APPLICATION_JSON("application/json"),
-    APPLICATION_FORM("application/x-www-form-urlencoded");
+    APPLICATION_FORM_URLENCODED("application/x-www-form-urlencoded");
 
-    RequestContentTypeEnum(String s) {
+    private String value;
+
+    RequestContentTypeEnum(String value) {
+        this.value = value;
+    }
+
+    public static RequestContentTypeEnum findEnumByValue(String value){
+        for (RequestContentTypeEnum e : RequestContentTypeEnum.values()) {
+            if(e.getValue().equals(value)){
+                return e;
+            }
+        }
+        throw new IllegalArgumentException("requestContentType is not support or requestContentType is null!");
+    }
+
+    public String getValue() {
+        return value;
     }
 }

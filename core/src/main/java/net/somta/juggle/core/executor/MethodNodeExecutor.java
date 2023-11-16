@@ -1,7 +1,11 @@
 package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.FlowRuntimeContext;
+import net.somta.juggle.core.enums.RequestContentTypeEnum;
 import net.somta.juggle.core.exception.FlowException;
+import net.somta.juggle.core.http.HttpClientFactory;
+import net.somta.juggle.core.http.IHttpClient;
+import net.somta.juggle.core.http.Request;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.utils.HttpClient;
@@ -61,8 +65,9 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
      * @return
      */
     private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> parameterData){
-        HttpClient httpClient = new HttpClient();
-        HttpClient.Request request = new HttpClient.Request(method.getRequestType(),method.getUrl());
+        IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(method.getRequestContentType()));
+        Request request = new Request(method.getRequestType(),method.getUrl());
+        request.setRequestParams(parameterData);
         Map<String,Object> result = httpClient.sendRequest(request);
         return result;
     }

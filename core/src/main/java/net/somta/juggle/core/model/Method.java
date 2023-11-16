@@ -23,19 +23,9 @@ public class Method {
     private RequestTypeEnum requestType;
 
     /**
-     * 请求内容类型 application/json; charset=UTF-8
+     * 请求内容类型 application/json
      */
-    private RequestContentTypeEnum requestContentType;
-
-    /**
-     * 入参列表
-     */
-    //private List<InputParameter> inputParameters;
-
-    /**
-     * 出参列表
-     */
-    //private List<OutputParameter> outputParameters;
+    private String requestContentType;
 
     /**
      * 入参的填充规则
@@ -64,11 +54,11 @@ public class Method {
         this.requestType = requestType;
     }
 
-    public RequestContentTypeEnum getRequestContentType() {
+    public String getRequestContentType() {
         return requestContentType;
     }
 
-    public void setRequestContentType(RequestContentTypeEnum requestContentType) {
+    public void setRequestContentType(String requestContentType) {
         this.requestContentType = requestContentType;
     }
 

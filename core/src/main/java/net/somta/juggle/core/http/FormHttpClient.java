@@ -25,7 +25,6 @@ public class FormHttpClient extends AbstractHttpClient{
     public Map<String, Object> sendRequest(Request request) {
         HttpUriRequestBase httpRequest = null;
         if (request.getRequestType() == RequestTypeEnum.GET) {
-            //httpRequest = new HttpGet(ParamHelper.buildFormParams(request.getRequestUrl(),request.getRequestParams()));
             httpRequest = new HttpGet(request.getRequestUrl());
             List<NameValuePair> nvps = new ArrayList<>();
             if (request.getRequestParams() != null) {

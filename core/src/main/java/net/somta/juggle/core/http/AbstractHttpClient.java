@@ -7,9 +7,11 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.util.Timeout;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,16 +45,19 @@ public abstract class AbstractHttpClient implements IHttpClient{
 
     protected Map<String, Object> handleHttpResponse(HttpUriRequestBase httpRequest){
         Map<String,Object> resultMap = new HashMap<>(8);
-            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
-                //System.out.println(response.getCode()); // 200
-                //System.out.println(response.getReasonPhrase()); // OK
-                HttpEntity entity = response.getEntity();
-                // 获取响应信息
-                String resultContent = EntityUtils.toString(entity);
-                resultMap = JsonSerializeHelper.deserialize(resultContent, Map.class);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        final HttpClientResponseHandler<Map<String, Object>> responseHandler = response -> {
+            HttpEntity entity = response.getEntity();
+            String resultContent = EntityUtils.toString(entity);
+            Map<String,Object> map = JsonSerializeHelper.deserialize(resultContent, Map.class);
+            EntityUtils.consume(response.getEntity());
+            return map;
+        };
+
+        try {
+            resultMap = httpClient.execute(httpRequest,responseHandler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return resultMap;
     }
 }

@@ -7,10 +7,7 @@ import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
-import net.somta.juggle.core.enums.DataTypeEnum;
-import net.somta.juggle.core.enums.ElementTypeEnum;
-import net.somta.juggle.core.enums.FildSourceEnum;
-import net.somta.juggle.core.enums.RequestTypeEnum;
+import net.somta.juggle.core.enums.*;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
@@ -49,18 +46,9 @@ public class FlowDefinitionHelper {
         methodNode.setElementType(ElementTypeEnum.METHOD);
 
         Method method = new Method();
-        method.setUrl("http://127.0.0.1:8686/test/getUserById");
+        method.setUrl("http://127.0.0.1:8686/example/user/getUserById");
         method.setRequestType(RequestTypeEnum.GET);
-        //入参设置
-        /*List<InputParameter> inputParameters = new ArrayList<>();
-        InputParameter idParm = new InputParameter();
-        idParm.setKey("id");
-        idParm.setName("用户ID");
-        idParm.setRequired(true);
-        idParm.setDataType(new DataTypeInfo(DataTypeEnum.Integer));
-        idParm.setDefaultValue("666");
-        inputParameters.add(idParm);
-        method.setInputParameters(inputParameters);*/
+        method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());
 
         //入参填充规则
         List<FillStruct> inputFillRules = new ArrayList<>();
@@ -68,20 +56,12 @@ public class FlowDefinitionHelper {
         fillStruct.setSource("env_id");
         fillStruct.setSourceType(FildSourceEnum.VARIABLE);
         fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
-        fillStruct.setTarget("id");
+        fillStruct.setTarget("userId");
         fillStruct.setTargetType(FildSourceEnum.FLOWINPUT);
         fillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
         inputFillRules.add(fillStruct);
         method.setInputFillRules(inputFillRules);
 
-        //出参设置
-       /* List<OutputParameter> outputParameters = new ArrayList<>();
-        OutputParameter nameParm = new OutputParameter();
-        nameParm.setKey("name");
-        nameParm.setName("用户名称");
-        nameParm.setDataType(new DataTypeInfo(DataTypeEnum.String));
-        outputParameters.add(nameParm);
-        method.setOutputParameters(outputParameters);*/
 
         //出参填充规则
         List<FillStruct> outputFillRules = new ArrayList<>();
@@ -114,7 +94,7 @@ public class FlowDefinitionHelper {
         ConditionNode.ConditionItem conditionItem1 = new ConditionNode.ConditionItem();
         conditionItem1.setConditionName("判断用户名称是否为zhansan");
         conditionItem1.setConditionType(ConditionNode.ConditionType.CUSTOM);
-        conditionItem1.setExpression("env_name==\"zhansan\"");
+        conditionItem1.setExpression("env_name==\"张三\"");
         conditionItem1.setOutgoing("end_5g463");
         conditions.add(conditionItem1);
 
@@ -138,11 +118,12 @@ public class FlowDefinitionHelper {
         //方法节点
         MethodNode methodNode2 = new MethodNode();
         methodNode2.setKey("method_23s45");
-        methodNode2.setName("新增用户");
+        methodNode2.setName("获取订单信息");
         methodNode2.setElementType(ElementTypeEnum.METHOD);
         Method method2 = new Method();
-        method2.setUrl("http://127.0.0.1:8686/test/addUser");
+        method2.setUrl("http://127.0.0.1:8686/example/order/queryOrderByNo");
         method2.setRequestType(RequestTypeEnum.POST);
+        method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());
 
         //入参填充规则
         /*List<FillStruct> inputFillRules = new ArrayList<>();

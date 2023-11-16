@@ -114,7 +114,9 @@ defineExpose({ open });
         </el-form-item>
         <el-form-item label="请求内容类型" prop="apiRequestType">
           <el-select v-model="formValue.apiRequestContentType">
-            <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
+<!--            <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>-->
+            <el-option value="APPLICATION_JSON">application/json</el-option>
+            <el-option value="APPLICATION_FORM_URLENCODED">application/x-www-form-urlencoded</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="接口描述" prop="apiDesc">

@@ -24,7 +24,7 @@ public class SyncDispatcher extends AbstractDispatcher {
     protected FlowResult doSend(FlowRuntimeContext flowRuntimeContext) {
         Map<String,Object> data = flowExecutor.execute(flowRuntimeContext);
         FlowResult flowResult = new FlowResult()
-                .setStatus(FlowStatusEnum.FINISH)
+                .setStatus(flowRuntimeContext.getFlowStatus())
                 .setData(data);
         return flowResult;
     }

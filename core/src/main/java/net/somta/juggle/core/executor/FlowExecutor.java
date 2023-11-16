@@ -6,6 +6,8 @@ import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.BaseVariableManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.Map;
  * @date 2023/02/04
  */
 public class FlowExecutor{
+    private final static Logger logger = LoggerFactory.getLogger(FlowExecutor.class);
 
 
     public Map<String,Object> execute(FlowRuntimeContext flowRuntimeContext) {
@@ -27,7 +30,7 @@ public class FlowExecutor{
             preExecute(flowRuntimeContext);
             doExecute(flowRuntimeContext);
         } catch (Exception e) {
-            System.out.println("流程执行异常");
+            logger.error("流程执行异常:{}",e.getMessage());
             processStatus = FlowStatusEnum.ABORT;
             e.printStackTrace();
         } finally {

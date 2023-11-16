@@ -28,10 +28,6 @@
         </dependency>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>somta-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.somta</groupId>
             <artifactId>juggle-core</artifactId>
         </dependency>
         <!-- mysql start -->
