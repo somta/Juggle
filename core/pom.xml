@@ -20,15 +20,27 @@
         <dependency>
             <groupId>net.somta</groupId>
             <artifactId>somta-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.googlecode.aviator</groupId>
             <artifactId>aviator</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.2.1</version>
         </dependency>
+
         <!--<dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpasyncclient</artifactId>

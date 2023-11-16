@@ -2,8 +2,9 @@ package net.somta.juggle.core.http;
 
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
-import org.apache.http.client.methods.*;
-import org.apache.http.entity.StringEntity;
+import org.apache.hc.client5.http.classic.methods.*;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 
 import java.util.Map;
 
@@ -13,26 +14,22 @@ import java.util.Map;
 public class JsonHttpClient extends AbstractHttpClient{
     @Override
     public Map<String, Object> sendRequest(Request request) {
-        HttpRequestBase httpRequest = null;
+        HttpUriRequestBase httpRequest = null;
         if (request.getRequestType() == RequestTypeEnum.GET) {
             httpRequest = new HttpGet(request.getRequestUrl());
-        }else if (request.getRequestType() == RequestTypeEnum.DELETE) {
+        } else if (request.getRequestType() == RequestTypeEnum.DELETE) {
             httpRequest = new HttpDelete(request.getRequestUrl());
+        } else if(request.getRequestType() == RequestTypeEnum.PUT) {
+            httpRequest = new HttpPut(request.getRequestUrl());
+        } else if(request.getRequestType() == RequestTypeEnum.POST) {
+            httpRequest = new HttpPost(request.getRequestUrl());
         } else {
-            HttpEntityEnclosingRequestBase r = null;
-            if (request.getRequestType() == RequestTypeEnum.PUT) {
-                r = new HttpPut(request.getRequestUrl());
-            } else {
-                r = new HttpPost(request.getRequestUrl());
-            }
-            if (request.getRequestParams() != null) {
-                String jsonParam = JsonSerializeHelper.serialize(request.getRequestParams());
-                StringEntity stringEntity = new StringEntity(jsonParam,AbstractHttpClient.UTF8_ENCODE);
-                stringEntity.setContentEncoding(AbstractHttpClient.UTF8_ENCODE);
-                stringEntity.setContentType("application/json");
-                r.setEntity(stringEntity);
-            }
-            httpRequest = r;
+            throw new IllegalArgumentException("不支持的请求类型");
+        }
+        if (request.getRequestParams() != null) {
+            String jsonParam = JsonSerializeHelper.serialize(request.getRequestParams());
+            StringEntity stringEntity = new StringEntity(jsonParam, ContentType.APPLICATION_JSON);
+            httpRequest.setEntity(stringEntity);
         }
 
         super.fillHttpHeader(httpRequest,request);

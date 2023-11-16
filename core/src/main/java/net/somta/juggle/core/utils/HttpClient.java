@@ -3,13 +3,8 @@ package net.somta.juggle.core.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.*;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,7 +28,7 @@ public class HttpClient {
      * @return
      */
     public Map<String,Object> sendRequest(Request request) {
-        HttpRequestBase uriRequest = null;
+        /*HttpRequestBase uriRequest = null;
         if (request.getRequestType() == RequestTypeEnum.GET) {
             uriRequest = new HttpGet(request.getRequestUrl());
         }else if (request.getRequestType() == RequestTypeEnum.DELETE) {
@@ -49,7 +44,7 @@ public class HttpClient {
                 r.setEntity(new ByteArrayEntity(request.getReqBody()));
             }
             uriRequest = r;
-        }
+        }*/
 
         // TODO 处理header
         /*HttpHeaders headers = request.getReqHeaders();
@@ -58,7 +53,7 @@ public class HttpClient {
         }*/
 
         Map<String,Object> resultMap = new HashMap<>(8);
-        try {
+      /*  try {
             // 发送同步请求  https://blog.csdn.net/weixin_32265569/article/details/108606783
             CloseableHttpResponse httpResponse = httpClient.execute(uriRequest);
             System.out.println(httpResponse.getStatusLine());
@@ -78,7 +73,7 @@ public class HttpClient {
             System.out.println(httpResponse);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return resultMap;
     }
 
@@ -98,7 +93,7 @@ public class HttpClient {
         /**
          * 请求头
          */
-        private HttpHeaders requestHeaders;
+       // private HttpHeaders requestHeaders;
         /**
          * 请求体
          */
@@ -120,9 +115,9 @@ public class HttpClient {
             return requestType;
         }
 
-        public HttpHeaders getRequestHeaders() {
+       /* public HttpHeaders getRequestHeaders() {
             return requestHeaders;
-        }
+        }*/
 
         public void setReqBody(byte[] reqBody) {
             this.reqBody = reqBody;

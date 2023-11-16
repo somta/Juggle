@@ -1,17 +1,15 @@
 package net.somta.juggle.core.http;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.helper.JsonSerializeHelper;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.util.Timeout;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,16 +18,12 @@ import java.util.Map;
  */
 public abstract class AbstractHttpClient implements IHttpClient{
 
-    protected final static String UTF8_ENCODE = "UTF-8";
-
     protected CloseableHttpClient httpClient;
-    protected ObjectMapper objectMapper = new ObjectMapper();
-
     public AbstractHttpClient() {
         this.httpClient = HttpClients.createDefault();
     }
 
-    protected void fillHttpHeader(HttpRequestBase httpRequest,Request request){
+    protected void fillHttpHeader(HttpUriRequestBase httpRequest, Request request){
         Map<String,String> headers = request.getRequestHeaders();
         if(headers != null){
             for (Map.Entry<String, String> header : headers.entrySet()) {
@@ -38,29 +32,27 @@ public abstract class AbstractHttpClient implements IHttpClient{
         }
     }
 
-    protected void fillHttpConfig(HttpRequestBase httpRequest,Request request){
+    protected void fillHttpConfig(HttpUriRequestBase httpRequest,Request request){
         RequestConfig.Builder builder = RequestConfig.custom();
         if(request.getTimeout() != null){
             // 设置响应超时时间
-            builder.setSocketTimeout(request.getTimeout());
+            builder.setResponseTimeout(Timeout.ofMilliseconds(request.getTimeout()));
         }
         httpRequest.setConfig(builder.build());
     }
 
-    protected Map<String, Object> handleHttpResponse(HttpRequestBase httpRequest){
+    protected Map<String, Object> handleHttpResponse(HttpUriRequestBase httpRequest){
         Map<String,Object> resultMap = new HashMap<>(8);
-        try {
-            // 发送同步请求  https://blog.csdn.net/weixin_32265569/article/details/108606783
-            CloseableHttpResponse httpResponse = httpClient.execute(httpRequest);
-            System.out.println(httpResponse.getStatusLine());
-            HttpEntity entity = httpResponse.getEntity();
-            // 获取响应体的字符串
-            String result = EntityUtils.toString(entity);
-            resultMap = JsonSerializeHelper.deserialize(result, Map.class);
-            EntityUtils.consume(entity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
+                //System.out.println(response.getCode()); // 200
+                //System.out.println(response.getReasonPhrase()); // OK
+                HttpEntity entity = response.getEntity();
+                // 获取响应信息
+                String resultContent = EntityUtils.toString(entity);
+                resultMap = JsonSerializeHelper.deserialize(resultContent, Map.class);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         return resultMap;
     }
 }

@@ -1,8 +1,6 @@
 package net.somta.juggle.core.http;
 
-import net.somta.juggle.core.enums.RequestContentTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
-import org.apache.http.HttpHeaders;
 
 import java.util.Map;
 
