@@ -16,7 +16,7 @@ public class HttpClientTest {
 
     ///////////////////////////////////////////////////////请求内容类型为application/json///////////////////////////////////////////////////////
     @Test
-    public void getJsonRequestTest(){
+    public void getByJsonRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
         Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/goods/getGoodsInfo");
         Map<String,Object> requestParam = new HashMap<>(8);
@@ -24,27 +24,28 @@ public class HttpClientTest {
         requestParam.put("goodsInventory",6);
         request.setRequestParams(requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
-        System.out.println(rst);
+        String resGoodsName = (String) rst.get("goodsName");
+        Assertions.assertEquals(resGoodsName, "鞋");
     }
 
     @Test
-    public void postJsonRequestTest(){
-        /*IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
-        Request request = new Request(RequestTypeEnum.POST,"http://127.0.0.1:8686/example/user/login");
+    public void postByJsonRequestTest(){
+        IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
+        Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/goods/releaseGoods");
         Map<String,Object> requestParam = new HashMap<>(8);
-        requestParam.put("userName","juggle");
-        requestParam.put("password","123456");
+        requestParam.put("goodsName","鞋");
+        requestParam.put("goodsInventory",6);
         request.setRequestParams(requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
-        System.out.println(rst);*/
+        String resGoodsName = (String) rst.get("goodsName");
+        Assertions.assertEquals(resGoodsName, "鞋");
 
     }
 
-    // https://www.cnblogs.com/kiko2014551511/p/11609853.html
 
     ///////////////////////////////////////////////////////请求内容类型为application/x-www-form-urlencoded///////////////////////////////////////////////////////
     @Test
-    public void getFromRequestTest(){
+    public void getByFromRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         //GET单参数接口
         Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/order/queryOrderByNo");
@@ -69,7 +70,7 @@ public class HttpClientTest {
     }
 
     @Test
-    public void postFormRequestTest(){
+    public void postByFormRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request = new Request(RequestTypeEnum.POST,"http://127.0.0.1:8686/example/order/placeOrder");
         Map<String,Object> requestParam = new HashMap<>(8);

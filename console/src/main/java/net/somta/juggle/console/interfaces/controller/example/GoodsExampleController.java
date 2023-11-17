@@ -22,6 +22,17 @@ public class GoodsExampleController {
 
     private final static Logger logger = LoggerFactory.getLogger(UserExampleController.class);
 
+    @Operation(summary = "发布商品")
+    @GetMapping("/releaseGoods")
+    public Goods releaseGoods(@RequestBody GoodsParam goodsParam){
+        logger.info("接收到商品名称为:{},商品库存为:{}",goodsParam.getGoodsName(),goodsParam.getGoodsInventory());
+        Goods goods = new Goods();
+        goods.setId(999);
+        goods.setGoodsName(goodsParam.getGoodsName());
+        goods.setGoodsInventory(goodsParam.getGoodsInventory());
+        return goods;
+    }
+
     @Operation(summary = "获取商品信息")
     @GetMapping("/getGoodsInfo")
     public Goods getGoodsInfo(@RequestBody GoodsParam goodsParam){

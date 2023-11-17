@@ -13,6 +13,7 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.model.node.StartNode;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -199,5 +200,19 @@ public class FlowDefinitionHelper {
         variableInfoList.add(outputVariable1);
 
         return variableInfoList;
+    }
+
+    public static List<Variable> getFlowRuntimeVariables(List<VariableInfoVO> variableInfoVoList){
+        List<Variable> variables = new ArrayList<>();
+        if(CollectionUtils.isNotEmpty(variableInfoVoList)){
+            for (VariableInfoVO variableInfoVo : variableInfoVoList) {
+                Variable variable = new Variable();
+                variable.setKey(variableInfoVo.getEnvKey());
+                variable.setName(variableInfoVo.getEnvName());
+                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoVo.getDataType(), DataType.class));
+                variables.add(variable);
+            }
+        }
+        return variables;
     }
 }

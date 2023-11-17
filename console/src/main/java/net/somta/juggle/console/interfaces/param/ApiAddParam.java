@@ -33,7 +33,6 @@ public class ApiAddParam {
      */
     private RequestTypeEnum apiRequestType;
 
-    //todo 这里也换成core包中的枚举，但是要前端支持才行
     /**
      * api请求内容类型 application/json
      */

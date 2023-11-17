@@ -8,7 +8,6 @@ import net.somta.juggle.core.http.IHttpClient;
 import net.somta.juggle.core.http.Request;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.utils.HttpClient;
 import net.somta.juggle.core.variable.BaseVariableManager;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -58,7 +57,6 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
     }
 
     /**
-     * todo，这里只先做最简单的例子
      * 发送Http请求
      * @param method
      * @param parameterData
