@@ -22,7 +22,7 @@ public class Request {
     /**
      * 请求头
      */
-    private Map<String,String> requestHeaders;
+    private Map<String,Object> requestHeaders;
 
     /**
      * 请求参数
@@ -34,6 +34,15 @@ public class Request {
      */
     private Integer timeout;
 
+    /**
+     * 重试次数
+     */
+    private Integer retryCount;
+
+    /**
+     * 重试间隔时间 单位：毫秒
+     */
+    private Integer retryInterval = 1000;
 
     public Request(RequestTypeEnum requestType, String requestUrl) {
         if (requestUrl == null) {
@@ -51,11 +60,11 @@ public class Request {
         return requestType;
     }
 
-    public Map<String, String> getRequestHeaders() {
+    public Map<String, Object> getRequestHeaders() {
         return requestHeaders;
     }
 
-    public void setRequestHeaders(Map<String, String> requestHeaders) {
+    public void setRequestHeaders(Map<String, Object> requestHeaders) {
         this.requestHeaders = requestHeaders;
     }
 
@@ -73,5 +82,20 @@ public class Request {
 
     public void setTimeout(Integer timeout) {
         this.timeout = timeout;
+    }
+
+    public Integer getRetryCount() {
+        return retryCount;
+    }
+    public void setRetryCount(Integer retryCount) {
+        this.retryCount = retryCount;
+    }
+
+    public Integer getRetryInterval() {
+        return retryInterval;
+    }
+
+    public void setRetryInterval(Integer retryInterval) {
+        this.retryInterval = retryInterval;
     }
 }

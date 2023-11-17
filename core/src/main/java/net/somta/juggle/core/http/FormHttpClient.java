@@ -13,7 +13,6 @@ import java.util.Map;
 
 /**
  * @author husong
- * https://www.wdbyte.com/tool/httpclient5/
  */
 public class FormHttpClient extends AbstractHttpClient{
 

@@ -6,6 +6,7 @@ import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
@@ -20,10 +21,13 @@ import java.util.Map;
  */
 public abstract class AbstractHttpClient implements IHttpClient{
 
-    protected CloseableHttpClient httpClient;
+    private PoolingHttpClientConnectionManager connectionManager;
     public AbstractHttpClient() {
-        this.httpClient = HttpClients.createDefault();
+        connectionManager = new PoolingHttpClientConnectionManager();
+        connectionManager.setMaxTotal(100); // 设置最大连接数
+        connectionManager.setDefaultMaxPerRoute(20); // 设置每个路由的最大连接数
     }
+
 
     @Override
     public Map<String, Object> sendRequest(Request request) {
@@ -43,13 +47,13 @@ public abstract class AbstractHttpClient implements IHttpClient{
 
         fillHttpHeader(httpRequest,request);
         fillHttpConfig(httpRequest,request);
-        return handleHttpResponse(httpRequest);
+        return handleHttpResponse(httpRequest,request);
     }
 
     private void fillHttpHeader(HttpUriRequestBase httpRequest, Request request){
-        Map<String,String> headers = request.getRequestHeaders();
+        Map<String,Object> headers = request.getRequestHeaders();
         if(headers != null){
-            for (Map.Entry<String, String> header : headers.entrySet()) {
+            for (Map.Entry<String, Object> header : headers.entrySet()) {
                 httpRequest.addHeader(header.getKey(), header.getValue());
             }
         }
@@ -64,7 +68,7 @@ public abstract class AbstractHttpClient implements IHttpClient{
         httpRequest.setConfig(builder.build());
     }
 
-    private Map<String, Object> handleHttpResponse(HttpUriRequestBase httpRequest){
+    private Map<String, Object> handleHttpResponse(HttpUriRequestBase httpRequest, Request request){
         Map<String,Object> resultMap = new HashMap<>(8);
         final HttpClientResponseHandler<Map<String, Object>> responseHandler = response -> {
             HttpEntity entity = response.getEntity();
@@ -76,10 +80,20 @@ public abstract class AbstractHttpClient implements IHttpClient{
             return map;
         };
 
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setRetryStrategy(new CustomRetryStrategy(request)) // 设置默认的重试策略
+                .setConnectionManager(connectionManager)
+                .build();
         try {
             resultMap = httpClient.execute(httpRequest,responseHandler);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return resultMap;
     }

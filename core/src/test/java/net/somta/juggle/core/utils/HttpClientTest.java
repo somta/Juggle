@@ -32,6 +32,7 @@ public class HttpClientTest {
     public void postByJsonRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
         Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/goods/releaseGoods");
+        request.setRetryCount(3);
         Map<String,Object> requestParam = new HashMap<>(8);
         requestParam.put("goodsName","鞋");
         requestParam.put("goodsInventory",6);
@@ -46,8 +47,8 @@ public class HttpClientTest {
     ///////////////////////////////////////////////////////请求内容类型为application/x-www-form-urlencoded///////////////////////////////////////////////////////
     @Test
     public void getByFromRequestTest(){
-        IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         //GET单参数接口
+        IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/order/queryOrderByNo");
         Map<String,Object> requestParam = new HashMap<>(8);
         requestParam.put("orderNo","NO123");
@@ -57,11 +58,12 @@ public class HttpClientTest {
         Assertions.assertEquals(resOrderNo, "NO123");
 
         //GET对象参数接口
+        IHttpClient httpClient2 = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request2 = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/order/queryUserOrderList");
         Map<String,Object> requestParam2 = new HashMap<>(8);
         requestParam2.put("userId",1);
         request2.setRequestParams(requestParam2);
-        Map<String,Object> rst2 = httpClient.sendRequest(request2);
+        Map<String,Object> rst2 = httpClient2.sendRequest(request2);
         Integer resUserId = (Integer) rst2.get("userId");
         Assertions.assertEquals(resUserId, 1);
 
