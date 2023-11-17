@@ -19,7 +19,7 @@ public class CustomRetryStrategy implements HttpRequestRetryStrategy {
 
     @Override
     public boolean retryRequest(HttpRequest httpRequest, IOException e, int executionCount, HttpContext httpContext) {
-        if(request.getRetryCount() == null && request.getRetryCount() > 0){
+        if(request.getRetryCount() == null || request.getRetryCount() <= 0){
             return false;
         }
         return executionCount < request.getRetryCount();
@@ -27,7 +27,7 @@ public class CustomRetryStrategy implements HttpRequestRetryStrategy {
 
     @Override
     public boolean retryRequest(HttpResponse httpResponse, int executionCount, HttpContext httpContext) {
-        if(request.getRetryCount() == null && request.getRetryCount() > 0){
+        if(request.getRetryCount() == null || request.getRetryCount() <= 0){
             return false;
         }
         int statusCode = httpResponse.getCode();

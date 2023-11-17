@@ -24,8 +24,10 @@ public abstract class AbstractHttpClient implements IHttpClient{
     private PoolingHttpClientConnectionManager connectionManager;
     public AbstractHttpClient() {
         connectionManager = new PoolingHttpClientConnectionManager();
-        connectionManager.setMaxTotal(100); // 设置最大连接数
-        connectionManager.setDefaultMaxPerRoute(20); // 设置每个路由的最大连接数
+        // 设置最大连接数
+        connectionManager.setMaxTotal(100);
+        // 设置每个路由的最大连接数
+        connectionManager.setDefaultMaxPerRoute(20);
     }
 
 
