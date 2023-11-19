@@ -16,6 +16,23 @@ import java.util.Map;
  */
 public class FormHttpClient extends AbstractHttpClient{
 
+    private static volatile IHttpClient formHttpClient;
+
+    private FormHttpClient(){
+        super();
+    }
+
+    public static IHttpClient getHttpClientInstance() {
+        if(formHttpClient == null){
+            synchronized (FormHttpClient.class){
+                if(formHttpClient == null){
+                    formHttpClient = new FormHttpClient();
+                }
+            }
+        }
+        return formHttpClient;
+    }
+
     @Override
     protected void buildRequestParams(HttpUriRequestBase httpRequest, Request request) {
         if (request.getRequestParams() != null) {

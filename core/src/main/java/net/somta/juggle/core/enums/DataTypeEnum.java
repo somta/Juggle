@@ -5,8 +5,10 @@ package net.somta.juggle.core.enums;
  * @author husong
  */
 public enum DataTypeEnum {
-    Integer,
     String,
+    Integer,
+    Double,
     Boolean,
+    Date,
     List;
 }

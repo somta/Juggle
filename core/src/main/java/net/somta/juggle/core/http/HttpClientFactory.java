@@ -10,9 +10,9 @@ public class HttpClientFactory {
     public static IHttpClient getHttpClient(RequestContentTypeEnum requestContentType){
         IHttpClient httpClient = null;
         if (RequestContentTypeEnum.APPLICATION_JSON == requestContentType){
-            httpClient = new JsonHttpClient();
+            httpClient = JsonHttpClient.getHttpClientInstance();
         } else if(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED == requestContentType){
-            httpClient = new FormHttpClient();
+            httpClient = FormHttpClient.getHttpClientInstance();
         } else {
             throw new IllegalArgumentException("requestContentType is not support!");
         }

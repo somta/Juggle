@@ -21,15 +21,15 @@ public class OrderExampleController {
     @PostMapping("/placeOrder")
     public OrderDTO placeOrder(@ParameterObject OrderParam orderParam){
         OrderDTO order = new OrderDTO();
-        order.setOrderNo(orderParam.getOrderNo());
+        order.setOrderNo("NO123");
         order.setOrderName(orderParam.getOrderName());
         order.setUserId(orderParam.getUserId());
         return order;
     }
 
     @Operation(summary = "查询订单信息")
-    @GetMapping("/queryOrderByNo")
-    public OrderDTO queryOrderByNo(String orderNo){
+    @GetMapping("/getOrderByNo")
+    public OrderDTO getOrderByNo(String orderNo){
         OrderDTO order = new OrderDTO();
         order.setOrderNo(orderNo);
         order.setOrderName("测试订单");
@@ -38,8 +38,8 @@ public class OrderExampleController {
     }
 
     @Operation(summary = "查询用户订单列表")
-    @GetMapping("/queryUserOrderList")
-    public UserOrderDTO queryUserOrderList(@ParameterObject OrderParam orderParam){
+    @GetMapping("/getUserOrderList")
+    public UserOrderDTO getUserOrderList(@ParameterObject OrderParam orderParam){
         UserOrderDTO userOrderDto = new UserOrderDTO();
         List<OrderDTO> orderDtoList = new ArrayList<>();
         OrderDTO order = new OrderDTO();
@@ -60,17 +60,8 @@ public class OrderExampleController {
     }
 
     public static class OrderParam{
-        private String orderNo;
         private String orderName;
         private Integer userId;
-
-        public String getOrderNo() {
-            return orderNo;
-        }
-
-        public void setOrderNo(String orderNo) {
-            this.orderNo = orderNo;
-        }
 
         public String getOrderName() {
             return orderName;

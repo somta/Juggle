@@ -37,6 +37,7 @@ module.exports = {
                 'guide/user/domain',
                 'guide/user/api',
                 'guide/user/flow-definition',
+                'guide/user/flow',
                 'guide/user/flow-version',
                 'guide/user/data-type-info',
                 'guide/user/example-api',

@@ -10,6 +10,23 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
  */
 public class JsonHttpClient extends AbstractHttpClient{
 
+    private static volatile IHttpClient jsonHttpClient;
+
+    private JsonHttpClient(){
+        super();
+    }
+
+    public static IHttpClient getHttpClientInstance() {
+        if(jsonHttpClient == null){
+            synchronized (JsonHttpClient.class){
+                if(jsonHttpClient == null){
+                    jsonHttpClient = new JsonHttpClient();
+                }
+            }
+        }
+        return jsonHttpClient;
+    }
+
     @Override
     protected void buildRequestParams(HttpUriRequestBase httpRequest, Request request) {
         if (request.getRequestParams() != null) {

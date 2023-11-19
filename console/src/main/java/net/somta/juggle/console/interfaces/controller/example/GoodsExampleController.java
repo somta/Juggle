@@ -27,7 +27,7 @@ public class GoodsExampleController {
     public Goods releaseGoods(@RequestBody GoodsParam goodsParam){
         logger.info("接收到商品名称为:{},商品库存为:{}",goodsParam.getGoodsName(),goodsParam.getGoodsInventory());
         Goods goods = new Goods();
-        goods.setId(999);
+        goods.setGoodsId(999);
         goods.setGoodsName(goodsParam.getGoodsName());
         goods.setGoodsInventory(goodsParam.getGoodsInventory());
         return goods;
@@ -38,24 +38,25 @@ public class GoodsExampleController {
     public Goods getGoodsInfo(@RequestBody GoodsParam goodsParam){
         logger.info("接收到商品名称为:{},商品库存为:{}",goodsParam.getGoodsName(),goodsParam.getGoodsInventory());
         Goods goods = new Goods();
-        goods.setId(999);
+        goods.setGoodsId(999);
         goods.setGoodsName(goodsParam.getGoodsName());
+        goods.setGoodsPrice(189.59);
         goods.setGoodsInventory(goodsParam.getGoodsInventory());
         return goods;
     }
 
     public static class Goods{
-        private Integer id;
+        private Integer goodsId;
         private String goodsName;
         private Double goodsPrice;
         private Integer goodsInventory;
 
-        public Integer getId() {
-            return id;
+        public Integer getGoodsId() {
+            return goodsId;
         }
 
-        public void setId(Integer id) {
-            this.id = id;
+        public void setGoodsId(Integer goodsId) {
+            this.goodsId = goodsId;
         }
 
         public String getGoodsName() {

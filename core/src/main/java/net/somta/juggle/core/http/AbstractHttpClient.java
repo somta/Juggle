@@ -2,10 +2,13 @@ package net.somta.juggle.core.http;
 
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
+import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
@@ -19,6 +22,16 @@ import java.util.Map;
  * @author husong
  */
 public abstract class AbstractHttpClient implements IHttpClient{
+
+    private PoolingHttpClientConnectionManager connectionManager;
+    public AbstractHttpClient() {
+        connectionManager = new PoolingHttpClientConnectionManager();
+        // 设置最大连接数
+        connectionManager.setMaxTotal(100);
+        // 设置每个路由的最大连接数
+        connectionManager.setDefaultMaxPerRoute(20);
+    }
+
 
     @Override
     public Map<String, Object> sendRequest(Request request) {
@@ -71,19 +84,14 @@ public abstract class AbstractHttpClient implements IHttpClient{
             return map;
         };
 
-        CloseableHttpClient httpClient = HttpClients.custom()
+        HttpClient httpClient = HttpClients.custom()
                 .setRetryStrategy(new CustomRetryStrategy(request))
+                .setConnectionManager(connectionManager)
                 .build();
         try {
             resultMap = httpClient.execute(httpRequest,responseHandler);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return resultMap;
     }

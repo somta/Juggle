@@ -8,4 +8,5 @@ import java.util.Map;
 public interface IHttpClient {
 
     Map<String,Object> sendRequest(Request request);
+
 }
