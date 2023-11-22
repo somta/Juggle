@@ -24,6 +24,8 @@ public class FlowInfoAO {
 
     private String remark;
 
+    private String flowVersionRemark;
+
     public Long getId() {
         return id;
     }
@@ -104,4 +106,11 @@ public class FlowInfoAO {
         this.remark = remark;
     }
 
+    public String getFlowVersionRemark() {
+        return flowVersionRemark;
+    }
+
+    public void setFlowVersionRemark(String flowVersionRemark) {
+        this.flowVersionRemark = flowVersionRemark;
+    }
 }

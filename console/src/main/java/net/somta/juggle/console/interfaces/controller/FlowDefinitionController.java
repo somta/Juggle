@@ -106,7 +106,7 @@ public class FlowDefinitionController {
      */
     @Operation(summary = "获取流程定义分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<FlowDefinitionInfoPO> getFlowDefinitionPageList(@RequestBody FlowDefinitionPageParam flowDefinitionPageParam){
+    public ResponsePaginationDataResult<FlowDefinitionInfoDTO> getFlowDefinitionPageList(@RequestBody FlowDefinitionPageParam flowDefinitionPageParam){
         PageInfo pageInfo = flowDefinitionService.getFlowDefinitionPageList(flowDefinitionPageParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
@@ -145,7 +145,7 @@ public class FlowDefinitionController {
         if(flowDefinitionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam.getFlowDeployVersion(),flowDefinitionAo);
+        Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam,flowDefinitionAo);
         return ResponseDataResult.setResponseResult(result);
     }
 }

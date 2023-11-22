@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * @author husong
+ */
 public class DateEqFunction extends AbstractFunction {
 
     @Override

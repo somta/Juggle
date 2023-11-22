@@ -15,6 +15,10 @@ public class FlowVersionPO extends BaseModel {
      * 流程状态   0:禁用  1:启用
      */
     private Integer flowVersionStatus;
+    /**
+     * 流程版本描述
+     */
+    private String flowVersionRemark;
 
     private String flowContent;
 
@@ -23,6 +27,8 @@ public class FlowVersionPO extends BaseModel {
     private String outputs;
 
     private String variables;
+
+
 
     public Long getId() {
         return id;
@@ -54,6 +60,14 @@ public class FlowVersionPO extends BaseModel {
 
     public void setFlowVersionStatus(Integer flowVersionStatus) {
         this.flowVersionStatus = flowVersionStatus;
+    }
+
+    public String getFlowVersionRemark() {
+        return flowVersionRemark;
+    }
+
+    public void setFlowVersionRemark(String flowVersionRemark) {
+        this.flowVersionRemark = flowVersionRemark;
     }
 
     public String getFlowContent() {

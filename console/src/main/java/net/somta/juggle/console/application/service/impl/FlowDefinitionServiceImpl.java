@@ -19,10 +19,7 @@ import net.somta.juggle.console.domain.variable.repository.IVariableInfoReposito
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.console.interfaces.dto.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionAddParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionPageParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionUpdateParam;
+import net.somta.juggle.console.interfaces.param.definition.*;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -108,14 +105,15 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAo) {
+    public Boolean deployFlowDefinition(FlowDefinitionDeployParam flowDefinitionDeployParam, FlowDefinitionAO flowDefinitionAo) {
         FlowInfoAO flowInfoAo = new FlowInfoAO();
-        flowInfoAo.setFlowVersion(flowVersion);
+        flowInfoAo.setFlowVersion(flowDefinitionDeployParam.getFlowDeployVersion());
         flowInfoAo.setFlowKey(flowDefinitionAo.getFlowKey());
         flowInfoAo.setFlowName(flowDefinitionAo.getFlowName());
         flowInfoAo.setFlowType(flowDefinitionAo.getFlowType());
         flowInfoAo.setFlowContent(flowDefinitionAo.getFlowContent());
         flowInfoAo.setRemark(flowDefinitionAo.getRemark());
+        flowInfoAo.setFlowVersionRemark(flowDefinitionDeployParam.getFlowVersionRemark());
 
         ParameterEntity parameterEntity = flowDefinitionAo.getParameterEntity();
         String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());

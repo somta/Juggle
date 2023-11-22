@@ -19,7 +19,8 @@ export async function deleteFlowDefine (id: number): ResponseResult<boolean> {
 
 export function deployFlowDefine(params: {
     flowDefinitionId: string,
-    flowDeployVersion:string
+    flowDeployVersion:string,
+    flowVersionRemark:string
 }):ResponsePageResult {
     return request.post('/v1/flow/definition/deploy',params);
 }

@@ -21,6 +21,7 @@ let deployForm = reactive({
   flowDefinitionId: '',
   flowName: '',
   flowDeployVersion: '',
+  flowVersionRemark: '',
 });
 
 // 初始加载
@@ -76,13 +77,14 @@ function openDeployDialog (row: any) {
 }
 
 async function onSubmitDeploy () {
-  await deployFlowDefine(deployForm.flowDefinitionId,deployForm.flowDeployVersion);
+  await deployFlowDefine(deployForm.flowDefinitionId,deployForm.flowDeployVersion,deployForm.flowVersionRemark);
 }
 
-async function deployFlowDefine (flowDefinitionId: string, flowDeployVersion: string) {
+async function deployFlowDefine (flowDefinitionId: string, flowDeployVersion: string, flowVersionRemark:string) {
   const res = await flowDefineService.deployFlowDefine({
     flowDefinitionId: flowDefinitionId,
     flowDeployVersion:flowDeployVersion,
+    flowVersionRemark:flowVersionRemark,
   });
   if (res.success) {
     ElMessage({ type: 'success', message: '部署成功' });
@@ -155,6 +157,9 @@ function openEdit (row: any) {
         </el-form-item>
         <el-form-item label="部署版本">
           <el-input v-model="deployForm.flowDeployVersion" disabled />
+        </el-form-item>
+        <el-form-item label="版本描述">
+          <el-input type="textarea" v-model="deployForm.flowVersionRemark" />
         </el-form-item>
       </el-form>
       <template #footer>

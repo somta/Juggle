@@ -20,10 +20,25 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
 public interface IFlowVersionAssembler {
     IFlowVersionAssembler IMPL = Mappers.getMapper(IFlowVersionAssembler.class);
 
+    /**
+     * param assembler to vo
+     * @param flowVersionPageParam flow version page param
+     * @return FlowVersionQueryVO
+     */
     FlowVersionQueryVO paramToVo(FlowVersionPageParam flowVersionPageParam);
 
+    /**
+     * voList assembler to FlowVersionDTO List
+     * @param flowVersionVOList flowVersionVo List
+     * @return FlowVersionDTO List
+     */
     List<FlowVersionDTO> voListToDtoList(List<FlowVersionVO> flowVersionVOList);
 
+    /**
+     * viewList assembler to DtoList
+     * @param flowVersionViewList flowVersion List
+     * @return FlowVersionDTO List
+     */
     default List<FlowVersionDTO> viewListToDtoList(List<FlowVersionView> flowVersionViewList){
         if ( flowVersionViewList == null ) {
             return null;
@@ -35,6 +50,7 @@ public interface IFlowVersionAssembler {
             flowVersionDTO.setFlowName(flowVersionView.getFlowName());
             flowVersionDTO.setFlowVersion(flowVersionView.getFlowVersion());
             flowVersionDTO.setFlowVersionStatus(flowVersionView.getFlowVersionStatus());
+            flowVersionDTO.setFlowVersionRemark(flowVersionView.getFlowVersionRemark());
             flowVersionDTO.setTriggerUrl(JUGGLE_SERVER_VERSION + "/flow/version/trigger/"+flowVersionView.getFlowVersion()+"/"+flowVersionView.getFlowKey());
             list.add(flowVersionDTO);
         }

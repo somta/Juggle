@@ -15,6 +15,8 @@ public class FlowVersionDTO {
 
     private Integer flowVersionStatus;
 
+    private String flowVersionRemark;
+
     public Long getId() {
         return id;
     }
@@ -53,6 +55,14 @@ public class FlowVersionDTO {
 
     public void setFlowVersionStatus(Integer flowVersionStatus) {
         this.flowVersionStatus = flowVersionStatus;
+    }
+
+    public String getFlowVersionRemark() {
+        return flowVersionRemark;
+    }
+
+    public void setFlowVersionRemark(String flowVersionRemark) {
+        this.flowVersionRemark = flowVersionRemark;
     }
 
     @Override

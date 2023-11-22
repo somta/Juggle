@@ -9,6 +9,7 @@
 	<result column="flow_id" property="flowId"/>
 	<result column="flow_version" property="flowVersion"/>
 	<result column="flow_version_status" property="flowVersionStatus"/>
+	<result column="flow_version_remark" property="flowVersionRemark"/>
 	<result column="flow_content" property="flowContent"/>
 	<result column="inputs" property="inputs"/>
 	<result column="outputs" property="outputs"/>
@@ -30,12 +31,12 @@
 </sql>
        
 <sql id="Base_Column_List" >
-	id, flow_id, flow_version,flow_version_status, flow_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by
+	id, flow_id, flow_version,flow_version_status, flow_version_remark, flow_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by
 </sql>
    
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO" >
-	insert into t_flow_version (id, flow_id, flow_version,flow_version_status, flow_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{flowId},#{flowVersion},#{flowVersionStatus},#{flowContent},#{inputs},#{outputs},#{variables},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_flow_version (id, flow_id, flow_version,flow_version_status, flow_version_remark, flow_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowId},#{flowVersion},#{flowVersionStatus},#{flowVersionRemark},#{flowContent},#{inputs},#{outputs},#{variables},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -53,6 +54,9 @@
 	</if>
 	<if test="flowVersionStatus != null">
 		flow_version_status=#{flowVersionStatus},
+	</if>
+	<if test="flowVersionRemark != null and flowVersionRemark != ''">
+		flow_version_remark=#{flowVersionRemark},
 	</if>
 	<if test="flowContent != null and flowContent != ''">
 		flow_content=#{flowContent},

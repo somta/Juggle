@@ -139,6 +139,7 @@ CREATE TABLE `t_flow_version` (
   `flow_id` bigint DEFAULT NULL,
   `flow_version` varchar(8) DEFAULT NULL,
   `flow_version_status` int(1) DEFAULT 0,
+  `flow_version_remark` varchar(250) DEFAULT NULL,
   `flow_content` mediumtext,
   `inputs` text,
   `outputs` text,

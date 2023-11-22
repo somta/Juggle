@@ -18,7 +18,8 @@
 	       i.flow_key as flowKey,
 	       i.flow_name as flowName,
 	       v.flow_version as flowVersion,
-	       v.flow_version_status as flowVersionStatus
+	       v.flow_version_status as flowVersionStatus,
+	       v.flow_version_remark as flowVersionRemark
 	from t_flow_info i left join t_flow_version v on i.id=v.flow_id
 	where 1=1
 	<if test="flowId != null">

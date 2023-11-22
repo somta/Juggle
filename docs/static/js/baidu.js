@@ -2,6 +2,7 @@ var _hmt = _hmt || [];
 (function () {
     var hm = document.createElement("script");
     var origio = window.location.origin;
+    //todo 这里要改掉
     if (origin.indexOf("doc.xiaominfo.com") > -1) {
         hm.src = "https://hm.baidu.com/hm.js?cc5bfb32738435c06e10e57219d99584";
     } else if (origin.indexOf("www.xiaominfo.com" > -1)) {

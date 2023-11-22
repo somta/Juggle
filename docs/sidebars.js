@@ -37,6 +37,14 @@ module.exports = {
                 'guide/user/domain',
                 'guide/user/api',
                 'guide/user/flow-definition',
+                {
+                    type: 'category',
+                    label: '流程设计',
+                    items: [
+                        'guide/user/design/nodes',
+                        'guide/user/design/variable',
+                    ],
+                },
                 'guide/user/flow',
                 'guide/user/flow-version',
                 'guide/user/data-type-info',

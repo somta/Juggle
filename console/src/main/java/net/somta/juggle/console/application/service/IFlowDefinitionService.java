@@ -3,10 +3,7 @@ package net.somta.juggle.console.application.service;
 import com.github.pagehelper.PageInfo;
 import net.somta.juggle.console.domain.definition.FlowDefinitionAO;
 import net.somta.juggle.console.interfaces.param.TriggerDataParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionAddParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionContentParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionPageParam;
-import net.somta.juggle.console.interfaces.param.definition.FlowDefinitionUpdateParam;
+import net.somta.juggle.console.interfaces.param.definition.*;
 import net.somta.juggle.core.model.FlowResult;
 
 /**
@@ -53,7 +50,7 @@ public interface IFlowDefinitionService {
      * @param flowDefinitionAo
      * @return
      */
-    Boolean deployFlowDefinition(String flowVersion, FlowDefinitionAO flowDefinitionAo);
+    Boolean deployFlowDefinition(FlowDefinitionDeployParam flowDefinitionDeployParam, FlowDefinitionAO flowDefinitionAo);
 
     /**
      * @param flowDefinitionAo
