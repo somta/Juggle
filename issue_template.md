@@ -1,7 +1,7 @@
 ### 基础信息
-操作系统：Ubuntu
-Juggle版本：1.0.0
-部署方式：Docker
+操作系统：xxx         如：Ubuntu
+Juggle版本：x.x.x    如：1.0.0
+部署方式：xxx         如：Docker
 
 ### 问题描述
 

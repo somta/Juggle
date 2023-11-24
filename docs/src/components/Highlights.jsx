@@ -35,6 +35,7 @@ const FeatureList = [
             <>
                 <ul>
                     <li>适用于微服务的接口编排</li>
+                    <li>适用于第三方系统集成，打破系统孤岛</li>
                     <li>适用于写适配聚合层（BFF层）的代码</li>
                     <li>适用于私有化定制开发，避免污染标准代码</li>
                 </ul>
@@ -48,17 +49,7 @@ const FeatureList = [
             <>
                 <ul>
                     <li>详细的文档</li>
-                </ul>
-            </>
-        ),
-    },
-    {
-        title: '云原生',
-        Svg: require('../../static/img/features/kubernetes2.svg').default,
-        description: (
-            <>
-                <ul>
-                    <li>提供基于K8S+Docker的云原生的聚合OpenAPI文档的解决方案</li>
+                    <li>丰富的视频讲解资料</li>
                 </ul>
             </>
         ),

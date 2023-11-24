@@ -27,7 +27,8 @@ module.exports = {
         collapsed: true,
         items: [
             'guide/start/quick-start',
-            'guide/start/start-with-docker'
+            'guide/start/start-with-docker',
+            'guide/start/start-with-kubernetes'
         ],
      },{
             type: 'category',
@@ -55,7 +56,9 @@ module.exports = {
         label: '开源共建',
         collapsed: true,
         items: [
-            'guide/open/contributing-flow'
+            'guide/open/contributing-flow',
+            'guide/open/pull-request',
+            'guide/open/reporting-bug'
         ],
      },{
         type: 'category',

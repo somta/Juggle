@@ -174,9 +174,9 @@ module.exports = {
             },
         //todo 这里要换成自己的
             algolia: {
-                appId: '3CRIMRK623',
-                apiKey: '69d77aed70b67e21c81c6b4a38d0cf1a', // search only (public) API key
-                indexName: '222',
+                appId: 'DADHMSXO5L',
+                apiKey: '64fce270bcef566f454360776f0e7bec', // search only (public) API key
+                indexName: 'juggle-index',
                 algoliaOptions: {
                     facetFilters: ['version:VERSION'],
                 },
