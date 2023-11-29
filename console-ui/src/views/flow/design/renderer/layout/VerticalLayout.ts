@@ -236,93 +236,105 @@ export class VerticalLayout {
   drawNodes (container: D3Element, nodes: LayoutNode[]) {
     container.selectChildren('.node-wrap')
       .data(nodes, (d: any) => d.data.key)
-      .join('g')
-        .attr('class', 'node-wrap')
-        .attr('transform', (d) => `translate(${d.left}, ${d.top})`)
-        .each((d, i, nodes) => {
+      .join(
+        enter => enter.append('g')
+          .each((d, i, nodes) => {
+            const g = d3.select(nodes[i]);
+            this.drawNode(g, d, 'enter');
+          }),
+        update => update.each((d, i, nodes) => {
           const g = d3.select(nodes[i]);
           this.drawNode(g, d);
-        });
+        }),
+      ).attr('class', 'node-wrap')
+      .attr('transform', (d) => `translate(${d.left}, ${d.top})`);
   }
 
-  private drawNode (container: D3Element, node: LayoutNode) {
+  private drawNode (container: D3Element, node: LayoutNode, type: string = 'update') {
     switch (node.data.elementType) {
       case ElementType.START:
       case ElementType.END:
       case ElementType.METHOD:
       case ElementType.CONDITION_START:
       case ElementType.CONDITION_BRANCH:
-        this.drawNormalNode(container, node);
+        this.drawNormalNode(container, node, type);
         break;
       case ElementType.CONDITION:
-        this.drawConditionNode(container, node);
+        this.drawConditionNode(container, node, type);
         break;
     }
   }
 
-  drawNormalNode (container: D3Element, node: LayoutNode) {
+  drawNormalNode (container: D3Element, node: LayoutNode, type: string) {
     const { width, height, data } = node;
-    const flowNode = container.append('g')
-      .attr('class', 'flow-node');
-
-    flowNode.append('rect')
-      .attr('width', width)
-      .attr('height', height)
-      .attr('fill', '#fff')
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', 1)
-      .attr('rx', 4)
-      .attr('ry', 4);
-
-    flowNode.append('text')
-      .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
-      .attr('x', width / 2)
-      .attr('y', height / 2)
-      .text(data.name);
-
-    this.drawHoverButtons(flowNode, node);
-
-    if ([
-      ElementType.START,
-      ElementType.METHOD,
-      ElementType.CONDITION_BRANCH,
-    ].includes(data.elementType)) {
-      this.drawAddIcon(container, node);
+    if (type === 'enter') {
+      const flowNode = container.append('g')
+        .attr('class', 'flow-node');
+  
+      flowNode.append('rect')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('fill', '#fff')
+        .attr('stroke', '#aaa')
+        .attr('stroke-width', 1)
+        .attr('rx', 4)
+        .attr('ry', 4);
+  
+      flowNode.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('x', width / 2)
+        .attr('y', height / 2)
+        .text(data.name);
+  
+      this.drawHoverButtons(flowNode, node);
+  
+      if ([
+        ElementType.START,
+        ElementType.METHOD,
+        ElementType.CONDITION_BRANCH,
+      ].includes(data.elementType)) {
+        this.drawAddIcon(container, node, type);
+      }
     }
   }
 
-  drawConditionNode (container: D3Element, node: LayoutNode) {
+  drawConditionNode (container: D3Element, node: LayoutNode, type: string) {
+    this.drawAddIcon(container, node, type);
     const children = node.getChildren();
-    this.drawAddIcon(container, node);
     if (children && Array.isArray(children)) {
       this.drawNodes(container, children);
     }
   }
 
-  drawAddIcon (container: D3Element, node: LayoutNode) {
+  drawAddIcon (container: D3Element, node: LayoutNode, type: string) {
     const { width, height } = node;
-    const btn_radius = 16;
-    const addButton = container.append('g')
-      .attr('class', 'flow-btn flow-btn-add')
-      .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`)
-      .on('click', (_, d) => {
-        this.renderer.options.onAdd?.(d);
-      });
-    addButton.append('circle')
-      .attr('cx', 0)
-      .attr('cy', 0)
-      .attr('r', btn_radius)
-      .attr('fill', '#fff')
-      .attr('stroke', '#777');
-    
-    addButton.append('use')
-      .attr('href', '#icon-plus')
-      .attr('width', 24)
-      .attr('height', 24)
-      .attr('x', -12)
-      .attr('y', -12)
-      .attr('fill', '#777');
+    if (type === 'enter') {
+      const btn_radius = 16;
+      const addButton = container.append('g')
+        .attr('class', 'flow-btn flow-btn-add')
+        .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`)
+        .on('click', (_, d) => {
+          this.renderer.options.onAdd?.(d);
+        });
+      addButton.append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', btn_radius)
+        .attr('fill', '#fff')
+        .attr('stroke', '#777');
+      
+      addButton.append('use')
+        .attr('href', '#icon-plus')
+        .attr('width', 24)
+        .attr('height', 24)
+        .attr('x', -12)
+        .attr('y', -12)
+        .attr('fill', '#777');
+    } else {
+      container.select('.flow-btn-add')
+        .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`);
+    }
   }
 
   drawHoverButtons (container: D3Element, node: LayoutNode) {
@@ -359,28 +371,6 @@ export class VerticalLayout {
         .attr('fill', '#777');
     });
   }
-
-  // drawRemoveIcon (container: D3Element, node: LayoutNode) {
-  //   const { width, height } = node;
-  //   const btn_radius = 16;
-  //   const addButton = container.append('g')
-  //     .attr('class', 'flow-add-btn')
-  //     .attr('transform', `translate(${width / 2}, ${height + this.spacing.vertical / 2})`);
-  //   addButton.append('circle')
-  //     .attr('cx', 0)
-  //     .attr('cy', 0)
-  //     .attr('r', btn_radius)
-  //     .attr('fill', '#fff')
-  //     .attr('stroke', '#777');
-    
-  //   addButton.append('use')
-  //     .attr('href', '#icon-plus')
-  //     .attr('width', 24)
-  //     .attr('height', 24)
-  //     .attr('x', -12)
-  //     .attr('y', -12)
-  //     .attr('fill', '#777');
-  // }
 
   getPolyline (fromNode: LayoutNode, toNode: LayoutNode): D3Point[] {
     const from: D3Point = [fromNode.x + fromNode.width / 2, fromNode.y + fromNode.height / 2];

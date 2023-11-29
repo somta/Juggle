@@ -10,6 +10,7 @@ export type NodeData = {
   key: string;
   name: string;
   outgoings: string[];
+  incomings: string[];
   elementType: ElementType;
   conditions?: NodeCondition[];
 };
