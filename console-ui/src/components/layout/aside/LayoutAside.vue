@@ -12,10 +12,10 @@ import IconInterface from '@/components/icons/IconInterface.vue';
       style="height: 100%"
       router
     >
-      <el-menu-item index="/">
+<!--      <el-menu-item index="/">
         <el-icon><HomeFilled /></el-icon>
         <span>首页</span>
-      </el-menu-item>
+      </el-menu-item>-->
       <el-sub-menu index="2">
         <template #title>
           <el-icon><IconFlow /></el-icon>

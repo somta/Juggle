@@ -23,7 +23,7 @@ async function submit () {
   });
   console.log(result, 'ww');
   if (result.success) {
-    router.push({name: 'home'});
+    router.push({name: 'flow'});
   } else {
     ElMessage.error(result.errorMsg || '登录失败');
   }

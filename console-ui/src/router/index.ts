@@ -20,14 +20,15 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: LayoutView,
+      redirect: () => ({name: 'flow-define'}),
       meta: { name: '首页' },
       children: [
-        {
+        /*{
           path: '',
           name: 'home',
           component: HomeView,
           meta: { name: '首页' },
-        },
+        },*/
         ...CommonRoutes,
         ...FlowRoutes,
         ...ApiRoutes,
