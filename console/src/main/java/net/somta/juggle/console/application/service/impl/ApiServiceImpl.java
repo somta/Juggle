@@ -32,29 +32,26 @@ public class ApiServiceImpl implements IApiService {
     }
 
     @Override
-    public ResponseDataResult<Boolean> addApi(ApiAddParam apiAddParam) {
+    public Boolean addApi(ApiAddParam apiAddParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiAddParam);
         apiAo.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
-        apiRepository.addApi(apiAo);
-        return ResponseDataResult.setResponseResult();
+        return apiRepository.addApi(apiAo);
     }
 
     @Override
-    public ResponseDataResult<Boolean> deleteApi(Long apiId) {
-        apiRepository.deleteApi(apiId);
-        return ResponseDataResult.setResponseResult();
+    public Boolean deleteApi(Long apiId) {
+        return apiRepository.deleteApi(apiId);
     }
 
     @Override
-    public ResponseDataResult<Boolean> updateApi(ApiUpdateParam apiUpdateParam) {
+    public Boolean updateApi(ApiUpdateParam apiUpdateParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
         apiAo.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
-        apiRepository.updateApi(apiAo);
-        return ResponseDataResult.setResponseResult();
+        return apiRepository.updateApi(apiAo);
     }
 
     @Override
-    public ApiInfoDTO queryApiInfo(Long apiId) {
+    public ApiInfoDTO getApiInfo(Long apiId) {
         ApiAO apiAo = apiRepository.queryApi(apiId);
         ApiInfoDTO apiInfoDto = IApiAssembler.IMPL.aoToDto(apiAo);
         return apiInfoDto;
@@ -68,7 +65,7 @@ public class ApiServiceImpl implements IApiService {
     }
 
     @Override
-    public PageInfo queryApiPageList(ApiQueryParam apiQueryParam) {
+    public PageInfo getApiPageList(ApiQueryParam apiQueryParam) {
         Page<ApiDTO> page = PageHelper.startPage(apiQueryParam.getPageNum(), apiQueryParam.getPageSize());
         List<ApiVO> apiVoList = apiRepository.queryApiPageList(apiQueryParam);
         List<ApiDTO> apiList = IApiAssembler.IMPL.voListToDtoList(apiVoList);

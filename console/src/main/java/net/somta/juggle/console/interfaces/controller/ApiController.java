@@ -34,25 +34,28 @@ public class ApiController {
     @Operation(summary = "新增接口")
     @PostMapping("/add")
     public ResponseDataResult<Boolean> addApi(@RequestBody ApiAddParam apiAddParam){
-        return apiService.addApi(apiAddParam);
+        apiService.addApi(apiAddParam);
+        return ResponseDataResult.setResponseResult();
     }
 
     @Operation(summary = "根据ID删除接口")
     @DeleteMapping("/delete/{apiId}")
     public ResponseDataResult<Boolean> deleteApi(@PathVariable Long apiId){
-        return apiService.deleteApi(apiId);
+        apiService.deleteApi(apiId);
+        return ResponseDataResult.setResponseResult();
     }
 
     @Operation(summary = "修改接口")
     @PutMapping("/update")
     public ResponseDataResult<Boolean> updateApi(@RequestBody ApiUpdateParam apiUpdateParam){
-        return apiService.updateApi(apiUpdateParam);
+        apiService.updateApi(apiUpdateParam);
+        return ResponseDataResult.setResponseResult();
     }
 
     @Operation(summary = "查询接口详情")
     @GetMapping("/info/{apiId}")
-    public ResponseDataResult<ApiInfoDTO> queryApi(@PathVariable Long apiId){
-        ApiInfoDTO apiInfoDTO = apiService.queryApiInfo(apiId);
+    public ResponseDataResult<ApiInfoDTO> getApi(@PathVariable Long apiId){
+        ApiInfoDTO apiInfoDTO = apiService.getApiInfo(apiId);
         return ResponseDataResult.setResponseResult(apiInfoDTO);
     }
 
@@ -70,7 +73,7 @@ public class ApiController {
     @Operation(summary = "查询接口分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<ApiDTO>> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
-        PageInfo pageInfo = apiService.queryApiPageList(apiQueryParam);
+        PageInfo pageInfo = apiService.getApiPageList(apiQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 

@@ -45,7 +45,7 @@
  delete from t_api where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.DomainPO" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.ApiPO" >
 	update t_api set
 	<trim  suffixOverrides="," >
 		<if test="domainId != null">

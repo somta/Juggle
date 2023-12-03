@@ -63,6 +63,21 @@ CREATE TABLE `t_data_type_info` (
 );
 
 -- ----------------------------
+-- Table structure for t_obj
+-- ----------------------------
+CREATE TABLE `t_obj` (
+ `id` bigint NOT NULL AUTO_INCREMENT,
+ `obj_code` varchar(30) DEFAULT NULL,
+ `obj_name` varchar(50) DEFAULT NULL,
+ `obj_desc` varchar(100) DEFAULT NULL,
+ `created_at` datetime DEFAULT NULL,
+ `created_by` bigint DEFAULT NULL,
+ `updated_at` datetime DEFAULT NULL,
+ `updated_by` bigint DEFAULT NULL,
+ PRIMARY KEY (`id`)
+)
+
+-- ----------------------------
 -- Table structure for t_flow_definition
 -- ----------------------------
 CREATE TABLE `t_flow_definition` (

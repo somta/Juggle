@@ -16,7 +16,7 @@ import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVE
  * 用户的示例接口，为系统内置流程提供接口示例
  * @author husong
  */
-@Tag(name = "用户的示例接口")
+@Tag(name = "示例-用户的示例接口")
 @RestController
 @RequestMapping("/example/user")
 public class UserExampleController {

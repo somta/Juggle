@@ -15,7 +15,7 @@ import java.util.Date;
  * 订单的示例接口，为系统内置流程提供接口示例，这里的接口，请求内容类型为：application/json
  * @author Gavin
  */
-@Tag(name = "商品的示例接口")
+@Tag(name = "示例-商品的示例接口")
 @RestController
 @RequestMapping("/example/goods")
 public class GoodsExampleController {

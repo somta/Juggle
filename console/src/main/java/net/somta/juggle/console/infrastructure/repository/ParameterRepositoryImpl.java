@@ -9,7 +9,7 @@ import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.infrastructure.converter.IParameterConverter;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * @author Gavin
  */
-@Component
+@Repository
 public class ParameterRepositoryImpl implements IParameterRepository {
 
     private final ParameterMapper parameterMapper;

@@ -5,12 +5,12 @@ import net.somta.juggle.console.domain.user.repository.IUserRepository;
 import net.somta.juggle.console.infrastructure.converter.IUserConverter;
 import net.somta.juggle.console.infrastructure.mapper.UserMapper;
 import net.somta.juggle.console.infrastructure.po.UserPO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author husong
  */
-@Component
+@Repository
 public class UserRepositoryImpl implements IUserRepository {
     private final UserMapper userMapper;
 

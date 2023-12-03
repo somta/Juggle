@@ -1,22 +1,20 @@
 package net.somta.juggle.console.infrastructure.repository;
 
 import net.somta.juggle.console.domain.version.FlowVersionAO;
-import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.domain.version.repository.IFlowVersionRepository;
 import net.somta.juggle.console.domain.version.view.FlowVersionView;
 import net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO;
-import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
 import net.somta.juggle.console.infrastructure.converter.IFlowVersionConverter;
 import net.somta.juggle.console.infrastructure.mapper.FlowVersionMapper;
 import net.somta.juggle.console.infrastructure.po.FlowVersionPO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author husong
  */
-@Component
+@Repository
 public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
 
     private final FlowVersionMapper flowVersionMapper;
