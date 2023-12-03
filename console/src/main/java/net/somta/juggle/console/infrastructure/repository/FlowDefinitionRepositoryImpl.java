@@ -18,7 +18,7 @@ import net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @author husong
  */
-@Component
+@Repository
 public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
 
     private final FlowDefinitionMapper flowDefinitionMapper;

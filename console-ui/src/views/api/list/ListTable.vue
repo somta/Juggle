@@ -42,7 +42,6 @@ function editRow (row: any) {
       :currentPage="pageNum"
       :pageSize="pageSize"
       background
-      hideOnSinglePage
       layout="total, prev, pager, next"
       :total="dataTotal"
       @currentChange="(val: number) => $emit('pageChange', val)"

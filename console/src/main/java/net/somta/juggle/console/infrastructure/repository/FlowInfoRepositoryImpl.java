@@ -11,7 +11,7 @@ import net.somta.juggle.console.infrastructure.mapper.FlowInfoMapper;
 import net.somta.juggle.console.infrastructure.mapper.FlowVersionMapper;
 import net.somta.juggle.console.infrastructure.po.FlowInfoPO;
 import net.somta.juggle.console.infrastructure.po.FlowVersionPO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author husong
  */
-@Component
+@Repository
 public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
 
     private final FlowInfoMapper flowInfoMapper;

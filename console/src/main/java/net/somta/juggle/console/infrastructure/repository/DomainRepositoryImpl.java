@@ -7,7 +7,7 @@ import net.somta.juggle.console.domain.domain.vo.DomainVO;
 import net.somta.juggle.console.infrastructure.converter.IDomainConverter;
 import net.somta.juggle.console.infrastructure.mapper.DomainMapper;
 import net.somta.juggle.console.infrastructure.po.DomainPO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author husong
  */
-@Component
+@Repository
 public class DomainRepositoryImpl implements IDomainRepository {
     private final DomainMapper domainMapper;
 

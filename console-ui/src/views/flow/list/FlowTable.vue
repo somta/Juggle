@@ -62,7 +62,6 @@ function goFlowVersionListPage(flowId: number) {
       :currentPage="pageNum"
       :pageSize="pageSize"
       background
-      hideOnSinglePage
       layout="total, prev, pager, next"
       :total="dataTotal"
       @currentChange="(val: number) => $emit('pageChange', val)"

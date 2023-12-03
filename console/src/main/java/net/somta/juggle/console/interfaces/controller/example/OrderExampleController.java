@@ -12,7 +12,7 @@ import java.util.List;
  * 订单的示例接口，为系统内置流程提供接口示例，这里的接口，请求内容类型为：application/x-www-form-urlencoded
  * @author Gavin
  */
-@Tag(name = "订单的示例接口")
+@Tag(name = "示例-订单的示例接口")
 @RestController
 @RequestMapping("/example/order")
 public class OrderExampleController {

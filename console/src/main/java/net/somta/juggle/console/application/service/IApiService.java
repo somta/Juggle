@@ -21,16 +21,16 @@ public interface IApiService {
      * @param apiAddParam
      * @return
      */
-    ResponseDataResult<Boolean> addApi(ApiAddParam apiAddParam);
+    Boolean addApi(ApiAddParam apiAddParam);
 
-    ResponseDataResult<Boolean> deleteApi(Long apiId);
+    Boolean deleteApi(Long apiId);
 
-    ResponseDataResult<Boolean> updateApi(ApiUpdateParam apiUpdateParam);
+    Boolean updateApi(ApiUpdateParam apiUpdateParam);
 
-    ApiInfoDTO queryApiInfo(Long apiId);
+    ApiInfoDTO getApiInfo(Long apiId);
 
     List<ApiDTO> getApiListByDomainId(Long domainId);
 
-    PageInfo queryApiPageList(ApiQueryParam apiQueryParam);
+    PageInfo getApiPageList(ApiQueryParam apiQueryParam);
 
 }

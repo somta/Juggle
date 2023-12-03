@@ -6,7 +6,7 @@ import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.console.infrastructure.converter.IVariableInfoConverter;
 import net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author Gavin
  */
-@Component
+@Repository
 public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
 
     private final VariableInfoMapper variableInfoMapper;

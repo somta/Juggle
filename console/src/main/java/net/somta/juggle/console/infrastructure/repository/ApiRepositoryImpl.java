@@ -15,17 +15,16 @@ import net.somta.juggle.console.infrastructure.po.ApiPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.console.interfaces.param.ApiQueryParam;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
  * @author Gavin
  */
-@Component
+@Repository
 public class ApiRepositoryImpl implements IApiRepository {
 
     private final ApiMapper apiMapper;
