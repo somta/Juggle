@@ -1,18 +1,18 @@
 
-export type NodeCondition = {
+export type ConditionItem = {
   conditionName: string;
   conditionType: string;
   expression: string;
   outgoing: string;
 };
 
-export type NodeData = {
+export type RawData = {
   key: string;
   name: string;
   outgoings: string[];
   incomings: string[];
   elementType: ElementType;
-  conditions?: NodeCondition[];
+  conditions?: ConditionItem[];
 };
 
 export enum ElementType {
@@ -22,8 +22,8 @@ export enum ElementType {
   END = 'END',
 
   // 前端创建的
-  CONDITION_START = 'CONDITION_START',
-  CONDITION_BRANCH = 'CONDITION_BRANCH',
+  BRANCH = 'BRANCH',
+  ROOT = 'ROOT',
 };
 
 export type D3Element = d3.Selection<any, any, any, any>;

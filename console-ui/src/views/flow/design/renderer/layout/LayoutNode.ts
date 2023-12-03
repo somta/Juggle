@@ -1,6 +1,6 @@
 
-import { NodeData } from '../../types';
-import { TreeNode } from './TreeNode';
+import { DataNode } from '../data';
+import { TreeNode } from '../utils/TreeNode';
 
 export class LayoutNode extends TreeNode {
 
@@ -9,7 +9,7 @@ export class LayoutNode extends TreeNode {
     top: number;
     width: number;
     height: number;
-    data: NodeData
+    data: DataNode
     linesTo: string[];
   }) {
     super();
@@ -19,7 +19,7 @@ export class LayoutNode extends TreeNode {
     this.setRelative(params.left, params.top);
   }
 
-  private _data: NodeData;
+  private _data: DataNode;
 
   private _linesTo: string[] = [];
 

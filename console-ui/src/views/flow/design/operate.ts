@@ -16,24 +16,15 @@ export function addNode (datas: NodeData[], node: LayoutNode, info: { name:  str
   const prev = newDatas.find((item) => item.key === node.data.key)!;
   const next = newDatas.find((item) => item.key === node.data.outgoings?.[0])!;
   // 处理节点入口
-  handleIncomings(newDatas, node, prev, current);
+  connectNodes(prev, current);
   // 处理节点出口
-  handleOutgoings(newDatas, node, current, next);
-  // 其他处理
-  handleOthers(newDatas, node, prev, current);
+  connectNodes(current, next);
   // 添加节点
 }
 
-function handleIncomings (datas: NodeData[], node: LayoutNode, prev: NodeData, current: NodeData) {
-
-}
-
-function handleOutgoings (datas: NodeData[], node: LayoutNode, prev: NodeData, current: NodeData) {
-
-}
-
-function handleOthers (datas: NodeData[], node: LayoutNode, prev: NodeData, current: NodeData) {
-
+function connectNodes (node: NodeData, next: NodeData) {
+  node.outgoings?.push(next.key);
+  next.incomings?.push(node.key);
 }
 
 
