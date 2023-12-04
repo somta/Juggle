@@ -10,11 +10,13 @@ export class LayoutNode extends TreeNode {
     width: number;
     height: number;
     data: DataNode
-    linesTo: string[];
+    linesTo?: string[];
   }) {
     super();
     this._data = params.data;
-    this._linesTo = params.linesTo;
+    if (params.linesTo) {
+      this._linesTo = params.linesTo;
+    }
     this.setSize(params.width, params.height);
     this.setRelative(params.left, params.top);
   }
@@ -93,7 +95,7 @@ export class LayoutNode extends TreeNode {
     return super.getParent() as LayoutNode;
   }
 
-  public line (key: string) {
-    this._linesTo.push(key);
+  public line (node: string) {
+    this._linesTo.push(node);
   }
 }

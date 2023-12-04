@@ -1,8 +1,8 @@
 
 import * as d3 from 'd3';
-import { NodeData } from '../types';
+import { DataNode, generateDataTree } from './data';
 import { LayoutNode, VerticalLayout } from './layout';
-import { loadSvgIcon } from './icon';
+import { loadSvgIcon } from './utils/icon';
 
 type D3Element = d3.Selection<any, any, any, any>;
 
@@ -20,7 +20,7 @@ export class FlowRenderer {
 
   private zoom: d3.ZoomBehavior<Element, unknown>;
 
-  private datas: NodeData[];
+  private dataRoot: DataNode;
 
   private layout: VerticalLayout;
 
@@ -55,18 +55,18 @@ export class FlowRenderer {
       });
     this.svg.call(this.zoom as any);
 
-    this.datas = options.datas;
+    this.dataRoot = generateDataTree(options.datas);
     this.layout = new VerticalLayout(this);
     this.refresh();
   }
 
-  updateDatas (datas: NodeData[]) {
-    this.datas = datas;
+  updateDatas (root: DataNode) {
+    this.dataRoot = root;
     this.refresh();
   }
 
   refresh () {
-    this.layout.calculate(this.datas);
+    this.layout.analysis(this.dataRoot);
     this.layout.draw();
   }
 
