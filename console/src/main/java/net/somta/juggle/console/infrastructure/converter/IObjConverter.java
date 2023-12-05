@@ -3,6 +3,7 @@ package net.somta.juggle.console.infrastructure.converter;
 import net.somta.juggle.console.domain.api.ApiAO;
 import net.somta.juggle.console.domain.api.vo.ApiVO;
 import net.somta.juggle.console.domain.obj.ObjAO;
+import net.somta.juggle.console.domain.obj.vo.ObjVO;
 import net.somta.juggle.console.domain.obj.vo.PropertyVO;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
@@ -27,7 +28,7 @@ public interface IObjConverter {
 
     ObjAO poToAo(ObjPO objPo);
 
-    /*List<ApiVO> poListToVoList(List<ApiPO> apiList);*/
+    List<ObjVO> poListToVoList(List<ObjPO> objPoList);
 
     default List<ParameterPO> propertyListToParameterList(Long sourceId, List<PropertyVO> propertyVoList){
         List<ParameterPO> propertyPoList = new ArrayList<>(propertyVoList.size());
@@ -48,5 +49,6 @@ public interface IObjConverter {
         }
         return propertyPoList;
     }
+
 
 }

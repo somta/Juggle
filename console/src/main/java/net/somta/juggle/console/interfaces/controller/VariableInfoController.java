@@ -2,16 +2,13 @@ package net.somta.juggle.console.interfaces.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
-import net.somta.juggle.console.domain.definition.enums.FlowDefinitionErrorEnum;
+import net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum;
 import net.somta.juggle.console.domain.variable.enums.VariableErrorEnum;
-import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
 import net.somta.juggle.console.interfaces.param.VariableAddParam;
 import net.somta.juggle.console.application.service.IVariableInfoService;
 import net.somta.juggle.console.interfaces.param.VariableUpdateParam;
-import net.somta.juggle.core.model.Variable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
