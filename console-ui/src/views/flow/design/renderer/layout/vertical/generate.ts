@@ -5,8 +5,8 @@ import { LayoutNode } from '../LayoutNode';
 export const box = {
   width: 200,
   height: 40,
-  marginBottom: 20,
-  marginRight: 20,
+  marginBottom: 80,
+  marginRight: 40,
 };
 
 export function layoutTree (node: DataNode) {
@@ -38,6 +38,10 @@ function layoutBranch (branch: LayoutNode, node: DataNode) {
     prev = childLayout;
   });
   const condition = branch.getParent();
+  // 子节点居中
+  branch.getChildren().forEach(child => {
+    alignItemCenter(child);
+  });
   // 设置节点尺寸
   setBranchBox(branch);
   // 条件节点连线
@@ -46,8 +50,6 @@ function layoutBranch (branch: LayoutNode, node: DataNode) {
     condition.line(branch.data.key);
     // 分支节点最末 -> 条件节点出口
     prev.line(condition.data.out);
-    // 分支节点居中
-    alignBranchCenter(branch);
   }
   return branch;
 }
@@ -61,7 +63,6 @@ function layoutNormal (prev: LayoutNode, node: DataNode) {
     data: node,
     linesTo: [],
   });
-  alignItemCenter(layout);
   return layout;
 }
 
@@ -71,7 +72,7 @@ function layoutCondition (prev: LayoutNode, node: DataNode) {
   node.getChildren().forEach(child => {
     const branch = new LayoutNode({
       left: prevChild ? prevChild.right + box.marginRight : 0,
-      top: 0,
+      top: box.height + box.marginBottom,
       width: box.width,
       height: box.height,
       data: child,
@@ -106,14 +107,10 @@ function setConditionBox (node: LayoutNode) {
   const first = children[0];
   const last = children[children.length - 1];
   const width = last.right - first.left;
-  const height = Math.max(...node.getChildren().map(child => child.height));
+  const height = Math.max(...node.getChildren().map(child => child.bottom));
   node.setSize(width, height);
 }
 
 function alignItemCenter (node: LayoutNode) {
   node.setRelative(node.left - node.width / 2, node.top);
-}
-
-function alignBranchCenter (node: LayoutNode) {
-  node.setRelative(node.left + node.width / 2, node.top);
 }

@@ -51,7 +51,7 @@ export class VerticalLayout {
   }
 
   public draw () {
-    this.drawLines();
+    // this.drawLines();
     this.drawNode(this.nodeContainer, this._layoutRoot);
   }
 
@@ -178,6 +178,14 @@ export class VerticalLayout {
 
   drawCondition (container: D3Element, node: LayoutNode) {
     const children = node.getChildren();
+    container.append('rect')
+      .attr('width', node.width)
+      .attr('height', node.height)
+      .attr('fill', '#fff')
+      .attr('stroke', '#aaa')
+      .attr('stroke-width', 1)
+      .attr('rx', 4)
+      .attr('ry', 4);
     container.selectChildren('.branch-wrap')
       .data(children, (d: any) => d.data.key)
       .join(
@@ -196,6 +204,14 @@ export class VerticalLayout {
 
   drawBranch (container: D3Element, branch: LayoutNode) {
     const nodes = branch.getChildren();
+    // container.append('rect')
+    //   .attr('width', branch.width)
+    //   .attr('height', branch.height)
+    //   .attr('fill', '#fff')
+    //   .attr('stroke', '#aaa')
+    //   .attr('stroke-width', 1)
+    //   .attr('rx', 4)
+    //   .attr('ry', 4);
     container.selectChildren('.node-wrap')
       .data(nodes, (d: any) => d.data.key)
       .join(
