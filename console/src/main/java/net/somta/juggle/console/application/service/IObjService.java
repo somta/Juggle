@@ -1,6 +1,7 @@
 package net.somta.juggle.console.application.service;
 
 import com.github.pagehelper.PageInfo;
+import net.somta.juggle.console.interfaces.dto.ObjDTO;
 import net.somta.juggle.console.interfaces.dto.ObjInfoDTO;
 import net.somta.juggle.console.interfaces.param.ObjAddParam;
 import net.somta.juggle.console.interfaces.param.ObjQueryParam;
@@ -20,7 +21,7 @@ public interface IObjService {
 
     ObjInfoDTO getObjInfo(Long objId);
 
-    List<ObjInfoDTO> getObjList();
+    List<ObjDTO> getObjList();
 
     PageInfo getObjPageList(ObjQueryParam objQueryParam);
 }

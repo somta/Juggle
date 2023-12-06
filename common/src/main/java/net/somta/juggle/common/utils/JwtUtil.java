@@ -1,10 +1,10 @@
-package net.somta.juggle.console.utils;
+package net.somta.juggle.common.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import net.somta.juggle.console.domain.user.vo.UserTokenVO;
+import net.somta.juggle.common.identity.IdentityVO;
 import org.apache.commons.lang3.StringUtils;
 
 import java.security.Key;
@@ -62,11 +62,10 @@ public class JwtUtil {
      * @param token token数据
      * @return
      */
-    public static UserTokenVO parseToken(String token) {
+    public static IdentityVO parseToken(String token) {
         Claims claimsJws = getClaimsJws(token);
-        Long userId = Long.valueOf((String) claimsJws.get(UserTokenVO.USER_ID));
-        UserTokenVO userTokenVO = new UserTokenVO();
-        userTokenVO.setUserId(userId);
+        Long userId = Long.valueOf((String) claimsJws.get(IdentityVO.USER_ID));
+        IdentityVO userTokenVO = new IdentityVO(userId);
         return userTokenVO;
     }
 

@@ -60,9 +60,10 @@ public class ObjServiceImpl implements IObjService {
     }
 
     @Override
-    public List<ObjInfoDTO> getObjList() {
-        //todo 这里是一次全部查询出来  还是让前端根据对象在查询一次
-        return null;
+    public List<ObjDTO> getObjList() {
+        List<ObjVO> objVoList = objRepository.queryObjList();
+        List<ObjDTO> objList = IObjAssembler.IMPL.voListToDtoList(objVoList);
+        return objList;
     }
 
     @Override

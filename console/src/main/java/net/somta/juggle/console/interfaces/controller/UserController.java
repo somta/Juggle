@@ -3,16 +3,15 @@ package net.somta.juggle.console.interfaces.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
+import net.somta.juggle.common.identity.IdentityVO;
+import net.somta.juggle.common.utils.JwtUtil;
 import net.somta.juggle.console.domain.user.UserAO;
 import net.somta.juggle.console.domain.user.enums.UserErrorEnum;
-import net.somta.juggle.console.infrastructure.po.UserPO;
-import net.somta.juggle.console.domain.user.vo.UserTokenVO;
 import net.somta.juggle.console.interfaces.dto.LoginDTO;
 import net.somta.juggle.console.interfaces.dto.UserDTO;
 import net.somta.juggle.console.interfaces.param.user.LoginParam;
 import net.somta.juggle.console.interfaces.param.user.UpdatePasswordParam;
 import net.somta.juggle.console.application.service.IUserService;
-import net.somta.juggle.console.utils.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 
 /**
@@ -50,7 +49,7 @@ public class UserController {
         }
         if(loginParam.getPassword().equals(userAo.getPassword())){
             Map<String, Object> payload = new HashMap<>(4);
-            payload.put(UserTokenVO.USER_ID, userAo.getId().toString());
+            payload.put(IdentityVO.USER_ID, userAo.getId().toString());
             String token = JwtUtil.generateToken(payload);
             loginDTO.setUserName(userAo.getUserName());
             loginDTO.setToken(token);
@@ -65,8 +64,8 @@ public class UserController {
     public ResponseDataResult<UserDTO> getUserInfo(HttpServletRequest request){
         UserDTO userDTO = new UserDTO();
         String token = request.getHeader(JwtUtil.TOKEN_HEADER_KEY);
-        UserTokenVO userTokenVO = JwtUtil.parseToken(token);
-        UserAO userAo = userService.queryUserById(userTokenVO.getUserId());
+        IdentityVO identityVo = JwtUtil.parseToken(token);
+        UserAO userAo = userService.queryUserById(identityVo.getUserId());
         userDTO.setId(userAo.getId());
         userDTO.setUserName(userAo.getUserName());
         return ResponseDataResult.setResponseResult(userDTO);

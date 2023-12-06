@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.application.service.IApiService;
 import net.somta.juggle.console.application.service.IObjService;
-import net.somta.juggle.console.interfaces.dto.ApiDTO;
-import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.dto.ObjDTO;
 import net.somta.juggle.console.interfaces.dto.ObjInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
@@ -16,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong
@@ -61,9 +58,9 @@ public class ObjController {
     }
 
     @Operation(summary = "根据对象列表")
-    @PostMapping("/list")
-    public ResponseDataResult<List<ObjInfoDTO>> getObjList(){
-        List<ObjInfoDTO> objList = objService.getObjList();
+    @GetMapping("/list")
+    public ResponseDataResult<List<ObjDTO>> getObjList(){
+        List<ObjDTO> objList = objService.getObjList();
         return ResponseDataResult.setResponseResult(objList);
     }
 

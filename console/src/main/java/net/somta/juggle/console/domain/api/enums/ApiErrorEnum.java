@@ -1,7 +1,7 @@
 package net.somta.juggle.console.domain.api.enums;
 
 import net.somta.core.base.IBaseError;
-import net.somta.juggle.console.contants.ApplicationContants;
+import net.somta.juggle.common.constants.ApplicationConstants;
 
 /**
  * @author husong
@@ -20,7 +20,7 @@ public enum ApiErrorEnum implements IBaseError {
 
     @Override
     public long getErrorCode() {
-        return ApplicationContants.API_CODE + errorCode;
+        return ApplicationConstants.API_CODE + errorCode;
     }
 
     @Override

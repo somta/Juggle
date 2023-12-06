@@ -30,6 +30,10 @@
             <groupId>net.somta</groupId>
             <artifactId>juggle-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.somta</groupId>
+            <artifactId>juggle-common</artifactId>
+        </dependency>
         <!-- mysql start -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -57,17 +61,6 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
-        <!-- jwt start -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-        </dependency>
-        <!-- jwt end -->
 
         <dependency>
             <groupId>org.mapstruct</groupId>

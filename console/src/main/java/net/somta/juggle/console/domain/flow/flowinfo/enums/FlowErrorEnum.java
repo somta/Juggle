@@ -1,7 +1,7 @@
 package net.somta.juggle.console.domain.flow.flowinfo.enums;
 
 import net.somta.core.base.IBaseError;
-import net.somta.juggle.console.contants.ApplicationContants;
+import net.somta.juggle.common.constants.ApplicationConstants;
 
 /**
  * @author husong
@@ -21,7 +21,7 @@ public enum FlowErrorEnum implements IBaseError {
 
     @Override
     public long getErrorCode() {
-        return ApplicationContants.FLOW_CODE + errorCode;
+        return ApplicationConstants.FLOW_CODE + errorCode;
     }
 
     @Override

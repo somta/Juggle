@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong

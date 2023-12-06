@@ -1,7 +1,7 @@
 package net.somta.juggle.console.domain.variable.enums;
 
 import net.somta.core.base.IBaseError;
-import net.somta.juggle.console.contants.ApplicationContants;
+import net.somta.juggle.common.constants.ApplicationConstants;
 
 /**
  * @author husong
@@ -21,7 +21,7 @@ public enum VariableErrorEnum implements IBaseError {
 
     @Override
     public long getErrorCode() {
-        return ApplicationContants.VARIABLE_CODE + errorCode;
+        return ApplicationConstants.VARIABLE_CODE + errorCode;
     }
 
     @Override

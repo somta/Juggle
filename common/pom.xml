@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>juggle-core</artifactId>
+    <artifactId>juggle-common</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -19,23 +19,19 @@
     <dependencies>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>somta-common</artifactId>
+            <artifactId>somta-core</artifactId>
+        </dependency>
+        <!-- jwt start -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.aviator</groupId>
-            <artifactId>aviator</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
-            <version>5.2.1</version>
-        </dependency>
-       <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.8.2</version>
-            <scope>test</scope>
-        </dependency>
+        <!-- jwt end -->
     </dependencies>
+
 
 </project>

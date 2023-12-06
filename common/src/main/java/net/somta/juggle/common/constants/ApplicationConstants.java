@@ -1,9 +1,9 @@
-package net.somta.juggle.console.contants;
+package net.somta.juggle.common.constants;
 
 /**
  * @author husong
  */
-public class ApplicationContants {
+public class ApplicationConstants {
 
     public static final String JUGGLE_SERVER_VERSION = "/v1";
 

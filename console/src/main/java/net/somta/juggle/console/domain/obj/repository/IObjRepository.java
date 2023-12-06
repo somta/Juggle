@@ -18,5 +18,9 @@ public interface IObjRepository {
 
     ObjAO queryApi(Long objId);
 
+    List<ObjVO> queryObjList();
+
     List<ObjVO> queryObjPageList(ObjQueryParam objQueryParam);
+
+
 }

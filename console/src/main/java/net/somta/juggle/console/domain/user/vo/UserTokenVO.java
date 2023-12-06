@@ -3,7 +3,7 @@ package net.somta.juggle.console.domain.user.vo;
 /**
  * @author husong
  */
-public class UserTokenVO {
+/*public class UserTokenVO {
 
     public static final String USER_ID = "userId";
 
@@ -16,4 +16,4 @@ public class UserTokenVO {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-}
+}*/

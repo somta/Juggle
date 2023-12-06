@@ -16,7 +16,7 @@ import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.FLOW_DEFINITION_NOT_EXIST;
 import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.FLOW_PARAM_ERROR;
 import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.*;

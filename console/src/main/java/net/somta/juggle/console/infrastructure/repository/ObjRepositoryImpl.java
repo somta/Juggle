@@ -1,9 +1,9 @@
 package net.somta.juggle.console.infrastructure.repository;
 
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.obj.ObjAO;
 import net.somta.juggle.console.domain.obj.repository.IObjRepository;
 import net.somta.juggle.console.domain.obj.vo.ObjVO;
-import net.somta.juggle.console.domain.obj.vo.PropertyVO;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.infrastructure.converter.IObjConverter;
@@ -40,6 +40,8 @@ public class ObjRepositoryImpl implements IObjRepository {
         objPo.setObjName(objAO.getObjName());
         objPo.setObjDesc(objAO.getObjDesc());
         objPo.setCreatedAt(new Date());
+        //todo 开放权限拦截器后，要加上创建人的逻辑
+        //Long userId = IdentityContext.getIdentity().getUserId();
         objMapper.addObj(objPo);
 
         List<ParameterPO> propertyPoList = IObjConverter.IMPL.propertyListToParameterList(objPo.getId(),objAO.getPropertyList());
@@ -81,6 +83,13 @@ public class ObjRepositoryImpl implements IObjRepository {
         List<ParameterPO> propertyList = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(),objId));
         objAo.parseProperty(propertyList);
         return objAo;
+    }
+
+    @Override
+    public List<ObjVO> queryObjList() {
+        List<ObjPO> objPoList = objMapper.queryByList(new ObjQueryParam());
+        List<ObjVO> objVoList = IObjConverter.IMPL.poListToVoList(objPoList);
+        return objVoList;
     }
 
     @Override

@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>core</module>
+        <module>common</module>
         <module>console</module>
         <module>starter</module>
         <module>example</module>
@@ -18,9 +19,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <revision>0.0.1-SNAPSHOT</revision>
-        <somta-dependencies.varsion>1.4.1</somta-dependencies.varsion>
-        <somta-core.version>1.4.1</somta-core.version>
-        <somta-common.version>1.4.1</somta-common.version>
+        <somta-dependencies.varsion>1.4.2</somta-dependencies.varsion>
+        <somta-core.version>1.4.2</somta-core.version>
+        <somta-common.version>1.4.2</somta-common.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.1.210</h2.version>
@@ -42,6 +43,11 @@
             <dependency>
                 <groupId>net.somta</groupId>
                 <artifactId>juggle-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.somta</groupId>
+                <artifactId>juggle-common</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

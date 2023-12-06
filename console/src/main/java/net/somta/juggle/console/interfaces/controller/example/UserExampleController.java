@@ -3,14 +3,11 @@ package net.somta.juggle.console.interfaces.controller.example;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import net.somta.juggle.console.interfaces.handler.GlobalExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-
-import static net.somta.juggle.console.contants.ApplicationContants.JUGGLE_SERVER_VERSION;
 
 /**
  * 用户的示例接口，为系统内置流程提供接口示例

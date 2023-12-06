@@ -1,7 +1,7 @@
 package net.somta.juggle.console.domain.user.enums;
 
 import net.somta.core.base.IBaseError;
-import net.somta.juggle.console.contants.ApplicationContants;
+import net.somta.juggle.common.constants.ApplicationConstants;
 
 /**
  * @author husong
@@ -24,7 +24,7 @@ public enum UserErrorEnum implements IBaseError {
 
     @Override
     public long getErrorCode() {
-        return ApplicationContants.USER_CODE + errorCode;
+        return ApplicationConstants.USER_CODE + errorCode;
     }
 
     @Override
