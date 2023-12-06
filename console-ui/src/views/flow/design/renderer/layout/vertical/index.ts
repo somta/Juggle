@@ -51,7 +51,7 @@ export class VerticalLayout {
   }
 
   public draw () {
-    // this.drawLines();
+    this.drawLines();
     this.drawNode(this.nodeContainer, this._layoutRoot);
   }
 
@@ -63,6 +63,9 @@ export class VerticalLayout {
     const lines: { from: string; to: string; }[] = [];
     this.layoutNodeMap.forEach((node) => {
       const { linesTo, data } = node;
+      if (node.data.type === ElementType.ROOT) {
+        return;
+      }
       linesTo.forEach((to) => {
         const line = {
           from: data.key,
@@ -101,8 +104,8 @@ export class VerticalLayout {
   }
 
   getPolyline (fromNode: LayoutNode, toNode: LayoutNode): D3Point[] {
-    const from: D3Point = [fromNode.x + fromNode.width / 2, fromNode.y + fromNode.height / 2];
-    const to: D3Point = [toNode.x + toNode.width / 2, toNode.y + toNode.height / 2];
+    const from: D3Point = fromNode.linePoint;
+    const to: D3Point = toNode.linePoint;
     if (from[0] === to[0]) {
       return [from, to];
     }
@@ -110,7 +113,7 @@ export class VerticalLayout {
     if (fromNode.data.type === ElementType.CONDITION) {
       turningPoint = from[1];
     } else {
-      turningPoint = toNode.y - box.marginBottom / 2;
+      turningPoint = toNode.y - box.marginBottom;
     }
     return [
       from,
@@ -177,15 +180,40 @@ export class VerticalLayout {
   }
 
   drawCondition (container: D3Element, node: LayoutNode) {
+    if (container.selectChild('.flow-node').size() === 0) {
+      // container.append('rect')
+      //   .attr('width', node.width)
+      //   .attr('height', node.height)
+      //   .attr('fill', '#fff')
+      //   .attr('stroke', '#aaa')
+      //   .attr('stroke-width', 1)
+      //   .attr('rx', 4)
+      //   .attr('ry', 4);
+
+      const conditionStart = container.append('g')
+        .attr('class', 'flow-node')
+        .attr('transform', `translate(${node.width / 2}, 0)`);
+  
+      conditionStart.append('rect')
+        .attr('width', box.width)
+        .attr('height', box.height)
+        .attr('x', - box.width / 2)
+        .attr('fill', '#fff')
+        .attr('stroke', '#aaa')
+        .attr('stroke-width', 1)
+        .attr('rx', 4)
+        .attr('ry', 4);
+      conditionStart.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('y', box.height / 2)
+        .text(node.data.raw.name);
+  
+      this.drawHoverButtons(conditionStart, node);
+      this.drawAddIcon(container, node, 'enter');
+    }
+    
     const children = node.getChildren();
-    container.append('rect')
-      .attr('width', node.width)
-      .attr('height', node.height)
-      .attr('fill', '#fff')
-      .attr('stroke', '#aaa')
-      .attr('stroke-width', 1)
-      .attr('rx', 4)
-      .attr('ry', 4);
     container.selectChildren('.branch-wrap')
       .data(children, (d: any) => d.data.key)
       .join(
@@ -203,15 +231,42 @@ export class VerticalLayout {
   }
 
   drawBranch (container: D3Element, branch: LayoutNode) {
+    if (branch.data.type === ElementType.BRANCH) {
+      if (container.selectChild('.flow-node').size() === 0) {
+        const branchStart = container.append('g')
+          .attr('class', 'flow-node');
+        // container.append('rect')
+        //   .attr('width', branch.width)
+        //   .attr('height', branch.height)
+        //   .attr('fill', '#fff')
+        //   .attr('stroke', '#aaa')
+        //   .attr('stroke-width', 1)
+        //   .attr('rx', 4)
+        //   .attr('ry', 4)
+        //   .attr('x', -branch.width / 2);
+  
+        branchStart.append('rect')
+          .attr('width', box.width)
+          .attr('height', box.height)
+          .attr('x', -branch.width / 2)
+          .attr('fill', '#fff')
+          .attr('stroke', '#aaa')
+          .attr('stroke-width', 1)
+          .attr('rx', 4)
+          .attr('ry', 4);
+        branchStart.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle')
+          .attr('x', 0)
+          .attr('y', box.height / 2)
+          .text(branch.data.raw.name);
+        
+        this.drawHoverButtons(branchStart, branch);
+        this.drawAddIcon(container, branch, 'enter');
+      }
+    }
+
     const nodes = branch.getChildren();
-    // container.append('rect')
-    //   .attr('width', branch.width)
-    //   .attr('height', branch.height)
-    //   .attr('fill', '#fff')
-    //   .attr('stroke', '#aaa')
-    //   .attr('stroke-width', 1)
-    //   .attr('rx', 4)
-    //   .attr('ry', 4);
     container.selectChildren('.node-wrap')
       .data(nodes, (d: any) => d.data.key)
       .join(
@@ -229,7 +284,11 @@ export class VerticalLayout {
   }
 
   drawAddIcon (container: D3Element, node: LayoutNode, type: string) {
-    const { width, height } = node;
+    let { width, height } = node;
+    if (node.data.type === ElementType.BRANCH) {
+      width = 0;
+      height = box.height;
+    }
     if (type === 'enter') {
       const btn_radius = 16;
       const addButton = container.append('g')
@@ -259,7 +318,11 @@ export class VerticalLayout {
   }
 
   drawHoverButtons (container: D3Element, node: LayoutNode) {
-    const { width, data } = node;
+    let { width } = node;
+    const { data } = node;
+    if (data.type === ElementType.BRANCH || data.type === ElementType.CONDITION) {
+      width = box.width / 2;
+    }
     let btns = ['delete', 'edit'];
     if ([ElementType.START, ElementType.END, ElementType.BRANCH].includes(data.type)) {
       btns = ['edit'];

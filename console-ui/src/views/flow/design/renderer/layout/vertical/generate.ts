@@ -9,6 +9,10 @@ export const box = {
   marginRight: 40,
 };
 
+// const widthAndMargin = box.width + box.marginRight;
+const heightAndMargin = box.height + box.marginBottom;
+const branchTop = box.height + box.marginBottom / 2;
+
 export function layoutTree (node: DataNode) {
   const root = new LayoutNode({
     left: 0,
@@ -38,12 +42,16 @@ function layoutBranch (branch: LayoutNode, node: DataNode) {
     prev = childLayout;
   });
   const condition = branch.getParent();
+  // 设置节点尺寸
+  setBranchBox(branch);
   // 子节点居中
   branch.getChildren().forEach(child => {
     alignItemCenter(child);
   });
-  // 设置节点尺寸
-  setBranchBox(branch);
+  // 分支节点偏移
+  if (branch.data.type === ElementType.BRANCH) {
+    offsetBranch(branch);
+  }
   // 条件节点连线
   if (condition && condition.data.type === ElementType.CONDITION) {
     // 条件节点 -> 分支节点
@@ -55,9 +63,16 @@ function layoutBranch (branch: LayoutNode, node: DataNode) {
 }
 
 function layoutNormal (prev: LayoutNode, node: DataNode) {
+  let left = prev.left;
+  let top = prev.top + prev.height + box.marginBottom;
+  // prev是父节点时，是第一个节点
+  if (node.getParent() === prev.data) {
+    left = 0;
+    top = heightAndMargin;
+  }
   const layout = new LayoutNode({
-    left: prev.left,
-    top: prev.top + prev.height + box.marginBottom,
+    left,
+    top,
     width: box.width,
     height: box.height,
     data: node,
@@ -70,9 +85,13 @@ function layoutCondition (prev: LayoutNode, node: DataNode) {
   const condition = layoutNormal(prev, node);
   let prevChild: LayoutNode;
   node.getChildren().forEach(child => {
+    let left = 0;
+    if (prevChild) {
+      left = prevChild.left + prevChild.width / 2 + box.marginRight;
+    }
     const branch = new LayoutNode({
-      left: prevChild ? prevChild.right + box.marginRight : 0,
-      top: box.height + box.marginBottom,
+      left: left,
+      top: branchTop,
       width: box.width,
       height: box.height,
       data: child,
@@ -89,13 +108,10 @@ function layoutCondition (prev: LayoutNode, node: DataNode) {
 
 function setBranchBox (node: LayoutNode) {
   const children = node.getChildren() || [];
-  if (children.length === 0) {
-    return;
-  }
-  const first = children[0];
-  const last = children[children.length - 1];
-  const width = Math.max(...node.getChildren().map(child => child.width));
-  const height = last.bottom - first.top;
+  const width = Math.max(node.width, ...node.getChildren().map(child => child.width));
+  const height = heightAndMargin + children.reduce((sum, child) => {
+    return sum + child.height + box.marginBottom;
+  }, 0);
   node.setSize(width, height);
 }
 
@@ -107,10 +123,14 @@ function setConditionBox (node: LayoutNode) {
   const first = children[0];
   const last = children[children.length - 1];
   const width = last.right - first.left;
-  const height = Math.max(...node.getChildren().map(child => child.bottom));
+  const height = branchTop + Math.max(...node.getChildren().map(child => child.height));
   node.setSize(width, height);
 }
 
 function alignItemCenter (node: LayoutNode) {
   node.setRelative(node.left - node.width / 2, node.top);
+}
+
+function offsetBranch (node: LayoutNode) {
+  node.setRelative(node.left + node.width / 2, node.top);
 }

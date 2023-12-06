@@ -1,6 +1,8 @@
 
+import { ElementType } from '../../types';
 import { DataNode } from '../data';
 import { TreeNode } from '../utils/TreeNode';
+import { box } from './vertical/generate';
 
 export class LayoutNode extends TreeNode {
 
@@ -97,5 +99,15 @@ export class LayoutNode extends TreeNode {
 
   public line (node: string) {
     this._linesTo.push(node);
+  }
+
+  get linePoint (): [number, number] {
+    if (this.data.type === ElementType.CONDITION) {
+      return [this.x + this.width / 2, this.y + box.height / 2];
+    }
+    if (this.data.type === ElementType.BRANCH) {
+      return [this.x, this.y + box.height];
+    }
+    return [this.x + this.width / 2, this.y + this.height / 2];
   }
 }
