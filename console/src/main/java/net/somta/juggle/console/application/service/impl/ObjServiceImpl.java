@@ -61,6 +61,7 @@ public class ObjServiceImpl implements IObjService {
 
     @Override
     public List<ObjInfoDTO> getObjList() {
+        //todo 这里是一次全部查询出来  还是让前端根据对象在查询一次
         return null;
     }
 

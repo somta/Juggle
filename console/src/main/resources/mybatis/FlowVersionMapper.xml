@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowVersionMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.flow.FlowVersionMapper" >
 
 <delete id="deleteFlowVersionByFlowId" parameterType="java.lang.Long">
 	delete from t_flow_version where flow_id=#{flowId}

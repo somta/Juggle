@@ -76,7 +76,7 @@ public class ObjRepositoryImpl implements IObjRepository {
 
     @Override
     public ObjAO queryApi(Long objId) {
-        ObjPO objPo =objMapper.queryById(objId);
+        ObjPO objPo = objMapper.queryById(objId);
         ObjAO objAo = IObjConverter.IMPL.poToAo(objPo);
         List<ParameterPO> propertyList = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(),objId));
         objAo.parseProperty(propertyList);
@@ -85,6 +85,8 @@ public class ObjRepositoryImpl implements IObjRepository {
 
     @Override
     public List<ObjVO> queryObjPageList(ObjQueryParam objQueryParam) {
-        return null;
+        List<ObjPO> objPoList = objMapper.queryByList(objQueryParam);
+        List<ObjVO> objVoList = IObjConverter.IMPL.poListToVoList(objPoList);
+        return objVoList;
     }
 }

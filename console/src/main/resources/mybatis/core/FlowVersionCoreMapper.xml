@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.FlowVersionMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.flow.FlowVersionMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.FlowVersionPO" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.flow.FlowVersionPO" >
 	<result column="id" property="id"/>
 	<result column="flow_id" property="flowId"/>
 	<result column="flow_version" property="flowVersion"/>
@@ -34,7 +34,7 @@
 	id, flow_id, flow_version,flow_version_status, flow_version_remark, flow_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by
 </sql>
    
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.FlowDefinitionInfoPO" >
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.flow.FlowDefinitionInfoPO" >
 	insert into t_flow_version (id, flow_id, flow_version,flow_version_status, flow_version_remark, flow_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{flowId},#{flowVersion},#{flowVersionStatus},#{flowVersionRemark},#{flowContent},#{inputs},#{outputs},#{variables},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -43,7 +43,7 @@
  delete from t_flow_version where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.FlowInfoPO" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" >
 	update t_flow_version set
 	<trim  suffixOverrides="," >
 	<if test="flowId != null">

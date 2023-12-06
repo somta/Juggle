@@ -60,15 +60,13 @@ public class ObjController {
         return ResponseDataResult.setResponseResult(objInfoDto);
     }
 
-    //TODO 待完善
     @Operation(summary = "根据对象列表")
     @PostMapping("/list")
-    public ResponseDataResult<List<ObjInfoDTO>> getObjList(@PathVariable Long domainId){
+    public ResponseDataResult<List<ObjInfoDTO>> getObjList(){
         List<ObjInfoDTO> objList = objService.getObjList();
         return ResponseDataResult.setResponseResult(objList);
     }
 
-    //TODO 待完善
     @Operation(summary = "查询对象分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<ObjDTO>> getObjPageList(@RequestBody ObjQueryParam objQueryParam){
