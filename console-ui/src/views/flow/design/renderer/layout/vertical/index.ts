@@ -4,7 +4,7 @@ import { ElementType, D3Element } from '../../../types';
 import { LayoutNode } from '../LayoutNode';
 import { FlowRenderer } from '../../renderer';
 import { DataNode } from '../../data';
-import { layoutTree, box } from './generate';
+import { layoutTree, box, setLayoutToMap } from './generate';
 
 type D3Point = [number, number];
 
@@ -28,31 +28,24 @@ export class VerticalLayout {
 
   private line = d3.line();
 
-  _layoutRoot: LayoutNode = undefined!;
+  _layoutRoot: LayoutNode | null = null;
 
-  _dataRoot: DataNode = undefined!;
+  _dataRoot: DataNode | null = null;
 
   /**
    * 分析
    */
 
   analysis (dataRoot: DataNode) {
-    this.layoutNodeMap.clear();
     this._dataRoot = dataRoot;
     this._layoutRoot = layoutTree(dataRoot);
-    this.setLayoutToMap(this._layoutRoot);
-  }
-
-  setLayoutToMap (layout: LayoutNode) {
-    this.layoutNodeMap.set(layout.data.key, layout);
-    layout.getChildren().forEach(child => {
-      this.setLayoutToMap(child);
-    });
+    this.layoutNodeMap.clear();
+    setLayoutToMap(this._layoutRoot, this.layoutNodeMap);
   }
 
   public draw () {
     this.drawLines();
-    this.drawNode(this.nodeContainer, this._layoutRoot);
+    this.drawNode(this.nodeContainer, this._layoutRoot!);
   }
 
   /**

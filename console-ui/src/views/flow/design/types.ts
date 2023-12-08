@@ -27,3 +27,5 @@ export enum ElementType {
 };
 
 export type D3Element = d3.Selection<any, any, any, any>;
+
+export type MyOptional<T, K extends keyof T> = Partial<Omit<T, K>> & Pick<T, K>;

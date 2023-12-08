@@ -1,6 +1,6 @@
 
 import * as d3 from 'd3';
-import { DataNode, generateDataTree } from './data';
+import { DataNode, generateDataTree, setDataNodeMap } from './data';
 import { LayoutNode, VerticalLayout } from './layout';
 import { loadSvgIcon } from './utils/icon';
 
@@ -23,6 +23,8 @@ export class FlowRenderer {
   private dataRoot: DataNode;
 
   private layout: VerticalLayout;
+  
+  readonly dataMap: Map<string, DataNode> = new Map();
 
   public options: {
     datas: any[];
@@ -31,6 +33,7 @@ export class FlowRenderer {
     onEdit?: (node: LayoutNode) => any
     onDelete?: (node: LayoutNode) => any
   };
+
 
   constructor (el: HTMLElement, options: FlowRenderer['options']) {
     this.svg = d3.select(el)
@@ -56,6 +59,8 @@ export class FlowRenderer {
     this.svg.call(this.zoom as any);
 
     this.dataRoot = generateDataTree(options.datas);
+    this.dataMap.clear();
+    setDataNodeMap(this.dataRoot, this.dataMap);
     this.layout = new VerticalLayout(this);
     this.refresh();
   }

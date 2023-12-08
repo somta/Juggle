@@ -34,3 +34,11 @@ function generateBranch (branch: DataRootNode | DataBranchNode, dataMap: Map<str
     current = outgoing;
   }
 }
+
+export function setDataNodeMap (node: DataNode, dataNodemap: Map<string, DataNode>) {
+  dataNodemap.set(node.key, node);
+  node.getChildren().forEach(child => {
+    setDataNodeMap(child, dataNodemap);
+  });
+  return dataNodemap;
+}

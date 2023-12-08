@@ -134,3 +134,11 @@ function alignItemCenter (node: LayoutNode) {
 function offsetBranch (node: LayoutNode) {
   node.setRelative(node.left + node.width / 2, node.top);
 }
+
+export function setLayoutToMap (node: LayoutNode, dataNodemap: Map<string, LayoutNode>) {
+  dataNodemap.set(node.data.key, node);
+  node.getChildren().forEach(child => {
+    setLayoutToMap(child, dataNodemap);
+  });
+  return dataNodemap;
+}

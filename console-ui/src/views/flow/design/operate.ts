@@ -1,41 +1,56 @@
 
-import { LayoutNode } from './renderer/layout/LayoutNode';
-import { NodeData, ElementType } from './types';
+import { DataNode } from './renderer/data';
+import { ElementType, RawData, MyOptional } from './types';
 
 // 添加节点
-export function addNode (datas: NodeData[], node: LayoutNode, info: { name:  string, type: ElementType }) {
-  const newDatas = [...datas];
+export function addNode (params: {
+  info: MyOptional<RawData, 'name' | 'elementType'>,
+  prev: DataNode,
+  dataMap: Map<string, DataNode>,
+}) {
+  const { info, prev, dataMap } = params;
   // 创建节点
-  const current: NodeData = {
-    key: generateNodeKey(info.type),
-    elementType: info.type,
+  const currentRaw: RawData = {
+    key: generateNodeKey(info.elementType),
     outgoings: [],
     incomings: [],
-    name: info.name,
+    ...info,
   };
-  const prev = newDatas.find((item) => item.key === node.data.key)!;
-  const next = newDatas.find((item) => item.key === node.data.outgoings?.[0])!;
+  const current = new DataNode(currentRaw);
+  const next = dataMap.get(prev.out);
   // 处理节点入口
-  connectNodes(prev, current);
+  connectNodes({ node: prev!, next: current, dataMap });
   // 处理节点出口
-  connectNodes(current, next);
+  connectNodes({ node: current, next: next!, dataMap });
   // 添加节点
-}
-
-function connectNodes (node: NodeData, next: NodeData) {
-  node.outgoings?.push(next.key);
-  next.incomings?.push(node.key);
+  prev.getChildren().push(current);
+  dataMap.set(current.key, current);
 }
 
 
 // 删除节点
-export function deleteNode (node: LayoutNode, datas: NodeData[]) {
-  // 处理节点入口节点出口
+export function deleteNode (params: {
+  current: DataNode,
+  dataMap: Map<string, DataNode>,
+}) {
+  const { current, dataMap } = params;
+  const prev = dataMap.get(current.in);
+  const next = dataMap.get(current.out);
   // 处理节点入口
-  // 处理节点出口节点入口
+  connectNodes({ node: prev!, next: current, dataMap });
   // 处理节点出口
-  // 其他处理
+  connectNodes({ node: current, next: next!, dataMap });
   // 删除节点
+  const parent = current.getParent();
+  parent?.removeChild(current);
+  dataMap.delete(current.key);
+}
+
+// 处理节点关系
+function connectNodes (params: { node: DataNode, next: DataNode, dataMap: Map<string, DataNode> }) {
+  const { node, next } = params;
+  node.out = next.key;
+  next.in = node.key;
 }
 
 // 生成节点key
