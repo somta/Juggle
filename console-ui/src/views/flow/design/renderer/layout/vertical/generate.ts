@@ -1,19 +1,19 @@
-import { ElementType } from '../../../types';
-import { DataNode } from '../../data';
-import { LayoutNode } from '../LayoutNode';
+import { ElementType } from '../../../types'
+import { DataNode } from '../../data'
+import { LayoutNode } from '../LayoutNode'
 
 export const box = {
   width: 200,
   height: 40,
   marginBottom: 80,
   marginRight: 40,
-};
+}
 
 // const widthAndMargin = box.width + box.marginRight;
-const heightAndMargin = box.height + box.marginBottom;
-const branchTop = box.height + box.marginBottom / 2;
+const heightAndMargin = box.height + box.marginBottom
+const branchTop = box.height + box.marginBottom / 2
 
-export function layoutTree (node: DataNode) {
+export function layoutTree(node: DataNode) {
   const root = new LayoutNode({
     left: 0,
     top: 0,
@@ -21,54 +21,54 @@ export function layoutTree (node: DataNode) {
     height: 0,
     data: node,
     linesTo: [],
-  });
-  return layoutBranch(root, node);
+  })
+  return layoutBranch(root, node)
 }
 
-function layoutBranch (branch: LayoutNode, node: DataNode) {
-  let prev: LayoutNode = branch;
+function layoutBranch(branch: LayoutNode, node: DataNode) {
+  let prev: LayoutNode = branch
   node.getChildren().forEach(child => {
-    let childLayout: LayoutNode;
+    let childLayout: LayoutNode
     if (child.type === ElementType.CONDITION) {
-      childLayout = layoutCondition(prev, child);
+      childLayout = layoutCondition(prev, child)
     } else {
-      childLayout = layoutNormal(prev, child);
+      childLayout = layoutNormal(prev, child)
     }
-    branch.addChild(childLayout);
+    branch.addChild(childLayout)
     // 普通节点连线
     if (prev.data.type !== ElementType.CONDITION) {
-      prev.line(child.key);
+      prev.line(child.key)
     }
-    prev = childLayout;
-  });
-  const condition = branch.getParent();
+    prev = childLayout
+  })
+  const condition = branch.getParent()
   // 设置节点尺寸
-  setBranchBox(branch);
+  setBranchBox(branch)
   // 子节点居中
   branch.getChildren().forEach(child => {
-    alignItemCenter(child);
-  });
+    alignItemCenter(child)
+  })
   // 分支节点偏移
   if (branch.data.type === ElementType.BRANCH) {
-    offsetBranch(branch);
+    offsetBranch(branch)
   }
   // 条件节点连线
   if (condition && condition.data.type === ElementType.CONDITION) {
     // 条件节点 -> 分支节点
-    condition.line(branch.data.key);
+    condition.line(branch.data.key)
     // 分支节点最末 -> 条件节点出口
-    prev.line(condition.data.out);
+    prev.line(condition.data.out)
   }
-  return branch;
+  return branch
 }
 
-function layoutNormal (prev: LayoutNode, node: DataNode) {
-  let left = prev.left;
-  let top = prev.top + prev.height + box.marginBottom;
+function layoutNormal(prev: LayoutNode, node: DataNode) {
+  let left = prev.left
+  let top = prev.top + prev.height + box.marginBottom
   // prev是父节点时，是第一个节点
   if (node.getParent() === prev.data) {
-    left = 0;
-    top = heightAndMargin;
+    left = 0
+    top = heightAndMargin
   }
   const layout = new LayoutNode({
     left,
@@ -77,17 +77,17 @@ function layoutNormal (prev: LayoutNode, node: DataNode) {
     height: box.height,
     data: node,
     linesTo: [],
-  });
-  return layout;
+  })
+  return layout
 }
 
-function layoutCondition (prev: LayoutNode, node: DataNode) {
-  const condition = layoutNormal(prev, node);
-  let prevChild: LayoutNode;
+function layoutCondition(prev: LayoutNode, node: DataNode) {
+  const condition = layoutNormal(prev, node)
+  let prevChild: LayoutNode
   node.getChildren().forEach(child => {
-    let left = 0;
+    let left = 0
     if (prevChild) {
-      left = prevChild.left + prevChild.width / 2 + box.marginRight;
+      left = prevChild.left + prevChild.width / 2 + box.marginRight
     }
     const branch = new LayoutNode({
       left: left,
@@ -96,49 +96,51 @@ function layoutCondition (prev: LayoutNode, node: DataNode) {
       height: box.height,
       data: child,
       linesTo: [],
-    });
-    condition.addChild(branch);
-    layoutBranch(branch, child);
-    prevChild = branch;
-  });
+    })
+    condition.addChild(branch)
+    layoutBranch(branch, child)
+    prevChild = branch
+  })
   // 设置节点尺寸
-  setConditionBox(condition);
-  return condition;
+  setConditionBox(condition)
+  return condition
 }
 
-function setBranchBox (node: LayoutNode) {
-  const children = node.getChildren() || [];
-  const width = Math.max(node.width, ...node.getChildren().map(child => child.width));
-  const height = heightAndMargin + children.reduce((sum, child) => {
-    return sum + child.height + box.marginBottom;
-  }, 0);
-  node.setSize(width, height);
+function setBranchBox(node: LayoutNode) {
+  const children = node.getChildren() || []
+  const width = Math.max(node.width, ...node.getChildren().map(child => child.width))
+  const height =
+    heightAndMargin +
+    children.reduce((sum, child) => {
+      return sum + child.height + box.marginBottom
+    }, 0)
+  node.setSize(width, height)
 }
 
-function setConditionBox (node: LayoutNode) {
-  const children = node.getChildren() || [];
+function setConditionBox(node: LayoutNode) {
+  const children = node.getChildren() || []
   if (children.length === 0) {
-    return;
+    return
   }
-  const first = children[0];
-  const last = children[children.length - 1];
-  const width = last.right - first.left;
-  const height = branchTop + Math.max(...node.getChildren().map(child => child.height));
-  node.setSize(width, height);
+  const first = children[0]
+  const last = children[children.length - 1]
+  const width = last.right - first.left
+  const height = branchTop + Math.max(...node.getChildren().map(child => child.height))
+  node.setSize(width, height)
 }
 
-function alignItemCenter (node: LayoutNode) {
-  node.setRelative(node.left - node.width / 2, node.top);
+function alignItemCenter(node: LayoutNode) {
+  node.setRelative(node.left - node.width / 2, node.top)
 }
 
-function offsetBranch (node: LayoutNode) {
-  node.setRelative(node.left + node.width / 2, node.top);
+function offsetBranch(node: LayoutNode) {
+  node.setRelative(node.left + node.width / 2, node.top)
 }
 
-export function setLayoutToMap (node: LayoutNode, dataNodemap: Map<string, LayoutNode>) {
-  dataNodemap.set(node.data.key, node);
+export function setLayoutToMap(node: LayoutNode, dataNodemap: Map<string, LayoutNode>) {
+  dataNodemap.set(node.data.key, node)
   node.getChildren().forEach(child => {
-    setLayoutToMap(child, dataNodemap);
-  });
-  return dataNodemap;
+    setLayoutToMap(child, dataNodemap)
+  })
+  return dataNodemap
 }

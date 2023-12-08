@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 defineProps({
   dataRows: Array,
@@ -6,17 +5,16 @@ defineProps({
   pageSize: Number,
   dataTotal: Number,
   loading: Boolean,
-});
-const emit = defineEmits(['pageChange', 'edit', 'delete']);
+})
+const emit = defineEmits(['pageChange', 'edit', 'delete'])
 
-function deleteRow (row: any, index: number) {
-  emit('delete', row, index);
+function deleteRow(row: any, index: number) {
+  emit('delete', row, index)
 }
 
-function editRow (row: any) {
-  emit('edit', row);
+function editRow(row: any) {
+  emit('edit', row)
 }
-
 </script>
 
 <template>
@@ -24,15 +22,11 @@ function editRow (row: any) {
     <el-table-column prop="domainCode" label="领域编码" width="180" />
     <el-table-column prop="domainName" label="领域名称" width="180" />
     <el-table-column prop="domainDesc" label="领域描述" />
-    <el-table-column prop="createdAt" label="创建时间" width="180"/>
-    <el-table-column label="操作" width="180" >
+    <el-table-column prop="createdAt" label="创建时间" width="180" />
+    <el-table-column label="操作" width="180">
       <template #default="scope">
-        <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)">
-          编辑
-        </el-button>
-        <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)">
-          删除
-        </el-button>
+        <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>
+        <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)"> 删除 </el-button>
       </template>
     </el-table-column>
   </el-table>

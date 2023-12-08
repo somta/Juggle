@@ -1,7 +1,6 @@
-
-import AboutView from './AboutView.vue';
-import SettingView from './SettingView.vue';
-import UserView from './UserView.vue';
+import AboutView from './AboutView.vue'
+import SettingView from './SettingView.vue'
+import UserView from './UserView.vue'
 
 export const CommonRoutes = [
   {
@@ -22,4 +21,4 @@ export const CommonRoutes = [
     component: UserView,
     meta: { name: '用户' },
   },
-];
+]

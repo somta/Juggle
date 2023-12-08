@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
-import LayoutHeader from '../components/layout/header/LayoutHeader.vue';
-import LayoutAside from '../components/layout/aside/LayoutAside.vue';
-import MainBreadcrumb from '../components/layout/main/MainBreadcrumb.vue';
+import { RouterView } from 'vue-router'
+import LayoutHeader from '../components/layout/header/LayoutHeader.vue'
+import LayoutAside from '../components/layout/aside/LayoutAside.vue'
+import MainBreadcrumb from '../components/layout/main/MainBreadcrumb.vue'
 </script>
 
 <template>
@@ -46,7 +46,6 @@ import MainBreadcrumb from '../components/layout/main/MainBreadcrumb.vue';
   .layout-aside {
     width: 200px;
   }
-
 
   .layout-main {
     padding: 16px 12px 8px;

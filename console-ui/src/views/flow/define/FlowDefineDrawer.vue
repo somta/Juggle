@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {computed, nextTick, reactive, ref} from "vue";
-import {FormInstance} from "element-plus";
-import {ApiInfo, FlowDefineInfo} from "@/typings";
+import { computed, nextTick, reactive, ref } from 'vue'
+import { FormInstance } from 'element-plus'
+import { ApiInfo, FlowDefineInfo } from '@/typings'
 
-const flowDefineDrawerVisible = ref(false);
-const formRef = ref<FormInstance>();
-const editItem = ref<Record<string, any>>();
+const flowDefineDrawerVisible = ref(false)
+const formRef = ref<FormInstance>()
+const editItem = ref<Record<string, any>>()
 const formValue = reactive<FlowDefineInfo>({
   id: null,
   flowName: '',
@@ -13,14 +13,13 @@ const formValue = reactive<FlowDefineInfo>({
   remark: '',
   flowInputParams: [],
   flowOutputParams: [],
-});
+})
 
-function onCancel () {
-  flowDefineDrawerVisible.value = false;
+function onCancel() {
+  flowDefineDrawerVisible.value = false
 }
 
-async function onSubmit () {
-
+async function onSubmit() {
   /*if (!formRef.value) return;
   const valid = await formRef.value.validate(() => {});
   if (!valid) {
@@ -35,37 +34,30 @@ async function onSubmit () {
   }*/
 }
 
-function open (item?: Record<string, any>) {
+function open(item?: Record<string, any>) {
   //editItem.value = item;
-  flowDefineDrawerVisible.value = true;
+  flowDefineDrawerVisible.value = true
 }
 
 const title = computed(() => {
   if (editItem.value) {
-    return '编辑流程定义';
+    return '编辑流程定义'
   }
-  return '新增流程定义';
-});
+  return '新增流程定义'
+})
 
-defineExpose({ open });
-
+defineExpose({ open })
 </script>
 
 <template>
-  <el-drawer
-      v-model="flowDefineDrawerVisible"
-      :title="title">
+  <el-drawer v-model="flowDefineDrawerVisible" :title="title">
     <div>
-      <el-form
-        ref="formRef"
-      >
+      <el-form ref="formRef">
         <el-form-item label="流程名称">
-          <el-input/>
+          <el-input />
         </el-form-item>
         <el-form-item label="流程类型">
-          <el-select
-              placeholder="请选择流程类型"
-          >
+          <el-select placeholder="请选择流程类型">
             <el-option label="同步" value="sync" />
             <el-option label="异步" value="async" />
           </el-select>
@@ -82,6 +74,4 @@ defineExpose({ open });
   </el-drawer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

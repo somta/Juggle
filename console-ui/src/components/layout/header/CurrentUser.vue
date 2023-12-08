@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { userService } from '@/service';
-import { ElMessage } from 'element-plus';
-import {ref} from "vue";
-const $router = useRouter();
+import { useRouter } from 'vue-router'
+import { userService } from '@/service'
+import { ElMessage } from 'element-plus'
+import { ref } from 'vue'
+const $router = useRouter()
 
-const userName = ref("");
-userName.value = window.localStorage.getItem("Juggle-userName");
+const userName = ref('')
+userName.value = window.localStorage.getItem('Juggle-userName')
 
-async function logout () {
-  const res = await userService.logout();
+async function logout() {
+  const res = await userService.logout()
   if (res) {
-    await $router.push('/login');
+    await $router.push('/login')
   } else {
-    ElMessage.error('退出失败');
+    ElMessage.error('退出失败')
   }
 }
 </script>
@@ -21,7 +21,7 @@ async function logout () {
   <el-dropdown class="app-current-userPO-dropdown">
     <div class="app-current-userPO">
       <el-avatar :size="32" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-      <span class="current-userPO-name">{{userName}}</span>
+      <span class="current-userPO-name">{{ userName }}</span>
     </div>
     <template #dropdown>
       <el-dropdown-menu>

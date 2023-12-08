@@ -1,14 +1,13 @@
-
-import DomainList from './DomainList.vue';
-import ApiList from './ApiList.vue';
-import RouterNest from '@/views/RouterNest.vue';
+import DomainList from './DomainList.vue'
+import ApiList from './ApiList.vue'
+import RouterNest from '@/views/RouterNest.vue'
 
 export const ApiRoutes = [
   {
     path: 'api',
     name: 'api',
     component: RouterNest,
-    redirect: () => ({name: 'api-domain'}),
+    redirect: () => ({ name: 'api-domain' }),
     meta: { name: '接口' },
     children: [
       {
@@ -25,4 +24,4 @@ export const ApiRoutes = [
       },
     ],
   },
-];
+]

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-const $router = useRouter();
-const matched = ref($router.currentRoute.value.matched);
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const $router = useRouter()
+const matched = ref($router.currentRoute.value.matched)
 $router.afterEach(to => {
-  matched.value = to.matched;
-});
+  matched.value = to.matched
+})
 </script>
 <template>
   <el-breadcrumb separator="/">

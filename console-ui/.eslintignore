@@ -1,0 +1,6 @@
+tailwind.config.js
+vite.config.ts
+tests
+src/proto
+scripts
+build

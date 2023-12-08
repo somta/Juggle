@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
+import { RouterView } from 'vue-router'
 // @ts-ignore
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 </script>
 
 <template>
@@ -9,4 +9,3 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
     <RouterView />
   </el-config-provider>
 </template>
-

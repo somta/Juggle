@@ -1,11 +1,4 @@
+import { DataNode, DataRootNode, DataBranchNode } from './DataNode'
+import { generateDataTree, setDataNodeMap } from './generate'
 
-import { DataNode, DataRootNode, DataBranchNode } from './DataNode';
-import { generateDataTree, setDataNodeMap } from './generate';
-
-export {
-  DataNode,
-  DataRootNode,
-  DataBranchNode,
-  generateDataTree,
-  setDataNodeMap,
-};
+export { DataNode, DataRootNode, DataBranchNode, generateDataTree, setDataNodeMap }

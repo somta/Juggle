@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
-const emit = defineEmits(['search']);
+import { reactive } from 'vue'
+const emit = defineEmits(['search'])
 
 const formValue = reactive({
   domainName: '',
-});
+})
 
 const onSubmit = () => {
-  emit('search', formValue);
-};
+  emit('search', formValue)
+}
 
 const onReset = () => {
-  formValue.domainName = '';
-};
-
+  formValue.domainName = ''
+}
 </script>
 <template>
   <el-form :inline="true" :model="formValue">

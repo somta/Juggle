@@ -1,21 +1,20 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
-const emit = defineEmits(['search']);
+import { reactive } from 'vue'
+const emit = defineEmits(['search'])
 
 const formValue = reactive({
   flowName: '',
   flowType: '',
-});
+})
 
 const onSubmit = () => {
-  emit('search', formValue);
-};
+  emit('search', formValue)
+}
 
 const onReset = () => {
-  formValue.flowName = '';
-  formValue.flowType = '';
-};
-
+  formValue.flowName = ''
+  formValue.flowType = ''
+}
 </script>
 
 <template>
@@ -25,9 +24,9 @@ const onReset = () => {
     </el-form-item>
     <el-form-item label="流程类型">
       <el-select v-model="formValue.flowType" placeholder="请选择流程类型">
-        <el-option key="all" label="全部" value=""/>
-        <el-option key="sync" label="同步" value="sync"/>
-        <el-option key="async" label="异步" value="async"/>
+        <el-option key="all" label="全部" value="" />
+        <el-option key="sync" label="同步" value="sync" />
+        <el-option key="async" label="异步" value="async" />
       </el-select>
     </el-form-item>
     <el-form-item>

@@ -1,18 +1,13 @@
 <script lang="ts" setup>
-import { HomeFilled, Setting } from '@element-plus/icons-vue';
-import IconFlow from '@/components/icons/IconFlow.vue';
-import IconInterface from '@/components/icons/IconInterface.vue';
+import { HomeFilled, Setting } from '@element-plus/icons-vue'
+import IconFlow from '@/components/icons/IconFlow.vue'
+import IconInterface from '@/components/icons/IconInterface.vue'
 </script>
 
 <template>
   <div class="layout-aside">
-    <el-menu
-      :default-active="$route.fullPath"
-      class="el-menu-vertical-demo"
-      style="height: 100%"
-      router
-    >
-<!--      <el-menu-item index="/">
+    <el-menu :default-active="$route.fullPath" class="el-menu-vertical-demo" style="height: 100%" router>
+      <!--      <el-menu-item index="/">
         <el-icon><HomeFilled /></el-icon>
         <span>首页</span>
       </el-menu-item>-->

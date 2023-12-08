@@ -1,11 +1,11 @@
-import {createRouter, createWebHashHistory} from 'vue-router';
-import LayoutView from '../views/LayoutView.vue';
-import LoginView from '../views/LoginView.vue';
-import HomeView from '../views/HomeView.vue';
-import NotFound from '../views/NotFound.vue';
-import { FlowRoutes } from '../views/flow';
-import { ApiRoutes } from '../views/api';
-import { CommonRoutes } from '../views/common';
+import { createRouter, createWebHashHistory } from 'vue-router'
+import LayoutView from '../views/LayoutView.vue'
+import LoginView from '../views/LoginView.vue'
+import HomeView from '../views/HomeView.vue'
+import NotFound from '../views/NotFound.vue'
+import { FlowRoutes } from '../views/flow'
+import { ApiRoutes } from '../views/api'
+import { CommonRoutes } from '../views/common'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -20,7 +20,7 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: LayoutView,
-      redirect: () => ({name: 'flow-define'}),
+      redirect: () => ({ name: 'flow-define' }),
       meta: { name: '首页' },
       children: [
         /*{
@@ -41,6 +41,6 @@ const router = createRouter({
       ],
     },
   ],
-});
+})
 
-export default router;
+export default router
