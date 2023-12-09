@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, reactive, computed, nextTick } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
-import DomainSelect from '@/components/form/DomainSelect.vue'
-import ParamSetting from './ParamSetting.vue'
-import { apiService } from '@/service'
-import type { ApiInfo } from '@/typings'
-import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const'
+import { ref, reactive, computed, nextTick } from 'vue';
+import type { FormInstance, FormRules } from 'element-plus';
+import DomainSelect from '@/components/form/DomainSelect.vue';
+import ParamSetting from './ParamSetting.vue';
+import { apiService } from '@/service';
+import type { ApiInfo } from '@/typings';
+import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const';
 
-const ApiRequestTypes = Object.keys(ApiRequestTypeMap)
-const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap)
+const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
+const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 
-const dialogVisible = ref(false)
-const formRef = ref<FormInstance>()
-const editItem = ref<Record<string, any>>()
+const dialogVisible = ref(false);
+const formRef = ref<FormInstance>();
+const editItem = ref<Record<string, any>>();
 const formValue = reactive<ApiInfo>({
   id: null,
   domainId: null,
@@ -23,63 +23,63 @@ const formValue = reactive<ApiInfo>({
   apiRequestContentType: '',
   apiInputParams: [],
   apiOutputParams: [],
-})
+});
 const rules = reactive<FormRules>({
   domainId: [{ required: true, message: '请选择领域', trigger: 'blur' }],
-})
+});
 
-const emit = defineEmits(['add', 'edit'])
+const emit = defineEmits(['add', 'edit']);
 
 function onCancel() {
-  dialogVisible.value = false
+  dialogVisible.value = false;
 }
 
 async function onSubmit() {
-  if (!formRef.value) return
-  const valid = await formRef.value.validate(() => {})
+  if (!formRef.value) return;
+  const valid = await formRef.value.validate(() => {});
   if (!valid) {
-    return
+    return;
   }
 
-  dialogVisible.value = false
+  dialogVisible.value = false;
   if (editItem.value) {
-    emit('edit', { ...editItem.value, ...formValue })
+    emit('edit', { ...editItem.value, ...formValue });
   } else {
-    emit('add', formValue)
+    emit('add', formValue);
   }
 }
 
 function open(item?: Record<string, any>) {
-  editItem.value = item
-  dialogVisible.value = true
+  editItem.value = item;
+  dialogVisible.value = true;
   nextTick(async () => {
     if (formRef.value) {
-      formRef.value.resetFields()
+      formRef.value.resetFields();
     }
     if (item) {
-      const res = await apiService.queryApiInfo(item.id)
+      const res = await apiService.queryApiInfo(item.id);
       if (res.success) {
-        formValue.id = res.result.id
-        formValue.domainId = res.result.domainId
-        formValue.apiName = res.result.apiName
-        formValue.apiDesc = res.result.apiDesc
-        formValue.apiUrl = res.result.apiUrl
-        formValue.apiRequestType = res.result.apiRequestType
-        formValue.apiInputParams = res.result.apiInputParams
-        formValue.apiOutputParams = res.result.apiOutputParams
+        formValue.id = res.result.id;
+        formValue.domainId = res.result.domainId;
+        formValue.apiName = res.result.apiName;
+        formValue.apiDesc = res.result.apiDesc;
+        formValue.apiUrl = res.result.apiUrl;
+        formValue.apiRequestType = res.result.apiRequestType;
+        formValue.apiInputParams = res.result.apiInputParams;
+        formValue.apiOutputParams = res.result.apiOutputParams;
       }
     }
-  })
+  });
 }
 
 const title = computed(() => {
   if (editItem.value) {
-    return '编辑接口'
+    return '编辑接口';
   }
-  return '新增接口'
-})
+  return '新增接口';
+});
 
-defineExpose({ open })
+defineExpose({ open });
 </script>
 <template>
   <el-drawer v-model="dialogVisible" :size="480" :title="title">

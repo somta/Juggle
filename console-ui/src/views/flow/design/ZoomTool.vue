@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { Plus, Minus } from '@element-plus/icons-vue'
-import { computed } from 'vue'
-const emit = defineEmits(['change'])
+import { Plus, Minus } from '@element-plus/icons-vue';
+import { computed } from 'vue';
+const emit = defineEmits(['change']);
 
 const props = defineProps({
   scale: {
     type: Number,
     default: 1,
   },
-})
+});
 
-const step = 0.25 // 25的倍数，因为0.25 * 100 = 25
+const step = 0.25; // 25的倍数，因为0.25 * 100 = 25
 
 const percent = computed(() => {
-  return `${Math.round(props.scale * 100)}%`
-})
+  return `${Math.round(props.scale * 100)}%`;
+});
 
 function plus() {
-  emit('change', Math.floor((props.scale + step) * 4) / 4) // 保证结果为25的倍数
+  emit('change', Math.floor((props.scale + step) * 4) / 4); // 保证结果为25的倍数
 }
 
 function minus() {
-  emit('change', Math.floor((props.scale - step) * 4) / 4) // 保证结果为25的倍数
+  emit('change', Math.floor((props.scale - step) * 4) / 4); // 保证结果为25的倍数
 }
 </script>
 

@@ -5,36 +5,36 @@ defineProps({
   pageSize: Number,
   dataTotal: Number,
   loading: Boolean,
-})
-const emit = defineEmits(['pageChange', 'flowStatusChange', 'delete'])
+});
+const emit = defineEmits(['pageChange', 'flowStatusChange', 'delete']);
 
 function deleteRow(row: any, index: number) {
-  emit('delete', row, index)
+  emit('delete', row, index);
 }
 
 function updateFlowVersionStatus(row: any) {
-  emit('flowVersionStatusChange', row)
+  emit('flowVersionStatusChange', row);
 }
 
 function flowVersionStatusFormat(flowVersionStatus: number) {
   if (flowVersionStatus == 0) {
-    return '禁用'
+    return '禁用';
   } else {
-    return '启用'
+    return '启用';
   }
 }
 
 function flowVersionStatusOptFormat(flowVersionStatus: number) {
   if (flowVersionStatus == 0) {
-    return '启用'
+    return '启用';
   } else {
-    return '禁用'
+    return '禁用';
   }
 }
 
 function buildFullTriggerUrl(triggerUrl: string) {
-  const origin = window.location.origin
-  return origin + triggerUrl
+  const origin = window.location.origin;
+  return origin + triggerUrl;
 }
 </script>
 

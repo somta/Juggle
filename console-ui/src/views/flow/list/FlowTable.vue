@@ -5,23 +5,23 @@ defineProps({
   pageSize: Number,
   dataTotal: Number,
   loading: Boolean,
-})
-const emit = defineEmits(['pageChange', 'flowStatusChange', 'delete'])
-import { useRouter } from 'vue-router'
-const router = useRouter()
+});
+const emit = defineEmits(['pageChange', 'flowStatusChange', 'delete']);
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 function deleteRow(row: any, index: number) {
-  emit('delete', row, index)
+  emit('delete', row, index);
 }
 
 // todo 应该有更优雅的写法
 function flowTypeFormat(flowType: string) {
   if (flowType == 'sync') {
-    return '同步'
+    return '同步';
   } else if (flowType == 'async') {
-    return '异步'
+    return '异步';
   } else {
-    return '未知'
+    return '未知';
   }
 }
 
@@ -31,7 +31,7 @@ function goFlowVersionListPage(flowId: number) {
     params: {
       flowId: flowId,
     },
-  })
+  });
 }
 </script>
 

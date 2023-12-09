@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { userService } from '@/service'
-import { ElMessage } from 'element-plus'
-import { ref } from 'vue'
-const $router = useRouter()
+import { useRouter } from 'vue-router';
+import { userService } from '@/service';
+import { ElMessage } from 'element-plus';
+import { ref } from 'vue';
+const $router = useRouter();
 
-const userName = ref('')
-userName.value = window.localStorage.getItem('Juggle-userName')
+const userName = ref('');
+userName.value = window.localStorage.getItem('Juggle-userName');
 
 async function logout() {
-  const res = await userService.logout()
+  const res = await userService.logout();
   if (res) {
-    await $router.push('/login')
+    await $router.push('/login');
   } else {
-    ElMessage.error('退出失败')
+    ElMessage.error('退出失败');
   }
 }
 </script>

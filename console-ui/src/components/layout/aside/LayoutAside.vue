@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { HomeFilled, Setting } from '@element-plus/icons-vue'
-import IconFlow from '@/components/icons/IconFlow.vue'
-import IconInterface from '@/components/icons/IconInterface.vue'
+import { HomeFilled, Setting } from '@element-plus/icons-vue';
+import IconFlow from '@/components/icons/IconFlow.vue';
+import IconInterface from '@/components/icons/IconInterface.vue';
 </script>
 
 <template>

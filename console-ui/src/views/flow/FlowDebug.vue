@@ -1,47 +1,47 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { flowDefineService } from '@/service'
-import { ElMessage } from 'element-plus'
+import { reactive, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { flowDefineService } from '@/service';
+import { ElMessage } from 'element-plus';
 
-const route = useRoute()
+const route = useRoute();
 let paramsData = reactive({
   params: route.params,
-})
+});
 
 // todo 这样要从后端查询这个流程对应的入参，然后动态渲染
 const debugForm = reactive({
   name: '',
   region: '',
   type: '',
-})
+});
 
-const requestTabActiveName = ref('inputParam')
-const responseTabActiveName = ref('result')
+const requestTabActiveName = ref('inputParam');
+const responseTabActiveName = ref('result');
 
-const debugUrl = ref('')
+const debugUrl = ref('');
 //debugUrl.value = window.location.origin + '/v1/flow/definition/debug/'+ paramsData.params.flowKey;
-debugUrl.value = 'http://127.0.0.1:8686/v1/flow/definition/debug/' + paramsData.params.flowKey
+debugUrl.value = 'http://127.0.0.1:8686/v1/flow/definition/debug/' + paramsData.params.flowKey;
 
-queryFlowDefineInfo()
+queryFlowDefineInfo();
 
 async function queryFlowDefineInfo() {
-  const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as string)
+  const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as string);
   if (res.success) {
     // 填充到面板
   } else {
-    ElMessage({ type: 'error', message: res.errorMsg })
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
 async function sendFlowDebug() {
   //todo 这里参数要从流程入参中获取
-  const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, {})
+  const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, {});
   if (res.success) {
     //todo 显示到界面上
-    ElMessage({ type: 'success', message: '调试成功' })
+    ElMessage({ type: 'success', message: '调试成功' });
   } else {
-    ElMessage({ type: 'error', message: res.errorMsg })
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 </script>

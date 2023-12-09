@@ -5,15 +5,15 @@ defineProps({
   pageSize: Number,
   dataTotal: Number,
   loading: Boolean,
-})
-const emit = defineEmits(['pageChange', 'edit', 'delete'])
+});
+const emit = defineEmits(['pageChange', 'edit', 'delete']);
 
 function deleteRow(row: any, index: number) {
-  emit('delete', row, index)
+  emit('delete', row, index);
 }
 
 function editRow(row: any) {
-  emit('edit', row)
+  emit('edit', row);
 }
 </script>
 

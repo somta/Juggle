@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LoginForm from '@/components/entry/LoginForm.vue'
-import EntryBg from '@/components/entry/EntryBg.vue'
+import LoginForm from '@/components/entry/LoginForm.vue';
+import EntryBg from '@/components/entry/EntryBg.vue';
 </script>
 
 <template>

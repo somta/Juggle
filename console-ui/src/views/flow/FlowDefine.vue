@@ -1,59 +1,59 @@
 <script setup lang="ts">
-import { FlowDefineTable, FlowDefineDrawer, FlowDefineFilter } from './define'
-import { flowDefineService, flowVersionService } from '@/service'
-import { reactive, ref } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { FlowDefineTable, FlowDefineDrawer, FlowDefineFilter } from './define';
+import { flowDefineService, flowVersionService } from '@/service';
+import { reactive, ref } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { Plus } from '@element-plus/icons-vue';
 
-const pageNum = ref(1)
-const pageSize = ref(10)
-const dataTotal = ref(0)
-const dataRows = ref<Record<string, any>[]>([])
-const loading = ref(false)
-const drawerRef = ref()
+const pageNum = ref(1);
+const pageSize = ref(10);
+const dataTotal = ref(0);
+const dataRows = ref<Record<string, any>[]>([]);
+const loading = ref(false);
+const drawerRef = ref();
 const filter = ref<{
-  flowName?: string
-  flowType?: string
-}>({})
+  flowName?: string;
+  flowType?: string;
+}>({});
 
-const deployFormVisible = ref(false)
+const deployFormVisible = ref(false);
 let deployForm = reactive({
   flowDefinitionId: '',
   flowName: '',
   flowDeployVersion: '',
   flowVersionRemark: '',
-})
+});
 
 // 初始加载
-queryFlowDefinePage()
+queryFlowDefinePage();
 
 function onSearch(param: typeof filter.value) {
-  filter.value = param
-  onPageChange(1)
+  filter.value = param;
+  onPageChange(1);
 }
 
 async function queryFlowDefinePage() {
-  loading.value = true
+  loading.value = true;
   const res = await flowDefineService.queryFlowDefinePage({
     pageSize: pageSize.value,
     pageNum: pageNum.value,
     ...filter.value,
-  })
+  });
   if (res.success) {
-    dataTotal.value = res.total
-    dataRows.value = res.result
+    dataTotal.value = res.total;
+    dataRows.value = res.result;
   }
-  loading.value = false
+  loading.value = false;
 }
 
 function onPageChange(page: number) {
-  pageNum.value = page
-  queryFlowDefinePage()
+  pageNum.value = page;
+  queryFlowDefinePage();
 }
 
 function openflowDefineAdd() {
-  console.log('...')
-  drawerRef.value.open()
+  console.log('...');
+  drawerRef.value.open();
 }
 
 async function addFlowDefineItem(row: any) {
@@ -67,16 +67,16 @@ async function addFlowDefineItem(row: any) {
 }
 
 function openDeployDialog(row: any) {
-  deployForm.flowDefinitionId = row.id
-  deployForm.flowName = row.flowName
+  deployForm.flowDefinitionId = row.id;
+  deployForm.flowName = row.flowName;
   flowVersionService.getLatestDeployVersion(row.flowKey).then(res => {
-    deployFormVisible.value = true
-    deployForm.flowDeployVersion = res.result as string
-  })
+    deployFormVisible.value = true;
+    deployForm.flowDeployVersion = res.result as string;
+  });
 }
 
 async function onSubmitDeploy() {
-  await deployFlowDefine(deployForm.flowDefinitionId, deployForm.flowDeployVersion, deployForm.flowVersionRemark)
+  await deployFlowDefine(deployForm.flowDefinitionId, deployForm.flowDeployVersion, deployForm.flowVersionRemark);
 }
 
 async function deployFlowDefine(flowDefinitionId: string, flowDeployVersion: string, flowVersionRemark: string) {
@@ -84,13 +84,13 @@ async function deployFlowDefine(flowDefinitionId: string, flowDeployVersion: str
     flowDefinitionId: flowDefinitionId,
     flowDeployVersion: flowDeployVersion,
     flowVersionRemark: flowVersionRemark,
-  })
+  });
   if (res.success) {
-    ElMessage({ type: 'success', message: '部署成功' })
-    deployFormVisible.value = false
-    await queryFlowDefinePage()
+    ElMessage({ type: 'success', message: '部署成功' });
+    deployFormVisible.value = false;
+    await queryFlowDefinePage();
   } else {
-    ElMessage({ type: 'error', message: res.errorMsg })
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
@@ -101,23 +101,23 @@ function openDelete(row: any) {
     type: 'warning',
   })
     .then(() => {
-      deleteFlowDefineItem(row)
+      deleteFlowDefineItem(row);
     })
-    .catch(() => {})
+    .catch(() => {});
 }
 
 async function deleteFlowDefineItem(row: any) {
-  const res = await flowDefineService.deleteFlowDefineById(row.id)
+  const res = await flowDefineService.deleteFlowDefineById(row.id);
   if (res.success) {
-    ElMessage({ type: 'success', message: '删除成功' })
-    await queryFlowDefinePage()
+    ElMessage({ type: 'success', message: '删除成功' });
+    await queryFlowDefinePage();
   } else {
-    ElMessage({ type: 'error', message: res.errorMsg })
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
 function openEdit(row: any) {
-  drawerRef.value.open(row)
+  drawerRef.value.open(row);
 }
 </script>
 

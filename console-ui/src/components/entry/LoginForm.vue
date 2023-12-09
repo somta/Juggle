@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { User, Lock } from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { userService } from '@/service'
-const router = useRouter()
+import { ref } from 'vue';
+import { User, Lock } from '@element-plus/icons-vue';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { userService } from '@/service';
+const router = useRouter();
 
-const userName = ref('')
-const password = ref('')
-const loading = ref(false)
+const userName = ref('');
+const password = ref('');
+const loading = ref(false);
 
 async function submit() {
   if (!userName.value || !password.value) {
-    ElMessage.error('用户名或密码为空')
-    return
+    ElMessage.error('用户名或密码为空');
+    return;
   }
-  loading.value = true
+  loading.value = true;
   const result = await userService.login({
     userName: userName.value,
     password: password.value,
-  })
-  console.log(result, 'ww')
+  });
+  console.log(result, 'ww');
   if (result.success) {
-    router.push({ name: 'flow' })
+    router.push({ name: 'flow' });
   } else {
-    ElMessage.error(result.errorMsg || '登录失败')
+    ElMessage.error(result.errorMsg || '登录失败');
   }
-  loading.value = false
+  loading.value = false;
 }
 </script>
 

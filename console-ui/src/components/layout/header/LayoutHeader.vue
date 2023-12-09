@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import AppLogo from './AppLogo.vue'
-import CurrentUser from './CurrentUser.vue'
+import AppLogo from './AppLogo.vue';
+import CurrentUser from './CurrentUser.vue';
 </script>
 <template>
   <div class="layout-header">

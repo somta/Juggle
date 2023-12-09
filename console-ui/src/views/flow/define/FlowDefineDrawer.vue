@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref } from 'vue'
-import { FormInstance } from 'element-plus'
-import { ApiInfo, FlowDefineInfo } from '@/typings'
+import { computed, nextTick, reactive, ref } from 'vue';
+import { FormInstance } from 'element-plus';
+import { ApiInfo, FlowDefineInfo } from '@/typings';
 
-const flowDefineDrawerVisible = ref(false)
-const formRef = ref<FormInstance>()
-const editItem = ref<Record<string, any>>()
+const flowDefineDrawerVisible = ref(false);
+const formRef = ref<FormInstance>();
+const editItem = ref<Record<string, any>>();
 const formValue = reactive<FlowDefineInfo>({
   id: null,
   flowName: '',
@@ -13,10 +13,10 @@ const formValue = reactive<FlowDefineInfo>({
   remark: '',
   flowInputParams: [],
   flowOutputParams: [],
-})
+});
 
 function onCancel() {
-  flowDefineDrawerVisible.value = false
+  flowDefineDrawerVisible.value = false;
 }
 
 async function onSubmit() {
@@ -36,17 +36,17 @@ async function onSubmit() {
 
 function open(item?: Record<string, any>) {
   //editItem.value = item;
-  flowDefineDrawerVisible.value = true
+  flowDefineDrawerVisible.value = true;
 }
 
 const title = computed(() => {
   if (editItem.value) {
-    return '编辑流程定义'
+    return '编辑流程定义';
   }
-  return '新增流程定义'
-})
+  return '新增流程定义';
+});
 
-defineExpose({ open })
+defineExpose({ open });
 </script>
 
 <template>

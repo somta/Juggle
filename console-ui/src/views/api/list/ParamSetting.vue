@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref, watch } from 'vue';
 
 type ParamItem = {
-  id?: number | null
-  paramKey: string
-  dataType: string
-  paramName: string
-  required: boolean
-}
+  id?: number | null;
+  paramKey: string;
+  dataType: string;
+  paramName: string;
+  required: boolean;
+};
 
 const props = defineProps({
   modelValue: Array,
@@ -15,25 +15,25 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-})
-const emit = defineEmits(['update:modelValue'])
+});
+const emit = defineEmits(['update:modelValue']);
 
 watch(
   () => props.modelValue,
   (val: any) => {
     if (val !== params.value) {
-      params.value = val
+      params.value = val;
     }
   }
-)
+);
 
-const params = ref<ParamItem[]>([])
+const params = ref<ParamItem[]>([]);
 const columns = [
   { name: '参数编码', prop: 'paramKey' },
   { name: '参数名称', prop: 'paramName' },
   { name: '数据类型', prop: 'dataType' },
   { name: '必填', prop: 'required' },
-]
+];
 
 function addParam() {
   params.value.push({
@@ -41,19 +41,19 @@ function addParam() {
     paramName: '',
     dataType: 'String',
     required: false,
-  })
-  onChange()
+  });
+  onChange();
 }
 
 function onChange() {
-  emit('update:modelValue', params.value)
+  emit('update:modelValue', params.value);
 }
 
 const dataTypeOptions = [
   { label: 'String', value: 'String' },
   { label: 'Number', value: 'Number' },
   { label: 'Object', value: 'Object' },
-]
+];
 </script>
 
 <template>

@@ -1,51 +1,51 @@
 <script setup lang="ts">
-import { FlowVersionTable, FlowVersionFilter } from './version'
-import { flowVersionService } from '@/service'
-import { reactive, ref } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { useRoute } from 'vue-router'
+import { FlowVersionTable, FlowVersionFilter } from './version';
+import { flowVersionService } from '@/service';
+import { reactive, ref } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { useRoute } from 'vue-router';
 
-const route = useRoute()
+const route = useRoute();
 let paramsData = reactive({
   params: route.params,
-})
+});
 
-const pageNum = ref(1)
-const pageSize = ref(10)
-const dataTotal = ref(0)
-const dataRows = ref<Record<string, any>[]>([])
-const loading = ref(false)
+const pageNum = ref(1);
+const pageSize = ref(10);
+const dataTotal = ref(0);
+const dataRows = ref<Record<string, any>[]>([]);
+const loading = ref(false);
 
 const filter = ref<{
-  flowVersionStatus?: number
-}>({})
+  flowVersionStatus?: number;
+}>({});
 
 // 初始加载
-queryFlowVersionPage()
+queryFlowVersionPage();
 
 function onSearch(param: typeof filter.value) {
-  filter.value = param
-  onPageChange(1)
+  filter.value = param;
+  onPageChange(1);
 }
 
 async function queryFlowVersionPage() {
-  loading.value = true
+  loading.value = true;
   const res = await flowVersionService.queryFlowVersionPage({
     pageSize: pageSize.value,
     pageNum: pageNum.value,
     flowId: Number(paramsData.params.flowId),
     ...filter.value,
-  })
+  });
   if (res.success) {
-    dataTotal.value = res.total
-    dataRows.value = res.result
+    dataTotal.value = res.total;
+    dataRows.value = res.result;
   }
-  loading.value = false
+  loading.value = false;
 }
 
 function onPageChange(page: number) {
-  pageNum.value = page
-  queryFlowVersionPage()
+  pageNum.value = page;
+  queryFlowVersionPage();
 }
 
 function openUpdateFlowVersionStatus(row: any) {
@@ -55,18 +55,18 @@ function openUpdateFlowVersionStatus(row: any) {
     type: 'warning',
   })
     .then(() => {
-      updateFlowStatus(row)
+      updateFlowStatus(row);
     })
-    .catch(() => {})
+    .catch(() => {});
 }
 
 async function updateFlowStatus(row: any) {
-  const res = await flowVersionService.updateFlowVersionStatus(row.id, row.flowVersionStatus)
+  const res = await flowVersionService.updateFlowVersionStatus(row.id, row.flowVersionStatus);
   if (res.success) {
-    ElMessage({ type: 'success', message: '操作成功' })
-    await queryFlowVersionPage()
+    ElMessage({ type: 'success', message: '操作成功' });
+    await queryFlowVersionPage();
   } else {
-    ElMessage({ type: 'error', message: res.errorMsg })
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
@@ -77,18 +77,18 @@ function openDelete(row: any) {
     type: 'warning',
   })
     .then(() => {
-      deleteFlowVersionItem(row)
+      deleteFlowVersionItem(row);
     })
-    .catch(() => {})
+    .catch(() => {});
 }
 
 async function deleteFlowVersionItem(row: any) {
-  const res = await flowVersionService.deleteFlowVersionById(row.id)
+  const res = await flowVersionService.deleteFlowVersionById(row.id);
   if (res.success) {
-    ElMessage({ type: 'success', message: '删除成功' })
-    await queryFlowVersionPage()
+    ElMessage({ type: 'success', message: '删除成功' });
+    await queryFlowVersionPage();
   } else {
-    ElMessage({ type: 'error', message: res.errorMsg })
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 </script>

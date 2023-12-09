@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { useRouter } from 'vue-router';
+const router = useRouter();
 defineProps({
   dataRows: Array,
   pageNum: Number,
   pageSize: Number,
   dataTotal: Number,
   loading: Boolean,
-})
-const emit = defineEmits(['pageChange', 'deploy', 'edit', 'delete'])
+});
+const emit = defineEmits(['pageChange', 'deploy', 'edit', 'delete']);
 
 function deployFlow(row: any) {
-  emit('deploy', row)
+  emit('deploy', row);
 }
 function deleteRow(row: any, index: number) {
-  emit('delete', row, index)
+  emit('delete', row, index);
 }
 
 function editRow(row: any) {
-  emit('edit', row)
+  emit('edit', row);
 }
 function goDebugPage(flowDefinitionId: number, flowKey: string) {
   router.push({
@@ -27,7 +27,7 @@ function goDebugPage(flowDefinitionId: number, flowKey: string) {
       flowDefinitionId: flowDefinitionId,
       flowKey: flowKey,
     },
-  })
+  });
 }
 function goDesignPage(flowDefinitionId: number, flowKey: string) {
   router.push({
@@ -36,7 +36,7 @@ function goDesignPage(flowDefinitionId: number, flowKey: string) {
       flowDefinitionId: flowDefinitionId,
       flowKey: flowKey,
     },
-  })
+  });
 }
 </script>
 

@@ -1,6 +1,6 @@
-import DomainList from './DomainList.vue'
-import ApiList from './ApiList.vue'
-import RouterNest from '@/views/RouterNest.vue'
+import DomainList from './DomainList.vue';
+import ApiList from './ApiList.vue';
+import RouterNest from '@/views/RouterNest.vue';
 
 export const ApiRoutes = [
   {
@@ -24,4 +24,4 @@ export const ApiRoutes = [
       },
     ],
   },
-]
+];

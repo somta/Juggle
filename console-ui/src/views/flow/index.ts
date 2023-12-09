@@ -1,9 +1,9 @@
-import FlowDefine from './FlowDefine.vue'
-import FlowList from './FlowList.vue'
-import FlowVersionList from './FlowVersionList.vue'
-import FlowDebug from './FlowDebug.vue'
-import FlowDesign from './FlowDesign.vue'
-import RouterNest from '@/views/RouterNest.vue'
+import FlowDefine from './FlowDefine.vue';
+import FlowList from './FlowList.vue';
+import FlowVersionList from './FlowVersionList.vue';
+import FlowDebug from './FlowDebug.vue';
+import FlowDesign from './FlowDesign.vue';
+import RouterNest from '@/views/RouterNest.vue';
 
 export const FlowRoutes = [
   {
@@ -45,4 +45,4 @@ export const FlowRoutes = [
       },
     ],
   },
-]
+];

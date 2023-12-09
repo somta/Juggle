@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import DomainSelect from '@/components/form/DomainSelect.vue'
-const emit = defineEmits(['search'])
+import { reactive } from 'vue';
+import DomainSelect from '@/components/form/DomainSelect.vue';
+const emit = defineEmits(['search']);
 
 const formValue = reactive({
   domainId: null,
   apiName: '',
   apiUrl: '',
-})
+});
 
 const onSubmit = () => {
-  emit('search', formValue)
-}
+  emit('search', formValue);
+};
 
 const onReset = () => {
-  formValue.domainId = null
-  formValue.apiName = ''
-  formValue.apiUrl = ''
-}
+  formValue.domainId = null;
+  formValue.apiName = '';
+  formValue.apiUrl = '';
+};
 </script>
 <template>
   <el-form :inline="true" :model="formValue">
