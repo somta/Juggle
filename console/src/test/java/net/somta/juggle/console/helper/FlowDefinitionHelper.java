@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
-import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.core.enums.*;
 import net.somta.juggle.core.model.*;
@@ -51,14 +50,26 @@ public class FlowDefinitionHelper {
         method.setRequestType(RequestTypeEnum.GET);
         method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());
 
+        //header填充规则
+        List<FillStruct> headerFillRules = new ArrayList<>();
+        FillStruct headerFillStruct = new FillStruct();
+        headerFillStruct.setSource("env_id");
+        headerFillStruct.setSourceType(FieldSourceEnum.VARIABLE);
+        headerFillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
+        headerFillStruct.setTarget("userId");
+        headerFillStruct.setTargetType(FieldSourceEnum.INPUT_PARAM);
+        headerFillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
+        headerFillRules.add(headerFillStruct);
+        method.setHeaderFillRules(headerFillRules);
+
         //入参填充规则
         List<FillStruct> inputFillRules = new ArrayList<>();
         FillStruct fillStruct = new FillStruct();
         fillStruct.setSource("env_id");
-        fillStruct.setSourceType(FildSourceEnum.VARIABLE);
+        fillStruct.setSourceType(FieldSourceEnum.VARIABLE);
         fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
         fillStruct.setTarget("userId");
-        fillStruct.setTargetType(FildSourceEnum.FLOWINPUT);
+        fillStruct.setTargetType(FieldSourceEnum.INPUT_PARAM);
         fillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
         inputFillRules.add(fillStruct);
         method.setInputFillRules(inputFillRules);
@@ -68,10 +79,10 @@ public class FlowDefinitionHelper {
         List<FillStruct> outputFillRules = new ArrayList<>();
         FillStruct outFillStruct = new FillStruct();
         outFillStruct.setSource("name");
-        outFillStruct.setSourceType(FildSourceEnum.OUTPUTPARAM);
+        outFillStruct.setSourceType(FieldSourceEnum.OUTPUT_PARAM);
         outFillStruct.setSourceDataType(new DataType(DataTypeEnum.String));
         outFillStruct.setTarget("env_userName");
-        outFillStruct.setTargetType(FildSourceEnum.VARIABLE);
+        outFillStruct.setTargetType(FieldSourceEnum.VARIABLE);
         outFillStruct.setTargetDataType(new DataType(DataTypeEnum.String));
         outputFillRules.add(outFillStruct);
         method.setOutputFillRules(outputFillRules);

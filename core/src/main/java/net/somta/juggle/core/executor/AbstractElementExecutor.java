@@ -60,7 +60,7 @@ public abstract class AbstractElementExecutor implements IExecutor {
 
         FlowElement nextElement = null;
         if(!CollectionUtils.isEmpty(outgoingKeyList)){
-            //todo 只返回第一个是不是有问题
+            //todo 这里有没有更优的解法
             String nextElementKey = outgoingKeyList.get(0);
             nextElement = flowElementMap.get(nextElementKey);
         }

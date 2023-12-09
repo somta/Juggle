@@ -172,7 +172,6 @@ module.exports = {
                 ],
                 copyright: `Apache License 2.0 | Copyright © 2018-${new Date().getFullYear()}-明天的地平线 `
             },
-        //todo 这里要换成自己的
             algolia: {
                 appId: 'DADHMSXO5L',
                 apiKey: '64fce270bcef566f454360776f0e7bec', // search only (public) API key

@@ -35,6 +35,7 @@ public class ApiServiceImpl implements IApiService {
     public Boolean addApi(ApiAddParam apiAddParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiAddParam);
         apiAo.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
+        apiAo.initHeaderList(apiAddParam.getApiHeaders());
         return apiRepository.addApi(apiAo);
     }
 
@@ -47,6 +48,7 @@ public class ApiServiceImpl implements IApiService {
     public Boolean updateApi(ApiUpdateParam apiUpdateParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
         apiAo.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
+        apiAo.initHeaderList(apiUpdateParam.getApiHeaders());
         return apiRepository.updateApi(apiAo);
     }
 

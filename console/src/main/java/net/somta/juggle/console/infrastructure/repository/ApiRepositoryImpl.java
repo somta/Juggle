@@ -9,6 +9,7 @@ import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.infrastructure.converter.IApiConverter;
+import net.somta.juggle.console.infrastructure.converter.IObjConverter;
 import net.somta.juggle.console.infrastructure.mapper.ApiMapper;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
 import net.somta.juggle.console.infrastructure.po.ApiPO;
@@ -18,6 +19,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,10 +50,14 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPo.setCreatedAt(new Date());
         apiMapper.addApi(apiPo);
 
-        List<ParameterPO> parameterPoList = apiAo.getParameterEntity().getParameterPoList(apiPo.getId(),ParameterSourceTypeEnum.API.getCode());
+        List<ParameterPO> parameterPoList = new ArrayList<>();
+        List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(apiPo.getId(),ParameterSourceTypeEnum.API.getCode());
+        parameterPoList.addAll(parameterList);
+
+        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiPo.getId(),apiAo.getHeaderList());
+        parameterPoList.addAll(headerList);
         if(CollectionUtils.isNotEmpty(parameterPoList)){
-            parameterPoList.stream().forEach(parameter -> parameter.setSourceId(apiPo.getId()));
-            parameterMapper.batchAddParameter(parameterPoList);
+            parameterMapper.batchAddParameter(headerList);
         }
         return true;
     }
@@ -78,9 +84,14 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiMapper.update(apiPo);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiAo.getId()));
-        List<ParameterPO> parameterPoList = apiAo.getParameterEntity().getParameterPoList(apiPo.getId(),ParameterSourceTypeEnum.API.getCode());
+        List<ParameterPO> parameterPoList = new ArrayList<>();
+        List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(apiAo.getId(),ParameterSourceTypeEnum.API.getCode());
+        parameterPoList.addAll(parameterList);
+
+        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiAo.getId(),apiAo.getHeaderList());
+        parameterPoList.addAll(headerList);
         if(CollectionUtils.isNotEmpty(parameterPoList)){
-            parameterMapper.batchAddParameter(parameterPoList);
+            parameterMapper.batchAddParameter(headerList);
         }
         return true;
     }

@@ -1,6 +1,6 @@
 package net.somta.juggle.core.model;
 
-import net.somta.juggle.core.enums.FildSourceEnum;
+import net.somta.juggle.core.enums.FieldSourceEnum;
 
 /**
  * @author husong
@@ -8,13 +8,13 @@ import net.somta.juggle.core.enums.FildSourceEnum;
 public class FillStruct {
     private String source;
 
-    private FildSourceEnum sourceType;
+    private FieldSourceEnum sourceType;
 
     private DataType sourceDataType;
 
     private String target;
 
-    private FildSourceEnum targetType;
+    private FieldSourceEnum targetType;
 
     private DataType targetDataType;
 
@@ -27,11 +27,11 @@ public class FillStruct {
         this.source = source;
     }
 
-    public FildSourceEnum getSourceType() {
+    public FieldSourceEnum getSourceType() {
         return sourceType;
     }
 
-    public void setSourceType(FildSourceEnum sourceType) {
+    public void setSourceType(FieldSourceEnum sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -51,11 +51,11 @@ public class FillStruct {
         this.target = target;
     }
 
-    public FildSourceEnum getTargetType() {
+    public FieldSourceEnum getTargetType() {
         return targetType;
     }
 
-    public void setTargetType(FildSourceEnum targetType) {
+    public void setTargetType(FieldSourceEnum targetType) {
         this.targetType = targetType;
     }
 

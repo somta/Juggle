@@ -12,8 +12,6 @@ public class InputParameter extends BaseParameter {
      */
     private Boolean required;
 
-    // todo 复杂类型的对象或自定义对象应该如何定义
-
     public Boolean getRequired() {
         return required;
     }

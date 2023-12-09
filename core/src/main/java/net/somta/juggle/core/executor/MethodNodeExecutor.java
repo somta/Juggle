@@ -35,7 +35,8 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
         MethodNode methodNode = (MethodNode) flowRuntimeContext.getCurrentNode();
         try {
             Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputFillRules(), flowRuntimeContext.getVariableManager());
-            Map<String,Object> resultData = sendHttpRequest(methodNode.getMethod(),parameterData);
+            Map<String,Object> headerData = buildHeaderData(methodNode.getMethod().getHeaderFillRules(), flowRuntimeContext.getVariableManager());
+            Map<String,Object> resultData = sendHttpRequest(methodNode.getMethod(), headerData, parameterData);
             System.out.println("接口执行完，获得的结果为：" + resultData.toString());
 
             buildOutputParameterData(methodNode.getMethod(), flowRuntimeContext.getVariableManager(),resultData);
@@ -50,7 +51,6 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
     }
 
 
-
     @Override
     protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("方法节点执行器，执行后========================================");
@@ -62,12 +62,26 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
      * @param parameterData
      * @return
      */
-    private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> parameterData){
+    private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> headerData, Map<String, Object> parameterData){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(method.getRequestContentType()));
         Request request = new Request(method.getRequestType(),method.getUrl());
+        request.setRequestHeaders(headerData);
         request.setRequestParams(parameterData);
         Map<String,Object> result = httpClient.sendRequest(request);
         return result;
+    }
+
+    private Map<String, Object> buildHeaderData(List<FillStruct> headerFillRules, BaseVariableManager variableManager) throws FlowException {
+        if(CollectionUtils.isEmpty(headerFillRules)){
+            return Collections.EMPTY_MAP;
+        }
+        Map<String,Object> headerData = new HashMap<>(headerFillRules.size());
+        for(FillStruct fillStruct : headerFillRules){
+            String fieldKey = fillStruct.getTarget();
+            Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
+            headerData.put(fieldKey,variableValue);
+        }
+        return headerData;
     }
 
     /**

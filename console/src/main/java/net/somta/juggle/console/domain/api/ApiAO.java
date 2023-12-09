@@ -1,5 +1,7 @@
 package net.somta.juggle.console.domain.api;
 
+import net.somta.juggle.console.domain.api.vo.HeaderVO;
+import net.somta.juggle.console.domain.obj.vo.PropertyVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
@@ -41,6 +43,8 @@ public class ApiAO {
      */
     private String apiRequestContentType;
 
+    private List<HeaderVO> headerList;
+
     private ParameterEntity parameterEntity;
 
     /**
@@ -53,6 +57,10 @@ public class ApiAO {
         parameterEntity.setInputParameterList(apiInputParamList);
         parameterEntity.setOutputParameterList(apiOutputParamList);
         this.parameterEntity = parameterEntity;
+    }
+
+    public void initHeaderList(List<HeaderVO> apiHeaders) {
+        this.headerList = apiHeaders;
     }
 
     public Long getId() {
@@ -111,6 +119,10 @@ public class ApiAO {
         this.apiRequestContentType = apiRequestContentType;
     }
 
+    public List<HeaderVO> getHeaderList() {
+        return headerList;
+    }
+
     public ParameterEntity getParameterEntity() {
         return parameterEntity;
     }
@@ -118,5 +130,7 @@ public class ApiAO {
     public void setParameterEntity(ParameterEntity parameterEntity) {
         this.parameterEntity = parameterEntity;
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package net.somta.juggle.console.interfaces.param;
 
+import net.somta.juggle.console.domain.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.core.enums.RequestTypeEnum;
@@ -37,6 +38,8 @@ public class ApiAddParam {
      * api请求内容类型 application/json
      */
     private String apiRequestContentType;
+
+    private List<HeaderVO> apiHeaders;
 
     private List<InputParameterVO> apiInputParams;
 
@@ -88,6 +91,14 @@ public class ApiAddParam {
 
     public void setApiRequestContentType(String apiRequestContentType) {
         this.apiRequestContentType = apiRequestContentType;
+    }
+
+    public List<HeaderVO> getApiHeaders() {
+        return apiHeaders;
+    }
+
+    public void setApiHeaders(List<HeaderVO> apiHeaders) {
+        this.apiHeaders = apiHeaders;
     }
 
     public List<InputParameterVO> getApiInputParams() {

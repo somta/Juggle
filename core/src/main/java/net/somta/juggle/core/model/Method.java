@@ -28,6 +28,11 @@ public class Method {
     private String requestContentType;
 
     /**
+     * header的填充规则
+     */
+    private List<FillStruct> headerFillRules;
+
+    /**
      * 入参的填充规则
      */
     private List<FillStruct> inputFillRules;
@@ -60,6 +65,14 @@ public class Method {
 
     public void setRequestContentType(String requestContentType) {
         this.requestContentType = requestContentType;
+    }
+
+    public List<FillStruct> getHeaderFillRules() {
+        return headerFillRules;
+    }
+
+    public void setHeaderFillRules(List<FillStruct> headerFillRules) {
+        this.headerFillRules = headerFillRules;
     }
 
     public List<FillStruct> getInputFillRules() {
