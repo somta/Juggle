@@ -5,9 +5,7 @@ package net.somta.juggle.core.enums;
  */
 public enum ErrorEnum {
 
-    ENV_KEY_ERROR(1001, "变量的key不能为空"),
-    COMMIT_SUSPEND(1002, "Commit task suspend"),
-    ROLLBACK_SUSPEND(1003, "Rollback task suspend");
+    ENV_KEY_ERROR(1001, "变量的key不能为空");
 
 
     private int errCode;

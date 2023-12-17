@@ -11,7 +11,7 @@ import java.util.Map;
  * 基于内存的变量管 理器
  * @author husong
  **/
-public class MemoryVariableManager extends BaseVariableManager {
+public class MemoryVariableManager extends AbstractVariableManager {
 
     private final Map<String,Object> variableValueMap;
 

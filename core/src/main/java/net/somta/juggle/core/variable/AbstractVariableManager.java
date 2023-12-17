@@ -12,10 +12,10 @@ import java.util.Map;
  * @author husong
  * @date 2022/2/13
  **/
-public abstract class BaseVariableManager {
+public abstract class AbstractVariableManager {
     private Map<String, Variable> variableSchemaMap;
 
-    public BaseVariableManager(Map<String, Variable> variableSchemaMap) {
+    public AbstractVariableManager(Map<String, Variable> variableSchemaMap) {
         this.variableSchemaMap = variableSchemaMap;
     }
 

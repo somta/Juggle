@@ -4,8 +4,7 @@ import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
 import net.somta.juggle.core.exception.FlowException;
-import net.somta.juggle.core.executor.ConditionNodeExecutor;
-import net.somta.juggle.core.variable.BaseVariableManager;
+import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +20,9 @@ public class ExpressionManager {
     private final static Logger logger = LoggerFactory.getLogger(ExpressionManager.class);
 
     private AviatorEvaluatorInstance aviatorEvaluatorInstance = AviatorEvaluator.getInstance();
-    private final BaseVariableManager variableManager;
+    private final AbstractVariableManager variableManager;
 
-    public ExpressionManager(BaseVariableManager variableManager) {
+    public ExpressionManager(AbstractVariableManager variableManager) {
         this.variableManager = variableManager;
     }
 

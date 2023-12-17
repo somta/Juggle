@@ -1,5 +1,8 @@
 package net.somta.juggle.core.validator;
 
+import net.somta.juggle.core.model.FlowElement;
+import net.somta.juggle.core.model.node.FlowNode;
+
 /**
  * 校验器接口
  *
@@ -7,4 +10,8 @@ package net.somta.juggle.core.validator;
  * @date 2023/02/09
  */
 public interface IValidator {
+
+    Boolean validateFlow(FlowNode flowNode);
+
+
 }

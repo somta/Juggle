@@ -8,7 +8,7 @@ import net.somta.juggle.core.http.IHttpClient;
 import net.somta.juggle.core.http.Request;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.variable.BaseVariableManager;
+import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.Collections;
@@ -71,7 +71,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
         return result;
     }
 
-    private Map<String, Object> buildHeaderData(List<FillStruct> headerFillRules, BaseVariableManager variableManager) throws FlowException {
+    private Map<String, Object> buildHeaderData(List<FillStruct> headerFillRules, AbstractVariableManager variableManager) throws FlowException {
         if(CollectionUtils.isEmpty(headerFillRules)){
             return Collections.EMPTY_MAP;
         }
@@ -88,7 +88,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
      * 根据填充结构和参数描述构建带数据的参数对象
      * @return
      */
-    private Map<String,Object> buildInputParameterData(List<FillStruct> inputFillRules, BaseVariableManager variableManager) throws FlowException {
+    private Map<String,Object> buildInputParameterData(List<FillStruct> inputFillRules, AbstractVariableManager variableManager) throws FlowException {
         if(CollectionUtils.isEmpty(inputFillRules)){
             return Collections.EMPTY_MAP;
         }
@@ -134,7 +134,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
      * @param method
      * @param variableManager
      */
-    private void buildOutputParameterData(Method method, BaseVariableManager variableManager, Map<String,Object> resultData) throws FlowException {
+    private void buildOutputParameterData(Method method, AbstractVariableManager variableManager, Map<String,Object> resultData) throws FlowException {
         List<FillStruct> outputFillRules = method.getOutputFillRules();
         if(CollectionUtils.isEmpty(outputFillRules)){
             return;

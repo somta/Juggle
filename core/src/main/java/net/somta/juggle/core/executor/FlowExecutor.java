@@ -5,7 +5,7 @@ import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.result.IFlowResultManager;
-import net.somta.juggle.core.variable.BaseVariableManager;
+import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,7 +75,7 @@ public class FlowExecutor{
     private Map<String,Object> postExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("执行流程全部完成......开始组装结果");
         List<OutputParameter> outputParameters = flowRuntimeContext.getOutputParameters();
-        BaseVariableManager variableManager = flowRuntimeContext.getVariableManager();
+        AbstractVariableManager variableManager = flowRuntimeContext.getVariableManager();
         Map<String,Object> result = new HashMap<>(16);
         for (OutputParameter parameter : outputParameters) {
             Object value = null;

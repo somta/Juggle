@@ -1,5 +1,8 @@
 package net.somta.juggle.console.interfaces.controller.flow;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,13 +15,17 @@ import net.somta.juggle.console.interfaces.dto.flow.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.console.application.service.flow.IFlowDefinitionService;
 import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
+import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.FlowResult;
+import net.somta.juggle.core.model.node.FlowNode;
+import net.somta.juggle.core.validator.NodeValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
-import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.FLOW_DEFINITION_NOT_EXIST;
-import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.FLOW_PARAM_ERROR;
+import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.*;
 import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.*;
 
 /**
@@ -32,9 +39,11 @@ import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.
 public class FlowDefinitionController {
 
     private final IFlowDefinitionService flowDefinitionService;
+    private final ObjectMapper objectMapper;
 
-    public FlowDefinitionController(IFlowDefinitionService flowDefinitionService) {
+    public FlowDefinitionController(IFlowDefinitionService flowDefinitionService,ObjectMapper objectMapper) {
         this.flowDefinitionService = flowDefinitionService;
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -143,6 +152,16 @@ public class FlowDefinitionController {
         if(flowDefinitionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
+        try {
+            List<FlowNode> nodeList = objectMapper.readValue(flowDefinitionAo.getFlowContent(), new TypeReference<List<FlowNode>>() {});
+            NodeValidator nodeValidator = new NodeValidator();
+            for (FlowNode flowNode :  nodeList) {
+                nodeValidator.validateNode(flowNode);
+            }
+        } catch (JsonProcessingException e) {
+            return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_CONTENT_VALIDATOR_ERROR);
+        }
+
         Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam,flowDefinitionAo);
         return ResponseDataResult.setResponseResult(result);
     }
