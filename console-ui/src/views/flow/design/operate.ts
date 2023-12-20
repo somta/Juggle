@@ -1,4 +1,4 @@
-import { DataNode } from './renderer/data';
+import { DataBranchNode, DataNode } from './renderer/data';
 import { ElementType, RawData, MyOptional } from './types';
 
 // 添加节点
@@ -18,7 +18,8 @@ export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementTyp
   // 处理节点出口
   connectNodes({ node: current, next: next!, dataMap });
   // 添加节点
-  prev.getChildren().push(current);
+  const parent = prev.type === ElementType.BRANCH ? prev : prev.getParent();
+  parent?.addChild(current);
   dataMap.set(current.key, current);
 }
 
@@ -40,8 +41,17 @@ export function deleteNode(params: { current: DataNode; dataMap: Map<string, Dat
 // 处理节点关系
 function connectNodes(params: { node: DataNode; next: DataNode; dataMap: Map<string, DataNode> }) {
   const { node, next } = params;
-  node.out = next.key;
-  next.in = node.key;
+  // out
+  if (node.type === ElementType.BRANCH) {
+    const branchNode = node as DataBranchNode;
+    branchNode.setBranchOut(next.key);
+  } else {
+    node.out = next.key;
+  }
+  // in
+  if (node.getParent() === next.getParent()) {
+    next.in = node.key;
+  }
 }
 
 // 生成节点key
