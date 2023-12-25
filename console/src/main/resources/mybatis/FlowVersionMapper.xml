@@ -13,7 +13,7 @@
 	from t_flow_info i inner join t_flow_version v on i.id = v.flow_id  where i.flow_key = #{flowKey}
 </select>
 
-<select id="queryFlowVersionList" resultType="net.somta.juggle.console.domain.version.view.FlowVersionView" parameterType="net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO">
+<select id="queryFlowVersionList" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
 	select v.id,
 	       i.flow_key as flowKey,
 	       i.flow_name as flowName,

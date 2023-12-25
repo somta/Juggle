@@ -1,4 +1,4 @@
-package net.somta.juggle.console.domain.version.vo;
+package net.somta.juggle.console.domain.flow.version.vo;
 
 /**
  * @author husong

@@ -7,8 +7,8 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.flow.IFlowRuntimeService;
 import net.somta.juggle.console.application.service.flow.IFlowVersionService;
-import net.somta.juggle.console.domain.version.FlowVersionAO;
-import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
+import net.somta.juggle.console.domain.flow.version.FlowVersionAO;
+import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.interfaces.dto.flow.FlowVersionDTO;
 import net.somta.juggle.console.interfaces.param.flow.FlowVersionPageParam;
 import net.somta.juggle.console.interfaces.param.flow.FlowVersionStatusParam;
@@ -21,8 +21,8 @@ import java.util.Map;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.*;
-import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
-import static net.somta.juggle.console.domain.version.enums.FlowVersionErrorEnum.FLOW_NOT_ENABLE;
+import static net.somta.juggle.console.domain.flow.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
+import static net.somta.juggle.console.domain.flow.version.enums.FlowVersionErrorEnum.FLOW_NOT_ENABLE;
 
 /**
  * @author husong

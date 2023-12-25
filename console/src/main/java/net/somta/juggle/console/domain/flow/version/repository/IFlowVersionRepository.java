@@ -1,9 +1,8 @@
-package net.somta.juggle.console.domain.version.repository;
+package net.somta.juggle.console.domain.flow.version.repository;
 
-import net.somta.juggle.console.domain.version.FlowVersionAO;
-import net.somta.juggle.console.domain.version.view.FlowVersionView;
-import net.somta.juggle.console.domain.version.vo.FlowVersionQueryVO;
-import net.somta.juggle.console.domain.version.vo.FlowVersionVO;
+import net.somta.juggle.console.domain.flow.version.FlowVersionAO;
+import net.somta.juggle.console.domain.flow.version.view.FlowVersionView;
+import net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO;
 
 import java.util.List;
 

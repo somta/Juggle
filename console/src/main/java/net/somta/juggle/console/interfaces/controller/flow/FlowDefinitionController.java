@@ -31,7 +31,6 @@ import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.
 /**
  * 流程定义Controller
  * @author husong
- * @date 2022/12/17
  **/
 @Tag(name = "流程定义接口")
 @RestController

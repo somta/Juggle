@@ -1,6 +1,6 @@
-package net.somta.juggle.console.domain.version;
+package net.somta.juggle.console.domain.flow.version;
 
-import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
+import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 
 /**
  * @author husong

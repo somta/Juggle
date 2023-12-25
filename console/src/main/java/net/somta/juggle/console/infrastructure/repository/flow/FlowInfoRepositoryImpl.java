@@ -4,7 +4,7 @@ import net.somta.juggle.console.domain.flow.flowinfo.FlowInfoAO;
 import net.somta.juggle.console.domain.flow.flowinfo.repository.IFlowInfoRepository;
 import net.somta.juggle.console.domain.flow.flowinfo.vo.FlowInfoQueryVO;
 import net.somta.juggle.console.domain.flow.flowinfo.vo.FlowInfoVO;
-import net.somta.juggle.console.domain.version.enums.FlowVersionStatusEnum;
+import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowInfoConverter;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowVersionConverter;
 import net.somta.juggle.console.infrastructure.mapper.flow.FlowInfoMapper;
