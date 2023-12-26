@@ -1,7 +1,6 @@
 import { ElementType } from '../../types';
 import { DataNode } from '../data';
 import { TreeNode } from '../utils/TreeNode';
-import { box } from './vertical/generate';
 
 export class LayoutNode extends TreeNode {
   constructor(params: { left: number; top: number; width: number; height: number; data: DataNode; linesTo?: string[] }) {
@@ -92,13 +91,24 @@ export class LayoutNode extends TreeNode {
     this._linesTo.push(node);
   }
 
-  get linePoint(): [number, number] {
-    if (this.data.type === ElementType.CONDITION) {
-      return [this.x + this.width / 2, this.y + box.height / 2];
-    }
-    if (this.data.type === ElementType.BRANCH) {
-      return [this.x, this.y + box.height];
-    }
-    return [this.x + this.width / 2, this.y + this.height / 2];
+  // 内容盒子
+  contentBox = {
+    left: 0,
+    top: 0,
+    width: 0,
+    height: 0,
+  };
+
+  // 设置内容盒子
+  setContentBox (box: Partial<{ left: number, top: number, width: number, height: number }>) {
+    this.contentBox = Object.assign(this.contentBox, box);
+  }
+
+  // 获取内容盒子中心点
+  getContentBoxCenter (): [number, number] {
+    return [
+      this.x + this.contentBox.left + this.contentBox.width / 2,
+      this.y + this.contentBox.top + this.contentBox.height / 2,
+    ];
   }
 }

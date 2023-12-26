@@ -78,6 +78,12 @@ function layoutNormal(prev: LayoutNode, node: DataNode) {
     data: node,
     linesTo: [],
   });
+  layout.setContentBox({
+    width: box.width,
+    height: box.height,
+    left: 0,
+    top: 0,
+  });
   return layout;
 }
 
@@ -115,6 +121,12 @@ function setBranchBox(node: LayoutNode) {
       return sum + child.height + box.marginBottom;
     }, 0);
   node.setSize(width, height);
+  node.setContentBox({
+    width: box.width,
+    height: box.height,
+    left: -box.width / 2,
+    top: 0,
+  });
 }
 
 function setConditionBox(node: LayoutNode) {
@@ -127,6 +139,12 @@ function setConditionBox(node: LayoutNode) {
   const width = last.right - first.left;
   const height = branchTop + Math.max(...node.getChildren().map(child => child.height));
   node.setSize(width, height);
+  node.setContentBox({
+    width: box.width,
+    height: box.height,
+    left: width / 2 - box.width / 2,
+    top: 0,
+  });
 }
 
 function alignItemCenter(node: LayoutNode) {

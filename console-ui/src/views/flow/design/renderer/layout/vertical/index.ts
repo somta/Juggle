@@ -93,8 +93,8 @@ export class VerticalLayout {
   }
 
   getPolyline(fromNode: LayoutNode, toNode: LayoutNode): D3Point[] {
-    const from: D3Point = fromNode.linePoint;
-    const to: D3Point = toNode.linePoint;
+    const from: D3Point = fromNode.getContentBoxCenter();
+    const to: D3Point = toNode.getContentBoxCenter();
     if (from[0] === to[0]) {
       return [from, to];
     }
@@ -172,16 +172,16 @@ export class VerticalLayout {
       //   .attr('rx', 4)
       //   .attr('ry', 4);
 
+      const conditionBox = node.contentBox;
       const conditionStart = container
         .append('g')
         .attr('class', 'flow-node')
-        .attr('transform', `translate(${node.width / 2}, 0)`);
+        .attr('transform', `translate(${conditionBox.left}, 0)`);
 
       conditionStart
         .append('rect')
-        .attr('width', box.width)
-        .attr('height', box.height)
-        .attr('x', -box.width / 2)
+        .attr('width', conditionBox.width)
+        .attr('height', conditionBox.height)
         .attr('fill', '#fff')
         .attr('stroke', '#aaa')
         .attr('stroke-width', 1)
@@ -191,7 +191,8 @@ export class VerticalLayout {
         .append('text')
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
-        .attr('y', box.height / 2)
+        .attr('x', conditionBox.width / 2)
+        .attr('y', conditionBox.height / 2)
         .text(node.data.raw.name);
 
       this.drawHoverButtons(conditionStart, node);
@@ -221,7 +222,6 @@ export class VerticalLayout {
   drawBranch(container: D3Element, branch: LayoutNode) {
     if (branch.data.type === ElementType.BRANCH) {
       if (container.selectChild('.flow-node').size() === 0) {
-        const branchStart = container.append('g').attr('class', 'flow-node');
         // container.append('rect')
         //   .attr('width', branch.width)
         //   .attr('height', branch.height)
@@ -231,12 +231,16 @@ export class VerticalLayout {
         //   .attr('rx', 4)
         //   .attr('ry', 4)
         //   .attr('x', -branch.width / 2);
+        const conditionBox = branch.contentBox;
+        const branchStart = container
+          .append('g')
+          .attr('class', 'flow-node')
+          .attr('transform', `translate(${conditionBox.left}, 0)`);
 
         branchStart
           .append('rect')
-          .attr('width', box.width)
-          .attr('height', box.height)
-          .attr('x', -branch.width / 2)
+          .attr('width', conditionBox.width)
+          .attr('height', conditionBox.height)
           .attr('fill', '#fff')
           .attr('stroke', '#aaa')
           .attr('stroke-width', 1)
@@ -246,8 +250,8 @@ export class VerticalLayout {
           .append('text')
           .attr('text-anchor', 'middle')
           .attr('dominant-baseline', 'middle')
-          .attr('x', 0)
-          .attr('y', box.height / 2)
+          .attr('x', conditionBox.width / 2)
+          .attr('y', conditionBox.height / 2)
           .text(branch.data.raw.name);
 
         this.drawHoverButtons(branchStart, branch);
@@ -299,11 +303,8 @@ export class VerticalLayout {
   }
 
   drawHoverButtons(container: D3Element, node: LayoutNode) {
-    let { width } = node;
+    const { width } = node.contentBox;
     const { data } = node;
-    if (data.type === ElementType.BRANCH || data.type === ElementType.CONDITION) {
-      width = box.width / 2;
-    }
     let btns = ['delete', 'edit'];
     if ([ElementType.START, ElementType.END, ElementType.BRANCH].includes(data.type)) {
       btns = ['edit'];
