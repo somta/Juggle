@@ -22,7 +22,6 @@ import java.util.Map;
 public class FlowExecutor{
     private final static Logger logger = LoggerFactory.getLogger(FlowExecutor.class);
 
-
     public Map<String,Object> execute(FlowRuntimeContext flowRuntimeContext) {
         Map<String,Object> flowResult = null;
         FlowStatusEnum processStatus = FlowStatusEnum.FINISH;

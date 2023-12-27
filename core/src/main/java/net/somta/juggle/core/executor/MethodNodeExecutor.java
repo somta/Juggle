@@ -10,6 +10,8 @@ import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,20 +20,19 @@ import java.util.Map;
 
 /**
  * 方法节点执行器
- *
  * @author husong
- * @date 2023/02/06
  */
 public class MethodNodeExecutor extends AbstractElementExecutor {
+    private final static Logger logger = LoggerFactory.getLogger(MethodNodeExecutor.class);
 
     @Override
     protected void doPreExecute(FlowRuntimeContext flowRuntimeContext) {
-        System.out.println("方法节点执行器，执行前。。。");
+        logger.debug("方法节点执行器，执行前。。。");
     }
 
     @Override
     protected void doExecute(FlowRuntimeContext flowRuntimeContext) {
-        System.out.println("方法节点执行器，执行中。。。");
+        logger.debug("方法节点执行器，执行中。。。");
         MethodNode methodNode = (MethodNode) flowRuntimeContext.getCurrentNode();
         try {
             Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputFillRules(), flowRuntimeContext.getVariableManager());
@@ -53,7 +54,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
 
     @Override
     protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
-        System.out.println("方法节点执行器，执行后========================================");
+        logger.debug("方法节点执行器，执行后========================================");
     }
 
     /**

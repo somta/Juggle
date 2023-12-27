@@ -1,5 +1,6 @@
 package net.somta.juggle.core.dispatcher;
 
+import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.result.IFlowResultManager;

@@ -5,7 +5,7 @@ import net.somta.juggle.core.enums.ErrorEnum;
 /**
  * @author husong
  */
-public class FlowException extends Exception{
+public class FlowException extends RuntimeException{
 
     private int errCode;
     private String errMsg;

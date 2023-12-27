@@ -3,23 +3,21 @@ package net.somta.juggle.console.interfaces.controller.flow;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.flow.IFlowTemplateService;
 import net.somta.juggle.console.interfaces.dto.flow.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.dto.flow.FlowTemplateInfoDTO;
 import net.somta.juggle.console.interfaces.param.flow.FlowTemplatePageParam;
 import net.somta.juggle.console.interfaces.param.flow.definition.FlowDefinitionPageParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong
  */
-@Tag(name = "流程定义接口")
+@Tag(name = "流程模板接口")
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow/template")
 public class FlowTemplateController {
@@ -28,6 +26,13 @@ public class FlowTemplateController {
 
     public FlowTemplateController(IFlowTemplateService flowTemplateService) {
         this.flowTemplateService = flowTemplateService;
+    }
+
+    @Operation(summary = "删除流程模板")
+    @DeleteMapping("/delete/{templateId}")
+    public ResponseDataResult<Boolean> deleteFlowTemplate(@PathVariable Long templateId){
+        Boolean result = flowTemplateService.deleteFlowTemplate(templateId);
+        return ResponseDataResult.setResponseResult(result);
     }
 
     /**

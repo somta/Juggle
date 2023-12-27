@@ -29,6 +29,11 @@ public class FlowTemplateServiceImpl implements IFlowTemplateService {
     }
 
     @Override
+    public Boolean deleteFlowTemplate(Long templateId) {
+        return flowTemplateRepository.deleteFlowTemplateById(templateId);
+    }
+
+    @Override
     public PageInfo getFlowTemplatePageList(FlowTemplatePageParam flowTemplatePageParam) {
         FlowTemplateQueryVO flowTemplateQueryVO = IFlowTemplateAssembler.IMPL.paramToVo(flowTemplatePageParam);
         Page<FlowTemplateInfoDTO> page = PageHelper.startPage(flowTemplatePageParam.getPageNum(), flowTemplatePageParam.getPageSize());

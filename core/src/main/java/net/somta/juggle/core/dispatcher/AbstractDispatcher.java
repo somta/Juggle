@@ -19,6 +19,8 @@ import org.apache.commons.collections4.MapUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static net.somta.juggle.core.enums.ErrorEnum.FLOW_ELEMENT_IS_EMPTY_ERROR;
+
 /**
  * @author husong
  */
@@ -79,7 +81,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
         flowRuntimeContext.setOutputParameters(flow.getOutputParams());
         Map<String, FlowElement> flowElementMap = buildFlowElementMap(flow.getFlowContent());
         if(MapUtils.isEmpty(flowElementMap)){
-            System.out.println("流程元素错误了，直接报错");
+            throw new FlowException(FLOW_ELEMENT_IS_EMPTY_ERROR);
         }
         flowRuntimeContext.setFlowElementMap(flowElementMap);
         flowRuntimeContext.setCurrentNode(getFirstElement(flowElementMap));

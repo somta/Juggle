@@ -7,5 +7,8 @@ import net.somta.juggle.console.interfaces.param.flow.FlowTemplatePageParam;
  * @author husong
  */
 public interface IFlowTemplateService {
+    Boolean deleteFlowTemplate(Long templateId);
+
     PageInfo getFlowTemplatePageList(FlowTemplatePageParam flowTemplatePageParam);
+
 }

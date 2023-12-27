@@ -1,3 +1,8 @@
+![Static Badge](https://img.shields.io/badge/Jdk-1.8%2B-orange)
+![Static Badge](https://img.shields.io/badge/Maven-3.5.x-blue)
+![Static Badge](https://img.shields.io/badge/SpringBoot-2.7.14-green)
+![Static Badge](https://img.shields.io/badge/Vue-3.x-purple)
+
 # Juggle
 ## 项目介绍
 Juggle是一个微服务编排的产品，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
