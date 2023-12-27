@@ -12,15 +12,15 @@ export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementTyp
     ...info,
   };
   const current = new DataNode(currentRaw);
+  // 添加节点
+  const parent = prev.type === ElementType.BRANCH ? prev : prev.getParent();
+  parent?.addChild(current);
+  dataMap.set(current.key, current);
   const next = dataMap.get(prev.out);
   // 处理节点入口
   connectNodes({ node: prev!, next: current, dataMap });
   // 处理节点出口
   connectNodes({ node: current, next: next!, dataMap });
-  // 添加节点
-  const parent = prev.type === ElementType.BRANCH ? prev : prev.getParent();
-  parent?.addChild(current);
-  dataMap.set(current.key, current);
 }
 
 // 删除节点

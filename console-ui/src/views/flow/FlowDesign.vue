@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
-import ZoomTool from './design/ZoomTool.vue';
-import { FlowRenderer } from './design/renderer';
+import { ZoomTool, FlowRenderer, RawData, ElementType } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
-import { RawData } from './design/types';
+import { addNode, deleteNode } from './design/operate';
 
 const flowData = reactive({
   flowKey: '',
@@ -51,12 +50,22 @@ onMounted(async () => {
     },
     onAdd: d => {
       console.log(d);
+      const info = {
+        name: '新节点',
+        elementType: ElementType.METHOD,
+      };
+      addNode({ info, prev: d.data, dataMap: flowRenderer.dataMap });
+      flowRenderer.refresh();
+      console.log(flowRenderer.dataMap);
     },
     onEdit: d => {
       console.log(d);
     },
     onDelete: d => {
       console.log(d);
+      deleteNode({ current: d.data, dataMap: flowRenderer.dataMap });
+      flowRenderer.refresh();
+      console.log(flowRenderer.dataMap);
     },
   });
 });
