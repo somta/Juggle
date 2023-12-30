@@ -36,4 +36,25 @@ export class TreeNode {
       this.parent.removeChild(this);
     }
   }
+
+  public insertChild(node: TreeNode, index: number): void {
+    if (index < 0 || index > this.children.length) {
+      this.addChild(node);
+    }
+    const currentParent = node.getParent();
+    if (currentParent) {
+      currentParent.removeChild(node);
+    }
+    node.parent = this;
+    this.children.splice(index, 0, node);
+  }
+
+  public insertAfter(node: TreeNode, after: TreeNode): void {
+    const index = this.children.indexOf(after);
+    if (index === -1) {
+      this.addChild(node);
+    } else {
+      this.insertChild(node, index + 1);
+    }
+  }
 }

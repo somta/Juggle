@@ -14,7 +14,7 @@ export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementTyp
   const current = new DataNode(currentRaw);
   // 添加节点
   const parent = prev.type === ElementType.BRANCH ? prev : prev.getParent();
-  parent?.addChild(current);
+  parent?.insertAfter(current, prev);
   dataMap.set(current.key, current);
   const next = dataMap.get(prev.out);
   // 处理节点入口
