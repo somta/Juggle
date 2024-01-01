@@ -14,6 +14,8 @@ public class FlowTemplatePO extends BaseModel {
 
     private String templateContent;
 
+    private String flowType;
+
     private String inputs;
 
     private String outputs;
@@ -50,6 +52,14 @@ public class FlowTemplatePO extends BaseModel {
 
     public void setTemplateContent(String templateContent) {
         this.templateContent = templateContent;
+    }
+
+    public String getFlowType() {
+        return flowType;
+    }
+
+    public void setFlowType(String flowType) {
+        this.flowType = flowType;
     }
 
     public String getInputs() {

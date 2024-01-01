@@ -11,4 +11,5 @@ public interface IFlowTemplateService {
 
     PageInfo getFlowTemplatePageList(FlowTemplatePageParam flowTemplatePageParam);
 
+    Long applyFlowTemplate(Long templateId);
 }

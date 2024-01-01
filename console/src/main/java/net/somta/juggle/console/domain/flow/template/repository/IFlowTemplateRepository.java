@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.flow.template.repository;
 
+import net.somta.juggle.console.domain.flow.template.FlowTemplateAO;
 import net.somta.juggle.console.domain.flow.template.vo.FlowTemplateInfoVO;
 import net.somta.juggle.console.domain.flow.template.vo.FlowTemplateQueryVO;
 
@@ -16,11 +17,14 @@ public interface IFlowTemplateRepository {
      */
     Boolean deleteFlowTemplateById(Long templateId);
 
+    FlowTemplateAO queryFlowTemplateId(Long templateId);
+
     /**
      * Query flow list
      * @param flowTemplateQueryVO Template Query VO
      * @return Basic template information list
      */
     List<FlowTemplateInfoVO> queryFlowTemplateList(FlowTemplateQueryVO flowTemplateQueryVO);
+
 
 }

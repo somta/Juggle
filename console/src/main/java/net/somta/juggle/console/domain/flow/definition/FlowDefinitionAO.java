@@ -94,6 +94,15 @@ public class FlowDefinitionAO {
         return variables;
     }
 
+    /**
+     * Generate flow key
+     * @return Flow key string
+     */
+    public String generateFlowKey(){
+        String flowKey = this.flowType + "_" + RandomStringUtils.random(10, true, true);
+        return flowKey;
+    }
+
     public Long getId() {
         return id;
     }

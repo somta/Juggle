@@ -46,13 +46,13 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
+    public Long addFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionInfoPo.setCreatedAt(new Date());
-        flowDefinitionMapper.addFlowDefinitionInfo(flowDefinitionInfoPo);
+        Long flowDefinitionId = flowDefinitionMapper.addFlowDefinitionInfo(flowDefinitionInfoPo);
 
         saveParametersAndVariables(flowDefinitionInfoPo.getId(),flowDefinitionAo);
-        return true;
+        return flowDefinitionId;
     }
 
     @Transactional(rollbackFor = Exception.class)
