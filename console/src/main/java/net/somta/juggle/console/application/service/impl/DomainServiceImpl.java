@@ -3,21 +3,18 @@ package net.somta.juggle.console.application.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.assembler.IDomainAssembler;
+import net.somta.juggle.console.application.service.IDomainService;
 import net.somta.juggle.console.domain.domain.DomainEntity;
 import net.somta.juggle.console.domain.domain.repository.IDomainRepository;
 import net.somta.juggle.console.domain.domain.vo.DomainQueryVO;
 import net.somta.juggle.console.domain.domain.vo.DomainVO;
-import net.somta.juggle.console.infrastructure.po.DomainPO;
 import net.somta.juggle.console.interfaces.dto.DomainDTO;
 import net.somta.juggle.console.interfaces.param.DomainAddParam;
 import net.somta.juggle.console.interfaces.param.DomainQueryParam;
 import net.somta.juggle.console.interfaces.param.DomainUpdateParam;
-import net.somta.juggle.console.application.service.IDomainService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,8 +49,7 @@ public class DomainServiceImpl implements IDomainService {
     @Override
     public List<DomainDTO> getAllDomainList() {
         List<DomainVO> domainVOList = domainRepository.queryDomainListNoPage();
-        List<DomainDTO> domainDTOList = IDomainAssembler.IMPL.voListToDtoList(domainVOList);
-        return domainDTOList;
+        return IDomainAssembler.IMPL.voListToDtoList(domainVOList);
     }
 
     @Override

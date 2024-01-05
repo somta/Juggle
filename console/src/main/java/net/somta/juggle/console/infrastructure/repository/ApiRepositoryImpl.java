@@ -48,6 +48,8 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPo.setApiRequestType(apiAo.getApiRequestType().name());
         apiPo.setApiRequestContentType(apiAo.getApiRequestContentType());
         apiPo.setCreatedAt(new Date());
+        //todo 开放权限拦截器后，要加上创建人的逻辑
+        //apiPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
         apiMapper.addApi(apiPo);
 
         List<ParameterPO> parameterPoList = new ArrayList<>();
@@ -81,6 +83,8 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPo.setApiDesc(apiAo.getApiDesc());
         apiPo.setApiRequestType(apiAo.getApiRequestType().name());
         apiPo.setApiRequestContentType(apiAo.getApiRequestContentType());
+        //todo 开放权限拦截器后，要加上创建人的逻辑
+        //apiPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
         apiMapper.update(apiPo);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiAo.getId()));

@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository;
 
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.variable.VariableInfoEntity;
 import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
@@ -27,6 +28,8 @@ public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
     public Boolean addVariable(VariableInfoEntity variableInfoEntity) {
         VariableInfoPO variableInfoPo = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
         variableInfoPo.setCreatedAt(new Date());
+        //todo 开放权限拦截器后，要加上创建人的逻辑
+        //variableInfoPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         variableInfoMapper.add(variableInfoPo);
         return true;
     }
@@ -41,6 +44,7 @@ public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
     public Boolean updateVariable(Long variableId,VariableInfoEntity variableInfoEntity) {
         VariableInfoPO variableInfoPo = IVariableInfoConverter.IMPL.entityToPo(variableInfoEntity);
         variableInfoPo.setId(variableId);
+        //variableInfoPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
         variableInfoMapper.update(variableInfoPo);
         return true;
     }

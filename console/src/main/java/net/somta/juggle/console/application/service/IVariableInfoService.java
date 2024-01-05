@@ -11,32 +11,32 @@ import java.util.List;
  */
 public interface IVariableInfoService {
 
-
     /**
-     * 新增变量
-     * @param variableAddParam
+     * Add variables
+     * @param variableAddParam Add parameter objects for variables
+     * @return Boolean
      */
     Boolean addVariable(VariableAddParam variableAddParam);
 
     /**
-     * 删除变量
-     * @param flowDefinitionId
-     * @param variableId
-     * @return
+     * Delete variables based on flow definition ID and variable ID
+     * @param flowDefinitionId flow definition id
+     * @param variableId variable id
+     * @return Boolean
      */
     Boolean deleteVariable(Long flowDefinitionId, Long variableId);
 
     /**
-     * 修改变量
-     * @param variableUpdateParam
-     * @return
+     * Update variables
+     * @param variableUpdateParam Update variable parameter objects
+     * @return Boolean
      */
     Boolean updateVariable(VariableUpdateParam variableUpdateParam);
 
     /**
-     * 获取流程变量列表
-     * @param flowDefinitionId
-     * @return
+     * Query flow variable information list
+     * @param flowDefinitionId flow definition id
+     * @return Variable information list
      */
     List<VariableInfoDTO> getVariableInfoList(Long flowDefinitionId);
 }

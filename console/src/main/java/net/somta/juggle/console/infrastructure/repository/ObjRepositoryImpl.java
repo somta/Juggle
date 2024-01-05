@@ -42,6 +42,7 @@ public class ObjRepositoryImpl implements IObjRepository {
         objPo.setCreatedAt(new Date());
         //todo 开放权限拦截器后，要加上创建人的逻辑
         //Long userId = IdentityContext.getIdentity().getUserId();
+        //objPo.setCreatedBy(userId);
         objMapper.addObj(objPo);
 
         List<ParameterPO> propertyPoList = IObjConverter.IMPL.propertyListToParameterList(objPo.getId(),objAO.getPropertyList());
@@ -66,6 +67,9 @@ public class ObjRepositoryImpl implements IObjRepository {
         objPo.setObjCode(objAO.getObjCode());
         objPo.setObjName(objAO.getObjName());
         objPo.setObjDesc(objAO.getObjDesc());
+        //todo 开放权限拦截器后，要加上创建人的逻辑
+        //Long userId = IdentityContext.getIdentity().getUserId();
+        //objPo.setUpdatedBy(userId);
         objMapper.update(objPo);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(),objAO.getId()));
