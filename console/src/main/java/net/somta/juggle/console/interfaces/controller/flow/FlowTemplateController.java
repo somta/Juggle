@@ -47,4 +47,13 @@ public class FlowTemplateController {
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
+
+    @Operation(summary = "使用流程模板")
+    @DeleteMapping("/apply/{templateId}")
+    public ResponseDataResult<Long> applyFlowTemplate(@PathVariable Long templateId){
+        Long flowDefinitionId = flowTemplateService.applyFlowTemplate(templateId);
+        return ResponseDataResult.setResponseResult(flowDefinitionId);
+    }
+
+
 }

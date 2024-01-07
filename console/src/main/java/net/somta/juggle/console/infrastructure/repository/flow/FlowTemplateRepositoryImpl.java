@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository.flow;
 
+import net.somta.juggle.console.domain.flow.template.FlowTemplateAO;
 import net.somta.juggle.console.domain.flow.template.repository.IFlowTemplateRepository;
 import net.somta.juggle.console.domain.flow.template.vo.FlowTemplateInfoVO;
 import net.somta.juggle.console.domain.flow.template.vo.FlowTemplateQueryVO;
@@ -34,6 +35,12 @@ public class FlowTemplateRepositoryImpl implements IFlowTemplateRepository {
     public Boolean deleteFlowTemplateById(Long templateId) {
         flowTemplateMapper.deleteById(templateId);
         return true;
+    }
+
+    @Override
+    public FlowTemplateAO queryFlowTemplateId(Long templateId) {
+        FlowTemplatePO flowTemplatePo = flowTemplateMapper.queryById(templateId);
+        return IFlowTemplateConverter.IMPL.poToAo(flowTemplatePo);
     }
 
     @Override

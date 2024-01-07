@@ -10,6 +10,7 @@
     <result column="template_name" property="templateName"/>
     <result column="template_remark" property="templateRemark"/>
     <result column="template_content" property="templateContent"/>
+    <result column="flow_type" property="flowType"/>
     <result column="inputs" property="inputs"/>
     <result column="outputs" property="outputs"/>
     <result column="variables" property="variables"/>
@@ -27,12 +28,12 @@
 </sql>
 
 <sql id="Base_Column_List" >
-    id, template_name, template_remark, template_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by
+    id, template_name, template_remark, template_content, flow_type,inputs, outputs, variables, created_at, created_by, updated_at, updated_by
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.flow.FlowTemplatePO" >
-    insert into t_flow_template (id, template_name, template_remark,template_content, inputs, outputs, variables, created_at, created_by, updated_at, updated_by)
-    values (#{id},#{templateName},#{templateRemark},#{templateContent},#{inputs},#{outputs},#{variables},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+    insert into t_flow_template (id, template_name, template_remark,template_content,flow_type, inputs, outputs, variables, created_at, created_by, updated_at, updated_by)
+    values (#{id},#{templateName},#{templateRemark},#{templateContent},#{flowType},#{inputs},#{outputs},#{variables},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -50,6 +51,9 @@
         </if>
         <if test="templateContent != null and templateContent != ''">
             template_content=#{templateContent},
+        </if>
+        <if test="flowType != null and flowType != ''">
+            flow_type=#{flowType},
         </if>
         <if test="inputs != null and inputs != ''">
             inputs=#{inputs},

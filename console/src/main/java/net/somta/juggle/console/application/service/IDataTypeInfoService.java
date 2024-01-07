@@ -10,8 +10,9 @@ import java.util.List;
 public interface IDataTypeInfoService {
 
     /**
-     * 获取下拉的选项
-     * @return
+     * Get a list of data types
+     * @param dataTypeClassify Data type classification
+     * @return Data Type List
      */
     List<DataTypeOptionDTO> getDataTypeOptions(Integer dataTypeClassify);
 }

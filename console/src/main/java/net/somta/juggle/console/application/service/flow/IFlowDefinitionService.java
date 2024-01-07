@@ -32,8 +32,18 @@ public interface IFlowDefinitionService {
      */
     Boolean updateFlowDefinition(FlowDefinitionUpdateParam flowDefinitionUpdateParam);
 
+    /**
+     *
+     * @param flowDefinitionContentParam
+     * @return
+     */
     Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam);
 
+    /**
+     *
+     * @param flowDefinitionId
+     * @return
+     */
     FlowDefinitionAO getFlowDefinitionInfo(Long flowDefinitionId);
 
     /**
@@ -43,21 +53,36 @@ public interface IFlowDefinitionService {
      */
     FlowDefinitionAO getFlowDefinitionByKey(String flowKey);
 
+    /**
+     * Get a paginated list of flow definitions
+     * @param flowDefinitionPageParam
+     * @return Flow definition pagination data
+     */
     PageInfo getFlowDefinitionPageList(FlowDefinitionPageParam flowDefinitionPageParam);
 
     /**
-     * 部署流程
-     * @param flowDefinitionAo
-     * @return
+     * Create a flow definition based on the templat
+     * @param flowDefinitionAo Flow Definition AO Object
+     * @return Flow definition id
+     */
+    Long createFlowDefinitionByTemplate(FlowDefinitionAO flowDefinitionAo);
+
+    /**
+     * Deploy a flow
+     * @param flowDefinitionDeployParam Deployment process defined input object
+     * @param flowDefinitionAo Flow Definition AO Object
+     * @return The results of the deployment flow
      */
     Boolean deployFlowDefinition(FlowDefinitionDeployParam flowDefinitionDeployParam, FlowDefinitionAO flowDefinitionAo);
 
     /**
-     * @param flowDefinitionAo
-     * @param triggerData
-     * @return
+     * Debugging a flow
+     * @param flowDefinitionAo Flow Definition AO Object
+     * @param triggerData Trigger flow data
+     * @return Flow result data
      */
     FlowResult debugFlow(FlowDefinitionAO flowDefinitionAo, TriggerDataParam triggerData);
+
 
 
 }

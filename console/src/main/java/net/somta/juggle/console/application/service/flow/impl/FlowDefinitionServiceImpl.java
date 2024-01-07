@@ -21,7 +21,6 @@ import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,12 +47,12 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
     @Override
     public Boolean addFlowDefinition(FlowDefinitionAddParam flowDefinitionAddParam) {
         FlowDefinitionAO flowDefinitionAo =IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionAddParam);
-        String flowKey = flowDefinitionAddParam.getFlowType() + "_" + RandomStringUtils.random(10, true, true);
-        flowDefinitionAo.setFlowKey(flowKey);
+        flowDefinitionAo.setFlowKey(flowDefinitionAo.generateFlowKey());
         flowDefinitionAo.initDefaultFlowContent(flowDefinitionAddParam.getFlowName());
         flowDefinitionAo.initParameterList(flowDefinitionAddParam.getFlowInputParams(),flowDefinitionAddParam.getFlowOutputParams());
 
-        return flowDefinitionRepository.addFlowDefinition(flowDefinitionAo);
+        flowDefinitionRepository.addFlowDefinition(flowDefinitionAo);
+        return true;
     }
 
     @Override
@@ -100,6 +99,11 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         PageInfo pageInfo = new PageInfo(flowDefinitionInfoDtoList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
+    }
+
+    @Override
+    public Long createFlowDefinitionByTemplate(FlowDefinitionAO flowDefinitionAo) {
+        return flowDefinitionRepository.addFlowDefinition(flowDefinitionAo);
     }
 
     @Transactional(rollbackFor = Exception.class)

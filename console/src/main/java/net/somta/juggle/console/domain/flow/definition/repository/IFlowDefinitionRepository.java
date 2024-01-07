@@ -10,7 +10,7 @@ import java.util.List;
  * @author husong
  */
 public interface IFlowDefinitionRepository {
-    Boolean addFlowDefinition(FlowDefinitionAO flowDefinitionAo);
+    Long addFlowDefinition(FlowDefinitionAO flowDefinitionAo);
 
     Boolean deleteFlowDefinitionById(Long flowDefinitionId);
 
