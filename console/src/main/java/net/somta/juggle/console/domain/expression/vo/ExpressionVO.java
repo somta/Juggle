@@ -1,5 +1,10 @@
 package net.somta.juggle.console.domain.expression.vo;
 
+import net.somta.juggle.console.domain.expression.enums.OperatorEnum;
+
+/**
+ * @author husong
+ */
 public class ExpressionVO {
     /**
      * 原变量key
@@ -14,7 +19,7 @@ public class ExpressionVO {
     /**
      * 操作符 等于 不等于
      */
-    private String operator;
+    private OperatorEnum operator;
 
     /**
      * 赋值类型 常量  变量
@@ -42,11 +47,11 @@ public class ExpressionVO {
         this.dataType = dataType;
     }
 
-    public String getOperator() {
+    public OperatorEnum getOperator() {
         return operator;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(OperatorEnum operator) {
         this.operator = operator;
     }
 
