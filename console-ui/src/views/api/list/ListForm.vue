@@ -2,7 +2,7 @@
 import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import DomainSelect from '@/components/form/DomainSelect.vue';
-import ParamSetting from './ParamSetting.vue';
+import ParamSetting from '@/components/form/ParamSetting.vue';
 import { apiService } from '@/service';
 import type { ApiInfo } from '@/typings';
 import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const';

@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
-import { ZoomTool, FlowRenderer, RawData, ElementType } from './design';
+import { onMounted, ref, reactive, shallowRef } from 'vue';
+import {
+  ZoomTool,
+  FlowRenderer,
+  RawData,
+  ElementType,
+  AddNodeModal,
+  EditNodeDrawer,
+  ConditionFilterModal,
+} from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
@@ -18,7 +26,7 @@ const flowData = reactive({
 });
 const route = useRoute();
 async function queryFlowDefineInfo() {
-  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as unknown as number);
+  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as string);
   if (res.success) {
     Object.assign(flowData, res.result);
   } else {
@@ -26,7 +34,10 @@ async function queryFlowDefineInfo() {
   }
 }
 
-const flowCanvas = ref();
+const flowCanvas = shallowRef();
+const addNodeModal = shallowRef();
+const editNodeModal = shallowRef();
+const conditionFilterModal = shallowRef();
 let flowRenderer: FlowRenderer;
 const scale = ref(1);
 function onZoomToolChange(value: number) {
@@ -50,25 +61,45 @@ onMounted(async () => {
     },
     onAdd: d => {
       console.log(d);
-      const info = {
-        name: '新节点',
-        elementType: ElementType.METHOD,
-      };
-      addNode({ info, prev: d.data, dataMap: flowRenderer.dataMap });
-      flowRenderer.refresh();
-      console.log(flowRenderer.dataMap);
+      addNodeModal.value.open({
+        afterSelect: (info: { name: string; elementType: ElementType }) => {
+          addNode({ info, prev: d.data, dataMap: flowRenderer.dataMap });
+          flowRenderer.refresh();
+        }
+      });
     },
     onEdit: d => {
       console.log(d);
+      if (d.data.type === ElementType.BRANCH) {
+        conditionFilterModal.value.open();
+      } else {
+        editNodeModal.value.open({
+          data: d.data.raw,
+          afterEdit: () => {
+            console.log('afterEdit');
+          }
+        });
+      }
     },
     onDelete: d => {
       console.log(d);
       deleteNode({ current: d.data, dataMap: flowRenderer.dataMap });
       flowRenderer.refresh();
-      console.log(flowRenderer.dataMap);
     },
   });
 });
+
+function flowSubmit () {
+  const dataMap = flowRenderer.dataMap
+  const result: RawData[] = [];
+  dataMap.forEach(item => {
+    // 过滤不需要提交的
+    if (![ElementType.BRANCH, ElementType.ROOT].includes(item.type)) {
+      result.push(item.raw);
+    }
+  });
+  console.log(result);
+}
 </script>
 
 <template>
@@ -76,11 +107,16 @@ onMounted(async () => {
     <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
     </div>
+    <AddNodeModal ref="addNodeModal"/>
+    <EditNodeDrawer ref="editNodeModal" />
+    <ConditionFilterModal ref="conditionFilterModal" />
+    <el-button class="flow-submit" type="primary" @click="flowSubmit">完成</el-button>
   </div>
 </template>
 
 <style lang="less">
 .page-flow-design {
+  position: relative;
   .flow-canvas {
     width: 100%;
     height: 100%;
@@ -100,6 +136,11 @@ onMounted(async () => {
         display: block;
       }
     }
+  }
+  .flow-submit {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 }
 </style>

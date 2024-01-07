@@ -64,7 +64,6 @@ export class DataBranchNode extends DataNode {
       elementType: ElementType.BRANCH,
     };
     super(raw);
-    this.out = branch.outgoing;
     this._branchIndex = branchIndex;
   }
 
@@ -75,10 +74,13 @@ export class DataBranchNode extends DataNode {
     return parent.raw.conditions?.[this._branchIndex];
   }
 
-  setBranchOut(out: string) {
-    const branch = this.raw.conditions?.[this._branchIndex];
-    if (branch) {
-      branch.outgoing = out;
+  get out () {
+    return this.branch?.outgoing as string;
+  }
+
+  set out(val: string) {
+    if (this.branch) {
+      this.branch.outgoing = val;
     }
   }
 }

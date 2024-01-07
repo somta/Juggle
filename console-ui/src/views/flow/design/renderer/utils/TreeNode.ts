@@ -40,6 +40,7 @@ export class TreeNode {
   public insertChild(node: TreeNode, index: number): void {
     if (index < 0 || index > this.children.length) {
       this.addChild(node);
+      return;
     }
     const currentParent = node.getParent();
     if (currentParent) {

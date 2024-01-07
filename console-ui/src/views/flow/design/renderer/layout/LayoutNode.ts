@@ -1,4 +1,4 @@
-import { ElementType } from '../../types';
+
 import { DataNode } from '../data';
 import { TreeNode } from '../utils/TreeNode';
 
@@ -88,6 +88,7 @@ export class LayoutNode extends TreeNode {
   }
 
   public line(node: string) {
+    if (this._linesTo.includes(node)) return;
     this._linesTo.push(node);
   }
 
@@ -110,5 +111,13 @@ export class LayoutNode extends TreeNode {
       this.x + this.contentBox.left + this.contentBox.width / 2,
       this.y + this.contentBox.top + this.contentBox.height / 2,
     ];
+  }
+
+  getTopCenter (): [number, number] {
+    return [this.x + this.width / 2, this.y];
+  }
+
+  getBottomCenter (): [number, number] {
+    return [this.x + this.width / 2, this.y + this.height];
   }
 }

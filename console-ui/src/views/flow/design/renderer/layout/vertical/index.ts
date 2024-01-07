@@ -95,16 +95,57 @@ export class VerticalLayout {
   getPolyline(fromNode: LayoutNode, toNode: LayoutNode): D3Point[] {
     const from: D3Point = fromNode.getContentBoxCenter();
     const to: D3Point = toNode.getContentBoxCenter();
-    if (from[0] === to[0]) {
-      return [from, to];
-    }
-    let turningPoint;
+    // 最后一个分支节点
+    const parent = fromNode.getParent();
+    const children = parent.getChildren();
+    const lastChild = children[children.length - 1];
+    const isLastChild = fromNode === lastChild;
+    // 条件节点
     if (fromNode.data.type === ElementType.CONDITION) {
-      turningPoint = from[1];
-    } else {
-      turningPoint = toNode.y - box.marginBottom;
+      if (toNode.data.type === ElementType.BRANCH) {
+        return [
+          from,
+          [to[0], from[1]],
+          to,
+        ];
+      } else if (isLastChild) {
+        const bottomCenter = fromNode.getBottomCenter();
+        const condition = parent.getParent();
+        const parentBottomCenter = condition.getBottomCenter();
+        return [
+          bottomCenter,
+          [bottomCenter[0], parentBottomCenter[1]],
+          parentBottomCenter,
+        ];
+      } else {
+        const bottomCenter = fromNode.getBottomCenter();
+        return [
+          bottomCenter,
+          to,
+        ];
+      }
     }
-    return [from, [from[0], turningPoint], [to[0], turningPoint], to];
+    // 空分支节点
+    if (fromNode.data.type === ElementType.BRANCH && fromNode.getChildren().length === 0) {
+      const bottomCenter = parent.getBottomCenter();
+      return [
+        from,
+        [from[0], bottomCenter[1]],
+        bottomCenter,
+      ];
+    }
+    // 最后一个分支节点
+    if (parent.data.type === ElementType.BRANCH && isLastChild) {
+      const condition = parent.getParent();
+      const bottomCenter = condition.getBottomCenter();
+      return [
+        from,
+        [from[0], bottomCenter[1]],
+        bottomCenter,
+      ];
+    }
+    // 其他节点
+    return [from, to];
   }
 
   /**
@@ -163,14 +204,15 @@ export class VerticalLayout {
   drawCondition(container: D3Element, node: LayoutNode, type: string) {
 
     if (type === 'enter') {
-      // container.append('rect')
-      //   .attr('width', node.width)
-      //   .attr('height', node.height)
-      //   .attr('fill', '#fff')
-      //   .attr('stroke', '#aaa')
-      //   .attr('stroke-width', 1)
-      //   .attr('rx', 4)
-      //   .attr('ry', 4);
+      container.append('rect')
+        // .attr('class', 'sup-rect')
+        // .attr('width', node.width)
+        // .attr('height', node.height)
+        // .attr('fill', 'transparent')
+        // .attr('stroke', '#aaa')
+        // .attr('stroke-width', 1)
+        // .attr('rx', 4)
+        // .attr('ry', 4);
 
       const conditionBox = node.contentBox;
       const conditionStart = container
@@ -196,6 +238,9 @@ export class VerticalLayout {
         .text(node.data.raw.name);
 
       this.drawHoverButtons(conditionStart, node);
+    } else {
+      container.selectChild('.flow-node').attr('transform', `translate(${node.contentBox.left}, 0)`);
+      container.selectChild('.sup-rect').attr('width', node.width).attr('height', node.height);
     }
     this.drawAddIcon(container, node, type);
 
@@ -223,9 +268,10 @@ export class VerticalLayout {
     if (branch.data.type === ElementType.BRANCH) {
       if (type === 'enter') {
         // container.append('rect')
+        //   .attr('class', 'sup-rect')
         //   .attr('width', branch.width)
         //   .attr('height', branch.height)
-        //   .attr('fill', '#fff')
+        //   .attr('fill', 'transparent')
         //   .attr('stroke', '#aaa')
         //   .attr('stroke-width', 1)
         //   .attr('rx', 4)
@@ -255,6 +301,9 @@ export class VerticalLayout {
           .text(branch.data.raw.name);
 
         this.drawHoverButtons(branchStart, branch);
+      } else {
+        container.selectChild('.flow-node').attr('transform', `translate(${branch.contentBox.left}, 0)`);
+        container.selectChild('.sup-rect').attr('width', branch.width).attr('height', branch.height);
       }
       this.drawAddIcon(container, branch, type);
     }

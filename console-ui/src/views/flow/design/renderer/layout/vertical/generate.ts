@@ -89,6 +89,7 @@ function layoutNormal(prev: LayoutNode, node: DataNode) {
 
 function layoutCondition(prev: LayoutNode, node: DataNode) {
   const condition = layoutNormal(prev, node);
+  condition.line(node.out);
   let prevChild: LayoutNode;
   node.getChildren().forEach(child => {
     let left = 0;
@@ -136,7 +137,8 @@ function setConditionBox(node: LayoutNode) {
   }
   const first = children[0];
   const last = children[children.length - 1];
-  const width = last.right - first.left;
+  // branch的left为中点
+  const width = (last.left + last.width / 2) - (first.left - first.width / 2);
   const height = branchTop + Math.max(...node.getChildren().map(child => child.height));
   node.setSize(width, height);
   node.setContentBox({

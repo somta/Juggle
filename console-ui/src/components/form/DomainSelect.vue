@@ -17,7 +17,7 @@ async function loadData() {
   domainLoading.value = true;
   const res = await apiService.domainList();
   if (res.success) {
-    domainList.value = res.result.map(item => ({ label: item.domainName, value: item.id }));
+    domainList.value = res.result.map((item: any) => ({ label: item.domainName, value: item.id }));
   }
   domainLoaded = true;
   domainLoading.value = false;
