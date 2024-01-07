@@ -3,15 +3,11 @@ package net.somta.juggle.core;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
-import net.somta.juggle.core.expression.function.string.StringEmptyFunction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ExpressionTest {
 
@@ -232,6 +228,67 @@ public class ExpressionTest {
 
     }
 
+    @Test
+    public void logicExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //且
+        Expression compiledExp = instance.compile("env_age==18&&string.empty(env_name)");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_age",18);
+        env.put("env_name",null);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //或 年龄等于18 或 生日小于2023-12-13
+        Expression compiledExp2 = instance.compile("env_age==18||date.lt(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_age",20);
+        env2.put("env_birthday","2023-10-13 18:14:34");
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+
+        //或 年龄等于18 或 生日小于2023-12-13
+        Expression compiledExp3 = instance.compile("env_money==10000&&env_age==18||date.lt(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_money",6000);
+        env3.put("env_age",20);
+        env3.put("env_birthday","2023-10-13 18:14:34");
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+    }
+
+    @Test
+    public void ExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        Expression compiledExp3 = instance.compile("env_money==10000&&env_age==18||date.lt(env_birthday,'2023-12-13 18:14:34')");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_money",6000);
+        env3.put("env_age",20);
+        env3.put("env_birthday","2023-10-13 18:14:34");
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+    }
+
+    @Test
+    public void ExpressionCuttingTest(){
+
+        String expression = "env_money==10000&&env_age==18||date.lt(env_birthday,'2023-12-13 18:14:34')";
+        /*List<List<ExpressionVO>> expressionList = new ArrayList<>();
+
+        String[] orArray = expression.split("\\|\\|");
+        Arrays.stream(orArray).forEach(System.out::println);
+
+        for (String andExpression : orArray) {
+            String[] andArray = andExpression.split("&&");
+            Arrays.stream(andArray).forEach(System.out::println);
+        }*/
+
+
+    }
 
     @Test
     public void stringExpressionTest3() throws ParseException {

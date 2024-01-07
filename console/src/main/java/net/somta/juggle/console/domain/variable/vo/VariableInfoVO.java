@@ -1,8 +1,5 @@
 package net.somta.juggle.console.domain.variable.vo;
 
-import net.somta.juggle.console.domain.variable.enums.VariableTypeEnum;
-import net.somta.juggle.core.model.DataType;
-
 /**
  * @author husong
  */
