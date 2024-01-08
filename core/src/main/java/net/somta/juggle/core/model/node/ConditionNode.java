@@ -1,5 +1,7 @@
 package net.somta.juggle.core.model.node;
 
+import net.somta.juggle.core.enums.DataTypeEnum;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,6 +32,7 @@ public class ConditionNode extends FlowNode{
         private ConditionType conditionType;
         private String outgoing;
         private String expression;
+        private List<List<ConditionExpression>> conditionExpressions;
 
         public String getConditionName() {
             return conditionName;
@@ -61,6 +64,81 @@ public class ConditionNode extends FlowNode{
 
         public void setExpression(String expression) {
             this.expression = expression;
+        }
+
+        public List<List<ConditionExpression>> getConditionExpressions() {
+            return conditionExpressions;
+        }
+
+        public void setConditionExpressions(List<List<ConditionExpression>> conditionExpressions) {
+            this.conditionExpressions = conditionExpressions;
+        }
+    }
+
+    public static class ConditionExpression{
+        /**
+         * 原变量key
+         */
+        private String envKey;
+
+        /**
+         * 原变量的类型
+         */
+        private DataTypeEnum dataType;
+
+        /**
+         * 操作符 等于 不等于
+         */
+        private String operator;
+
+        /**
+         * 赋值类型 常量  变量
+         */
+        private String assignType;
+
+        /**
+         * 值或者变量code
+         */
+        private String value;
+
+        public String getEnvKey() {
+            return envKey;
+        }
+
+        public void setEnvKey(String envKey) {
+            this.envKey = envKey;
+        }
+
+        public DataTypeEnum getDataType() {
+            return dataType;
+        }
+
+        public void setDataType(DataTypeEnum dataType) {
+            this.dataType = dataType;
+        }
+
+        public String getOperator() {
+            return operator;
+        }
+
+        public void setOperator(String operator) {
+            this.operator = operator;
+        }
+
+        public String getAssignType() {
+            return assignType;
+        }
+
+        public void setAssignType(String assignType) {
+            this.assignType = assignType;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 

@@ -3,12 +3,14 @@ package net.somta.juggle.console.helper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.console.domain.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.core.enums.*;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.ConditionNode;
+import net.somta.juggle.core.model.node.ConditionNode.ConditionExpression;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.MethodNode;
 import net.somta.juggle.core.model.node.StartNode;
@@ -106,7 +108,33 @@ public class FlowDefinitionHelper {
         ConditionNode.ConditionItem conditionItem1 = new ConditionNode.ConditionItem();
         conditionItem1.setConditionName("判断用户名称是否为zhansan");
         conditionItem1.setConditionType(ConditionNode.ConditionType.CUSTOM);
-        conditionItem1.setExpression("env_name==\"张三\"");
+        conditionItem1.setExpression("env_name==\"张三\"||string.contains(env_name,三)");
+
+        List<List<ConditionExpression>> conditionExpressions1 = new ArrayList<>();
+
+        //第一个或条件表达式
+        List<ConditionExpression> conditionExpressions11 = new ArrayList<>();
+        ConditionExpression conditionExpression11 = new ConditionExpression();
+        conditionExpression11.setEnvKey("env_name");
+        conditionExpression11.setDataType(DataTypeEnum.String);
+        conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
+        conditionExpression11.setAssignType("constant");
+        conditionExpression11.setValue("张三");
+        conditionExpressions11.add(conditionExpression11);
+        conditionExpressions1.add(conditionExpressions11);
+        //第二个或条件表达式
+        List<ConditionExpression> conditionExpressions12 = new ArrayList<>();
+        ConditionExpression conditionExpression12 = new ConditionExpression();
+        conditionExpression12.setEnvKey("env_name");
+        conditionExpression12.setDataType(DataTypeEnum.String);
+        conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
+        conditionExpression12.setAssignType("constant");
+        conditionExpression12.setValue("三");
+        conditionExpressions12.add(conditionExpression12);
+        conditionExpressions1.add(conditionExpressions12);
+
+        conditionItem1.setConditionExpressions(conditionExpressions1);
+
         conditionItem1.setOutgoing("end_5g463");
         conditions.add(conditionItem1);
 
@@ -115,6 +143,21 @@ public class FlowDefinitionHelper {
         conditionItem2.setConditionType(ConditionNode.ConditionType.CUSTOM);
         //注意：字符串的条件一定要带单引号或者双引号
         conditionItem2.setExpression("env_name==\"lisi\"");
+
+        List<List<ConditionExpression>> conditionExpressions2 = new ArrayList<>();
+
+        //第一个或条件表达式
+        List<ConditionExpression> conditionExpressions21 = new ArrayList<>();
+        ConditionExpression conditionExpression21 = new ConditionExpression();
+        conditionExpression21.setEnvKey("env_name");
+        conditionExpression21.setDataType(DataTypeEnum.String);
+        conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
+        conditionExpression21.setAssignType("constant");
+        conditionExpression21.setValue("lisi");
+        conditionExpressions21.add(conditionExpression21);
+        conditionExpressions2.add(conditionExpressions21);
+        conditionItem2.setConditionExpressions(conditionExpressions2);
+
         conditionItem2.setOutgoing("method_23s45");
         conditions.add(conditionItem2);
 
@@ -225,5 +268,10 @@ public class FlowDefinitionHelper {
             }
         }
         return variables;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(getFlowDefinitionContent());
     }
 }
