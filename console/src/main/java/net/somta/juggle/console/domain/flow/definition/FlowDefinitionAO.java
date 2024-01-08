@@ -6,9 +6,12 @@ import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.core.enums.ElementTypeEnum;
+import net.somta.juggle.core.expression.ExpressionManager;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
+import net.somta.juggle.core.model.node.ConditionNode;
+import net.somta.juggle.core.model.node.ConditionNode.*;
 import net.somta.juggle.core.model.node.EndNode;
 import net.somta.juggle.core.model.node.StartNode;
 import org.apache.commons.collections4.CollectionUtils;
@@ -17,6 +20,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author husong
@@ -74,6 +78,25 @@ public class FlowDefinitionAO {
         parameterEntity.setInputParameterList(flowInputParamList);
         parameterEntity.setOutputParameterList(flowOutputParamList);
         this.parameterEntity = parameterEntity;
+    }
+
+    /**
+     * 处理流程内容
+     */
+    public void processFlowContent(){
+        List<FlowElement> elementList = JsonSerializeHelper.deserialize(this.flowContent,List.class,FlowElement.class);
+        elementList.stream()
+                .filter(flowElement -> ElementTypeEnum.CONDITION.equals(flowElement.getElementType()))
+                .forEach(node ->{
+                    ConditionNode conditionNode = (ConditionNode) node;
+                    List<ConditionItem> conditionItems = conditionNode.getConditions();
+                    for (ConditionItem conditionItem : conditionItems) {
+                        if(CollectionUtils.isNotEmpty(conditionItem.getConditionExpressions())){
+                            conditionItem.setExpression(ExpressionManager.generateExpression(conditionItem.getConditionExpressions()));
+                        }
+                    }
+                });
+        this.flowContent = JsonSerializeHelper.serialize(elementList);
     }
 
     /**

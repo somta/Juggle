@@ -71,6 +71,7 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
     @Override
     public Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam) {
         FlowDefinitionAO flowDefinitionAo = IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionContentParam);
+        flowDefinitionAo.processFlowContent();
         return flowDefinitionRepository.saveFlowDefinitionContent(flowDefinitionAo);
     }
 

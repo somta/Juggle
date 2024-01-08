@@ -12,6 +12,10 @@ export async function deleteFlowDefine(id: number): ResponseResult<boolean> {
   return request.delete(`/v1/flow/definition/delete/${id}`);
 }
 
+export async function saveFlowContent(params: { id: number; flowContent: string; }): ResponseResult<boolean> {
+  return request.post('/v1/flow/definition/save', params);
+}
+
 export function deployFlowDefine(params: { flowDefinitionId: string; flowDeployVersion: string; flowVersionRemark: string }): ResponsePageResult {
   return request.post('/v1/flow/definition/deploy', params);
 }

@@ -1,6 +1,6 @@
-package net.somta.juggle.console.domain.expression.condition.parser;
+package net.somta.juggle.core.expression.condition.parser;
 
-import net.somta.juggle.console.domain.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.node.ConditionNode.ConditionExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package net.somta.juggle.console.domain.expression.condition.parser;
+package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.juggle.core.enums.DataTypeEnum;
 

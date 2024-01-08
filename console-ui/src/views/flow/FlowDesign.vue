@@ -100,6 +100,20 @@ function flowSubmit () {
     }
   });
   console.log(result);
+  //todo 待测试
+  //saveFlowDefineContent();
+}
+
+async function saveFlowDefineContent(flowContent:string) {
+  const res = await flowDefineService.saveFlowContent({
+    id: route.params.flowDefinitionId as number,
+    flowContent:flowContent
+  });
+  if (res.success) {
+    ElMessage({ type: 'success', message: '保存成功' });
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
 }
 </script>
 
@@ -112,7 +126,7 @@ function flowSubmit () {
     <AddNodeModal ref="addNodeModal"/>
     <EditNodeDrawer ref="editNodeModal" />
     <ConditionFilterModal ref="conditionFilterModal" />
-    <el-button class="flow-submit" type="primary" @click="flowSubmit">完成</el-button>
+    <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
   </div>
 </template>
 

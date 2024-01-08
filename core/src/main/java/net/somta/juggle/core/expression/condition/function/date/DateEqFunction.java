@@ -1,4 +1,4 @@
-package net.somta.juggle.core.expression.function.date;
+package net.somta.juggle.core.expression.condition.function.date;
 
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.function.FunctionUtils;
@@ -12,25 +12,24 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * 小于等于
  * @author husong
  */
-public class DateLeFunction extends AbstractFunction {
+public class DateEqFunction extends AbstractFunction {
 
     @Override
     public AviatorObject call(Map<String, Object> env, AviatorObject sourceArg, AviatorObject targetArg) {
         String source = FunctionUtils.getStringValue(sourceArg, env);
         String target = FunctionUtils.getStringValue(targetArg, env);
-        if(StringUtils.isEmpty(source) || StringUtils.isEmpty(target)){
-            return AviatorBoolean.FALSE;
+        if(StringUtils.isEmpty(source) && StringUtils.isEmpty(target)){
+            return AviatorBoolean.TRUE;
         }
         if(StringUtils.isNotEmpty(source) && StringUtils.isNotEmpty(target)){
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);
-                boolean rst = sourceDate.before(targetDate) || sourceDate.compareTo(targetDate) == 0;
-                return rst ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
+                int rst = sourceDate.compareTo(targetDate);
+                return rst == 0 ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -41,7 +40,6 @@ public class DateLeFunction extends AbstractFunction {
 
     @Override
     public String getName() {
-        return "date.le";
+        return "date.eq";
     }
-
 }

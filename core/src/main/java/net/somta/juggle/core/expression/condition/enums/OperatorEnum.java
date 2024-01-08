@@ -1,4 +1,4 @@
-package net.somta.juggle.console.domain.expression.condition.enums;
+package net.somta.juggle.core.expression.condition.enums;
 
 
 /**

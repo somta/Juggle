@@ -3,7 +3,7 @@ package net.somta.juggle.console.helper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.juggle.console.domain.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
