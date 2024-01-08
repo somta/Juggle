@@ -8,6 +8,7 @@ import {
   AddNodeModal,
   EditNodeDrawer,
   ConditionFilterModal,
+  LeftMenu,
 } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
@@ -107,6 +108,7 @@ function flowSubmit () {
     <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
     </div>
+    <LeftMenu />
     <AddNodeModal ref="addNodeModal"/>
     <EditNodeDrawer ref="editNodeModal" />
     <ConditionFilterModal ref="conditionFilterModal" />
@@ -115,6 +117,9 @@ function flowSubmit () {
 </template>
 
 <style lang="less">
+.layout-view .layout-router-view.page-flow-design {
+  background-color: #fff;
+}
 .page-flow-design {
   position: relative;
   .flow-canvas {
