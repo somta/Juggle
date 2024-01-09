@@ -3,7 +3,7 @@ const { externalLinkProcessor } = require('./tools/utils/externalLink');
 module.exports = {
     title: 'Juggle',
     tagline: 'Juggle是一个可用于接口编排，定制开发等场景的一套完整解决方案',
-    url: 'https://tranquil-llama-ede5e7.netlify.app',
+    url: 'https://www.juggle.plus',
     baseUrl: '/',
     organizationName: 'somta',
     projectName: 'juggle-doc',
@@ -120,7 +120,9 @@ module.exports = {
                 darkTheme: require('prism-react-renderer/themes/dracula'),
                 additionalLanguages: ['docker', 'log'],
             },
-            metadata: [],
+            metadata: [
+                {name: 'keywords', content: '微服务编排, 流程引擎, 低代码, 集成平台, 定制开发'}
+            ],
             footer: {
                 links: [
                     {
@@ -170,7 +172,7 @@ module.exports = {
                         ],
                     }
                 ],
-                copyright: `Apache License 2.0 | Copyright © 2018-${new Date().getFullYear()}-明天的地平线 `
+                copyright: `GPL 3.0 | Copyright © 2018-${new Date().getFullYear()}-明天的地平线 `
             },
             algolia: {
                 appId: 'DADHMSXO5L',

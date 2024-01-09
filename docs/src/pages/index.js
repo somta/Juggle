@@ -50,11 +50,11 @@ function Contributor({ name, url, avatar }) {
 }
 
 
-function JuggleFramWork() {
+function JuggleFrameWork() {
     return (
         <section className={clsx(styles.try, 'container')}>
-            <div className="col">
-                <img src='/images/website/knife4j-framework2.png' />
+            <div className="col text--center">
+                <img src='/images/website/juggle-framework.png' />
             </div>
         </section>
     );
@@ -93,7 +93,7 @@ export default function Home() {
             description={siteConfig.description}>
             <Hero />
             <Hightlights />
-            {/*<JuggleFramWork />*/}
+            <JuggleFrameWork />
             <Contributors />
             <div className="container">
                 <div className="row">

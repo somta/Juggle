@@ -2,7 +2,7 @@ const { parse } = require('url');
 
 const visit = import('unist-util-visit').then((m) => m.visit);
 
-const internalUrls = ['doc.xiaominfo.com'];
+const internalUrls = ['juggle.plus'];
 
 /**
  * @param {import('url').UrlWithStringQuery} href
