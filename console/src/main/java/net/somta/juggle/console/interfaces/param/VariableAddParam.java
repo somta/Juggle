@@ -23,8 +23,8 @@ public class VariableAddParam {
     /**
      * 数据类型
      */
-    @Schema(description = "变量类型对象")
-    private DataType dataType;
+    @Schema(description = "变量类型")
+    private String dataType;
 
     /**
      * 流程定义ID
@@ -48,11 +48,11 @@ public class VariableAddParam {
         this.envName = envName;
     }
 
-    public DataType getDataType() {
+    public String getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataType dataType) {
+    public void setDataType(String dataType) {
         this.dataType = dataType;
     }
 

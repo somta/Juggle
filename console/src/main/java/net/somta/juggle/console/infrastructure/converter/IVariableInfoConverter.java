@@ -17,7 +17,6 @@ public interface IVariableInfoConverter {
 
     IVariableInfoConverter IMPL = Mappers.getMapper(IVariableInfoConverter.class);
 
-    @Mapping(target = "dataType", expression = "java(net.somta.core.helper.JsonSerializeHelper.serialize(variableInfoEntity.getDataType()))")
     @Mapping(target = "envType", expression = "java(variableInfoEntity.getEnvType().getCode())")
     VariableInfoPO entityToPo(VariableInfoEntity variableInfoEntity);
 

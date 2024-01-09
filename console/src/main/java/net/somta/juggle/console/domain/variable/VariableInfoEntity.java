@@ -31,7 +31,7 @@ public class VariableInfoEntity {
     /**
      * data type
      */
-    private DataType dataType;
+    private String dataType;
 
     public Long getFlowDefinitionId() {
         return flowDefinitionId;
@@ -65,11 +65,11 @@ public class VariableInfoEntity {
         this.envType = envType;
     }
 
-    public DataType getDataType() {
+    public String getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataType dataType) {
+    public void setDataType(String dataType) {
         this.dataType = dataType;
     }
 

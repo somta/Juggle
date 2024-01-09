@@ -30,8 +30,8 @@ public class VariableUpdateParam {
     /**
      * 数据类型
      */
-    @Schema(description = "变量类型对象")
-    private DataType dataType;
+    @Schema(description = "变量类型")
+    private String dataType;
 
     public Long getId() {
         return id;
@@ -57,11 +57,11 @@ public class VariableUpdateParam {
         this.envName = envName;
     }
 
-    public DataType getDataType() {
+    public String getDataType() {
         return dataType;
     }
 
-    public void setDataType(DataType dataType) {
+    public void setDataType(String dataType) {
         this.dataType = dataType;
     }
 
