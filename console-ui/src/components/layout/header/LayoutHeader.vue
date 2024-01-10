@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLogo from './AppLogo.vue';
 import CurrentUser from './CurrentUser.vue';
+import HeaderMenu from './HeaderMenu.vue';
 </script>
 <template>
   <div class="layout-header">
@@ -8,6 +9,7 @@ import CurrentUser from './CurrentUser.vue';
       <AppLogo />
     </div>
     <div class="header-right">
+      <HeaderMenu />
       <CurrentUser />
     </div>
   </div>

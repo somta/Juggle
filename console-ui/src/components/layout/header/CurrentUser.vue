@@ -35,7 +35,7 @@ async function logout() {
 <style lang="less" scoped>
 .app-current-userPO-dropdown {
   height: 100%;
-  padding: 0 20px;
+  padding: 0 20px 0 10px;
 }
 .app-current-userPO {
   height: 100%;
@@ -45,7 +45,7 @@ async function logout() {
   outline: none;
 
   .current-userPO-name {
-    font-size: 14px;
+    font-size: 15px;
     margin-left: 8px;
   }
 }
