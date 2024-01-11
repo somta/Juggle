@@ -11,7 +11,7 @@ const menuItems = [
     name: '流程',
   },
   {
-    key: 'varify',
+    key: 'variable',
     icon: '[x]',
     name: '变量',
   }
@@ -19,12 +19,48 @@ const menuItems = [
 function switchItem(key: string) {
   activeItem.value = key;
 }
+const treeData = [
+  {
+    label: '入参变量',
+    children: [
+      { label: 'id' },
+      { label: 'type' },
+    ],
+  },
+  {
+    label: '出参变量',
+    children: [
+      { label: 'nickName' },
+      { label: 'userName' },
+    ],
+  },
+  {
+    label: '中间变量',
+    children: [
+      { label: 'env_id' },
+      { label: 'env_name' },
+    ],
+  },
+];
 </script>
 
 <template>
   <div class="flow-design-left-menu">
     <div class="left-menu-panel" :class="{ active: activeItem}">
-      东西
+      <div class="" v-if="activeItem === 'variable'">
+        <el-button type="primary" size="small">新增中间变量</el-button>
+        <el-tree :data="treeData">
+          <template #default="{ node }">
+            <span class="custom-tree-node">
+              <span>{{ node.label }}</span>
+              <span>
+                <a>+</a>
+                <a style="margin-left: 8px">x</a>
+              </span>
+            </span>
+          </template>
+        </el-tree>
+      </div>
       <div class="left-menu-close" @click="switchItem('')" v-if="activeItem">
         <el-icon><CaretLeft /></el-icon>
       </div>
@@ -146,6 +182,15 @@ function switchItem(key: string) {
       font-size: 16px;
       color: #666;
       cursor: pointer;
+    }
+
+    .custom-tree-node {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      padding-right: 8px;
     }
   }
 }
