@@ -2,7 +2,7 @@ const { externalLinkProcessor } = require('./tools/utils/externalLink');
 
 module.exports = {
     title: 'Juggle',
-    tagline: 'Juggle是一个可用于接口编排，定制开发等场景的一套完整解决方案',
+    tagline: '一个可用于接口编排，第三方系统集成，定制开发等场景的一套完整解决方案',
     url: 'https://www.juggle.plus',
     baseUrl: '/',
     organizationName: 'somta',
@@ -121,7 +121,8 @@ module.exports = {
                 additionalLanguages: ['docker', 'log'],
             },
             metadata: [
-                {name: 'keywords', content: '微服务编排, 流程引擎, 低代码, 集成平台, 定制开发'}
+                {name: 'keywords', content: '微服务编排, 流程引擎, 接口编排, 低代码, 集成平台, 定制开发'},
+                {name: 'description', content: 'Juggle一个可用于微服务接口编排,定制开发,第三方系统集成等场景的一套完整解决方案,支持零码编排流程，复杂场景可以通过低码开发进行拓展，支持多种方式集成第三方系统，打破单一系统孤岛。'},
             ],
             footer: {
                 links: [
