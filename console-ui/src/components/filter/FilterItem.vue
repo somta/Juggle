@@ -5,10 +5,13 @@ import { Delete } from '@element-plus/icons-vue'
 
 <template>
   <div class="filter-item">
-    <div class="filter-item-field">
+    <div class="filter-item-key">
       <el-select placeholder="请选择"></el-select>
     </div>
-    <div class="filter-item-method">
+    <div class="filter-item-operator">
+      <el-select placeholder="请选择"></el-select>
+    </div>
+    <div class="filter-item-assign-type">
       <el-select placeholder="请选择"></el-select>
     </div>
     <div class="filter-item-value">
@@ -25,12 +28,16 @@ import { Delete } from '@element-plus/icons-vue'
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  .filter-item-field {
+  .filter-item-key {
     width: 120px;
     margin-right: 10px;
   }
-  .filter-item-method {
+  .filter-item-operator {
     width: 120px;
+    margin-right: 10px;
+  }
+  .filter-item-assign-type {
+    width: 90px;
     margin-right: 10px;
   }
   .filter-item-value {

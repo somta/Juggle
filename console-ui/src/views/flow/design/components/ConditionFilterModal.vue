@@ -22,7 +22,7 @@ defineExpose({ open });
 <template>
   <el-dialog
     title="设置分支条件"
-    :width="480"
+    :width="640"
     v-model="visible"
     class="condition-filter-modal"
   >

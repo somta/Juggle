@@ -1,15 +1,10 @@
 
 <script lang="ts" setup>
-import IconFlow from '@/components/icons/IconFlow.vue';
 import { CaretLeft } from '@element-plus/icons-vue';
 import { ref } from 'vue';
+import VariableSetting from './VariableSetting.vue';
 const activeItem = ref('');
-const menuItems = [
-  {
-    key: 'flow',
-    icon: IconFlow,
-    name: '流程',
-  },
+const menuItems: Array<{ key: string; icon: any; name: string }> = [
   {
     key: 'variable',
     icon: '[x]',
@@ -17,50 +12,18 @@ const menuItems = [
   }
 ];
 function switchItem(key: string) {
+  if (activeItem.value === key) {
+    activeItem.value = '';
+    return;
+  }
   activeItem.value = key;
 }
-const treeData = [
-  {
-    label: '入参变量',
-    children: [
-      { label: 'id' },
-      { label: 'type' },
-    ],
-  },
-  {
-    label: '出参变量',
-    children: [
-      { label: 'nickName' },
-      { label: 'userName' },
-    ],
-  },
-  {
-    label: '中间变量',
-    children: [
-      { label: 'env_id' },
-      { label: 'env_name' },
-    ],
-  },
-];
 </script>
 
 <template>
   <div class="flow-design-left-menu">
     <div class="left-menu-panel" :class="{ active: activeItem}">
-      <div class="" v-if="activeItem === 'variable'">
-        <el-button type="primary" size="small">新增中间变量</el-button>
-        <el-tree :data="treeData">
-          <template #default="{ node }">
-            <span class="custom-tree-node">
-              <span>{{ node.label }}</span>
-              <span>
-                <a>+</a>
-                <a style="margin-left: 8px">x</a>
-              </span>
-            </span>
-          </template>
-        </el-tree>
-      </div>
+      <VariableSetting v-if="activeItem === 'variable'" />
       <div class="left-menu-close" @click="switchItem('')" v-if="activeItem">
         <el-icon><CaretLeft /></el-icon>
       </div>
@@ -120,6 +83,7 @@ const treeData = [
       align-items: center;
       cursor: pointer;
       transition: all 0.3s;
+      user-select: none;
       &::after {
         content: "";
         position: absolute;
@@ -182,15 +146,6 @@ const treeData = [
       font-size: 16px;
       color: #666;
       cursor: pointer;
-    }
-
-    .custom-tree-node {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
     }
   }
 }
