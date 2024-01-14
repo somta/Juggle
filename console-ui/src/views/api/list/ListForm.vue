@@ -94,16 +94,23 @@ defineExpose({ open });
         <el-form-item label="接口地址" prop="apiUrl">
           <el-input v-model="formValue.apiUrl" />
         </el-form-item>
-        <el-form-item label="请求类型" prop="apiRequestType">
-          <el-select v-model="formValue.apiRequestType">
-            <el-option v-for="op in ApiRequestTypes" :value="op" :key="op">{{ op }}</el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="请求内容类型" prop="apiRequestType">
-          <el-select v-model="formValue.apiRequestContentType">
-            <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
-          </el-select>
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="请求类型" prop="apiRequestType">
+              <el-select v-model="formValue.apiRequestType">
+                <el-option v-for="op in ApiRequestTypes" :value="op" :key="op">{{ op }}</el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="请求内容类型" prop="apiRequestType">
+              <el-select v-model="formValue.apiRequestContentType">
+                <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item label="接口描述" prop="apiDesc">
           <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" />
         </el-form-item>
