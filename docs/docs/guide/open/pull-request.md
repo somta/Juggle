@@ -1,3 +1,8 @@
+---
+description: 开源项目的Pull Request模板。
+keywords: [Juggle, PR模板, Juggle开源]
+---
+
 #  Pull Request模板
 
 ### 相关 Issue

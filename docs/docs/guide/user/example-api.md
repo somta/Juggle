@@ -1,3 +1,8 @@
+---
+description: Juggle提供了一些示例接口，这让用户能更快更简单的上手Juggle，解决用户上手困难的问题。
+keywords: [Juggle示例接口, mock接口, 接口例子]
+---
+
 # 示例接口
 为了让您更快的上手和使用Juggle的编排能力，Juggle为您提供了一些内置的示例接口，通过这些接口可以快速使用Juggle搭建一些具体的使用场景
 

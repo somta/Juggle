@@ -1,3 +1,8 @@
+---
+description: 如何给Juggle提问题，提交问题的格式。
+keywords: [Juggle, 问题报告格式, 复现步骤]
+---
+
 # 如何提交问题报告
 
 如果Juggle项目的任何代码或文档存在问题，请通过[opening an issue](https://github.com/somta/Juggle/issues/new)告诉我们。我们会认真对待
