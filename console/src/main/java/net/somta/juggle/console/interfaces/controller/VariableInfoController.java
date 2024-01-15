@@ -16,6 +16,7 @@ import java.util.List;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
+ * todo 待废弃变量相关接口，放到流程定义模块中去
  * @author husong
  */
 @Tag(name = "变量接口")

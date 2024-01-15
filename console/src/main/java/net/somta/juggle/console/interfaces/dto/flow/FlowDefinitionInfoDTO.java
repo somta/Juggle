@@ -2,6 +2,8 @@ package net.somta.juggle.console.interfaces.dto.flow;
 
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
+import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
 
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class FlowDefinitionInfoDTO {
 
     private List<OutputParameterVO> flowOutputParams;
 
+    private List<VariableInfoVO> flowVariables;
 
     public Long getId() {
         return id;
@@ -101,6 +104,14 @@ public class FlowDefinitionInfoDTO {
 
     public void setFlowOutputParams(List<OutputParameterVO> flowOutputParams) {
         this.flowOutputParams = flowOutputParams;
+    }
+
+    public List<VariableInfoVO> getFlowVariables() {
+        return flowVariables;
+    }
+
+    public void setFlowVariables(List<VariableInfoVO> flowVariables) {
+        this.flowVariables = flowVariables;
     }
 
     @Override

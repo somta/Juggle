@@ -37,7 +37,7 @@ function onChange(val: number) {
 }
 </script>
 <template>
-  <el-select :modelValue="props.modelValue" placeholder="请选择领域" filterable @visibleChange="onVisibleChange" @change="onChange">
+  <el-select :modelValue="props.modelValue" placeholder="请选择领域" style="width: 100%;" filterable @visibleChange="onVisibleChange" @change="onChange">
     <template v-slot:empty>
       <div class="select-option-empty" v-loading="domainLoading">
         <span v-if="!domainLoading">无数据</span>

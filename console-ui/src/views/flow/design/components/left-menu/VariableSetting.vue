@@ -2,10 +2,6 @@
 <script lang="ts" setup>
 import { shallowRef } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
-import ParamSettingModal from './ParamSettingModal.vue';
-import {variableService} from "@/service";
-import {ElMessage} from "element-plus";
-import {useRoute} from "vue-router";
 const treeData = [
   {
     label: '入参变量',
@@ -30,9 +26,6 @@ const treeData = [
   },
 ];
 const paramSettingModal = shallowRef();
-const route = useRoute();
-
-queryFlowDefineVariableList(route.params.flowDefinitionId as number);
 
 function onAdd () {
   paramSettingModal.value.open();
@@ -42,15 +35,6 @@ function onEdit(data: any) {
 }
 function onDelete(data: any) {
   console.log(data);
-}
-
-async function queryFlowDefineVariableList(flowDefinitionId: number){
-  const res = await variableService.queryFlowDefineVariableList(flowDefinitionId);
-  if (res.success) {
-    ElMessage({ type: 'success', message: '查询成功' });
-  } else {
-    ElMessage({ type: 'error', message: res.errorMsg });
-  }
 }
 
 </script>

@@ -28,7 +28,7 @@ public interface IApiConverter {
     List<ApiVO> poListToVoList(List<ApiPO> apiList);
 
     default List<ParameterPO> headerListToParameterList(Long sourceId, List<HeaderVO> headerList){
-        List<ParameterPO> headerPoList = new ArrayList<>(headerList.size());
+        List<ParameterPO> headerPoList = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(headerList)){
             Date currentDate = new Date();
             ParameterPO parameterPo = null;

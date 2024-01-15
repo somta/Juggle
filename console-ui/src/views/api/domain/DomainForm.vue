@@ -70,7 +70,7 @@ defineExpose({ open });
           <el-input v-model="formValue.domainName" />
         </el-form-item>
         <el-form-item label="领域描述" prop="domainDesc">
-          <el-input v-model="formValue.domainDesc" />
+          <el-input v-model="formValue.domainDesc" type="textarea" />
         </el-form-item>
       </el-form>
     </div>

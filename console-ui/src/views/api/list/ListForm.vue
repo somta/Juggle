@@ -26,6 +26,10 @@ const formValue = reactive<ApiInfo>({
 });
 const rules = reactive<FormRules>({
   domainId: [{ required: true, message: '请选择领域', trigger: 'blur' }],
+  apiName: [{ required: true, message: '请输入接口名称', trigger: 'blur' }],
+  apiUrl: [{ required: true, message: '请输入接口地址', trigger: 'blur' },{ type:'url', message: '接口地址格式错误', trigger: ['blur', 'change'] }],
+  apiRequestType: [{ required: true, message: '请选择请求类型', trigger: 'blur' }],
+  apiRequestContentType: [{ required: true, message: '请选择请求内容类型', trigger: 'blur' }],
 });
 
 const emit = defineEmits(['add', 'edit']);
@@ -65,6 +69,7 @@ function open(item?: Record<string, any>) {
         formValue.apiDesc = res.result.apiDesc;
         formValue.apiUrl = res.result.apiUrl;
         formValue.apiRequestType = res.result.apiRequestType;
+        formValue.apiRequestContentType = res.result.apiRequestContentType;
         formValue.apiInputParams = res.result.apiInputParams;
         formValue.apiOutputParams = res.result.apiOutputParams;
       }
@@ -95,15 +100,15 @@ defineExpose({ open });
           <el-input v-model="formValue.apiUrl" />
         </el-form-item>
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :span="6">
             <el-form-item label="请求类型" prop="apiRequestType">
               <el-select v-model="formValue.apiRequestType">
                 <el-option v-for="op in ApiRequestTypes" :value="op" :key="op">{{ op }}</el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="请求内容类型" prop="apiRequestType">
+          <el-col :span="18">
+            <el-form-item label="请求内容类型" prop="apiRequestContentType">
               <el-select v-model="formValue.apiRequestContentType">
                 <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
               </el-select>

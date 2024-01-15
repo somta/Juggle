@@ -21,4 +21,6 @@ public interface IVariableInfoConverter {
     VariableInfoPO entityToPo(VariableInfoEntity variableInfoEntity);
 
     List<VariableInfoVO> poListToVoList(List<VariableInfoPO> variableInfoPoList);
+
+    List<VariableInfoPO> voListToPoList(List<VariableInfoVO> variableInfoVoList);
 }

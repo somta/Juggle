@@ -10,6 +10,7 @@ import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.parameter.repository.IParameterRepository;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.domain.variable.enums.VariableTypeEnum;
+import net.somta.juggle.console.infrastructure.converter.IVariableInfoConverter;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowDefinitionConverter;
 import net.somta.juggle.console.infrastructure.mapper.flow.FlowDefinitionMapper;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
@@ -74,10 +75,13 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
         return true;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionMapper.update(flowDefinitionInfoPo);
+        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAo.getId());
+        variableInfoMapper.batchAddVariable(IVariableInfoConverter.IMPL.voListToPoList(flowDefinitionAo.getVariableInfoList()));
         return true;
     }
 

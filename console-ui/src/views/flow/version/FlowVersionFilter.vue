@@ -17,7 +17,7 @@ const onReset = () => {
 
 <template>
   <el-form :inline="true" :model="formValue">
-    <el-form-item label="流程状态">
+    <el-form-item label="流程状态" style="width: 200px;">
       <el-select v-model="formValue.flowVersionStatus" placeholder="请选择流程类型">
         <el-option key="all" label="全部" value="" />
         <el-option key="ENABLE" label="启用" value="1" />
