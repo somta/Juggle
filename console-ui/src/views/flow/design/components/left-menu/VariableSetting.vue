@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 import { shallowRef } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
+import ParamSettingModal from './ParamSettingModal.vue';
 const treeData = [
   {
     label: '入参变量',

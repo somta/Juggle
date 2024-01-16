@@ -105,7 +105,16 @@ const selectedName = computed(() => {
   if (!val || val.includes('NotSupport')) {
     return '';
   }
-  return val.split('-').map(key => allTypesMap[key]).join(' - ');
+  return val.split('-')
+    .filter(key => key !== 'Basic')
+    .map(key => allTypesMap[key])
+    .reverse()
+    .reduce((prev, cur) => {
+      if (prev) {
+        return `${cur}<${prev}>`;
+      }
+      return cur;
+    }, '');
 })
 
 </script>
