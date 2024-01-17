@@ -22,8 +22,8 @@ public class DataTypeInfoRepositoryImpl implements IDataTypeInfoRepository {
     }
 
     @Override
-    public List<DataTypeInfoVO> queryDataTypeList(Integer dataTypeClassify) {
-        List<DataTypeInfoPO> dataTypeInfoPoList = dataTypeInfoMapper.queryDataTypeList(dataTypeClassify);
+    public List<DataTypeInfoVO> queryDataTypeList() {
+        List<DataTypeInfoPO> dataTypeInfoPoList = dataTypeInfoMapper.queryDataTypeList();
         List<DataTypeInfoVO> dataTypeInfoVoList = IDataTypeInfoConverter.IMPL.poListToVoList(dataTypeInfoPoList);
         return dataTypeInfoVoList;
     }

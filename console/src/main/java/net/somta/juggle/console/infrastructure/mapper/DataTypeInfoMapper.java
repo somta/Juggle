@@ -11,8 +11,7 @@ public interface DataTypeInfoMapper {
 
     /**
      *
-     * @param dataTypeClassify
      * @return
      */
-    List<DataTypeInfoPO> queryDataTypeList(Integer dataTypeClassify);
+    List<DataTypeInfoPO> queryDataTypeList();
 }

@@ -4,14 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.DataTypeInfoMapper" >
 
-<select id="queryDataTypeList" resultType="net.somta.juggle.console.infrastructure.po.DataTypeInfoPO" parameterType="java.lang.Integer">
+<select id="queryDataTypeList" resultType="net.somta.juggle.console.infrastructure.po.DataTypeInfoPO">
 	select id,
+		   data_type_classify as dataTypeClassify,
 	       data_type as dataType,
 	       display_name as displayName,
 	       object_key as objectKey,
 	       object_structure as objectStructure
 	from t_data_type_info
-    where data_type_classify = #{dataTypeClassify}
 </select>
 
 </mapper>   

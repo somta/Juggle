@@ -11,8 +11,7 @@ public interface IDataTypeInfoService {
 
     /**
      * Get a list of data types
-     * @param dataTypeClassify Data type classification
      * @return Data Type List
      */
-    List<DataTypeOptionDTO> getDataTypeOptions(Integer dataTypeClassify);
+    List<DataTypeOptionDTO> getDataTypeOptions();
 }

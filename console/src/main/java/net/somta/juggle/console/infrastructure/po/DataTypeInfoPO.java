@@ -5,7 +5,7 @@ package net.somta.juggle.console.infrastructure.po;
  */
 public class DataTypeInfoPO {
 
-    private Integer id;
+    private Long id;
 
     /**
      * 数据类型分类 1：基础类型  2：集合类型   3：高级类型
@@ -20,11 +20,11 @@ public class DataTypeInfoPO {
 
     private String objectStructure;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

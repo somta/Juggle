@@ -8,5 +8,5 @@ import java.util.List;
  * @author husong
  */
 public interface IDataTypeInfoRepository {
-    List<DataTypeInfoVO> queryDataTypeList(Integer dataTypeClassify);
+    List<DataTypeInfoVO> queryDataTypeList();
 }

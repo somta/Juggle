@@ -5,6 +5,8 @@ package net.somta.juggle.console.domain.datatype.vo;
  */
 public class DataTypeInfoVO {
 
+    private Long id;
+    private Integer dataTypeClassify;
     private String dataType;
 
     private String displayName;
@@ -12,6 +14,22 @@ public class DataTypeInfoVO {
     private String objectKey;
 
     private String objectStructure;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getDataTypeClassify() {
+        return dataTypeClassify;
+    }
+
+    public void setDataTypeClassify(Integer dataTypeClassify) {
+        this.dataTypeClassify = dataTypeClassify;
+    }
 
     public String getDataType() {
         return dataType;

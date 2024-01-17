@@ -30,9 +30,9 @@ public class DataTypeInfoController {
      * @return Boolean
      */
     @Operation(summary = "获取数据类型下拉列表")
-    @GetMapping("/list/{dataTypeClassify}")
-    public ResponseDataResult<List<DataTypeOptionDTO>> getDataTypeOptions(@PathVariable Integer dataTypeClassify){
-        List<DataTypeOptionDTO> list = dataTypeInfoService.getDataTypeOptions(dataTypeClassify);
+    @GetMapping("/list")
+    public ResponseDataResult<List<DataTypeOptionDTO>> getDataTypeOptions(){
+        List<DataTypeOptionDTO> list = dataTypeInfoService.getDataTypeOptions();
         return ResponseDataResult.setResponseResult(list);
     }
 

@@ -22,8 +22,8 @@ public class DataTypeInfoServiceImpl implements IDataTypeInfoService {
     }
 
     @Override
-    public List<DataTypeOptionDTO> getDataTypeOptions(Integer dataTypeClassify) {
-        List<DataTypeInfoVO> dataTypeList = dataTypeInfoRepository.queryDataTypeList(dataTypeClassify);
+    public List<DataTypeOptionDTO> getDataTypeOptions() {
+        List<DataTypeInfoVO> dataTypeList = dataTypeInfoRepository.queryDataTypeList();
         List<DataTypeOptionDTO> dataTypeOptions = IDataTypeInfoAssembler.IMPL.voListToDtoList(dataTypeList);
         return dataTypeOptions;
     }
