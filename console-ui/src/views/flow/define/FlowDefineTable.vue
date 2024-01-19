@@ -41,7 +41,7 @@ function goDesignPage(flowDefinitionId: number, flowKey: string) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
     <el-table-column prop="flowKey" label="流程编码" width="180" />
     <el-table-column prop="flowName" label="流程名称" width="180" />
     <el-table-column prop="flowType" label="流程类型" width="140" />

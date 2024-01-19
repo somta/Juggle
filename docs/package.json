@@ -33,7 +33,6 @@
         "@docusaurus/preset-classic": "2.4.1",
         "@giscus/react": "^2.2.0",
         "clsx": "^1.2.1",
-        "docusaurus-gtm": "^1.0.3",
         "docusaurus-plugin-typedoc-api": "2.3.0",
         "prop-types": "^15.8.1",
         "raw-loader": "^4.0.2",

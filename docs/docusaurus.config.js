@@ -45,12 +45,7 @@ module.exports = {
         ],
     ]),
     plugins: [
-        /*[
-            require.resolve('docusaurus-gtm'),
-            {
-                id: 'GTM-XXXXXXX', // GTM Container ID
-            }
-        ],*/
+
     ],
     themeConfig:({
             docs: {

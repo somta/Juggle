@@ -10,5 +10,6 @@ public enum DataTypeEnum {
     Double,
     Boolean,
     Date,
-    List;
+    List,
+    Object;
 }

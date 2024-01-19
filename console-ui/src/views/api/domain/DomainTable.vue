@@ -18,7 +18,7 @@ function editRow(row: any) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
     <el-table-column prop="domainCode" label="领域编码" width="180" />
     <el-table-column prop="domainName" label="领域名称" width="180" />
     <el-table-column prop="domainDesc" label="领域描述" />

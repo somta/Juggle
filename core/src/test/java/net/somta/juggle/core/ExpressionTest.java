@@ -3,6 +3,7 @@ package net.somta.juggle.core;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
+import net.somta.juggle.core.model.Student;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -225,6 +226,52 @@ public class ExpressionTest {
         //env6.put("env_birthday","2023-12-13 18:14:34");
         Boolean result6 = (Boolean) compiledExp6.execute(env6);
         Assertions.assertEquals(result6, true);
+
+    }
+
+    @Test
+    public void listExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //为空
+        Expression compiledExp = instance.compile("list.empty(env_userList)");
+        Map<String, Object> env = new HashMap<>();
+        List<String> userList = new ArrayList<>();
+        env.put("env_userList",userList);
+        //env.put("env_userList",null);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不为空
+        Expression compiledExp2 = instance.compile("!list.empty(env_userList)");
+        Map<String, Object> env2 = new HashMap<>();
+        List<String> userList2 = new ArrayList<>();
+        userList2.add("明天的地平线");
+        env2.put("env_userList",userList2);
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+
+    }
+
+    @Test
+    public void objectExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //为空
+        Expression compiledExp = instance.compile("object.empty(env_student)");
+        Map<String, Object> env = new HashMap<>();
+        Student student = null;
+        env.put("env_student",student);
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不为空
+        Expression compiledExp2 = instance.compile("!object.empty(env_student)");
+        Map<String, Object> env2 = new HashMap<>();
+        Student student2 = new Student();
+        env2.put("env_student",student2);
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
 
     }
 

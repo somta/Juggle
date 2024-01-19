@@ -109,7 +109,7 @@ defineExpose({ open });
           </el-col>
           <el-col :span="18">
             <el-form-item label="请求内容类型" prop="apiRequestContentType">
-              <el-select v-model="formValue.apiRequestContentType">
+              <el-select v-model="formValue.apiRequestContentType" style="width: 100%">
                 <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
               </el-select>
             </el-form-item>
