@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, reactive, shallowRef } from 'vue';
+import { onMounted, ref, shallowRef } from 'vue';
 import {
   ZoomTool,
   FlowRenderer,
@@ -14,22 +14,18 @@ import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { addNode, deleteNode } from './design/operate';
+import { useFlowDataProvide } from './design/hooks/flow-data';
 
-const flowData = reactive({
-  flowKey: '',
-  flowName: '',
-  flowType: '',
-  flowContent: '',
-  flowInputParams: [],
-  flowOutputParams: [],
-  id: null,
-  remark: null,
-});
+const flowData = useFlowDataProvide();
 const route = useRoute();
 async function queryFlowDefineInfo() {
   const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as string);
   if (res.success) {
-    Object.assign(flowData, res.result);
+    flowData.update(draft => {
+      Object.assign(draft, res.result);
+      draft.flowContent = JSON.parse(res.result.flowContent);
+      draft.flowVariables
+    });
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -44,19 +40,16 @@ const scale = ref(1);
 function onZoomToolChange(value: number) {
   scale.value = flowRenderer.scaleFromTop(value);
 }
-let content: RawData[] = [];
 
 onMounted(async () => {
-  await queryFlowDefineInfo();
-  content = [];
   try {
-    content = JSON.parse(flowData.flowContent);
+    await queryFlowDefineInfo();
   } catch (error) {
     ElMessage({ type: 'error', message: '流程定义内容解析失败' });
     return;
   }
   flowRenderer = new FlowRenderer(flowCanvas.value, {
-    datas: content,
+    datas: flowData.data.value.flowContent,
     onZoom: (event: any) => {
       scale.value = event.transform.k;
     },
@@ -104,17 +97,17 @@ function flowSubmit () {
   //saveFlowDefineContent();
 }
 
-async function saveFlowDefineContent(flowContent:string) {
-  const res = await flowDefineService.saveFlowContent({
-    id: route.params.flowDefinitionId as number,
-    flowContent:flowContent
-  });
-  if (res.success) {
-    ElMessage({ type: 'success', message: '保存成功' });
-  } else {
-    ElMessage({ type: 'error', message: res.errorMsg });
-  }
-}
+// async function saveFlowDefineContent(flowContent:string) {
+//   const res = await flowDefineService.saveFlowContent({
+//     id: route.params.flowDefinitionId as number,
+//     flowContent:flowContent
+//   });
+//   if (res.success) {
+//     ElMessage({ type: 'success', message: '保存成功' });
+//   } else {
+//     ElMessage({ type: 'error', message: res.errorMsg });
+//   }
+// }
 </script>
 
 <template>

@@ -1,31 +1,37 @@
 
 <script lang="ts" setup>
-import { shallowRef } from 'vue';
+import { shallowRef, computed } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
 import ParamSettingModal from './ParamSettingModal.vue';
-const treeData = [
-  {
-    label: '入参变量',
-    children: [
-      { label: 'id' },
-      { label: 'type' },
-    ],
-  },
-  {
-    label: '出参变量',
-    children: [
-      { label: 'nickName' },
-      { label: 'userName' },
-    ],
-  },
-  {
-    label: '中间变量',
-    children: [
-      { label: 'env_id' },
-      { label: 'env_name' },
-    ],
-  },
-];
+import { useFlowDataInject } from '../../hooks/flow-data';
+const flowData = useFlowDataInject();
+const treeData = computed(() => {
+  const flowVariables = flowData.data.value.flowVariables.map(v => ({
+    ...v,
+    label: v.envName,
+  }));
+  return [
+    {
+      label: '入参变量',
+      envKey: 'in',
+      children: flowVariables.filter(v => v.envType === 1),
+      isLeaf: false,
+    },
+    {
+      label: '出参变量',
+      envKey: 'out',
+      children: flowVariables.filter(v => v.envType === 2),
+      isLeaf: false,
+    },
+    {
+      label: '中间变量',
+      envKey: 'temp',
+      children: flowVariables.filter(v => v.envType === 3),
+      isLeaf: false,
+    },
+  ];
+});
+console.log(treeData, 'ww');
 const paramSettingModal = shallowRef();
 
 function onAdd () {
@@ -47,11 +53,11 @@ function onDelete(data: any) {
       <el-input placeholder="搜索变量" class="variable-search-input" size="small"/>
     </div>
     <div class="variable-body">
-      <el-tree :data="treeData" default-expand-all>
+      <el-tree :data="treeData" node-key="envKey" default-expand-all>
         <template #default="{ node, data }">
           <span class="custom-tree-node">
             <span>{{ node.label }}</span>
-            <span class="tree-node-action" v-if="!data.children || data.children.length === 0">
+            <span class="tree-node-action" v-if="!node.isLeaf">
               <el-icon @click="onEdit(data)"><Edit/></el-icon>
               <el-icon @click="onDelete(data)" style="margin-left: 8px"><Delete/></el-icon>
             </span>
