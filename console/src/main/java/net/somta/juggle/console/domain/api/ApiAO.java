@@ -1,7 +1,6 @@
 package net.somta.juggle.console.domain.api;
 
 import net.somta.juggle.console.domain.api.vo.HeaderVO;
-import net.somta.juggle.console.domain.obj.vo.PropertyVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;

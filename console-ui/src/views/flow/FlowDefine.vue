@@ -169,7 +169,7 @@ function openEdit(row: any) {
 .page-flow-define {
   .page-header {
     height: auto;
-    padding: 24px 16px;
+    padding: 24px 16px 0px 16px;
   }
 
   .page-body {

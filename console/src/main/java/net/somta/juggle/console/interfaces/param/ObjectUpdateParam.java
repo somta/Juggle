@@ -1,14 +1,15 @@
 package net.somta.juggle.console.interfaces.param;
 
-import net.somta.juggle.console.domain.obj.vo.PropertyVO;
-import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
 
 import java.util.List;
 
 /**
  * @author Gavin
  */
-public class ObjAddParam {
+public class ObjectUpdateParam {
+
+    private Long id;
 
     private String objCode;
 
@@ -17,6 +18,14 @@ public class ObjAddParam {
     private String objDesc;
 
     private List<PropertyVO> props;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getObjCode() {
         return objCode;

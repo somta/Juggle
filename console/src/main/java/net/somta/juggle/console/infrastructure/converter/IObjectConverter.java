@@ -1,14 +1,11 @@
 package net.somta.juggle.console.infrastructure.converter;
 
-import net.somta.juggle.console.domain.api.ApiAO;
-import net.somta.juggle.console.domain.api.vo.ApiVO;
-import net.somta.juggle.console.domain.obj.ObjAO;
-import net.somta.juggle.console.domain.obj.vo.ObjVO;
-import net.somta.juggle.console.domain.obj.vo.PropertyVO;
+import net.somta.juggle.console.domain.object.ObjectAO;
+import net.somta.juggle.console.domain.object.vo.ObjectVO;
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
-import net.somta.juggle.console.infrastructure.po.ApiPO;
-import net.somta.juggle.console.infrastructure.po.ObjPO;
+import net.somta.juggle.console.infrastructure.po.ObjectPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.Mapper;
@@ -22,13 +19,13 @@ import java.util.List;
  * @author husong
  */
 @Mapper
-public interface IObjConverter {
-    IObjConverter IMPL = Mappers.getMapper(IObjConverter.class);
+public interface IObjectConverter {
+    IObjectConverter IMPL = Mappers.getMapper(IObjectConverter.class);
 
 
-    ObjAO poToAo(ObjPO objPo);
+    ObjectAO poToAo(ObjectPO objectPo);
 
-    List<ObjVO> poListToVoList(List<ObjPO> objPoList);
+    List<ObjectVO> poListToVoList(List<ObjectPO> objectPoList);
 
     default List<ParameterPO> propertyListToParameterList(Long sourceId, List<PropertyVO> propertyVoList){
         List<ParameterPO> propertyPoList = new ArrayList<>(propertyVoList.size());

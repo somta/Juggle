@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import { ListFilter, ListTable, ListForm } from './list';
-import { apiService } from '@/service';
+import {objectService} from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
+import ObjectFilter from "@/views/object/ObjectFilter.vue";
+import ObjectTable from "@/views/object/ObjectTable.vue";
+import ObjectDrawer from "@/views/object/ObjectDrawer.vue";
 
 const pageNum = ref(1);
 const pageSize = ref(10);
@@ -12,19 +14,17 @@ const dataRows = ref<Record<string, any>[]>([]);
 const loading = ref(false);
 const formRef = ref();
 const filter = ref<{
-  domainId?: number;
-  apiName?: string;
-  apiUrl?: string;
+  objectName?: string;
 }>({});
 
-async function queryPage() {
+async function queryObjectPage() {
   loading.value = true;
   const params = {
     pageSize: pageSize.value,
     pageNum: pageNum.value,
     ...filter.value,
   };
-  const res = await apiService.listQuery(params);
+  const res = await objectService.queryObjectPage(params);
   if (res.success) {
     dataTotal.value = res.total;
     dataRows.value = res.result;
@@ -34,7 +34,7 @@ async function queryPage() {
 
 function onPageChange(page: number) {
   pageNum.value = page;
-  queryPage();
+  queryObjectPage();
 }
 
 function onSearch(val: typeof filter.value) {
@@ -43,9 +43,9 @@ function onSearch(val: typeof filter.value) {
 }
 
 // 初始加载
-queryPage();
+queryObjectPage();
 
-function openAdd() {
+function openObjectAdd() {
   formRef.value.open();
 }
 
@@ -54,7 +54,7 @@ function openEdit(row: any) {
 }
 
 function openDelete(row: any) {
-  ElMessageBox.confirm(`确定删除'${row.apiName}'吗?`, '操作确认', {
+  ElMessageBox.confirm(`确定删除'${row.objectName}'吗?`, '操作确认', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
@@ -65,62 +65,61 @@ function openDelete(row: any) {
     .catch(() => {});
 }
 
-async function addItem(row: any) {
+/*async function addItem(row: any) {
   const res = await apiService.listAdd(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
-    queryPage();
+    queryObjectPage();
   } else {
     ElMessage({ type: 'error', message: '新建失败' });
   }
-}
+}*/
 
-async function editItem(row: any) {
+/*async function editItem(row: any) {
   const res = await apiService.listUpdate(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });
-    queryPage();
+    queryObjectPage();
   } else {
     ElMessage({ type: 'error', message: '编辑失败' });
   }
-}
+}*/
 
 async function deleteItem(row: any) {
-  const res = await apiService.listDelete(row.id);
+  const res = await objectService.deleteObject(row.id);
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
-    queryPage();
+    await queryObjectPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 </script>
 <template>
-  <div class="page-interface-list">
+  <div class="page-object-list">
     <el-container>
       <el-header class="page-header">
-        <ListFilter @search="onSearch" />
-        <el-button :icon="Plus" type="primary" @click="openAdd">新建</el-button>
+        <ObjectFilter @search="onSearch" />
+        <el-button :icon="Plus" type="primary" @click="openObjectAdd">新建</el-button>
       </el-header>
       <el-main class="page-body">
-        <ListTable
+        <ObjectTable
           :dataRows="dataRows"
           :dataTotal="dataTotal"
           :pageNum="pageNum"
           :pageSize="pageSize"
           :loading="loading"
           @pageChange="onPageChange"
-          @edit="openEdit"
           @delete="openDelete"
         />
       </el-main>
     </el-container>
-    <ListForm ref="formRef" @add="addItem" @edit="editItem" />
+    <ObjectDrawer ref="formRef" />
   </div>
 </template>
 
 <style lang="less" scoped>
-.page-interface-list {
+.page-object-list {
   .page-header {
     height: auto;
     padding: 24px 16px 0px 16px;

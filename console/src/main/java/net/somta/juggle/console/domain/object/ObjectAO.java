@@ -1,6 +1,6 @@
-package net.somta.juggle.console.domain.obj;
+package net.somta.juggle.console.domain.object;
 
-import net.somta.juggle.console.domain.obj.vo.PropertyVO;
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author husong
  */
-public class ObjAO {
+public class ObjectAO {
 
     private Long id;
 

@@ -59,7 +59,7 @@ async function updateFlowStatus(row: any) {
   const res = await flowService.updateFlowStatus(row.id, row.flowStatus);
   if (res.success) {
     ElMessage({ type: 'success', message: '操作成功' });
-    queryFlowPage();
+    await queryFlowPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -81,7 +81,7 @@ async function deleteFlowItem(row: any) {
   const res = await flowService.deleteFlowById(row.id);
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
-    queryFlowPage();
+    await queryFlowPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -114,7 +114,7 @@ async function deleteFlowItem(row: any) {
 .page-flow {
   .page-header {
     height: auto;
-    padding: 24px 16px;
+    padding: 24px 16px 0px 16px;
   }
 
   .page-body {

@@ -119,7 +119,7 @@ async function deleteFlowVersionItem(row: any) {
 .page-flow {
   .page-header {
     height: auto;
-    padding: 24px 16px;
+    padding: 24px 16px 0px 16px;
   }
 
   .page-body {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { HomeFilled, Setting } from '@element-plus/icons-vue';
+import { HomeFilled, Coin, Setting } from '@element-plus/icons-vue';
 import IconFlow from '@/components/icons/IconFlow.vue';
 import IconInterface from '@/components/icons/IconInterface.vue';
 </script>
@@ -27,6 +27,10 @@ import IconInterface from '@/components/icons/IconInterface.vue';
         <el-menu-item index="/api/domain">领域</el-menu-item>
         <el-menu-item index="/api/list">接口列表</el-menu-item>
       </el-sub-menu>
+      <el-menu-item index="/object/list">
+        <el-icon><Coin /></el-icon>
+        <span>对象</span>
+      </el-menu-item>
       <el-menu-item index="/setting">
         <el-icon><Setting /></el-icon>
         <span>系统</span>

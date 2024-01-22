@@ -65,11 +65,11 @@ CREATE TABLE `t_data_type_info` (
 -- ----------------------------
 -- Table structure for t_obj
 -- ----------------------------
-CREATE TABLE `t_obj` (
+CREATE TABLE `t_object` (
  `id` bigint NOT NULL AUTO_INCREMENT,
- `obj_code` varchar(30) DEFAULT NULL,
- `obj_name` varchar(50) DEFAULT NULL,
- `obj_desc` varchar(100) DEFAULT NULL,
+ `object_code` varchar(30) DEFAULT NULL,
+ `object_name` varchar(50) DEFAULT NULL,
+ `object_desc` varchar(100) DEFAULT NULL,
  `created_at` datetime DEFAULT NULL,
  `created_by` bigint DEFAULT NULL,
  `updated_at` datetime DEFAULT NULL,

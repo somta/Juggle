@@ -1,13 +1,13 @@
-package net.somta.juggle.console.infrastructure.po;
+package net.somta.juggle.console.interfaces.param;
 
-import net.somta.core.base.BaseModel;
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
+
+import java.util.List;
 
 /**
  * @author Gavin
  */
-public class ObjPO extends BaseModel {
-
-    private Long id;
+public class ObjectAddParam {
 
     private String objCode;
 
@@ -15,13 +15,7 @@ public class ObjPO extends BaseModel {
 
     private String objDesc;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private List<PropertyVO> props;
 
     public String getObjCode() {
         return objCode;
@@ -45,5 +39,13 @@ public class ObjPO extends BaseModel {
 
     public void setObjDesc(String objDesc) {
         this.objDesc = objDesc;
+    }
+
+    public List<PropertyVO> getProps() {
+        return props;
+    }
+
+    public void setProps(List<PropertyVO> props) {
+        this.props = props;
     }
 }

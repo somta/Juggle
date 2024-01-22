@@ -3,7 +3,6 @@ package net.somta.juggle.console.infrastructure.converter;
 import net.somta.juggle.console.domain.api.ApiAO;
 import net.somta.juggle.console.domain.api.vo.ApiVO;
 import net.somta.juggle.console.domain.api.vo.HeaderVO;
-import net.somta.juggle.console.domain.obj.vo.PropertyVO;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.infrastructure.po.ApiPO;

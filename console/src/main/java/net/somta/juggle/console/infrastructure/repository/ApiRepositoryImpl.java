@@ -9,7 +9,6 @@ import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
 import net.somta.juggle.console.infrastructure.converter.IApiConverter;
-import net.somta.juggle.console.infrastructure.converter.IObjConverter;
 import net.somta.juggle.console.infrastructure.mapper.ApiMapper;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
 import net.somta.juggle.console.infrastructure.po.ApiPO;

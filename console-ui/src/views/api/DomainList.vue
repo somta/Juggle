@@ -65,7 +65,7 @@ async function addItem(row: any) {
   const res = await apiService.domainAdd(row);
   if (res.result) {
     ElMessage({ type: 'success', message: '新建成功' });
-    queryPage();
+    await queryPage();
   } else {
     ElMessage({ type: 'error', message: '新建失败' });
   }
@@ -75,7 +75,7 @@ async function editItem(row: any) {
   const res = await apiService.domainUpdate(row);
   if (res.result) {
     ElMessage({ type: 'success', message: '编辑成功' });
-    queryPage();
+    await queryPage();
   } else {
     ElMessage({ type: 'error', message: '编辑失败' });
   }
@@ -85,7 +85,7 @@ async function deleteItem(row: any) {
   const res = await apiService.domainDelete(row.id);
   if (res.result) {
     ElMessage({ type: 'success', message: '删除成功' });
-    queryPage();
+    await queryPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -119,7 +119,7 @@ async function deleteItem(row: any) {
 .page-interface-domain {
   .page-header {
     height: auto;
-    padding: 24px 16px;
+    padding: 24px 16px 0px 16px;
   }
 
   .page-body {
