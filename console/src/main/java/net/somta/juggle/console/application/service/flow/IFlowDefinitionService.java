@@ -2,7 +2,7 @@ package net.somta.juggle.console.application.service.flow;
 
 import com.github.pagehelper.PageInfo;
 import net.somta.juggle.console.domain.flow.definition.FlowDefinitionAO;
-import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
+import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.core.model.FlowResult;
 

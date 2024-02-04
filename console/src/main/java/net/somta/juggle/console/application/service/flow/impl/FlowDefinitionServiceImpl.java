@@ -17,7 +17,7 @@ import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.variable.repository.IVariableInfoRepository;
 import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
 import net.somta.juggle.console.interfaces.dto.flow.FlowDefinitionInfoDTO;
-import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
+import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;

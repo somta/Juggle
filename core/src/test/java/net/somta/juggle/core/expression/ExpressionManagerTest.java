@@ -14,7 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpressionManagerTest {
 
     @Test
-    public void generateExpressionTest(){
+    void executeExpression() {
+    }
+
+    @Test
+    void generateExpression() {
         List<List<ConditionNode.ConditionExpression>> expressionList = new ArrayList<>();
         //第一个且表达式集合
         List<ConditionNode.ConditionExpression> expressionList1 = new ArrayList<>();
@@ -54,5 +58,4 @@ class ExpressionManagerTest {
         String expression = ExpressionManager.generateExpression(expressionList);
         System.out.println(expression);
     }
-
 }

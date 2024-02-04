@@ -14,8 +14,7 @@ import net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionError
 import net.somta.juggle.console.interfaces.dto.flow.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.console.application.service.flow.IFlowDefinitionService;
-import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
-import net.somta.juggle.core.model.FlowElement;
+import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.model.node.FlowNode;
 import net.somta.juggle.core.validator.NodeValidator;

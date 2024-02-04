@@ -2,7 +2,7 @@ package net.somta.juggle.console.application.service.flow.impl;
 
 import net.somta.juggle.console.application.service.flow.IFlowRuntimeService;
 import net.somta.juggle.console.domain.flow.flowinfo.enums.FlowTypeEnum;
-import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
+import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.dispatcher.IDispatcher;
 import net.somta.juggle.core.dispatcher.impl.AsyncDispatcher;
 import net.somta.juggle.core.dispatcher.impl.SyncDispatcher;

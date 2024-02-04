@@ -1,4 +1,4 @@
-package net.somta.juggle.console.interfaces.param.flow;
+package net.somta.juggle.common.param;
 
 import java.util.Map;
 

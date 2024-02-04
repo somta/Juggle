@@ -22,8 +22,7 @@ public class ObjectParser implements IExpressionParser{
                 expression = conditionExpression.getEnvKey() + "!=null";
                 break;
             default:
-                logger.error("对象类型不支持该操作符");
-                break;
+                throw new IllegalArgumentException("对象类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }

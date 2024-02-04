@@ -2,40 +2,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>Juggle</artifactId>
+        <artifactId>starter</artifactId>
         <groupId>net.somta</groupId>
         <version>${revision}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>juggle-example</artifactId>
+    <artifactId>juggle-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- doc start -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
-        </dependency>
-        <!-- doc end -->
-        <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>juggle-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>juggle-core</artifactId>
         </dependency>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>juggle-openapi-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>juggle-common</artifactId>
         </dependency>
     </dependencies>
 

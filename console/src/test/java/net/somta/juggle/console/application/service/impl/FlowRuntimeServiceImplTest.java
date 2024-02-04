@@ -2,7 +2,7 @@ package net.somta.juggle.console.application.service.impl;
 
 import net.somta.juggle.console.application.service.flow.impl.FlowRuntimeServiceImpl;
 import net.somta.juggle.console.helper.FlowDefinitionHelper;
-import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
+import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.result.MemoryFlowResultManager;

@@ -34,8 +34,7 @@ public class DoubleParser implements IExpressionParser {
                 expression = conditionExpression.getEnvKey() + "<=" + conditionExpression.getValue();
                 break;
             default:
-                logger.error("小数类型不支持该操作符");
-                break;
+                throw new IllegalArgumentException("小数类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }

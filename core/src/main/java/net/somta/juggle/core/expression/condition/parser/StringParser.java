@@ -16,10 +16,10 @@ public class StringParser implements IExpressionParser {
         String expression = null;
         switch (operatorEnum) {
             case EQUAL:
-                expression = conditionExpression.getEnvKey() + "==" + conditionExpression.getValue();
+                expression = conditionExpression.getEnvKey() + "=='" + conditionExpression.getValue()+"'";
                 break;
             case NOT_EQUAL:
-                expression = conditionExpression.getEnvKey() + "!=" + conditionExpression.getValue();
+                expression = conditionExpression.getEnvKey() + "!='" + conditionExpression.getValue()+"'";
                 break;
             case EMPTY:
                 expression = "string.empty("+conditionExpression.getEnvKey()+")";
@@ -34,8 +34,7 @@ public class StringParser implements IExpressionParser {
                 expression = "!string.contains("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
                 break;
             default:
-                logger.error("字符串类型不支持该操作符");
-                break;
+                throw new IllegalArgumentException("字符串类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }

@@ -12,7 +12,7 @@ import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.interfaces.dto.flow.FlowVersionDTO;
 import net.somta.juggle.console.interfaces.param.flow.FlowVersionPageParam;
 import net.somta.juggle.console.interfaces.param.flow.FlowVersionStatusParam;
-import net.somta.juggle.console.interfaces.param.flow.TriggerDataParam;
+import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.model.FlowResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;

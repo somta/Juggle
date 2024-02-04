@@ -22,8 +22,7 @@ public class BooleanParser implements IExpressionParser {
                 expression = conditionExpression.getEnvKey() + "!=" + conditionExpression.getValue();
                 break;
             default:
-                logger.error("布尔类型不支持该操作符");
-                break;
+                throw new IllegalArgumentException("布尔类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }

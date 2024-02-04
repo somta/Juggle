@@ -22,8 +22,7 @@ public class ListParser implements IExpressionParser {
                 expression = "!list.empty("+conditionExpression.getEnvKey()+")";
                 break;
             default:
-                logger.error("集合类型不支持该操作符");
-                break;
+                throw new IllegalArgumentException("集合类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }

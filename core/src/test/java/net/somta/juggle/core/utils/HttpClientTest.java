@@ -15,7 +15,7 @@ public class HttpClientTest {
 
 
     ///////////////////////////////////////////////////////请求内容类型为application/json///////////////////////////////////////////////////////
-    @Test
+    //@Test
     public void getByJsonRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
         Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/goods/getGoodsInfo");
@@ -28,7 +28,7 @@ public class HttpClientTest {
         Assertions.assertEquals(resGoodsName, "鞋");
     }
 
-    @Test
+    //@Test
     public void postByJsonRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
         Request request = new Request(RequestTypeEnum.GET,"http://127.0.0.1:8686/example/goods/releaseGoods");
@@ -45,7 +45,7 @@ public class HttpClientTest {
 
 
     ///////////////////////////////////////////////////////请求内容类型为application/x-www-form-urlencoded///////////////////////////////////////////////////////
-    @Test
+    //@Test
     public void getByFromRequestTest(){
         //GET单参数接口
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
@@ -71,7 +71,7 @@ public class HttpClientTest {
         //todo get 的path请求
     }
 
-    @Test
+    //@Test
     public void postByFormRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request = new Request(RequestTypeEnum.POST,"http://127.0.0.1:8686/example/order/placeOrder");

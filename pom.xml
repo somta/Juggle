@@ -13,6 +13,7 @@
         <module>console</module>
         <module>starter</module>
         <module>example</module>
+        <module>starter/juggle-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -24,11 +25,15 @@
         <somta-common.version>1.4.2</somta-common.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
-        <h2.version>2.1.210</h2.version>
+        <h2.version>2.2.220</h2.version>
         <aviator.version>5.3.3</aviator.version>
         <httpclient.version>5.2.1</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -108,7 +113,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -124,7 +129,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.2.7</version>
+                <version>${flatten-maven-plugin.version}</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
                     <flattenMode>resolveCiFriendliesOnly</flattenMode>
@@ -145,6 +150,38 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/interfaces/param/**</exclude>
+                        <exclude>**/interfaces/dto/**</exclude>
+                        <exclude>**/domain/**/vo/**</exclude>
+                        <exclude>**/infrastructure/po/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

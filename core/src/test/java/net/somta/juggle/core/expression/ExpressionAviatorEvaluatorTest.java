@@ -1,4 +1,4 @@
-package net.somta.juggle.core;
+package net.somta.juggle.core.expression;
 
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.*;
 
-public class ExpressionTest {
+public class ExpressionAviatorEvaluatorTest {
 
     @Test
     public void stringExpressionTest(){

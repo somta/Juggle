@@ -17,26 +17,25 @@ public class DateParser implements IExpressionParser {
         String expression = null;
         switch (operatorEnum) {
             case EQUAL:
-                expression = "date.eq("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "date.eq("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             case NOT_EQUAL:
-                expression = "!date.eq("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "!date.eq("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             case GREATER_THAN:
-                expression = "date.gt("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "date.gt("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             case NOT_LESS_THAN:
-                expression = "date.ge("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "date.ge("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             case LESS_THAN:
-                expression = "date.lt("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "date.lt("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             case NOT_GREATER_THAN:
-                expression = "date.le("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "date.le("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             default:
-                logger.error("日期类型不支持该操作符");
-                break;
+                throw new IllegalArgumentException("日期类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }
