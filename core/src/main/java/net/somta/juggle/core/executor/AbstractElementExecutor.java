@@ -15,7 +15,6 @@ import java.util.Map;
  * 抽象的元素节点执行器
  *
  * @author husong
- * @date 2023/02/06
  */
 public abstract class AbstractElementExecutor implements IExecutor {
 

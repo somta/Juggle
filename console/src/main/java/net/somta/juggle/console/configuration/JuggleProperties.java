@@ -10,13 +10,70 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "juggle")
 public class JuggleProperties {
 
-    private String dbType = "h2";
+    // todo 这里配置不合理
+    private String cacheType = "memory";
+    private RedisConfig redis;
 
-    public String getDbType() {
-        return dbType;
+    public String getCacheType() {
+        return cacheType;
     }
 
-    public void setDbType(String dbType) {
-        this.dbType = dbType;
+    public void setCacheType(String cacheType) {
+        this.cacheType = cacheType;
     }
+
+    public RedisConfig getRedis() {
+        return redis;
+    }
+
+    public void setRedis(RedisConfig redis) {
+        this.redis = redis;
+    }
+
+    public static class RedisConfig {
+        //todo 这里要优化的以前用枚举
+        private String model = "single";
+        /**
+         * Redis地址
+         */
+        private String[] address;
+        /**
+         * Redis密码
+         */
+        private String password;
+        private String sentinelMaster;
+
+        public String getModel() {
+            return model;
+        }
+
+        public void setModel(String model) {
+            this.model = model;
+        }
+
+        public String[] getAddress() {
+            return address;
+        }
+
+        public void setAddress(String[] address) {
+            this.address = address;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getSentinelMaster() {
+            return sentinelMaster;
+        }
+
+        public void setSentinelMaster(String sentinelMaster) {
+            this.sentinelMaster = sentinelMaster;
+        }
+    }
+
 }

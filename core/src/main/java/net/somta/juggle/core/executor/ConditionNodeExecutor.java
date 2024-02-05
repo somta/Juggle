@@ -12,7 +12,6 @@ import java.util.*;
  * 判断节点执行器
  *
  * @author husong
- * @date 2023/02/06
  */
 public class ConditionNodeExecutor extends AbstractElementExecutor {
     private final static Logger logger = LoggerFactory.getLogger(ConditionNodeExecutor.class);

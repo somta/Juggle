@@ -16,10 +16,10 @@ public class ObjectParser implements IExpressionParser{
         String expression = null;
         switch (operatorEnum) {
             case EMPTY:
-                expression = conditionExpression.getEnvKey() + "==null";
+                expression = "object.empty("+conditionExpression.getEnvKey()+")";
                 break;
             case NOT_EMPTY:
-                expression = conditionExpression.getEnvKey() + "!=null";
+                expression = "!object.empty("+conditionExpression.getEnvKey()+")";
                 break;
             default:
                 throw new IllegalArgumentException("对象类型不支持"+operatorEnum.getCode()+"操作符");

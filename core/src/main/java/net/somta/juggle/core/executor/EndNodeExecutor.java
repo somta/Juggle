@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
  * 开始节点的执行器
  *
  * @author husong
- * @date 2023/02/06
  */
 public class EndNodeExecutor extends AbstractElementExecutor {
     private final static Logger logger = LoggerFactory.getLogger(EndNodeExecutor.class);
