@@ -5,5 +5,6 @@ import * as flowVersionAPI from './flowVersion';
 import * as apiAPI from './api';
 import * as objectAPI from './object.ts';
 import * as variableAPI from './variable.ts';
+import * as commonAPI from './common.ts';
 
-export { userAPI, flowDefineAPI, flowAPI, flowVersionAPI, apiAPI, objectAPI, variableAPI };
+export { userAPI, flowDefineAPI, flowAPI, flowVersionAPI, apiAPI, objectAPI, variableAPI, commonAPI };
