@@ -37,6 +37,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static net.somta.juggle.core.enums.ErrorEnum.FLOW_ELEMENT_IS_EMPTY_ERROR;
+import static net.somta.juggle.core.enums.ErrorEnum.FLOW_NOT_EXIST_START_NODE_ERROR;
 
 /**
  * @author husong
@@ -133,7 +134,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
                 return flowElement;
             }
         }
-        return null;
+        throw new FlowException(FLOW_NOT_EXIST_START_NODE_ERROR);
     }
 
     protected abstract FlowResult doSend(FlowRuntimeContext flowRuntimeContext);

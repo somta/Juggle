@@ -5,12 +5,16 @@ package net.somta.juggle.console.interfaces.dto;
  */
 public class DataTypeOptionDTO {
     private Long id;
+
     private Integer dataTypeClassify;
+
     private String type;
 
     private String displayName;
 
     private String objectKey;
+
+    private String objectStructure;
 
     public Long getId() {
         return id;
@@ -52,12 +56,12 @@ public class DataTypeOptionDTO {
         this.objectKey = objectKey;
     }
 
-    @Override
-    public String toString() {
-        return "DataTypeOptionDTO{" +
-                "type='" + type + '\'' +
-                ", displayName='" + displayName + '\'' +
-                ", objectKey='" + objectKey + '\'' +
-                '}';
+    public String getObjectStructure() {
+        return objectStructure;
     }
+
+    public void setObjectStructure(String objectStructure) {
+        this.objectStructure = objectStructure;
+    }
+
 }

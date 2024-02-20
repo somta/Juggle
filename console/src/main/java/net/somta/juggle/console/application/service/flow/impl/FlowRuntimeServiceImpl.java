@@ -11,6 +11,7 @@ import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.dispatcher.IDispatcher;
 import net.somta.juggle.core.dispatcher.impl.AsyncDispatcher;
 import net.somta.juggle.core.dispatcher.impl.SyncDispatcher;
+import net.somta.juggle.core.enums.FlowResultManagerTypeEnum;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.result.MemoryFlowResultManager;
@@ -60,9 +61,9 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
     }
 
     private void initFlowResultManager(JuggleProperties juggleProperties) {
-        if(juggleProperties.getCacheType().equals("memory")){
+        if(juggleProperties.getCacheType().equalsIgnoreCase(FlowResultManagerTypeEnum.MEMORY.name())){
             flowResultManager = new MemoryFlowResultManager();
-        }else {
+        }else if(juggleProperties.getCacheType().equalsIgnoreCase(FlowResultManagerTypeEnum.REDIS.name())) {
             RedisConfig redisConfig = juggleProperties.getRedis();
             RedisConfigItem redisConfigItem = new RedisConfigItem();
             redisConfigItem.setModel(redisConfig.getModel());
@@ -75,6 +76,8 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
             }
             AbstractRedisClient redisClient = RedisClientBuilder.buildRedisClient(redisConfigItem);
             flowResultManager = new RedisFlowResultManager(redisClient);
+        }else {
+
         }
     }
 }
