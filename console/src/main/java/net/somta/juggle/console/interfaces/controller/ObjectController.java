@@ -51,9 +51,9 @@ public class ObjectController {
     }
 
     @Operation(summary = "查询对象详情")
-    @GetMapping("/info/{objId}")
-    public ResponseDataResult<ObjectInfoDTO> getObject(@PathVariable Long objId){
-        ObjectInfoDTO objectInfoDto = objectService.getObjectInfo(objId);
+    @GetMapping("/info/{objectId}")
+    public ResponseDataResult<ObjectInfoDTO> getObject(@PathVariable Long objectId){
+        ObjectInfoDTO objectInfoDto = objectService.getObjectInfo(objectId);
         return ResponseDataResult.setResponseResult(objectInfoDto);
     }
 
@@ -69,6 +69,13 @@ public class ObjectController {
     public ResponsePaginationDataResult<List<ObjectDTO>> getObjectPageList(@RequestBody ObjectQueryParam objectQueryParam){
         PageInfo pageInfo = objectService.getObjectPageList(objectQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    @Operation(summary = "发布对象")
+    @PostMapping("/release/{objectId}")
+    public ResponseDataResult<Boolean> releaseObject(@PathVariable Long objectId){
+        objectService.releaseObject(objectId);
+        return ResponseDataResult.setResponseResult();
     }
 
 }

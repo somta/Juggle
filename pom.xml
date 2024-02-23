@@ -13,13 +13,12 @@
         <module>console</module>
         <module>starter</module>
         <module>example</module>
-        <module>starter/juggle-spring-boot-starter</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <revision>0.0.1-SNAPSHOT</revision>
+        <revision>0.0.6-SNAPSHOT</revision>
         <somta-dependencies.varsion>1.4.2</somta-dependencies.varsion>
         <somta-core.version>1.4.2</somta-core.version>
         <somta-common.version>1.4.2</somta-common.version>

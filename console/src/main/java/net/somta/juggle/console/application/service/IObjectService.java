@@ -54,4 +54,6 @@ public interface IObjectService {
      * @return Object Paging Information
      */
     PageInfo getObjectPageList(ObjectQueryParam objectQueryParam);
+
+    Boolean releaseObject(Long objectId);
 }

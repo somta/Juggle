@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>juggle-openapi-spring-boot-starter</module>
+        <module>juggle-spring-boot-starter</module>
     </modules>
 
     <properties>

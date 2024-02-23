@@ -3,11 +3,15 @@ package net.somta.juggle.console.application.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.application.assembler.IObjectAssembler;
 import net.somta.juggle.console.application.service.IObjectService;
+import net.somta.juggle.console.domain.datatype.DataTypeInfoEntity;
+import net.somta.juggle.console.domain.datatype.repository.IDataTypeInfoRepository;
 import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.domain.object.repository.IObjectRepository;
 import net.somta.juggle.console.domain.object.vo.ObjectVO;
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
 import net.somta.juggle.console.interfaces.dto.ObjectDTO;
 import net.somta.juggle.console.interfaces.dto.ObjectInfoDTO;
 import net.somta.juggle.console.interfaces.param.ObjectAddParam;
@@ -23,9 +27,11 @@ import java.util.List;
 @Service
 public class ObjectServiceImpl implements IObjectService {
     private final IObjectRepository objRepository;
+    private final IDataTypeInfoRepository dataTypeInfoRepository;
 
-    public ObjectServiceImpl(IObjectRepository objRepository) {
+    public ObjectServiceImpl(IObjectRepository objRepository, IDataTypeInfoRepository dataTypeInfoRepository) {
         this.objRepository = objRepository;
+        this.dataTypeInfoRepository = dataTypeInfoRepository;
     }
 
     @Override
@@ -36,8 +42,11 @@ public class ObjectServiceImpl implements IObjectService {
     }
 
     @Override
-    public Boolean deleteObject(Long objId) {
-        return objRepository.deleteObjectById(objId);
+    public Boolean deleteObject(Long objectId) {
+        objRepository.deleteObjectById(objectId);
+        ObjectAO objectAo = objRepository.queryObject(objectId);
+        dataTypeInfoRepository.deleteObjectDataTypeInfoByKey(objectAo.getObjCode());
+        return true;
     }
 
     @Override
@@ -48,8 +57,8 @@ public class ObjectServiceImpl implements IObjectService {
     }
 
     @Override
-    public ObjectInfoDTO getObjectInfo(Long objId) {
-        ObjectAO objectAo = objRepository.queryObject(objId);
+    public ObjectInfoDTO getObjectInfo(Long objectId) {
+        ObjectAO objectAo = objRepository.queryObject(objectId);
         ObjectInfoDTO objectInfoDto = IObjectAssembler.IMPL.aoToDto(objectAo);
         return objectInfoDto;
     }
@@ -69,5 +78,22 @@ public class ObjectServiceImpl implements IObjectService {
         PageInfo pageInfo = new PageInfo(objList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
+    }
+
+    @Override
+    public Boolean releaseObject(Long objectId) {
+        ObjectAO objectAo = objRepository.queryObject(objectId);
+        List<PropertyVO> propertyList = objectAo.getPropertyList();
+        String objectStructure = JsonSerializeHelper.serialize(propertyList);
+        DataTypeInfoEntity dataTypeInfoEntity = dataTypeInfoRepository.queryObjectDataTypeInfoByKey(objectAo.getObjCode());
+        if(dataTypeInfoEntity == null){
+            dataTypeInfoEntity = new DataTypeInfoEntity();
+            dataTypeInfoEntity.buildObjectDataTypeInfoEntity(objectAo.getObjCode(), objectStructure);
+            dataTypeInfoRepository.addDataTypeInfo(dataTypeInfoEntity);
+        }else {
+            dataTypeInfoEntity.buildObjectDataTypeInfoEntity(objectAo.getObjCode(), objectStructure);
+            dataTypeInfoRepository.updateDataTypeInfo(dataTypeInfoEntity);
+        }
+        return true;
     }
 }
