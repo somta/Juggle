@@ -116,8 +116,8 @@ function switchItem(key: string) {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateX(-140px);
-    width: 200px;
+    transform: translateX(-180px);
+    width: 240px;
     height: 100%;
     border: 1px solid var(--el-menu-border-color);
     border-left: none;

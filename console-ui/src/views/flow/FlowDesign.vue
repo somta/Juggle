@@ -24,7 +24,7 @@ async function queryFlowDefineInfo() {
     flowData.update(draft => {
       Object.assign(draft, res.result);
       draft.flowContent = JSON.parse(res.result.flowContent);
-      draft.flowVariables
+      draft.flowVariables;
     });
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });

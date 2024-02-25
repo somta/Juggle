@@ -15,33 +15,51 @@ const treeData = computed(() => {
       label: '入参变量',
       envKey: 'in',
       children: flowVariables.filter(v => v.envType === 1),
-      isLeaf: false,
     },
     {
       label: '出参变量',
       envKey: 'out',
       children: flowVariables.filter(v => v.envType === 2),
-      isLeaf: false,
     },
     {
       label: '中间变量',
       envKey: 'temp',
       children: flowVariables.filter(v => v.envType === 3),
-      isLeaf: false,
     },
   ];
 });
-console.log(treeData, 'ww');
+
 const paramSettingModal = shallowRef();
 
-function onAdd () {
+function onAddOpen () {
   paramSettingModal.value.open();
 }
-function onEdit(data: any) {
+function onEditOpen (data: any) {
   paramSettingModal.value.open(data);
 }
+function onAdd (data: any) {
+  flowData.update(draft => {
+    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    if (index === -1) {
+      draft.flowVariables.push(data);
+    }
+  });
+}
+function onEdit (data: any) {
+  flowData.update(draft => {
+    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    if (index > -1) {
+      draft.flowVariables.splice(index, 1, data);
+    }
+  });
+}
 function onDelete(data: any) {
-  console.log(data);
+  flowData.update(draft => {
+    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    if (index > -1) {
+      draft.flowVariables.splice(index, 1);
+    }
+  });
 }
 
 </script>
@@ -49,23 +67,29 @@ function onDelete(data: any) {
 <template>
   <div class="flow-variable-setting">
     <div class="variable-head">
-      <el-button type="primary" size="small" class="add-temp-variable" @click="onAdd">新增中间变量</el-button>
+      <el-button type="primary" size="small" class="add-temp-variable" @click="onAddOpen">新增中间变量</el-button>
       <el-input placeholder="搜索变量" class="variable-search-input" size="small"/>
     </div>
     <div class="variable-body">
       <el-tree :data="treeData" node-key="envKey" default-expand-all>
         <template #default="{ node, data }">
           <span class="custom-tree-node">
-            <span>{{ node.label }}</span>
-            <span class="tree-node-action" v-if="!node.isLeaf">
-              <el-icon @click="onEdit(data)"><Edit/></el-icon>
-              <el-icon @click="onDelete(data)" style="margin-left: 8px"><Delete/></el-icon>
-            </span>
+            <span v-if="data.children" class="custom-tree-node-label">{{ node.label }}</span>
+            <template v-else>
+              <span class="custom-tree-node-label" :title="node.label">
+                <span>{{ data.envKey }}</span>
+                <span class="custom-tree-node-name">{{ node.label }}</span>
+              </span>
+              <span class="tree-node-action" v-if="data.envType === 3">
+                <el-icon @click="onEditOpen(data)"><Edit/></el-icon>
+                <el-icon @click="onDelete(data)" style="margin-left: 8px"><Delete/></el-icon>
+              </span>
+            </template>
           </span>
         </template>
       </el-tree>
     </div>
-    <ParamSettingModal ref="paramSettingModal" />
+    <ParamSettingModal ref="paramSettingModal" @edit="onEdit" @add="onAdd" />
   </div>
 </template>
 
@@ -94,6 +118,19 @@ function onDelete(data: any) {
     justify-content: space-between;
     font-size: 13px;
     padding-right: 8px;
+    min-width: 0;
+  }
+  .custom-tree-node-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .custom-tree-node-name {
+    font-size: 12px;
+    color: #999;
+    margin-left: 6px;
   }
   .tree-node-action {
     display: none;
