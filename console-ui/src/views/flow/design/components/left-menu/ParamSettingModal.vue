@@ -1,12 +1,13 @@
 
 <script lang="ts" setup>
-import { reactive, ref, computed } from 'vue';
+import { reactive, ref } from 'vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 type ParamItem = {
-  evnKey: string;
+  envKey: string;
   envName: string;
   dataType: string;
   envType: number;
+  id: number;
 };
 const emit = defineEmits(['add', 'edit']);
 const form = reactive<ParamItem>({
@@ -14,20 +15,22 @@ const form = reactive<ParamItem>({
   envName: '',
   dataType: '',
   envType: 3,
+  id: 0,
 });
 const visible = ref(false);
 const isEdit = ref(false);
-const open = (data?: ParamItem) => {
-  if (data) {
-    isEdit.value = true;
-    Object.assign(form, data);
-  } else {
-    isEdit.value = false;
-    form.envKey = '';
-    form.envName = '';
-    form.dataType = '';
-    form.envType = 3;
-  }
+const add = (maxId: number) => {
+  isEdit.value = false;
+  form.envKey = '';
+  form.envName = '';
+  form.dataType = '';
+  form.envType = 3;
+  form.id = maxId;
+  visible.value = true;
+}
+const edit = (data: ParamItem) => {
+  isEdit.value = true;
+  Object.assign(form, data);
   visible.value = true;
 };
 function onCancel () {
@@ -42,7 +45,7 @@ function onSubmit () {
     emit('add', result);
   }
 }
-defineExpose({ open });
+defineExpose({ add, edit });
 </script>
 
 <template>

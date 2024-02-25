@@ -99,7 +99,10 @@ function arrayToType (arr: string[]) {
     }
   }
   if (result.objectKey) {
-    result.objectStructure = dataTypeList.value.find(item => item.objectKey === result.objectKey)?.objectStructure;
+    const item = dataTypeList.value.find(item => item.objectKey === result.objectKey);
+    if (item) {
+      result.objectStructure = item.objectStructure;
+    }
   }
   return result;
 }

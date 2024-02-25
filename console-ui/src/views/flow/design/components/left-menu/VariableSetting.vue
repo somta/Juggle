@@ -28,26 +28,30 @@ const treeData = computed(() => {
     },
   ];
 });
+const maxId = computed(() => {
+  return Math.max(...flowData.data.value.flowVariables.map(v => v.id), 0);
+});
 
 const paramSettingModal = shallowRef();
 
 function onAddOpen () {
-  paramSettingModal.value.open();
+  paramSettingModal.value.add(maxId.value + 1);
 }
 function onEditOpen (data: any) {
-  paramSettingModal.value.open(data);
+  paramSettingModal.value.edit(data);
 }
 function onAdd (data: any) {
   flowData.update(draft => {
-    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index === -1) {
       draft.flowVariables.push(data);
     }
   });
 }
 function onEdit (data: any) {
+  console.log(data, 's');
   flowData.update(draft => {
-    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index > -1) {
       draft.flowVariables.splice(index, 1, data);
     }

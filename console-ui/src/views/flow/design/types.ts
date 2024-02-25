@@ -12,6 +12,17 @@ export type RawData = {
   incomings: string[];
   elementType: ElementType;
   conditions?: ConditionItem[];
+  desc?: string;
+  method?: MethodInfo;
+};
+
+export type MethodInfo = {
+  requestContentType: string;
+  requestType: string;
+  url: string;
+  headerFillRules: any;
+  inputFillRules: any;
+  outputFillRules: any;
 };
 
 export enum ElementType {
@@ -46,7 +57,7 @@ export type FlowVariable = {
   envKey: string;
   envName: string;
   envType: FlowVariableType;
-  id: number | null;
+  id: number;
 }
 
 export type FlowData = {
@@ -57,6 +68,6 @@ export type FlowData = {
   flowInputParams: any[];
   flowOutputParams: any[];
   flowVariables: FlowVariable[];
-  id: number | null;
+  id: number;
   remark: string;
 };

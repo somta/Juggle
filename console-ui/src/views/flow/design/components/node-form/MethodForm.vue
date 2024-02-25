@@ -2,11 +2,20 @@
 <script lang="ts" setup>
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ParamSetting from '@/components/form/ParamSetting.vue';
+import { PropType, computed } from 'vue';
+import { RawData } from '../../types';
 
-defineProps({
+const props = defineProps({
   data: {
-    type: Object,
+    type: Object as PropType<RawData>,
     required: true,
+  },
+});
+console.log(props);
+
+const desc = computed({
+  get: () => props.data.desc,
+  set: (val) => {
   },
 });
 
