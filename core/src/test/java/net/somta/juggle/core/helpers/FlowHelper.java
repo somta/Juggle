@@ -12,6 +12,7 @@ import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
 import org.apache.commons.collections4.MapUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,6 @@ public class FlowHelper {
         flowRuntimeContext.setFlowInstanceId(flow.getFlowInstanceId());
         flowRuntimeContext.setFlowStatus(FlowStatusEnum.INIT);
         flowRuntimeContext.setFlowKey(flow.getFlowKey());
-        flowRuntimeContext.setTenantId(flow.getTenantId());
         flowRuntimeContext.setOutputParameters(flow.getOutputParams());
         Map<String, FlowElement> flowElementMap = new HashMap<>();
 
@@ -61,6 +61,9 @@ public class FlowHelper {
 
     public static Flow getDefaultFlow(){
         Flow flow = new Flow();
+        flow.setFlowKey("unitFlow");
+        List<Variable> variables = new ArrayList<>();
+        flow.setVariables(variables);
         return flow;
     }
 

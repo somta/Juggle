@@ -30,12 +30,12 @@
         <dependency>
             <groupId>net.somta</groupId>
             <artifactId>juggle-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>net.somta</groupId>
             <artifactId>juggle-openapi-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 

@@ -1,4 +1,4 @@
-package net.somta.juggle.console.domain.variable.enums;
+package net.somta.juggle.console.domain.flow.definition.enums;
 
 import net.somta.core.base.IBaseError;
 import net.somta.juggle.common.constants.ApplicationConstants;

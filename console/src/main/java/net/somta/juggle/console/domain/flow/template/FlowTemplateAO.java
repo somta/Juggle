@@ -4,7 +4,7 @@ import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
-import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;

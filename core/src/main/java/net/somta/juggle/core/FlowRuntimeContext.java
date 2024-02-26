@@ -25,10 +25,6 @@ public class FlowRuntimeContext {
      */
     private String flowKey;
     /**
-     * 租户ID
-     */
-    private String tenantId;
-    /**
      * 流程元素Map
      */
     private Map<String, FlowElement> flowElementMap;
@@ -87,14 +83,6 @@ public class FlowRuntimeContext {
 
     public void setFlowKey(String flowKey) {
         this.flowKey = flowKey;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 
     public Map<String, FlowElement> getFlowElementMap() {

@@ -38,11 +38,6 @@ public class Flow {
      */
     private List<Variable> variables;
 
-    /**
-     * 租户ID
-     */
-    private String tenantId;
-
     public String getFlowInstanceId() {
         return flowInstanceId;
     }
@@ -97,13 +92,5 @@ public class Flow {
 
     public void setVariables(List<Variable> variables) {
         this.variables = variables;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
     }
 }

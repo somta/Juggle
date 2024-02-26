@@ -1,4 +1,4 @@
-package net.somta.juggle.console.domain.variable.enums;
+package net.somta.juggle.console.domain.flow.definition.enums;
 
 /**
  * @author husong

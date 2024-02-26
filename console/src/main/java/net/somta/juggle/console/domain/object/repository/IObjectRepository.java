@@ -10,11 +10,11 @@ import java.util.List;
  * @author husong
  */
 public interface IObjectRepository {
-    Boolean addObject(ObjectAO objectAO);
+    Boolean addObject(ObjectAO objectAo);
 
     Boolean deleteObjectById(Long objId);
 
-    Boolean updateObject(ObjectAO objectAO);
+    Boolean updateObject(ObjectAO objectAo);
 
     ObjectAO queryObject(Long objId);
 

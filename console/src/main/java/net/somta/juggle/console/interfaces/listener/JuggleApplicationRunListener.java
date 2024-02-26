@@ -26,7 +26,7 @@ public class JuggleApplicationRunListener implements SpringApplicationRunListene
     }
 
     private void initBannerEnv(){
-        System.setProperty("server.ip", InetUtil.getLocalIP());
+        System.setProperty("server.ip", InetUtil.getLocalIp());
         Package pkg = JuggleApplicationRunListener.class.getPackage();
         String version = pkg.getImplementationVersion();
         if(StringUtils.isNotEmpty(version)){

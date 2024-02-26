@@ -21,6 +21,7 @@ const formValue = reactive<ApiInfo>({
   apiUrl: '',
   apiRequestType: '',
   apiRequestContentType: '',
+  apiHeaders: [],
   apiInputParams: [],
   apiOutputParams: [],
 });
@@ -70,6 +71,7 @@ function open(item?: Record<string, any>) {
         formValue.apiUrl = res.result.apiUrl;
         formValue.apiRequestType = res.result.apiRequestType;
         formValue.apiRequestContentType = res.result.apiRequestContentType;
+        formValue.apiHeaders = res.result.apiHeaders;
         formValue.apiInputParams = res.result.apiInputParams;
         formValue.apiOutputParams = res.result.apiOutputParams;
       }
@@ -118,6 +120,9 @@ defineExpose({ open });
 
         <el-form-item label="接口描述" prop="apiDesc">
           <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" />
+        </el-form-item>
+        <el-form-item label="请求头">
+          <ParamSetting v-model="formValue.apiHeaders" />
         </el-form-item>
         <el-form-item label="入参">
           <ParamSetting v-model="formValue.apiInputParams" />

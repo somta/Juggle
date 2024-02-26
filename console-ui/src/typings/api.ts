@@ -1,23 +1,21 @@
+export interface ApiHeader {
+  headerKey: string;
+  headerName: string;
+  dataType: string;
+  required: boolean;
+}
+
 export interface ApiInputParams {
-  id: number | null;
-  paramType: number;
   paramKey: string;
   paramName: string;
   dataType: string;
   required: boolean;
-  sourceType: string;
-  sourceId: number;
 }
 
 export interface ApiOutputParams {
-  id: number | null;
-  paramType: number;
   paramKey: string;
   paramName: string;
   dataType: string;
-  required: boolean;
-  sourceType: string;
-  sourceId: number;
 }
 
 export interface ApiInfo {
@@ -28,6 +26,7 @@ export interface ApiInfo {
   apiDesc: string;
   apiRequestType: string;
   apiRequestContentType: string;
+  apiHeaders: ApiHeader[];
   apiInputParams: ApiInputParams[];
   apiOutputParams: ApiOutputParams[];
 }

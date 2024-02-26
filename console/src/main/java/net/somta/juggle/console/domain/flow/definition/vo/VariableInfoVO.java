@@ -1,13 +1,9 @@
-package net.somta.juggle.console.interfaces.dto;
+package net.somta.juggle.console.domain.flow.definition.vo;
 
 /**
  * @author husong
  */
-public class VariableInfoDTO {
-
-    /**
-     * 唯一ID
-     */
+public class VariableInfoVO {
     private Long id;
 
     /**
@@ -21,7 +17,7 @@ public class VariableInfoDTO {
     private String envName;
 
     /**
-     * variable type 1：入参变量   2：出参变量 3:中间变量
+     * variable type 1：入参变量   2：出参变量  3：中间变量
      */
     private Integer envType;
 
@@ -68,16 +64,5 @@ public class VariableInfoDTO {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
-    }
-
-    @Override
-    public String toString() {
-        return "VariableInfoDTO{" +
-                "id=" + id +
-                ", envKey='" + envKey + '\'' +
-                ", envName='" + envName + '\'' +
-                ", envType=" + envType +
-                ", dataType='" + dataType + '\'' +
-                '}';
     }
 }

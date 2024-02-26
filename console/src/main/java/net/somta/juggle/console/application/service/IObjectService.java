@@ -55,5 +55,4 @@ public interface IObjectService {
      */
     PageInfo getObjectPageList(ObjectQueryParam objectQueryParam);
 
-    Boolean releaseObject(Long objectId);
 }

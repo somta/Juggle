@@ -6,7 +6,7 @@ import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
-import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 import net.somta.juggle.core.enums.*;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.ConditionNode;

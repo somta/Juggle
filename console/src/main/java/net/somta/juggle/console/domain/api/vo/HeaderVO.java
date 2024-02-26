@@ -19,6 +19,8 @@ public class HeaderVO {
      */
     private String dataType;
 
+    private Boolean required;
+
     public String getHeaderKey() {
         return headerKey;
     }
@@ -41,5 +43,13 @@ public class HeaderVO {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
     }
 }

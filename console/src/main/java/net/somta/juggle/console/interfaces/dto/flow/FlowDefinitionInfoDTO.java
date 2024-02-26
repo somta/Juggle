@@ -2,8 +2,7 @@ package net.somta.juggle.console.interfaces.dto.flow;
 
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
-import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
-import net.somta.juggle.console.interfaces.dto.VariableInfoDTO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package net.somta.juggle.console.interfaces.param.flow.definition;
 
-import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 
 import java.util.List;
 

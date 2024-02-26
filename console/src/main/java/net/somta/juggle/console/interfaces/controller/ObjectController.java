@@ -71,11 +71,4 @@ public class ObjectController {
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
-    @Operation(summary = "发布对象")
-    @PostMapping("/release/{objectId}")
-    public ResponseDataResult<Boolean> releaseObject(@PathVariable Long objectId){
-        objectService.releaseObject(objectId);
-        return ResponseDataResult.setResponseResult();
-    }
-
 }

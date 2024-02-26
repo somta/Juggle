@@ -4,7 +4,7 @@ import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
-import net.somta.juggle.console.domain.variable.vo.VariableInfoVO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.expression.ExpressionManager;
 import net.somta.juggle.core.model.DataType;
@@ -20,7 +20,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author husong

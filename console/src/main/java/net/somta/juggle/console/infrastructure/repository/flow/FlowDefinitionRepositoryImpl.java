@@ -9,7 +9,7 @@ import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.parameter.repository.IParameterRepository;
 import net.somta.juggle.console.domain.parameter.vo.ParameterVO;
-import net.somta.juggle.console.domain.variable.enums.VariableTypeEnum;
+import net.somta.juggle.console.domain.flow.definition.enums.VariableTypeEnum;
 import net.somta.juggle.console.infrastructure.converter.IVariableInfoConverter;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowDefinitionConverter;
 import net.somta.juggle.console.infrastructure.mapper.flow.FlowDefinitionMapper;

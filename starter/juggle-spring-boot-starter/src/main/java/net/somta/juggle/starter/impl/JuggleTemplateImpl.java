@@ -27,6 +27,9 @@ import java.util.Map;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
+/**
+ * @author husong
+ */
 public class JuggleTemplateImpl implements IJuggleTemplate{
 
     private static final String TRIGGER_FLOW_URL = JUGGLE_SERVER_VERSION + "/open/flow/trigger/%s/%s";
@@ -105,6 +108,6 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
      */
     private void fillCommonHttpHeader(HttpUriRequestBase httpRequest, String credential){
         httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.addHeader("",credential);
+        httpRequest.addHeader("Juggle-Credential",credential);
     }
 }

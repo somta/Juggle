@@ -95,7 +95,6 @@ public abstract class AbstractDispatcher implements IDispatcher {
         flowRuntimeContext.setFlowInstanceId(flow.getFlowInstanceId());
         flowRuntimeContext.setFlowStatus(FlowStatusEnum.INIT);
         flowRuntimeContext.setFlowKey(flow.getFlowKey());
-        flowRuntimeContext.setTenantId(flow.getTenantId());
         flowRuntimeContext.setOutputParameters(flow.getOutputParams());
         Map<String, FlowElement> flowElementMap = buildFlowElementMap(flow.getFlowContent());
         if(MapUtils.isEmpty(flowElementMap)){

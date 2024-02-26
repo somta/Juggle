@@ -33,18 +33,18 @@ public class ObjectRepositoryImpl implements IObjectRepository {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean addObject(ObjectAO objectAO) {
+    public Boolean addObject(ObjectAO objectAo) {
         ObjectPO objectPo = new ObjectPO();
-        objectPo.setObjectCode(objectAO.getObjCode());
-        objectPo.setObjectName(objectAO.getObjName());
-        objectPo.setObjectDesc(objectAO.getObjDesc());
+        objectPo.setObjectCode(objectAo.getObjCode());
+        objectPo.setObjectName(objectAo.getObjName());
+        objectPo.setObjectDesc(objectAo.getObjDesc());
         objectPo.setCreatedAt(new Date());
         //todo 开放权限拦截器后，要加上创建人的逻辑
         //Long userId = IdentityContext.getIdentity().getUserId();
         //objPo.setCreatedBy(userId);
         objectMapper.addObject(objectPo);
 
-        List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAO.getPropertyList());
+        List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAo.getPropertyList());
         if(CollectionUtils.isNotEmpty(propertyPoList)){
             parameterMapper.batchAddParameter(propertyPoList);
         }
@@ -60,19 +60,19 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     }
 
     @Override
-    public Boolean updateObject(ObjectAO objectAO) {
+    public Boolean updateObject(ObjectAO objectAo) {
         ObjectPO objectPo = new ObjectPO();
-        objectPo.setId(objectAO.getId());
-        objectPo.setObjectCode(objectAO.getObjCode());
-        objectPo.setObjectName(objectAO.getObjName());
-        objectPo.setObjectDesc(objectAO.getObjDesc());
+        objectPo.setId(objectAo.getId());
+        objectPo.setObjectCode(objectAo.getObjCode());
+        objectPo.setObjectName(objectAo.getObjName());
+        objectPo.setObjectDesc(objectAo.getObjDesc());
         //todo 开放权限拦截器后，要加上创建人的逻辑
         //Long userId = IdentityContext.getIdentity().getUserId();
         //objPo.setUpdatedBy(userId);
         objectMapper.update(objectPo);
 
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(), objectAO.getId()));
-        List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAO.getPropertyList());
+        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(), objectAo.getId()));
+        List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAo.getPropertyList());
         if(CollectionUtils.isNotEmpty(propertyPoList)){
             parameterMapper.batchAddParameter(propertyPoList);
         }

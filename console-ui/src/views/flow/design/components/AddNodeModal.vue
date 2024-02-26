@@ -57,8 +57,8 @@ defineExpose({ open });
           </div>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="调用节点">
-      </el-tab-pane>
+<!--      <el-tab-pane label="调用节点">
+      </el-tab-pane>-->
     </el-tabs>
   </el-dialog>
 </template>

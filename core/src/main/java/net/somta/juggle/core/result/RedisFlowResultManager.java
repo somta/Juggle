@@ -32,7 +32,7 @@ public class RedisFlowResultManager implements IFlowResultManager {
     public Map<String, Object> getFlowResult(String flowInstanceId) {
         RMap map = redissonClient.getMap(flowInstanceId);
         Map<String, Object> cacheMap = map.readAllMap();
-        Map<String, Object> rstMap = new HashMap<>();
+        Map<String, Object> rstMap = new HashMap<>(16);
         for (String mapKey : cacheMap.keySet()) {
             Object value = cacheMap.get(mapKey);
             rstMap.put(mapKey,value);

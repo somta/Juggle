@@ -3,6 +3,9 @@ package net.somta.juggle.common.utils;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author husong
+ */
 public class InetUtil {
 
 
@@ -10,7 +13,7 @@ public class InetUtil {
      * 获取本机IP地址
      * @return local ip address
      */
-    public static String getLocalIP() {
+    public static String getLocalIp() {
         InetAddress localHost = null;
         try {
             localHost = InetAddress.getLocalHost();
