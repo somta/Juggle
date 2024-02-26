@@ -4,9 +4,9 @@ import { shallowRef, computed } from 'vue';
 import { Edit, Delete } from '@element-plus/icons-vue';
 import ParamSettingModal from './ParamSettingModal.vue';
 import { useFlowDataInject } from '../../hooks/flow-data';
-const flowData = useFlowDataInject();
+const flowContext = useFlowDataInject();
 const treeData = computed(() => {
-  const flowVariables = flowData.data.value.flowVariables.map(v => ({
+  const flowVariables = flowContext.data.value.flowVariables.map(v => ({
     ...v,
     label: v.envName,
   }));
@@ -29,7 +29,7 @@ const treeData = computed(() => {
   ];
 });
 const maxId = computed(() => {
-  return Math.max(...flowData.data.value.flowVariables.map(v => v.id), 0);
+  return Math.max(...flowContext.data.value.flowVariables.map(v => v.id), 0);
 });
 
 const paramSettingModal = shallowRef();
@@ -41,7 +41,7 @@ function onEditOpen (data: any) {
   paramSettingModal.value.edit(data);
 }
 function onAdd (data: any) {
-  flowData.update(draft => {
+  flowContext.update(draft => {
     const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index === -1) {
       draft.flowVariables.push(data);
@@ -49,8 +49,7 @@ function onAdd (data: any) {
   });
 }
 function onEdit (data: any) {
-  console.log(data, 's');
-  flowData.update(draft => {
+  flowContext.update(draft => {
     const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index > -1) {
       draft.flowVariables.splice(index, 1, data);
@@ -58,7 +57,7 @@ function onEdit (data: any) {
   });
 }
 function onDelete(data: any) {
-  flowData.update(draft => {
+  flowContext.update(draft => {
     const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
     if (index > -1) {
       draft.flowVariables.splice(index, 1);

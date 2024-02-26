@@ -1,36 +1,34 @@
-import { ElementType, RawData } from '../../types';
+import { FlowContext } from '../../hooks/flow-data';
+import { ElementType } from '../../types';
 import { DataNode, DataRootNode, DataBranchNode } from './DataNode';
 
-export function generateDataTree(datas: RawData[]) {
-  const dataMap = new Map<string, RawData>();
-  datas.forEach(data => {
-    dataMap.set(data.key, data);
-  });
+export function generateDataTree(flowContext: FlowContext) {
+  const datas = flowContext.getFlowNodes();
   const start = datas.find(data => data.elementType === ElementType.START);
   if (!start) throw new Error('start node not found');
-  const root = new DataRootNode();
+  const root = new DataRootNode(flowContext);
   root.out = start.key;
-  generateBranch(root, dataMap);
+  generateBranch(root, flowContext);
   return root;
 }
 
-function generateBranch(branch: DataRootNode | DataBranchNode, dataMap: Map<string, RawData>) {
-  let current = dataMap.get(branch.out);
+function generateBranch(branch: DataRootNode | DataBranchNode, flowContext: FlowContext) {
+  let current = flowContext.getFlowNode(branch.out);
   while (current) {
     const parent = branch.getParent();
     if (parent && parent.out === current.key) {
       break;
     }
-    const node = new DataNode(current);
+    const node = new DataNode(flowContext, current.key);
     branch.addChild(node);
     if (current.elementType === ElementType.CONDITION) {
       current.conditions?.forEach((_, index) => {
-        const branch = new DataBranchNode(current!, index);
+        const branch = new DataBranchNode(flowContext, current!, index);
         node.addChild(branch);
-        generateBranch(branch, dataMap);
+        generateBranch(branch, flowContext);
       });
     }
-    const outgoing = dataMap.get(node.out);
+    const outgoing = flowContext.getFlowNode(node.out);
     current = outgoing;
   }
 }

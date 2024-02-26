@@ -16,15 +16,14 @@ import { ElMessage } from 'element-plus';
 import { addNode, deleteNode } from './design/operate';
 import { useFlowDataProvide } from './design/hooks/flow-data';
 
-const flowData = useFlowDataProvide();
+const flowContext = useFlowDataProvide();
 const route = useRoute();
 async function queryFlowDefineInfo() {
   const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as string);
   if (res.success) {
-    flowData.update(draft => {
+    flowContext.update(draft => {
       Object.assign(draft, res.result);
       draft.flowContent = JSON.parse(res.result.flowContent);
-      draft.flowVariables;
     });
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
@@ -49,7 +48,7 @@ onMounted(async () => {
     return;
   }
   flowRenderer = new FlowRenderer(flowCanvas.value, {
-    datas: flowData.data.value.flowContent,
+    flowContext: flowContext,
     onZoom: (event: any) => {
       scale.value = event.transform.k;
     },

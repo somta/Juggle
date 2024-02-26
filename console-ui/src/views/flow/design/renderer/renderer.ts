@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import { DataNode, generateDataTree, setDataNodeMap } from './data';
 import { LayoutNode, VerticalLayout } from './layout';
 import { loadSvgIcon } from './utils/icon';
+import { FlowContext } from '../hooks/flow-data';
 
 type D3Element = d3.Selection<any, any, any, any>;
 
@@ -25,7 +26,7 @@ export class FlowRenderer {
   readonly dataMap: Map<string, DataNode> = new Map();
 
   public options: {
-    datas: any[];
+    flowContext: FlowContext;
     onZoom?: (event: any) => any;
     onAdd?: (node: LayoutNode) => any;
     onEdit?: (node: LayoutNode) => any;
@@ -53,11 +54,12 @@ export class FlowRenderer {
       });
     this.svg.call(this.zoom as any);
 
-    this.dataRoot = generateDataTree(options.datas);
+    this.dataRoot = generateDataTree(options.flowContext);
     this.dataMap.clear();
     setDataNodeMap(this.dataRoot, this.dataMap);
     this.layout = new VerticalLayout(this);
     this.refresh();
+    console.log(this.dataRoot, 'ww');
   }
 
   updateDatas(root: DataNode) {
