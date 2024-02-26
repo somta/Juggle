@@ -28,6 +28,7 @@ function onUpdate (val: RawData) {
     }
   });
   visible.value = false;
+  openParams.afterEdit();
 }
 defineExpose({ open });
 </script>

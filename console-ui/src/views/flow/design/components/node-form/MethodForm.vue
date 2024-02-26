@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ParamSetting from '@/components/form/ParamSetting.vue';
-import { PropType, ref, watch } from 'vue';
+import { PropType, ref, watch, toRaw } from 'vue';
 import { RawData } from '../../types';
 import { cloneDeep } from 'lodash-es';
 
@@ -14,13 +14,13 @@ const props = defineProps({
   },
 });
 
-const nodeData = ref<RawData>({});
+const nodeData = ref({} as RawData);
 watch(() => props.data, val => {
   nodeData.value = cloneDeep(val);
 }, { immediate: true });
 
 function onSubmit() {
-  emit('update', nodeData.value);
+  emit('update', toRaw(nodeData.value));
 }
 function onCancel() {
   emit('cancel');

@@ -69,7 +69,7 @@ onMounted(async () => {
         editNodeModal.value.open({
           data: d.data.raw,
           afterEdit: () => {
-            console.log('afterEdit');
+            console.log(d.data, 'www');
           }
         });
       }

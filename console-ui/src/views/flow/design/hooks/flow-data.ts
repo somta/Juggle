@@ -4,7 +4,7 @@ import { FlowData, RawData } from '../types';
 import { useImmer } from './immer';
 
 export function useFlowDataProvide() {
-  const [data, update] = useImmer<FlowData>({
+  const [data, update ] = useImmer<FlowData>({
     flowKey: '',
     flowName: '',
     flowType: '',
