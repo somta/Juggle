@@ -55,10 +55,10 @@ public class ApiRepositoryImpl implements IApiRepository {
         List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(apiPo.getId(),ParameterSourceTypeEnum.API.getCode());
         parameterPoList.addAll(parameterList);
 
-        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiPo.getId(),apiAo.getHeaderList());
+        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiPo.getId(),apiAo.getApiHeaders());
         parameterPoList.addAll(headerList);
         if(CollectionUtils.isNotEmpty(parameterPoList)){
-            parameterMapper.batchAddParameter(headerList);
+            parameterMapper.batchAddParameter(parameterPoList);
         }
         return true;
     }
@@ -91,10 +91,10 @@ public class ApiRepositoryImpl implements IApiRepository {
         List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(apiAo.getId(),ParameterSourceTypeEnum.API.getCode());
         parameterPoList.addAll(parameterList);
 
-        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiAo.getId(),apiAo.getHeaderList());
+        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiAo.getId(),apiAo.getApiHeaders());
         parameterPoList.addAll(headerList);
         if(CollectionUtils.isNotEmpty(parameterPoList)){
-            parameterMapper.batchAddParameter(headerList);
+            parameterMapper.batchAddParameter(parameterPoList);
         }
         return true;
     }
@@ -106,9 +106,11 @@ public class ApiRepositoryImpl implements IApiRepository {
             throw new BizException(ApiErrorEnum.API_NOT_EXIST);
         }
         ApiAO apiAo = IApiConverter.IMPL.poToAo(apiPo);
+        List<ParameterPO> parameters = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiId));
+
+        apiAo.parseHeader(parameters);
 
         ParameterEntity parameterEntity = new ParameterEntity();
-        List<ParameterPO> parameters = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiId));
         parameterEntity.parseParameter(parameters);
         apiAo.setParameterEntity(parameterEntity);
         return apiAo;

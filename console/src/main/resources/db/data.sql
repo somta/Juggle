@@ -16,5 +16,26 @@ INSERT INTO `t_variable_info` (`id`, `flow_definition_id`, `env_key`, `env_name`
 INSERT INTO `t_flow_info` (`id`, `flow_key`, `flow_name`, `flow_type`, `remark`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (1, 'flow_sync', '测试同步流程', 'sync', '这是一个测试流程', NULL, NULL, NULL, NULL);
 INSERT INTO `t_flow_version` (`id`, `flow_id`, `flow_version`, `flow_version_status`, `flow_content`, `inputs`, `outputs`, `variables`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (5, '1', 'v1', 0, '[{\"key\":\"start_2s49s\",\"elementType\":\"START\",\"outgoings\":[\"method_8w9r3\"]},{\"key\":\"method_8w9r3\",\"elementType\":\"METHOD\",\"incomings\":[\"start_2s49s\"],\"outgoings\":[\"condition_83jd3\"],\"method\":{\"url\":\"http://127.0.0.1:8686/test/getUserById\",\"requestType\":\"GET\",\"requestContentType\":null,\"inputFillRules\":[{\"source\":\"env_id\",\"sourceType\":\"VARIABLE\",\"sourceDataType\":{\"type\":\"Integer\",\"itemType\":null,\"structureSchema\":null},\"target\":\"id\",\"targetType\":\"FLOWINPUT\",\"targetDataType\":{\"type\":\"Integer\",\"itemType\":null,\"structureSchema\":null}}],\"outputFillRules\":[{\"source\":\"name\",\"sourceType\":\"OUTPUTPARAM\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":null,\"structureSchema\":null},\"target\":\"env_userName\",\"targetType\":\"VARIABLE\",\"targetDataType\":{\"type\":\"String\",\"itemType\":null,\"structureSchema\":null}}]}},{\"key\":\"condition_83jd3\",\"elementType\":\"CONDITION\",\"incomings\":[\"method_8w9r3\"],\"outgoings\":[\"end_5g463\"],\"conditions\":{\"end_5g463\":\"env_name==zhansan\"}},{\"key\":\"end_5g463\",\"elementType\":\"END\",\"incomings\":[\"condition_83jd3\"]}]', '[]', '[{\"key\":\"userName\",\"name\":\"流程出参-用户名称\",\"dataType\":{\"type\":\"String\",\"itemType\":null,\"structureSchema\":null}}]', '[{\"key\":\"env_id\",\"name\":\"入参-用户ID变量\",\"dataType\":{\"type\":\"Integer\",\"itemType\":\"\",\"structureSchema\":\"\"},\"defaultValue\":null},{\"key\":\"env_name\",\"name\":\"入参-用户姓名变量\",\"dataType\":{\"type\":\"String\",\"itemType\":\"\",\"structureSchema\":\"\"},\"defaultValue\":null},{\"key\":\"env_userName\",\"name\":\"流程出参-用户姓名变量\",\"dataType\":{\"type\":\"String\",\"itemType\":\"\",\"structureSchema\":\"\"},\"defaultValue\":null}]', '2023-10-12 23:50:20', NULL, '2023-10-12 23:51:21', NULL);
 
+INSERT INTO t_api (id, domain_id, api_name, api_url, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
+VALUES(1, 1, '获取用户信息', 'http://127.0.0.1:8686/example/user/getUserById', '获取用户信息-测试接口', 'GET', 'application/x-www-form-urlencoded', '2023-06-14 22:32:22', NULL, '2024-02-26 14:21:18', NULL);
+INSERT INTO t_api (id, domain_id, api_name, api_url, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
+VALUES(2, 1, '查询订单信息', 'http://127.0.0.1:8686/example/order/queryOrderByNo', '查询订单信息 -测试接口', 'GET', 'application/x-www-form-urlencoded', '2023-06-22 22:32:25', NULL, '2024-02-26 14:21:25', NULL);
 
+
+
+INSERT INTO t_parameter
+(id, param_type, param_key, param_name, data_type, required, source_type, source_id, created_at, created_by, updated_at, updated_by)
+VALUES(109, 1, 'userId', '用户ID', '{"type":"Integer","itemType":null,"structureSchema":null}', 1, 'api', 1, '2023-11-04 01:24:01', NULL, '2024-02-26 14:05:20', NULL);
+INSERT INTO t_parameter
+(id, param_type, param_key, param_name, data_type, required, source_type, source_id, created_at, created_by, updated_at, updated_by)
+VALUES(110, 2, 'id', '用户ID', '{"type":"Integer","itemType":null,"structureSchema":null}', NULL, 'api', 1, '2023-11-04 01:24:01', NULL, '2024-02-26 14:18:01', NULL);
+INSERT INTO t_parameter
+(id, param_type, param_key, param_name, data_type, required, source_type, source_id, created_at, created_by, updated_at, updated_by)
+VALUES(111, 2, 'name', '姓名', '{"type":"String","itemType":null,"structureSchema":null}', NULL, 'api', 1, '2023-11-04 01:24:01', NULL, '2024-02-26 14:17:27', NULL);
+INSERT INTO t_parameter
+(id, param_type, param_key, param_name, data_type, required, source_type, source_id, created_at, created_by, updated_at, updated_by)
+VALUES(112, 2, 'age', '年龄', '{"type":"Integer","itemType":null,"structureSchema":null}', NULL, 'api', 1, '2023-11-04 01:24:01', NULL, '2024-02-26 14:17:11', NULL);
+INSERT INTO t_parameter
+(id, param_type, param_key, param_name, data_type, required, source_type, source_id, created_at, created_by, updated_at, updated_by)
+VALUES(113, 2, 'birthday', '生日', '{"type":"String","itemType":null,"structureSchema":null}', NULL, 'api', 1, '2023-11-14 22:41:24', NULL, '2024-02-26 14:16:50', NULL);
 

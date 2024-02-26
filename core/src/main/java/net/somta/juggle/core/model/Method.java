@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class Method {
 
+    private Long domainId;
+
+    private Long methodId;
+
     /**
      * 请求地址
      */
@@ -42,6 +46,21 @@ public class Method {
      */
     private List<FillStruct> outputFillRules;
 
+    public Long getDomainId() {
+        return domainId;
+    }
+
+    public void setDomainId(Long domainId) {
+        this.domainId = domainId;
+    }
+
+    public Long getMethodId() {
+        return methodId;
+    }
+
+    public void setMethodId(Long methodId) {
+        this.methodId = methodId;
+    }
 
     public String getUrl() {
         return url;

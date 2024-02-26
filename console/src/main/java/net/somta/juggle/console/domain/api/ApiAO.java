@@ -2,11 +2,15 @@ package net.somta.juggle.console.domain.api;
 
 import net.somta.juggle.console.domain.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
+import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+import net.somta.juggle.console.infrastructure.converter.IParameterConverter;
+import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Gavin
@@ -42,7 +46,7 @@ public class ApiAO {
      */
     private String apiRequestContentType;
 
-    private List<HeaderVO> headerList;
+    private List<HeaderVO> apiHeaders;
 
     private ParameterEntity parameterEntity;
 
@@ -59,7 +63,14 @@ public class ApiAO {
     }
 
     public void initHeaderList(List<HeaderVO> apiHeaders) {
-        this.headerList = apiHeaders;
+        this.apiHeaders = apiHeaders;
+    }
+
+    public void parseHeader(List<ParameterPO> parameterPoList) {
+        List<ParameterPO> headerPoList = parameterPoList.stream()
+                .filter(parameter -> ParameterTypeEnum.HEADER.getCode() == parameter.getParamType())
+                .collect(Collectors.toList());
+        this.apiHeaders = IParameterConverter.IMPL.headerParamerterPoListToVoList(headerPoList);
     }
 
     public Long getId() {
@@ -118,8 +129,8 @@ public class ApiAO {
         this.apiRequestContentType = apiRequestContentType;
     }
 
-    public List<HeaderVO> getHeaderList() {
-        return headerList;
+    public List<HeaderVO> getApiHeaders() {
+        return apiHeaders;
     }
 
     public ParameterEntity getParameterEntity() {

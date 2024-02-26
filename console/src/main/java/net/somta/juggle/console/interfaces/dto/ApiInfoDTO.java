@@ -1,5 +1,6 @@
 package net.somta.juggle.console.interfaces.dto;
 
+import net.somta.juggle.console.domain.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 
@@ -23,6 +24,8 @@ public class ApiInfoDTO {
     private String apiRequestType;
 
     private String apiRequestContentType;
+
+    private List<HeaderVO> apiHeaders;
 
     private List<InputParameterVO> apiInputParams;
 
@@ -66,6 +69,14 @@ public class ApiInfoDTO {
 
     public void setApiDesc(String apiDesc) {
         this.apiDesc = apiDesc;
+    }
+
+    public List<HeaderVO> getApiHeaders() {
+        return apiHeaders;
+    }
+
+    public void setApiHeaders(List<HeaderVO> apiHeaders) {
+        this.apiHeaders = apiHeaders;
     }
 
     public String getApiRequestType() {
