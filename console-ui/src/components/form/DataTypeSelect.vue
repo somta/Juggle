@@ -3,7 +3,7 @@
 import { ref, computed } from 'vue';
 import { commonService } from '@/service';
 
-const props = defineProps(['modelValue']);
+const props = defineProps(['modelValue', 'type']);
 const emit = defineEmits(['update:modelValue', 'change']);
 
 enum DataTypeEnum {
@@ -129,6 +129,13 @@ const innerValue = computed(() => {
   return result;
 });
 
+const innerBasicValue = computed(() => {
+  if (innerValue.value[0] === 'Basic') {
+    return innerValue.value[1];
+  }
+  return null;
+});
+
 const handleChange = (val: any) => {
   if (!Array.isArray(val)) {
     emit('update:modelValue', null);
@@ -140,10 +147,36 @@ const handleChange = (val: any) => {
   emit('update:modelValue', resultJson);
   emit('change', resultJson);
 }
+
+const handleBasicChange = (val: any) => {
+  if (!val) {
+    emit('update:modelValue', null);
+    emit('change', null);
+    return;
+  }
+  const result = {
+    type: val,
+    itemType: null,
+    objectKey: null,
+    objectStructure: null,
+  };
+  const resultJson = JSON.stringify(result);
+  emit('update:modelValue', resultJson);
+  emit('change', resultJson);
+}
 </script>
 
 <template>
+  <el-select size="small" v-if="type === 'basic'" :modelValue="innerBasicValue" @change="handleBasicChange">
+    <el-option
+      v-for="item in options[0]?.children"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"
+    />
+  </el-select>
   <el-cascader
+    v-else
     :modelValue="innerValue"
     :options="options"
     :props="cascaderProps"

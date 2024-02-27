@@ -17,6 +17,8 @@ export type RawData = {
 };
 
 export type MethodInfo = {
+  methodId: number;
+  domainId: number;
   requestContentType: string;
   requestType: string;
   url: string;

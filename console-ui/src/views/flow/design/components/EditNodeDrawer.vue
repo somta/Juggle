@@ -15,7 +15,6 @@ function open (params: typeof openParams) {
   openParams = params;
   currentNodeForm.value = getNodeForm(params.data.elementType);
   currentData.value = params.data;
-  console.log(params.data, 'www');
 }
 const currentNodeForm = shallowRef();
 const currentData = ref<RawData>();

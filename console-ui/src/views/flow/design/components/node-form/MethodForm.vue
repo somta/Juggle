@@ -4,9 +4,11 @@ import DomainSelect from '@/components/form/DomainSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
 import ParamSetting from '@/components/form/ParamSetting.vue';
 import { PropType, ref, watch, toRaw } from 'vue';
-import { ElementType, RawData } from '../../types';
+import { ElementType, RawData, MethodInfo } from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { apiService } from '@/service';
+
+type MethodRawData = RawData & { method: MethodInfo };
 
 function getDefaultData () {
   return {
@@ -17,11 +19,11 @@ function getDefaultData () {
     elementType: ElementType.METHOD,
     desc: '',
     method: {
-      methodId: null,
-      domainId: null,
+      methodId: null as unknown as number,
+      domainId: null as unknown as number,
       url: '',
-      requestType: 'GET',
-      requestContentType: 'application/json',
+      requestType: '',
+      requestContentType: '',
       headerFillRules: [],
       inputFillRules: [],
       outputFillRules: [],
@@ -32,33 +34,34 @@ function getDefaultData () {
 const emit = defineEmits(['update', 'cancel']);
 const props = defineProps({
   data: {
-    type: Object as PropType<RawData>,
+    type: Object as PropType<MethodRawData>,
     required: true,
   },
 });
 
-const nodeData = ref(getDefaultData() as RawData);
+const nodeData = ref(getDefaultData() as MethodRawData);
 watch(() => props.data, val => {
-  nodeData.value = cloneDeep(val);
+  nodeData.value = cloneDeep(Object.assign(getDefaultData(), val));
 }, { immediate: true });
 
 function onDomainChange () {
   nodeData.value.method = {
     ...getDefaultData().method,
-    domainId: nodeData.value.method.domainId,
+    domainId: nodeData.value.method?.domainId as number,
   };
 }
 
 async function onApiChange (val: number) {
   const res = await apiService.queryApiInfo(val);
   if (res.result) {
-    const method = res.result;
-    nodeData.value.method.requestType = method.requestType;
-    nodeData.value.method.requestContentType = method.requestContentType;
-    nodeData.value.method.headerFillRules = method.apiHeaders;
-    nodeData.value.method.inputFillRules = method.apiInputParams;
-    nodeData.value.method.outputFillRules = method.apiOutputParams;
-    nodeData.value.method.url = method.apiUrl;
+    const val = res.result;
+    const method = nodeData.value.method;
+    method.requestType = val.apiRequestType;
+    method.requestContentType = val.apiRequestContentType;
+    method.headerFillRules = val.apiHeaders;
+    method.inputFillRules = val.apiInputParams;
+    method.outputFillRules = val.apiOutputParams;
+    method.url = val.apiUrl;
   }
 }
 
