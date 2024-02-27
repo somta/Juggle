@@ -39,3 +39,7 @@ export async function listDelete(params: Parameters<typeof apiAPI.listDelete>[0]
 export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo>[0]) {
   return apiAPI.queryApiInfo(params);
 }
+
+export async function getApiListByDomainId(params: Parameters<typeof apiAPI.getApiListByDomainId>[0]) {
+  return apiAPI.getApiListByDomainId(params);
+}

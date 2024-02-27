@@ -195,6 +195,9 @@ export class VerticalLayout {
         .text(data.raw.name);
 
       this.drawHoverButtons(flowNode, node);
+    } else {
+      const flowNode = container.select('.flow-node')
+      flowNode.select('text').text(data.raw.name);
     }
     if ([ElementType.START, ElementType.METHOD].includes(data.type)) {
       this.drawAddIcon(container, node, type);

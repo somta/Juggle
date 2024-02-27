@@ -63,3 +63,7 @@ export async function listDelete(id: string): ResponseResult<boolean> {
 export async function queryApiInfo(id: string | number): ResponseResult<ApiInfo> {
   return request.get(`/v1/api/info/${id}`);
 }
+
+export async function getApiListByDomainId(domainId: string | number): ResponseResult<ApiInfo[]> {
+  return request.post(`/v1/api/getApiListByDomainId/${domainId}`);
+}

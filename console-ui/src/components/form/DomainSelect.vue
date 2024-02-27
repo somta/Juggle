@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { apiService } from '@/service';
 
 const props = defineProps(['modelValue', 'auto']);
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'change']);
 
 const domainList = ref<Array<{ value: string; label: string }>>([]);
 const domainLoading = ref(false);
@@ -34,6 +34,7 @@ function onVisibleChange(val: boolean) {
 
 function onChange(val: number) {
   emit('update:modelValue', val);
+  emit('change', val);
 }
 </script>
 <template>
@@ -48,6 +49,7 @@ function onChange(val: number) {
 </template>
 <style lang="less">
 .select-option-empty {
+  display: flex;
   height: 120px;
   align-items: center;
   justify-content: center;

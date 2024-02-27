@@ -17,11 +17,11 @@ export class DataNode extends TreeNode {
   public key: string;
 
   get raw() {
-    return this.context.getFlowNode(this.key);
+    return this.context.getFlowNode(this.key) as RawData;
   }
 
   get type() {
-    return this.raw?.elementType;
+    return this.raw?.elementType as ElementType;
   }
 
   set in(val: string) {
