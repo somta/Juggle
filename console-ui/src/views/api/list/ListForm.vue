@@ -122,13 +122,13 @@ defineExpose({ open });
           <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" />
         </el-form-item>
         <el-form-item label="请求头">
-          <ParamSetting v-model="formValue.apiHeaders" />
+          <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" showRequired/>
         </el-form-item>
         <el-form-item label="入参">
-          <ParamSetting v-model="formValue.apiInputParams" />
+          <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showRequired/>
         </el-form-item>
         <el-form-item label="出参">
-          <ParamSetting v-model="formValue.apiOutputParams" :required="false" />
+          <ParamSetting v-model="formValue.apiOutputParams" addText="新增出参" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

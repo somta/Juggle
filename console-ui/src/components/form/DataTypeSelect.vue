@@ -110,10 +110,14 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    try {
-      val = JSON.parse(props.modelValue);
-    } catch (error) {
-      console.error(error);
+    if (typeof props.modelValue === 'string') {
+      try {
+        val = JSON.parse(props.modelValue);
+      } catch (error) {
+        console.error(error);
+      }
+    } else if (typeof props.modelValue === 'object') {
+      val = { ...props.modelValue };
     }
   }
   return val;

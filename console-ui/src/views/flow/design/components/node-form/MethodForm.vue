@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
-import ParamSetting from '@/components/form/ParamSetting.vue';
+import ParamSettingMethod from '@/components/form/ParamSettingMethod.vue';
 import { PropType, ref, watch, toRaw } from 'vue';
 import { ElementType, RawData, MethodInfo } from '../../types';
 import { cloneDeep } from 'lodash-es';
@@ -92,13 +92,13 @@ function onCancel() {
         <ApiSelect v-model="nodeData.method.methodId" :domainId="nodeData.method.domainId" @change="onApiChange" />
       </el-form-item>
       <el-form-item label="请求头赋值">
-        <ParamSetting />
+        <ParamSettingMethod v-model="nodeData.method.headerFillRules" addText="新增请求头赋值" showRequired />
       </el-form-item>
       <el-form-item label="入参赋值">
-        <ParamSetting />
+        <ParamSettingMethod v-model="nodeData.method.inputFillRules" addText="新增入参赋值" showRequired />
       </el-form-item>
       <el-form-item label="出参赋值">
-        <ParamSetting />
+        <ParamSettingMethod v-model="nodeData.method.outputFillRules" addText="新增出参赋值"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确定</el-button>
