@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.ObjectMapper" >
     <insert id="addObject" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.ApiPO" >
-        insert into t_object (id, object_code, object_name, object_desc, created_at, created_by, updated_at, updated_by)
-        values (#{id},#{objectCode},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+        insert into t_object (id, object_key, object_name, object_desc, created_at, created_by, updated_at, updated_by)
+        values (#{id},#{objectKey},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
     </insert>
 
 

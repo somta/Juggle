@@ -14,15 +14,20 @@ function deleteRow(row: any, index: number) {
   emit('delete', row, index);
 }
 
+function editRow(row: any) {
+  emit('edit', row);
+}
+
 </script>
 
 <template>
   <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
-    <el-table-column prop="objectCode" label="对象编码" width="200" />
+    <el-table-column prop="objectKey" label="对象编码" width="200" />
     <el-table-column prop="objectName" label="对象名称" width="240" />
     <el-table-column prop="objectDesc" label="对象描述" width="540" />
     <el-table-column label="操作" width="250">
       <template #default="scope">
+        <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)"> 删除 </el-button>
       </template>
     </el-table-column>

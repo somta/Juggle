@@ -20,6 +20,7 @@
 	<if test="domainName != null and domainName != ''">
 		and domain_name like concat("%",#{domainName},"%")
 	</if>
+	ORDER BY created_at DESC
 </sql>
 
 <!-- t_domain table all fields -->

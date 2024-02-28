@@ -32,7 +32,7 @@ public interface IDataTypeInfoAssembler {
             dataTypeInfo.setId(objectVo.getId());
             dataTypeInfo.setDataTypeClassify(3);
             dataTypeInfo.setDataType("Object");
-            dataTypeInfo.setObjectKey(objectVo.getObjectCode());
+            dataTypeInfo.setObjectKey(objectVo.getObjectKey());
             dataTypeInfo.setDisplayName(objectVo.getObjectName());
             dataTypeInfo.setObjectStructure(JsonSerializeHelper.serialize(objectVo.getPropertyList()));
             list.add(dataTypeInfo);

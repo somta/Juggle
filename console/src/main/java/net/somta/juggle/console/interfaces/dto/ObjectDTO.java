@@ -7,7 +7,7 @@ public class ObjectDTO {
 
     private Long id;
 
-    private String objectCode;
+    private String objectKey;
 
     private String objectName;
 
@@ -21,12 +21,12 @@ public class ObjectDTO {
         this.id = id;
     }
 
-    public String getObjectCode() {
-        return objectCode;
+    public String getObjectKey() {
+        return objectKey;
     }
 
-    public void setObjectCode(String objectCode) {
-        this.objectCode = objectCode;
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
     }
 
     public String getObjectName() {

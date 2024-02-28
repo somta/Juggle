@@ -1,43 +1,75 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref } from 'vue';
-import { FormInstance } from 'element-plus';
-import { FlowDefineInfo } from '@/typings';
+import {FormInstance, FormRules} from 'element-plus';
+import {ObjectInfo, ObjectProperty} from '@/typings';
 import ParamSetting from "@/components/form/ParamSetting.vue";
+import {objectService} from "@/service";
 
-const flowDefineDrawerVisible = ref(false);
+const objectDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const formValue = reactive<FlowDefineInfo>({
+const formValue = reactive<any>({
   id: null,
-  flowName: '',
-  flowType: '',
-  remark: '',
-  flowInputParams: [],
-  flowOutputParams: [],
+  objectKey: '',
+  objectName: '',
+  objectDesc: '',
+  props: []
 });
 
+const rules = reactive<FormRules>({
+  objectKey: [{ required: true, message: '请输入对象编码', trigger: 'blur' }],
+  objectName: [{ required: true, message: '请输入对象名称', trigger: 'blur' }],
+});
+
+const emit = defineEmits(['add', 'edit']);
+
 function onCancel() {
-  flowDefineDrawerVisible.value = false;
+  objectDrawerVisible.value = false;
 }
 
 async function onSubmit() {
-  /*if (!formRef.value) return;
+  if (!formRef.value) return;
   const valid = await formRef.value.validate(() => {});
   if (!valid) {
     return;
   }
 
-  dialogVisible.value = false;
+  objectDrawerVisible.value = false;
   if (editItem.value) {
     emit('edit', { ...editItem.value, ...formValue });
   } else {
     emit('add', formValue);
-  }*/
+  }
 }
 
 function open(item?: Record<string, any>) {
-  //editItem.value = item;
-  flowDefineDrawerVisible.value = true;
+  editItem.value = item;
+  objectDrawerVisible.value = true;
+  nextTick(async () => {
+    if (formRef.value) {
+      formRef.value.resetFields();
+    }
+    if (item) {
+      const res = await objectService.queryObjectInfo(item.id);
+      if (res.success) {
+        formValue.id = res.result.id;
+        formValue.objectKey = res.result.objectKey;
+        formValue.objectName = res.result.objectName;
+        formValue.objectDesc = res.result.objectDesc;
+        const propArray: ObjectProperty[] =res.result.props;
+        if(Array.isArray(propArray) && propArray.length !== 0){
+          const paramArray = propArray.map((item: ObjectProperty) => {
+            return {
+              paramKey: item.propKey,
+              paramName: item.propName,
+              dataType: item.dataType
+            };
+          });
+          formValue.props = paramArray;
+        }
+      }
+    }
+  });
 }
 
 const title = computed(() => {
@@ -51,20 +83,20 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="flowDefineDrawerVisible" :title="title">
+  <el-drawer v-model="objectDrawerVisible" :title="title">
     <div>
-      <el-form ref="formRef">
-        <el-form-item label="对象编码">
-          <el-input />
+      <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
+        <el-form-item label="对象编码" prop="objectKey">
+          <el-input v-model="formValue.objectKey" />
         </el-form-item>
-        <el-form-item label="对象名称">
-          <el-input />
+        <el-form-item label="对象名称" prop="objectName">
+          <el-input v-model="formValue.objectName" />
         </el-form-item>
         <el-form-item label="对象描述">
-          <el-input type="textarea" />
+          <el-input type="textarea" v-model="formValue.objectDesc" />
         </el-form-item>
         <el-form-item label="对象属性">
-          <ParamSetting />
+          <ParamSetting v-model="formValue.props" addText="新增属性"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

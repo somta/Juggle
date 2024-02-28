@@ -16,6 +16,16 @@ public class DataTypeOptionDTO {
 
     private String objectStructure;
 
+    public DataTypeOptionDTO() {
+    }
+
+    public DataTypeOptionDTO(Long id, Integer dataTypeClassify, String type, String displayName) {
+        this.id = id;
+        this.dataTypeClassify = dataTypeClassify;
+        this.type = type;
+        this.displayName = displayName;
+    }
+
     public Long getId() {
         return id;
     }

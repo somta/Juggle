@@ -67,7 +67,7 @@ CREATE TABLE `t_data_type_info` (
 -- ----------------------------
 CREATE TABLE `t_object` (
  `id` bigint NOT NULL AUTO_INCREMENT,
- `object_code` varchar(30) DEFAULT NULL,
+ `object_key` varchar(30) DEFAULT NULL,
  `object_name` varchar(50) DEFAULT NULL,
  `object_desc` varchar(100) DEFAULT NULL,
  `created_at` datetime DEFAULT NULL,

@@ -19,8 +19,10 @@ import java.util.List;
 public interface IObjectAssembler {
     IObjectAssembler IMPL = Mappers.getMapper(IObjectAssembler.class);
 
+    @Mapping(target = "propertyList", expression = "java(objectAddParam.getProps())")
     ObjectAO paramToAo(ObjectAddParam objectAddParam);
 
+    @Mapping(target = "propertyList", expression = "java(objectUpdateParam.getProps())")
     ObjectAO paramToAo(ObjectUpdateParam objectUpdateParam);
 
     @Mapping(target = "props", expression = "java(objectAo.getPropertyList())")

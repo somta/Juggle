@@ -40,9 +40,7 @@ public class ObjectServiceImpl implements IObjectService {
 
     @Override
     public Boolean deleteObject(Long objectId) {
-        objRepository.deleteObjectById(objectId);
-        ObjectAO objectAo = objRepository.queryObject(objectId);
-        return true;
+        return objRepository.deleteObjectById(objectId);
     }
 
     @Override

@@ -6,6 +6,9 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import ObjectFilter from "@/views/object/ObjectFilter.vue";
 import ObjectTable from "@/views/object/ObjectTable.vue";
 import ObjectDrawer from "@/views/object/ObjectDrawer.vue";
+import {ListForm} from "@/views/api/list";
+import {ObjectProperty} from "@/typings";
+import {updateObject} from "@/service/module/object.ts";
 
 const pageNum = ref(1);
 const pageSize = ref(10);
@@ -65,25 +68,47 @@ function openDelete(row: any) {
     .catch(() => {});
 }
 
-/*async function addItem(row: any) {
-  const res = await apiService.listAdd(row);
+async function addItem(row: any) {
+  const paramArray = row.props;
+  if(Array.isArray(paramArray) && paramArray.length !== 0){
+    const propArray = paramArray.map((item: any) => {
+      return {
+        propKey: item.paramKey,
+        propName: item.paramName,
+        dataType: item.dataType
+      };
+    });
+    row.props = propArray;
+  }
+  const res = await objectService.addObject(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
-    queryObjectPage();
+    await queryObjectPage();
   } else {
     ElMessage({ type: 'error', message: '新建失败' });
   }
-}*/
+}
 
-/*async function editItem(row: any) {
-  const res = await apiService.listUpdate(row);
+async function editItem(row: any) {
+  const paramArray = row.props;
+  if(Array.isArray(paramArray) && paramArray.length !== 0){
+    const propArray = paramArray.map((item: any) => {
+      return {
+        propKey: item.paramKey,
+        propName: item.paramName,
+        dataType: item.dataType
+      };
+    });
+    row.props = propArray;
+  }
+  const res = await objectService.updateObject(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });
-    queryObjectPage();
+    await queryObjectPage();
   } else {
     ElMessage({ type: 'error', message: '编辑失败' });
   }
-}*/
+}
 
 async function deleteItem(row: any) {
   const res = await objectService.deleteObject(row.id);
@@ -110,11 +135,12 @@ async function deleteItem(row: any) {
           :pageSize="pageSize"
           :loading="loading"
           @pageChange="onPageChange"
+          @edit="openEdit"
           @delete="openDelete"
         />
       </el-main>
     </el-container>
-    <ObjectDrawer ref="formRef" />
+    <ObjectDrawer ref="formRef" @add="addItem" @edit="editItem" />
   </div>
 </template>
 

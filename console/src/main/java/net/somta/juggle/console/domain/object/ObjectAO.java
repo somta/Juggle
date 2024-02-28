@@ -14,11 +14,11 @@ public class ObjectAO {
 
     private Long id;
 
-    private String objCode;
+    private String objectKey;
 
-    private String objName;
+    private String objectName;
 
-    private String objDesc;
+    private String objectDesc;
 
     private List<PropertyVO> propertyList;
 
@@ -49,28 +49,28 @@ public class ObjectAO {
         this.id = id;
     }
 
-    public String getObjCode() {
-        return objCode;
+    public String getObjectKey() {
+        return objectKey;
     }
 
-    public void setObjCode(String objCode) {
-        this.objCode = objCode;
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
     }
 
-    public String getObjName() {
-        return objName;
+    public String getObjectName() {
+        return objectName;
     }
 
-    public void setObjName(String objName) {
-        this.objName = objName;
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
-    public String getObjDesc() {
-        return objDesc;
+    public String getObjectDesc() {
+        return objectDesc;
     }
 
-    public void setObjDesc(String objDesc) {
-        this.objDesc = objDesc;
+    public void setObjectDesc(String objectDesc) {
+        this.objectDesc = objectDesc;
     }
 
     public List<PropertyVO> getPropertyList() {

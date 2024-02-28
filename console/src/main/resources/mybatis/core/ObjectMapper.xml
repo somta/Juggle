@@ -6,7 +6,7 @@
 <!-- Result Map-->
 <resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.ObjectPO" >
 	<result column="id" property="id"/>
-	<result column="object_code" property="objectCode"/>
+	<result column="object_key" property="objectKey"/>
 	<result column="object_name" property="objectName"/>
 	<result column="object_desc" property="objectDesc"/>
 	<result column="created_at" property="createdAt"/>
@@ -24,12 +24,12 @@
        
 <!-- t_object table all fields -->
 <sql id="Base_Column_List" >
-	id, object_code, object_name, object_desc, created_at, created_by, updated_at, updated_by
+	id, object_key, object_name, object_desc, created_at, created_by, updated_at, updated_by
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ObjectPO" >
-	insert into t_object (id, object_code, object_name, object_desc, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{objectCode},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_object (id, object_key, object_name, object_desc, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{objectKey},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -39,8 +39,8 @@
 <update id="update" parameterType="net.somta.juggle.console.infrastructure.po.ObjectPO" >
 	update t_object set
 	<trim  suffixOverrides="," >
-		<if test="objectCode != null and objectCode != ''">
-			object_code=#{objectCode},
+		<if test="objectKey != null and objectKey != ''">
+			object_key=#{objectKey},
 		</if>
 		<if test="objectName != null and objectName != ''">
 			object_name=#{objectName},

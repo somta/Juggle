@@ -35,9 +35,9 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     @Override
     public Boolean addObject(ObjectAO objectAo) {
         ObjectPO objectPo = new ObjectPO();
-        objectPo.setObjectCode(objectAo.getObjCode());
-        objectPo.setObjectName(objectAo.getObjName());
-        objectPo.setObjectDesc(objectAo.getObjDesc());
+        objectPo.setObjectKey(objectAo.getObjectKey());
+        objectPo.setObjectName(objectAo.getObjectName());
+        objectPo.setObjectDesc(objectAo.getObjectDesc());
         objectPo.setCreatedAt(new Date());
         //todo 开放权限拦截器后，要加上创建人的逻辑
         //Long userId = IdentityContext.getIdentity().getUserId();
@@ -63,9 +63,9 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     public Boolean updateObject(ObjectAO objectAo) {
         ObjectPO objectPo = new ObjectPO();
         objectPo.setId(objectAo.getId());
-        objectPo.setObjectCode(objectAo.getObjCode());
-        objectPo.setObjectName(objectAo.getObjName());
-        objectPo.setObjectDesc(objectAo.getObjDesc());
+        objectPo.setObjectKey(objectAo.getObjectKey());
+        objectPo.setObjectName(objectAo.getObjectName());
+        objectPo.setObjectDesc(objectAo.getObjectDesc());
         //todo 开放权限拦截器后，要加上创建人的逻辑
         //Long userId = IdentityContext.getIdentity().getUserId();
         //objPo.setUpdatedBy(userId);
