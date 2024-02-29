@@ -8,5 +8,9 @@
         values (#{id},#{objectKey},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
     </insert>
 
+    <select id="queryObjectInfoByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select id, object_key, object_name, object_desc
+        from t_object where object_key = #{objectKey}
+    </select>
 
 </mapper>   

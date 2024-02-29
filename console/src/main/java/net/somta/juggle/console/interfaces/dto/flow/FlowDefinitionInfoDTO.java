@@ -1,9 +1,11 @@
 package net.somta.juggle.console.interfaces.dto.flow;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +36,8 @@ public class FlowDefinitionInfoDTO {
      * 流程描述
      */
     private String remark;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
 
     private List<InputParameterVO> flowInputParams;
 
@@ -87,6 +91,14 @@ public class FlowDefinitionInfoDTO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<InputParameterVO> getFlowInputParams() {

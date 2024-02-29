@@ -10,4 +10,6 @@ public interface ObjectMapper extends IBaseMapper {
 
 
     int addObject(ObjectPO objectPo);
+
+    ObjectPO queryObjectInfoByKey(String objectKey);
 }

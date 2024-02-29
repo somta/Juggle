@@ -1,5 +1,9 @@
 package net.somta.juggle.console.domain.flow.definition.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 /**
  * @author husong
  */
@@ -26,6 +30,8 @@ public class FlowDefinitionInfoVO {
      * 流程描述
      */
     private String remark;
+
+    private Date createdAt;
 
     public Long getId() {
         return id;
@@ -67,4 +73,11 @@ public class FlowDefinitionInfoVO {
         this.remark = remark;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }

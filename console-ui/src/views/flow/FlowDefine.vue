@@ -57,13 +57,23 @@ function openflowDefineAdd() {
 }
 
 async function addFlowDefineItem(row: any) {
-  /*const res = await interfaceService.domainAdd(row);
+  const res = await flowDefineService.addDefineInfo(row);
   if (res.result) {
     ElMessage({ type: 'success', message: '新建成功' });
-    queryFlowDefinePage();
+    await queryFlowDefinePage();
   } else {
-    ElMessage({ type: 'error', message: '新建失败' });
-  }*/
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
+async function updateFlowDefineItem(row: any) {
+  const res = await flowDefineService.updateDefineInfo(row);
+  if (res.result) {
+    ElMessage({ type: 'success', message: '修改成功' });
+    await queryFlowDefinePage();
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
 }
 
 function openDeployDialog(row: any) {
@@ -141,7 +151,7 @@ function openEdit(row: any) {
         />
       </el-main>
     </el-container>
-    <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" />
+    <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" @edit="updateFlowDefineItem"/>
 
     <el-dialog v-model="deployFormVisible" :show-close="false" title="部署流程" width="400">
       <el-form :model="deployForm">
