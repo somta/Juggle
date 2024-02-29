@@ -2,11 +2,12 @@
 <script lang="ts" setup>
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
-import ParamSettingMethod from '@/components/form/ParamSettingMethod.vue';
+import RuleSetting from '@/components/form/RuleSetting.vue';
 import { PropType, ref, watch, toRaw } from 'vue';
 import { ElementType, RawData, MethodInfo } from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { apiService } from '@/service';
+import { valueType } from '@/typings';
 
 type MethodRawData = RawData & { method: MethodInfo };
 
@@ -51,6 +52,17 @@ function onDomainChange () {
   };
 }
 
+function paramToRule (param: { dataType: string; paramKey: string; paramName: string; }) {
+  return {
+    source: param.paramKey,
+    sourceDataType: param.dataType,
+    sourceType: valueType.VARIABLE,
+    target: '',
+    targetDataType: null,
+    targetType: valueType.VARIABLE,
+  }
+}
+
 async function onApiChange (val: number) {
   const res = await apiService.queryApiInfo(val);
   if (res.result) {
@@ -58,9 +70,9 @@ async function onApiChange (val: number) {
     const method = nodeData.value.method;
     method.requestType = val.apiRequestType;
     method.requestContentType = val.apiRequestContentType;
-    method.headerFillRules = val.apiHeaders;
-    method.inputFillRules = val.apiInputParams;
-    method.outputFillRules = val.apiOutputParams;
+    method.headerFillRules = val.apiHeaders.map(paramToRule);
+    method.inputFillRules = val.apiInputParams.map(paramToRule);
+    method.outputFillRules = val.apiOutputParams.map(paramToRule);
     method.url = val.apiUrl;
   }
 }
@@ -92,13 +104,13 @@ function onCancel() {
         <ApiSelect v-model="nodeData.method.methodId" :domainId="nodeData.method.domainId" @change="onApiChange" />
       </el-form-item>
       <el-form-item label="请求头赋值">
-        <ParamSettingMethod v-model="nodeData.method.headerFillRules" addText="新增请求头赋值" showRequired />
+        <RuleSetting v-model="nodeData.method.headerFillRules" addText="新增请求头赋值" showRequired />
       </el-form-item>
       <el-form-item label="入参赋值">
-        <ParamSettingMethod v-model="nodeData.method.inputFillRules" addText="新增入参赋值" showRequired />
+        <RuleSetting v-model="nodeData.method.inputFillRules" addText="新增入参赋值" showRequired />
       </el-form-item>
       <el-form-item label="出参赋值">
-        <ParamSettingMethod v-model="nodeData.method.outputFillRules" addText="新增出参赋值"/>
+        <RuleSetting v-model="nodeData.method.outputFillRules" addText="新增出参赋值"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确定</el-button>

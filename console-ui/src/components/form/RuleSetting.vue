@@ -1,30 +1,10 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
-
-enum valueType {
-  VARIABLE = 'VARIABLE',
-  INPUT_PARAM = 'INPUT_PARAM',
-}
-
-type DataTypeItem = {
-  type: string;
-  itemType: string;
-  objectKey: string;
-  objectStructure: string;
-}
-
-type ParamItem = {
-  source: string;
-  sourceDataType: DataTypeItem;
-  sourceType: valueType;
-  target: string;
-  targetDataType: DataTypeItem;
-  targetType: valueType;
-};
+import { valueType, RuleItem } from '@/typings';
 
 const targetTypeList = [
-  { value: valueType.INPUT_PARAM, label: '常量' },
+  { value: valueType.INPUT_rule, label: '常量' },
   { value: valueType.VARIABLE, label: '变量' },
 ];
 
@@ -43,13 +23,13 @@ const emit = defineEmits(['update:modelValue']);
 watch(
   () => props.modelValue,
   (val: any) => {
-    if (val !== params.value) {
-      params.value = val;
+    if (val !== rules.value) {
+      rules.value = val;
     }
   }
 );
 
-const params = ref<ParamItem[]>([]);
+const rules = ref<RuleItem[]>([]);
 const columns = [
   { name: '参数名称', prop: 'source' },
   { name: '数据类型', prop: 'sourceDataType' },
@@ -58,8 +38,8 @@ const columns = [
   { name: '赋值', prop: 'target' },
 ];
 
-function addParam() {
-  params.value.push({
+function addrule() {
+  rules.value.push({
     source: '',
     sourceDataType: '',
     sourceType: '',
@@ -71,58 +51,58 @@ function addParam() {
 }
 
 function onChange() {
-  emit('update:modelValue', params.value);
+  emit('update:modelValue', rules.value);
 }
 
 </script>
 
 <template>
-  <div class="param-setting">
-    <div class="param-setting-head">
-      <div class="param-setting-tr">
+  <div class="rule-setting">
+    <div class="rule-setting-head">
+      <div class="rule-setting-tr">
         <template v-for="column in columns" :key="column.prop">
           <template v-if="column.prop === 'required'">
-            <div class="param-setting-td" v-if="showRequired">{{ column.name }}</div>
+            <div class="rule-setting-td" v-if="showRequired">{{ column.name }}</div>
           </template>
-          <div class="param-setting-td" v-else>{{ column.name }}</div>
+          <div class="rule-setting-td" v-else>{{ column.name }}</div>
         </template>
       </div>
     </div>
-    <div class="param-setting-body">
-      <div class="param-setting-tr" v-for="(param, rowIndex) in params" :key="rowIndex">
+    <div class="rule-setting-body">
+      <div class="rule-setting-tr" v-for="(rule, rowIndex) in rules" :key="rowIndex">
         <template v-for="column in columns" :key="column.prop">
-          <div class="param-setting-td" v-if="column.prop === 'source'">
-            <el-select v-model="param.source" size="small" @change="onChange">
+          <div class="rule-setting-td" v-if="column.prop === 'source'">
+            <el-select v-model="rule.source" size="small" @change="onChange">
               <el-option v-for="item in sourceList" :key="item.envKey" :value="item.envKey" :label="item.envName" />
             </el-select>
           </div>
-          <div class="param-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeSelect v-model="param.sourceDataType" type="basic" @change="onChange" />
+          <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
+            <DataTypeSelect v-model="rule.sourceDataType" type="basic" @change="onChange" />
           </div>
-          <div class="param-setting-td" v-else-if="showRequired && column.prop === 'required'">
-            <el-checkbox v-model="param.required" @change="onChange" />
+          <div class="rule-setting-td" v-else-if="showRequired && column.prop === 'required'">
+            <el-checkbox v-model="rule.required" @change="onChange" />
           </div>
-          <div class="param-setting-td" v-if="column.prop === 'targetType'">
-            <el-select v-model="param.targetType" size="small" @change="onChange">
+          <div class="rule-setting-td" v-if="column.prop === 'targetType'">
+            <el-select v-model="rule.targetType" size="small" @change="onChange">
               <el-option v-for="item in targetTypeList" :key="item.value" :value="item.value" :label="item.label" />
             </el-select>
           </div>
-          <div class="param-setting-td" v-if="column.prop === 'target'">
-            <el-select v-model="param.target" size="small" @change="onChange">
+          <div class="rule-setting-td" v-if="column.prop === 'target'">
+            <el-select v-model="rule.target" size="small" @change="onChange">
               <el-option v-for="item in targetList" :key="item.envKey" :value="item.envKey" :label="item.envName" />
             </el-select>
           </div>
         </template>
       </div>
     </div>
-    <div class="param-setting-foot">
-      <el-button size="small" type="info" @click="addParam">{{ addText || '新增入参'}}</el-button>
+    <div class="rule-setting-foot">
+      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参'}}</el-button>
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-.param-setting {
+.rule-setting {
   width: 100%;
   &-head {
     background-color: #f2f2f2;

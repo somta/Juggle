@@ -65,7 +65,7 @@ defineExpose({ add, edit });
         <el-input v-model="form.envName" placeholder="请输入" />
       </el-form-item>
       <el-form-item label="变量类型">
-        <DataTypeSelect v-model="form.dataType" />
+        <DataTypeSelect v-model="form.dataType" jsonParse />
       </el-form-item>
     </el-form>
     <template #footer>

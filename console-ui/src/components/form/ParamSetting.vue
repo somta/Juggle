@@ -75,7 +75,7 @@ function onChange() {
             <el-input v-model="param.paramName" size="small" @change="onChange" />
           </div>
           <div class="param-setting-td" v-else-if="column.prop === 'dataType'">
-            <DataTypeSelect v-model="param.dataType" type="basic" @change="onChange" />
+            <DataTypeSelect v-model="param.dataType" type="basic" jsonParse @change="onChange" />
           </div>
           <div class="param-setting-td" v-else-if="showRequired && column.prop === 'required'">
             <el-checkbox v-model="param.required" @change="onChange" />

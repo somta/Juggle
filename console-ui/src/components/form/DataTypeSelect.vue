@@ -3,7 +3,7 @@
 import { ref, computed } from 'vue';
 import { commonService } from '@/service';
 
-const props = defineProps(['modelValue', 'type']);
+const props = defineProps(['modelValue', 'type', 'jsonParse']);
 const emit = defineEmits(['update:modelValue', 'change']);
 
 enum DataTypeEnum {
@@ -110,7 +110,7 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    if (typeof props.modelValue === 'string') {
+    if (props.jsonParse) {
       try {
         val = JSON.parse(props.modelValue);
       } catch (error) {
@@ -158,15 +158,17 @@ const handleBasicChange = (val: any) => {
     emit('change', null);
     return;
   }
-  const result = {
+  let result: any = {
     type: val,
     itemType: null,
     objectKey: null,
     objectStructure: null,
   };
-  const resultJson = JSON.stringify(result);
-  emit('update:modelValue', resultJson);
-  emit('change', resultJson);
+  if (props.jsonParse) {
+    result = JSON.stringify(result);
+  }
+  emit('update:modelValue', result);
+  emit('change', result);
 }
 </script>
 
