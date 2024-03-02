@@ -1,6 +1,6 @@
 export enum valueType {
   VARIABLE = 'VARIABLE',
-  INPUT_rule = 'INPUT_rule',
+  INPUT_PARAM = 'INPUT_PARAM',
 }
 
 export type DataTypeItem = {
@@ -17,4 +17,5 @@ export type RuleItem = {
   target: string;
   targetDataType: DataTypeItem;
   targetType: valueType;
+  required?: boolean;
 };

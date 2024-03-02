@@ -3,7 +3,12 @@
 import { ref, computed } from 'vue';
 import { commonService } from '@/service';
 
-const props = defineProps(['modelValue', 'type', 'jsonParse']);
+const props = defineProps({
+  modelValue: [String, Object],
+  type: String,
+  jsonParse: Boolean,
+  disabled: Boolean,
+});
 const emit = defineEmits(['update:modelValue', 'change']);
 
 enum DataTypeEnum {
@@ -110,7 +115,7 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    if (props.jsonParse) {
+    if (props.jsonParse && typeof props.modelValue === 'string') {
       try {
         val = JSON.parse(props.modelValue);
       } catch (error) {
@@ -173,7 +178,7 @@ const handleBasicChange = (val: any) => {
 </script>
 
 <template>
-  <el-select size="small" v-if="type === 'basic'" :modelValue="innerBasicValue" @change="handleBasicChange">
+  <el-select size="small" v-if="type === 'basic'" :modelValue="innerBasicValue" :disabled="disabled" @change="handleBasicChange">
     <el-option
       v-for="item in options[0]?.children"
       :key="item.value"
@@ -186,6 +191,7 @@ const handleBasicChange = (val: any) => {
     :modelValue="innerValue"
     :options="options"
     :props="cascaderProps"
+    :disabled="disabled"
     @change="handleChange"
   />
 </template>

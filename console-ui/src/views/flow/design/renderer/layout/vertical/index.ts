@@ -196,7 +196,7 @@ export class VerticalLayout {
 
       this.drawHoverButtons(flowNode, node);
     } else {
-      const flowNode = container.select('.flow-node')
+      const flowNode = container.selectChild('.flow-node')
       flowNode.select('text').text(data.raw.name);
     }
     if ([ElementType.START, ElementType.METHOD].includes(data.type)) {
@@ -244,6 +244,8 @@ export class VerticalLayout {
     } else {
       container.selectChild('.flow-node').attr('transform', `translate(${node.contentBox.left}, 0)`);
       container.selectChild('.sup-rect').attr('width', node.width).attr('height', node.height);
+      const conditionStart = container.selectChild('.flow-node')
+      conditionStart.select('text').text(node.data.raw.name);
     }
     this.drawAddIcon(container, node, type);
 

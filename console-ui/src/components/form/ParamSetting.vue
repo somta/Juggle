@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch, PropType } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
+import { Delete } from '@element-plus/icons-vue';
 
 type ParamItem = {
   id?: number | null;
@@ -11,7 +12,7 @@ type ParamItem = {
 };
 
 const props = defineProps({
-  modelValue: Array,
+  modelValue: Array as PropType<ParamItem[]>,
   showRequired: {
     type: Boolean,
     default: false,
@@ -19,17 +20,17 @@ const props = defineProps({
   addText: String,
 });
 const emit = defineEmits(['update:modelValue']);
+const params = ref<ParamItem[]>([...(props.modelValue || [])]);
 
 watch(
   () => props.modelValue,
   (val: any) => {
     if (val !== params.value) {
-      params.value = val;
+      params.value = [...val];
     }
   }
 );
 
-const params = ref<ParamItem[]>([]);
 const columns = [
   { name: '参数编码', prop: 'paramKey' },
   { name: '参数名称', prop: 'paramName' },
@@ -41,9 +42,14 @@ function addParam() {
   params.value.push({
     paramKey: '',
     paramName: '',
-    dataType: 'String',
+    dataType: JSON.stringify({ type: 'String', itemType: '', objectKey: null, objectStructure: null  }),
     required: false,
   });
+  onChange();
+}
+
+function removeParam (rowIndex: number) {
+  params.value.splice(rowIndex, 1);
   onChange();
 }
 
@@ -61,8 +67,9 @@ function onChange() {
           <div class="param-setting-td" v-if="column.prop === 'paramKey'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="column.prop === 'paramName'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="column.prop === 'dataType'">{{ column.name }}</div>
-          <div class="param-setting-td" v-if="showRequired && column.prop === 'required'">{{ column.name }}</div>
+          <div class="param-setting-td required-td" v-if="showRequired && column.prop === 'required'">{{ column.name }}</div>
         </template>
+        <div class="param-setting-td delete-td"></div>
       </div>
     </div>
     <div class="param-setting-body">
@@ -77,10 +84,13 @@ function onChange() {
           <div class="param-setting-td" v-else-if="column.prop === 'dataType'">
             <DataTypeSelect v-model="param.dataType" type="basic" jsonParse @change="onChange" />
           </div>
-          <div class="param-setting-td" v-else-if="showRequired && column.prop === 'required'">
+          <div class="param-setting-td required-td" v-else-if="showRequired && column.prop === 'required'">
             <el-checkbox v-model="param.required" @change="onChange" />
           </div>
         </template>
+        <div class="param-setting-td delete-td">
+          <el-icon @click="removeParam(rowIndex)"><Delete /></el-icon>
+        </div>
       </div>
     </div>
     <div class="param-setting-foot">
@@ -109,6 +119,21 @@ function onChange() {
     flex: 1;
     min-width: 0;
     padding: 0 6px;
+    display: flex;
+    align-items: center;
+    &.delete-td, &.required-td {
+      width: 40px;
+      flex: none;
+      justify-content: center;
+    }
+    &.delete-td {
+      width: 20px;
+      margin-right: 10px;
+      & > .el-icon {
+        cursor: pointer;
+        color: #999;
+      }
+    }
   }
   &-foot {
     text-align: center;

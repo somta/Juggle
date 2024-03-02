@@ -29,11 +29,16 @@ function onUpdate (val: RawData) {
   visible.value = false;
   openParams.afterEdit();
 }
+
+function onClosed () {
+  currentNodeForm.value = null;
+}
+
 defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="visible" :size="480" :title="currentData?.name">
+  <el-drawer v-model="visible" :size="480" :title="currentData?.name" @closed="onClosed">
     <component :is="currentNodeForm" :data="currentData" @update="onUpdate" @cancel="visible = false" />
   </el-drawer>
 </template>

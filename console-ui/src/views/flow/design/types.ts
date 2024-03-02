@@ -3,6 +3,7 @@ export type ConditionItem = {
   conditionType: string;
   expression: string;
   outgoing: string;
+  conditionExpressions: any[];
 };
 
 export type RawData = {
