@@ -47,9 +47,7 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   flowDefineDrawerVisible.value = true;
   nextTick(async () => {
-    if (formRef.value) {
-      formRef.value?.resetFields();
-    }
+    formRef.value?.resetFields();
     if (item) {
       const res = await flowDefineService.getDefineInfo(item.id);
       if (res.success) {
@@ -79,7 +77,7 @@ defineExpose({ open });
     <div>
       <el-form ref="formRef" label-position="top" :model="flowDefineFormValue" :rules="rules">
         <el-form-item label="流程名称" prop="flowName">
-          <el-input v-model="flowDefineFormValue.flowName" />
+          <el-input v-model="flowDefineFormValue.flowName" maxlength="30" />
         </el-form-item>
         <el-form-item label="流程类型" prop="flowType">
           <el-select placeholder="请选择流程类型" v-model="flowDefineFormValue.flowType">
@@ -88,7 +86,7 @@ defineExpose({ open });
           </el-select>
         </el-form-item>
         <el-form-item label="流程描述">
-          <el-input type="textarea" v-model="flowDefineFormValue.remark" />
+          <el-input type="textarea" v-model="flowDefineFormValue.remark" maxlength="80"/>
         </el-form-item>
         <el-form-item label="流程入参">
           <ParamSetting v-model="flowDefineFormValue.flowInputParams" addText="新增入参" showRequired/>

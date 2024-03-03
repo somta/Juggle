@@ -26,7 +26,7 @@ debugUrl.value = 'http://127.0.0.1:8686/v1/flow/definition/debug/' + paramsData.
 queryFlowDefineInfo();
 
 async function queryFlowDefineInfo() {
-  const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as string);
+  const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as number);
   if (res.success) {
     // 填充到面板
   } else {

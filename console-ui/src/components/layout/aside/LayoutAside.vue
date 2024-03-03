@@ -31,10 +31,10 @@ import IconInterface from '@/components/icons/IconInterface.vue';
         <el-icon><Coin /></el-icon>
         <span>对象</span>
       </el-menu-item>
-      <el-menu-item index="/setting">
+<!--      <el-menu-item index="/setting">
         <el-icon><Setting /></el-icon>
         <span>系统</span>
-      </el-menu-item>
+      </el-menu-item>-->
     </el-menu>
   </div>
 </template>

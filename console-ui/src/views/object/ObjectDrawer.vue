@@ -46,9 +46,7 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   objectDrawerVisible.value = true;
   nextTick(async () => {
-    if (formRef.value) {
-      formRef.value?.resetFields();
-    }
+    formRef.value?.resetFields();
     if (item) {
       const res = await objectService.queryObjectInfo(item.id);
       if (res.success) {
@@ -87,13 +85,13 @@ defineExpose({ open });
     <div>
       <el-form ref="formRef" label-position="top" :model="objectFormValue" :rules="rules">
         <el-form-item label="对象编码" prop="objectKey">
-          <el-input v-model="objectFormValue.objectKey" />
+          <el-input v-model="objectFormValue.objectKey" maxlength="20" />
         </el-form-item>
         <el-form-item label="对象名称" prop="objectName">
-          <el-input v-model="objectFormValue.objectName" />
+          <el-input v-model="objectFormValue.objectName" maxlength="30"/>
         </el-form-item>
         <el-form-item label="对象描述">
-          <el-input type="textarea" v-model="objectFormValue.objectDesc" />
+          <el-input type="textarea" v-model="objectFormValue.objectDesc" maxlength="120"/>
         </el-form-item>
         <el-form-item label="对象属性">
           <ParamSetting v-model="objectFormValue.props" addText="新增属性"/>
