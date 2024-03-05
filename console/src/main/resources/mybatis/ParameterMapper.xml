@@ -25,7 +25,6 @@
 	values (#{id},#{paramType},#{paramKey},#{paramName},#{dataType},#{required},#{sourceType},#{sourceId});
 </insert>
 
-
 <insert id="batchAddParameter" parameterType="java.util.List">
 	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id,created_at)
 	values
@@ -34,45 +33,9 @@
 	</foreach>
 </insert>
 
-<!--<delete id="deleteDataTypeById" parameterType="java.lang.Long">
- delete from t_data_type_info where id=#{id}
-</delete>-->
-
 <delete id="deleteParameter" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
  delete from t_parameter where source_type=#{sourceType} and source_id=#{sourceId}
 </delete>
-
-<!--<update id="updateDataTypeById" parameterType="net.somta.juggle.console.model.DataTypeInfo" >
-	update t_data_type_info set
-	<trim  suffixOverrides="," >
-	<if test="data_type_classify != null">
-		data_type_classify=#{dataTypeClassify},
-	</if>
-	<if test="type != null">
-		type=#{type},
-	</if>
-	<if test="typeName != null and typeName != ''">
-		type_name=#{typeName},
-	</if>
-	<if test="displayName != null and displayName != ''">
-		display_name=#{displayName},
-	</if>
-	<if test="objectStructure != null and objectStructure != ''">
-		object_structure=#{objectStructure},
-	</if>
-	</trim> where id=#{id}
-</update>-->
-
-<!--<select id="queryDataTypeById" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" /> 
-	from t_data_type_info where id = #{id}
-</select>-->
-
-<!--<select id="queryApiList" resultMap="BaseResultMap">
-	select <include refid="Base_Column_List" /> 
-	from t_api
-</select>-->
-
 
 <select id="getParameterListByVO" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
 	select <include refid="Base_Column_List" />

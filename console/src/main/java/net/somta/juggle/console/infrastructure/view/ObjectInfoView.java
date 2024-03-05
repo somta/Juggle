@@ -1,0 +1,60 @@
+package net.somta.juggle.console.infrastructure.view;
+
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
+
+import java.util.List;
+
+/**
+ * @author husong
+ */
+public class ObjectInfoView {
+    private Long id;
+
+    private String objectKey;
+
+    private String objectName;
+
+    private String objectDesc;
+
+    private List<PropertyVO> propertyList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getObjectKey() {
+        return objectKey;
+    }
+
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+
+    public String getObjectDesc() {
+        return objectDesc;
+    }
+
+    public void setObjectDesc(String objectDesc) {
+        this.objectDesc = objectDesc;
+    }
+
+    public List<PropertyVO> getPropertyList() {
+        return propertyList;
+    }
+
+    public void setPropertyList(List<PropertyVO> propertyList) {
+        this.propertyList = propertyList;
+    }
+}

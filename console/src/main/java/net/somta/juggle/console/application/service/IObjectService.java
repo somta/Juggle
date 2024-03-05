@@ -51,10 +51,10 @@ public interface IObjectService {
     ObjectInfoDTO getObjectInfo(Long objId);
 
     /**
-     * Get object list
+     * Get object info list
      * @return Object list
      */
-    List<ObjectDTO> getObjectList();
+    List<ObjectDTO> getObjectInfoList();
 
     /**
      * Query Object Paging List

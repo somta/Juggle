@@ -7,6 +7,7 @@ import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.infrastructure.po.ObjectPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
+import net.somta.juggle.console.infrastructure.view.ObjectInfoView;
 import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -27,6 +28,8 @@ public interface IObjectConverter {
 
     List<ObjectVO> poListToVoList(List<ObjectPO> objectPoList);
 
+    List<ObjectVO> viewListToVoList(List<ObjectInfoView> objectViewList);
+
     default List<ParameterPO> propertyListToParameterList(Long sourceId, List<PropertyVO> propertyVoList){
         List<ParameterPO> propertyPoList = new ArrayList<>(propertyVoList.size());
         if(CollectionUtils.isNotEmpty(propertyVoList)){
@@ -38,7 +41,7 @@ public interface IObjectConverter {
                 parameterPo.setParamName(propertyVo.getPropName());
                 parameterPo.setParamType(ParameterTypeEnum.PROPERTY.getCode());
                 parameterPo.setDataType(propertyVo.getDataType());
-                parameterPo.setSourceType(ParameterSourceTypeEnum.OBJ.getCode());
+                parameterPo.setSourceType(ParameterSourceTypeEnum.OBJECT.getCode());
                 parameterPo.setSourceId(sourceId);
                 parameterPo.setCreatedAt(currentDate);
                 propertyPoList.add(parameterPo);
@@ -46,6 +49,5 @@ public interface IObjectConverter {
         }
         return propertyPoList;
     }
-
 
 }
