@@ -13,18 +13,21 @@ const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 const dialogVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const formValue = reactive<ApiInfo>({
-  id: null,
-  domainId: null,
-  apiName: '',
-  apiDesc: '',
-  apiUrl: '',
-  apiRequestType: '',
-  apiRequestContentType: '',
-  apiHeaders: [],
-  apiInputParams: [],
-  apiOutputParams: [],
-});
+function getDefault () {
+  return {
+    id: null,
+    domainId: null,
+    apiName: '',
+    apiDesc: '',
+    apiUrl: '',
+    apiRequestType: '',
+    apiRequestContentType: '',
+    apiHeaders: [],
+    apiInputParams: [],
+    apiOutputParams: [],
+  }
+}
+const formValue = reactive<ApiInfo>(getDefault());
 const rules = reactive<FormRules>({
   domainId: [{ required: true, message: '请选择领域', trigger: 'blur' }],
   apiName: [{ required: true, message: '请输入接口名称', trigger: 'blur' }],
@@ -75,6 +78,9 @@ function open(item?: Record<string, any>) {
         formValue.apiInputParams = res.result.apiInputParams;
         formValue.apiOutputParams = res.result.apiOutputParams;
       }
+    } else {
+      // 清空
+      Object.assign(formValue, getDefault());
     }
   });
 }
@@ -89,7 +95,7 @@ const title = computed(() => {
 defineExpose({ open });
 </script>
 <template>
-  <el-drawer v-model="dialogVisible" :size="480" :title="title">
+  <el-drawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose>
     <div class="form">
       <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="领域" prop="domainId">
