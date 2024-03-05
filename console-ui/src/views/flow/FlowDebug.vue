@@ -1,27 +1,30 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { flowDefineService } from '@/service';
+import {flowDefineService, flowVersionService} from '@/service';
 import { ElMessage } from 'element-plus';
+import CodeEditor from "@/components/form/CodeEditor.vue";
+import {FlowDefineInfo} from "@/typings";
 
 const route = useRoute();
 let paramsData = reactive({
   params: route.params,
 });
 
-// todo 这样要从后端查询这个流程对应的入参，然后动态渲染
-const debugForm = reactive({
-  name: '',
-  region: '',
-  type: '',
-});
+const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
+
 
 const requestTabActiveName = ref('inputParam');
 const responseTabActiveName = ref('result');
 
 const debugUrl = ref('');
-//debugUrl.value = window.location.origin + '/v1/flow/definition/debug/'+ paramsData.params.flowKey;
-debugUrl.value = 'http://127.0.0.1:8686/v1/flow/definition/debug/' + paramsData.params.flowKey;
+let flowResponseJson = ref(`{
+          "flowInstanceId": "sync_MurlbkKxc6",
+          "status": "FINISH",
+          "data": {
+          "userName": "张三"
+          }`);
+const flowDefine = ref<FlowDefineInfo>();
 
 queryFlowDefineInfo();
 
@@ -29,58 +32,72 @@ async function queryFlowDefineInfo() {
   const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as number);
   if (res.success) {
     // 填充到面板
+    //debugUrl.value = window.location.origin + '/v1/flow/definition/debug/'+ paramsData.params.flowKey;
+    debugUrl.value = 'http://127.0.0.1:8686/v1/flow/definition/debug/' + paramsData.params.flowKey;
+    flowDefine.value = res.result;
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
+let timerId;
 async function sendFlowDebug() {
   //todo 这里参数要从流程入参中获取
   const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, {});
   if (res.success) {
-    //todo 显示到界面上
-    ElMessage({ type: 'success', message: '调试成功' });
+    if(flowDefine.value?.flowType === "sync"){
+      flowResponseJson.value = String(res.result);
+    }else{
+      console.log("123")
+      timerId = setInterval(getAsyncFlowResult, 1000);
+    }
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
+
+async function getAsyncFlowResult(flowInstanceId: string) {
+  const res = await flowVersionService.getAsyncFlowResult(flowInstanceId);
+  if (res.success) {
+    if(res.result){
+      flowResponseJson.value = String(res.result);
+      clearInterval(timerId);
+    }
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
 </script>
 
 <template>
   <div class="flow-debug">
-    <el-input v-model="debugUrl">
-      <template #append>
+    <el-row>
+      <el-col :span="20">
+        <el-input v-model="debugUrl"/>
+      </el-col>
+      <el-col :span="4">
         <el-button @click="sendFlowDebug">发送</el-button>
-      </template>
-    </el-input>
+        <el-button >重置</el-button>
+      </el-col>
+    </el-row>
     <el-tabs v-model="requestTabActiveName">
       <el-tab-pane label="请求参数" name="inputParam">
-        <el-form label-width="100px" :model="debugForm" style="max-width: 460px">
-          <el-form-item label="Name">
-            <el-input v-model="debugForm.name" />
-          </el-form-item>
-          <el-form-item label="Activity zone">
-            <el-input v-model="debugForm.region" />
-          </el-form-item>
-          <el-form-item label="Activity form">
-            <el-input v-model="debugForm.type" />
-          </el-form-item>
-        </el-form>
+        <template v-for="param in flowDefine?.flowInputParams" :key="param.paramKey">
+          <span>{{param?.paramName}} : </span>
+          <el-input v-model="param.paramKey" style="width: 240px"/>
+        </template>
       </el-tab-pane>
     </el-tabs>
 
     <el-tabs v-model="responseTabActiveName">
       <el-tab-pane label="响应内容" name="result">
         <el-text line-clamp="2">
-          {{
-            `{
-          "flowInstanceId": "sync_MurlbkKxc6",
-          "status": "FINISH",
-          "data": {
-          "userName": "张三"
-          }`
-          }}
+          <CodeEditor ref="codeEditRef" v-model="flowResponseJson" width="1000px" height="200px" language="json" />
         </el-text>
+      </el-tab-pane>
+      <el-tab-pane label="响应头" name="result">
+
       </el-tab-pane>
     </el-tabs>
   </div>

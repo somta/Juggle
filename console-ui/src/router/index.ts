@@ -6,7 +6,6 @@ import NotFound from '../views/NotFound.vue';
 import { FlowRoutes } from '../views/flow';
 import { ApiRoutes } from '../views/api';
 import { CommonRoutes } from '../views/common';
-import DomainList from "@/views/api/DomainList.vue";
 import ObjectList from "@/views/object/ObjectList.vue";
 
 const router = createRouter({

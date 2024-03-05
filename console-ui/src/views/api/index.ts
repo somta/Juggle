@@ -12,13 +12,13 @@ export const ApiRoutes = [
     children: [
       {
         path: 'domain',
-        name: 'domain-list',
+        name: 'domain-api',
         component: DomainList,
         meta: { name: '领域' },
       },
       {
         path: 'list',
-        name: 'api-list',
+        name: 'api-api',
         component: ApiList,
         meta: { name: '接口列表' },
       },

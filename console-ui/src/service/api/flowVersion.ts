@@ -15,3 +15,7 @@ export async function flowVersionPage(params: { pageNum: number; pageSize: numbe
 export async function deleteFlowVersion(id: number): ResponseResult<boolean> {
   return request.delete(`/v1/flow/version/delete/${id}`);
 }
+
+export async function getAsyncFlowResult(flowInstanceId: string): ResponseResult<boolean> {
+  return request.get(`/v1/flow/version/getAsyncFlowResult/${flowInstanceId}`);
+}
