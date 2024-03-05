@@ -1,6 +1,17 @@
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
+import {InputputParams, OutputParams} from "@/typings";
 
-export async function getDefineInfo(id: string): ResponseResult {
+export async function addDefineInfo(params: {
+  flowName: string;
+  flowType: string;
+  remark?:string;
+  flowInputParams?: InputputParams[];
+  flowOutputParams?: OutputParams[];
+}): ResponseResult<boolean> {
+  return request.post(`/v1/flow/definition/add`,params);
+}
+
+export async function getDefineInfo(id: number): ResponseResult {
   return request.get(`/v1/flow/definition/info/${id}`);
 }
 
@@ -12,7 +23,21 @@ export async function deleteFlowDefine(id: number): ResponseResult<boolean> {
   return request.delete(`/v1/flow/definition/delete/${id}`);
 }
 
-export async function saveFlowContent(params: { id: number; flowContent: string; }): ResponseResult<boolean> {
+export async function updateDefineInfo(params: {
+  id: number;
+  flowName: string;
+  flowType: string;
+  remark?:string;
+  flowInputParams?: InputputParams[];
+  flowOutputParams?: OutputParams[];
+}): ResponseResult<boolean> {
+  return request.put(`/v1/flow/definition/update`,params);
+}
+
+export async function saveFlowContent(params: {
+  id: number;
+  flowContent: string;
+}): ResponseResult<boolean> {
   return request.post('/v1/flow/definition/save', params);
 }
 

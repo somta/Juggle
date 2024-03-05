@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.IObjectService;
+import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.interfaces.dto.ObjectDTO;
 import net.somta.juggle.console.interfaces.dto.ObjectInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.console.domain.object.enums.ObjectErrorEnum.OBJECT_KEY_EXIST;
 
 /**
  * @author husong
@@ -32,6 +34,10 @@ public class ObjectController {
     @Operation(summary = "新增对象")
     @PostMapping("/add")
     public ResponseDataResult<Boolean> addObject(@RequestBody ObjectAddParam objectAddParam){
+        ObjectAO objectAo = objectService.getObjectInfoByKey(objectAddParam.getObjectKey());
+        if(objectAo != null){
+            return ResponseDataResult.setErrorResponseResult(OBJECT_KEY_EXIST);
+        }
         objectService.addObject(objectAddParam);
         return ResponseDataResult.setResponseResult();
     }
@@ -46,6 +52,10 @@ public class ObjectController {
     @Operation(summary = "修改对象")
     @PutMapping("/update")
     public ResponseDataResult<Boolean> updateObject(@RequestBody ObjectUpdateParam objectUpdateParam){
+        ObjectAO objectAo = objectService.getObjectInfoByKey(objectUpdateParam.getObjectKey());
+        if(objectUpdateParam.getObjectKey().equals(objectAo.getObjectKey())){
+            return ResponseDataResult.setErrorResponseResult(OBJECT_KEY_EXIST);
+        }
         objectService.updateObject(objectUpdateParam);
         return ResponseDataResult.setResponseResult();
     }

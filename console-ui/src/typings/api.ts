@@ -1,6 +1,6 @@
 export interface ApiHeader {
-  headerKey: string;
-  headerName: string;
+  paramKey: string;
+  paramName: string;
   dataType: string;
   required: boolean;
 }
@@ -16,6 +16,7 @@ export interface ApiOutputParams {
   paramKey: string;
   paramName: string;
   dataType: string;
+  required: boolean;
 }
 
 export interface ApiInfo {

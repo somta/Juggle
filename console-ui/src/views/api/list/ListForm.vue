@@ -44,7 +44,7 @@ function onCancel() {
 
 async function onSubmit() {
   if (!formRef.value) return;
-  const valid = await formRef.value.validate(() => {});
+  const valid = await formRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
@@ -61,9 +61,7 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   dialogVisible.value = true;
   nextTick(async () => {
-    if (formRef.value) {
-      formRef.value.resetFields();
-    }
+    formRef.value?.resetFields();
     if (item) {
       const res = await apiService.queryApiInfo(item.id);
       if (res.success) {
@@ -102,7 +100,7 @@ defineExpose({ open });
           <DomainSelect v-model="formValue.domainId" :auto="true" />
         </el-form-item>
         <el-form-item label="接口名称" prop="apiName">
-          <el-input v-model="formValue.apiName" />
+          <el-input v-model="formValue.apiName" maxlength="30" />
         </el-form-item>
         <el-form-item label="接口地址" prop="apiUrl">
           <el-input v-model="formValue.apiUrl" />
@@ -125,7 +123,7 @@ defineExpose({ open });
         </el-row>
 
         <el-form-item label="接口描述" prop="apiDesc">
-          <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" />
+          <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" maxlength="120"/>
         </el-form-item>
         <el-form-item label="请求头">
           <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" showRequired/>

@@ -7,7 +7,7 @@ import ObjectFilter from "@/views/object/ObjectFilter.vue";
 import ObjectTable from "@/views/object/ObjectTable.vue";
 import ObjectDrawer from "@/views/object/ObjectDrawer.vue";
 import {ListForm} from "@/views/api/list";
-import {ObjectProperty} from "@/typings";
+import {ObjectProperty, OutputParams} from "@/typings";
 import {updateObject} from "@/service/module/object.ts";
 
 const pageNum = ref(1);
@@ -85,14 +85,14 @@ async function addItem(row: any) {
     ElMessage({ type: 'success', message: '新建成功' });
     await queryObjectPage();
   } else {
-    ElMessage({ type: 'error', message: '新建失败' });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
 async function editItem(row: any) {
   const paramArray = row.props;
   if(Array.isArray(paramArray) && paramArray.length !== 0){
-    const propArray = paramArray.map((item: any) => {
+    const propArray = paramArray.map((item: OutputParams) => {
       return {
         propKey: item.paramKey,
         propName: item.paramName,
@@ -106,7 +106,7 @@ async function editItem(row: any) {
     ElMessage({ type: 'success', message: '编辑成功' });
     await queryObjectPage();
   } else {
-    ElMessage({ type: 'error', message: '编辑失败' });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 

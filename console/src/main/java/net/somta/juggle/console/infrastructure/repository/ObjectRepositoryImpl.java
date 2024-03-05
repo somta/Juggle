@@ -89,6 +89,13 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     }
 
     @Override
+    public ObjectAO queryObjectInfoByKey(String objectKey) {
+        ObjectPO objectPo = objectMapper.queryObjectInfoByKey(objectKey);
+        ObjectAO objectAo = IObjectConverter.IMPL.poToAo(objectPo);
+        return objectAo;
+    }
+
+    @Override
     public List<ObjectVO> queryObjectList() {
         List<ObjectPO> objectPoList = objectMapper.queryByList(new ObjectQueryParam());
         List<ObjectVO> objectVoList = IObjectConverter.IMPL.poListToVoList(objectPoList);

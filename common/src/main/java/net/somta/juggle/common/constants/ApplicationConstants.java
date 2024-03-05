@@ -41,4 +41,9 @@ public class ApplicationConstants {
      * 流程错误码
      */
     public final static long FLOW_CODE = (APPLICATION_CODE_PREFIX * 1000 + 006) * 10000;
+
+    /**
+     * 对象错误码
+     */
+    public final static long OBJECT_CODE = (APPLICATION_CODE_PREFIX * 1000 + 007) * 10000;
 }

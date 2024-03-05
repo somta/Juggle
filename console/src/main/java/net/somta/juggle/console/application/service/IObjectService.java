@@ -1,6 +1,7 @@
 package net.somta.juggle.console.application.service;
 
 import com.github.pagehelper.PageInfo;
+import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.interfaces.dto.ObjectDTO;
 import net.somta.juggle.console.interfaces.dto.ObjectInfoDTO;
 import net.somta.juggle.console.interfaces.param.ObjectAddParam;
@@ -34,6 +35,13 @@ public interface IObjectService {
      * @return Boolean
      */
     Boolean updateObject(ObjectUpdateParam objectUpdateParam);
+
+    /**
+     * Query object information based on object key
+     * @param objectKey object key
+     * @return Object AO
+     */
+    ObjectAO getObjectInfoByKey(String objectKey);
 
     /**
      * Query object information based on object ID

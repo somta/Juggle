@@ -1,4 +1,4 @@
-import {ApiHeader, ApiInputParams, ApiOutputParams} from "@/typings/api.ts";
+import {OutputParams} from "@/typings/parameter.ts";
 
 export interface ObjectProperty {
     propKey: string;

@@ -18,9 +18,12 @@ public interface IObjectRepository {
 
     ObjectAO queryObject(Long objId);
 
+    ObjectAO queryObjectInfoByKey(String objectKey);
+
     List<ObjectVO> queryObjectList();
 
     List<ObjectVO> queryObjectPageList(ObjectQueryParam objectQueryParam);
+
 
 
 }

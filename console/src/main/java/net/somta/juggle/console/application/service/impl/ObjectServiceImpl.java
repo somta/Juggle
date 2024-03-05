@@ -51,6 +51,11 @@ public class ObjectServiceImpl implements IObjectService {
     }
 
     @Override
+    public ObjectAO getObjectInfoByKey(String objectKey) {
+        return objRepository.queryObjectInfoByKey(objectKey);
+    }
+
+    @Override
     public ObjectInfoDTO getObjectInfo(Long objectId) {
         ObjectAO objectAo = objRepository.queryObject(objectId);
         ObjectInfoDTO objectInfoDto = IObjectAssembler.IMPL.aoToDto(objectAo);

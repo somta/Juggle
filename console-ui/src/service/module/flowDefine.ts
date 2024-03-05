@@ -1,7 +1,10 @@
 import { flowDefineAPI } from '@/service/api';
-import {RouteParamValue} from "vue-router";
 
-export async function getDefineInfo(id: string) {
+export async function addDefineInfo(params: Parameters<typeof flowDefineAPI.addDefineInfo>[0]) {
+  return flowDefineAPI.addDefineInfo(params);
+}
+
+export async function getDefineInfo(id: number) {
   return flowDefineAPI.getDefineInfo(id);
 }
 
@@ -11,6 +14,10 @@ export async function queryFlowDefinePage(params: Parameters<typeof flowDefineAP
 
 export async function deleteFlowDefineById(params: Parameters<typeof flowDefineAPI.deleteFlowDefine>[0]) {
   return flowDefineAPI.deleteFlowDefine(params);
+}
+
+export async function updateDefineInfo(params: Parameters<typeof flowDefineAPI.updateDefineInfo>[0]) {
+  return flowDefineAPI.updateDefineInfo(params);
 }
 
 export async function saveFlowContent(params: Parameters<typeof flowDefineAPI.saveFlowContent>[0]) {

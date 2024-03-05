@@ -8,7 +8,7 @@ import {objectService} from "@/service";
 const objectDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const formValue = reactive<any>({
+const objectFormValue = reactive<ObjectInfo>({
   id: null,
   objectKey: '',
   objectName: '',
@@ -17,7 +17,7 @@ const formValue = reactive<any>({
 });
 
 const rules = reactive<FormRules>({
-  objectKey: [{ required: true, message: '请输入对象编码', trigger: 'blur' }],
+  objectKey: [{ required: true, message: '请输入对象编码', trigger: 'blur' },{ pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母、下划线和数字', trigger: 'blur' }],
   objectName: [{ required: true, message: '请输入对象名称', trigger: 'blur' }],
 });
 
@@ -29,16 +29,16 @@ function onCancel() {
 
 async function onSubmit() {
   if (!formRef.value) return;
-  const valid = await formRef.value.validate(() => {});
+  const valid = await formRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
 
   objectDrawerVisible.value = false;
   if (editItem.value) {
-    emit('edit', { ...editItem.value, ...formValue });
+    emit('edit', { ...editItem.value, ...objectFormValue });
   } else {
-    emit('add', formValue);
+    emit('add', objectFormValue);
   }
 }
 
@@ -46,16 +46,14 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   objectDrawerVisible.value = true;
   nextTick(async () => {
-    if (formRef.value) {
-      formRef.value.resetFields();
-    }
+    formRef.value?.resetFields();
     if (item) {
       const res = await objectService.queryObjectInfo(item.id);
       if (res.success) {
-        formValue.id = res.result.id;
-        formValue.objectKey = res.result.objectKey;
-        formValue.objectName = res.result.objectName;
-        formValue.objectDesc = res.result.objectDesc;
+        objectFormValue.id = res.result.id;
+        objectFormValue.objectKey = res.result.objectKey;
+        objectFormValue.objectName = res.result.objectName;
+        objectFormValue.objectDesc = res.result.objectDesc;
         const propArray: ObjectProperty[] =res.result.props;
         if(Array.isArray(propArray) && propArray.length !== 0){
           const paramArray = propArray.map((item: ObjectProperty) => {
@@ -65,7 +63,7 @@ function open(item?: Record<string, any>) {
               dataType: item.dataType
             };
           });
-          formValue.props = paramArray;
+          objectFormValue.props = paramArray as any;
         }
       }
     }
@@ -85,18 +83,18 @@ defineExpose({ open });
 <template>
   <el-drawer v-model="objectDrawerVisible" :title="title">
     <div>
-      <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
+      <el-form ref="formRef" label-position="top" :model="objectFormValue" :rules="rules">
         <el-form-item label="对象编码" prop="objectKey">
-          <el-input v-model="formValue.objectKey" />
+          <el-input v-model="objectFormValue.objectKey" maxlength="20" />
         </el-form-item>
         <el-form-item label="对象名称" prop="objectName">
-          <el-input v-model="formValue.objectName" />
+          <el-input v-model="objectFormValue.objectName" maxlength="30"/>
         </el-form-item>
         <el-form-item label="对象描述">
-          <el-input type="textarea" v-model="formValue.objectDesc" />
+          <el-input type="textarea" v-model="objectFormValue.objectDesc" maxlength="120"/>
         </el-form-item>
         <el-form-item label="对象属性">
-          <ParamSetting v-model="formValue.props" addText="新增属性"/>
+          <ParamSetting v-model="objectFormValue.props" addText="新增属性"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

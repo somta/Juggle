@@ -82,6 +82,10 @@ export class DataBranchNode extends DataNode {
     return parent.raw?.conditions?.[this._branchIndex];
   }
 
+  get branchIndex () {
+    return this._branchIndex;
+  }
+
   get in () {
     const parent = this.getParent() as DataNode;
     return parent.key;

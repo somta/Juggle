@@ -9,12 +9,14 @@ import {
   EditNodeDrawer,
   ConditionFilterModal,
   LeftMenu,
+  ConditionItem,
 } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { addNode, deleteNode } from './design/operate';
 import { useFlowDataProvide } from './design/hooks/flow-data';
+import { DataBranchNode } from './design/renderer/data';
 
 const flowContext = useFlowDataProvide();
 const route = useRoute();
@@ -64,7 +66,15 @@ onMounted(async () => {
     onEdit: d => {
       console.log(d);
       if (d.data.type === ElementType.BRANCH) {
-        conditionFilterModal.value.open();
+        const data = d.data as DataBranchNode;
+        conditionFilterModal.value.open({
+          data: data.getParent()?.raw,
+          index: data.branchIndex,
+          afterSelect: (val: ConditionItem) => {
+            console.log(val);
+            flowRenderer.refresh();
+          }
+        });
       } else {
         editNodeModal.value.open({
           data: d.data.raw,

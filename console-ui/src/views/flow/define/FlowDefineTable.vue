@@ -20,6 +20,17 @@ function deleteRow(row: any, index: number) {
 function editRow(row: any) {
   emit('edit', row);
 }
+
+function flowTypeFormat(flowType: string) {
+  if (flowType == 'sync') {
+    return '同步';
+  } else if (flowType == 'async') {
+    return '异步';
+  } else {
+    return '未知';
+  }
+}
+
 function goDebugPage(flowDefinitionId: number, flowKey: string) {
   router.push({
     name: 'flow-debug',
@@ -44,9 +55,13 @@ function goDesignPage(flowDefinitionId: number, flowKey: string) {
   <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
     <el-table-column prop="flowKey" label="流程编码" width="180" />
     <el-table-column prop="flowName" label="流程名称" width="180" />
-    <el-table-column prop="flowType" label="流程类型" width="140" />
-    <el-table-column prop="createdAt" label="创建时间" width="140" />
+    <el-table-column prop="flowType" label="流程类型" width="140" >
+      <template #default="scope">
+        {{ flowTypeFormat(scope.row.flowType) }}
+      </template>
+    </el-table-column>
     <el-table-column prop="remark" label="流程描述" width="300" />
+    <el-table-column prop="createdAt" label="创建时间" width="140" />
     <el-table-column label="操作" width="250">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="goDesignPage(scope.row.id, scope.row.flowKey)"> 流程 </el-button>

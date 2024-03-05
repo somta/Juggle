@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref } from 'vue';
-import { FormInstance } from 'element-plus';
-import { ApiInfo, FlowDefineInfo } from '@/typings';
+import {FormInstance, FormRules} from 'element-plus';
+import {FlowDefineInfo, ObjectProperty} from '@/typings';
+import ParamSetting from "@/components/form/ParamSetting.vue";
+import {flowDefineService, objectService} from "@/service";
 
 const flowDefineDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const formValue = reactive<FlowDefineInfo>({
+const flowDefineFormValue = reactive<FlowDefineInfo>({
   id: null,
   flowName: '',
   flowType: '',
@@ -15,28 +17,49 @@ const formValue = reactive<FlowDefineInfo>({
   flowOutputParams: [],
 });
 
+const rules = reactive<FormRules>({
+  flowName: [{ required: true, message: '请输入流程名称', trigger: 'blur' }],
+  flowType: [{ required: true, message: '请选择流程类型', trigger: 'blur' }],
+});
+
+const emit = defineEmits(['add', 'edit']);
+
 function onCancel() {
   flowDefineDrawerVisible.value = false;
 }
 
 async function onSubmit() {
-  /*if (!formRef.value) return;
-  const valid = await formRef.value.validate(() => {});
+  if (!formRef.value) return;
+  const valid = await formRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
 
-  dialogVisible.value = false;
+  flowDefineDrawerVisible.value = false;
   if (editItem.value) {
-    emit('edit', { ...editItem.value, ...formValue });
+    emit('edit', { ...editItem.value, ...flowDefineFormValue });
   } else {
-    emit('add', formValue);
-  }*/
+    emit('add', flowDefineFormValue);
+  }
 }
 
 function open(item?: Record<string, any>) {
-  //editItem.value = item;
+  editItem.value = item;
   flowDefineDrawerVisible.value = true;
+  nextTick(async () => {
+    formRef.value?.resetFields();
+    if (item) {
+      const res = await flowDefineService.getDefineInfo(item.id);
+      if (res.success) {
+        flowDefineFormValue.id = res.result.id;
+        flowDefineFormValue.flowName = res.result.flowName;
+        flowDefineFormValue.flowType = res.result.flowType;
+        flowDefineFormValue.remark = res.result.remark;
+        flowDefineFormValue.flowInputParams = res.result.flowInputParams;
+        flowDefineFormValue.flowOutputParams = res.result.flowOutputParams;
+      }
+    }
+  });
 }
 
 const title = computed(() => {
@@ -52,18 +75,24 @@ defineExpose({ open });
 <template>
   <el-drawer v-model="flowDefineDrawerVisible" :title="title">
     <div>
-      <el-form ref="formRef">
-        <el-form-item label="流程名称">
-          <el-input />
+      <el-form ref="formRef" label-position="top" :model="flowDefineFormValue" :rules="rules">
+        <el-form-item label="流程名称" prop="flowName">
+          <el-input v-model="flowDefineFormValue.flowName" maxlength="30" />
         </el-form-item>
-        <el-form-item label="流程类型">
-          <el-select placeholder="请选择流程类型">
+        <el-form-item label="流程类型" prop="flowType">
+          <el-select placeholder="请选择流程类型" v-model="flowDefineFormValue.flowType">
             <el-option label="同步" value="sync" />
             <el-option label="异步" value="async" />
           </el-select>
         </el-form-item>
         <el-form-item label="流程描述">
-          <el-input type="textarea" />
+          <el-input type="textarea" v-model="flowDefineFormValue.remark" maxlength="80"/>
+        </el-form-item>
+        <el-form-item label="流程入参">
+          <ParamSetting v-model="flowDefineFormValue.flowInputParams" addText="新增入参" showRequired/>
+        </el-form-item>
+        <el-form-item label="流程出参">
+          <ParamSetting v-model="flowDefineFormValue.flowOutputParams" addText="新增出参" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

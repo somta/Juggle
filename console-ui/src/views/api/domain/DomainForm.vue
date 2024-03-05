@@ -10,7 +10,7 @@ const formValue = reactive({
   domainDesc: '',
 });
 const rules = reactive<FormRules>({
-  domainCode: [{ required: true, message: '请输入领域编码', trigger: 'blur' }],
+  domainCode: [{ required: true, message: '请输入领域编码', trigger: 'blur' },{ pattern: /^[a-zA-Z_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' }],
   domainName: [{ required: true, message: '请输入领域名称', trigger: 'blur' }],
 });
 
@@ -22,7 +22,7 @@ function onCancel() {
 
 async function onSubmit() {
   if (!formRef.value) return;
-  const valid = await formRef.value.validate(() => {});
+  const valid = await formRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
@@ -39,9 +39,7 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   dialogVisible.value = true;
   nextTick(() => {
-    if (formRef.value) {
-      formRef.value.resetFields();
-    }
+    formRef.value?.resetFields();
     if (item) {
       formValue.domainCode = item.domainCode;
       formValue.domainName = item.domainName;
@@ -64,13 +62,13 @@ defineExpose({ open });
     <div class="form">
       <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="领域编码" prop="domainCode">
-          <el-input v-model="formValue.domainCode" />
+          <el-input v-model="formValue.domainCode" maxlength="20" />
         </el-form-item>
         <el-form-item label="领域名称" prop="domainName">
-          <el-input v-model="formValue.domainName" />
+          <el-input v-model="formValue.domainName" maxlength="30" />
         </el-form-item>
         <el-form-item label="领域描述" prop="domainDesc">
-          <el-input v-model="formValue.domainDesc" type="textarea" />
+          <el-input v-model="formValue.domainDesc" type="textarea" maxlength="120" />
         </el-form-item>
       </el-form>
     </div>
