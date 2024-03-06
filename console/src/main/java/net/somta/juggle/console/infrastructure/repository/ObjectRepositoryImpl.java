@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository;
 
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.domain.object.repository.IObjectRepository;
 import net.somta.juggle.console.domain.object.vo.ObjectVO;
@@ -40,9 +41,7 @@ public class ObjectRepositoryImpl implements IObjectRepository {
         objectPo.setObjectName(objectAo.getObjectName());
         objectPo.setObjectDesc(objectAo.getObjectDesc());
         objectPo.setCreatedAt(new Date());
-        //todo 开放权限拦截器后，要加上创建人的逻辑
-        //Long userId = IdentityContext.getIdentity().getUserId();
-        //objPo.setCreatedBy(userId);
+        objectPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         objectMapper.addObject(objectPo);
 
         List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAo.getPropertyList());
@@ -67,9 +66,8 @@ public class ObjectRepositoryImpl implements IObjectRepository {
         objectPo.setObjectKey(objectAo.getObjectKey());
         objectPo.setObjectName(objectAo.getObjectName());
         objectPo.setObjectDesc(objectAo.getObjectDesc());
-        //todo 开放权限拦截器后，要加上创建人的逻辑
-        //Long userId = IdentityContext.getIdentity().getUserId();
-        //objPo.setUpdatedBy(userId);
+        objectPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        objectPo.setUpdatedAt(new Date());
         objectMapper.update(objectPo);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJECT.getCode(), objectAo.getId()));

@@ -24,13 +24,13 @@ public class IntegerParser implements IExpressionParser {
             case GREATER_THAN:
                 expression = conditionExpression.getEnvKey() + ">" + conditionExpression.getValue();
                 break;
-            case NOT_LESS_THAN:
+            case GREATER_THAN_OR_EQUAL:
                 expression = conditionExpression.getEnvKey() + ">=" + conditionExpression.getValue();
                 break;
             case LESS_THAN:
                 expression = conditionExpression.getEnvKey() + "<" + conditionExpression.getValue();
                 break;
-            case NOT_GREATER_THAN:
+            case LESS_THAN_OR_EQUAL:
                 expression = conditionExpression.getEnvKey() + "<=" + conditionExpression.getValue();
                 break;
             default:

@@ -59,10 +59,10 @@ defineExpose({ add, edit });
       labelPosition="top"
     >
       <el-form-item label="变量键">
-        <el-input v-model="form.envKey" placeholder="请输入" />
+        <el-input v-model="form.envKey" placeholder="请输入" maxlength="30" />
       </el-form-item>
       <el-form-item label="变量名">
-        <el-input v-model="form.envName" placeholder="请输入" />
+        <el-input v-model="form.envName" placeholder="请输入" maxlength="30" />
       </el-form-item>
       <el-form-item label="变量类型">
         <DataTypeSelect v-model="form.dataType" jsonParse />

@@ -56,12 +56,12 @@ function openDelete(row: any) {
     type: 'warning',
   })
     .then(() => {
-      deleteItem(row);
+      deleteDomainItem(row);
     })
     .catch(() => {});
 }
 
-async function addItem(row: any) {
+async function addDomainItem(row: any) {
   const res = await apiService.domainAdd(row);
   if (res.result) {
     ElMessage({ type: 'success', message: '新建成功' });
@@ -71,7 +71,7 @@ async function addItem(row: any) {
   }
 }
 
-async function editItem(row: any) {
+async function editDomainItem(row: any) {
   const res = await apiService.domainUpdate(row);
   if (res.result) {
     ElMessage({ type: 'success', message: '编辑成功' });
@@ -81,7 +81,7 @@ async function editItem(row: any) {
   }
 }
 
-async function deleteItem(row: any) {
+async function deleteDomainItem(row: any) {
   const res = await apiService.domainDelete(row.id);
   if (res.result) {
     ElMessage({ type: 'success', message: '删除成功' });
@@ -111,7 +111,7 @@ async function deleteItem(row: any) {
         />
       </el-main>
     </el-container>
-    <DomainForm ref="formRef" @add="addItem" @edit="editItem" />
+    <DomainForm ref="formRef" @add="addDomainItem" @edit="editDomainItem" />
   </div>
 </template>
 

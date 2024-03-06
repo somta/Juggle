@@ -1,6 +1,7 @@
 package net.somta.juggle.console.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
@@ -276,6 +277,17 @@ public class FlowDefinitionHelper {
 
 
     public static void main(String[] args) {
-        System.out.println(getFlowDefinitionContent());
+        String flowContent = getFlowDefinitionContent();
+        System.out.println(flowContent);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<FlowElement> nodeList = new ArrayList<>();
+        try {
+            nodeList = objectMapper.readValue(flowContent, new TypeReference<List<FlowElement>>() {});
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(nodeList.size());
+
     }
 }

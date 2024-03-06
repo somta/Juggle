@@ -61,7 +61,7 @@ class DoubleParserTest {
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_money");
         conditionExpression.setDataType(DataTypeEnum.Double);
-        conditionExpression.setOperator(OperatorEnum.NOT_LESS_THAN.getCode());
+        conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(conditionExpression);
@@ -85,7 +85,7 @@ class DoubleParserTest {
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_money");
         conditionExpression.setDataType(DataTypeEnum.Double);
-        conditionExpression.setOperator(OperatorEnum.NOT_GREATER_THAN.getCode());
+        conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(conditionExpression);

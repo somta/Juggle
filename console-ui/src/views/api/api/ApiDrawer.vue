@@ -32,7 +32,7 @@ const formValue = reactive<ApiInfo>(getDefault());
 const rules = reactive<FormRules>({
   domainId: [{ required: true, message: '请选择领域', trigger: 'blur' }],
   apiName: [{ required: true, message: '请输入接口名称', trigger: 'blur' }],
-  apiUrl: [{ required: true, message: '请输入接口地址', trigger: 'blur' },{ type:'url', message: '接口地址格式错误', trigger: ['blur', 'change'] }],
+  apiUrl: [{ required: true, message: '请输入接口地址', trigger: 'blur' },{ type:'url', message: '请输入正确的接口地址 如: http://127.0.0.1/getUser', trigger: ['blur', 'change'] }],
   apiRequestType: [{ required: true, message: '请选择请求类型', trigger: 'blur' }],
   apiRequestContentType: [{ required: true, message: '请选择请求内容类型', trigger: 'blur' }],
 });

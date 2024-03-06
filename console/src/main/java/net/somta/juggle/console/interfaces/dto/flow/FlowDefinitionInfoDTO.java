@@ -36,6 +36,7 @@ public class FlowDefinitionInfoDTO {
      * 流程描述
      */
     private String remark;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
 

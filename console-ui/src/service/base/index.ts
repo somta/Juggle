@@ -41,6 +41,7 @@ function createRequestInstance() {
       if (error.response) {
         Object.assign(result, error.response.data);
         if (error.response.status === 401) {
+          window.localStorage.clear();
           window.location.href = '/login';
         }
       }

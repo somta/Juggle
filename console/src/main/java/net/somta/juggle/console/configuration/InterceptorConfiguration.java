@@ -18,9 +18,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // todo 先把登录校验关掉
-        /*registry.addInterceptor(new AuthInterceptor())
+        registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/v1/**")
-                .excludePathPatterns("/v1/user/login","/v1/flow/version/trigger/**","/v1/flow/version/getAsyncFlowResult/*");*/
+                .excludePathPatterns("/v1/user/login","/v1/flow/version/trigger/**","/v1/flow/version/getAsyncFlowResult/*");
     }
 }

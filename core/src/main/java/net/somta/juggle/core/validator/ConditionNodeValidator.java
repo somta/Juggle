@@ -8,12 +8,12 @@ import net.somta.juggle.core.model.node.FlowNode;
  */
 public class ConditionNodeValidator extends AbstractElementValidator{
     @Override
-    protected void doValidateIncoming(FlowNode flowNode) {
+    protected void doValidateIncoming(FlowElement flowElement) {
 
     }
 
     @Override
-    protected void doValidateOutgoing(FlowNode flowNode) {
+    protected void doValidateOutgoing(FlowElement flowElement) {
 
     }
 }

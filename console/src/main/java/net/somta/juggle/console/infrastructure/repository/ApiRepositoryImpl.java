@@ -1,6 +1,7 @@
 package net.somta.juggle.console.infrastructure.repository;
 
 import net.somta.core.exception.BizException;
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.api.ApiAO;
 import net.somta.juggle.console.domain.api.enums.ApiErrorEnum;
 import net.somta.juggle.console.domain.api.repository.IApiRepository;
@@ -39,16 +40,9 @@ public class ApiRepositoryImpl implements IApiRepository {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean addApi(ApiAO apiAo) {
-        ApiPO apiPo = new ApiPO();
-        apiPo.setDomainId(apiAo.getDomainId());
-        apiPo.setApiUrl(apiAo.getApiUrl());
-        apiPo.setApiName(apiAo.getApiName());
-        apiPo.setApiDesc(apiAo.getApiDesc());
-        apiPo.setApiRequestType(apiAo.getApiRequestType().name());
-        apiPo.setApiRequestContentType(apiAo.getApiRequestContentType());
+        ApiPO apiPo = IApiConverter.IMPL.aoToPo(apiAo);
         apiPo.setCreatedAt(new Date());
-        //todo 开放权限拦截器后，要加上创建人的逻辑
-        //apiPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        apiPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         apiMapper.addApi(apiPo);
 
         List<ParameterPO> parameterPoList = new ArrayList<>();
@@ -74,16 +68,9 @@ public class ApiRepositoryImpl implements IApiRepository {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean updateApi(ApiAO apiAo) {
-        ApiPO apiPo = new ApiPO();
-        apiPo.setId(apiAo.getId());
-        apiPo.setDomainId(apiAo.getDomainId());
-        apiPo.setApiUrl(apiAo.getApiUrl());
-        apiPo.setApiName(apiAo.getApiName());
-        apiPo.setApiDesc(apiAo.getApiDesc());
-        apiPo.setApiRequestType(apiAo.getApiRequestType().name());
-        apiPo.setApiRequestContentType(apiAo.getApiRequestContentType());
-        //todo 开放权限拦截器后，要加上创建人的逻辑
-        //apiPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        ApiPO apiPo = IApiConverter.IMPL.aoToPo(apiAo);
+        apiPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        apiPo.setUpdatedAt(new Date());
         apiMapper.update(apiPo);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiAo.getId()));

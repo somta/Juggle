@@ -25,13 +25,13 @@ public class DateParser implements IExpressionParser {
             case GREATER_THAN:
                 expression = "date.gt("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
-            case NOT_LESS_THAN:
+            case GREATER_THAN_OR_EQUAL:
                 expression = "date.ge("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             case LESS_THAN:
                 expression = "date.lt("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
-            case NOT_GREATER_THAN:
+            case LESS_THAN_OR_EQUAL:
                 expression = "date.le("+conditionExpression.getEnvKey()+",'"+conditionExpression.getValue()+"')";
                 break;
             default:

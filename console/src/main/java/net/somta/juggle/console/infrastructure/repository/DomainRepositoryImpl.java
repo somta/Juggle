@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository;
 
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.domain.DomainEntity;
 import net.somta.juggle.console.domain.domain.repository.IDomainRepository;
 import net.somta.juggle.console.domain.domain.vo.DomainQueryVO;
@@ -26,6 +27,7 @@ public class DomainRepositoryImpl implements IDomainRepository {
     @Override
     public void addDomain(DomainEntity domainEntity) {
         DomainPO domainPo = IDomainConverter.IMPL.entityToPo(domainEntity);
+        domainPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         domainPo.setCreatedAt(new Date());
         domainMapper.add(domainPo);
     }
@@ -39,6 +41,8 @@ public class DomainRepositoryImpl implements IDomainRepository {
     public void updateDomain(Long domainId, DomainEntity domainEntity) {
         DomainPO domainPo = IDomainConverter.IMPL.entityToPo(domainEntity);
         domainPo.setId(domainId);
+        domainPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        domainPo.setUpdatedAt(new Date());
         domainMapper.update(domainPo);
     }
 

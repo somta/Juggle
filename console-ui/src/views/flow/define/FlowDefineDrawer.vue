@@ -92,7 +92,7 @@ defineExpose({ open });
           </el-select>
         </el-form-item>
         <el-form-item label="流程描述">
-          <el-input type="textarea" v-model="flowDefineFormValue.remark" maxlength="80"/>
+          <el-input type="textarea" v-model="flowDefineFormValue.remark" maxlength="120"/>
         </el-form-item>
         <el-form-item label="流程入参">
           <ParamSetting v-model="flowDefineFormValue.flowInputParams" addText="新增入参" showRequired/>

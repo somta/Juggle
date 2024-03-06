@@ -46,7 +46,7 @@ CREATE TABLE `t_api` (
 );
 
 -- ----------------------------
--- Table structure for t_obj
+-- Table structure for t_object
 -- ----------------------------
 CREATE TABLE `t_object` (
  `id` bigint NOT NULL AUTO_INCREMENT,
@@ -58,7 +58,7 @@ CREATE TABLE `t_object` (
  `updated_at` datetime DEFAULT NULL,
  `updated_by` bigint DEFAULT NULL,
  PRIMARY KEY (`id`)
-)
+);
 
 -- ----------------------------
 -- Table structure for t_flow_definition
@@ -85,6 +85,7 @@ CREATE TABLE `t_parameter` (
   `param_type` int(2) DEFAULT NULL,
   `param_key` varchar(20) DEFAULT NULL,
   `param_name` varchar(30) DEFAULT NULL,
+  `param_desc` varchar(100) DEFAULT NULL,
   `data_type` varchar(200) DEFAULT NULL,
   `required` int(2) DEFAULT NULL,
   `source_type` varchar(8) DEFAULT NULL,

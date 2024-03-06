@@ -7,7 +7,6 @@ import {
   ElementType,
   AddNodeModal,
   EditNodeDrawer,
-  ConditionFilterModal,
   LeftMenu,
   ConditionItem,
 } from './design';
@@ -21,7 +20,7 @@ import { DataBranchNode } from './design/renderer/data';
 const flowContext = useFlowDataProvide();
 const route = useRoute();
 async function queryFlowDefineInfo() {
-  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as string);
+  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as number);
   if (res.success) {
     flowContext.update(draft => {
       Object.assign(draft, res.result);

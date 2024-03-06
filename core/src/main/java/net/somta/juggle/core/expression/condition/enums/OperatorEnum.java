@@ -12,9 +12,9 @@ public enum OperatorEnum {
     CONTAINS("contains","包含"),
     NOT_CONTAINS("notContains","不包含"),
     GREATER_THAN("greaterThan","大于"),
-    NOT_LESS_THAN("notLessThan","大于等于"),
+    GREATER_THAN_OR_EQUAL("greaterThanOrEqual","大于等于"),
     LESS_THAN("lessThan","小于"),
-    NOT_GREATER_THAN("notGreaterThan","小于等于");
+    LESS_THAN_OR_EQUAL("lessThanOrEqual","小于等于");
 
     private String code;
     private String desc;

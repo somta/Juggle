@@ -72,7 +72,7 @@ class DateParserTest {
         ConditionExpression conditionExpression = new ConditionExpression();
         conditionExpression.setEnvKey("env_birthday");
         conditionExpression.setDataType(DataTypeEnum.Date);
-        conditionExpression.setOperator(OperatorEnum.NOT_LESS_THAN.getCode());
+        conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("2023-12-13 18:14:34");
         String str =  dateParser.genExpression(conditionExpression);
@@ -96,7 +96,7 @@ class DateParserTest {
         ConditionExpression conditionExpression = new ConditionExpression();
         conditionExpression.setEnvKey("env_birthday");
         conditionExpression.setDataType(DataTypeEnum.Date);
-        conditionExpression.setOperator(OperatorEnum.NOT_GREATER_THAN.getCode());
+        conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("2023-12-13 18:14:34");
         String str =  dateParser.genExpression(conditionExpression);

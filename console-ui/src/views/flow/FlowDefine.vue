@@ -162,7 +162,7 @@ function openEdit(row: any) {
           <el-input v-model="deployForm.flowDeployVersion" disabled />
         </el-form-item>
         <el-form-item label="版本描述">
-          <el-input type="textarea" v-model="deployForm.flowVersionRemark" />
+          <el-input type="textarea" v-model="deployForm.flowVersionRemark" maxlength="120"/>
         </el-form-item>
       </el-form>
       <template #footer>

@@ -6,8 +6,6 @@ import net.somta.juggle.core.model.node.ConditionNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class IntegerParserTest {
 
     @Test
@@ -63,7 +61,7 @@ class IntegerParserTest {
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_age");
         conditionExpression.setDataType(DataTypeEnum.Integer);
-        conditionExpression.setOperator(OperatorEnum.NOT_LESS_THAN.getCode());
+        conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("18");
         String str =  integerParser.genExpression(conditionExpression);
@@ -87,7 +85,7 @@ class IntegerParserTest {
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_age");
         conditionExpression.setDataType(DataTypeEnum.Integer);
-        conditionExpression.setOperator(OperatorEnum.NOT_GREATER_THAN.getCode());
+        conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("18");
         String str =  integerParser.genExpression(conditionExpression);

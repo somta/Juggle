@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository.flow;
 
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.flow.definition.FlowDefinitionAO;
 import net.somta.juggle.console.domain.flow.definition.repository.IFlowDefinitionRepository;
 import net.somta.juggle.console.domain.flow.definition.vo.FlowDefinitionInfoQueryVO;
@@ -50,6 +51,7 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     public Long addFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionInfoPo.setCreatedAt(new Date());
+        flowDefinitionInfoPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         Long flowDefinitionId = flowDefinitionMapper.addFlowDefinitionInfo(flowDefinitionInfoPo);
 
         saveParametersAndVariables(flowDefinitionInfoPo.getId(),flowDefinitionAo);
@@ -68,6 +70,8 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     @Override
     public Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
+        flowDefinitionInfoPo.setUpdatedAt(new Date());
+        flowDefinitionInfoPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
         flowDefinitionMapper.update(flowDefinitionInfoPo);
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionAo.getId()));
         variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAo.getId());

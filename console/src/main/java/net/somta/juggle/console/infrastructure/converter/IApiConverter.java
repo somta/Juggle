@@ -9,6 +9,7 @@ import net.somta.juggle.console.infrastructure.po.ApiPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public interface IApiConverter {
     IApiConverter IMPL = Mappers.getMapper(IApiConverter.class);
 
     ApiAO poToAo(ApiPO apiPo);
+
+    @Mapping(target = "apiRequestType", expression = "java(apiAo.getApiRequestType().name())")
+    ApiPO aoToPo(ApiAO apiAo);
 
     List<ApiVO> poListToVoList(List<ApiPO> apiList);
 

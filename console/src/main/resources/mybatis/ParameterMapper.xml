@@ -9,6 +9,7 @@
 	<result column="param_type" property="paramType"/>
 	<result column="param_key" property="paramKey"/>
 	<result column="param_name" property="paramName"/>
+	<result column="param_desc" property="paramDesc"/>
 	<result column="data_type" property="dataType"/>
 	<result column="required" property="required"/>
 	<result column="source_type" property="sourceType"/>
@@ -17,19 +18,19 @@
        
 <!-- t_parameter table all fields -->
 <sql id="Base_Column_List" >
-	id, param_type, param_key, param_name, data_type, required, source_type, source_id
+	id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id
 </sql>
    
 <insert id="addParameter" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
-	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id)
-	values (#{id},#{paramType},#{paramKey},#{paramName},#{dataType},#{required},#{sourceType},#{sourceId});
+	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id)
+	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId});
 </insert>
 
 <insert id="batchAddParameter" parameterType="java.util.List">
-	insert into t_parameter (id, param_type, param_key, param_name, data_type, required, source_type, source_id,created_at)
+	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id,created_at)
 	values
 	<foreach collection ="parameterList" item="param" separator =",">
-		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},#{param.createdAt})
+		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.paramDesc},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},#{param.createdAt})
 	</foreach>
 </insert>
 

@@ -83,7 +83,7 @@ async function addApiItem(row: any) {
     ElMessage({ type: 'success', message: '新建成功' });
     await queryPage();
   } else {
-    ElMessage({ type: 'error', message: '新建失败' });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
@@ -105,7 +105,7 @@ async function editApiItem(row: any) {
     ElMessage({ type: 'success', message: '编辑成功' });
     await queryPage();
   } else {
-    ElMessage({ type: 'error', message: '编辑失败' });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 

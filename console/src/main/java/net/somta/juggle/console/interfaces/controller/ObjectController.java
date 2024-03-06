@@ -53,7 +53,8 @@ public class ObjectController {
     @PutMapping("/update")
     public ResponseDataResult<Boolean> updateObject(@RequestBody ObjectUpdateParam objectUpdateParam){
         ObjectAO objectAo = objectService.getObjectInfoByKey(objectUpdateParam.getObjectKey());
-        if(objectUpdateParam.getObjectKey().equals(objectAo.getObjectKey())){
+        if(objectAo != null && !objectUpdateParam.getId().equals(objectAo.getId()) &&
+                objectUpdateParam.getObjectKey().equals(objectAo.getObjectKey())){
             return ResponseDataResult.setErrorResponseResult(OBJECT_KEY_EXIST);
         }
         objectService.updateObject(objectUpdateParam);

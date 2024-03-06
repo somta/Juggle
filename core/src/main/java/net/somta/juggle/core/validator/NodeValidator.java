@@ -1,6 +1,7 @@
 package net.somta.juggle.core.validator;
 
 import net.somta.juggle.core.enums.ElementTypeEnum;
+import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.node.FlowNode;
 
 /**
@@ -8,10 +9,10 @@ import net.somta.juggle.core.model.node.FlowNode;
  */
 public class NodeValidator {
 
-    public void validateNode(FlowNode flowNode){
-        IValidator validator = getElementValidator(flowNode.getElementType());
+    public void validateNode(FlowElement flowElement){
+        IValidator validator = getElementValidator(flowElement.getElementType());
         if(validator != null){
-            validator.validateFlow(flowNode);
+            validator.validateFlow(flowElement);
         }
     }
 

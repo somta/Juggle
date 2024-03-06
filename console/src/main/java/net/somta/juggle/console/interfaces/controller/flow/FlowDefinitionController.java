@@ -1,5 +1,6 @@
 package net.somta.juggle.console.interfaces.controller.flow;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,10 +16,13 @@ import net.somta.juggle.console.interfaces.dto.flow.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.console.application.service.flow.IFlowDefinitionService;
 import net.somta.juggle.common.param.TriggerDataParam;
+import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.model.node.FlowNode;
 import net.somta.juggle.core.validator.NodeValidator;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +39,7 @@ import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.
 @RestController
 @RequestMapping(JUGGLE_SERVER_VERSION + "/flow/definition")
 public class FlowDefinitionController {
+    private final static Logger logger = LoggerFactory.getLogger(FlowDefinitionController.class);
 
     private final IFlowDefinitionService flowDefinitionService;
     private final ObjectMapper objectMapper;
@@ -151,12 +156,16 @@ public class FlowDefinitionController {
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
         try {
-            List<FlowNode> nodeList = objectMapper.readValue(flowDefinitionAo.getFlowContent(), new TypeReference<List<FlowNode>>() {});
+            //todo 大概率是字符串表达式的单引号导致 这里的json出错
+            //objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+            List<FlowElement> nodeList = objectMapper.readValue(flowDefinitionAo.getFlowContent(), new TypeReference<List<FlowElement>>() {});
             NodeValidator nodeValidator = new NodeValidator();
-            for (FlowNode flowNode :  nodeList) {
-                nodeValidator.validateNode(flowNode);
+            for (FlowElement flowElement :  nodeList) {
+                nodeValidator.validateNode(flowElement);
             }
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_CONTENT_VALIDATOR_ERROR);
         }
 

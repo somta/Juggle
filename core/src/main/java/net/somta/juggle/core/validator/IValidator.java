@@ -11,7 +11,7 @@ import net.somta.juggle.core.model.node.FlowNode;
  */
 public interface IValidator {
 
-    Boolean validateFlow(FlowNode flowNode);
+    Boolean validateFlow(FlowElement flowElement);
 
 
 }

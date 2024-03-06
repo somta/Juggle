@@ -26,6 +26,8 @@ public class ParameterPO extends BaseModel {
      */
     private String paramName;
 
+    private String paramDesc;
+
     /**
      * 参数的数据类型
      */
@@ -73,6 +75,14 @@ public class ParameterPO extends BaseModel {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
+    }
+
+    public String getParamDesc() {
+        return paramDesc;
+    }
+
+    public void setParamDesc(String paramDesc) {
+        this.paramDesc = paramDesc;
     }
 
     public String getDataType() {
