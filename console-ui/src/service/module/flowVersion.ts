@@ -15,3 +15,8 @@ export async function queryFlowVersionPage(params: Parameters<typeof flowVersion
 export async function deleteFlowVersionById(params: Parameters<typeof flowVersionAPI.deleteFlowVersion>[0]) {
   return flowVersionAPI.deleteFlowVersion(params);
 }
+
+export async function getAsyncFlowResult(flowInstanceId: string) {
+  return flowVersionAPI.getAsyncFlowResult(flowInstanceId);
+}
+

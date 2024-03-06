@@ -69,8 +69,8 @@ public class ObjectController {
 
     @Operation(summary = "根据对象列表")
     @GetMapping("/list")
-    public ResponseDataResult<List<ObjectDTO>> getObjectList(){
-        List<ObjectDTO> objList = objectService.getObjectList();
+    public ResponseDataResult<List<ObjectDTO>> getObjectInfoList(){
+        List<ObjectDTO> objList = objectService.getObjectInfoList();
         return ResponseDataResult.setResponseResult(objList);
     }
 

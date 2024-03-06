@@ -20,7 +20,7 @@ public interface IObjectRepository {
 
     ObjectAO queryObjectInfoByKey(String objectKey);
 
-    List<ObjectVO> queryObjectList();
+    List<ObjectVO> queryObjectInfoList();
 
     List<ObjectVO> queryObjectPageList(ObjectQueryParam objectQueryParam);
 

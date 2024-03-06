@@ -3,6 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.ObjectMapper" >
+    <resultMap id="objectInfoResultMap" type="net.somta.juggle.console.infrastructure.view.ObjectInfoView">
+        <id column="id" property="id"/>
+        <result column="object_key" property="objectKey"/>
+        <result column="object_name" property="objectName"/>
+        <result column="object_desc" property="objectDesc"/>
+        <collection property="propertyList" ofType="net.somta.juggle.console.domain.object.vo.PropertyVO">
+            <result column="param_key" property="propKey"/>
+            <result column="param_name" property="propName"/>
+            <result column="data_type" property="dataType"/>
+        </collection>
+
+    </resultMap>
+
     <insert id="addObject" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.ApiPO" >
         insert into t_object (id, object_key, object_name, object_desc, created_at, created_by, updated_at, updated_by)
         values (#{id},#{objectKey},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
@@ -11,6 +24,13 @@
     <select id="queryObjectInfoByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
         select id, object_key, object_name, object_desc
         from t_object where object_key = #{objectKey}
+    </select>
+
+    <select id="queryObjectInfoList" resultMap="objectInfoResultMap">
+        select o.id, o.object_key, o.object_name, o.object_desc,
+               p.param_key, p.param_name, p.data_type
+        from t_object o
+        LEFT JOIN t_parameter p ON o.id = p.source_id and p.source_type = "object"
     </select>
 
 </mapper>   

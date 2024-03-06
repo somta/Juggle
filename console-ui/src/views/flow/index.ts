@@ -21,7 +21,7 @@ export const FlowRoutes = [
       },
       {
         path: 'list',
-        name: 'flow-list',
+        name: 'flow-api',
         component: FlowList,
         meta: { name: '流程列表' },
       },

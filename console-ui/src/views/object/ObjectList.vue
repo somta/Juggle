@@ -6,7 +6,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import ObjectFilter from "@/views/object/ObjectFilter.vue";
 import ObjectTable from "@/views/object/ObjectTable.vue";
 import ObjectDrawer from "@/views/object/ObjectDrawer.vue";
-import {ListForm} from "@/views/api/list";
+import {ListForm} from "src/views/api/api";
 import {ObjectProperty, OutputParams} from "@/typings";
 import {updateObject} from "@/service/module/object.ts";
 
@@ -68,7 +68,7 @@ function openDelete(row: any) {
     .catch(() => {});
 }
 
-async function addItem(row: any) {
+async function addObjectItem(row: any) {
   const paramArray = row.props;
   if(Array.isArray(paramArray) && paramArray.length !== 0){
     const propArray = paramArray.map((item: any) => {
@@ -89,7 +89,7 @@ async function addItem(row: any) {
   }
 }
 
-async function editItem(row: any) {
+async function editObjectItem(row: any) {
   const paramArray = row.props;
   if(Array.isArray(paramArray) && paramArray.length !== 0){
     const propArray = paramArray.map((item: OutputParams) => {
@@ -140,7 +140,7 @@ async function deleteItem(row: any) {
         />
       </el-main>
     </el-container>
-    <ObjectDrawer ref="formRef" @add="addItem" @edit="editItem" />
+    <ObjectDrawer ref="formRef" @add="addObjectItem" @edit="editObjectItem" />
   </div>
 </template>
 

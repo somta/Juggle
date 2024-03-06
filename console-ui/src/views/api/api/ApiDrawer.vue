@@ -6,12 +6,13 @@ import ParamSetting from '@/components/form/ParamSetting.vue';
 import { apiService } from '@/service';
 import type { ApiInfo } from '@/typings';
 import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const';
+import {ApiHeader, ObjectProperty} from "@/typings";
 
 const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
 const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 
 const dialogVisible = ref(false);
-const formRef = ref<FormInstance>();
+const apiFormRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
 function getDefault () {
   return {
@@ -43,8 +44,8 @@ function onCancel() {
 }
 
 async function onSubmit() {
-  if (!formRef.value) return;
-  const valid = await formRef.value?.validate(() => {});
+  if (!apiFormRef.value) return;
+  const valid = await apiFormRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
@@ -61,7 +62,7 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   dialogVisible.value = true;
   nextTick(async () => {
-    formRef.value?.resetFields();
+    apiFormRef.value?.resetFields();
     if (item) {
       const res = await apiService.queryApiInfo(item.id);
       if (res.success) {
@@ -72,7 +73,18 @@ function open(item?: Record<string, any>) {
         formValue.apiUrl = res.result.apiUrl;
         formValue.apiRequestType = res.result.apiRequestType;
         formValue.apiRequestContentType = res.result.apiRequestContentType;
-        formValue.apiHeaders = res.result.apiHeaders;
+        const headerArray: ApiHeader[] = res.result.apiHeaders;
+        if (Array.isArray(headerArray) && headerArray.length !== 0) {
+          const paramArray = headerArray.map((item: ApiHeader) => {
+            return {
+              paramKey: item.headerKey,
+              paramName: item.headerName,
+              dataType: item.dataType,
+              required: item.required
+            };
+          });
+          formValue.apiHeaders = paramArray as any;
+        }
         formValue.apiInputParams = res.result.apiInputParams;
         formValue.apiOutputParams = res.result.apiOutputParams;
       }
@@ -95,7 +107,7 @@ defineExpose({ open });
 <template>
   <el-drawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose>
     <div class="form">
-      <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
+      <el-form ref="apiFormRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="领域" prop="domainId">
           <DomainSelect v-model="formValue.domainId" :auto="true" />
         </el-form-item>
@@ -126,7 +138,7 @@ defineExpose({ open });
           <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" maxlength="120"/>
         </el-form-item>
         <el-form-item label="请求头">
-          <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" showRequired/>
+          <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" dataTypeClassify="basic" showRequired/>
         </el-form-item>
         <el-form-item label="入参">
           <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showRequired/>

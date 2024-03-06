@@ -8,13 +8,17 @@ import {objectService} from "@/service";
 const objectDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const objectFormValue = reactive<ObjectInfo>({
-  id: null,
-  objectKey: '',
-  objectName: '',
-  objectDesc: '',
-  props: []
-});
+const objectFormValue = reactive<ObjectInfo>(getDefaultObject());
+
+function getDefaultObject() {
+  return {
+    id: null,
+    objectKey: '',
+    objectName: '',
+    objectDesc: '',
+    props: []
+  }
+}
 
 const rules = reactive<FormRules>({
   objectKey: [{ required: true, message: '请输入对象编码', trigger: 'blur' },{ pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母、下划线和数字', trigger: 'blur' }],
@@ -66,6 +70,8 @@ function open(item?: Record<string, any>) {
           objectFormValue.props = paramArray as any;
         }
       }
+    } else {
+      Object.assign(objectFormValue, getDefaultObject());
     }
   });
 }
@@ -81,7 +87,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="objectDrawerVisible" :title="title">
+  <el-drawer v-model="objectDrawerVisible" :title="title" destroyOnClose>
     <div>
       <el-form ref="formRef" label-position="top" :model="objectFormValue" :rules="rules">
         <el-form-item label="对象编码" prop="objectKey">

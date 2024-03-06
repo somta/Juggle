@@ -10,6 +10,7 @@ import net.somta.juggle.console.infrastructure.mapper.ObjectMapper;
 import net.somta.juggle.console.infrastructure.mapper.ParameterMapper;
 import net.somta.juggle.console.infrastructure.po.ObjectPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
+import net.somta.juggle.console.infrastructure.view.ObjectInfoView;
 import net.somta.juggle.console.interfaces.param.ObjectQueryParam;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
@@ -55,7 +56,7 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     @Override
     public Boolean deleteObjectById(Long objId) {
         objectMapper.deleteById(objId);
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(),objId));
+        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJECT.getCode(),objId));
         return true;
     }
 
@@ -71,7 +72,7 @@ public class ObjectRepositoryImpl implements IObjectRepository {
         //objPo.setUpdatedBy(userId);
         objectMapper.update(objectPo);
 
-        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(), objectAo.getId()));
+        parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.OBJECT.getCode(), objectAo.getId()));
         List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAo.getPropertyList());
         if(CollectionUtils.isNotEmpty(propertyPoList)){
             parameterMapper.batchAddParameter(propertyPoList);
@@ -83,7 +84,7 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     public ObjectAO queryObject(Long objId) {
         ObjectPO objectPo = objectMapper.queryById(objId);
         ObjectAO objectAo = IObjectConverter.IMPL.poToAo(objectPo);
-        List<ParameterPO> propertyList = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.OBJ.getCode(),objId));
+        List<ParameterPO> propertyList = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.OBJECT.getCode(),objId));
         objectAo.parseProperty(propertyList);
         return objectAo;
     }
@@ -96,9 +97,9 @@ public class ObjectRepositoryImpl implements IObjectRepository {
     }
 
     @Override
-    public List<ObjectVO> queryObjectList() {
-        List<ObjectPO> objectPoList = objectMapper.queryByList(new ObjectQueryParam());
-        List<ObjectVO> objectVoList = IObjectConverter.IMPL.poListToVoList(objectPoList);
+    public List<ObjectVO> queryObjectInfoList() {
+        List<ObjectInfoView> objectViewList = objectMapper.queryObjectInfoList();
+        List<ObjectVO> objectVoList = IObjectConverter.IMPL.viewListToVoList(objectViewList);
         return objectVoList;
     }
 

@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref } from 'vue';
 import {FormInstance, FormRules} from 'element-plus';
-import {FlowDefineInfo, ObjectProperty} from '@/typings';
+import {FlowDefineInfo} from '@/typings';
 import ParamSetting from "@/components/form/ParamSetting.vue";
-import {flowDefineService, objectService} from "@/service";
+import {flowDefineService} from "@/service";
 
 const flowDefineDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-const flowDefineFormValue = reactive<FlowDefineInfo>({
-  id: null,
-  flowName: '',
-  flowType: '',
-  remark: '',
-  flowInputParams: [],
-  flowOutputParams: [],
-});
+const flowDefineFormValue = reactive<FlowDefineInfo>(getDefaultFlowDefine());
+
+function getDefaultFlowDefine() {
+  return {
+    id: null,
+    flowName: '',
+    flowType: '',
+    remark: '',
+    flowInputParams: [],
+    flowOutputParams: [],
+  }
+}
 
 const rules = reactive<FormRules>({
   flowName: [{ required: true, message: '请输入流程名称', trigger: 'blur' }],
@@ -58,6 +62,8 @@ function open(item?: Record<string, any>) {
         flowDefineFormValue.flowInputParams = res.result.flowInputParams;
         flowDefineFormValue.flowOutputParams = res.result.flowOutputParams;
       }
+    }else {
+      Object.assign(flowDefineFormValue, getDefaultFlowDefine());
     }
   });
 }
@@ -73,7 +79,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="flowDefineDrawerVisible" :title="title">
+  <el-drawer v-model="flowDefineDrawerVisible" :title="title" destroyOnClose>
     <div>
       <el-form ref="formRef" label-position="top" :model="flowDefineFormValue" :rules="rules">
         <el-form-item label="流程名称" prop="flowName">

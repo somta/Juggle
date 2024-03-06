@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.somta.juggle.console.application.assembler.IObjectAssembler;
 import net.somta.juggle.console.application.service.IObjectService;
-import net.somta.juggle.console.domain.datatype.repository.IDataTypeInfoRepository;
 import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.domain.object.repository.IObjectRepository;
 import net.somta.juggle.console.domain.object.vo.ObjectVO;
@@ -24,11 +23,9 @@ import java.util.List;
 @Service
 public class ObjectServiceImpl implements IObjectService {
     private final IObjectRepository objRepository;
-    private final IDataTypeInfoRepository dataTypeInfoRepository;
 
-    public ObjectServiceImpl(IObjectRepository objRepository, IDataTypeInfoRepository dataTypeInfoRepository) {
+    public ObjectServiceImpl(IObjectRepository objRepository) {
         this.objRepository = objRepository;
-        this.dataTypeInfoRepository = dataTypeInfoRepository;
     }
 
     @Override
@@ -63,8 +60,8 @@ public class ObjectServiceImpl implements IObjectService {
     }
 
     @Override
-    public List<ObjectDTO> getObjectList() {
-        List<ObjectVO> objectVoList = objRepository.queryObjectList();
+    public List<ObjectDTO> getObjectInfoList() {
+        List<ObjectVO> objectVoList = objRepository.queryObjectInfoList();
         List<ObjectDTO> objList = IObjectAssembler.IMPL.voListToDtoList(objectVoList);
         return objList;
     }

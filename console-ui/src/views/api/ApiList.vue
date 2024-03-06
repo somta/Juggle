@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import { ListFilter, ListTable, ListForm } from './list';
+import { ListFilter, ListTable, ListForm } from './api';
 import { apiService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
@@ -60,36 +60,60 @@ function openDelete(row: any) {
     type: 'warning',
   })
     .then(() => {
-      deleteItem(row);
+      deleteApiItem(row);
     })
     .catch(() => {});
 }
 
-async function addItem(row: any) {
+async function addApiItem(row: any) {
+  const paramArray = row.apiHeaders;
+  if(Array.isArray(paramArray) && paramArray.length !== 0){
+    const headerArray = paramArray.map((item: any) => {
+      return {
+        headerKey: item.paramKey,
+        headerName: item.paramName,
+        dataType: item.dataType,
+        required: item.required
+      };
+    });
+    row.apiHeaders = headerArray;
+  }
   const res = await apiService.listAdd(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
-    queryPage();
+    await queryPage();
   } else {
     ElMessage({ type: 'error', message: '新建失败' });
   }
 }
 
-async function editItem(row: any) {
+async function editApiItem(row: any) {
+  const paramArray = row.apiHeaders;
+  if(Array.isArray(paramArray) && paramArray.length !== 0){
+    const headerArray = paramArray.map((item: any) => {
+      return {
+        headerKey: item.paramKey,
+        headerName: item.paramName,
+        dataType: item.dataType,
+        required: item.required
+      };
+    });
+    row.apiHeaders = headerArray;
+  }
   const res = await apiService.listUpdate(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });
-    queryPage();
+    await queryPage();
   } else {
     ElMessage({ type: 'error', message: '编辑失败' });
   }
 }
 
-async function deleteItem(row: any) {
+async function deleteApiItem(row: any) {
   const res = await apiService.listDelete(row.id);
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
-    queryPage();
+    await queryPage();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -115,7 +139,7 @@ async function deleteItem(row: any) {
         />
       </el-main>
     </el-container>
-    <ListForm ref="formRef" @add="addItem" @edit="editItem" />
+    <ListForm ref="formRef" @add="addApiItem" @edit="editApiItem" />
   </div>
 </template>
 

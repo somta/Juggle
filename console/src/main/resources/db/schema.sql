@@ -46,23 +46,6 @@ CREATE TABLE `t_api` (
 );
 
 -- ----------------------------
--- Table structure for t_data_type_info
--- ----------------------------
-CREATE TABLE `t_data_type_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_type_classify` int(2) DEFAULT NULL,
-  `data_type` varchar(20) DEFAULT NULL,
-  `display_name` varchar(20) DEFAULT NULL,
-  `object_key` varchar(30) DEFAULT NULL,
-  `object_structure` varchar(1000) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `updated_by` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
--- ----------------------------
 -- Table structure for t_obj
 -- ----------------------------
 CREATE TABLE `t_object` (
