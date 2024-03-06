@@ -8,6 +8,14 @@ const props = defineProps({
     type: Array as PropType<any[]>,
     required: true,
   },
+  sourceList: {
+    type: Array as PropType<any[]>,
+    default: () => [],
+  },
+  targetList: {
+    type: Array as PropType<any[]>,
+    default: () => [],
+  },
 });
 const emit = defineEmits(['change']);
 function onDelete (index: number) {
@@ -33,6 +41,8 @@ function onAdd () {
       v-for="item, index in list"
       :key="index"
       :item="item"
+      :sourceList="sourceList"
+      :targetList="targetList"
       @delete="onDelete(index)"
       @change="onChange($event, index)"
     />

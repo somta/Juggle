@@ -8,6 +8,14 @@ const props = defineProps({
     type: Array as PropType<any[]>,
     required: true,
   },
+  sourceList: {
+    type: Array as PropType<any[]>,
+    default: () => [],
+  },
+  targetList: {
+    type: Array as PropType<any[]>,
+    default: () => [],
+  },
 });
 const emit = defineEmits(['change']);
 function onChange (item: any, index: number) {
@@ -32,6 +40,8 @@ function onAdd () {
       v-for="list, index in value"
       :key="index"
       :list="list"
+      :sourceList="sourceList"
+      :targetList="targetList"
       @change="onChange($event, index)"
     />
     <el-button @click="onAdd"><el-icon><Plus /></el-icon>或条件</el-button>
