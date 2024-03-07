@@ -156,8 +156,6 @@ public class FlowDefinitionController {
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
         try {
-            //todo 大概率是字符串表达式的单引号导致 这里的json出错
-            //objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
             List<FlowElement> nodeList = objectMapper.readValue(flowDefinitionAo.getFlowContent(), new TypeReference<List<FlowElement>>() {});
             NodeValidator nodeValidator = new NodeValidator();
             for (FlowElement flowElement :  nodeList) {

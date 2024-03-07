@@ -105,8 +105,9 @@ public class FlowDefinitionAO {
     public List<Variable> getFlowRuntimeVariables(){
         List<Variable> variables = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(this.variableInfoList)){
+            Variable variable = null;
             for (VariableInfoVO variableInfoVo : variableInfoList) {
-                Variable variable = new Variable();
+                variable = new Variable();
                 variable.setKey(variableInfoVo.getEnvKey());
                 variable.setName(variableInfoVo.getEnvName());
                 variable.setDataType(JsonSerializeHelper.deserialize(variableInfoVo.getDataType(), DataType.class));
