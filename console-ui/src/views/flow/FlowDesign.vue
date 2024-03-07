@@ -9,6 +9,7 @@ import {
   EditNodeDrawer,
   LeftMenu,
   ConditionItem,
+  ConditionFilterModal,
 } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
@@ -66,6 +67,7 @@ onMounted(async () => {
       console.log(d);
       if (d.data.type === ElementType.BRANCH) {
         const data = d.data as DataBranchNode;
+        console.log(conditionFilterModal, 'sd')
         conditionFilterModal.value.open({
           data: data.getParent()?.raw,
           index: data.branchIndex,

@@ -5,6 +5,7 @@ export enum BaseDataType {
   Double = 'Double',
   Boolean = 'Boolean',
   Date = 'Date',
+  List = 'List',
   Object = 'Object',
 }
 
@@ -70,6 +71,10 @@ export const DataTypeOperatorMap = {
     Operator.GreaterThanOrEqual,
     Operator.LessThan,
     Operator.LessThanOrEqual,
+  ],
+  [BaseDataType.List]: [
+    Operator.Equal,
+    Operator.NotEqual,
   ],
   [BaseDataType.Object]: [
     Operator.Equal,

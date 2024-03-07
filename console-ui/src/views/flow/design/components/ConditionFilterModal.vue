@@ -1,9 +1,11 @@
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import FilterGroup from '@/components/filter/FilterGroup.vue';
 import { RawData, ConditionItem } from '../types';
 import { cloneDeep } from 'lodash-es';
+import { useFlowDataInject } from '../hooks/flow-data';
+const flowContext = useFlowDataInject();
 type ConditionRawData = RawData & { conditions: ConditionItem[] };
 const visible = ref(false);
 function getDefault () {
@@ -42,6 +44,10 @@ function onSubmit () {
     openParams.afterEdit(cloneDeep(condition.value));
   }
 }
+const sourceList = computed(() => {
+  // 流程入参/中间变量
+  return flowContext.data.value.flowVariables.filter(item => item.envType === 1 || item.envType === 3);
+});
 defineExpose({ open });
 </script>
 
@@ -54,7 +60,12 @@ defineExpose({ open });
   >
     <div class="condition-name-label">分支名称</div>
     <el-input v-model="condition.conditionName" class="condition-name-input" placeholder="请输入" />
-    <FilterGroup :value="condition.conditionExpressions" @change="onChange" />
+    <FilterGroup
+      :value="condition.conditionExpressions"
+      @change="onChange"
+      :sourceList="sourceList"
+      :targetList="sourceList"
+    />
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="onCancel">取消</el-button>

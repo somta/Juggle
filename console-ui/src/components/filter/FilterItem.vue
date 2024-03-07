@@ -49,7 +49,7 @@ const operatorList = computed(() => {
     </div>
     <div class="filter-item-operator">
       <el-select placeholder="请选择">
-        <el-option v-for="operator in operatorList" :key="operator.value" :value="operator.value" :label="source.label" />
+        <el-option v-for="operator in operatorList" :key="operator.value" :value="operator.value" :label="operator.label" />
       </el-select>
     </div>
     <div class="filter-item-assign-type">
