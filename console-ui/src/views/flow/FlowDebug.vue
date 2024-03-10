@@ -26,6 +26,17 @@ let flowResponseJson = ref(`{
           }`);
 const flowDefine = ref<FlowDefineInfo>();
 
+const responseHeaderData = [
+  {
+    "headerKey":"connection",
+    "headerValue":"keep-alive"
+  },
+  {
+    "headerKey":"content-type",
+    "headerValue":"application/json;charset=utf-8"
+  }
+]
+
 queryFlowDefineInfo();
 
 async function queryFlowDefineInfo() {
@@ -44,6 +55,7 @@ let timerId;
 async function sendFlowDebug() {
   //todo 这里参数要从流程入参中获取
   const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, {});
+  console.log(res.response);
   if (res.success) {
     if(flowDefine.value?.flowType === "sync"){
       flowResponseJson.value = String(res.result);
@@ -96,8 +108,11 @@ async function getAsyncFlowResult(flowInstanceId: string) {
           <CodeEditor ref="codeEditRef" v-model="flowResponseJson" width="1000px" height="200px" language="json" />
         </el-text>
       </el-tab-pane>
-      <el-tab-pane label="响应头" name="result">
-
+      <el-tab-pane label="响应头" name="responseHeader">
+        <el-table :data="responseHeaderData" style="width: 100%">
+          <el-table-column prop="headerKey" label="响应头" width="180" />
+          <el-table-column prop="headerValue" label="值"/>
+        </el-table>
       </el-tab-pane>
     </el-tabs>
   </div>
