@@ -4,6 +4,7 @@ import net.somta.juggle.console.application.service.flow.impl.FlowRuntimeService
 import net.somta.juggle.console.configuration.JuggleProperties;
 import net.somta.juggle.console.helper.FlowDefinitionHelper;
 import net.somta.juggle.common.param.TriggerDataParam;
+import net.somta.juggle.core.enums.FlowResultManagerTypeEnum;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.result.MemoryFlowResultManager;
@@ -29,7 +30,7 @@ class FlowRuntimeServiceImplTest {
     public void beforeEach(){
         MockitoAnnotations.openMocks(this);
         JuggleProperties juggleProperties = new  JuggleProperties();
-        juggleProperties.setCacheType("memory");
+        juggleProperties.getCache().setCacheType(FlowResultManagerTypeEnum.MEMORY);
         flowRuntimeService = new FlowRuntimeServiceImpl(juggleProperties);
     }
 

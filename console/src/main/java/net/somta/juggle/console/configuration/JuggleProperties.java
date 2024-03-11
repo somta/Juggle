@@ -1,5 +1,7 @@
 package net.somta.juggle.console.configuration;
 
+import net.somta.core.cache.redis.model.RedisConfigItem;
+import net.somta.juggle.core.enums.FlowResultManagerTypeEnum;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,69 +12,36 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "juggle")
 public class JuggleProperties {
 
-    // todo 这里配置不合理
-    private String cacheType = "memory";
-    private RedisConfig redis;
 
-    public String getCacheType() {
-        return cacheType;
+    private CacheConfig cache = new CacheConfig();
+
+    public CacheConfig getCache() {
+        return cache;
     }
 
-    public void setCacheType(String cacheType) {
-        this.cacheType = cacheType;
+    public void setCache(CacheConfig cache) {
+        this.cache = cache;
     }
 
-    public RedisConfig getRedis() {
-        return redis;
-    }
+    public static class CacheConfig {
+        private FlowResultManagerTypeEnum cacheType = FlowResultManagerTypeEnum.MEMORY;
 
-    public void setRedis(RedisConfig redis) {
-        this.redis = redis;
-    }
+        private RedisConfigItem redis;
 
-    public static class RedisConfig {
-        //todo 这里要优化的以前用枚举
-        private String model = "single";
-        /**
-         * Redis地址
-         */
-        private String[] address;
-        /**
-         * Redis密码
-         */
-        private String password;
-        private String sentinelMaster;
-
-        public String getModel() {
-            return model;
+        public FlowResultManagerTypeEnum getCacheType() {
+            return cacheType;
         }
 
-        public void setModel(String model) {
-            this.model = model;
+        public void setCacheType(FlowResultManagerTypeEnum cacheType) {
+            this.cacheType = cacheType;
         }
 
-        public String[] getAddress() {
-            return address;
+        public RedisConfigItem getRedis() {
+            return redis;
         }
 
-        public void setAddress(String[] address) {
-            this.address = address;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getSentinelMaster() {
-            return sentinelMaster;
-        }
-
-        public void setSentinelMaster(String sentinelMaster) {
-            this.sentinelMaster = sentinelMaster;
+        public void setRedis(RedisConfigItem redis) {
+            this.redis = redis;
         }
     }
 

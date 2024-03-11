@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository.flow;
 
+import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.flow.flowinfo.FlowInfoAO;
 import net.somta.juggle.console.domain.flow.flowinfo.repository.IFlowInfoRepository;
 import net.somta.juggle.console.domain.flow.flowinfo.vo.FlowInfoQueryVO;
@@ -61,6 +62,7 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
         if(flowInfoPo == null){
             flowInfoPo = IFlowInfoConverter.IMPL.aoToPo(flowInfoAo);
             flowInfoPo.setCreatedAt(currentDate);
+            flowInfoPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
             flowInfoMapper.addFlowInfo(flowInfoPo);
         }
 
@@ -68,6 +70,7 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
         flowVersionPo.setFlowId(flowInfoPo.getId());
         flowVersionPo.setFlowVersionStatus(FlowVersionStatusEnum.DISABLED.getCode());
         flowVersionPo.setCreatedAt(currentDate);
+        flowVersionPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         flowVersionMapper.add(flowVersionPo);
         return true;
     }

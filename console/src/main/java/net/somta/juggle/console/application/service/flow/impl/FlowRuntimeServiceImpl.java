@@ -5,7 +5,6 @@ import net.somta.core.cache.redis.client.AbstractRedisClient;
 import net.somta.core.cache.redis.model.RedisConfigItem;
 import net.somta.juggle.console.application.service.flow.IFlowRuntimeService;
 import net.somta.juggle.console.configuration.JuggleProperties;
-import net.somta.juggle.console.configuration.JuggleProperties.*;
 import net.somta.juggle.console.domain.flow.flowinfo.enums.FlowTypeEnum;
 import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.dispatcher.IDispatcher;
@@ -17,7 +16,6 @@ import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.result.MemoryFlowResultManager;
 import net.somta.juggle.core.result.RedisFlowResultManager;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -29,12 +27,10 @@ import java.util.Map;
 public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
 
     private IFlowResultManager flowResultManager;
-    private final JuggleProperties juggleProperties;
 
     private final IDispatcher dispatcher = new AsyncDispatcher();
 
     public FlowRuntimeServiceImpl(JuggleProperties juggleProperties) {
-        this.juggleProperties = juggleProperties;
         initFlowResultManager(juggleProperties);
     }
 
@@ -61,23 +57,14 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
     }
 
     private void initFlowResultManager(JuggleProperties juggleProperties) {
-        if(juggleProperties.getCacheType().equalsIgnoreCase(FlowResultManagerTypeEnum.MEMORY.name())){
+        if(juggleProperties.getCache().getCacheType().equals(FlowResultManagerTypeEnum.MEMORY)){
             flowResultManager = new MemoryFlowResultManager();
-        }else if(juggleProperties.getCacheType().equalsIgnoreCase(FlowResultManagerTypeEnum.REDIS.name())) {
-            RedisConfig redisConfig = juggleProperties.getRedis();
-            RedisConfigItem redisConfigItem = new RedisConfigItem();
-            redisConfigItem.setModel(redisConfig.getModel());
-            redisConfigItem.setAddress(redisConfig.getAddress());
-            if(StringUtils.isNotBlank(redisConfig.getPassword())){
-                redisConfigItem.setPassword(redisConfig.getPassword());
-            }
-            if(StringUtils.isNotBlank(redisConfig.getSentinelMaster())){
-                redisConfigItem.setSentinelMaster(redisConfig.getSentinelMaster());
-            }
+        }else if(juggleProperties.getCache().getCacheType().equals(FlowResultManagerTypeEnum.REDIS)) {
+            RedisConfigItem redisConfigItem = juggleProperties.getCache().getRedis();
             AbstractRedisClient redisClient = RedisClientBuilder.buildRedisClient(redisConfigItem);
             flowResultManager = new RedisFlowResultManager(redisClient);
         }else {
-
+            throw new IllegalArgumentException("非法的缓存类型");
         }
     }
 }
