@@ -15,6 +15,8 @@ keywords: [Juggle, 微服务接口, 接口编排]
 
 3.点击**确定**按钮，创建接口
 
+![](/juggle/images/guide/user/add_api.png)
+
 请求类型支持：**GET**, **POST**, **PUT**, **DELETE**
 
 请求体类型支持: **application/json**, **application/x-www-form-urlencoded**
@@ -28,6 +30,8 @@ keywords: [Juggle, 微服务接口, 接口编排]
 2.在右侧弹出的抽屉中，完成**领域**，**接口名称**，**接口地址**，**请求类型**，**请求内容类型**，**接口描述**（非必填），**接口入参**（非必填），**接口出参**（非必填）
 
 3.点击**确定**按钮，修改接口
+
+![](/juggle/images/guide/user/edit_api.png)
 
 ### 删除接口
 

@@ -116,8 +116,8 @@ Content-Type: application/json
 
 | 名称           | 类型    | 默认值 | 描述     |
 | -------------- | ------- | ------ | -------- |
-| goodsId        | String  |        | 商品ID   |
-| goodsName      | Boolean |        | 商品名称 |
+| goodsId        | Integer  |        | 商品ID   |
+| goodsName      | String |        | 商品名称 |
 | goodsInventory | Integer |        | 商品库存 |
 
 **响应结果示例**
@@ -160,8 +160,8 @@ Content-Type: application/json
 
 | 名称           | 类型    | 默认值 | 描述     |
 | -------------- | ------- | ------ | -------- |
-| goodsId        | String  |        | 商品ID   |
-| goodsName      | Boolean |        | 商品名称 |
+| goodsId        | Integer  |        | 商品ID   |
+| goodsName      | String |        | 商品名称 |
 | goodsPrice     | Double  |        | 商品单价 |
 | goodsInventory | Integer |        | 商品库存 |
 

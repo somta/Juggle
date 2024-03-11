@@ -48,6 +48,7 @@ module.exports = {
                 },
                 'guide/user/flow',
                 'guide/user/flow-version',
+                'guide/user/object',
                 'guide/user/data-type-info',
                 'guide/user/example-api',
             ],
