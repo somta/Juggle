@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>net.somta</groupId>
     <artifactId>starter</artifactId>
     <packaging>pom</packaging>
     <modules>

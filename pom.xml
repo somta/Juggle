@@ -122,6 +122,11 @@
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
                         </path>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                            <version>2.7.14</version>
+                        </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
