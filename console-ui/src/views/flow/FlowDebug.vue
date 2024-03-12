@@ -13,10 +13,6 @@ let paramsData = reactive({
 
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
-
-const requestTabActiveName = ref('inputParam');
-const responseTabActiveName = ref('result');
-
 const debugUrl = ref('');
 let flowResponseJson = ref(`{
           "flowInstanceId": "sync_MurlbkKxc6",
@@ -26,16 +22,7 @@ let flowResponseJson = ref(`{
           }`);
 const flowDefine = ref<FlowDefineInfo>();
 
-const responseHeaderData = [
-  {
-    "headerKey":"connection",
-    "headerValue":"keep-alive"
-  },
-  {
-    "headerKey":"content-type",
-    "headerValue":"application/json;charset=utf-8"
-  }
-]
+const responseHeaderData = ref([]);
 
 queryFlowDefineInfo();
 
@@ -55,7 +42,9 @@ let timerId;
 async function sendFlowDebug() {
   //todo 这里参数要从流程入参中获取
   const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, {});
-  console.log(res.response);
+  console.log("response",res.response);
+  console.log("headers",res.response?.headers)
+
   if (res.success) {
     if(flowDefine.value?.flowType === "sync"){
       flowResponseJson.value = String(res.result);
@@ -66,6 +55,12 @@ async function sendFlowDebug() {
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
+  responseHeaderData.value = Object.entries(res.response?.headers).map(([key, value]) => {
+    return {
+      headerKey: key,
+      headerValue: value
+    };
+  });
 }
 
 async function getAsyncFlowResult(flowInstanceId: string) {
@@ -93,7 +88,7 @@ async function getAsyncFlowResult(flowInstanceId: string) {
         <el-button >重置</el-button>
       </el-col>
     </el-row>
-    <el-tabs v-model="requestTabActiveName">
+    <el-tabs model-value="inputParam">
       <el-tab-pane label="请求参数" name="inputParam">
         <template v-for="param in flowDefine?.flowInputParams" :key="param.paramKey">
           <span>{{param?.paramName}} : </span>
@@ -102,7 +97,7 @@ async function getAsyncFlowResult(flowInstanceId: string) {
       </el-tab-pane>
     </el-tabs>
 
-    <el-tabs v-model="responseTabActiveName">
+    <el-tabs model-value="result">
       <el-tab-pane label="响应内容" name="result">
         <el-text line-clamp="2">
           <CodeEditor ref="codeEditRef" v-model="flowResponseJson" width="1000px" height="200px" language="json" />
@@ -110,7 +105,7 @@ async function getAsyncFlowResult(flowInstanceId: string) {
       </el-tab-pane>
       <el-tab-pane label="响应头" name="responseHeader">
         <el-table :data="responseHeaderData" style="width: 100%">
-          <el-table-column prop="headerKey" label="响应头" width="180" />
+          <el-table-column prop="headerKey" label="响应头" width="250" />
           <el-table-column prop="headerValue" label="值"/>
         </el-table>
       </el-tab-pane>
