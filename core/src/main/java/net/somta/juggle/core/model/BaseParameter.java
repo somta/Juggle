@@ -3,7 +3,7 @@ package net.somta.juggle.core.model;
 /**
  * 参数基类
  * @author husong
- * @date 2022/12/14
+ * @since 1.0.0
  **/
 public class BaseParameter {
     /**

@@ -27,6 +27,7 @@ import net.somta.juggle.core.model.FlowResult;
 /**
  * 默认基于内存的调度器
  * @author husong
+ * @since 1.0.0
  */
 public class AsyncDispatcher extends AbstractDispatcher {
 

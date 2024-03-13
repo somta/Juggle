@@ -1,14 +1,13 @@
+
 package net.somta.juggle.core.model;
 
-import net.somta.juggle.core.enums.RequestContentTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
-import net.somta.juggle.core.model.node.MethodNode;
-
 import java.util.List;
 
 /**
  * 方法类，承载一个Http的请求信息
  * @author husong
+ * @since 1.0.0
  */
 public class Method {
 

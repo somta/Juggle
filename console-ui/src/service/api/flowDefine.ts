@@ -1,5 +1,6 @@
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
 import {FlowDefineInfo, InputParams, OutputParams} from "@/typings";
+import {FlowVariable} from "@/views/flow/design";
 
 export async function addDefineInfo(params: {
   flowName: string;
@@ -42,8 +43,9 @@ export async function updateDefineInfo(params: {
 export async function saveFlowContent(params: {
   id: number;
   flowContent: string;
+  flowVariables?: FlowVariable[]
 }): ResponseResult<boolean> {
-  return request.post('/v1/flow/definition/save', params);
+  return request.put('/v1/flow/definition/save', params);
 }
 
 export function deployFlowDefine(params: {
