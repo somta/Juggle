@@ -1,7 +1,9 @@
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.node.ConditionNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression notEqualConditionExpression = new ConditionNode.ConditionExpression();
         notEqualConditionExpression.setEnvKey("env_name");
-        notEqualConditionExpression.setDataType(DataTypeEnum.String);
+        notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         notEqualConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
         notEqualConditionExpression.setAssignType("constant");
         notEqualConditionExpression.setValue("zhansan");
@@ -37,7 +39,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression equalConditionExpression = new ConditionNode.ConditionExpression();
         equalConditionExpression.setEnvKey("env_name");
-        equalConditionExpression.setDataType(DataTypeEnum.String);
+        equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         equalConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
         equalConditionExpression.setAssignType("constant");
         equalConditionExpression.setValue("zhansan");
@@ -50,7 +52,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_name");
-        conditionExpression.setDataType(DataTypeEnum.String);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         String str = stringParser.genExpression(conditionExpression);
         Assertions.assertEquals("string.empty(env_name)",str);
@@ -60,7 +62,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_name");
-        conditionExpression.setDataType(DataTypeEnum.String);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.NOT_EMPTY.getCode());
         String str = stringParser.genExpression(conditionExpression);
         Assertions.assertEquals("!string.empty(env_name)",str);
@@ -70,7 +72,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_name");
-        conditionExpression.setDataType(DataTypeEnum.String);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("zhan");
@@ -82,7 +84,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_name");
-        conditionExpression.setDataType(DataTypeEnum.String);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.NOT_CONTAINS.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("zhan");
@@ -94,7 +96,7 @@ class StringParserTest {
         IExpressionParser stringParser = new StringParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_name");
-        conditionExpression.setDataType(DataTypeEnum.String);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("100");

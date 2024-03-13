@@ -60,10 +60,10 @@ public class FlowDefinitionHelper {
         FillStruct headerFillStruct = new FillStruct();
         headerFillStruct.setSource("env_id");
         headerFillStruct.setSourceType(FieldSourceEnum.VARIABLE);
-        headerFillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
+        headerFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         headerFillStruct.setTarget("userId");
         headerFillStruct.setTargetType(FieldSourceEnum.INPUT_PARAM);
-        headerFillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
+        headerFillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         headerFillRules.add(headerFillStruct);
         method.setHeaderFillRules(headerFillRules);
 
@@ -72,10 +72,10 @@ public class FlowDefinitionHelper {
         FillStruct fillStruct = new FillStruct();
         fillStruct.setSource("env_id");
         fillStruct.setSourceType(FieldSourceEnum.VARIABLE);
-        fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
+        fillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         fillStruct.setTarget("userId");
         fillStruct.setTargetType(FieldSourceEnum.INPUT_PARAM);
-        fillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
+        fillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         inputFillRules.add(fillStruct);
         method.setInputFillRules(inputFillRules);
 
@@ -85,10 +85,10 @@ public class FlowDefinitionHelper {
         FillStruct outFillStruct = new FillStruct();
         outFillStruct.setSource("name");
         outFillStruct.setSourceType(FieldSourceEnum.OUTPUT_PARAM);
-        outFillStruct.setSourceDataType(new DataType(DataTypeEnum.String));
+        outFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         outFillStruct.setTarget("env_userName");
         outFillStruct.setTargetType(FieldSourceEnum.VARIABLE);
-        outFillStruct.setTargetDataType(new DataType(DataTypeEnum.String));
+        outFillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         outputFillRules.add(outFillStruct);
         method.setOutputFillRules(outputFillRules);
 
@@ -119,7 +119,7 @@ public class FlowDefinitionHelper {
         List<ConditionExpression> conditionExpressions11 = new ArrayList<>();
         ConditionExpression conditionExpression11 = new ConditionExpression();
         conditionExpression11.setEnvKey("env_name");
-        conditionExpression11.setDataType(DataTypeEnum.String);
+        conditionExpression11.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression11.setAssignType("constant");
         conditionExpression11.setValue("张三");
@@ -129,7 +129,7 @@ public class FlowDefinitionHelper {
         List<ConditionExpression> conditionExpressions12 = new ArrayList<>();
         ConditionExpression conditionExpression12 = new ConditionExpression();
         conditionExpression12.setEnvKey("env_name");
-        conditionExpression12.setDataType(DataTypeEnum.String);
+        conditionExpression12.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression12.setAssignType("constant");
         conditionExpression12.setValue("三");
@@ -153,7 +153,7 @@ public class FlowDefinitionHelper {
         List<ConditionExpression> conditionExpressions21 = new ArrayList<>();
         ConditionExpression conditionExpression21 = new ConditionExpression();
         conditionExpression21.setEnvKey("env_name");
-        conditionExpression21.setDataType(DataTypeEnum.String);
+        conditionExpression21.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression21.setAssignType("constant");
         conditionExpression21.setValue("lisi");
@@ -280,14 +280,14 @@ public class FlowDefinitionHelper {
         String flowContent = getFlowDefinitionContent();
         System.out.println(flowContent);
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        /*ObjectMapper objectMapper = new ObjectMapper();
         List<FlowElement> nodeList = new ArrayList<>();
         try {
             nodeList = objectMapper.readValue(flowContent, new TypeReference<List<FlowElement>>() {});
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(nodeList.size());
+        System.out.println(nodeList.size());*/
 
     }
 }

@@ -3,6 +3,7 @@ package net.somta.juggle.core.expression;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.expression.condition.parser.ExpressionParserFactory;
 import net.somta.juggle.core.expression.condition.parser.IExpressionParser;

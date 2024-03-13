@@ -146,6 +146,7 @@ const innerBasicValue = computed(() => {
 });
 
 const handleChange = (val: any) => {
+  console.log(val);
   if (!Array.isArray(val)) {
     emit('update:modelValue', null);
     emit('change', null);
@@ -192,6 +193,7 @@ const handleBasicChange = (val: any) => {
     :options="options"
     :props="cascaderProps"
     :disabled="disabled"
+    :show-all-levels="false"
     @change="handleChange"
   />
 </template>

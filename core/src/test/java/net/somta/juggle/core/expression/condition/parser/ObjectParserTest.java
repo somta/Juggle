@@ -1,7 +1,9 @@
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.node.ConditionNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,28 +22,28 @@ class ObjectParserTest {
     private void objectEmptyParserTest() {
         IExpressionParser objectParser = new ObjectParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
-        conditionExpression.setEnvKey("env_userList");
-        conditionExpression.setDataType(DataTypeEnum.List);
+        conditionExpression.setEnvKey("env_user");
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Object)));
         conditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         String str = objectParser.genExpression(conditionExpression);
-        Assertions.assertEquals("object.empty(env_userList)",str);
+        Assertions.assertEquals("object.empty(env_user)",str);
     }
 
     private void objectNotEmptyParserTest() {
         IExpressionParser objectParser = new ObjectParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
-        conditionExpression.setEnvKey("env_userList");
-        conditionExpression.setDataType(DataTypeEnum.List);
+        conditionExpression.setEnvKey("env_user");
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Object)));
         conditionExpression.setOperator(OperatorEnum.NOT_EMPTY.getCode());
         String str = objectParser.genExpression(conditionExpression);
-        Assertions.assertEquals("!object.empty(env_userList)",str);
+        Assertions.assertEquals("!object.empty(env_user)",str);
     }
 
     private void objectUnknownParserTest() {
         IExpressionParser objectParser = new ObjectParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
-        conditionExpression.setEnvKey("env_userList");
-        conditionExpression.setDataType(DataTypeEnum.List);
+        conditionExpression.setEnvKey("env_user");
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Object)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("100");

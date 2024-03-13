@@ -1,6 +1,8 @@
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.DataTypeEnum;
+import net.somta.juggle.core.model.DataType;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,12 +14,14 @@ public class ExpressionParserFactory {
 
     private static Map<String,IExpressionParser> parserMap = new ConcurrentHashMap<>();
 
-    public static IExpressionParser getParserInstance(DataTypeEnum dataType){
-        IExpressionParser expressionParser = parserMap.get(dataType.name());
+    public static IExpressionParser getParserInstance(String dataTypeStr){
+        DataType dataTypeInfo = JsonSerializeHelper.deserialize(dataTypeStr, DataType.class);
+        DataTypeEnum type = dataTypeInfo.getType();
+        IExpressionParser expressionParser = parserMap.get(type.name());
         if(expressionParser != null){
             return expressionParser;
         }
-        switch (dataType) {
+        switch (type) {
             case String:
                 expressionParser= new StringParser();
                 parserMap.put(DataTypeEnum.String.name(),expressionParser);

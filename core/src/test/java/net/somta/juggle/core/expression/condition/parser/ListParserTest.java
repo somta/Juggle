@@ -1,7 +1,9 @@
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.node.ConditionNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,7 @@ class ListParserTest {
         IExpressionParser listParser = new ListParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_userList");
-        conditionExpression.setDataType(DataTypeEnum.List);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.List)));
         conditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         String str = listParser.genExpression(conditionExpression);
         Assertions.assertEquals("list.empty(env_userList)",str);
@@ -31,7 +33,7 @@ class ListParserTest {
         IExpressionParser listParser = new ListParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_userList");
-        conditionExpression.setDataType(DataTypeEnum.List);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.List)));
         conditionExpression.setOperator(OperatorEnum.NOT_EMPTY.getCode());
         String str = listParser.genExpression(conditionExpression);
         Assertions.assertEquals("!list.empty(env_userList)",str);
@@ -41,7 +43,7 @@ class ListParserTest {
         IExpressionParser listParser = new ListParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_userList");
-        conditionExpression.setDataType(DataTypeEnum.List);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.List)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("100");

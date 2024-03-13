@@ -84,7 +84,7 @@ public class ConditionNode extends FlowNode{
         /**
          * 原变量的类型
          */
-        private DataTypeEnum dataType;
+        private String dataType;
 
         /**
          * 操作符 等于 不等于
@@ -109,11 +109,11 @@ public class ConditionNode extends FlowNode{
             this.envKey = envKey;
         }
 
-        public DataTypeEnum getDataType() {
+        public String getDataType() {
             return dataType;
         }
 
-        public void setDataType(DataTypeEnum dataType) {
+        public void setDataType(String dataType) {
             this.dataType = dataType;
         }
 

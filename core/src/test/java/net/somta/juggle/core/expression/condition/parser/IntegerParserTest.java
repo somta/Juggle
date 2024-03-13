@@ -1,7 +1,9 @@
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.node.ConditionNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +25,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression notEqualConditionExpression = new ConditionNode.ConditionExpression();
         notEqualConditionExpression.setEnvKey("env_age");
-        notEqualConditionExpression.setDataType(DataTypeEnum.Integer);
+        notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         notEqualConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
         notEqualConditionExpression.setAssignType("constant");
         notEqualConditionExpression.setValue("18");
@@ -35,7 +37,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression equalConditionExpression = new ConditionNode.ConditionExpression();
         equalConditionExpression.setEnvKey("env_age");
-        equalConditionExpression.setDataType(DataTypeEnum.Integer);
+        equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         equalConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
         equalConditionExpression.setAssignType("constant");
         equalConditionExpression.setValue("18");
@@ -48,7 +50,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression gtConditionExpression = new ConditionNode.ConditionExpression();
         gtConditionExpression.setEnvKey("env_age");
-        gtConditionExpression.setDataType(DataTypeEnum.Integer);
+        gtConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         gtConditionExpression.setOperator(OperatorEnum.GREATER_THAN.getCode());
         gtConditionExpression.setAssignType("constant");
         gtConditionExpression.setValue("18");
@@ -60,7 +62,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_age");
-        conditionExpression.setDataType(DataTypeEnum.Integer);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("18");
@@ -72,7 +74,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_age");
-        conditionExpression.setDataType(DataTypeEnum.Integer);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("18");
@@ -84,7 +86,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_age");
-        conditionExpression.setDataType(DataTypeEnum.Integer);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("18");
@@ -96,7 +98,7 @@ class IntegerParserTest {
         IExpressionParser integerParser = new IntegerParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_age");
-        conditionExpression.setDataType(DataTypeEnum.Integer);
+        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression.setAssignType("constant");
         conditionExpression.setValue("100.23");
