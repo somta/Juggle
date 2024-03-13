@@ -73,11 +73,11 @@ export const DataTypeOperatorMap = {
     Operator.LessThanOrEqual,
   ],
   [BaseDataType.List]: [
-    Operator.Equal,
-    Operator.NotEqual,
+    Operator.Empty,
+    Operator.NotEmpty,
   ],
   [BaseDataType.Object]: [
-    Operator.Equal,
-    Operator.NotEqual,
+    Operator.Empty,
+    Operator.NotEmpty,
   ],
 }

@@ -2,11 +2,15 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { commonService } from '@/service';
+import { getDataTypeObject } from '@/utils/dataType';
 
 const props = defineProps({
   modelValue: [String, Object],
   type: String,
-  jsonParse: Boolean,
+  valueType: {
+    type: String,
+    default: 'String',
+  },
   disabled: Boolean,
 });
 const emit = defineEmits(['update:modelValue', 'change']);
@@ -115,13 +119,9 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    if (props.jsonParse && typeof props.modelValue === 'string') {
-      try {
-        val = JSON.parse(props.modelValue);
-      } catch (error) {
-        console.error(error);
-      }
-    } else if (typeof props.modelValue === 'object') {
+    if (props.valueType === 'String') {
+      val = getDataTypeObject(props.modelValue);
+    } else if (props.valueType === 'Object') {
       val = { ...props.modelValue };
     }
   }
@@ -169,7 +169,7 @@ const handleBasicChange = (val: any) => {
     objectKey: null,
     objectStructure: null,
   };
-  if (props.jsonParse) {
+  if (props.valueType === 'String') {
     result = JSON.stringify(result);
   }
   emit('update:modelValue', result);

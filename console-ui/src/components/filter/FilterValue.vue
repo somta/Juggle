@@ -1,5 +1,6 @@
 
 <script lang="ts" setup>
+import { getDataTypeObject } from '@/utils/dataType';
 import { computed } from 'vue';
 const props = defineProps({
   modelValue: {
@@ -7,8 +8,8 @@ const props = defineProps({
     default: ''
   },
   dataType: {
-    type: Object,
-    default: () => ({ type: 'String' }),
+    type: String,
+    default: '',
   },
 })
 const emit = defineEmits(['update:modelValue']);
@@ -20,7 +21,9 @@ const innerValue = computed({
   }
 })
 
-const currentType = computed(() => props.dataType.type);
+const currentType = computed(() => {
+  return getDataTypeObject(props.dataType)?.type;
+});
 </script>
 
 <template>
@@ -28,7 +31,7 @@ const currentType = computed(() => props.dataType.type);
     <el-input-number v-if="currentType === 'Integer'" v-model="innerValue" :controls="false" placeholder="请输入" />
     <el-input-number v-else-if="currentType === 'Double'" v-model="innerValue" :controls="false" placeholder="请输入" />
     <el-time-picker v-else-if="currentType === 'Date'" v-model="innerValue" />
-    <el-checkbox v-else-if="currentType === 'Boolean'" v-model="innerValue" />
+    <el-switch v-else-if="currentType === 'Boolean'" v-model="innerValue" inline-prompt active-text="是" inactive-text="否" :width="48" />
     <el-input v-else v-model="innerValue" placeholder="请输入" />
   </div>
 </template>

@@ -1,8 +1,9 @@
 
 <script lang="ts" setup>
+import { getDataTypeObject } from '@/utils/dataType';
 import { Delete } from '@element-plus/icons-vue'
 import { PropType, computed } from 'vue';
-import { DataTypeOperatorMap, BaseDataType, OperatorNameMap } from './config';
+import { DataTypeOperatorMap, BaseDataType, OperatorNameMap, Operator } from './config';
 import FilterValue from './FilterValue.vue';
 
 enum FilterAssignType {
@@ -31,7 +32,7 @@ const sourceModel = computed({
   get: () => props.item.envKey,
   set: (value) => {
     const current = props.sourceList.find((item) => item.envKey === value);
-    emit('change', { envKey: value, dataType: JSON.parse(current.dataType) })
+    emit('change', { envKey: value, dataType: current.dataType })
   }
 });
 
@@ -50,7 +51,7 @@ const assignTypeModel = computed({
 });
 
 const targetModel = computed({
-  get: () => props.item.target,
+  get: () => props.item.value,
   set: (value) => {
     emit('change', { ...props.item, value: value })
   }
@@ -61,7 +62,7 @@ const isConstant = computed(() => {
 });
 
 const operatorList = computed(() => {
-  const dataType = props.item.dataType?.type as BaseDataType;
+  const dataType = getDataTypeObject(props.item.dataType)?.type as BaseDataType;
   const operators = DataTypeOperatorMap[dataType] || [];
   return operators.map((operator) => {
     return {
@@ -69,6 +70,10 @@ const operatorList = computed(() => {
       label: OperatorNameMap[operator],
     };
   });
+});
+
+const isNoValueOperator = computed(() => {
+  return [Operator.Empty, Operator.NotEmpty].includes(props.item.operator);
 });
 </script>
 
@@ -85,16 +90,20 @@ const operatorList = computed(() => {
       </el-select>
     </div>
     <div class="filter-item-assign-type">
-      <el-select placeholder="请选择" v-model="assignTypeModel">
-        <el-option :value="FilterAssignType.Constant" label="常量" />
-        <el-option :value="FilterAssignType.Variable" label="变量" />
-      </el-select>
+      <template v-if="!isNoValueOperator">
+        <el-select placeholder="请选择" v-model="assignTypeModel">
+          <el-option :value="FilterAssignType.Constant" label="常量" />
+          <el-option :value="FilterAssignType.Variable" label="变量" />
+        </el-select>
+      </template>
     </div>
     <div class="filter-item-value">
-      <filter-value v-if="isConstant" v-model="targetModel" :dataType="props.item.dataType" />
-      <el-select v-else placeholder="请选择" v-model="targetModel">
-        <el-option v-for="source in targetList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
-      </el-select>
+      <template v-if="!isNoValueOperator">
+        <filter-value v-if="isConstant" v-model="targetModel" :dataType="props.item.dataType" />
+        <el-select v-else placeholder="请选择" v-model="targetModel">
+          <el-option v-for="source in targetList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
+        </el-select>
+      </template>
     </div>
     <div class="filter-item-action">
       <el-button :icon="Delete" link @click="$emit('delete')"></el-button>
@@ -125,6 +134,12 @@ const operatorList = computed(() => {
   }
   .filter-item-action {
     width: 24px;
+  }
+  :deep(.el-input-number) {
+    width: 100%;
+    .el-input__inner {
+      text-align: left;
+    }
   }
 }
 </style>
