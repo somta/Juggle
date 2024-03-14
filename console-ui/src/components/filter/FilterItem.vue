@@ -1,6 +1,6 @@
 
 <script lang="ts" setup>
-import { getDataTypeObject } from '@/utils/dataType';
+import { getDataTypeObject, isDataTypeEqual } from '@/utils/dataType';
 import { Delete } from '@element-plus/icons-vue'
 import { PropType, computed } from 'vue';
 import { DataTypeOperatorMap, BaseDataType, OperatorNameMap, Operator } from './config';
@@ -61,6 +61,10 @@ const isConstant = computed(() => {
   return props.item.assignType === FilterAssignType.Constant;
 });
 
+const isVariable = computed(() => {
+  return props.item.assignType === FilterAssignType.Variable;
+});
+
 const operatorList = computed(() => {
   const dataType = getDataTypeObject(props.item.dataType)?.type as BaseDataType;
   const operators = DataTypeOperatorMap[dataType] || [];
@@ -73,7 +77,18 @@ const operatorList = computed(() => {
 });
 
 const isNoValueOperator = computed(() => {
-  return [Operator.Empty, Operator.NotEmpty].includes(props.item.operator);
+  return !props.item.operator || [Operator.Empty, Operator.NotEmpty].includes(props.item.operator);
+});
+
+const filteredTargetList  = computed(() => {
+  return props.targetList.filter((item: any) => {
+    // 不选取自己
+    if (item.envKey === props.item.envKey) {
+      return false;
+    }
+    // 只能选与自己类型一致的
+    return isDataTypeEqual(item.dataType, props.item.dataType);
+  });
 });
 </script>
 
@@ -100,8 +115,8 @@ const isNoValueOperator = computed(() => {
     <div class="filter-item-value">
       <template v-if="!isNoValueOperator">
         <filter-value v-if="isConstant" v-model="targetModel" :dataType="props.item.dataType" />
-        <el-select v-else placeholder="请选择" v-model="targetModel">
-          <el-option v-for="source in targetList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
+        <el-select v-else-if="isVariable" placeholder="请选择" v-model="targetModel">
+          <el-option v-for="source in filteredTargetList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
         </el-select>
       </template>
     </div>

@@ -107,6 +107,18 @@ export class DataBranchNode extends DataNode {
       }
     });
   }
+
+  updateNode (item: any) {
+    const parent = this.getParent() as DataNode;
+    this.context.update(draft => {
+      const parentRaw = draft.flowContent.find((item) => item.key === parent.key);
+      const branch = parentRaw?.conditions?.[this._branchIndex];
+      if (branch) {
+        branch.conditionName = item.conditionName;
+        branch.conditionExpressions = item.conditionExpressions;
+      }
+    });
+  }
 }
 
 /**

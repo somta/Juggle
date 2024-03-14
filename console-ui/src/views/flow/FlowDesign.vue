@@ -67,13 +67,15 @@ onMounted(async () => {
       console.log(d);
       if (d.data.type === ElementType.BRANCH) {
         const data = d.data as DataBranchNode;
-        console.log(conditionFilterModal, 'sd')
+        const parent = data.getParent();
         conditionFilterModal.value.open({
-          data: data.getParent()?.raw,
+          data: parent.raw,
           index: data.branchIndex,
-          afterSelect: (val: ConditionItem) => {
-            console.log(val);
-            flowRenderer.refresh();
+          afterEdit: (val: ConditionItem) => {
+            if (val) {
+              data.updateNode(val);
+              flowRenderer.refresh();
+            }
           }
         });
       } else {

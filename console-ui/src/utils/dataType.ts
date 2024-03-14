@@ -23,3 +23,28 @@ export function getDataTypeObject (json: string): DataTypeItem {
   }
   return result;
 }
+
+export function isDataTypeEqual (typeA: string, typeB: string) {
+  if (typeA === typeB) {
+    return true;
+  }
+  const dataTypeA = getDataTypeObject(typeA);
+  const dataTypeB = getDataTypeObject(typeB);
+  if (!dataTypeA || !dataTypeB) {
+    return false;
+  }
+  if (dataTypeA.type !== dataTypeB.type) {
+    return false;
+  }
+  if (dataTypeA.type === 'List') {
+    if (dataTypeA.itemType !== dataTypeB.itemType) {
+      return false;
+    }
+  }
+  if (dataTypeA.type === 'Object' || dataTypeA.itemType === 'Object') {
+    if (dataTypeA.objectKey !== dataTypeB.objectKey) {
+      return false;
+    }
+  }
+  return true;
+}
