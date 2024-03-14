@@ -85,7 +85,7 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionMapper.update(flowDefinitionInfoPo);
         variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAo.getId());
-        variableInfoMapper.batchAddVariable(IVariableInfoConverter.IMPL.voListToPoList(flowDefinitionAo.getVariableInfoList()));
+        variableInfoMapper.batchAddVariable(IVariableInfoConverter.IMPL.voListToPoList(flowDefinitionAo.getVariableInfoList(),flowDefinitionAo.getId()));
         return true;
     }
 

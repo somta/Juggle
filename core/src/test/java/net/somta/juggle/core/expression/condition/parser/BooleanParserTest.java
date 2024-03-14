@@ -1,7 +1,9 @@
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.node.ConditionNode.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,7 @@ class BooleanParserTest {
         IExpressionParser booleanParser = new BooleanParser();
         ConditionExpression equalConditionExpression = new ConditionExpression();
         equalConditionExpression.setEnvKey("env_loginFlag");
-        equalConditionExpression.setDataType(DataTypeEnum.Boolean);
+        equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
         equalConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
         equalConditionExpression.setAssignType("constant");
         equalConditionExpression.setValue("true");
@@ -22,7 +24,7 @@ class BooleanParserTest {
 
         ConditionExpression notEqualConditionExpression = new ConditionExpression();
         notEqualConditionExpression.setEnvKey("env_loginFlag");
-        notEqualConditionExpression.setDataType(DataTypeEnum.Boolean);
+        notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
         notEqualConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
         notEqualConditionExpression.setAssignType("constant");
         notEqualConditionExpression.setValue("true");
@@ -31,7 +33,7 @@ class BooleanParserTest {
 
         ConditionExpression unknownConditionExpression = new ConditionExpression();
         unknownConditionExpression.setEnvKey("env_loginFlag");
-        unknownConditionExpression.setDataType(DataTypeEnum.Boolean);
+        unknownConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
         unknownConditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         try {
             booleanParser.genExpression(unknownConditionExpression);

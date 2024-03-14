@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static net.somta.juggle.core.enums.ErrorEnum.FLOW_ELEMENT_IS_EMPTY_ERROR;
-import static net.somta.juggle.core.enums.ErrorEnum.FLOW_NOT_EXIST_START_NODE_ERROR;
+import static net.somta.juggle.core.enums.CoreErrorEnum.FLOW_ELEMENT_IS_EMPTY_ERROR;
+import static net.somta.juggle.core.enums.CoreErrorEnum.FLOW_NOT_EXIST_START_NODE_ERROR;
 
 public class FlowHelper {
 

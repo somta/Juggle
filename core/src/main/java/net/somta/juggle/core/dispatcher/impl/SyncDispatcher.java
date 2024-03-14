@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * @author husong
+ * @since 1.0.0
  */
 public class SyncDispatcher extends AbstractDispatcher {
 

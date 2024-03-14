@@ -25,6 +25,7 @@ public interface IFlowDefinitionAssembler {
 
     FlowDefinitionAO paramToAo(FlowDefinitionUpdateParam flowDefinitionUpdateParam);
 
+    @Mapping(target = "variableInfoList",source = "flowVariables")
     FlowDefinitionAO paramToAo(FlowDefinitionContentParam flowDefinitionContentParam);
 
     @Mapping(target = "flowInputParams", expression = "java(flowDefinitionAo.getParameterEntity().getInputParameterList())")

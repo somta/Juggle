@@ -17,25 +17,30 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.enums;
 
 /**
- * 流程的状态枚举
  * @author husong
  * @since 1.0.0
  */
-public enum FlowStatusEnum {
-    /**
-     * 初始化
-     */
-    INIT,
-    /**
-     * 运行中
-     */
-    RUNNING,
-    /**
-     * 完成
-     */
-    FINISH,
-    /**
-     * 终止
-     */
-    ABORT
+public enum CoreErrorEnum {
+
+    ENV_KEY_ERROR(1001, "变量的key不能为空"),
+    FLOW_ELEMENT_IS_EMPTY_ERROR(1002, "流程元素不能为空"),
+    FLOW_NOT_EXIST_START_NODE_ERROR(1003, "流程不存在开始节点")
+    ;
+
+
+    private int errCode;
+    private String errMsg;
+
+    CoreErrorEnum(int errCode, String errMsg) {
+        this.errCode = errCode;
+        this.errMsg = errMsg;
+    }
+
+    public int getErrCode() {
+        return errCode;
+    }
+
+    public String getErrMsg() {
+        return errMsg;
+    }
 }

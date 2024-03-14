@@ -9,7 +9,7 @@ import {
   EditNodeDrawer,
   LeftMenu,
   ConditionItem,
-  ConditionFilterModal,
+  FlowVariable,
 } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
@@ -104,22 +104,23 @@ function flowSubmit () {
       result.push(item.raw);
     }
   });
-  console.log(result);
-  //todo 待测试
-  //saveFlowDefineContent();
+  const flowContent = JSON.stringify(result);
+  const flowVariables = flowRenderer.options.flowContext.data.value.flowVariables;
+  saveFlowDefineContent(flowContent,flowVariables);
 }
 
-// async function saveFlowDefineContent(flowContent:string) {
-//   const res = await flowDefineService.saveFlowContent({
-//     id: route.params.flowDefinitionId as number,
-//     flowContent:flowContent
-//   });
-//   if (res.success) {
-//     ElMessage({ type: 'success', message: '保存成功' });
-//   } else {
-//     ElMessage({ type: 'error', message: res.errorMsg });
-//   }
-// }
+async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVariable[]) {
+  const res = await flowDefineService.saveFlowContent({
+    id: route.params.flowDefinitionId as number,
+    flowContent:flowContent,
+    flowVariables: flowVariables
+  });
+  if (res.success) {
+    ElMessage({ type: 'success', message: '保存成功' });
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
 </script>
 
 <template>
