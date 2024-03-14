@@ -19,6 +19,7 @@ import net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper;
 import net.somta.juggle.console.infrastructure.po.flow.FlowDefinitionInfoPO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
+import net.somta.juggle.core.enums.VariablePrefixEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,7 +122,13 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
                 parameter.setSourceId(flowDefinitionId);
                 VariableInfoPO variableInfoPo = new VariableInfoPO();
                 variableInfoPo.setFlowDefinitionId(flowDefinitionId);
-                variableInfoPo.setEnvKey(parameter.getParamKey());
+                if(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode()){
+                    variableInfoPo.setEnvKey(VariablePrefixEnum.INPUT_VARIABLE_PREFIX.getCode() + parameter.getParamKey());
+                }else if(parameter.getParamType() == ParameterTypeEnum.OUTPUT_PARAM.getCode()){
+                    variableInfoPo.setEnvKey(VariablePrefixEnum.OUTPUT_VARIABLE_PREFIX.getCode() + parameter.getParamKey());
+                }else {
+                    variableInfoPo.setEnvKey(parameter.getParamKey());
+                }
                 variableInfoPo.setEnvName(parameter.getParamName());
                 variableInfoPo.setEnvType(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode() : VariableTypeEnum.OUTPUT_PARAM_VARIABLE.getCode());
                 variableInfoPo.setDataType(parameter.getDataType());

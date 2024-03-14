@@ -58,7 +58,7 @@ public class FlowDefinitionHelper {
         //header填充规则
         List<FillStruct> headerFillRules = new ArrayList<>();
         FillStruct headerFillStruct = new FillStruct();
-        headerFillStruct.setSource("env_id");
+        headerFillStruct.setSource("input_id");
         headerFillStruct.setSourceType(FieldSourceEnum.VARIABLE);
         headerFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         headerFillStruct.setTarget("userId");
@@ -70,7 +70,7 @@ public class FlowDefinitionHelper {
         //入参填充规则
         List<FillStruct> inputFillRules = new ArrayList<>();
         FillStruct fillStruct = new FillStruct();
-        fillStruct.setSource("env_id");
+        fillStruct.setSource("input_id");
         fillStruct.setSourceType(FieldSourceEnum.VARIABLE);
         fillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         fillStruct.setTarget("userId");
@@ -86,7 +86,7 @@ public class FlowDefinitionHelper {
         outFillStruct.setSource("name");
         outFillStruct.setSourceType(FieldSourceEnum.OUTPUT_PARAM);
         outFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
-        outFillStruct.setTarget("env_userName");
+        outFillStruct.setTarget("output_userName");
         outFillStruct.setTargetType(FieldSourceEnum.VARIABLE);
         outFillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         outputFillRules.add(outFillStruct);
@@ -111,14 +111,14 @@ public class FlowDefinitionHelper {
         ConditionNode.ConditionItem conditionItem1 = new ConditionNode.ConditionItem();
         conditionItem1.setConditionName("判断用户名称是否为zhansan");
         conditionItem1.setConditionType(ConditionNode.ConditionType.CUSTOM);
-        conditionItem1.setExpression("env_name==\"张三\"||string.contains(env_name,三)");
+        conditionItem1.setExpression("input_name==\"张三\"||string.contains(input_name,'三')");
 
         List<List<ConditionExpression>> conditionExpressions1 = new ArrayList<>();
 
         //第一个或条件表达式
         List<ConditionExpression> conditionExpressions11 = new ArrayList<>();
         ConditionExpression conditionExpression11 = new ConditionExpression();
-        conditionExpression11.setEnvKey("env_name");
+        conditionExpression11.setEnvKey("input_name");
         conditionExpression11.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression11.setAssignType("constant");
@@ -128,7 +128,7 @@ public class FlowDefinitionHelper {
         //第二个或条件表达式
         List<ConditionExpression> conditionExpressions12 = new ArrayList<>();
         ConditionExpression conditionExpression12 = new ConditionExpression();
-        conditionExpression12.setEnvKey("env_name");
+        conditionExpression12.setEnvKey("input_name");
         conditionExpression12.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression12.setAssignType("constant");
@@ -145,14 +145,14 @@ public class FlowDefinitionHelper {
         conditionItem2.setConditionName("判断用户名称是否为lisi");
         conditionItem2.setConditionType(ConditionNode.ConditionType.CUSTOM);
         //注意：字符串的条件一定要带单引号或者双引号
-        conditionItem2.setExpression("env_name==\"lisi\"");
+        conditionItem2.setExpression("input_name==\"lisi\"");
 
         List<List<ConditionExpression>> conditionExpressions2 = new ArrayList<>();
 
         //第一个或条件表达式
         List<ConditionExpression> conditionExpressions21 = new ArrayList<>();
         ConditionExpression conditionExpression21 = new ConditionExpression();
-        conditionExpression21.setEnvKey("env_name");
+        conditionExpression21.setEnvKey("input_name");
         conditionExpression21.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression21.setAssignType("constant");
@@ -188,7 +188,7 @@ public class FlowDefinitionHelper {
         //入参填充规则
         /*List<FillStruct> inputFillRules = new ArrayList<>();
         FillStruct fillStruct = new FillStruct();
-        fillStruct.setSource("env_id");
+        fillStruct.setSource("input_id");
         fillStruct.setSourceType(FildSourceEnum.VARIABLE);
         fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
         fillStruct.setTarget("id");
@@ -238,21 +238,21 @@ public class FlowDefinitionHelper {
         List<VariableInfoVO> variableInfoList = new ArrayList<>();
 
         VariableInfoVO inputVariable1 = new VariableInfoVO();
-        inputVariable1.setEnvKey("env_id");
+        inputVariable1.setEnvKey("input_id");
         inputVariable1.setEnvName("入参-用户ID变量");
         inputVariable1.setEnvType(1);
         inputVariable1.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         variableInfoList.add(inputVariable1);
 
         VariableInfoVO inputVariable2 = new VariableInfoVO();
-        inputVariable2.setEnvKey("env_name");
+        inputVariable2.setEnvKey("input_name");
         inputVariable2.setEnvName("入参-用户姓名变量");
         inputVariable2.setEnvType(1);
         inputVariable2.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         variableInfoList.add(inputVariable2);
 
         VariableInfoVO outputVariable1 = new VariableInfoVO();
-        outputVariable1.setEnvKey("env_userName");
+        outputVariable1.setEnvKey("output_userName");
         outputVariable1.setEnvName("流程出参-用户姓名变量");
         outputVariable1.setEnvType(2);
         outputVariable1.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));

@@ -48,7 +48,7 @@ public class ExpressionAviatorEvaluatorTest {
         Assertions.assertEquals(result4, false);
 
 
-        //包含 s1字符串包含s2字符串
+        //包含 变量s1字符串包含变量s2字符串
         Expression compiledExp5 = instance.compile("string.contains(s1,s2)");
         Map<String, Object> env5 = new HashMap<>();
         env5.put("s1","zhansan");
@@ -56,13 +56,21 @@ public class ExpressionAviatorEvaluatorTest {
         Boolean result5 = (Boolean) compiledExp5.execute(env5);
         Assertions.assertEquals(result5, true);
 
-        //包含 s1字符串包含s2字符串
+        //包含 变量s1字符串包含变量s2字符串
         Expression compiledExp6 = instance.compile("!string.contains(s1,s2)");
         Map<String, Object> env6 = new HashMap<>();
         env6.put("s1","zhansan");
         env6.put("s2","zhan");
         Boolean result6 = (Boolean) compiledExp6.execute(env6);
         Assertions.assertEquals(result6, false);
+
+        //包含 变量s1字符串包含常量zhan
+        Expression compiledExp7 = instance.compile("string.contains(s1,'zhan')");
+        Map<String, Object> env7 = new HashMap<>();
+        env7.put("s1","zhansan");
+        Boolean result7 = (Boolean) compiledExp7.execute(env7);
+        Assertions.assertEquals(result7, true);
+
     }
 
     @Test

@@ -24,6 +24,7 @@ import net.somta.juggle.core.IWorkRunner;
 import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FlowStatusEnum;
+import net.somta.juggle.core.enums.VariablePrefixEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowElement;
@@ -79,7 +80,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
     private void fillInputParameterVariable(AbstractVariableManager variableManager, Map<String,Object> flowData) throws FlowException {
         if(MapUtils.isNotEmpty(flowData)){
             for (String key : flowData.keySet()) {
-                variableManager.setVariableValue("env_"+key,flowData.get(key));
+                variableManager.setVariableValue(VariablePrefixEnum.INPUT_VARIABLE_PREFIX.getCode() + key,flowData.get(key));
             }
         }
     }

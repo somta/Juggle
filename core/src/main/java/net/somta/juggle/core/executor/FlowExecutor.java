@@ -18,6 +18,7 @@ package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.enums.FlowStatusEnum;
+import net.somta.juggle.core.enums.VariablePrefixEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.result.IFlowResultManager;
@@ -95,7 +96,7 @@ public class FlowExecutor{
         for (OutputParameter parameter : outputParameters) {
             Object value = null;
             try {
-                value = variableManager.getVariableValue("env_"+parameter.getKey());
+                value = variableManager.getVariableValue(VariablePrefixEnum.OUTPUT_VARIABLE_PREFIX.getCode() + parameter.getKey());
             } catch (FlowException e) {
                 e.printStackTrace();
             }

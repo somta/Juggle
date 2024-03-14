@@ -43,4 +43,8 @@ import IconInterface from '@/components/icons/IconInterface.vue';
 .layout-aside {
   height: 100%;
 }
+.el-menu-item.is-active {
+  background: #ecf5ff !important;
+  border-right: 2px solid #409eff;
+}
 </style>
