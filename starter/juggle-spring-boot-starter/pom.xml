@@ -22,11 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>juggle-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.somta</groupId>
-            <artifactId>juggle-common</artifactId>
+            <artifactId>somta-common</artifactId>
         </dependency>
     </dependencies>
 

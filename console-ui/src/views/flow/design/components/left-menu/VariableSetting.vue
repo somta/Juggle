@@ -1,10 +1,11 @@
 
 <script lang="ts" setup>
-import { shallowRef, computed } from 'vue';
-import { Edit, Delete } from '@element-plus/icons-vue';
-import ParamSettingModal from './ParamSettingModal.vue';
+import {shallowRef, computed, ref} from 'vue';
+import { Edit, Delete, Search } from '@element-plus/icons-vue';
+import ParamSettingModal from './ParamSettingModal.vue'
 import { useFlowDataInject } from '../../hooks/flow-data';
 const flowContext = useFlowDataInject();
+const searchValue = ref("");
 const treeData = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables.map(v => ({
     ...v,
@@ -65,13 +66,17 @@ function onDelete(data: any) {
   });
 }
 
+function searchVariable(value: any) {
+  console.log(value);
+}
+
 </script>
 
 <template>
   <div class="flow-variable-setting">
     <div class="variable-head">
       <el-button type="primary" size="small" class="add-temp-variable" @click="onAddOpen">新增中间变量</el-button>
-      <el-input placeholder="搜索变量" class="variable-search-input" size="small"/>
+      <el-input v-model="searchValue" :prefix-icon="Search" placeholder="搜索变量" class="variable-search-input" size="small" @change="searchVariable"/>
     </div>
     <div class="variable-body">
       <el-tree :data="treeData" node-key="envKey" default-expand-all>

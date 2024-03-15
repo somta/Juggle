@@ -3,10 +3,10 @@ package net.somta.juggle.example.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
-import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.example.dto.BaseResponse;
 import net.somta.juggle.example.param.TriggerFlowParam;
 import net.somta.juggle.starter.impl.IJuggleTemplate;
+import net.somta.juggle.starter.model.FlowResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,9 +28,9 @@ public class FlowIntegrationController {
 
     @Operation(summary = "集成触发流程")
     @PostMapping("/triggerFlow")
-    public BaseResponse<FlowResult> triggerFlow(TriggerFlowParam triggerFlowParam){
+    public BaseResponse<FlowResultModel> triggerFlow(TriggerFlowParam triggerFlowParam){
         try {
-            ResponseDataResult<FlowResult> flowResult = juggleTemplate.triggerFlow(triggerFlowParam.getFlowVersion(),
+            ResponseDataResult<FlowResultModel> flowResult = juggleTemplate.triggerFlow(triggerFlowParam.getFlowVersion(),
                     triggerFlowParam.getFlowKey(),
                     triggerFlowParam.getTriggerData());
             if(flowResult.isSuccess()){

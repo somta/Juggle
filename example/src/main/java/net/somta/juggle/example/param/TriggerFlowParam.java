@@ -1,6 +1,7 @@
 package net.somta.juggle.example.param;
 
-import net.somta.juggle.common.param.TriggerDataParam;
+
+import net.somta.juggle.starter.model.FlowTriggerDataParam;
 
 /**
  * @author husong
@@ -11,7 +12,7 @@ public class TriggerFlowParam {
 
     private String flowVersion;
 
-    private TriggerDataParam triggerData;
+    private FlowTriggerDataParam triggerData;
 
     public String getFlowKey() {
         return flowKey;
@@ -29,11 +30,11 @@ public class TriggerFlowParam {
         this.flowVersion = flowVersion;
     }
 
-    public TriggerDataParam getTriggerData() {
+    public FlowTriggerDataParam getTriggerData() {
         return triggerData;
     }
 
-    public void setTriggerData(TriggerDataParam triggerData) {
+    public void setTriggerData(FlowTriggerDataParam triggerData) {
         this.triggerData = triggerData;
     }
 }
