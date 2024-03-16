@@ -8,7 +8,7 @@ const flowContext = useFlowDataInject();
 const visible = ref(false);
 let openParams: {
   data: RawData;
-  afterEdit: () => void;
+  afterEdit: (oldData: RawData) => void;
 };
 function open (params: typeof openParams) {
   visible.value = true;
@@ -27,7 +27,7 @@ function onUpdate (val: RawData) {
     }
   });
   visible.value = false;
-  openParams.afterEdit();
+  openParams.afterEdit(currentData.value as RawData);
 }
 
 function onClosed () {

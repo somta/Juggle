@@ -51,6 +51,9 @@ function edit (index: number) {
     index: index,
     afterEdit: (val: ConditionItem) => {
       if (val) {
+        if (!val.outgoing) {
+          val.outgoing = props.data.outgoings[0];
+        }
         nodeData.value.conditions.splice(index, 1, val);
       }
     }
@@ -84,6 +87,9 @@ function addCondition () {
     data: nodeData.value,
     afterEdit: (val: ConditionItem) => {
       if (val) {
+        if (!val.outgoing) {
+          val.outgoing = props.data.outgoings[0];
+        }
         nodeData.value.conditions.push(val);
       }
     }

@@ -56,6 +56,21 @@ export class DataNode extends TreeNode {
 
   set out (val: string) {
     DataNode.context.setOut(this.key, val);
+    // 条件节点 - 额外工作
+    if (this.type === ElementType.CONDITION) {
+      this.getChildren().forEach((child: any) => {
+        const branch = child as DataBranch;
+        const branchChildren = branch.getChildren();
+        // 如果分支存在子节点，则将末尾节点的 out 设置为 val
+        if (branchChildren.length > 0) {
+          const last = branchChildren[branchChildren.length - 1];
+          last.out = val;
+        } else {
+          // 否则把分支节点的out设置为 val
+          branch.out = val;
+        }
+      });
+    }
   }
 
   public getParent() {

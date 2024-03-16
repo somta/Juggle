@@ -10,6 +10,7 @@ import {
   ConditionItem,
   FlowVariable,
   ConditionFilterModal,
+  RawData,
 } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
@@ -89,8 +90,8 @@ onMounted(async () => {
       } else if (d.data.type === ElementType.CONDITION) {
         editNodeModal.value.open({
           data: d.data.raw,
-          afterEdit: () => {
-            rebuildCondition(flowContext, d.data);
+          afterEdit: (oldData: RawData) => {
+            rebuildCondition(flowContext, d.data, oldData);
             flowRenderer.refresh();
           }
         });

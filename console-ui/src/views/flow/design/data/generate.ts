@@ -51,6 +51,14 @@ export function generateDataTree(flowContext: FlowContext) {
   const startNode = new DataNode(start.key);
   branch.addChild(startNode);
   generateBranch(flowContext, branch);
+  // 清理无用的节点
+  if (datas.length > DataNode.DataNodeMap.size) {
+    flowContext.update(draft => {
+      draft.flowContent = draft.flowContent.filter((item) => {
+        return DataNode.DataNodeMap.has(item.key);
+      });
+    });
+  }
   return branch;
 }
 
@@ -131,12 +139,22 @@ export function initNewNode (info: MyOptional<RawData, 'name' | 'elementType'>, 
   return current;
 }
 
-export function rebuildCondition (flowContext: FlowContext, node: DataNode) {
+export function rebuildCondition (flowContext: FlowContext, node: DataNode, oldData: RawData) {
   if (node.type !== ElementType.CONDITION) {
     return;
   }
+  const oldChilds: string[] = [];
+  oldData.conditions?.forEach(oldCondition => {
+    if (oldCondition.outgoing !== node.out) {
+      oldChilds.push(oldCondition.outgoing);
+    }
+  });
   node.getChildren().forEach((child) => {
-    child.delete();
+    if (oldChilds.includes(child.out)) {
+      node.removeChild(child);
+    } else {
+      child.delete();
+    }
   });
   node.raw.conditions?.forEach((_, index) => {
     const branch = new DataBranch(index);
