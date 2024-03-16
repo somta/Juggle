@@ -28,25 +28,23 @@ export function deleteNode(params: { current: DataNode; }) {
   // 处理节点出口
   connectNodes({ node: prev!, next: next! });
   // 删除节点
-  const parent = current.getParent();
-  parent?.removeChild(current);
+  current.delete();
 }
 
 // 处理节点关系
 function connectNodes(params: { node: DataNode; next: DataNode; }) {
   const { node, next } = params;
   // out
-  if (node.type === ElementType.BRANCH) {
-    const branchNode = node;
-    branchNode.out = next.key;
-  } else {
-    node.out = next.key;
-  }
+  // node -> node/condition（正常）
+  // branch -> node/condition（正常）
+  // condition -> node/condition (额外工作 - 处理条件分支的outgoing(存在递归，在DataNode中处理))
+  node.out = next.key;
   // in
-  if (node.getParent() === next.getParent()) {
-    next.in = node.key;
-  }
-  if (node.type === ElementType.BRANCH && node === next.getParent()) {
+  // node -> node/condition（正常）
+  // branch -> node/condition (指向调整 - branch的父级)
+  // condition -> node/condition （正常）
+  next.in = node.key;
+  if (node.type === ElementType.BRANCH) {
     next.in = node.getParent()?.key as string;
   }
 }
