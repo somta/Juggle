@@ -53,10 +53,10 @@ function addrule() {
   rules.value.push({
     source: '',
     sourceDataType: null as unknown as DataTypeItem,
-    sourceType: valueType.VARIABLE,
+    sourceType: valueType.INPUT_PARAM,
     target: '',
     targetDataType: null as unknown as DataTypeItem,
-    targetType: valueType.INPUT_PARAM,
+    targetType: valueType.VARIABLE,
     required: false,
   });
   onChange();
@@ -80,11 +80,12 @@ function onTargetTypeChange (rowIndex: number) {
 function onTargetVarChange (rowIndex: number) {
   const target = rules.value[rowIndex].target;
   const param = props.targetList.find((item) => item.envKey === target);
-  try {
+  rules.value[rowIndex].targetDataType = param.dataType;
+/*  try {
     rules.value[rowIndex].targetDataType = JSON.parse(param.dataType);
   } catch (error) {
     console.error(error);
-  }
+  }*/
   onChange();
 }
 
@@ -103,11 +104,12 @@ function onSourceChange (rowIndex: number) {
   const source = rules.value[rowIndex].source;
   const param = props.sourceList.find((item) => item.paramKey === source);
   rules.value[rowIndex].target = '';
-  try {
+  rules.value[rowIndex].sourceDataType = param.dataType;
+/*  try {
     rules.value[rowIndex].sourceDataType = JSON.parse(param.dataType);
   } catch (error) {
     console.error(error);
-  }
+  }*/
   if (props.requiredKeys.includes(source)) {
     rules.value[rowIndex].required = true;
   }

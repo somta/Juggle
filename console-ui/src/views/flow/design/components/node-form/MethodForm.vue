@@ -71,11 +71,11 @@ function paramToRule (param: { dataType: string; paramKey: string; paramName: st
     targetType: valueType.VARIABLE,
     required: true,
   }
-  try {
+/*  try {
     result.sourceDataType = JSON.parse(result.sourceDataType);
   } catch (error) {
     console.error(error);
-  }
+  }*/
   return result;
 }
 

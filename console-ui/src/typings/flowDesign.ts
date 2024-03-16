@@ -1,6 +1,9 @@
 export enum valueType {
   VARIABLE = 'VARIABLE',
+  CONSTANT = 'CONSTANT',
   INPUT_PARAM = 'INPUT_PARAM',
+  OUTPUT_PARAM = 'OUTPUT_PARAM',
+  HEADER = 'HEADER'
 }
 
 export type DataTypeItem = {
