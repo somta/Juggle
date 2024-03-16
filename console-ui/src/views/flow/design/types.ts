@@ -36,7 +36,6 @@ export enum ElementType {
 
   // 前端创建的
   BRANCH = 'BRANCH',
-  ROOT = 'ROOT',
 }
 
 export type D3Element = d3.Selection<any, any, any, any>;

@@ -3,25 +3,26 @@ import { onMounted, ref, shallowRef } from 'vue';
 import {
   ZoomTool,
   FlowRenderer,
-  RawData,
   ElementType,
   AddNodeModal,
   EditNodeDrawer,
   LeftMenu,
   ConditionItem,
   FlowVariable,
+  ConditionFilterModal,
 } from './design';
 import { flowDefineService } from '@/service';
 import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { addNode, deleteNode } from './design/operate';
 import { useFlowDataProvide } from './design/hooks/flow-data';
-import { DataBranchNode } from './design/renderer/data';
+import { DataNode, DataBranch } from './design/data';
+import { rebuildCondition } from './design/data/generate';
 
 const flowContext = useFlowDataProvide();
 const route = useRoute();
 async function queryFlowDefineInfo() {
-  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as number);
+  const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as unknown as number);
   if (res.success) {
     flowContext.update(draft => {
       Object.assign(draft, res.result);
@@ -58,7 +59,7 @@ onMounted(async () => {
       console.log(d);
       addNodeModal.value.open({
         afterSelect: (info: { name: string; elementType: ElementType }) => {
-          addNode({ info, prev: d.data, dataMap: flowRenderer.dataMap });
+          addNode({ info, prev: d.data });
           flowRenderer.refresh();
         }
       });
@@ -66,16 +67,31 @@ onMounted(async () => {
     onEdit: d => {
       console.log(d);
       if (d.data.type === ElementType.BRANCH) {
-        const data = d.data as DataBranchNode;
+        const data = d.data as DataBranch;
         const parent = data.getParent();
         conditionFilterModal.value.open({
-          data: parent.raw,
+          data: parent!.raw,
           index: data.branchIndex,
           afterEdit: (val: ConditionItem) => {
             if (val) {
-              data.updateNode(val);
+              flowContext.update(draft => {
+                const parentRaw = draft.flowContent.find((item) => item.key === parent.key);
+                const branch = parentRaw?.conditions?.[data.branchIndex];
+                if (branch) {
+                  branch.conditionName = val.conditionName;
+                  branch.conditionExpressions = val.conditionExpressions;
+                }
+              });
               flowRenderer.refresh();
             }
+          }
+        });
+      } else if (d.data.type === ElementType.CONDITION) {
+        editNodeModal.value.open({
+          data: d.data.raw,
+          afterEdit: () => {
+            rebuildCondition(flowContext, d.data);
+            flowRenderer.refresh();
           }
         });
       } else {
@@ -89,29 +105,20 @@ onMounted(async () => {
     },
     onDelete: d => {
       console.log(d);
-      deleteNode({ current: d.data, dataMap: flowRenderer.dataMap });
+      deleteNode({ current: d.data });
       flowRenderer.refresh();
     },
   });
 });
 
 function flowSubmit () {
-  const dataMap = flowRenderer.dataMap
-  const result: RawData[] = [];
-  dataMap.forEach(item => {
-    // 过滤不需要提交的
-    if (![ElementType.BRANCH, ElementType.ROOT].includes(item.type)) {
-      result.push(item.raw);
-    }
-  });
-  const flowContent = JSON.stringify(result);
-  const flowVariables = flowRenderer.options.flowContext.data.value.flowVariables;
-  saveFlowDefineContent(flowContent,flowVariables);
+  const { flowContent, flowVariables } = flowContext.data.value;
+  saveFlowDefineContent(JSON.stringify(flowContent), flowVariables);
 }
 
 async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVariable[]) {
   const res = await flowDefineService.saveFlowContent({
-    id: route.params.flowDefinitionId as number,
+    id: route.params.flowDefinitionId as unknown as number,
     flowContent:flowContent,
     flowVariables: flowVariables
   });
@@ -150,6 +157,10 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
 
     .flow-btn {
       cursor: pointer;
+      transition: opacity 0.2s;
+      &:hover {
+        opacity: 0.85;
+      }
     }
     .flow-btn-edit,
     .flow-btn-delete {

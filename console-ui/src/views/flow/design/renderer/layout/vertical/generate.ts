@@ -1,12 +1,14 @@
 import { ElementType } from '../../../types';
-import { DataNode } from '../../data';
+import { DataNode } from '../../../data';
 import { LayoutNode } from '../LayoutNode';
 
 export const box = {
   width: 200,
-  height: 40,
+  height: 80,
   marginBottom: 80,
-  marginRight: 40,
+  marginRight: 100,
+  conditionWidth: 180,
+  conditionHeight: 40,
 };
 
 // const widthAndMargin = box.width + box.marginRight;
@@ -22,12 +24,12 @@ export function layoutTree(node: DataNode) {
     data: node,
     linesTo: [],
   });
-  return layoutBranch(root, node);
+  return layoutBranch(root);
 }
 
-function layoutBranch(branch: LayoutNode, node: DataNode) {
+function layoutBranch(branch: LayoutNode) {
   let prev: LayoutNode = branch;
-  node.getChildren().forEach(child => {
+  branch.data.getChildren().forEach(child => {
     let childLayout: LayoutNode;
     if (child.type === ElementType.CONDITION) {
       childLayout = layoutCondition(prev, child);
@@ -49,7 +51,7 @@ function layoutBranch(branch: LayoutNode, node: DataNode) {
     alignItemCenter(child);
   });
   // 分支节点偏移
-  if (branch.data.type === ElementType.BRANCH) {
+  if (branch.data.key !== 'root') {
     offsetBranch(branch);
   }
   // 条件节点连线
@@ -84,6 +86,15 @@ function layoutNormal(prev: LayoutNode, node: DataNode) {
     left: 0,
     top: 0,
   });
+  if ([ElementType.START, ElementType.END].includes(node.type)) {
+    layout.setSize(80, 40);
+    layout.setContentBox({
+      width: 80,
+      height: 40,
+      left: 0,
+      top: 0,
+    });
+  }
   return layout;
 }
 
@@ -105,7 +116,7 @@ function layoutCondition(prev: LayoutNode, node: DataNode) {
       linesTo: [],
     });
     condition.addChild(branch);
-    layoutBranch(branch, child);
+    layoutBranch(branch);
     prevChild = branch;
   });
   // 设置节点尺寸
@@ -142,9 +153,9 @@ function setConditionBox(node: LayoutNode) {
   const height = branchTop + Math.max(...node.getChildren().map(child => child.height));
   node.setSize(width, height);
   node.setContentBox({
-    width: box.width,
-    height: box.height,
-    left: width / 2 - box.width / 2,
+    width: box.conditionWidth,
+    height: box.conditionHeight,
+    left: width / 2 - box.conditionWidth / 2,
     top: 0,
   });
 }

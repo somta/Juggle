@@ -1,6 +1,5 @@
 
-import { DataNode } from '../data';
-import { TreeNode } from '../utils/TreeNode';
+import { TreeNode, DataNode } from '../../data';
 
 export class LayoutNode extends TreeNode {
   constructor(params: { left: number; top: number; width: number; height: number; data: DataNode; linesTo?: string[] }) {

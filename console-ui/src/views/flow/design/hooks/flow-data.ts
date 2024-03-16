@@ -21,7 +21,7 @@ export function useFlowDataProvide() {
   }
 
   function getFlowNode (key: string) {
-    return data.value.flowContent.find((node) => node.key === key);
+    return data.value.flowContent.find((node) => node.key === key) as RawData;
   }
 
   function updateFlowNode (key: string, data: Partial<RawData>) {
@@ -50,17 +50,4 @@ export type FlowContext = ReturnType<typeof useFlowDataProvide>;
 
 export function useFlowDataInject() {
   return inject('flowContext') as ReturnType<typeof useFlowDataProvide>;
-}
-
-export function getFlowNode (flowContext: FlowContext, key: string) {
-  return flowContext.data.value.flowContent.find((node) => node.key === key);
-}
-
-export function updateFlowNode (flowContext: FlowContext, key: string, data: Partial<RawData>) {
-  flowContext.update((draft) => {
-    const node = draft.flowContent.find((node) => node.key === key);
-    if (node) {
-      Object.assign(node, data);
-    }
-  });
 }

@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import { ElementType, D3Element } from '../../../types';
 import { LayoutNode } from '../LayoutNode';
-import { FlowRenderer } from '../../renderer';
-import { DataNode } from '../../data';
+import { FlowRenderer } from '../../index';
+import { DataNode } from '../../../data';
 import { layoutTree, box, setLayoutToMap } from './generate';
 
 type D3Point = [number, number];
@@ -54,7 +54,7 @@ export class VerticalLayout {
     const lines: { from: string; to: string }[] = [];
     this.layoutNodeMap.forEach(node => {
       const { linesTo, data } = node;
-      if (node.data.type === ElementType.ROOT) {
+      if (node.data.key === 'root') {
         return;
       }
       linesTo.forEach(to => {
@@ -163,7 +163,6 @@ export class VerticalLayout {
         this.drawCondition(container, node, type);
         break;
       case ElementType.BRANCH:
-      case ElementType.ROOT:
         this.drawBranch(container, node, type);
         break;
       default:
@@ -270,7 +269,7 @@ export class VerticalLayout {
   }
 
   drawBranch(container: D3Element, branch: LayoutNode, type: string) {
-    if (branch.data.type === ElementType.BRANCH) {
+    if (branch.data.key !== 'root' && branch.data.type === ElementType.BRANCH) {
       if (type === 'enter') {
         // container.append('rect')
         //   .attr('class', 'sup-rect')
@@ -307,8 +306,10 @@ export class VerticalLayout {
 
         this.drawHoverButtons(branchStart, branch);
       } else {
-        container.selectChild('.flow-node').attr('transform', `translate(${branch.contentBox.left}, 0)`);
         container.selectChild('.sup-rect').attr('width', branch.width).attr('height', branch.height);
+        const branchStart = container.selectChild('.flow-node');
+        branchStart.attr('transform', `translate(${branch.contentBox.left}, 0)`);
+        branchStart.selectChild('text').text(branch.data.raw.name);
       }
       this.drawAddIcon(container, branch, type);
     }
@@ -351,8 +352,8 @@ export class VerticalLayout {
         .on('click', (_, d) => {
           this.renderer.options.onAdd?.(d);
         });
-      addButton.append('circle').attr('cx', 0).attr('cy', 0).attr('r', btn_radius).attr('fill', '#fff').attr('stroke', '#777');
-      addButton.append('use').attr('href', '#icon-plus').attr('width', 24).attr('height', 24).attr('x', -12).attr('y', -12).attr('fill', '#777');
+      addButton.append('circle').attr('cx', 0).attr('cy', 0).attr('r', btn_radius).attr('fill', '#409eff');
+      addButton.append('use').attr('href', '#icon-plus').attr('width', 16).attr('height', 16).attr('x', -8).attr('y', -8).attr('fill', '#fff');
     } else {
       container.select('.flow-btn-add').attr('transform', `translate(${width / 2}, ${height + box.marginBottom / 2})`);
     }
