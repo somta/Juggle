@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
+import {FormInstance, FormRules} from "element-plus";
 type ParamItem = {
   envKey: string;
   envName: string;
@@ -10,12 +11,18 @@ type ParamItem = {
   id: number;
 };
 const emit = defineEmits(['add', 'edit']);
+const formRef = ref<FormInstance>();
 const form = reactive<ParamItem>({
   envKey: '',
   envName: '',
   dataType: '',
   envType: 3,
   id: 0,
+});
+const rules = reactive<FormRules>({
+  envKey: [{ required: true, message: '请输入变量编码', trigger: 'blur' },{ pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' }],
+  envName: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
+  dataType:[{ required: true, message: '请选择数据类型', trigger: 'blur' }]
 });
 const visible = ref(false);
 const isEdit = ref(false);
@@ -36,9 +43,15 @@ const edit = (data: ParamItem) => {
 function onCancel () {
   visible.value = false;
 }
-function onSubmit () {
+async function onSubmit() {
+  if (!formRef.value) return;
+  const valid = await formRef.value?.validate(() => {
+  });
+  if (!valid) {
+    return;
+  }
   visible.value = false;
-  const result = { ...form };
+  const result = {...form};
   if (isEdit.value) {
     emit('edit', result);
   } else {
@@ -53,18 +66,21 @@ defineExpose({ add, edit });
     :title="isEdit ? '编辑变量' : '新增中间变量'"
     v-model="visible"
     append-to-body
-    :width="480"
+    :width="400"
   >
     <el-form
       labelPosition="top"
+      ref="formRef"
+      :model="form"
+      :rules="rules"
     >
-      <el-form-item label="变量键">
+      <el-form-item label="变量键" prop="envKey">
         <el-input v-model="form.envKey" placeholder="请输入" maxlength="30" />
       </el-form-item>
-      <el-form-item label="变量名">
+      <el-form-item label="变量名" prop="envName">
         <el-input v-model="form.envName" placeholder="请输入" maxlength="30" />
       </el-form-item>
-      <el-form-item label="变量类型">
+      <el-form-item label="变量类型" prop="dataType">
         <DataTypeSelect v-model="form.dataType" jsonParse />
       </el-form-item>
     </el-form>
