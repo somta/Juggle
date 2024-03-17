@@ -111,7 +111,7 @@ public class ConditionNode extends FlowNode{
         /**
          * 值或者变量code
          */
-        private String value;
+        private Object value;
 
         public String getEnvKey() {
             return envKey;
@@ -145,11 +145,11 @@ public class ConditionNode extends FlowNode{
             this.assignType = assignType;
         }
 
-        public String getValue() {
+        public Object getValue() {
             return value;
         }
 
-        public void setValue(String value) {
+        public void setValue(Object value) {
             this.value = value;
         }
     }

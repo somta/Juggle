@@ -11,6 +11,10 @@ public enum FieldSourceEnum {
      */
     VARIABLE,
     /**
+     * 常量
+     */
+    CONSTANT,
+    /**
      * 请求头
      */
     HEADER,

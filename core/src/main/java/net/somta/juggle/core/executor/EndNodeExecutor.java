@@ -41,6 +41,7 @@ public class EndNodeExecutor extends AbstractElementExecutor {
 
     @Override
     protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
-        logger.debug("结束节点执行器，执行后========================================");
+        logger.debug("结束节点执行器完毕");
+        super.fillNextNode(flowRuntimeContext,null);
     }
 }

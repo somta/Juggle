@@ -17,6 +17,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.FlowRuntimeContext;
+import net.somta.juggle.core.model.node.StartNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +42,9 @@ public class StartNodeExecutor extends AbstractElementExecutor {
 
     @Override
     protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
-        logger.debug("开始节点执行器，执行后========================================");
+        StartNode startNode = (StartNode) flowRuntimeContext.getCurrentNode();
+        String nextNodeKey = startNode.getOutgoings().get(0);
+        logger.debug("开始节点执行器完毕，下一个节点的KEY为：{}", nextNodeKey);
+        super.fillNextNode(flowRuntimeContext,nextNodeKey);
     }
 }

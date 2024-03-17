@@ -56,7 +56,7 @@ public class FlowExecutor{
         return flowResult;
     }
 
-    public IExecutor getExecutor(FlowRuntimeContext flowRuntimeContext) {
+    public IExecutor getCurrentNodeExecutor(FlowRuntimeContext flowRuntimeContext) {
         //1.判断上一个节点是否执行完成了
 
         //2.返回当前节点的执行器
@@ -77,10 +77,10 @@ public class FlowExecutor{
      */
     private void doExecute(FlowRuntimeContext flowRuntimeContext) {
         System.out.println("执行流程中......");
-        IExecutor runtimeExecutor = getExecutor(flowRuntimeContext);
+        IExecutor runtimeExecutor = getCurrentNodeExecutor(flowRuntimeContext);
         while (runtimeExecutor != null) {
             runtimeExecutor.execute(flowRuntimeContext);
-            runtimeExecutor = runtimeExecutor.getExecutor(flowRuntimeContext);
+            runtimeExecutor = runtimeExecutor.getNextNodeExecutor(flowRuntimeContext);
         }
     }
 
@@ -89,7 +89,7 @@ public class FlowExecutor{
      * @param flowRuntimeContext
      */
     private Map<String,Object> postExecute(FlowRuntimeContext flowRuntimeContext) {
-        System.out.println("执行流程全部完成......开始组装结果");
+        logger.debug("执行流程全部完成......开始组装结果");
         List<OutputParameter> outputParameters = flowRuntimeContext.getOutputParameters();
         AbstractVariableManager variableManager = flowRuntimeContext.getVariableManager();
         Map<String,Object> result = new HashMap<>(16);
@@ -102,7 +102,7 @@ public class FlowExecutor{
             }
             result.put(parameter.getKey(),value);
         }
-        System.out.println("流程执行结果为："+result);
+        logger.debug("流程执行结果为：{}",result);
         IFlowResultManager flowResultManager = flowRuntimeContext.getFlowResultManager();
         flowResultManager.putFlowResult(flowRuntimeContext.getFlowInstanceId(),result);
         return result;

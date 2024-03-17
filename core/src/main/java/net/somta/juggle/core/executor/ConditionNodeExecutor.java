@@ -48,17 +48,17 @@ public class ConditionNodeExecutor extends AbstractElementExecutor {
             String expression = conditionItem.getExpression();
             boolean result = expressionManager.executeExpression(expression);
             if(result){
+                logger.debug("hit conditionName: {},hit expression is: {}",conditionItem.getConditionName(),expression);
                 hitOutGoingKey = conditionItem.getOutgoing();
                 break;
             }
         }
-        flowRuntimeContext.setCurrentNode(flowRuntimeContext.getFlowElementMap().get(hitOutGoingKey));
-        logger.debug("判断节点执行器，执行中。。。");
+        super.fillNextNode(flowRuntimeContext,hitOutGoingKey);
     }
 
     @Override
     protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
-        logger.debug("判断节点执行器，执行后========================================");
+        logger.debug("判断节点执行器完成");
     }
 
 }

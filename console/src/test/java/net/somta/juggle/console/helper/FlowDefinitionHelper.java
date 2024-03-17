@@ -280,14 +280,16 @@ public class FlowDefinitionHelper {
         String flowContent = getFlowDefinitionContent();
         System.out.println(flowContent);
 
-        /*ObjectMapper objectMapper = new ObjectMapper();
+
+        String a = "[{\"key\":\"start_ppP26cro\",\"name\":\"5\",\"elementType\":\"START\",\"outgoings\":[\"method_ntu9p\"]},{\"key\":\"end_KbmGXukE\",\"name\":\"结束\",\"elementType\":\"END\",\"incomings\":[\"method_ntu9p\"]},{\"key\":\"method_ntu9p\",\"outgoings\":[\"end_KbmGXukE\"],\"incomings\":[\"start_ppP26cro\"],\"name\":\"登录接口\",\"elementType\":\"METHOD\",\"desc\":\"\",\"method\":{\"methodId\":1,\"domainId\":1,\"url\":\"http://127.0.0.1:8686/example/user/login\",\"requestType\":\"POST\",\"requestContentType\":\"application/json\",\"headerFillRules\":[],\"inputFillRules\":[{\"source\":\"userName\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"husong\",\"targetDataType\":null,\"targetType\":\"INPUT_PARAM\"},{\"source\":\"password\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"123456\",\"targetDataType\":null,\"targetType\":\"INPUT_PARAM\"}],\"outputFillRules\":[{\"source\":\"userName\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"output_name\",\"targetDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"targetType\":\"VARIABLE\"}]}}]";
+                ObjectMapper objectMapper = new ObjectMapper();
         List<FlowElement> nodeList = new ArrayList<>();
         try {
-            nodeList = objectMapper.readValue(flowContent, new TypeReference<List<FlowElement>>() {});
+            nodeList = objectMapper.readValue(a, new TypeReference<List<FlowElement>>() {});
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        System.out.println(nodeList.size());*/
+        System.out.println(nodeList.size());
 
     }
 }

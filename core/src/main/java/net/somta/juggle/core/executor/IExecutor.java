@@ -32,9 +32,9 @@ public interface IExecutor {
     void execute(FlowRuntimeContext flowRuntimeContext);
 
     /**
-     * 获取节点元素的执行器
+     * 获取下一个节点元素的执行器
      * @param flowRuntimeContext
      * @return
      */
-    IExecutor getExecutor(FlowRuntimeContext flowRuntimeContext);
+    IExecutor getNextNodeExecutor(FlowRuntimeContext flowRuntimeContext);
 }

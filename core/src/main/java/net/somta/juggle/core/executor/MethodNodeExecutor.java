@@ -24,6 +24,7 @@ import net.somta.juggle.core.http.IHttpClient;
 import net.somta.juggle.core.http.Request;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
+import net.somta.juggle.core.model.node.StartNode;
 import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
             Map<String,Object> parameterData =  buildInputParameterData(methodNode.getMethod().getInputFillRules(), flowRuntimeContext.getVariableManager());
             Map<String,Object> headerData = buildHeaderData(methodNode.getMethod().getHeaderFillRules(), flowRuntimeContext.getVariableManager());
             Map<String,Object> resultData = sendHttpRequest(methodNode.getMethod(), headerData, parameterData);
-            System.out.println("接口执行完，获得的结果为：" + resultData.toString());
+            logger.debug("接口执行完，获得的结果为：" + resultData.toString());
 
             buildOutputParameterData(methodNode.getMethod(), flowRuntimeContext.getVariableManager(),resultData);
 
@@ -71,7 +72,10 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
 
     @Override
     protected void doPostExecute(FlowRuntimeContext flowRuntimeContext) {
-        logger.debug("方法节点执行器，执行后========================================");
+        MethodNode methodNode = (MethodNode) flowRuntimeContext.getCurrentNode();
+        String nextNodeKey = methodNode.getOutgoings().get(0);
+        logger.debug("方法节点执行器完毕，下一个节点的KEY为：{}", nextNodeKey);
+        super.fillNextNode(flowRuntimeContext,nextNodeKey);
     }
 
     /**
