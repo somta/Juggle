@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  *
  * @author husong
- * @date 2023/05/20
+ * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "juggle")
 public class JuggleProperties {

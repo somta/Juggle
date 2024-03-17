@@ -28,8 +28,8 @@ const currentType = computed(() => {
 
 <template>
   <div class="filter-value">
-    <el-input-number v-if="currentType === 'Integer'" v-model="innerValue" :controls="false" :precision="0" placeholder="请输入" />
-    <el-input-number v-else-if="currentType === 'Double'" v-model="innerValue" :controls="false" :precision="2" placeholder="请输入" />
+    <el-input-number v-if="currentType === 'Integer'" v-model="innerValue" controls-position="right" max="100000000" :precision="0" placeholder="请输入" />
+    <el-input-number v-else-if="currentType === 'Double'" v-model="innerValue" controls-position="right" :precision="2" placeholder="请输入" />
     <el-date-picker v-else-if="currentType === 'Date'" v-model="innerValue" type="datetime" />
     <el-switch v-else-if="currentType === 'Boolean'" v-model="innerValue" inline-prompt active-text="是" inactive-text="否" :width="48" />
     <el-input v-else v-model="innerValue" placeholder="请输入" />
