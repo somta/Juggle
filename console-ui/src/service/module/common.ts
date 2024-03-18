@@ -4,11 +4,11 @@ export async function listDataType() {
   return commonAPI.listDataType();
 }
 
-export const getDataTypeList = (function () {
+export const dataType = (function () {
   let dataTypeList: any[] = [];
   let pedding: any = null;
-  return async function () {
-    if (dataTypeList.length === 0) {
+  async function getList (useCache: boolean = true) {
+    if (!useCache || dataTypeList.length === 0) {
       pedding = pedding || listDataType();
       const res = await pedding;
       if (res.success) {
@@ -18,4 +18,11 @@ export const getDataTypeList = (function () {
     }
     return dataTypeList;
   };
+  function clearList () {
+    dataTypeList = [];
+  }
+  return {
+    getList,
+    clearList
+  }
 })();

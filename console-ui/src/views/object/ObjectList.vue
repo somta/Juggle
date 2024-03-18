@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import {objectService} from '@/service';
+import {commonService, objectService} from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import ObjectFilter from "@/views/object/ObjectFilter.vue";
 import ObjectTable from "@/views/object/ObjectTable.vue";
@@ -84,6 +84,7 @@ async function addObjectItem(row: any) {
   if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
     await queryObjectPage();
+    commonService.dataType.clearList();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -105,6 +106,7 @@ async function editObjectItem(row: any) {
   if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });
     await queryObjectPage();
+    commonService.dataType.clearList();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -115,6 +117,7 @@ async function deleteItem(row: any) {
   if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
     await queryObjectPage();
+    commonService.dataType.clearList();
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }

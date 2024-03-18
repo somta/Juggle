@@ -12,6 +12,10 @@ const props = defineProps({
     default: 'String',
   },
   disabled: Boolean,
+  size: {
+    type: String,
+    default: 'default'
+  },
 });
 const emit = defineEmits(['update:modelValue', 'change']);
 
@@ -33,7 +37,7 @@ type DataTypeItem = {
 const dataTypeList = ref<DataTypeItem[]>([]);
 
 async function loadData () {
-  const res = await commonService.getDataTypeList();
+  const res = await commonService.dataType.getList();
   dataTypeList.value = res || [];
 }
 
@@ -59,7 +63,17 @@ const options = computed(() => {
   const listNode = {
     value: 'List',
     label: '列表类型',
-    children: [basicNode, objectNode],
+    children: [basicNode, objectNode].map(node => {
+      return {
+        ...node,
+        children: node.children.map(child => {
+          return {
+            ...child,
+            label: `[ ${child.label} ]`,
+          };
+        }),
+      };
+    }),
   };
   return [
     basicNode,
@@ -120,9 +134,9 @@ const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
     if (props.valueType === 'String') {
-      val = getDataTypeObject(props.modelValue);
+      val = getDataTypeObject(props.modelValue as string);
     } else if (props.valueType === 'Object') {
-      val = { ...props.modelValue };
+      val = { ...props.modelValue as object };
     }
   }
   return val;
@@ -179,7 +193,12 @@ const handleBasicChange = (val: any) => {
 </script>
 
 <template>
-  <el-select size="small" v-if="type === 'basic'" :modelValue="innerBasicValue" :disabled="disabled" @change="handleBasicChange">
+  <el-select
+    :size="size"
+    v-if="type === 'basic'"
+    :modelValue="innerBasicValue"
+    :disabled="disabled" @change="handleBasicChange"
+  >
     <el-option
       v-for="item in options[0]?.children"
       :key="item.value"
@@ -194,6 +213,7 @@ const handleBasicChange = (val: any) => {
     :props="cascaderProps"
     :disabled="disabled"
     :show-all-levels="false"
+    :size="size"
     @change="handleChange"
   />
 </template>

@@ -15,10 +15,10 @@ export type DataTypeItem = {
 
 export type RuleItem = {
   source: string;
-  sourceDataType: DataTypeItem;
+  sourceDataType: string;
   sourceType: valueType;
   target: string;
-  targetDataType: DataTypeItem;
+  targetDataType: string;
   targetType: valueType;
   required?: boolean;
 };

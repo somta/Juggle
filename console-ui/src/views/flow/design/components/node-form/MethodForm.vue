@@ -235,6 +235,7 @@ function onCancel() {
           addText="新增出参赋值"
           :sourceList="outputSourceList"
           :targetList="outputTargetList"
+          :showTargetType="false"
         />
       </el-form-item>
       <el-form-item>

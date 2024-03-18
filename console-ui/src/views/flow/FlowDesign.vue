@@ -155,6 +155,7 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
     height: 100%;
     overflow: hidden;
     position: relative;
+    font-size: 14px;
 
     .flow-btn {
       cursor: pointer;

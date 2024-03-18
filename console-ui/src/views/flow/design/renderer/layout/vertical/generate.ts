@@ -3,11 +3,11 @@ import { DataNode } from '../../../data';
 import { LayoutNode } from '../LayoutNode';
 
 export const box = {
-  width: 200,
-  height: 80,
-  marginBottom: 80,
-  marginRight: 100,
-  conditionWidth: 180,
+  width: 180,
+  height: 40,
+  marginBottom: 60,
+  marginRight: 60,
+  conditionWidth: 140,
   conditionHeight: 40,
 };
 

@@ -114,7 +114,7 @@ const filteredTargetList  = computed(() => {
     </div>
     <div class="filter-item-value">
       <template v-if="!isNoValueOperator">
-        <filter-value v-if="isConstant" v-model="targetModel" :dataType="props.item.dataType" />
+        <FilterValue v-if="isConstant" v-model="targetModel" :dataType="props.item.dataType" />
         <el-select v-else-if="isVariable" placeholder="请选择" v-model="targetModel">
           <el-option v-for="source in filteredTargetList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
         </el-select>
@@ -149,12 +149,6 @@ const filteredTargetList  = computed(() => {
   }
   .filter-item-action {
     width: 24px;
-  }
-  :deep(.el-input-number) {
-    width: 100%;
-    .el-input__inner {
-      text-align: left;
-    }
   }
 }
 </style>

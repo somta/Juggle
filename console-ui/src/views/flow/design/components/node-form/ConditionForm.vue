@@ -35,6 +35,13 @@ watch(() => props.data, val => {
   if (val !== nodeData.value) {
     nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
   }
+  // 确保else在最后
+  const elseItemIndex = nodeData.value.conditions?.findIndex(item => item.conditionType === 'DEFAULT');
+  const elseItem = nodeData.value.conditions?.[elseItemIndex];
+  if (elseItemIndex > -1 && elseItemIndex !== nodeData.value.conditions.length - 1) {
+    nodeData.value.conditions.splice(elseItemIndex, 1);
+    nodeData.value.conditions.push(elseItem);
+  }
 }, { immediate: true });
 
 function validate () {
@@ -90,7 +97,8 @@ function addCondition () {
         if (!val.outgoing) {
           val.outgoing = props.data.outgoings[0];
         }
-        nodeData.value.conditions.push(val);
+        const conditionSize = nodeData.value.conditions.length;
+        nodeData.value.conditions.splice(conditionSize - 1, 0, val);
       }
     }
   });
@@ -129,10 +137,12 @@ function onCancel() {
             <div class="condition-head">
               <div class="condition-title">{{ item.conditionName }}</div>
               <div class="condition-action">
-                <el-button link :icon="Top" v-if="index > 0" @click="sortUp(index)" title="升序"></el-button>
-                <el-button link :icon="Bottom" v-if="index < nodeData.conditions.length - 1" @click="sortDown(index)" title="降序"></el-button>
-                <el-button link :icon="Edit" v-if="item.conditionType === 'CUSTOM'" @click="edit(index)" title="编辑"></el-button>
-                <el-button link :icon="Delete" v-if="item.conditionType === 'CUSTOM'" @click="remove(index)" title="删除"></el-button>
+                <template v-if="item.conditionType === 'CUSTOM'">
+                  <el-button link :icon="Top" v-if="index > 0" @click="sortUp(index)" title="升序"></el-button>
+                  <el-button link :icon="Bottom" v-if="index < nodeData.conditions.length - 2" @click="sortDown(index)" title="降序"></el-button>
+                  <el-button link :icon="Edit" @click="edit(index)" title="编辑"></el-button>
+                  <el-button link :icon="Delete" @click="remove(index)" title="删除"></el-button>
+                </template>
               </div>
             </div>
             <div class="condition-body" v-if="item.expression">{{ item.expression }}</div>

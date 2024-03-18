@@ -3,6 +3,8 @@
 import { reactive, ref } from 'vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 import {FormInstance, FormRules} from "element-plus";
+import { useFlowDataInject } from '../../hooks/flow-data';
+const flowContext = useFlowDataInject();
 type ParamItem = {
   envKey: string;
   envName: string;
@@ -20,7 +22,24 @@ const form = reactive<ParamItem>({
   id: 0,
 });
 const rules = reactive<FormRules>({
-  envKey: [{ required: true, message: '请输入变量编码', trigger: 'blur' },{ pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' }],
+  envKey: [
+    { required: true, message: '请输入变量编码', trigger: 'blur' },
+    { pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' },
+    { validator: (_, value, callback) => {
+      // 校验唯一性
+      // 未改变时不校验
+      if (value === _originalData.envKey) {
+        callback();
+        return;
+      }
+      const item = flowContext.data.value.flowVariables.find((item) => item.envKey === value);
+      if (item) {
+        callback(new Error('变量编码已存在'));
+        return;
+      }
+      callback();
+    }, trigger: 'blur' }
+  ],
   envName: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
   dataType:[{ required: true, message: '请选择数据类型', trigger: 'blur' }]
 });
@@ -33,11 +52,14 @@ const add = (maxId: number) => {
   form.dataType = '';
   form.envType = 3;
   form.id = maxId;
+  _originalData = { ...form };
   visible.value = true;
 }
+let _originalData: ParamItem;
 const edit = (data: ParamItem) => {
   isEdit.value = true;
   Object.assign(form, data);
+  _originalData = { ...form };
   visible.value = true;
 };
 function onCancel () {
@@ -81,7 +103,7 @@ defineExpose({ add, edit });
         <el-input v-model="form.envName" placeholder="请输入" maxlength="30" />
       </el-form-item>
       <el-form-item label="变量类型" prop="dataType">
-        <DataTypeSelect v-model="form.dataType" jsonParse />
+        <DataTypeSelect v-model="form.dataType" />
       </el-form-item>
     </el-form>
     <template #footer>

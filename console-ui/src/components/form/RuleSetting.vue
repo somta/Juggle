@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
-import { valueType, DataTypeItem, RuleItem } from '@/typings';
+import { valueType, RuleItem } from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
+import { isDataTypeEqual } from '@/utils/dataType';
+import FilterValue from '../filter/FilterValue.vue';
 
 const targetTypeList = [
   { value: valueType.INPUT_PARAM, label: '常量' },
@@ -14,6 +16,10 @@ const props = defineProps({
   showRequired: {
     type: Boolean,
     default: false,
+  },
+  showTargetType: {
+    type: Boolean,
+    default: true,
   },
   addText: String,
   sourceList: {
@@ -52,10 +58,10 @@ const columns = [
 function addrule() {
   rules.value.push({
     source: '',
-    sourceDataType: null as unknown as DataTypeItem,
+    sourceDataType: '',
     sourceType: valueType.INPUT_PARAM,
     target: '',
-    targetDataType: null as unknown as DataTypeItem,
+    targetDataType: '',
     targetType: valueType.VARIABLE,
     required: false,
   });
@@ -73,7 +79,7 @@ function onChange() {
 
 function onTargetTypeChange (rowIndex: number) {
   rules.value[rowIndex].target = '';
-  rules.value[rowIndex].targetDataType = null as unknown as DataTypeItem;
+  rules.value[rowIndex].targetDataType = '';
   onChange();
 }
 
@@ -81,11 +87,6 @@ function onTargetVarChange (rowIndex: number) {
   const target = rules.value[rowIndex].target;
   const param = props.targetList.find((item) => item.envKey === target);
   rules.value[rowIndex].targetDataType = param.dataType;
-/*  try {
-    rules.value[rowIndex].targetDataType = JSON.parse(param.dataType);
-  } catch (error) {
-    console.error(error);
-  }*/
   onChange();
 }
 
@@ -99,22 +100,26 @@ function getAvailableSource (source: string) {
     return !rules.value.map(item => item.source).includes(item.paramKey);
   });
 }
+function getAvailableTarget (source: string, sourceDataType: string) {
+  return props.targetList.filter((item) => {
+    // 不选取自己
+    if (item.envKey === source) {
+      return false;
+    }
+    // 只能选与自己类型一致的
+    return isDataTypeEqual(item.dataType, sourceDataType);
+  });
+}
 
 function onSourceChange (rowIndex: number) {
   const source = rules.value[rowIndex].source;
   const param = props.sourceList.find((item) => item.paramKey === source);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].sourceDataType = param.dataType;
-/*  try {
-    rules.value[rowIndex].sourceDataType = JSON.parse(param.dataType);
-  } catch (error) {
-    console.error(error);
-  }*/
   if (props.requiredKeys.includes(source)) {
     rules.value[rowIndex].required = true;
   }
 }
-
 </script>
 
 <template>
@@ -124,6 +129,9 @@ function onSourceChange (rowIndex: number) {
         <template v-for="column in columns" :key="column.prop">
           <template v-if="column.prop === 'required'">
             <div class="rule-setting-td required-td" v-if="showRequired">{{ column.name }}</div>
+          </template>
+          <template v-else-if="column.prop === 'targetType'">
+            <div class="rule-setting-td" v-if="showTargetType">{{ column.name }}</div>
           </template>
           <div class="rule-setting-td" v-else>{{ column.name }}</div>
         </template>
@@ -139,12 +147,12 @@ function onSourceChange (rowIndex: number) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeSelect v-model="rule.sourceDataType" disabled type="basic" />
+            <DataTypeSelect v-model="rule.sourceDataType" disabled type="basic" size="small" />
           </div>
           <div class="rule-setting-td required-td" v-else-if="showRequired && column.prop === 'required'">
             <el-checkbox v-model="rule.required" :disabled="requiredKeys.includes(rule.source)" @change="onChange" />
           </div>
-          <div class="rule-setting-td" v-if="column.prop === 'targetType'">
+          <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.targetType" size="small" @change="onTargetTypeChange(rowIndex)">
               <el-option v-for="item in targetTypeList" :key="item.value" :value="item.value" :label="item.label" />
             </el-select>
@@ -152,22 +160,11 @@ function onSourceChange (rowIndex: number) {
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 常量 -->
             <template v-if="rule.targetType === valueType.INPUT_PARAM">
-              <el-checkbox
-                v-if="rule.sourceDataType?.type === 'Boolean'"
-                v-model="rule.target"
-              />
-              <el-date-picker
-                v-else-if="rule.sourceDataType?.type === 'Date'"
-                v-model="rule.target"
-                type="datetime"
-                size="small"
-                :prefixIcon="null"
-              />
-              <el-input v-else size="small" v-model="rule.target" />
+              <FilterValue v-model="rule.target" :dataType="rule.sourceDataType" size="small" :showNumberControls="false" />
             </template>
             <!-- 变量 -->
             <el-select v-else v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
-              <el-option v-for="item in targetList" :key="item.envKey" :value="item.envKey" :label="item.envName" :title="item.envName" />
+              <el-option v-for="item in getAvailableTarget(rule.source, rule.sourceDataType)" :key="item.envKey" :value="item.envKey" :label="item.envName" :title="item.envName" />
             </el-select>
           </div>
         </template>
