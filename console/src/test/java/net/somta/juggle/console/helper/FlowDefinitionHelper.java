@@ -121,7 +121,7 @@ public class FlowDefinitionHelper {
         conditionExpression11.setEnvKey("input_name");
         conditionExpression11.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
-        conditionExpression11.setAssignType("constant");
+        conditionExpression11.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression11.setValue("张三");
         conditionExpressions11.add(conditionExpression11);
         conditionExpressions1.add(conditionExpressions11);
@@ -131,7 +131,7 @@ public class FlowDefinitionHelper {
         conditionExpression12.setEnvKey("input_name");
         conditionExpression12.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
-        conditionExpression12.setAssignType("constant");
+        conditionExpression12.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression12.setValue("三");
         conditionExpressions12.add(conditionExpression12);
         conditionExpressions1.add(conditionExpressions12);
@@ -155,7 +155,7 @@ public class FlowDefinitionHelper {
         conditionExpression21.setEnvKey("input_name");
         conditionExpression21.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
-        conditionExpression21.setAssignType("constant");
+        conditionExpression21.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression21.setValue("lisi");
         conditionExpressions21.add(conditionExpression21);
         conditionExpressions2.add(conditionExpressions21);

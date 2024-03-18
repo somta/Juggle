@@ -1,6 +1,7 @@
 package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.DataType;
@@ -27,7 +28,7 @@ class IntegerParserTest {
         notEqualConditionExpression.setEnvKey("env_age");
         notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         notEqualConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
-        notEqualConditionExpression.setAssignType("constant");
+        notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("18");
         String str =  integerParser.genExpression(notEqualConditionExpression);
         Assertions.assertEquals("env_age==18",str);
@@ -39,7 +40,7 @@ class IntegerParserTest {
         equalConditionExpression.setEnvKey("env_age");
         equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         equalConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
-        equalConditionExpression.setAssignType("constant");
+        equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("18");
         String str =  integerParser.genExpression(equalConditionExpression);
         Assertions.assertEquals("env_age!=18",str);
@@ -52,7 +53,7 @@ class IntegerParserTest {
         gtConditionExpression.setEnvKey("env_age");
         gtConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         gtConditionExpression.setOperator(OperatorEnum.GREATER_THAN.getCode());
-        gtConditionExpression.setAssignType("constant");
+        gtConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         gtConditionExpression.setValue("18");
         String gtString =  integerParser.genExpression(gtConditionExpression);
         Assertions.assertEquals("env_age>18",gtString);
@@ -64,7 +65,7 @@ class IntegerParserTest {
         conditionExpression.setEnvKey("env_age");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("18");
         String str =  integerParser.genExpression(conditionExpression);
         Assertions.assertEquals("env_age>=18",str);
@@ -76,7 +77,7 @@ class IntegerParserTest {
         conditionExpression.setEnvKey("env_age");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("18");
         String str =  integerParser.genExpression(conditionExpression);
         Assertions.assertEquals("env_age<18",str);
@@ -88,7 +89,7 @@ class IntegerParserTest {
         conditionExpression.setEnvKey("env_age");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("18");
         String str =  integerParser.genExpression(conditionExpression);
         Assertions.assertEquals("env_age<=18",str);
@@ -100,7 +101,7 @@ class IntegerParserTest {
         conditionExpression.setEnvKey("env_age");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         conditionExpression.setOperator(OperatorEnum.CONTAINS.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100.23");
         try {
             integerParser.genExpression(conditionExpression);

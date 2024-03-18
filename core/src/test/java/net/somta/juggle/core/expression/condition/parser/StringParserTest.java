@@ -1,6 +1,7 @@
 package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.DataType;
@@ -29,7 +30,7 @@ class StringParserTest {
         notEqualConditionExpression.setEnvKey("env_name");
         notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         notEqualConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
-        notEqualConditionExpression.setAssignType("constant");
+        notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("zhansan");
         String str = stringParser.genExpression(notEqualConditionExpression);
         Assertions.assertEquals("env_name=='zhansan'",str);
@@ -41,7 +42,7 @@ class StringParserTest {
         equalConditionExpression.setEnvKey("env_name");
         equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         equalConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
-        equalConditionExpression.setAssignType("constant");
+        equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("zhansan");
         String str = stringParser.genExpression(equalConditionExpression);
         Assertions.assertEquals("env_name!='zhansan'",str);
@@ -74,10 +75,19 @@ class StringParserTest {
         conditionExpression.setEnvKey("env_name");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.CONTAINS.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("zhan");
         String str = stringParser.genExpression(conditionExpression);
-        Assertions.assertEquals("string.contains(env_name,zhan)",str);
+        Assertions.assertEquals("string.contains(env_name,'zhan')",str);
+
+        ConditionNode.ConditionExpression conditionExpression2 = new ConditionNode.ConditionExpression();
+        conditionExpression2.setEnvKey("env_name");
+        conditionExpression2.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        conditionExpression2.setOperator(OperatorEnum.CONTAINS.getCode());
+        conditionExpression2.setAssignType(AssignTypeEnum.VARIABLE);
+        conditionExpression2.setValue("zhan");
+        String str2 = stringParser.genExpression(conditionExpression2);
+        Assertions.assertEquals("string.contains(env_name,zhan)",str2);
     }
 
     private void stringNotContainsParserTest() {
@@ -86,10 +96,10 @@ class StringParserTest {
         conditionExpression.setEnvKey("env_name");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.NOT_CONTAINS.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("zhan");
         String str = stringParser.genExpression(conditionExpression);
-        Assertions.assertEquals("!string.contains(env_name,zhan)",str);
+        Assertions.assertEquals("!string.contains(env_name,'zhan')",str);
     }
 
     private void stringUnknownParserTest() {
@@ -98,7 +108,7 @@ class StringParserTest {
         conditionExpression.setEnvKey("env_name");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100");
         try {
             stringParser.genExpression(conditionExpression);

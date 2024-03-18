@@ -1,6 +1,7 @@
 package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.DataType;
@@ -45,7 +46,7 @@ class ListParserTest {
         conditionExpression.setEnvKey("env_userList");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.List)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100");
         try {
             listParser.genExpression(conditionExpression);

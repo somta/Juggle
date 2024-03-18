@@ -16,6 +16,8 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.model.node;
 
+import net.somta.juggle.core.enums.AssignTypeEnum;
+
 import java.util.List;
 
 /**
@@ -106,7 +108,7 @@ public class ConditionNode extends FlowNode{
         /**
          * 赋值类型 常量  变量
          */
-        private String assignType;
+        private AssignTypeEnum assignType;
 
         /**
          * 值或者变量code
@@ -137,11 +139,11 @@ public class ConditionNode extends FlowNode{
             this.operator = operator;
         }
 
-        public String getAssignType() {
+        public AssignTypeEnum getAssignType() {
             return assignType;
         }
 
-        public void setAssignType(String assignType) {
+        public void setAssignType(AssignTypeEnum assignType) {
             this.assignType = assignType;
         }
 

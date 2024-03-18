@@ -1,6 +1,7 @@
 package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.DataType;
@@ -27,7 +28,7 @@ class DoubleParserTest {
         notEqualConditionExpression.setEnvKey("env_money");
         notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         notEqualConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
-        notEqualConditionExpression.setAssignType("constant");
+        notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(notEqualConditionExpression);
         Assertions.assertEquals("env_money==100.23",str);
@@ -39,7 +40,7 @@ class DoubleParserTest {
         equalConditionExpression.setEnvKey("env_money");
         equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         equalConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
-        equalConditionExpression.setAssignType("constant");
+        equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(equalConditionExpression);
         Assertions.assertEquals("env_money!=100.23",str);
@@ -52,7 +53,7 @@ class DoubleParserTest {
         gtConditionExpression.setEnvKey("env_money");
         gtConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         gtConditionExpression.setOperator(OperatorEnum.GREATER_THAN.getCode());
-        gtConditionExpression.setAssignType("constant");
+        gtConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         gtConditionExpression.setValue("100.23");
         String gtString =  doubleParser.genExpression(gtConditionExpression);
         Assertions.assertEquals("env_money>100.23",gtString);
@@ -64,7 +65,7 @@ class DoubleParserTest {
         conditionExpression.setEnvKey("env_money");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(conditionExpression);
         Assertions.assertEquals("env_money>=100.23",str);
@@ -76,7 +77,7 @@ class DoubleParserTest {
         conditionExpression.setEnvKey("env_money");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(conditionExpression);
         Assertions.assertEquals("env_money<100.23",str);
@@ -88,7 +89,7 @@ class DoubleParserTest {
         conditionExpression.setEnvKey("env_money");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100.23");
         String str =  doubleParser.genExpression(conditionExpression);
         Assertions.assertEquals("env_money<=100.23",str);
@@ -100,7 +101,7 @@ class DoubleParserTest {
         conditionExpression.setEnvKey("env_money");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Double)));
         conditionExpression.setOperator(OperatorEnum.CONTAINS.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100.23");
         try {
             doubleParser.genExpression(conditionExpression);
