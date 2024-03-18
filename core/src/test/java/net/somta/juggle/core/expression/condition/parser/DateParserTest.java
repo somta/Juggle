@@ -1,6 +1,7 @@
 package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.DataType;
@@ -38,10 +39,19 @@ class DateParserTest {
         equalConditionExpression.setEnvKey("env_birthday");
         equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
         equalConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
-        equalConditionExpression.setAssignType("constant");
+        equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("2023-12-13 18:14:34");
         String equalString =  dateParser.genExpression(equalConditionExpression);
         Assertions.assertEquals("date.eq(env_birthday,'2023-12-13 18:14:34')",equalString);
+
+        ConditionExpression equalConditionExpression2 = new ConditionExpression();
+        equalConditionExpression2.setEnvKey("env_birthday");
+        equalConditionExpression2.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        equalConditionExpression2.setOperator(OperatorEnum.EQUAL.getCode());
+        equalConditionExpression2.setAssignType(AssignTypeEnum.VARIABLE);
+        equalConditionExpression2.setValue("input_birthday");
+        String equalString2 =  dateParser.genExpression(equalConditionExpression2);
+        Assertions.assertEquals("date.eq(env_birthday,input_birthday)",equalString2);
 
     }
 
@@ -51,7 +61,7 @@ class DateParserTest {
         notEqualConditionExpression.setEnvKey("env_birthday");
         notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
         notEqualConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
-        notEqualConditionExpression.setAssignType("constant");
+        notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("2023-12-13 18:14:34");
         String notEqualString =  dateParser.genExpression(notEqualConditionExpression);
         Assertions.assertEquals("!date.eq(env_birthday,'2023-12-13 18:14:34')",notEqualString);
@@ -63,7 +73,7 @@ class DateParserTest {
         gtConditionExpression.setEnvKey("env_birthday");
         gtConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
         gtConditionExpression.setOperator(OperatorEnum.GREATER_THAN.getCode());
-        gtConditionExpression.setAssignType("constant");
+        gtConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         gtConditionExpression.setValue("2023-12-13 18:14:34");
         String gtString =  dateParser.genExpression(gtConditionExpression);
         Assertions.assertEquals("date.gt(env_birthday,'2023-12-13 18:14:34')",gtString);
@@ -75,7 +85,7 @@ class DateParserTest {
         conditionExpression.setEnvKey("env_birthday");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
         conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("2023-12-13 18:14:34");
         String str =  dateParser.genExpression(conditionExpression);
         Assertions.assertEquals("date.ge(env_birthday,'2023-12-13 18:14:34')",str);
@@ -87,7 +97,7 @@ class DateParserTest {
         conditionExpression.setEnvKey("env_birthday");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("2023-12-13 18:14:34");
         String str =  dateParser.genExpression(conditionExpression);
         Assertions.assertEquals("date.lt(env_birthday,'2023-12-13 18:14:34')",str);
@@ -99,7 +109,7 @@ class DateParserTest {
         conditionExpression.setEnvKey("env_birthday");
         conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
-        conditionExpression.setAssignType("constant");
+        conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("2023-12-13 18:14:34");
         String str =  dateParser.genExpression(conditionExpression);
         Assertions.assertEquals("date.le(env_birthday,'2023-12-13 18:14:34')",str);

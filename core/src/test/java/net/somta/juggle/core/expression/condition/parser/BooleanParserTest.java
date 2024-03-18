@@ -1,6 +1,7 @@
 package net.somta.juggle.core.expression.condition.parser;
 
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.DataType;
@@ -17,7 +18,7 @@ class BooleanParserTest {
         equalConditionExpression.setEnvKey("env_loginFlag");
         equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
         equalConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
-        equalConditionExpression.setAssignType("constant");
+        equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("true");
         String equalString =  booleanParser.genExpression(equalConditionExpression);
         Assertions.assertEquals("env_loginFlag==true",equalString);
@@ -26,7 +27,7 @@ class BooleanParserTest {
         notEqualConditionExpression.setEnvKey("env_loginFlag");
         notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
         notEqualConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
-        notEqualConditionExpression.setAssignType("constant");
+        notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("true");
         String notEqualString =  booleanParser.genExpression(notEqualConditionExpression);
         Assertions.assertEquals("env_loginFlag!=true",notEqualString);

@@ -7,8 +7,8 @@ import { DataTypeOperatorMap, BaseDataType, OperatorNameMap, Operator } from './
 import FilterValue from './FilterValue.vue';
 
 enum FilterAssignType {
-  Constant = 'constant',
-  Variable = 'variable',
+  Constant = 'CONSTANT',
+  Variable = 'VARIABLE',
 }
 
 const emit = defineEmits(['change', 'delete']);

@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.expression.condition.parser;
 
+import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.core.model.node.ConditionNode.ConditionExpression;
 import org.slf4j.Logger;
@@ -33,10 +34,11 @@ public class StringParser implements IExpressionParser {
         String expression = null;
         switch (operatorEnum) {
             case EQUAL:
-                expression = conditionExpression.getEnvKey() + "=='" + conditionExpression.getValue()+"'";
+
+                expression = conditionExpression.getEnvKey() + "==" + formatValue(conditionExpression.getValue(),conditionExpression.getAssignType());
                 break;
             case NOT_EQUAL:
-                expression = conditionExpression.getEnvKey() + "!='" + conditionExpression.getValue()+"'";
+                expression = conditionExpression.getEnvKey() + "!=" + formatValue(conditionExpression.getValue(),conditionExpression.getAssignType());
                 break;
             case EMPTY:
                 expression = "string.empty("+conditionExpression.getEnvKey()+")";
@@ -45,14 +47,22 @@ public class StringParser implements IExpressionParser {
                 expression = "!string.empty("+conditionExpression.getEnvKey()+")";
                 break;
             case CONTAINS:
-                expression = "string.contains("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "string.contains("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             case NOT_CONTAINS:
-                expression = "!string.contains("+conditionExpression.getEnvKey()+","+conditionExpression.getValue()+")";
+                expression = "!string.contains("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             default:
                 throw new IllegalArgumentException("字符串类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }
+
+    private String formatValue(Object value, AssignTypeEnum assignType){
+        if(AssignTypeEnum.CONSTANT.equals(assignType)){
+            return "'" + value + "'";
+        }
+        return value.toString();
+    }
+
 }
