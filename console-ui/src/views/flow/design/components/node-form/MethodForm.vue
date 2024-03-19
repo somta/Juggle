@@ -102,9 +102,9 @@ async function onApiChange (val: number) {
     const method = nodeData.value.method;
     method.requestType = result.apiRequestType;
     method.requestContentType = result.apiRequestContentType;
-    headerSourceList.value = result.apiHeaders;
-    inputSourceList.value = result.apiInputParams;
-    outputSourceList.value = result.apiOutputParams;
+    headerSourceList.value = result.apiHeaders.map(item => ({...item, sourceType: valueType.HEADER }));
+    inputSourceList.value = result.apiInputParams.map(item => ({...item, sourceType: valueType.INPUT_PARAM }));
+    outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
 
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);

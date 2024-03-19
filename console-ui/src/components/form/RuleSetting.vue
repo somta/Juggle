@@ -116,6 +116,7 @@ function onSourceChange (rowIndex: number) {
   const param = props.sourceList.find((item) => item.paramKey === source);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].sourceDataType = param.dataType;
+  rules.value[rowIndex].sourceType = param.sourceType;
   if (props.requiredKeys.includes(source)) {
     rules.value[rowIndex].required = true;
   }
