@@ -33,6 +33,7 @@ public interface IParameterConverter {
             headerVo.setHeaderKey(parameterPo.getParamKey());
             headerVo.setHeaderName(parameterPo.getParamName());
             headerVo.setDataType(parameterPo.getDataType());
+            headerVo.setRequired(parameterPo.getRequired());
             list.add(headerVo);
         }
         return list;

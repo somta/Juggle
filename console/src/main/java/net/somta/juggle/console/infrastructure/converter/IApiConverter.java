@@ -42,6 +42,7 @@ public interface IApiConverter {
                 parameterPo.setParamType(ParameterTypeEnum.HEADER.getCode());
                 parameterPo.setDataType(headerVo.getDataType());
                 parameterPo.setSourceType(ParameterSourceTypeEnum.API.getCode());
+                parameterPo.setRequired(headerVo.getRequired());
                 parameterPo.setSourceId(sourceId);
                 parameterPo.setCreatedAt(currentDate);
                 headerPoList.add(parameterPo);
