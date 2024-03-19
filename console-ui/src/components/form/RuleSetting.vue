@@ -7,7 +7,7 @@ import { isDataTypeEqual } from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
 
 const targetTypeList = [
-  { value: valueType.INPUT_PARAM, label: '常量' },
+  { value: valueType.CONSTANT, label: '常量' },
   { value: valueType.VARIABLE, label: '变量' },
 ];
 
@@ -78,6 +78,7 @@ function onChange() {
 }
 
 function onTargetTypeChange (rowIndex: number) {
+  console.log("onTargetTypeChange",rules);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].targetDataType = '';
   onChange();
@@ -159,7 +160,7 @@ function onSourceChange (rowIndex: number) {
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 常量 -->
-            <template v-if="rule.targetType === valueType.INPUT_PARAM">
+            <template v-if="rule.targetType === valueType.CONSTANT">
               <FilterValue v-model="rule.target" :dataType="rule.sourceDataType" size="small" :showNumberControls="false" />
             </template>
             <!-- 变量 -->
