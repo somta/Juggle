@@ -53,6 +53,11 @@ sh startup.sh
 
 启动成功后，浏览器输入http://127.0.0.1:8686访问Juggle，默认登录信息 账号：juggle 密码：juggle
 
+## 交流与学习
+通过如下方式加入，学习更多关于Juggle的知识，添加时请标注来意，谢谢！
+![](/docs/static/juggle/images/guide/qq.jpg)
+![](/docs/static/juggle/images/guide/wx.jpg)
+
 ## 感恩与支持
 感谢为Juggle功能持续更新日夜奋战的小伙伴们，感谢为项目提出宝贵优化意见的大佬们！
      

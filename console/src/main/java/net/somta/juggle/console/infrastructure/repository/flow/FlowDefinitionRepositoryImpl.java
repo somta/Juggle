@@ -21,6 +21,7 @@ import net.somta.juggle.console.domain.flow.definition.FlowDefinitionAO;
 import net.somta.juggle.console.domain.flow.definition.repository.IFlowDefinitionRepository;
 import net.somta.juggle.console.domain.flow.definition.vo.FlowDefinitionInfoQueryVO;
 import net.somta.juggle.console.domain.flow.definition.vo.FlowDefinitionInfoVO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableDeleteVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
@@ -92,7 +93,7 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
         flowDefinitionInfoPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
         flowDefinitionMapper.update(flowDefinitionInfoPo);
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionAo.getId()));
-        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAo.getId());
+        variableInfoMapper.deleteVariableByFlowDefinitionId(new VariableDeleteVO(flowDefinitionAo.getId(),3));
         saveParametersAndVariables(flowDefinitionInfoPo.getId(),flowDefinitionAo);
         return true;
     }
@@ -102,7 +103,7 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     public Boolean saveFlowDefinitionContent(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionMapper.update(flowDefinitionInfoPo);
-        variableInfoMapper.deleteVariableByFlowDefinitionId(flowDefinitionAo.getId());
+        variableInfoMapper.deleteVariableByFlowDefinitionId(new VariableDeleteVO(flowDefinitionAo.getId(),null));
         List<VariableInfoPO> variableInfoPoList = IVariableInfoConverter.IMPL.voListToPoList(flowDefinitionAo.getVariableInfoList(),flowDefinitionAo.getId());
         if(CollectionUtils.isNotEmpty(variableInfoPoList)){
             variableInfoMapper.batchAddVariable(variableInfoPoList);

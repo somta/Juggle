@@ -18,6 +18,7 @@ package net.somta.juggle.console.infrastructure.repository.flow;
 
 import net.somta.juggle.console.domain.flow.version.FlowVersionAO;
 import net.somta.juggle.console.domain.flow.version.repository.IFlowVersionRepository;
+import net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView;
 import net.somta.juggle.console.domain.flow.version.view.FlowVersionView;
 import net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowVersionConverter;
@@ -62,6 +63,15 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
         FlowVersionPO flowVersionPo = flowVersionMapper.queryById(flowVersionId);
         FlowVersionAO flowVersionAo = IFlowVersionConverter.IMPL.poToAo(flowVersionPo);
         return flowVersionAo;
+    }
+
+    @Override
+    public FlowVersionInfoView queryFlowVersionInfoByKey(String flowKey, String flowVersion) {
+        FlowVersionQueryVO flowVersionQueryVo = new FlowVersionQueryVO();
+        flowVersionQueryVo.setFlowKey(flowKey);
+        flowVersionQueryVo.setFlowVersion(flowVersion);
+        FlowVersionInfoView flowVersionInfoView = flowVersionMapper.queryFlowVersionInfoByKey(flowVersionQueryVo);
+        return flowVersionInfoView;
     }
 
     @Override

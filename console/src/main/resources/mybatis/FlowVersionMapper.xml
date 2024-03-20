@@ -13,6 +13,25 @@
 	from t_flow_info i inner join t_flow_version v on i.id = v.flow_id  where i.flow_key = #{flowKey}
 </select>
 
+<select id="queryFlowVersionInfoByKey" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
+	select v.id,
+	i.flow_key as flowKey,
+	i.flow_name as flowName,
+	v.flow_version_status as flowVersionStatus,
+    v.flow_content as flowContent,
+	v.inputs as inputs,
+    v.outputs as outputs,
+    v.variables as variables
+	from t_flow_info i left join t_flow_version v on i.id=v.flow_id
+	where 1=1
+	<if test="flowKey != null and flowKey != ''">
+		and i.flow_key = #{flowKey}
+	</if>
+	<if test="flowVersion != null and flowVersion != ''">
+		and v.flow_version = #{flowVersion}
+	</if>
+</select>
+
 <select id="queryFlowVersionList" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
 	select v.id,
 	       i.flow_key as flowKey,

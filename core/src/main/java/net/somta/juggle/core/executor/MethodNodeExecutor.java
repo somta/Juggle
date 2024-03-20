@@ -17,6 +17,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.FlowRuntimeContext;
+import net.somta.juggle.core.enums.FieldSourceEnum;
 import net.somta.juggle.core.enums.RequestContentTypeEnum;
 import net.somta.juggle.core.exception.FlowException;
 import net.somta.juggle.core.http.HttpClientFactory;
@@ -118,8 +119,12 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
         // todo 如果是这种类型，怎么支持高级类型，user.id这样的结构，看看bizw是怎么做的
         for(FillStruct fillStruct : inputFillRules){
             String fieldKey = fillStruct.getTarget();
-            Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
-            paramData.put(fieldKey,variableValue);
+            if(FieldSourceEnum.CONSTANT.equals(fillStruct.getSourceType())){
+                paramData.put(fieldKey,fillStruct.getSource());
+            }else {
+                Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
+                paramData.put(fieldKey,variableValue);
+            }
         }
         return paramData;
     }

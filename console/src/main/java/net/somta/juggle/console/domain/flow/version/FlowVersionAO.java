@@ -1,6 +1,12 @@
 package net.somta.juggle.console.domain.flow.version;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
+import net.somta.juggle.core.model.InputParameter;
+import net.somta.juggle.core.model.OutputParameter;
+import net.somta.juggle.core.model.Variable;
+
+import java.util.List;
 
 /**
  * @author husong
@@ -34,6 +40,21 @@ public class FlowVersionAO {
         } else {
             this.flowVersionStatusEnum = FlowVersionStatusEnum.DISABLED;
         }
+    }
+
+    public List<InputParameter> getFlowRuntimeInputParameters() {
+        List<InputParameter> inputParameterList = JsonSerializeHelper.deserialize(this.inputs,List.class,InputParameter.class);
+        return inputParameterList;
+    }
+
+    public List<OutputParameter> getFlowRuntimeOutputParameters() {
+        List<OutputParameter> outputParameterList = JsonSerializeHelper.deserialize(this.outputs,List.class,OutputParameter.class);
+        return outputParameterList;
+    }
+
+    public List<Variable> getFlowRuntimeVariables() {
+        List<Variable> variableList = JsonSerializeHelper.deserialize(this.variables,List.class,Variable.class);
+        return variableList;
     }
 
     public Long getId() {
@@ -123,4 +144,7 @@ public class FlowVersionAO {
     public void setVariables(String variables) {
         this.variables = variables;
     }
+
+
+
 }

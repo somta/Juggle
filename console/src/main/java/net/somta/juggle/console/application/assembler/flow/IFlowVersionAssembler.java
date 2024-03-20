@@ -1,5 +1,7 @@
 package net.somta.juggle.console.application.assembler.flow;
 
+import net.somta.juggle.console.domain.flow.version.FlowVersionAO;
+import net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView;
 import net.somta.juggle.console.domain.flow.version.view.FlowVersionView;
 import net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO;
 import net.somta.juggle.console.domain.flow.version.vo.FlowVersionVO;
@@ -33,6 +35,13 @@ public interface IFlowVersionAssembler {
      * @return FlowVersionDTO List
      */
     List<FlowVersionDTO> voListToDtoList(List<FlowVersionVO> flowVersionVOList);
+
+    /**
+     * view assembler to ao
+     * @param flowVersionInfoView flow version view
+     * @return flow version ao
+     */
+    FlowVersionAO viewToAo(FlowVersionInfoView flowVersionInfoView);
 
     /**
      * viewList assembler to DtoList

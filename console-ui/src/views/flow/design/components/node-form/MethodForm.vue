@@ -3,6 +3,7 @@
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
 import RuleSetting from '@/components/form/RuleSetting.vue';
+import HeaderRuleSetting from '@/components/form/HeaderRuleSetting.vue';
 import {computed, PropType, ref, watch} from 'vue';
 import {ElementType, FlowVariableType, MethodInfo, RawData} from '../../types';
 import {apiService} from '@/service';
@@ -63,12 +64,12 @@ function onDomainChange () {
 
 function paramToRule (param: { dataType: string; paramKey: string; paramName: string; required?: boolean },sourceType:valueType) {
   const result = {
-    source: param.paramKey,
-    sourceDataType: param.dataType,
-    sourceType: sourceType,
-    target: '',
-    targetDataType: null,
-    targetType: valueType.VARIABLE,
+    source: '',
+    sourceDataType: null,
+    sourceType: valueType.VARIABLE,
+    target: param.paramKey,
+    targetDataType: param.dataType,
+    targetType: sourceType,
     required: true,
   }
   return result;
@@ -78,8 +79,8 @@ async function initApiSourceList (val: number) {
   const res = await apiService.queryApiInfo(val);
   if (res.result) {
     const result = res.result;
-    headerSourceList.value = result.apiHeaders.map(item => ({...item, sourceType: valueType.HEADER }));
-    inputSourceList.value = result.apiInputParams.map(item => ({...item, sourceType: valueType.INPUT_PARAM }));
+    headerSourceList.value = result.apiHeaders.map(item => ({...item, targetType: valueType.HEADER }));
+    inputSourceList.value = result.apiInputParams.map(item => ({...item, targetType: valueType.INPUT_PARAM }));
     outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);
@@ -97,8 +98,8 @@ async function onApiChange (val: number) {
     const method = nodeData.value.method;
     method.requestType = result.apiRequestType;
     method.requestContentType = result.apiRequestContentType;
-    headerSourceList.value = result.apiHeaders.map(item => ({...item, sourceType: valueType.HEADER }));
-    inputSourceList.value = result.apiInputParams.map(item => ({...item, sourceType: valueType.INPUT_PARAM }));
+    headerSourceList.value = result.apiHeaders.map(item => ({...item, targetType: valueType.HEADER }));
+    inputSourceList.value = result.apiInputParams.map(item => ({...item, targetType: valueType.INPUT_PARAM }));
     outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);
@@ -204,7 +205,7 @@ function onCancel() {
         <ApiSelect v-model="nodeData.method.methodId" :domainId="nodeData.method.domainId" @change="onApiChange" />
       </el-form-item>
       <el-form-item label="请求头赋值">
-        <RuleSetting
+        <HeaderRuleSetting
           v-model="nodeData.method.headerFillRules"
           addText="新增请求头赋值"
           showRequired
@@ -214,7 +215,7 @@ function onCancel() {
         />
       </el-form-item>
       <el-form-item label="入参赋值">
-        <RuleSetting
+        <HeaderRuleSetting
           v-model="nodeData.method.inputFillRules"
           addText="新增入参赋值"
           showRequired

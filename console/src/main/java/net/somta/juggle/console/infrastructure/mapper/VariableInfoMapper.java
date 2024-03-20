@@ -1,6 +1,7 @@
 package net.somta.juggle.console.infrastructure.mapper;
 
 import net.somta.core.base.IBaseMapper;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableDeleteVO;
 import net.somta.juggle.console.infrastructure.po.VariableInfoPO;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,10 +22,10 @@ public interface VariableInfoMapper extends IBaseMapper {
 
     /**
      * 根据流程定义ID删除变量
-     * @param flowDefinitionId
+     * @param variableDeleteVo
      * @return
      */
-    int deleteVariableByFlowDefinitionId(Long flowDefinitionId);
+    int deleteVariableByFlowDefinitionId(VariableDeleteVO variableDeleteVo);
 
     /**
      *

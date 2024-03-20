@@ -6,7 +6,6 @@ import ParamSetting from '@/components/form/ParamSetting.vue';
 import { apiService } from '@/service';
 import type { ApiInfo } from '@/typings';
 import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const';
-import {ApiHeader, ObjectProperty} from "@/typings";
 
 const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
 const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);

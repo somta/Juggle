@@ -24,6 +24,7 @@ import net.somta.juggle.console.application.service.flow.IFlowRuntimeService;
 import net.somta.juggle.console.application.service.flow.IFlowVersionService;
 import net.somta.juggle.console.domain.flow.version.FlowVersionAO;
 import net.somta.juggle.console.domain.flow.version.repository.IFlowVersionRepository;
+import net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView;
 import net.somta.juggle.console.domain.flow.version.view.FlowVersionView;
 import net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO;
 import net.somta.juggle.console.interfaces.dto.flow.FlowInfoDTO;
@@ -68,7 +69,9 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
 
     @Override
     public FlowVersionAO getFlowVersionInfoByKey(String flowKey, String flowVersion) {
-        return null;
+        FlowVersionInfoView flowVersionInfoView = flowVersionRepository.queryFlowVersionInfoByKey(flowKey,flowVersion);
+        FlowVersionAO flowVersionAo = IFlowVersionAssembler.IMPL.viewToAo(flowVersionInfoView);
+        return flowVersionAo;
     }
 
     @Override
@@ -92,6 +95,10 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
         Flow flow = new Flow();
         flow.setFlowKey(flowVersionAo.getFlowKey());
         flow.setFlowName(flowVersionAo.getFlowName());
+        flow.setFlowContent(flowVersionAo.getFlowContent());
+        flow.setInputParams(flowVersionAo.getFlowRuntimeInputParameters());
+        flow.setOutputParams(flowVersionAo.getFlowRuntimeOutputParameters());
+        flow.setVariables(flowVersionAo.getFlowRuntimeVariables());
         return flowRuntimeService.triggerFlow(flow, flowVersionAo.getFlowType(),triggerData);
     }
 }

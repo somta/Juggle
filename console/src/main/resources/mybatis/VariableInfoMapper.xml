@@ -12,8 +12,11 @@
 	</foreach>
 </insert>
 
-<delete id="deleteVariableByFlowDefinitionId" parameterType="java.lang.Long">
+<delete id="deleteVariableByFlowDefinitionId" parameterType="net.somta.juggle.console.domain.flow.definition.vo.VariableDeleteVO">
 	delete from t_variable_info where flow_definition_id=#{flowDefinitionId}
+	<if test="excludeEnvType != null and excludeEnvType != ''">
+		and env_type!=#{excludeEnvType}
+	</if>
 </delete>
 
 <select id="queryVariableInfoListByDefinitionId" resultMap="BaseResultMap" parameterType="java.lang.Long">

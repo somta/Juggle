@@ -214,6 +214,7 @@ const handleBasicChange = (val: any) => {
     :disabled="disabled"
     :show-all-levels="false"
     :size="size"
+    style="width: 100%;"
     @change="handleChange"
   />
 </template>
