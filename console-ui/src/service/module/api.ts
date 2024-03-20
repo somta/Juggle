@@ -1,4 +1,5 @@
 import { apiAPI } from '../api';
+import {ApiHeader} from "@/typings";
 
 export async function domainQuery(params: Parameters<typeof apiAPI.domainQuery>[0]) {
   return apiAPI.domainQuery(params);
@@ -37,7 +38,22 @@ export async function listDelete(params: Parameters<typeof apiAPI.listDelete>[0]
 }
 
 export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo>[0]) {
-  return apiAPI.queryApiInfo(params);
+  const res = await apiAPI.queryApiInfo(params);
+  if (res.success) {
+    const headerArray: ApiHeader[] = res.result.apiHeaders;
+    if (Array.isArray(headerArray) && headerArray.length !== 0) {
+      const paramArray = headerArray.map((item: ApiHeader) => {
+        return {
+          paramKey: item.headerKey,
+          paramName: item.headerName,
+          dataType: item.dataType,
+          required: item.required
+        };
+      });
+      res.result.apiHeaders = paramArray as any;
+    }
+  }
+  return res;
 }
 
 export async function getApiListByDomainId(params: Parameters<typeof apiAPI.getApiListByDomainId>[0]) {

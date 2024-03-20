@@ -3,13 +3,13 @@
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
 import RuleSetting from '@/components/form/RuleSetting.vue';
-import { PropType, ref, watch, computed } from 'vue';
-import { ElementType, RawData, MethodInfo, FlowVariableType } from '../../types';
-import { apiService } from '@/service';
-import { valueType } from '@/typings';
-import { useFlowDataInject } from '../../hooks/flow-data';
-import { cloneDeep } from 'lodash-es';
-import { ElMessage } from 'element-plus';
+import {computed, PropType, ref, watch} from 'vue';
+import {ElementType, FlowVariableType, MethodInfo, RawData} from '../../types';
+import {apiService} from '@/service';
+import {valueType} from '@/typings';
+import {useFlowDataInject} from '../../hooks/flow-data';
+import {cloneDeep} from 'lodash-es';
+import {ElMessage} from 'element-plus';
 
 const flowContext = useFlowDataInject();
 
@@ -61,21 +61,16 @@ function onDomainChange () {
   };
 }
 
-function paramToRule (param: { dataType: string; paramKey: string; paramName: string; required?: boolean }) {
+function paramToRule (param: { dataType: string; paramKey: string; paramName: string; required?: boolean },sourceType:valueType) {
   const result = {
     source: param.paramKey,
     sourceDataType: param.dataType,
-    sourceType: valueType.VARIABLE,
+    sourceType: sourceType,
     target: '',
     targetDataType: null,
     targetType: valueType.VARIABLE,
     required: true,
   }
-/*  try {
-    result.sourceDataType = JSON.parse(result.sourceDataType);
-  } catch (error) {
-    console.error(error);
-  }*/
   return result;
 }
 
@@ -83,9 +78,9 @@ async function initApiSourceList (val: number) {
   const res = await apiService.queryApiInfo(val);
   if (res.result) {
     const result = res.result;
-    headerSourceList.value = result.apiHeaders;
-    inputSourceList.value = result.apiInputParams;
-    outputSourceList.value = result.apiOutputParams;
+    headerSourceList.value = result.apiHeaders.map(item => ({...item, sourceType: valueType.HEADER }));
+    inputSourceList.value = result.apiInputParams.map(item => ({...item, sourceType: valueType.INPUT_PARAM }));
+    outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);
     headerRequiredKeys.value = headerRequired.map(item => item.paramKey);
@@ -105,15 +100,14 @@ async function onApiChange (val: number) {
     headerSourceList.value = result.apiHeaders.map(item => ({...item, sourceType: valueType.HEADER }));
     inputSourceList.value = result.apiInputParams.map(item => ({...item, sourceType: valueType.INPUT_PARAM }));
     outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
-
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);
-    method.headerFillRules = headerRequired.map(paramToRule);
+    method.headerFillRules = headerRequired.map(item => paramToRule(item,valueType.HEADER));
     headerRequiredKeys.value = headerRequired.map(item => item.paramKey);
     
     // 默认必填 - 入参
     const inputRequired = result.apiInputParams.filter(item => item.required);
-    method.inputFillRules = inputRequired.map(paramToRule);
+    method.inputFillRules = inputRequired.map(item => paramToRule(item,valueType.INPUT_PARAM));
     inputRequiredKeys.value = inputRequired.map(item => item.paramKey);
 
     method.outputFillRules = [];

@@ -62,7 +62,7 @@ public class FlowDefinitionHelper {
         headerFillStruct.setSourceType(FieldSourceEnum.VARIABLE);
         headerFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         headerFillStruct.setTarget("userId");
-        headerFillStruct.setTargetType(FieldSourceEnum.INPUT_PARAM);
+        headerFillStruct.setTargetType(FieldSourceEnum.HEADER);
         headerFillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
         headerFillRules.add(headerFillStruct);
         method.setHeaderFillRules(headerFillRules);

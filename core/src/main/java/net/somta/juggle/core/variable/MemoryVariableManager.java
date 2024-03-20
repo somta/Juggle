@@ -53,10 +53,12 @@ public class MemoryVariableManager extends AbstractVariableManager {
     }
 
     private Object getRealDataType(Object value, DataType dataType) {
-        if(DataTypeEnum.Integer == dataType.getType()){
-            value = Integer.valueOf(value.toString());
-        }else if(DataTypeEnum.String == dataType.getType()){
-            value = value.toString();
+        if(value != null){
+            if(DataTypeEnum.Integer == dataType.getType()){
+                value = Integer.valueOf(value.toString());
+            }else if(DataTypeEnum.String == dataType.getType()){
+                value = value.toString();
+            }
         }
         return value;
     }

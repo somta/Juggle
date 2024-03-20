@@ -73,18 +73,7 @@ function open(item?: Record<string, any>) {
         formValue.apiUrl = res.result.apiUrl;
         formValue.apiRequestType = res.result.apiRequestType;
         formValue.apiRequestContentType = res.result.apiRequestContentType;
-        const headerArray: ApiHeader[] = res.result.apiHeaders;
-        if (Array.isArray(headerArray) && headerArray.length !== 0) {
-          const paramArray = headerArray.map((item: ApiHeader) => {
-            return {
-              paramKey: item.headerKey,
-              paramName: item.headerName,
-              dataType: item.dataType,
-              required: item.required
-            };
-          });
-          formValue.apiHeaders = paramArray as any;
-        }
+        formValue.apiHeaders = res.result.apiHeaders;
         formValue.apiInputParams = res.result.apiInputParams;
         formValue.apiOutputParams = res.result.apiOutputParams;
       }

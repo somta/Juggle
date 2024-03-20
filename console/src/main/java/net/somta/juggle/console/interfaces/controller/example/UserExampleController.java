@@ -47,6 +47,7 @@ public class UserExampleController {
         logger.info("接收到的用户名为:{},接收到的密码为:{}",loginParam.getUserName(),loginParam.getPassword());
         LoginDTO loginDto = new LoginDTO();
         if("juggle".equals(loginParam.userName) && "123456".equals(loginParam.getPassword())){
+            loginDto.setUserId(1);
             loginDto.setUserName(loginParam.getUserName());
             loginDto.setLoginFlag(true);
         }else {
@@ -134,8 +135,17 @@ public class UserExampleController {
     }
 
     public static class LoginDTO {
+        private Integer userId;
         private String userName;
         private Boolean loginFlag;
+
+        public Integer getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
+        }
 
         public String getUserName() {
             return userName;

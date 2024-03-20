@@ -78,7 +78,6 @@ function onChange() {
 }
 
 function onTargetTypeChange (rowIndex: number) {
-  console.log("onTargetTypeChange",rules);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].targetDataType = '';
   onChange();
@@ -113,6 +112,7 @@ function getAvailableTarget (source: string, sourceDataType: string) {
 }
 
 function onSourceChange (rowIndex: number) {
+  console.log("onSourceChange",rules.value[rowIndex]);
   const source = rules.value[rowIndex].source;
   const param = props.sourceList.find((item) => item.paramKey === source);
   rules.value[rowIndex].target = '';
