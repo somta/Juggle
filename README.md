@@ -53,10 +53,19 @@ sh startup.sh
 
 启动成功后，浏览器输入http://127.0.0.1:8686访问Juggle，默认登录信息 账号：juggle 密码：juggle
 
+### 5.示例流程
+
+为了让用户更好的上手Juggle，系统自带了示例接口和示例流程，通过示例流程能快速了解Juggle的基础能力，示例流程核心逻辑请移步[示例流程核心逻辑](https://www.juggle.plus/docs/guide/user/example-flow) ，示例流程图如下：
+![](/docs/static/juggle/images/guide/user/flow_example.png)
+
+
+示例接口地址：https://www.juggle.plus/docs/guide/user/example-api
+
+示例流程地址：https://www.juggle.plus/docs/guide/user/example-flow
+
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加时请标注来意，谢谢！
-![](/docs/static/juggle/images/guide/qq.jpg)
-![](/docs/static/juggle/images/guide/wx.jpg)
+![](/docs/static/juggle/images/guide/wxqq.png) 
 
 ## 感恩与支持
 感谢为Juggle功能持续更新日夜奋战的小伙伴们，感谢为项目提出宝贵优化意见的大佬们！

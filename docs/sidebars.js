@@ -51,6 +51,7 @@ module.exports = {
                 'guide/user/object',
                 'guide/user/data-type-info',
                 'guide/user/example-api',
+                'guide/user/example-flow',
             ],
      },{
         type: 'category',

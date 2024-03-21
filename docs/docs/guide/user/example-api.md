@@ -36,6 +36,7 @@ Content-Type: application/json
 
 | 名称      | 类型    | 默认值 | 描述                           |
 | --------- | ------- | ------ | ------------------------------ |
+| userId    | Integer |        | 用户ID                         |
 | userName  | String  |        | 用户名称                       |
 | loginFlag | Boolean |        | true：登录成功  false:登录失败 |
 
@@ -43,6 +44,7 @@ Content-Type: application/json
 
 ```json
 {
+  "userId": 1,
   "userName": "juggle",
   "loginFlag": true
 }
