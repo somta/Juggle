@@ -5,6 +5,7 @@ import {flowDefineService, flowVersionService} from '@/service';
 import { ElMessage } from 'element-plus';
 import CodeEditor from "@/components/form/CodeEditor.vue";
 import {FlowDefineInfo} from "@/typings";
+import FilterValue from '@/components/filter/FilterValue.vue';
 
 const route = useRoute();
 let paramsData = reactive({
@@ -14,12 +15,7 @@ let paramsData = reactive({
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
 const debugUrl = ref('');
-let flowResponseJson = ref(`{
-          "flowInstanceId": "sync_MurlbkKxc6",
-          "status": "FINISH",
-          "data": {
-          "userName": "张三"
-          }`);
+let flowResponseJson = ref('');
 const flowDefine = ref<FlowDefineInfo>();
 
 const responseHeaderData = ref([]);
@@ -40,14 +36,17 @@ async function queryFlowDefineInfo() {
 
 let timerId;
 async function sendFlowDebug() {
-  //todo 这里参数要从流程入参中获取
-  const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, {});
+  if (!validate()) {
+    return;
+  }
+  const params = getParams();
+  const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, params);
   console.log("response",res.response);
   console.log("headers",res.response?.headers)
 
   if (res.success) {
     if(flowDefine.value?.flowType === "sync"){
-      flowResponseJson.value = String(res.result);
+      flowResponseJson.value = JSON.stringify(res.result);
     }else{
       console.log("123")
       timerId = setInterval(getAsyncFlowResult, 1000);
@@ -67,12 +66,49 @@ async function getAsyncFlowResult(flowInstanceId: string) {
   const res = await flowVersionService.getAsyncFlowResult(flowInstanceId);
   if (res.success) {
     if(res.result){
-      flowResponseJson.value = String(res.result);
+      flowResponseJson.value = JSON.stringify(res.result);
       clearInterval(timerId);
     }
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
+}
+
+function isEmpty (val: any) {
+  return val === undefined || val === null || val === '';
+}
+
+function validate() {
+  const flowInputParams = flowDefine.value?.flowInputParams || [];
+  const errors: string[] = [];
+  flowInputParams.forEach((param: any) => {
+    if (param.required && isEmpty(param.value)) {
+      param.error = '必填字段不能为空';
+      errors.push(param.paramKey);
+    } else {
+      param.error = '';
+    }
+  });
+  console.log(errors, 'ww');
+  return errors.length === 0;
+}
+
+function getParams () {
+  const flowInputParams = flowDefine.value?.flowInputParams || [];
+  const params: any = {};
+  flowInputParams.forEach((param: any) => {
+    if (!isEmpty(param.value)) {
+      params[param.paramKey] = param.value;
+    }
+  });
+  return params;
+}
+
+function resetParams () {
+  flowDefine.value?.flowInputParams.forEach((param: any) => {
+    param.value = '';
+    param.error = '';
+  });
 }
 
 </script>
@@ -85,15 +121,32 @@ async function getAsyncFlowResult(flowInstanceId: string) {
       </el-col>
       <el-col :span="4">
         <el-button @click="sendFlowDebug">发送</el-button>
-        <el-button >重置</el-button>
+        <el-button @click="resetParams">重置</el-button>
       </el-col>
     </el-row>
     <el-tabs model-value="inputParam">
       <el-tab-pane label="请求参数" name="inputParam">
-        <template v-for="param in flowDefine?.flowInputParams" :key="param.paramKey">
-          <span>{{param?.paramName}} : </span>
-          <el-input v-model="param.paramKey" style="width: 240px"/>
-        </template>
+        <div class="input-param-head">
+          <div class="input-param-tr">
+            <div class="input-param-td"></div>
+            <div class="input-param-td">参数编码</div>
+            <div class="input-param-td">参数名称</div>
+            <div class="input-param-td td-value">参数值</div>
+          </div>
+        </div>
+        <div class="input-param-body">
+          <div class="input-param-tr" v-for="param in flowDefine?.flowInputParams" :key="param.paramKey">
+            <div class="input-param-td">
+              <template v-if="param.required">*</template>
+            </div>
+            <div class="input-param-td" :title="param.paramKey">{{ param.paramKey }}</div>
+            <div class="input-param-td" :title="param.paramName">{{ param.paramName }}</div>
+            <div class="input-param-td td-value">
+              <filter-value v-model="param.value" :dataType="param.dataType" />
+            </div>
+            <div class="input-param-td td-error">{{ param.error || '' }}</div>
+          </div>
+        </div>
       </el-tab-pane>
     </el-tabs>
 
@@ -116,5 +169,33 @@ async function getAsyncFlowResult(flowInstanceId: string) {
 <style lang="less" scoped>
 .flow-debug {
   padding: 24px 40px;
+
+  .input-param-body {
+    color: #666;
+  }
+  .input-param-tr {
+    display: flex;
+    font-size: 14px;
+    line-height: 28px;
+    margin-bottom: 8px;
+  }
+  .input-param-td {
+    margin-right: 12px;
+    width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    &:first-child {
+      margin: 0;
+      width: 12px;
+      color: red;
+    }
+    &.td-value {
+      width: 240px;
+    }
+    &.td-error {
+      color: red;
+    }
+  }
 }
 </style>

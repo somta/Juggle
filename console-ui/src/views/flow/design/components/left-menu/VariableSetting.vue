@@ -66,8 +66,15 @@ function onDelete(data: any) {
   });
 }
 
+const treeRef = ref();
+
 function searchVariable(value: any) {
-  console.log(value);
+  treeRef.value?.filter(value);
+}
+
+function filterNode (value:any, data: any) {
+  if (!value) return true
+  return data.label.includes(value) || data.envKey.includes(value);
 }
 
 </script>
@@ -76,10 +83,10 @@ function searchVariable(value: any) {
   <div class="flow-variable-setting">
     <div class="variable-head">
       <el-button type="primary" size="small" class="add-temp-variable" @click="onAddOpen">新增中间变量</el-button>
-      <el-input v-model="searchValue" :prefix-icon="Search" placeholder="搜索变量" class="variable-search-input" size="small" @change="searchVariable"/>
+      <el-input v-model="searchValue" :prefix-icon="Search" placeholder="搜索变量" class="variable-search-input" size="small" @input="searchVariable"/>
     </div>
     <div class="variable-body">
-      <el-tree :data="treeData" node-key="envKey" default-expand-all>
+      <el-tree ref="treeRef" :data="treeData" node-key="envKey" default-expand-all :filter-node-method="filterNode">
         <template #default="{ node, data }">
           <span class="custom-tree-node">
             <span v-if="data.children" class="custom-tree-node-label">{{ node.label }}</span>

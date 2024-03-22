@@ -6,7 +6,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import ObjectFilter from "@/views/object/ObjectFilter.vue";
 import ObjectTable from "@/views/object/ObjectTable.vue";
 import ObjectDrawer from "@/views/object/ObjectDrawer.vue";
-import {ListForm} from "src/views/api/api";
+import {ListForm} from "@/views/api/api";
 import {ObjectProperty, OutputParams} from "@/typings";
 import {updateObject} from "@/service/module/object.ts";
 

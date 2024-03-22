@@ -23,7 +23,15 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const innerValue = computed({
-  get: () => props.modelValue,
+  get: () => {
+    if (currentType.value === 'Integer' || currentType.value === 'Double') {
+      if (props.modelValue === '') {
+        return null;
+      }
+      return Number(props.modelValue);
+    }
+    return props.modelValue
+  },
   set: (value) => {
     emit('update:modelValue', value)
   }
