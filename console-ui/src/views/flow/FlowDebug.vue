@@ -26,9 +26,7 @@ queryFlowDefineInfo();
 async function queryFlowDefineInfo() {
   const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as number);
   if (res.success) {
-    // 填充到面板
-    //debugUrl.value = window.location.origin + '/v1/flow/definition/debug/'+ paramsData.params.flowKey;
-    debugUrl.value = 'http://127.0.0.1:8686/v1/flow/definition/debug/' + paramsData.params.flowKey;
+    debugUrl.value = window.location.origin + '/v1/flow/definition/debug/'+ paramsData.params.flowKey;
     flowDefine.value = res.result;
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
@@ -40,16 +38,14 @@ async function sendFlowDebug() {
   if (!validate()) {
     return;
   }
-  const params = getParams();
+  const params = {
+    flowData : getParams()
+  };
   const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, params);
-  console.log("response",res.response);
-  console.log("headers",res.response?.headers)
-
   if (res.success) {
     if(flowDefine.value?.flowType === "sync"){
       flowResponseJson.value = JSON.stringify(res.result);
     }else{
-      console.log("123")
       timerId = setInterval(getAsyncFlowResult, 1000);
     }
   } else {
@@ -115,12 +111,12 @@ function resetParams () {
 
 <template>
   <div class="flow-debug">
-    <el-row>
+    <el-row :gutter="16">
       <el-col :span="20">
         <el-input v-model="debugUrl"/>
       </el-col>
       <el-col :span="4">
-        <el-button @click="sendFlowDebug">发送</el-button>
+        <el-button type="primary" @click="sendFlowDebug">发送</el-button>
         <el-button @click="resetParams">重置</el-button>
       </el-col>
     </el-row>
@@ -162,7 +158,7 @@ function resetParams () {
       </el-tab-pane>
       <el-tab-pane label="响应头" name="responseHeader">
         <el-table :data="responseHeaderData" style="width: 100%">
-          <el-table-column prop="headerKey" label="响应头" width="250" />
+          <el-table-column prop="headerKey" label="响应头" width="350" />
           <el-table-column prop="headerValue" label="值"/>
         </el-table>
       </el-tab-pane>
