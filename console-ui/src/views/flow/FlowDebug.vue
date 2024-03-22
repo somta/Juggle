@@ -6,6 +6,7 @@ import { ElMessage } from 'element-plus';
 import CodeEditor from "@/components/form/CodeEditor.vue";
 import {FlowDefineInfo} from "@/typings";
 import FilterValue from '@/components/filter/FilterValue.vue';
+import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 
 const route = useRoute();
 let paramsData = reactive({
@@ -89,7 +90,6 @@ function validate() {
       param.error = '';
     }
   });
-  console.log(errors, 'ww');
   return errors.length === 0;
 }
 
@@ -131,6 +131,7 @@ function resetParams () {
             <div class="input-param-td"></div>
             <div class="input-param-td">参数编码</div>
             <div class="input-param-td">参数名称</div>
+            <div class="input-param-td">参数类型</div>
             <div class="input-param-td td-value">参数值</div>
           </div>
         </div>
@@ -141,8 +142,11 @@ function resetParams () {
             </div>
             <div class="input-param-td" :title="param.paramKey">{{ param.paramKey }}</div>
             <div class="input-param-td" :title="param.paramName">{{ param.paramName }}</div>
+            <div class="input-param-td">
+              <DataTypeSelect :modelValue="param.dataType" disabled />
+            </div>
             <div class="input-param-td td-value">
-              <filter-value v-model="param.value" :dataType="param.dataType" />
+              <FilterValue v-model="param.value" :dataType="param.dataType" />
             </div>
             <div class="input-param-td td-error">{{ param.error || '' }}</div>
           </div>
