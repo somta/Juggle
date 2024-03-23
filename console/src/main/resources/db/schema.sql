@@ -115,7 +115,7 @@ CREATE TABLE `t_variable_info` (
 );
 
 -- ----------------------------
--- Table structure for t_flow
+-- Table structure for t_flow_info
 -- ----------------------------
 CREATE TABLE `t_flow_info` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
@@ -148,4 +148,18 @@ CREATE TABLE `t_flow_version` (
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_token
+-- ----------------------------
+CREATE TABLE `t_token` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `token_value` varchar(150) DEFAULT NULL,
+   `token_desc` varchar(80) DEFAULT NULL,
+   `created_at` datetime DEFAULT NULL,
+   `created_by` int DEFAULT NULL,
+   `updated_at` datetime DEFAULT NULL,
+   `updated_by` int DEFAULT NULL,
+   PRIMARY KEY (`id`)
 );

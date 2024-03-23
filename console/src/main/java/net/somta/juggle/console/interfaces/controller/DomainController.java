@@ -70,7 +70,7 @@ public class DomainController {
      */
     @Operation(summary = "修改领域")
     @PutMapping("/update")
-    public ResponseDataResult<Boolean> addDomain(@RequestBody DomainUpdateParam domainUpdateParam){
+    public ResponseDataResult<Boolean> updateDomain(@RequestBody DomainUpdateParam domainUpdateParam){
         domainService.updateDomain(domainUpdateParam);
         return ResponseDataResult.setResponseResult(true);
     }

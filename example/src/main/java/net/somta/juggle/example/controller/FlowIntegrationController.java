@@ -9,6 +9,7 @@ import net.somta.juggle.starter.impl.IJuggleTemplate;
 import net.somta.juggle.starter.model.FlowResultModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,7 @@ public class FlowIntegrationController {
 
     @Operation(summary = "集成触发流程")
     @PostMapping("/triggerFlow")
-    public BaseResponse<FlowResultModel> triggerFlow(TriggerFlowParam triggerFlowParam){
+    public BaseResponse<FlowResultModel> triggerFlow(@RequestBody TriggerFlowParam triggerFlowParam){
         try {
             ResponseDataResult<FlowResultModel> flowResult = juggleTemplate.triggerFlow(triggerFlowParam.getFlowVersion(),
                     triggerFlowParam.getFlowKey(),

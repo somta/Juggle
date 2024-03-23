@@ -23,8 +23,8 @@ public class JuggleAutoConfiguration {
         if(StringUtils.isEmpty(juggleOpenProperties.getServerAddr())){
             throw new IllegalArgumentException("serverAddr is null");
         }
-        if(StringUtils.isEmpty(juggleOpenProperties.getCredential())){
-            throw new IllegalArgumentException("credential is null");
+        if(StringUtils.isEmpty(juggleOpenProperties.getAccessToken())){
+            throw new IllegalArgumentException("access token is null");
         }
         return new JuggleTemplateImpl(juggleOpenProperties);
     }

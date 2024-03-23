@@ -42,7 +42,7 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
         String url = juggleOpenProperties.getServerAddr() + String.format(TRIGGER_FLOW_URL, flowVersion, flowKey);
         HttpClient httpClient =getHttpClient();
         HttpUriRequestBase request = new HttpPost(url);
-        fillCommonHttpHeader(request, juggleOpenProperties.getCredential());
+        fillCommonHttpHeader(request, juggleOpenProperties.getAccessToken());
         if (triggerData.getFlowData() != null) {
             String bodyJson = JsonSerializeHelper.serialize(triggerData.getFlowData());
             StringEntity stringEntity = new StringEntity(bodyJson, ContentType.APPLICATION_JSON);
@@ -68,7 +68,7 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
         String url = juggleOpenProperties.getServerAddr() + String.format(GET_ASYNC_FLOW_RESULT_URL, flowInstanceId);
         HttpClient httpClient =getHttpClient();
         HttpUriRequestBase request = new HttpGet(url);
-        fillCommonHttpHeader(request, juggleOpenProperties.getCredential());
+        fillCommonHttpHeader(request, juggleOpenProperties.getAccessToken());
 
         final HttpClientResponseHandler<ResponseDataResult<Map<String, Object>>> responseHandler = response -> {
             HttpEntity entity = response.getEntity();
@@ -97,10 +97,10 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
     /**
      * fill common http header
      * @param httpRequest http request
-     * @param credential request credential
+     * @param accessToken request access token
      */
-    private void fillCommonHttpHeader(HttpUriRequestBase httpRequest, String credential){
+    private void fillCommonHttpHeader(HttpUriRequestBase httpRequest, String accessToken){
         httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.addHeader("Juggle-Credential",credential);
+        httpRequest.addHeader("Juggle-token",accessToken);
     }
 }

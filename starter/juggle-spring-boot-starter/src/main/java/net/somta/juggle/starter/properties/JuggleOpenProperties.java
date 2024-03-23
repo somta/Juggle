@@ -13,9 +13,9 @@ public class JuggleOpenProperties {
     private String serverAddr;
 
     /**
-     * Request credentials
+     * Request access token
      */
-    private String credential;
+    private String accessToken;
 
     public String getServerAddr() {
         return serverAddr;
@@ -25,11 +25,11 @@ public class JuggleOpenProperties {
         this.serverAddr = serverAddr;
     }
 
-    public String getCredential() {
-        return credential;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setCredential(String credential) {
-        this.credential = credential;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }
