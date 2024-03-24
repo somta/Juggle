@@ -18,6 +18,7 @@ import java.util.Map;
 public class JwtUtil {
 
     public static final String TOKEN_HEADER_KEY = "Authorization";
+    public static final String OPEN_API_HEADER_KEY = "Juggle-Token";
     private static final Key SIGN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
  
     /**

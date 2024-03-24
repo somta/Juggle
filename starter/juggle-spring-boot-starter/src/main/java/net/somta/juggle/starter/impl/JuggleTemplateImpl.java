@@ -101,6 +101,6 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
      */
     private void fillCommonHttpHeader(HttpUriRequestBase httpRequest, String accessToken){
         httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.addHeader("Juggle-token",accessToken);
+        httpRequest.addHeader("Juggle-Token",accessToken);
     }
 }

@@ -14,43 +14,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.domain.token.vo;
+package net.somta.juggle.console.domain.system.token.repository;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import net.somta.juggle.console.domain.system.token.vo.TokenVO;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * @author husong
  * @since 1.1.0
  */
-public class TokenVO {
-    private Long id;
-    private String tokenDesc;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt;
+public interface ITokenRepository {
+    void addToken(String tokenValue, String tokenDesc);
 
-    public Long getId() {
-        return id;
-    }
+    void deleteTokenById(Long tokenId);
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    void updateToken(Long tokenId, String tokenDesc);
 
-    public String getTokenDesc() {
-        return tokenDesc;
-    }
+    List<TokenVO> queryTokenList();
 
-    public void setTokenDesc(String tokenDesc) {
-        this.tokenDesc = tokenDesc;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
 }

@@ -14,23 +14,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.infrastructure.po;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import net.somta.core.base.BaseModel;
-
-import java.util.Date;
+package net.somta.juggle.console.interfaces.param.system;
 
 /**
  * @author husong
  * @since 1.1.0
  */
-public class TokenPO extends BaseModel {
+public class TokenUpdateParam {
     private Long id;
-    private String tokenValue;
     private String tokenDesc;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt;
 
     public Long getId() {
         return id;
@@ -40,29 +32,11 @@ public class TokenPO extends BaseModel {
         this.id = id;
     }
 
-    public String getTokenValue() {
-        return tokenValue;
-    }
-
-    public void setTokenValue(String tokenValue) {
-        this.tokenValue = tokenValue;
-    }
-
     public String getTokenDesc() {
         return tokenDesc;
     }
 
     public void setTokenDesc(String tokenDesc) {
         this.tokenDesc = tokenDesc;
-    }
-
-    @Override
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    @Override
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }

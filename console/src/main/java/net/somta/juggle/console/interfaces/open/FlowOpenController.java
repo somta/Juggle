@@ -36,7 +36,7 @@ public class FlowOpenController {
     }
 
     /**
-     * 触发流程
+     * 触发流程 todo 这里要改成get请求，让浏览器的webhook可以直接触发
      * @param triggerData 触发流程实体
      * @return Boolean
      */

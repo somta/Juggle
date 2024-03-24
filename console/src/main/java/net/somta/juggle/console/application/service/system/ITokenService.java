@@ -14,29 +14,24 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.interfaces.param;
+package net.somta.juggle.console.application.service.system;
+
+import com.github.pagehelper.PageInfo;
+import net.somta.core.base.page.PageParam;
+import net.somta.juggle.console.interfaces.param.system.TokenUpdateParam;
 
 /**
  * @author husong
  * @since 1.1.0
  */
-public class TokenUpdateParam {
-    private Long id;
-    private String tokenDesc;
+public interface ITokenService {
+    String addToken(String tokenDesc);
 
-    public Long getId() {
-        return id;
-    }
+    void deleteToken(Long tokenId);
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    void updateToken(TokenUpdateParam tokenUpdateParam);
 
-    public String getTokenDesc() {
-        return tokenDesc;
-    }
+    Boolean isExistToken(String tokenValue);
 
-    public void setTokenDesc(String tokenDesc) {
-        this.tokenDesc = tokenDesc;
-    }
+    PageInfo getTokenPageList(PageParam pageParam);
 }

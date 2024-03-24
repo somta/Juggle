@@ -14,14 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.infrastructure.repository;
+package net.somta.juggle.console.infrastructure.repository.system;
 
 import net.somta.juggle.common.identity.IdentityContext;
-import net.somta.juggle.console.domain.token.repository.ITokenRepository;
-import net.somta.juggle.console.domain.token.vo.TokenVO;
-import net.somta.juggle.console.infrastructure.converter.ITokenConverter;
-import net.somta.juggle.console.infrastructure.mapper.TokenMapper;
-import net.somta.juggle.console.infrastructure.po.TokenPO;
+import net.somta.juggle.console.domain.system.token.repository.ITokenRepository;
+import net.somta.juggle.console.domain.system.token.vo.TokenVO;
+import net.somta.juggle.console.infrastructure.converter.system.ITokenConverter;
+import net.somta.juggle.console.infrastructure.mapper.system.TokenMapper;
+import net.somta.juggle.console.infrastructure.po.system.TokenPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;

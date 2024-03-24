@@ -14,24 +14,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.application.service.impl;
+package net.somta.juggle.console.application.service.system.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.somta.core.base.page.PageParam;
-import net.somta.juggle.console.application.assembler.IDomainAssembler;
-import net.somta.juggle.console.application.assembler.ITokenAssembler;
-import net.somta.juggle.console.application.service.ITokenService;
-import net.somta.juggle.console.domain.domain.vo.DomainVO;
-import net.somta.juggle.console.domain.token.repository.ITokenRepository;
-import net.somta.juggle.console.domain.token.vo.TokenVO;
-import net.somta.juggle.console.interfaces.dto.DomainDTO;
+import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.common.identity.IdentityContext;
+import net.somta.juggle.console.application.assembler.system.ITokenAssembler;
+import net.somta.juggle.console.application.service.system.ITokenService;
+import net.somta.juggle.console.domain.system.token.TokenEntity;
+import net.somta.juggle.console.domain.system.token.repository.ITokenRepository;
+import net.somta.juggle.console.domain.system.token.vo.OpenApiTokenVO;
+import net.somta.juggle.console.domain.system.token.vo.TokenVO;
 import net.somta.juggle.console.interfaces.dto.TokenDTO;
-import net.somta.juggle.console.interfaces.param.TokenUpdateParam;
+import net.somta.juggle.console.interfaces.param.system.TokenUpdateParam;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -48,7 +50,8 @@ public class TokenServiceImpl implements ITokenService {
 
     @Override
     public String addToken(String tokenDesc) {
-        String tokenValue = RandomStringUtils.random(64, true, true);
+        TokenEntity tokenEntity = new TokenEntity();
+        String tokenValue = tokenEntity.generateTokenValue();
         tokenRepository.addToken(tokenValue,tokenDesc);
         return tokenValue;
     }
@@ -61,6 +64,12 @@ public class TokenServiceImpl implements ITokenService {
     @Override
     public void updateToken(TokenUpdateParam tokenUpdateParam) {
         tokenRepository.updateToken(tokenUpdateParam.getId(),tokenUpdateParam.getTokenDesc());
+    }
+
+    @Override
+    public Boolean isExistToken(String tokenValue) {
+        // todo 这里要做一个有效期的本地缓存
+        return true;
     }
 
     @Override

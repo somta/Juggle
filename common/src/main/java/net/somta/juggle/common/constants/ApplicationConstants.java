@@ -7,6 +7,8 @@ public class ApplicationConstants {
 
     public static final String JUGGLE_SERVER_VERSION = "/v1";
 
+    public static final String JUGGLE_OPEN_API_PREFIX = JUGGLE_SERVER_VERSION + "/open";
+
     /**
      * 应用统一前缀
      */

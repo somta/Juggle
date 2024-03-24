@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.configuration;
 
+import net.somta.juggle.console.application.service.system.ITokenService;
 import net.somta.juggle.console.interfaces.interceptor.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -27,7 +28,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class InterceptorConfiguration implements WebMvcConfigurer {
- 
+
+    private final ITokenService tokenService;
+
+    public InterceptorConfiguration(ITokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+
     /**
      * 添加自定义的拦截器
      *
@@ -35,8 +43,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor())
+        registry.addInterceptor(new AuthInterceptor(tokenService))
                 .addPathPatterns("/v1/**")
-                .excludePathPatterns("/v1/user/login","/v1/flow/version/trigger/**","/v1/flow/version/getAsyncFlowResult/*");
+                .excludePathPatterns("/v1/user/login");
     }
 }

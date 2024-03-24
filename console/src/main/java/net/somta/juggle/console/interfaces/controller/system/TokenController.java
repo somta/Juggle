@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.interfaces.controller;
+package net.somta.juggle.console.interfaces.controller.system;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,9 +22,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.base.page.PageParam;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.application.service.ITokenService;
+import net.somta.juggle.console.application.service.system.ITokenService;
 import net.somta.juggle.console.interfaces.dto.TokenDTO;
-import net.somta.juggle.console.interfaces.param.TokenUpdateParam;
+import net.somta.juggle.console.interfaces.param.system.TokenAddParam;
+import net.somta.juggle.console.interfaces.param.system.TokenUpdateParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,8 +53,8 @@ public class TokenController {
      */
     @Operation(summary = "新增令牌")
     @PostMapping("/add")
-    public ResponseDataResult<String> addToken(String tokenDesc){
-        String tokenValue = tokenService.addToken(tokenDesc);
+    public ResponseDataResult<String> addToken(@RequestBody TokenAddParam tokenAddParam){
+        String tokenValue = tokenService.addToken(tokenAddParam.getTokenDesc());
         return ResponseDataResult.setResponseResult(tokenValue);
     }
 

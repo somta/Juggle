@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.infrastructure.mapper;
+package net.somta.juggle.console.infrastructure.mapper.system;
 
 
 import net.somta.core.base.IBaseMapper;

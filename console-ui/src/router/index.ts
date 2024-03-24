@@ -7,6 +7,7 @@ import { FlowRoutes } from '../views/flow';
 import { ApiRoutes } from '../views/api';
 import { CommonRoutes } from '../views/common';
 import ObjectList from "@/views/object/ObjectList.vue";
+import {SystemRoutes} from "@/views/system";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,7 @@ const router = createRouter({
           component: ObjectList,
           meta: { name: '对象' },
         },
+        ...SystemRoutes,
         {
           path: '/:pathMatch(.*)*',
           name: 'notfound',

@@ -14,22 +14,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.console.infrastructure.converter;
-
-import net.somta.juggle.console.domain.token.vo.TokenVO;
-import net.somta.juggle.console.infrastructure.po.TokenPO;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-
-import java.util.List;
+package net.somta.juggle.console.domain.system.token.vo;
 
 /**
  * @author husong
  * @since 1.1.0
  */
-@Mapper
-public interface ITokenConverter {
-    ITokenConverter IMPL = Mappers.getMapper(ITokenConverter.class);
+public class OpenApiTokenVO {
+    private Long userId;
 
-    List<TokenVO> poListToVoList(List<TokenPO> domainPoList);
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }
