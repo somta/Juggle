@@ -38,6 +38,7 @@ public class TokenEntity {
     public String generateTokenValue(){
         OpenApiTokenVO openApiTokenVo = new OpenApiTokenVO();
         openApiTokenVo.setUserId(IdentityContext.getIdentity().getUserId());
+        openApiTokenVo.setTimestamp(System.currentTimeMillis());
         String tokenString = JsonSerializeHelper.serialize(openApiTokenVo);
         String tokenValue = Base64.getUrlEncoder().encodeToString(tokenString.getBytes());
         return tokenValue;

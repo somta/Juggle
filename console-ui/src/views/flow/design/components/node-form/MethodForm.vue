@@ -2,8 +2,8 @@
 <script lang="ts" setup>
 import DomainSelect from '@/components/form/DomainSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
-import RuleSetting from '@/components/form/RuleSetting.vue';
-import HeaderRuleSetting from '@/components/form/HeaderRuleSetting.vue';
+import OutputRuleSetting from '@/components/form/OutputRuleSetting.vue';
+import InputRuleSetting from '@/components/form/InputRuleSetting.vue';
 import {computed, PropType, ref, watch} from 'vue';
 import {ElementType, FlowVariableType, MethodInfo, RawData} from '../../types';
 import {apiService} from '@/service';
@@ -205,7 +205,7 @@ function onCancel() {
         <ApiSelect v-model="nodeData.method.methodId" :domainId="nodeData.method.domainId" @change="onApiChange" />
       </el-form-item>
       <el-form-item label="请求头赋值">
-        <HeaderRuleSetting
+        <InputRuleSetting
           v-model="nodeData.method.headerFillRules"
           addText="新增请求头赋值"
           showRequired
@@ -215,7 +215,7 @@ function onCancel() {
         />
       </el-form-item>
       <el-form-item label="入参赋值">
-        <HeaderRuleSetting
+        <InputRuleSetting
           v-model="nodeData.method.inputFillRules"
           addText="新增入参赋值"
           showRequired
@@ -225,7 +225,7 @@ function onCancel() {
         />
       </el-form-item>
       <el-form-item label="出参赋值">
-        <RuleSetting
+        <OutputRuleSetting
           v-model="nodeData.method.outputFillRules"
           addText="新增出参赋值"
           :sourceList="outputSourceList"

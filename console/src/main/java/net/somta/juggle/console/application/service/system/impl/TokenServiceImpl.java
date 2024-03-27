@@ -31,6 +31,7 @@ import net.somta.juggle.console.domain.system.token.vo.TokenVO;
 import net.somta.juggle.console.interfaces.dto.TokenDTO;
 import net.somta.juggle.console.interfaces.param.system.TokenUpdateParam;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
@@ -69,6 +70,10 @@ public class TokenServiceImpl implements ITokenService {
     @Override
     public Boolean isExistToken(String tokenValue) {
         // todo 这里要做一个有效期的本地缓存
+        String token = tokenRepository.queryTokenByValue(tokenValue);
+        if(StringUtils.isEmpty(token)){
+            return false;
+        }
         return true;
     }
 

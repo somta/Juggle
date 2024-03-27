@@ -16,16 +16,20 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.infrastructure.repository.system;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.system.token.repository.ITokenRepository;
 import net.somta.juggle.console.domain.system.token.vo.TokenVO;
 import net.somta.juggle.console.infrastructure.converter.system.ITokenConverter;
 import net.somta.juggle.console.infrastructure.mapper.system.TokenMapper;
 import net.somta.juggle.console.infrastructure.po.system.TokenPO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
+import com.github.benmanes.caffeine.cache.Caffeine;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author husong
@@ -35,6 +39,11 @@ import java.util.List;
 public class TokenRepositoryImpl implements ITokenRepository {
 
     private final TokenMapper tokenMapper;
+    private static final Cache<String, String> tokenCache = Caffeine.newBuilder()
+            .expireAfterAccess(2, TimeUnit.DAYS)
+            .initialCapacity(5)
+            .maximumSize(50)
+            .build();
 
     public TokenRepositoryImpl(TokenMapper tokenMapper) {
         this.tokenMapper = tokenMapper;
@@ -52,6 +61,8 @@ public class TokenRepositoryImpl implements ITokenRepository {
 
     @Override
     public void deleteTokenById(Long tokenId) {
+        TokenPO tokenPo = tokenMapper.queryById(tokenId);
+        tokenCache.invalidate(tokenPo.getTokenValue());
         tokenMapper.deleteById(tokenId);
     }
 
@@ -63,6 +74,20 @@ public class TokenRepositoryImpl implements ITokenRepository {
         tokenPo.setUpdatedAt(new Date());
         tokenPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
         tokenMapper.update(tokenPo);
+    }
+
+    @Override
+    public String queryTokenByValue(String tokenValue) {
+        String cacheToken = tokenCache.getIfPresent(tokenValue);
+        if(StringUtils.isNotEmpty(cacheToken)){
+            return cacheToken;
+        }
+        TokenPO TokenPo = tokenMapper.queryTokenByValue(tokenValue);
+        if(TokenPo == null){
+            tokenCache.put(TokenPo.getTokenValue(),TokenPo.getTokenValue());
+            return TokenPo.getTokenValue();
+        }
+        return null;
     }
 
     @Override

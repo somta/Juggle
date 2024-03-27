@@ -32,11 +32,6 @@
             <artifactId>juggle-spring-boot-starter</artifactId>
             <version>${revision}</version>
         </dependency>
-        <dependency>
-            <groupId>net.somta</groupId>
-            <artifactId>juggle-openapi-spring-boot-starter</artifactId>
-            <version>${revision}</version>
-        </dependency>
     </dependencies>
 
 </project>

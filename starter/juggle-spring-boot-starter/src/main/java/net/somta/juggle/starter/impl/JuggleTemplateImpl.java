@@ -13,11 +13,18 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
+import org.apache.hc.core5.net.URIBuilder;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,12 +48,10 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
     public ResponseDataResult<FlowResultModel> triggerFlow(String flowVersion, String flowKey, FlowTriggerDataParam triggerData) throws IOException {
         String url = juggleOpenProperties.getServerAddr() + String.format(TRIGGER_FLOW_URL, flowVersion, flowKey);
         HttpClient httpClient =getHttpClient();
-        HttpUriRequestBase request = new HttpPost(url);
+        HttpUriRequestBase request = new HttpGet(url);
         fillCommonHttpHeader(request, juggleOpenProperties.getAccessToken());
         if (triggerData.getFlowData() != null) {
-            String bodyJson = JsonSerializeHelper.serialize(triggerData.getFlowData());
-            StringEntity stringEntity = new StringEntity(bodyJson, ContentType.APPLICATION_JSON);
-            request.setEntity(stringEntity);
+            buildRequestParams(request,url,triggerData.getFlowData());
         }
 
         final HttpClientResponseHandler<ResponseDataResult<FlowResultModel>> responseHandler = response -> {
@@ -92,6 +97,27 @@ public class JuggleTemplateImpl implements IJuggleTemplate{
                 .setConnectionManager(connectionManager)
                 .build();
         return httpClient;
+    }
+
+    /**
+     *
+     * @param httpRequest http request
+     * @param url http url
+     * @param url http params
+     */
+    private void buildRequestParams(HttpUriRequestBase httpRequest, String url, Map<String,Object> params) {
+        List<NameValuePair> list = new ArrayList<>();
+        for (Map.Entry<String, Object> param : params.entrySet()) {
+            list.add(new BasicNameValuePair(param.getKey(), String.valueOf(param.getValue())));
+        }
+        try {
+            URI uri = new URIBuilder(new URI(url))
+                    .addParameters(list)
+                    .build();
+            httpRequest.setUri(uri);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

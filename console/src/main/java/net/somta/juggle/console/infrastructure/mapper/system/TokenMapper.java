@@ -18,6 +18,7 @@ package net.somta.juggle.console.infrastructure.mapper.system;
 
 
 import net.somta.core.base.IBaseMapper;
+import net.somta.juggle.console.infrastructure.po.system.TokenPO;
 
 /**
  * @author husong
@@ -25,4 +26,5 @@ import net.somta.core.base.IBaseMapper;
  */
 public interface TokenMapper extends IBaseMapper {
 
+    TokenPO queryTokenByValue(String tokenValue);
 }

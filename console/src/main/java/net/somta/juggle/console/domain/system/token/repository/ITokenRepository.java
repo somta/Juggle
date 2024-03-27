@@ -31,6 +31,7 @@ public interface ITokenRepository {
 
     void updateToken(Long tokenId, String tokenDesc);
 
-    List<TokenVO> queryTokenList();
+    String queryTokenByValue(String tokenValue);
 
+    List<TokenVO> queryTokenList();
 }

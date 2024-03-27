@@ -4,5 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.system.TokenMapper" >
 
+    <select id="queryTokenByValue" resultType="net.somta.juggle.console.infrastructure.po.system.TokenPO" parameterType="java.lang.String">
+        select id as id, token_value as tokenValue
+        from t_token where token_value = #{tokenValue}
+    </select>
 
 </mapper>   

@@ -30,6 +30,7 @@
         <jjwt.version>0.11.5</jjwt.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <caffeine.version>2.9.3</caffeine.version>
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -103,6 +104,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

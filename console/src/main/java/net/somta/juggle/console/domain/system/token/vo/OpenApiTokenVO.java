@@ -22,6 +22,7 @@ package net.somta.juggle.console.domain.system.token.vo;
  */
 public class OpenApiTokenVO {
     private Long userId;
+    private Long timestamp;
 
     public Long getUserId() {
         return userId;
@@ -29,5 +30,13 @@ public class OpenApiTokenVO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 }

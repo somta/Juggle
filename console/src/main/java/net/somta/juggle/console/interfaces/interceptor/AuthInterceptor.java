@@ -25,11 +25,20 @@ import net.somta.juggle.console.application.service.system.ITokenService;
 import net.somta.juggle.console.domain.system.token.TokenEntity;
 import net.somta.juggle.console.domain.system.token.vo.OpenApiTokenVO;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.hc.core5.http.NameValuePair;
+import org.apache.hc.core5.net.URIBuilder;
+import org.apache.hc.core5.net.URLEncodedUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_API_PREFIX;
 import static net.somta.juggle.console.domain.user.enums.UserErrorEnum.OPEN_API_TOKEN_ERROR;
@@ -81,13 +90,16 @@ public class AuthInterceptor implements AsyncHandlerInterceptor {
     private boolean handleOpenApi(HttpServletRequest request, HttpServletResponse response,Object handler) throws Exception {
         String token = request.getHeader(JwtUtil.OPEN_API_HEADER_KEY);
         if(StringUtils.isEmpty(token)){
+            token = request.getParameter(JwtUtil.OPEN_API_PARAM_KEY);
+        }
+        Boolean tokenExistFlag = tokenService.isExistToken(token);
+        if(StringUtils.isEmpty(token) || !tokenExistFlag){
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().print(JsonSerializeHelper.serialize(ResponseDataResult.setErrorResponseResult(OPEN_API_TOKEN_ERROR)));
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
-        Boolean flag = tokenService.isExistToken(token);
-        //todo 解析token，调用数据库是否存在
+
         TokenEntity tokenEntity = new TokenEntity();
         OpenApiTokenVO openApiTokenVo = tokenEntity.parseTokenValue(token);
         IdentityContext.setIdentity(new IdentityVO(openApiTokenVo.getUserId()));

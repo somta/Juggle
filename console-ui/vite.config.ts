@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       monacoEditorPlugin({
-        languageWorkers: ['editorWorkerService', 'typescript', 'json', 'html']
+        languageWorkers: ['editorWorkerService', 'typescript', 'json']
       })
 
     ],

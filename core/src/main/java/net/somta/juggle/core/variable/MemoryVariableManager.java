@@ -46,20 +46,8 @@ public class MemoryVariableManager extends AbstractVariableManager {
 
     @Override
     protected Boolean doSetVariableValue(String key, Object value) {
-        Variable variable = super.getVariableSchema(key);
-        Object realValue = getRealDataType(value,variable.getDataType());
+        Object realValue = getRealDataType(key,value);
         variableValueMap.put(key,realValue);
         return true;
-    }
-
-    private Object getRealDataType(Object value, DataType dataType) {
-        if(value != null){
-            if(DataTypeEnum.Integer == dataType.getType()){
-                value = Integer.valueOf(value.toString());
-            }else if(DataTypeEnum.String == dataType.getType()){
-                value = value.toString();
-            }
-        }
-        return value;
     }
 }

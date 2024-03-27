@@ -18,7 +18,9 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.variable;
 
 import net.somta.juggle.core.enums.CoreErrorEnum;
+import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.exception.FlowException;
+import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Variable;
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,6 +50,30 @@ public abstract class AbstractVariableManager {
             throw new FlowException(CoreErrorEnum.ENV_KEY_ERROR);
         }
         return doSetVariableValue(key,value);
+    }
+
+    /**
+     * get env real value
+     * @param key env key
+     * @param value env old value
+     * @return env real value
+     */
+    public Object getRealDataType(String key,Object value) {
+        Variable variable = getVariableSchema(key);
+        DataType dataType = variable.getDataType();
+        if(value != null){
+            if(DataTypeEnum.Integer == dataType.getType()){
+                value = Integer.valueOf(value.toString());
+            }else if(DataTypeEnum.Double == dataType.getType()){
+                value = Double.valueOf(value.toString());
+            }else if(DataTypeEnum.Boolean == dataType.getType()){
+                value = Boolean.valueOf(value.toString());
+            }else if(DataTypeEnum.String == dataType.getType()){
+                value = value.toString();
+            }
+            //todo 对象的真实类型如何处理待确认
+        }
+        return value;
     }
 
     protected Variable getVariableSchema(String key){

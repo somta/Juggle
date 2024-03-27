@@ -26,10 +26,7 @@ import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.enums.VariablePrefixEnum;
 import net.somta.juggle.core.exception.FlowException;
-import net.somta.juggle.core.model.Flow;
-import net.somta.juggle.core.model.FlowElement;
-import net.somta.juggle.core.model.FlowResult;
-import net.somta.juggle.core.model.Variable;
+import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.apache.commons.collections4.MapUtils;
@@ -65,7 +62,7 @@ public abstract class AbstractDispatcher implements IDispatcher {
 
         try {
             //3.将提交的入参的数据和入参的变量对应上，并将值设置到变量上，入参值后面要用
-            fillInputParameterVariable(flowRuntimeContext.getVariableManager(),flowData);
+            fillInputParameterVariable(flowRuntimeContext.getVariableManager(),flow.getInputParams(),flowData);
         } catch (FlowException e) {
             e.printStackTrace();
         }
@@ -77,10 +74,12 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * @param variableManager
      * @param flowData
      */
-    private void fillInputParameterVariable(AbstractVariableManager variableManager, Map<String,Object> flowData) throws FlowException {
+    private void fillInputParameterVariable(AbstractVariableManager variableManager,List<InputParameter> inputParams, Map<String,Object> flowData) throws FlowException {
         if(MapUtils.isNotEmpty(flowData)){
-            for (String key : flowData.keySet()) {
-                variableManager.setVariableValue(VariablePrefixEnum.INPUT_VARIABLE_PREFIX.getCode() + key,flowData.get(key));
+            for (InputParameter inputParam : inputParams) {
+                String inputParameterVariableKey = VariablePrefixEnum.INPUT_VARIABLE_PREFIX.getCode() + inputParam.getKey();
+                Object realValue = variableManager.getRealDataType(inputParameterVariableKey,flowData.get(inputParam.getKey()));
+                variableManager.setVariableValue(inputParameterVariableKey,realValue);
             }
         }
     }

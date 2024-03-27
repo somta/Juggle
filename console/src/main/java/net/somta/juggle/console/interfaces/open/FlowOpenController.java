@@ -36,13 +36,13 @@ public class FlowOpenController {
     }
 
     /**
-     * 触发流程 todo 这里要改成get请求，让浏览器的webhook可以直接触发
-     * @param triggerData 触发流程实体
+     * 触发流程
+     * @param flowData trigger flow data
      * @return Boolean
      */
     @Operation(summary = "触发流程")
-    @PostMapping("/trigger/{flowVersion}/{flowKey}")
-    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowVersion, @PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
+    @GetMapping("/trigger/{flowVersion}/{flowKey}")
+    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowVersion, @PathVariable String flowKey, @RequestParam Map<String,Object> flowData){
         if(StringUtils.isEmpty(flowKey)){
             return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
         }
@@ -53,7 +53,8 @@ public class FlowOpenController {
         if(FlowVersionStatusEnum.DISABLED == flowVersionAo.getFlowVersionStatusEnum()){
             return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
         }
-
+        TriggerDataParam triggerData = new TriggerDataParam();
+        triggerData.setFlowData(flowData);
         FlowResult rst = flowVersionService.triggerFlow(flowVersionAo,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }

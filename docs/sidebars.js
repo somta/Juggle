@@ -50,6 +50,14 @@ module.exports = {
                 'guide/user/flow-version',
                 'guide/user/object',
                 'guide/user/data-type-info',
+                {
+                    type: 'category',
+                    label: '系统集成',
+                    items: [
+                        'guide/user/integration/integration',
+                        'guide/user/integration/spring-boot-juggle',
+                    ],
+                },
                 'guide/user/example-api',
                 'guide/user/example-flow',
             ],
