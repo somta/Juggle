@@ -20,10 +20,7 @@ package net.somta.juggle.core.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import net.somta.juggle.core.enums.ElementTypeEnum;
-import net.somta.juggle.core.model.node.ConditionNode;
-import net.somta.juggle.core.model.node.EndNode;
-import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.model.node.StartNode;
+import net.somta.juggle.core.model.node.*;
 
 /**
  * 流程元素类
@@ -39,6 +36,7 @@ import net.somta.juggle.core.model.node.StartNode;
         @JsonSubTypes.Type(value = EndNode.class, name = "END"),
         @JsonSubTypes.Type(value = MethodNode.class, name = "METHOD"),
         @JsonSubTypes.Type(value = ConditionNode.class, name = "CONDITION"),
+        @JsonSubTypes.Type(value = CodeNode.class, name = "CODE"),
 })
 public class FlowElement {
     /**

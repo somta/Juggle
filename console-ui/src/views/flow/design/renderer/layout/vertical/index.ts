@@ -165,6 +165,9 @@ export class VerticalLayout {
       case ElementType.BRANCH:
         this.drawBranch(container, node, type);
         break;
+      case ElementType.CODE:
+        this.drawNormal(container, node, type);
+        break;
       default:
         break;
     }

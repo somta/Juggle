@@ -3,13 +3,16 @@ import StartForm from './StartForm.vue';
 import EndForm from './EndForm.vue';
 import ConditionForm from './ConditionForm.vue';
 import MethodForm from './MethodForm.vue';
+import CodeForm from "./CodeForm.vue";
 import { ElementType } from '../../types';
+
 
 const nodeFormMap = {
   [ElementType.START]: StartForm,
   [ElementType.END]: EndForm,
   [ElementType.CONDITION]: ConditionForm,
   [ElementType.METHOD]: MethodForm,
+  [ElementType.CODE]: CodeForm,
 };
 
 export function getNodeForm(type: ElementType) {

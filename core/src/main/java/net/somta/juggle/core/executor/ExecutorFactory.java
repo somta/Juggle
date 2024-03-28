@@ -51,6 +51,7 @@ public class ExecutorFactory {
             case END: return new EndNodeExecutor();
             case METHOD: return new MethodNodeExecutor();
             case CONDITION: return new ConditionNodeExecutor();
+            case CODE: return new CodeNodeExecutor();
             default: return null;
         }
     }
