@@ -35,6 +35,10 @@ public enum ElementTypeEnum {
      */
     METHOD,
     /**
+     * 代码节点
+     */
+    CODE,
+    /**
      * 判断节点
      */
     CONDITION;

@@ -21,6 +21,11 @@ const flowNodes = [
     type: ElementType.CONDITION,
     icon: 'Ⓒ',
   },
+  {
+    name: '自定义代码',
+    type: ElementType.CODE,
+    icon: '</>',
+  },
 ];
 
 function addNode (item: { name: string; type: ElementType }) {
