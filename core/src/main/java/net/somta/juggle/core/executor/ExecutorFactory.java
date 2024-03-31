@@ -52,6 +52,7 @@ public class ExecutorFactory {
             case METHOD: return new MethodNodeExecutor();
             case CONDITION: return new ConditionNodeExecutor();
             case CODE: return new CodeNodeExecutor();
+            case AI: return new OpenAiNodeExecutor();
             default: return null;
         }
     }

@@ -33,6 +33,7 @@ export enum ElementType {
   METHOD = 'METHOD',
   CONDITION = 'CONDITION',
   CODE = 'CODE',
+  AI = 'AI',
   END = 'END',
 
   // 前端创建的

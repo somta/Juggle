@@ -31,8 +31,8 @@ function Hero() {
                         <div className="col">
                             <div className={styles.heroButtons}>
                                 <Link to="docs/guide/start/quick-start" className={styles.getStarted}>Get Started</Link>
-                               {/* {<a href='https://gitee.com/Somta/Juggle' className={styles.giteeStar}><img src='https://gitee.com/Somta/Juggle/badge/star.svg' alt='star'></img></a>}
-                                <iframe src="https://ghbtns.com/github-btn.html?user=somta&repo=Juggle&type=star&count=true&size=large" frameBorder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>*/}
+                               {<a href='https://gitee.com/Somta/Juggle' className={styles.giteeStar}><img src='https://gitee.com/Somta/Juggle/badge/star.svg' alt='star'></img></a>}
+                               {<iframe src="https://ghbtns.com/github-btn.html?user=somta&repo=Juggle&type=star&count=true&size=large" frameBorder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>}
                             </div>
                         </div>
                     </div>

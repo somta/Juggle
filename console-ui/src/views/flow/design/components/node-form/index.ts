@@ -4,7 +4,9 @@ import EndForm from './EndForm.vue';
 import ConditionForm from './ConditionForm.vue';
 import MethodForm from './MethodForm.vue';
 import CodeForm from "./CodeForm.vue";
+import OpenAiForm from "./OpenAiForm.vue";
 import { ElementType } from '../../types';
+
 
 
 const nodeFormMap = {
@@ -13,6 +15,7 @@ const nodeFormMap = {
   [ElementType.CONDITION]: ConditionForm,
   [ElementType.METHOD]: MethodForm,
   [ElementType.CODE]: CodeForm,
+  [ElementType.AI]: OpenAiForm,
 };
 
 export function getNodeForm(type: ElementType) {

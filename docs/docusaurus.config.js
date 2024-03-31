@@ -165,6 +165,10 @@ module.exports = {
                                 label: 'GitHub',
                                 href: 'https://github.com/somta/Juggle',
                             },
+                            {
+                                label: 'Gitee',
+                                href: 'https://gitee.com/Somta/Juggle',
+                            },
                         ],
                     }
                 ],

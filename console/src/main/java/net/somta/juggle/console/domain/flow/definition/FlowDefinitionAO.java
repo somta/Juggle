@@ -57,7 +57,7 @@ public class FlowDefinitionAO {
         String endNodeKey = "end_" + RandomStringUtils.random(8, true, true);
         StartNode startEventNode = new StartNode();
         startEventNode.setKey(startNodeKey);
-        startEventNode.setName(flowName);
+        startEventNode.setName("开始");
         startEventNode.setElementType(ElementTypeEnum.START);
         startEventNode.setOutgoings(Arrays.asList(endNodeKey));
         elementList.add(startEventNode);

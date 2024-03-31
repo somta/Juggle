@@ -37,6 +37,7 @@ import net.somta.juggle.core.model.node.*;
         @JsonSubTypes.Type(value = MethodNode.class, name = "METHOD"),
         @JsonSubTypes.Type(value = ConditionNode.class, name = "CONDITION"),
         @JsonSubTypes.Type(value = CodeNode.class, name = "CODE"),
+        @JsonSubTypes.Type(value = OpenAiNode.class, name = "AI"),
 })
 public class FlowElement {
     /**

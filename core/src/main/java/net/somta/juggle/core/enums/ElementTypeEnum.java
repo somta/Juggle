@@ -39,6 +39,10 @@ public enum ElementTypeEnum {
      */
     CODE,
     /**
+     * 代码节点
+     */
+    AI,
+    /**
      * 判断节点
      */
     CONDITION;

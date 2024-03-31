@@ -1,9 +1,11 @@
 
 <script lang="ts" setup>
 import { PropType, ref, watch } from 'vue';
-import { ElementType, RawData } from '../../types';
+import {ElementType, RawData} from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
+
+type CodeRawData = RawData & { language: string; content:string };
 
 function getDefaultData () {
   return {
@@ -20,12 +22,12 @@ function getDefaultData () {
 const emit = defineEmits(['update', 'cancel']);
 const props = defineProps({
   data: {
-    type: Object as PropType<RawData>,
+    type: Object as PropType<CodeRawData>,
     required: true,
   },
 });
 
-const nodeData = ref(getDefaultData() as RawData);
+const nodeData = ref(getDefaultData() as CodeRawData);
 watch(() => props.data, val => {
   if (val !== nodeData.value) {
     nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
