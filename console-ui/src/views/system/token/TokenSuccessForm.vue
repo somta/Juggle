@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import {ElMessage} from "element-plus";
 
-const { copy, isSupported } = useClipboard();
+const { copy, isSupported } = useClipboard({legacy:true});
 const tokenSuccessVisible = ref(false);
 const tokenValue = ref('')
 

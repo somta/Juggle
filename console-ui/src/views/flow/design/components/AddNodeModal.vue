@@ -24,13 +24,13 @@ const flowNodes = [
   {
     name: '自定义代码',
     type: ElementType.CODE,
-    icon: '</>',
+    icon: '⊛',
   },
-  {
+  /*{
     name: 'OpenAi',
     type: ElementType.AI,
-    icon: '@',
-  },
+    icon: '⦾',
+  },*/
 ];
 
 function addNode (item: { name: string; type: ElementType }) {

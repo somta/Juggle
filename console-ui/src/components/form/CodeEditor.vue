@@ -56,3 +56,6 @@ function updateMonacoVal(val: string) {
 
 defineExpose({ updateOptions })
 </script>
+<style lang="less" scoped>
+
+</style>

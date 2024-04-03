@@ -4,6 +4,7 @@ import { PropType, ref, watch } from 'vue';
 import {ElementType, RawData} from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
+import CodeEditor from "@/components/form/CodeEditor.vue";
 
 type CodeRawData = RawData & { language: string; content:string };
 
@@ -14,10 +15,11 @@ function getDefaultData () {
     outgoings: [],
     incomings: [],
     elementType: ElementType.CODE,
-    language: '',
+    language: 'groovy',
     content: '',
   }
 }
+const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
 const emit = defineEmits(['update', 'cancel']);
 const props = defineProps({
@@ -62,9 +64,8 @@ function onCancel() {
       <el-form-item label="节点名称">
         <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
       </el-form-item>
-      <el-form-item label="代码">
-<!--        todo 这里要用代码编辑器-->
-        <el-input v-model="nodeData.content" type="textarea" :rows="16" placeholder="请输入"></el-input>
+      <el-form-item label="Groovy代码">
+        <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="480px" height="200px" language="groovy" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确定</el-button>
@@ -73,3 +74,7 @@ function onCancel() {
     </el-form>
   </div>
 </template>
+
+<style lang="less" scoped>
+
+</style>

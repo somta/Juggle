@@ -69,7 +69,6 @@ public class TokenServiceImpl implements ITokenService {
 
     @Override
     public Boolean isExistToken(String tokenValue) {
-        // todo 这里要做一个有效期的本地缓存
         String token = tokenRepository.queryTokenByValue(tokenValue);
         if(StringUtils.isEmpty(token)){
             return false;
