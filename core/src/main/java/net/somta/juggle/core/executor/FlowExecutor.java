@@ -68,7 +68,7 @@ public class FlowExecutor{
      * @param flowRuntimeContext
      */
     private void preExecute(FlowRuntimeContext flowRuntimeContext) {
-        System.out.println("开始执行执行流程前的逻辑... . . .");
+        logger.debug("开始执行执行流程前的逻辑... . . .");
     }
 
     /**
@@ -76,7 +76,6 @@ public class FlowExecutor{
      * @param flowRuntimeContext
      */
     private void doExecute(FlowRuntimeContext flowRuntimeContext) {
-        System.out.println("执行流程中......");
         IExecutor runtimeExecutor = getCurrentNodeExecutor(flowRuntimeContext);
         while (runtimeExecutor != null) {
             runtimeExecutor.execute(flowRuntimeContext);
