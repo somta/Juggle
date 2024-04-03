@@ -1,6 +1,7 @@
 import type { ApiInfo } from '@/typings';
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
 
+
 // 领域
 export async function domainQuery(params: { pageNum: number; pageSize: number; domainName?: string }): ResponsePageResult {
   return request.post('/v1/domain/page', params);
@@ -56,14 +57,18 @@ export async function listUpdate(params: {
   return request.put('/v1/api/update', params);
 }
 
-export async function listDelete(id: string): ResponseResult<boolean> {
+export async function listDelete(id: number): ResponseResult<boolean> {
   return request.delete(`/v1/api/delete/${id}`);
 }
 
-export async function queryApiInfo(id: string | number): ResponseResult<ApiInfo> {
+export async function queryApiInfo(id: number): ResponseResult<ApiInfo> {
   return request.get(`/v1/api/info/${id}`);
 }
 
-export async function getApiListByDomainId(domainId: string | number): ResponseResult<ApiInfo[]> {
+export function debugApi(apiId: number, params: { headerData: any; inputParamData: any }): ResponseResult<any> {
+  return request.post(`/v1/api/debug/${apiId}`,params);
+}
+
+export async function getApiListByDomainId(domainId: number): ResponseResult<ApiInfo[]> {
   return request.post(`/v1/api/getApiListByDomainId/${domainId}`);
 }

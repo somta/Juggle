@@ -27,9 +27,15 @@ import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.param.*;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
 import net.somta.juggle.console.application.service.IApiService;
+import net.somta.juggle.core.enums.RequestContentTypeEnum;
+import net.somta.juggle.core.http.HttpClientFactory;
+import net.somta.juggle.core.http.IHttpClient;
+import net.somta.juggle.core.http.Request;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author husong
@@ -87,6 +93,17 @@ public class ApiServiceImpl implements IApiService {
         PageInfo pageInfo = new PageInfo(apiList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
+    }
+
+    @Override
+    public Map<String, Object> debugApi(Long apiId,ApiDebugParam apiDebugParam) {
+        ApiAO apiAo = apiRepository.queryApi(apiId);
+        IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(apiAo.getApiRequestContentType()));
+        Request request = new Request(apiAo.getApiRequestType(),apiAo.getApiUrl());
+        request.setRequestHeaders(apiDebugParam.getHeaderData());
+        request.setRequestParams(apiDebugParam.getInputParamData());
+        Map<String,Object> result = httpClient.sendRequest(request);
+        return result;
     }
 
 }

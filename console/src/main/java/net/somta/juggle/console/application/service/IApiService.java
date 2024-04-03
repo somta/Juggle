@@ -4,10 +4,12 @@ import com.github.pagehelper.PageInfo;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.param.ApiAddParam;
+import net.somta.juggle.console.interfaces.param.ApiDebugParam;
 import net.somta.juggle.console.interfaces.param.ApiQueryParam;
 import net.somta.juggle.console.interfaces.param.ApiUpdateParam;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Gavin
@@ -56,4 +58,5 @@ public interface IApiService {
      */
     PageInfo getApiPageList(ApiQueryParam apiQueryParam);
 
+    Map<String, Object> debugApi(Long apiId, ApiDebugParam apiDebugParam);
 }

@@ -1,20 +1,8 @@
+import {InputParams, OutputParams} from "@/typings/parameter.ts";
+
 export interface ApiHeader {
   headerKey: string;
   headerName: string;
-  dataType: string;
-  required: boolean;
-}
-
-export interface ApiInputParams {
-  paramKey: string;
-  paramName: string;
-  dataType: string;
-  required: boolean;
-}
-
-export interface ApiOutputParams {
-  paramKey: string;
-  paramName: string;
   dataType: string;
   required: boolean;
 }
@@ -28,6 +16,6 @@ export interface ApiInfo {
   apiRequestType: string;
   apiRequestContentType: string;
   apiHeaders: ApiHeader[];
-  apiInputParams: ApiInputParams[];
-  apiOutputParams: ApiOutputParams[];
+  apiInputParams: InputParams[];
+  apiOutputParams: OutputParams[];
 }

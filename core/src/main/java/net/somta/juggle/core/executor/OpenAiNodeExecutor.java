@@ -37,7 +37,8 @@ public class OpenAiNodeExecutor extends AbstractElementExecutor {
         Generation gen = new Generation();
         MessageManager msgManager = new MessageManager(10);
         Message systemMsg = Message.builder().role(Role.SYSTEM.getValue()).content(openAiNode.getPrompt()).build();
-        Message userMsg = Message.builder().role(Role.USER.getValue()).content(openAiNode.getContent()).build();
+        //todo 这里要处理输入的常量和变量的问题
+        Message userMsg = Message.builder().role(Role.USER.getValue()).content(openAiNode.getInputFillRule().getSource()).build();
         msgManager.add(systemMsg);
         msgManager.add(userMsg);
 
@@ -60,7 +61,7 @@ public class OpenAiNodeExecutor extends AbstractElementExecutor {
             e.printStackTrace();
         }
 
-        String targetVariableKey = openAiNode.getResultFillRules().getTarget();
+        String targetVariableKey = openAiNode.getOutputFillRule().getTarget();
         AbstractVariableManager variableManager = flowRuntimeContext.getVariableManager();
         variableManager.setVariableValue(targetVariableKey,resultMsg);
     }

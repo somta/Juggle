@@ -3,7 +3,6 @@ import {ResponseResult} from "@/service/base";
 import {ObjectInfo} from "@/typings";
 
 export async function addObject(params: Parameters<typeof objectAPI.addObject>[0]) {
-    console.log(params);
     return objectAPI.addObject(params);
 }
 

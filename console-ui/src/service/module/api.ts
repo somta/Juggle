@@ -1,6 +1,7 @@
 import { apiAPI } from '../api';
 import {ApiHeader} from "@/typings";
 
+
 export async function domainQuery(params: Parameters<typeof apiAPI.domainQuery>[0]) {
   return apiAPI.domainQuery(params);
 }
@@ -54,6 +55,10 @@ export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo
     }
   }
   return res;
+}
+
+export async function debugApi(apiId: number, params: { headerData: any; inputParamData: any }) {
+  return apiAPI.debugApi(apiId,params);
 }
 
 export async function getApiListByDomainId(params: Parameters<typeof apiAPI.getApiListByDomainId>[0]) {

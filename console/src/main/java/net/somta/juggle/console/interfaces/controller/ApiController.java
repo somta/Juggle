@@ -23,6 +23,7 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.interfaces.dto.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.param.ApiAddParam;
+import net.somta.juggle.console.interfaces.param.ApiDebugParam;
 import net.somta.juggle.console.interfaces.param.ApiQueryParam;
 import net.somta.juggle.console.interfaces.param.ApiUpdateParam;
 import net.somta.juggle.console.interfaces.dto.ApiDTO;
@@ -30,6 +31,7 @@ import net.somta.juggle.console.application.service.IApiService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
@@ -92,6 +94,13 @@ public class ApiController {
     public ResponsePaginationDataResult<List<ApiDTO>> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
         PageInfo pageInfo = apiService.getApiPageList(apiQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    @Operation(summary = "调试接口")
+    @PostMapping("/debug/{apiId}")
+    public ResponseDataResult<Map<String,Object>> debugApi(@PathVariable Long apiId,@RequestBody ApiDebugParam apiDebugParam){
+        Map<String,Object> result = apiService.debugApi(apiId,apiDebugParam);
+        return ResponseDataResult.setResponseResult(result);
     }
 
 }
