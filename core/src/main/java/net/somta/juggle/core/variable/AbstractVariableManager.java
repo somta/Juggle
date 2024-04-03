@@ -76,7 +76,7 @@ public abstract class AbstractVariableManager {
         return value;
     }
 
-    protected Variable getVariableSchema(String key){
+    public Variable getVariableSchema(String key){
         return variableSchemaMap.get(key);
     }
 
