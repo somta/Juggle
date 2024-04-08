@@ -22,10 +22,10 @@ import IconInterface from '@/components/icons/IconInterface.vue';
       <el-sub-menu index="3">
         <template #title>
           <el-icon><IconInterface /></el-icon>
-          <span>接口</span>
+          <span>套件</span>
         </template>
-        <el-menu-item index="/api/domain">领域</el-menu-item>
-        <el-menu-item index="/api/list">接口列表</el-menu-item>
+        <el-menu-item index="/suite/list">套件</el-menu-item>
+        <el-menu-item index="/suite/api">接口</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="/object/list">
         <el-icon><Coin /></el-icon>

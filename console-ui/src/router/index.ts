@@ -8,6 +8,7 @@ import { ApiRoutes } from '../views/api';
 import { CommonRoutes } from '../views/common';
 import ObjectList from "@/views/object/ObjectList.vue";
 import {SystemRoutes} from "@/views/system";
+import {SuiteRoutes} from "@/views/suite";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -33,7 +34,7 @@ const router = createRouter({
         },*/
         ...CommonRoutes,
         ...FlowRoutes,
-        ...ApiRoutes,
+        ...SuiteRoutes,
         {
           path: 'object/list',
           name: 'object-list',

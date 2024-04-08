@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ApiMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.suite.ApiMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.ApiPO" >
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
 	<result column="id" property="id"/>
-	<result column="domain_id" property="domainId"/>
+	<result column="suite_id" property="suiteId"/>
 	<result column="api_url" property="apiUrl"/>
 	<result column="api_name" property="apiName"/>
 	<result column="api_desc" property="apiDesc"/>
@@ -20,8 +20,8 @@
 
 <sql id="Example_Where_Clause">
 	where 1=1
-	<if test="domainId != null">
-		and domain_id=#{domainId}
+	<if test="suiteId != null">
+		and suite_id=#{suiteId}
 	</if>
 	<if test="apiUrl != null and apiUrl != ''">
 		and api_url like concat("%", #{apiUrl}, "%")
@@ -33,23 +33,23 @@
        
 <!-- t_data_type_info table all fields -->
 <sql id="Base_Column_List" >
-	id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by
+	id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ApiPO" >
-	insert into t_api (id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
+	insert into t_api (id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{suiteId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
  delete from t_api where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.ApiPO" >
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
 	update t_api set
 	<trim  suffixOverrides="," >
-		<if test="domainId != null">
-			domain_id=#{domainId},
+		<if test="suiteId != null">
+			suite_id=#{suiteId},
 		</if>
 		<if test="apiUrl != null and apiUrl != ''">
 			api_url=#{apiUrl},
@@ -86,13 +86,13 @@
 	from t_api where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select count(*)
 	from t_api
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select <include refid="Base_Column_List" />
 	from t_api
 	<include refid="Example_Where_Clause"/>

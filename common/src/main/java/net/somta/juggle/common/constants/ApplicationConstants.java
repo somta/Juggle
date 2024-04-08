@@ -20,9 +20,9 @@ public class ApplicationConstants {
     public final static long USER_CODE = (APPLICATION_CODE_PREFIX * 1000 + 001) * 10000;
 
     /**
-     * 领域错误码
+     * 套件错误码
      */
-    public final static long DOMAIN_CODE = (APPLICATION_CODE_PREFIX * 1000 + 002) * 10000;
+    public final static long SUITE_CODE = (APPLICATION_CODE_PREFIX * 1000 + 002) * 10000;
 
     /**
      * 接口错误码

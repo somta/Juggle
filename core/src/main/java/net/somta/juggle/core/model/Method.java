@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Method {
 
-    private Long domainId;
+    private Long suiteId;
 
     private Long methodId;
 
@@ -45,12 +45,12 @@ public class Method {
      */
     private List<FillStruct> outputFillRules;
 
-    public Long getDomainId() {
-        return domainId;
+    public Long getSuiteId() {
+        return suiteId;
     }
 
-    public void setDomainId(Long domainId) {
-        this.domainId = domainId;
+    public void setSuiteId(Long suiteId) {
+        this.suiteId = suiteId;
     }
 
     public Long getMethodId() {

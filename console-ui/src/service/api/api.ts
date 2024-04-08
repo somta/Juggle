@@ -1,33 +1,10 @@
 import type { ApiInfo } from '@/typings';
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
 
-
-// 领域
-export async function domainQuery(params: { pageNum: number; pageSize: number; domainName?: string }): ResponsePageResult {
-  return request.post('/v1/domain/page', params);
-}
-
-export async function domainList(): ResponseResult {
-  return request.get('/v1/domain/list');
-}
-
-export async function domainAdd(params: { domainCode: string; domainName: string; domainDesc: string }): ResponseResult<boolean> {
-  return request.post('/v1/domain/add', params);
-}
-
-export async function domainUpdate(params: { id: string; domainCode: string; domainName: string; domainDesc: string }): ResponseResult<boolean> {
-  return request.put('/v1/domain/update', params);
-}
-
-export async function domainDelete(id: string): ResponseResult<boolean> {
-  return request.delete(`/v1/domain/delete/${id}`);
-}
-
-// 列表
 export async function listQuery(params: {
   pageNum: number;
   pageSize: number;
-  domainId?: number;
+  suiteId?: number;
   apiName?: string;
   apiUrl?: string;
 }): ResponsePageResult {
@@ -35,7 +12,7 @@ export async function listQuery(params: {
 }
 
 export async function listAdd(params: {
-  domainId: number;
+  suiteId: number;
   apiUrl: string;
   apiName: string;
   apiDesc: string;
@@ -47,7 +24,7 @@ export async function listAdd(params: {
 
 export async function listUpdate(params: {
   id: number;
-  domainId?: number;
+  suiteId?: number;
   apiUrl?: string;
   apiName?: string;
   apiDesc?: string;
@@ -69,6 +46,6 @@ export function debugApi(apiId: number, params: { headerData: any; inputParamDat
   return request.post(`/v1/api/debug/${apiId}`,params);
 }
 
-export async function getApiListByDomainId(domainId: number): ResponseResult<ApiInfo[]> {
-  return request.post(`/v1/api/getApiListByDomainId/${domainId}`);
+export async function getApiListBySuiteId(suiteId: number): ResponseResult<ApiInfo[]> {
+  return request.post(`/v1/api/getApiListBySuiteId/${suiteId}`);
 }

@@ -35,7 +35,7 @@ module.exports = {
             label: '使用手册',
             collapsed: true,
             items: [
-                'guide/user/domain',
+                'guide/user/suite',
                 'guide/user/api',
                 'guide/user/flow-definition',
                 {

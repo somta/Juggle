@@ -53,6 +53,7 @@ defineExpose({ open });
     title=""
     class="design-add-node-modal"
     :width="480"
+    :show-close="false"
     align-center
   >
     <el-tabs type="border-card">

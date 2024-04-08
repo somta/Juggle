@@ -13,17 +13,22 @@ CREATE TABLE `t_user` (
 );
 
 -- ----------------------------
--- Table structure for t_domain
+-- Table structure for t_suite
 -- ----------------------------
-CREATE TABLE `t_domain` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `domain_code` varchar(30) DEFAULT NULL,
-  `domain_name` varchar(50) DEFAULT NULL,
-  `domain_desc` varchar(200) DEFAULT NULL,
+CREATE TABLE `t_suite` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `suite_code` varchar(20) DEFAULT NULL,
+  `suite_name` varchar(30) DEFAULT NULL,
+  `suite_classify_id` bigint DEFAULT NULL,
+  `suite_image` text,
+  `suite_version` varchar(10) DEFAULT NULL,
+  `suite_desc` varchar(140) DEFAULT NULL,
+  `suite_help_doc_url` varchar(40) DEFAULT NULL,
+  `suite_flag` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `updated_by` bigint(20) DEFAULT NULL,
+  `updated_by` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -32,7 +37,7 @@ CREATE TABLE `t_domain` (
 -- ----------------------------
 CREATE TABLE `t_api` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
- `domain_id` bigint(20) DEFAULT NULL,
+ `suite_id` bigint(20) DEFAULT NULL,
  `api_name` varchar(50) DEFAULT NULL,
  `api_url` varchar(100) DEFAULT NULL,
  `api_desc` varchar(200) DEFAULT NULL,

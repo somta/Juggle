@@ -1,27 +1,6 @@
 import { apiAPI } from '../api';
 import {ApiHeader} from "@/typings";
 
-
-export async function domainQuery(params: Parameters<typeof apiAPI.domainQuery>[0]) {
-  return apiAPI.domainQuery(params);
-}
-
-export async function domainList() {
-  return apiAPI.domainList();
-}
-
-export async function domainAdd(params: Parameters<typeof apiAPI.domainAdd>[0]) {
-  return apiAPI.domainAdd(params);
-}
-
-export async function domainUpdate(params: Parameters<typeof apiAPI.domainUpdate>[0]) {
-  return apiAPI.domainUpdate(params);
-}
-
-export async function domainDelete(params: Parameters<typeof apiAPI.domainDelete>[0]) {
-  return apiAPI.domainDelete(params);
-}
-
 export async function listQuery(params: Parameters<typeof apiAPI.listQuery>[0]) {
   return apiAPI.listQuery(params);
 }
@@ -61,6 +40,6 @@ export async function debugApi(apiId: number, params: { headerData: any; inputPa
   return apiAPI.debugApi(apiId,params);
 }
 
-export async function getApiListByDomainId(params: Parameters<typeof apiAPI.getApiListByDomainId>[0]) {
-  return apiAPI.getApiListByDomainId(params);
+export async function getApiListBySuiteId(params: Parameters<typeof apiAPI.getApiListBySuiteId>[0]) {
+  return apiAPI.getApiListBySuiteId(params);
 }
