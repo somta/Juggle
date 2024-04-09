@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import { apiService } from '@/service';
 
-const props = defineProps(['modelValue', 'domainId']);
+const props = defineProps(['modelValue', 'suiteId']);
 const emit = defineEmits(['update:modelValue', 'change']);
 
 const apiList = ref<Array<{ value: string; label: string }>>([]);
@@ -10,14 +10,14 @@ const apiLoading = ref(false);
 
 async function loadData() {
   apiLoading.value = true;
-  const res = await apiService.getApiListByDomainId(props.domainId);
+  const res = await apiService.getApiListBySuiteId(props.suiteId);
   if (res.success) {
     apiList.value = res.result;
   }
   apiLoading.value = false;
 }
 
-watch(() => props.domainId, (val: number) => {
+watch(() => props.suiteId, (val: number) => {
   if (val) {
     loadData();
   }

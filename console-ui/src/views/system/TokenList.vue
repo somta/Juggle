@@ -89,7 +89,7 @@ async function deleteTokenItem(row: any) {
 }
 </script>
 <template>
-  <div class="page-interface-domain">
+  <div class="page-interface-token">
     <el-container>
       <el-header class="page-header">
         <el-button :icon="Plus" type="primary" @click="openAdd">新建</el-button>
@@ -113,7 +113,7 @@ async function deleteTokenItem(row: any) {
 </template>
 
 <style lang="less" scoped>
-.page-interface-domain {
+.page-interface-token {
   .page-header {
     height: auto;
     padding: 24px 16px 0px 16px;

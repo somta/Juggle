@@ -61,13 +61,13 @@
 	from t_user where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select count(*)
 	from t_user
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select <include refid="Base_Column_List" />
 	from t_user
 	<include refid="Example_Where_Clause"/>

@@ -18,7 +18,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <revision>1.0.0</revision>
+        <revision>1.1.0</revision>
         <somta-dependencies.varsion>1.4.3</somta-dependencies.varsion>
         <somta-core.version>1.4.3</somta-core.version>
         <somta-common.version>1.4.3</somta-common.version>
@@ -26,11 +26,14 @@
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.2.220</h2.version>
         <aviator.version>5.3.3</aviator.version>
+        <groovy.version>4.0.20</groovy.version>
         <httpclient.version>5.2.1</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
+        <caffeine.version>2.9.3</caffeine.version>
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <caffeine.version>2.9.3</caffeine.version>
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -86,6 +89,11 @@
                 <version>${aviator.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
                 <artifactId>httpclient5</artifactId>
                 <version>${httpclient.version}</version>
@@ -101,14 +109,19 @@
                 <version>${jjwt.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

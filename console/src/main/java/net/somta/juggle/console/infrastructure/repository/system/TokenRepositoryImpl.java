@@ -83,7 +83,7 @@ public class TokenRepositoryImpl implements ITokenRepository {
             return cacheToken;
         }
         TokenPO TokenPo = tokenMapper.queryTokenByValue(tokenValue);
-        if(TokenPo == null){
+        if(TokenPo != null){
             tokenCache.put(TokenPo.getTokenValue(),TokenPo.getTokenValue());
             return TokenPo.getTokenValue();
         }

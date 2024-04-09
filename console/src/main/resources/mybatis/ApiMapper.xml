@@ -2,23 +2,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ApiMapper" >
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.suite.ApiMapper" >
 
-<insert id="addApi" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.ApiPO" >
-	insert into t_api (id, domain_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{domainId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+<insert id="addApi" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
+	insert into t_api (id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{suiteId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
-<select id="queryApiListByDomainId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+<select id="queryApiListBySuiteId" resultMap="BaseResultMap" parameterType="java.lang.Long">
 	select <include refid="Base_Column_List" />
-	from t_api where domain_id=#{domainId}
+	from t_api where suite_id=#{suiteId}
 </select>
 
-<select id="queryApiCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryApiCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select count(*)
 	from t_api where 1=1
-	<if test="domainId != null">
-	and domain_id=#{domainId}
+	<if test="suiteId != null">
+	and suite_id=#{suiteId}
     </if>
 	<if test="apiUrl != null and apiUrl != ''">
 		and api_url like concat("%", #{apiUrl}, "%")
@@ -28,18 +28,18 @@
 	</if>
 </select>
 
-<select id="queryApiPageList" resultType="net.somta.juggle.console.domain.api.vo.ApiVO" parameterType="net.somta.juggle.console.interfaces.param.ApiQueryParam">
+<select id="queryApiPageList" resultType="net.somta.juggle.console.domain.suite.api.vo.ApiVO" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select
 	a.id as id,
-	d.domain_name as domainName,
+	s.suite_name as suiteName,
 	a.api_url as  apiUrl,
 	a.api_name as apiName,
 	a.api_desc as apiDesc,
 	a.api_request_type as apiRequestType,
 	a.created_at as createdAt
-	from t_api a inner join t_domain d on a.domain_id = d.id where 1=1
-	<if test="domainId != null">
-		and domain_id=#{domainId}
+	from t_api a inner join t_suite s on a.suite_id = s.id where 1=1
+	<if test="suiteId != null">
+		and suite_id=#{suiteId}
 	</if>
 	<if test="apiUrl != null and apiUrl != ''">
 		and api_url like concat("%", #{apiUrl}, "%")

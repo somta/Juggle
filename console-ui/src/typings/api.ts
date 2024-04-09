@@ -9,7 +9,7 @@ export interface ApiHeader {
 
 export interface ApiInfo {
   id: number | null;
-  domainId: number | null;
+  suiteId: number | null;
   apiUrl: string;
   apiName: string;
   apiDesc: string;

@@ -1,6 +1,6 @@
 package net.somta.juggle.console.infrastructure.converter;
 
-import net.somta.juggle.console.domain.api.vo.HeaderVO;
+import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;

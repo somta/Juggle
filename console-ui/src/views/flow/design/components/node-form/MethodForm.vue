@@ -1,6 +1,6 @@
 
 <script lang="ts" setup>
-import DomainSelect from '@/components/form/DomainSelect.vue';
+import SuiteSelect from '@/components/form/SuiteSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
 import OutputRuleSetting from '@/components/form/OutputRuleSetting.vue';
 import InputRuleSetting from '@/components/form/InputRuleSetting.vue';
@@ -26,7 +26,7 @@ function getDefaultData () {
     desc: '',
     method: {
       methodId: null as unknown as number,
-      domainId: null as unknown as number,
+      suiteId: null as unknown as number,
       url: '',
       requestType: '',
       requestContentType: '',
@@ -55,10 +55,10 @@ watch(() => props.data, val => {
   }
 }, { immediate: true });
 
-function onDomainChange () {
+function onSuiteChange () {
   nodeData.value.method = {
     ...getDefaultData().method,
-    domainId: nodeData.value.method?.domainId as number,
+    suiteId: nodeData.value.method?.suiteId as number,
   };
 }
 
@@ -198,11 +198,11 @@ function onCancel() {
       <el-form-item label="节点描述">
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
-      <el-form-item label="领域">
-        <DomainSelect v-model="nodeData.method.domainId" :auto="true" @change="onDomainChange" />
+      <el-form-item label="套件">
+        <SuiteSelect v-model="nodeData.method.suiteId" :auto="true" @change="onSuiteChange" />
       </el-form-item>
       <el-form-item label="服务接口">
-        <ApiSelect v-model="nodeData.method.methodId" :domainId="nodeData.method.domainId" @change="onApiChange" />
+        <ApiSelect v-model="nodeData.method.methodId" :suiteId="nodeData.method.suiteId" @change="onApiChange" />
       </el-form-item>
       <el-form-item label="请求头赋值">
         <InputRuleSetting
