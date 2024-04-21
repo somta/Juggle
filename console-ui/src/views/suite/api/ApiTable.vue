@@ -33,7 +33,7 @@ function goApiDebugPage(apiId: number) {
     <el-table-column prop="apiUrl" label="接口地址" width="280" />
     <el-table-column prop="suiteName" label="套件" width="160" />
     <el-table-column prop="apiRequestType" label="请求类型" width="80" />
-    <el-table-column prop="apiDesc" label="接口描述" />
+    <el-table-column prop="apiDesc" label="接口描述" min-width="80" show-overflow-tooltip />
     <el-table-column prop="createdAt" label="创建时间" width="120" />
     <el-table-column fixed="right" label="操作" width="140">
       <template #default="scope">

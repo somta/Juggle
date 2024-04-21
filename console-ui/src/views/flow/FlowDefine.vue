@@ -52,7 +52,6 @@ function onPageChange(page: number) {
 }
 
 function openflowDefineAdd() {
-  console.log('...');
   drawerRef.value.open();
 }
 
