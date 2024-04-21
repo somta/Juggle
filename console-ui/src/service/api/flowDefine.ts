@@ -61,6 +61,6 @@ export async function debugFlow(
   triggerData: {
     flowData?: Record<string, any>;
   }
-): ResponseResult<boolean> {
+): ResponseResult {
   return request.post(`/v1/flow/definition/debug/${flowKey}`, triggerData);
 }
