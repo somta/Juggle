@@ -69,6 +69,9 @@ public class TokenServiceImpl implements ITokenService {
 
     @Override
     public Boolean isExistToken(String tokenValue) {
+        if(StringUtils.isEmpty(tokenValue)){
+            return false;
+        }
         String token = tokenRepository.queryTokenByValue(tokenValue);
         if(StringUtils.isEmpty(token)){
             return false;
