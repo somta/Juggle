@@ -93,7 +93,7 @@ defineExpose({ open });
   <el-dialog v-model="dialogVisible" :title="title" width="400">
     <div class="form">
       <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
-        <el-form-item label="套件图像">
+<!--        <el-form-item label="套件图像">
           <el-upload
               class="suite-image-uploader"
               :show-file-list="false"
@@ -103,7 +103,7 @@ defineExpose({ open });
             <img v-if="imageUrl" :src="imageUrl" class="avatar" />
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
-        </el-form-item>
+        </el-form-item>-->
         <el-form-item label="套件编码" prop="suiteCode">
           <el-input v-model="formValue.suiteCode" maxlength="20" />
         </el-form-item>
