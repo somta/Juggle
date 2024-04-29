@@ -10,6 +10,8 @@ public class FlowVersionInfoView {
 
     private String flowKey;
 
+    private String flowType;
+
     private Integer flowVersionStatus;
 
     private String flowContent;
@@ -43,6 +45,14 @@ public class FlowVersionInfoView {
 
     public void setFlowKey(String flowKey) {
         this.flowKey = flowKey;
+    }
+
+    public String getFlowType() {
+        return flowType;
+    }
+
+    public void setFlowType(String flowType) {
+        this.flowType = flowType;
     }
 
     public Integer getFlowVersionStatus() {

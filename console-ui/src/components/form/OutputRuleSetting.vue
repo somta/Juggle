@@ -4,19 +4,9 @@ import DataTypeSelect from './DataTypeSelect.vue';
 import { valueType, RuleItem } from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
-import FilterValue from '../filter/FilterValue.vue';
-
-const targetTypeList = [
-  { value: valueType.CONSTANT, label: '常量' },
-  { value: valueType.VARIABLE, label: '变量' },
-];
 
 const props = defineProps({
   modelValue: Array as PropType<RuleItem[]>,
-  showRequired: {
-    type: Boolean,
-    default: false,
-  },
   showTargetType: {
     type: Boolean,
     default: true,
@@ -50,8 +40,6 @@ watch(
 const columns = [
   { name: '参数名称', prop: 'source' },
   { name: '数据类型', prop: 'sourceDataType' },
-  { name: '必填', prop: 'required' },
-  { name: '赋值方式', prop: 'targetType' },
   { name: '赋值', prop: 'target' },
 ];
 
@@ -129,10 +117,7 @@ function onSourceChange (rowIndex: number) {
     <div class="rule-setting-head">
       <div class="rule-setting-tr">
         <template v-for="column in columns" :key="column.prop">
-          <template v-if="column.prop === 'required'">
-            <div class="rule-setting-td required-td" v-if="showRequired">{{ column.name }}</div>
-          </template>
-          <template v-else-if="column.prop === 'targetType'">
+          <template v-if="column.prop === 'targetType'">
             <div class="rule-setting-td" v-if="showTargetType">{{ column.name }}</div>
           </template>
           <div class="rule-setting-td" v-else>{{ column.name }}</div>
@@ -151,21 +136,9 @@ function onSourceChange (rowIndex: number) {
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
             <DataTypeSelect v-model="rule.sourceDataType" disabled type="basic" size="small" />
           </div>
-          <div class="rule-setting-td required-td" v-else-if="showRequired && column.prop === 'required'">
-            <el-checkbox v-model="rule.required" :disabled="requiredKeys.includes(rule.source)" @change="onChange" />
-          </div>
-          <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
-            <el-select v-model="rule.targetType" size="small" @change="onTargetTypeChange(rowIndex)">
-              <el-option v-for="item in targetTypeList" :key="item.value" :value="item.value" :label="item.label" />
-            </el-select>
-          </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
-            <!-- 常量 -->
-            <template v-if="rule.targetType === valueType.CONSTANT">
-              <FilterValue v-model="rule.target" :dataType="rule.sourceDataType" size="small" :showNumberControls="false" />
-            </template>
             <!-- 变量 -->
-            <el-select v-else v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
+            <el-select v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
               <el-option v-for="item in getAvailableTarget(rule.source, rule.sourceDataType)" :key="item.envKey" :value="item.envKey" :label="item.envName" :title="item.envName" />
             </el-select>
           </div>

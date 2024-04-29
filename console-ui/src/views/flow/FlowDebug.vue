@@ -46,7 +46,7 @@ async function sendFlowDebug() {
     if(flowDefine.value?.flowType === "sync"){
       flowResponseJson.value = JSON.stringify(res.result);
     }else{
-      timerId = setInterval(getAsyncFlowResult, 1000);
+      timerId = setInterval(getAsyncFlowResult, 1000,res.result.flowInstanceId);
     }
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });

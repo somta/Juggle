@@ -16,6 +16,7 @@
 <select id="queryFlowVersionInfoByKey" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
 	select v.id,
 	i.flow_key as flowKey,
+	i.flow_type as flowType,
 	i.flow_name as flowName,
 	v.flow_version_status as flowVersionStatus,
     v.flow_content as flowContent,

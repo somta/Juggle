@@ -60,7 +60,7 @@ public interface IFlowVersionAssembler {
             flowVersionDTO.setFlowVersion(flowVersionView.getFlowVersion());
             flowVersionDTO.setFlowVersionStatus(flowVersionView.getFlowVersionStatus());
             flowVersionDTO.setFlowVersionRemark(flowVersionView.getFlowVersionRemark());
-            flowVersionDTO.setTriggerUrl(JUGGLE_SERVER_VERSION + "/flow/version/trigger/"+flowVersionView.getFlowVersion()+"/"+flowVersionView.getFlowKey());
+            flowVersionDTO.setTriggerUrl(JUGGLE_SERVER_VERSION + "/open/flow/trigger/"+flowVersionView.getFlowVersion()+"/"+flowVersionView.getFlowKey());
             list.add(flowVersionDTO);
         }
         return list;

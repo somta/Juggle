@@ -59,7 +59,7 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
 
     @Override
     public FlowResult triggerFlow(Flow flow, String flowType, TriggerDataParam triggerData) {
-        String flowInstanceId = flowType + "_" + RandomStringUtils.random(10, true, true);
+        String flowInstanceId = flowType + "_" + RandomStringUtils.random(16, true, true);
         flow.setFlowInstanceId(flowInstanceId);
 
         FlowResult flowResult;

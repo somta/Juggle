@@ -50,18 +50,25 @@ module.exports = {
                 'guide/user/flow-version',
                 'guide/user/object',
                 'guide/user/data-type-info',
-                {
-                    type: 'category',
-                    label: '系统集成',
-                    items: [
-                        'guide/user/integration/integration',
-                        'guide/user/integration/spring-boot-juggle',
-                    ],
-                },
                 'guide/user/example-api',
                 'guide/user/example-flow',
             ],
      },{
+            type: 'category',
+            label: 'OpenApi手册',
+            collapsed: true,
+            items: [
+                'guide/integration/open-api',
+                {
+                    type: 'category',
+                    label: '系统集成',
+                    items: [
+                        'guide/integration/integration',
+                        'guide/integration/spring-boot-juggle',
+                    ],
+                },
+            ],
+        },{
         type: 'category',
         label: '开源共建',
         collapsed: true,

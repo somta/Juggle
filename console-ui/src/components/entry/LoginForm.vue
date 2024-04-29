@@ -20,7 +20,6 @@ async function submit() {
     userName: userName.value,
     password: password.value,
   });
-  console.log(result, 'ww');
   if (result.success) {
     router.push({ name: 'flow' });
   } else {
