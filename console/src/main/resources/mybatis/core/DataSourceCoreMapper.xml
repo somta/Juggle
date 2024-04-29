@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.system.DataSourceMapper" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
+	<result column="id" property="id"/>
+	<result column="data_source_name" property="dataSourceName"/>
+	<result column="data_source_type" property="dataSourceType"/>
+	<result column="data_source_desc" property="dataSourceDesc"/>
+	<result column="address" property="address"/>
+	<result column="port" property="port"/>
+	<result column="user_name" property="userName"/>
+	<result column="password" property="password"/>
+	<result column="database_name" property="databaseName"/>
+	<result column="connect_ext_info" property="connectExtInfo"/>
+	<result column="min_pool_size" property="minPoolSize"/>
+	<result column="max_pool_size" property="maxPoolSize"/>
+	<result column="query_timeout" property="queryTimeout"/>
+	<result column="data_source_ext_info" property="dataSourceExtInfo"/>
+	<result column="created_at" property="createdAt"/>
+	<result column="created_by" property="createdBy"/>
+	<result column="updated_at" property="updatedAt"/>
+	<result column="updated_by" property="updatedBy"/>
+</resultMap>
+
+<sql id="Example_Where_Clause">
+	where 1=1
+	<if test="dataSourceType != null and dataSourceType != ''">
+		and data_source_type=#{dataSourceType}
+	</if>
+	<if test="dataSourceName != null and dataSourceName != ''">
+		and data_source_name like concat("%", #{dataSourceName}, "%")
+	</if>
+</sql>
+       
+<!-- t_data_type_info table all fields -->
+<sql id="Base_Column_List" >
+	id, data_source_name, data_source_type, data_source_desc, address, port, user_name, password, database_name, connect_ext_info, min_pool_size, max_pool_size, query_timeout, data_source_ext_info, created_at, created_by, updated_at, updated_by
+</sql>
+
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
+	insert into t_data_source (id, data_source_name, data_source_type, data_source_desc, address, port, user_name, password, database_name, connect_ext_info, min_pool_size, max_pool_size, query_timeout, data_source_ext_info, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{dataSourceName},#{dataSourceType},#{dataSourceDesc},#{address},#{port},#{userName},#{password},#{databaseName},#{connectExtInfo},#{minPoolSize},#{maxPoolSize},#{queryTimeout},#{dataSourceExtInfo},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
+
+<delete id="deleteById" parameterType="java.lang.Long">
+ delete from t_data_source where id=#{id}
+</delete>
+
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
+	update t_data_source set
+	<trim  suffixOverrides="," >
+		<if test="dataSourceName != null and dataSourceName != ''">
+			data_source_name=#{dataSourceName},
+		</if>
+		<if test="dataSourceType != null and dataSourceType != ''">
+			data_source_type=#{dataSourceType},
+		</if>
+		<if test="dataSourceDesc != null and dataSourceDesc != ''">
+			data_source_desc=#{dataSourceDesc},
+		</if>
+		<if test="address != null and address != ''">
+			address=#{address},
+		</if>
+		<if test="port != null and port != ''">
+			port=#{port},
+		</if>
+		<if test="userName != null and userName != ''">
+			user_name=#{userName},
+		</if>
+		<if test="password != null and password != ''">
+			password=#{password},
+		</if>
+		<if test="databaseName != null and databaseName != ''">
+			database_name=#{databaseName},
+		</if>
+		<if test="connectExtInfo != null and connectExtInfo != ''">
+			connect_ext_info=#{connectExtInfo},
+		</if>
+		<if test="minPoolSize != null">
+			min_pool_size=#{minPoolSize},
+		</if>
+		<if test="maxPoolSize != null">
+			max_pool_size=#{maxPoolSize},
+		</if>
+		<if test="queryTimeout != null">
+			query_timeout=#{queryTimeout},
+		</if>
+		<if test="dataSourceExtInfo != null and dataSourceExtInfo != ''">
+			data_source_ext_info=#{dataSourceExtInfo},
+		</if>
+		<if test="createdAt != null">
+			created_at=#{createdAt},
+		</if>
+		<if test="createdBy != null">
+			created_by=#{createdBy},
+		</if>
+		<if test="updatedAt != null">
+			updated_at=#{updatedAt},
+		</if>
+		<if test="updatedBy != null">
+			updated_by=#{updatedBy},
+		</if>
+	</trim> where id=#{id}
+</update>
+
+<select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" />
+	from t_data_source where id = #{id}
+</select>
+
+<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
+	select count(*)
+	from t_data_source
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
+	select <include refid="Base_Column_List" />
+	from t_data_source
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>   

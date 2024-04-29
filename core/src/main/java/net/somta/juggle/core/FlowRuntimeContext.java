@@ -19,6 +19,7 @@ package net.somta.juggle.core;
 
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.event.EventPublisher;
+import net.somta.juggle.core.executor.data.IDataSourceManager;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.model.Variable;
@@ -72,15 +73,13 @@ public class FlowRuntimeContext {
      */
     private IFlowResultManager flowResultManager;
 
+    private IDataSourceManager dataSourceManager;
+
     /**
      * 流程状态
      */
     private FlowStatusEnum flowStatus;
 
-    /**
-     * 事件发布器
-     */
-    private EventPublisher eventPublisher;
 
     public FlowRuntimeContext(Map<String, Variable> variableSchemaMap) {
         // 变量管理器只能根据流程的上下文来，因为不同的可以在不同流程中可能是会一样的
@@ -147,6 +146,14 @@ public class FlowRuntimeContext {
         this.flowResultManager = flowResultManager;
     }
 
+    public IDataSourceManager getDataSourceManager() {
+        return dataSourceManager;
+    }
+
+    public void setDataSourceManager(IDataSourceManager dataSourceManager) {
+        this.dataSourceManager = dataSourceManager;
+    }
+
     public FlowStatusEnum getFlowStatus() {
         return flowStatus;
     }
@@ -155,7 +162,4 @@ public class FlowRuntimeContext {
         this.flowStatus = flowStatus;
     }
 
-    public EventPublisher getEventPublisher() {
-        return eventPublisher;
-    }
 }

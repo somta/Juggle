@@ -1,7 +1,7 @@
 package net.somta.juggle.console.application.assembler.system;
 
 import net.somta.juggle.console.domain.system.token.vo.TokenVO;
-import net.somta.juggle.console.interfaces.dto.TokenDTO;
+import net.somta.juggle.console.interfaces.dto.system.TokenDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

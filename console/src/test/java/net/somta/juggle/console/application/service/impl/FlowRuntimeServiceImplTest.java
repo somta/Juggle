@@ -2,6 +2,7 @@ package net.somta.juggle.console.application.service.impl;
 
 import net.somta.juggle.console.application.service.flow.impl.FlowRuntimeServiceImpl;
 import net.somta.juggle.console.configuration.JuggleProperties;
+import net.somta.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import net.somta.juggle.console.helper.FlowDefinitionHelper;
 import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.enums.FlowResultManagerTypeEnum;
@@ -25,13 +26,15 @@ import java.util.Map;
 class FlowRuntimeServiceImplTest {
 
     private FlowRuntimeServiceImpl flowRuntimeService;
+    @Mock
+    private IDataSourceRepository dataSourceRepository;
 
     @BeforeEach
     public void beforeEach(){
         MockitoAnnotations.openMocks(this);
         JuggleProperties juggleProperties = new  JuggleProperties();
         juggleProperties.getCache().setCacheType(FlowResultManagerTypeEnum.MEMORY);
-        flowRuntimeService = new FlowRuntimeServiceImpl(juggleProperties);
+        flowRuntimeService = new FlowRuntimeServiceImpl(juggleProperties,dataSourceRepository);
     }
 
     @Test

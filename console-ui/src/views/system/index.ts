@@ -1,5 +1,6 @@
 import RouterNest from '@/views/RouterNest.vue';
 import TokenList from "@/views/system/TokenList.vue";
+import DataSourceList from "@/views/system/DataSourceList.vue";
 
 export const SystemRoutes = [
   {
@@ -11,9 +12,15 @@ export const SystemRoutes = [
     children: [
       {
         path: 'token',
-        name: 'token-api',
+        name: 'token-list',
         component: TokenList,
         meta: { name: '令牌' },
+      },
+      {
+        path: 'datasource',
+        name: 'datasource-list',
+        component: DataSourceList,
+        meta: { name: '数据源' },
       },
     ],
   },

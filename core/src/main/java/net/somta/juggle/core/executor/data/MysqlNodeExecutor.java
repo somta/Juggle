@@ -15,25 +15,31 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
 package net.somta.juggle.core.executor.data;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import freemarker.cache.StringTemplateLoader;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.FlowRuntimeContext;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.executor.AbstractElementExecutor;
+import net.somta.juggle.core.result.data.AbstractResultDataProcessor;
+import net.somta.juggle.core.result.data.ResultDataProcessorFactory;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Property;
 import net.somta.juggle.core.model.Variable;
-import net.somta.juggle.core.model.node.CodeNode;
 import net.somta.juggle.core.model.node.data.MysqlNode;
 import net.somta.juggle.core.variable.AbstractVariableManager;
 import net.somta.juggle.core.variable.MemoryVariableManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,6 +55,9 @@ import java.util.regex.Pattern;
  * @author husong
  */
 public class MysqlNodeExecutor extends AbstractElementExecutor {
+
+    private final static Logger logger = LoggerFactory.getLogger(MysqlNodeExecutor.class);
+
     @Override
     protected void doPreExecute(FlowRuntimeContext flowRuntimeContext) {
 
@@ -57,12 +66,14 @@ public class MysqlNodeExecutor extends AbstractElementExecutor {
     @Override
     protected void doExecute(FlowRuntimeContext flowRuntimeContext) {
         MysqlNode mysqlNode = (MysqlNode) flowRuntimeContext.getCurrentNode();
-
+        String realSql = handleSql(mysqlNode.getSql(),flowRuntimeContext.getVariableManager());
         DataSource dataSource = getDataSource();
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM my_table");
-            handleResultSet(rs,mysqlNode.getOutput(),flowRuntimeContext.getVariableManager());
+            ResultSet rs = stmt.executeQuery(realSql);
+            AbstractResultDataProcessor dataResultProcessor = ResultDataProcessorFactory.getDataResultProcessor(mysqlNode.getOutput(),flowRuntimeContext.getVariableManager());
+            dataResultProcessor.fillDataResultToVariable(rs,mysqlNode.getOutput());
+            //handleResultSet(rs,mysqlNode.getOutput(),flowRuntimeContext.getVariableManager());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,9 +84,29 @@ public class MysqlNodeExecutor extends AbstractElementExecutor {
 
     }
 
-    private String handleSql(){
-
-        return null;
+    private static String handleSql(String sql, AbstractVariableManager variableManager){
+        List<String> variableList = parseSqlVariables(sql);
+        Map<String,Object> templateEnvMap = new HashMap<>(16);
+        for (String variable : variableList){
+            Object variableValue = variableManager.getVariableValue(variable);
+            templateEnvMap.put(variable,variableValue);
+        }
+        String realSql = sql;
+        try {
+            Configuration conf = new Configuration(Configuration.VERSION_2_3_32);
+            conf.setTemplateLoader(new StringTemplateLoader());
+            Template template = new Template("sqlTpl", sql, conf);
+            StringWriter result = new StringWriter();
+            template.process(templateEnvMap, result);
+            System.out.println(result.toString());
+            realSql = result.toString();
+            logger.debug("Real SQL execution: {}",realSql);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (TemplateException e) {
+            throw new RuntimeException(e);
+        }
+        return realSql;
     }
 
     private static void handleResultSet(ResultSet resultSet,String outputKey, AbstractVariableManager variableManager) throws SQLException {
@@ -120,7 +151,7 @@ public class MysqlNodeExecutor extends AbstractElementExecutor {
      * @param sql  SELECT * FROM my_table WHERE id=${id} AND name=${userName}
      * @return id userName
      */
-    public List<String> extractVariables(String sql) {
+    public static List<String> parseSqlVariables(String sql) {
         Pattern pattern = Pattern.compile("\\$\\{([^}]*)\\}");
         Matcher matcher = pattern.matcher(sql);
         List<String> variables = new ArrayList<>();
@@ -157,22 +188,38 @@ public class MysqlNodeExecutor extends AbstractElementExecutor {
 
     public static void main(String[] args) {
         Map<String, Variable> variableSchemaMap = new HashMap<>();
-        Variable variable = new Variable();
-        variable.setKey("env_api");
-        variable.setName("api对象变量");
+        Variable variableSchema = new Variable();
+        variableSchema.setKey("env_api");
+        variableSchema.setName("api对象变量");
         DataType dataType = new DataType();
         dataType.setType(DataTypeEnum.Object);
         dataType.setStructureSchema("[{\"propKey\":\"id\",\"propName\":\"id\",\"dataType\":\"{\\\"type\\\":\\\"Integer\\\",\\\"itemType\\\":\\\"\\\",\\\"objectKey\\\":null,\\\"objectStructure\\\":null}\"},{\"propKey\":\"apiName\",\"propName\":\"apiName\",\"dataType\":\"{\\\"type\\\":\\\"String\\\",\\\"itemType\\\":\\\"\\\",\\\"objectKey\\\":null,\\\"objectStructure\\\":null}\"}]");
-        variable.setDataType(dataType);
-        variableSchemaMap.put("env_api",variable);
+        variableSchema.setDataType(dataType);
+        variableSchemaMap.put("env_api",variableSchema);
+
+        Variable variableSchema2 = new Variable();
+        variableSchema2.setKey("env_id");
+        variableSchema2.setName("api对象id变量");
+        DataType dataType2 = new DataType();
+        dataType2.setType(DataTypeEnum.Integer);
+        variableSchema2.setDataType(dataType2);
+        variableSchemaMap.put("env_id",variableSchema2);
 
         AbstractVariableManager variableManager = new MemoryVariableManager(variableSchemaMap);
+
+        //填充变量值
+        variableManager.setVariableValue("env_id",1);
+
+
+        String realSql = handleSql("SELECT id as id, api_name as apiName FROM t_api WHERE id=${env_id}",variableManager);
         DataSource dataSource = getDataSource();
 
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id as id, api_name as apiName FROM t_api");
-            handleResultSet(rs,"env_api",variableManager);
+            ResultSet rs = stmt.executeQuery(realSql);
+            //handleResultSet(rs,"env_api",variableManager);
+            AbstractResultDataProcessor dataResultProcessor = ResultDataProcessorFactory.getDataResultProcessor("env_api",variableManager);
+            dataResultProcessor.fillDataResultToVariable(rs,"env_api");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -37,6 +37,7 @@ import IconInterface from '@/components/icons/IconInterface.vue';
           <span>系统</span>
         </template>
         <el-menu-item index="/system/token">令牌</el-menu-item>
+        <el-menu-item index="/system/datasource">数据源</el-menu-item>
       </el-sub-menu>
     </el-menu>
   </div>

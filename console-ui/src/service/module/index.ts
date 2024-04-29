@@ -6,6 +6,7 @@ import * as suiteService from './suite';
 import * as apiService from './api';
 import * as objectService from './object';
 import * as tokenService from './token';
+import * as dataSourceService from './dataSource.ts';
 import * as commonService from './common';
 
-export { userService, flowDefineService, flowService, flowVersionService,suiteService, apiService, objectService,tokenService, commonService };
+export { userService, flowDefineService, flowService, flowVersionService,suiteService, apiService, objectService,tokenService,dataSourceService, commonService };

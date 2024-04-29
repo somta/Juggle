@@ -3,7 +3,8 @@ package net.somta.juggle.console.infrastructure.po;
 import net.somta.core.base.BaseModel;
 
 /**
- * @author Gavin
+ * @author husong
+ * @since 1.0.0
  */
 public class ObjectPO extends BaseModel {
 

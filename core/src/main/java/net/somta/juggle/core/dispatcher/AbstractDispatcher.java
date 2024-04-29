@@ -26,6 +26,7 @@ import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.enums.FlowStatusEnum;
 import net.somta.juggle.core.enums.VariablePrefixEnum;
 import net.somta.juggle.core.exception.FlowException;
+import net.somta.juggle.core.executor.data.IDataSourceManager;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.variable.AbstractVariableManager;
@@ -53,12 +54,13 @@ public abstract class AbstractDispatcher implements IDispatcher {
     }
 
     @Override
-    public FlowResult doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager) {
+    public FlowResult doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager, IDataSourceManager dataSourceManager) {
         //1.校验流程正确性
 
         //2.构建流程运行的RuntimeContext
         FlowRuntimeContext flowRuntimeContext = buildRuntimeContext(flow);
         flowRuntimeContext.setFlowResultManager(flowResultManager);
+        flowRuntimeContext.setDataSourceManager(dataSourceManager);
 
         try {
             //3.将提交的入参的数据和入参的变量对应上，并将值设置到变量上，入参值后面要用

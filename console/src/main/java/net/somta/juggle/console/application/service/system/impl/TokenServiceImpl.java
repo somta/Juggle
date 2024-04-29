@@ -20,21 +20,16 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.somta.core.base.page.PageParam;
-import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.application.assembler.system.ITokenAssembler;
 import net.somta.juggle.console.application.service.system.ITokenService;
 import net.somta.juggle.console.domain.system.token.TokenEntity;
 import net.somta.juggle.console.domain.system.token.repository.ITokenRepository;
-import net.somta.juggle.console.domain.system.token.vo.OpenApiTokenVO;
 import net.somta.juggle.console.domain.system.token.vo.TokenVO;
-import net.somta.juggle.console.interfaces.dto.TokenDTO;
+import net.somta.juggle.console.interfaces.dto.system.TokenDTO;
 import net.somta.juggle.console.interfaces.param.system.TokenUpdateParam;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.List;
 
 /**

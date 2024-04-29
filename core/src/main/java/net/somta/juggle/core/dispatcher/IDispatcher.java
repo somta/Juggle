@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.dispatcher;
 
+import net.somta.juggle.core.executor.data.IDataSourceManager;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
 import net.somta.juggle.core.result.IFlowResultManager;
@@ -34,6 +35,6 @@ public interface IDispatcher {
      * @param flowData
      * @return
      */
-    FlowResult doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager);
+    FlowResult doDispatcher(Flow flow, Map<String,Object> flowData, IFlowResultManager flowResultManager, IDataSourceManager dataSourceManager);
 
 }

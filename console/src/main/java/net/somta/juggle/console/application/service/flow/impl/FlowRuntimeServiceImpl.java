@@ -20,13 +20,17 @@ import net.somta.core.cache.redis.RedisClientBuilder;
 import net.somta.core.cache.redis.client.AbstractRedisClient;
 import net.somta.core.cache.redis.model.RedisConfigItem;
 import net.somta.juggle.console.application.service.flow.IFlowRuntimeService;
+import net.somta.juggle.console.application.service.system.IDataSourceService;
 import net.somta.juggle.console.configuration.JuggleProperties;
 import net.somta.juggle.console.domain.flow.flowinfo.enums.FlowTypeEnum;
 import net.somta.juggle.common.param.TriggerDataParam;
+import net.somta.juggle.console.application.service.system.impl.DataSourceManager;
+import net.somta.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import net.somta.juggle.core.dispatcher.IDispatcher;
 import net.somta.juggle.core.dispatcher.impl.AsyncDispatcher;
 import net.somta.juggle.core.dispatcher.impl.SyncDispatcher;
 import net.somta.juggle.core.enums.FlowResultManagerTypeEnum;
+import net.somta.juggle.core.executor.data.IDataSourceManager;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.result.IFlowResultManager;
 import net.somta.juggle.core.result.MemoryFlowResultManager;
@@ -44,11 +48,13 @@ import java.util.Map;
 public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
 
     private IFlowResultManager flowResultManager;
+    private final IDataSourceManager dataSourceManager;
 
     private final IDispatcher dispatcher = new AsyncDispatcher();
 
-    public FlowRuntimeServiceImpl(JuggleProperties juggleProperties) {
+    public FlowRuntimeServiceImpl(JuggleProperties juggleProperties, IDataSourceRepository dataSourceRepository) {
         initFlowResultManager(juggleProperties);
+        this.dataSourceManager = new DataSourceManager(dataSourceRepository);
     }
 
     @Override
@@ -58,10 +64,10 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
 
         FlowResult flowResult;
         if(FlowTypeEnum.ASYNC.getCode().equals(flowType)){
-            flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager);
+            flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager,dataSourceManager);
         }else{
             IDispatcher dispatcher = new SyncDispatcher();
-            flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager);
+            flowResult = dispatcher.doDispatcher(flow,triggerData.getFlowData(),flowResultManager,dataSourceManager);
         }
         flowResult.setFlowInstanceId(flowInstanceId);
         return flowResult;

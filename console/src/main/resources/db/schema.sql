@@ -161,7 +161,32 @@ CREATE TABLE `t_flow_version` (
 CREATE TABLE `t_token` (
    `id` int NOT NULL AUTO_INCREMENT,
    `token_value` varchar(150) DEFAULT NULL,
-   `token_desc` varchar(80) DEFAULT NULL,
+   `token_desc` varchar(200) DEFAULT NULL,
+   `created_at` datetime DEFAULT NULL,
+   `created_by` int DEFAULT NULL,
+   `updated_at` datetime DEFAULT NULL,
+   `updated_by` int DEFAULT NULL,
+   PRIMARY KEY (`id`)
+);
+
+-- ----------------------------
+-- Table structure for t_data_source
+-- ----------------------------
+CREATE TABLE `t_data_source` (
+   `id` int NOT NULL AUTO_INCREMENT,
+   `data_source_name` varchar(150) DEFAULT NULL,
+   `data_source_type` varchar(20) DEFAULT NULL,
+   `data_source_desc` varchar(200) DEFAULT NULL,
+   `address` varchar(40) DEFAULT NULL,
+   `port` varchar(10) DEFAULT NULL,
+   `user_name` varchar(20) DEFAULT NULL,
+   `password` varchar(20) DEFAULT NULL,
+   `database_name` varchar(20) DEFAULT NULL,
+   `connect_ext_info` varchar(200) DEFAULT NULL,
+   `min_pool_size` int(4) DEFAULT NULL,
+   `max_pool_size` int(4) DEFAULT NULL,
+   `query_timeout` int(4) DEFAULT NULL,
+   `data_source_ext_info` varchar(200) DEFAULT NULL,
    `created_at` datetime DEFAULT NULL,
    `created_by` int DEFAULT NULL,
    `updated_at` datetime DEFAULT NULL,

@@ -23,7 +23,7 @@ import net.somta.core.base.page.PageParam;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.system.ITokenService;
-import net.somta.juggle.console.interfaces.dto.TokenDTO;
+import net.somta.juggle.console.interfaces.dto.system.TokenDTO;
 import net.somta.juggle.console.interfaces.param.system.TokenAddParam;
 import net.somta.juggle.console.interfaces.param.system.TokenUpdateParam;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +47,6 @@ public class TokenController {
         this.tokenService = tokenService;
     }
 
-    /**
-     * 新增令牌
-     * @return Boolean
-     */
     @Operation(summary = "新增令牌")
     @PostMapping("/add")
     public ResponseDataResult<String> addToken(@RequestBody TokenAddParam tokenAddParam){
@@ -65,10 +61,6 @@ public class TokenController {
         return ResponseDataResult.setResponseResult(true);
     }
 
-    /**
-     * 修改令牌
-     * @return Boolean
-     */
     @Operation(summary = "修改令牌")
     @PutMapping("/update")
     public ResponseDataResult<Boolean> updateToken(@RequestBody TokenUpdateParam tokenUpdateParam){
@@ -77,13 +69,9 @@ public class TokenController {
     }
 
 
-    /**
-     * 查询令牌分页列表
-     * @return Boolean
-     */
     @Operation(summary = "查询令牌分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<List<TokenDTO>> getDomainPageList(@RequestBody PageParam pageParam){
+    public ResponsePaginationDataResult<List<TokenDTO>> getTokenPageList(@RequestBody PageParam pageParam){
         PageInfo pageInfo = tokenService.getTokenPageList(pageParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
