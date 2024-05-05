@@ -43,7 +43,7 @@ public class DataSourceController {
     }
 
     @Operation(summary = "修改数据源")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseDataResult<Boolean> updateDataSource(@RequestBody DataSourceUpdateParam dataSourceUpdateParam){
         return ResponseDataResult.setResponseResult(dataSourceService.updateDataSource(dataSourceUpdateParam));
     }
@@ -54,7 +54,7 @@ public class DataSourceController {
         return ResponseDataResult.setResponseResult(dataSourceService.getDataSource(dataSourceId));
     }
 
-    @Operation(summary = "查询令牌分页列表")
+    @Operation(summary = "查询数据源分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<DataSourceDTO>> getDataSourcePageList(@RequestBody DataSourceQueryParam dataSourceQueryParam){
         PageInfo pageInfo = dataSourceService.getDataSourcePageList(dataSourceQueryParam);

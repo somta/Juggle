@@ -42,18 +42,18 @@ function openEdit(row: any) {
 }
 
 function openDelete(row: any) {
-  ElMessageBox.confirm(`确定删除'${row.tokenDesc}'吗?,删除后将影响使用该令牌的系统`, '操作确认', {
+  ElMessageBox.confirm(`确定删除'${row.dataSourceName}'吗?,删除后将影响正在使用该数据源的数据节点`, '操作确认', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
   })
       .then(() => {
-        deleteTokenItem(row);
+        deleteDataSourceItem(row);
       })
       .catch(() => {});
 }
 
-async function addTokenItem(row: any) {
+async function addDataSourceItem(row: any) {
   const res = await dataSourceService.addDataSource(row);
   if (res.result) {
     await queryPage();
@@ -62,7 +62,7 @@ async function addTokenItem(row: any) {
   }
 }
 
-async function editTokenItem(row: any) {
+async function editDataSourceItem(row: any) {
   const res = await dataSourceService.updateDataSource({
     id: row.id,
     tokenDesc:row.tokenDesc,
@@ -75,7 +75,7 @@ async function editTokenItem(row: any) {
   }
 }
 
-async function deleteTokenItem(row: any) {
+async function deleteDataSourceItem(row: any) {
   const res = await dataSourceService.deleteDataSource(row.id);
   if (res.result) {
     ElMessage({ type: 'success', message: '删除成功' });
@@ -104,7 +104,7 @@ async function deleteTokenItem(row: any) {
         />
       </el-main>
     </el-container>
-    <DataSourceDrawer ref="formRef" @add="addTokenItem" @edit="editTokenItem" />
+    <DataSourceDrawer ref="formRef" @add="addDataSourceItem" @edit="editDataSourceItem" />
   </div>
 </template>
 

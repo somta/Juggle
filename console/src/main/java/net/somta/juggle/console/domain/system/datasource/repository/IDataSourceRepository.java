@@ -6,6 +6,10 @@ import net.somta.juggle.console.domain.system.datasource.vo.DataSourceVO;
 
 import java.util.List;
 
+/**
+ * @author husong
+ * @since 1.2.0
+ */
 public interface IDataSourceRepository {
     Long addDataSource(DataSourceAO dataSourceAo);
 

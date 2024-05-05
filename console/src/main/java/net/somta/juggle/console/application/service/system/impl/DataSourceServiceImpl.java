@@ -3,19 +3,17 @@ package net.somta.juggle.console.application.service.system.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.somta.juggle.console.application.assembler.suite.IApiAssembler;
 import net.somta.juggle.console.application.assembler.system.IDataSourceAssembler;
+import net.somta.juggle.console.application.service.system.IDataSourceManager;
 import net.somta.juggle.console.application.service.system.IDataSourceService;
-import net.somta.juggle.console.domain.suite.api.vo.ApiVO;
 import net.somta.juggle.console.domain.system.datasource.DataSourceAO;
 import net.somta.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import net.somta.juggle.console.domain.system.datasource.vo.DataSourceVO;
-import net.somta.juggle.console.interfaces.dto.suite.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.system.DataSourceDTO;
 import net.somta.juggle.console.interfaces.param.system.DataSourceAddParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceQueryParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceUpdateParam;
-import net.somta.juggle.core.executor.data.IDataSourceManager;
+import net.somta.juggle.core.executor.data.IDataSource;
 import net.somta.juggle.core.model.DataSource;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +28,7 @@ public class DataSourceServiceImpl implements IDataSourceService {
     private final IDataSourceRepository dataSourceRepository;
     private final IDataSourceManager dataSourceManager;
 
-    public DataSourceServiceImpl(IDataSourceRepository dataSourceRepository,IDataSourceManager dataSourceManager) {
+    public DataSourceServiceImpl(IDataSourceRepository dataSourceRepository, IDataSourceManager dataSourceManager) {
         this.dataSourceRepository = dataSourceRepository;
         this.dataSourceManager = dataSourceManager;
     }

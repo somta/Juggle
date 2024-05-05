@@ -18,8 +18,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core;
 
 import net.somta.juggle.core.enums.FlowStatusEnum;
-import net.somta.juggle.core.event.EventPublisher;
-import net.somta.juggle.core.executor.data.IDataSourceManager;
+import net.somta.juggle.core.executor.data.IDataSource;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.model.Variable;
@@ -73,7 +72,7 @@ public class FlowRuntimeContext {
      */
     private IFlowResultManager flowResultManager;
 
-    private IDataSourceManager dataSourceManager;
+    private IDataSource dataSourceManager;
 
     /**
      * 流程状态
@@ -146,11 +145,11 @@ public class FlowRuntimeContext {
         this.flowResultManager = flowResultManager;
     }
 
-    public IDataSourceManager getDataSourceManager() {
+    public IDataSource getDataSourceManager() {
         return dataSourceManager;
     }
 
-    public void setDataSourceManager(IDataSourceManager dataSourceManager) {
+    public void setDataSourceManager(IDataSource dataSourceManager) {
         this.dataSourceManager = dataSourceManager;
     }
 

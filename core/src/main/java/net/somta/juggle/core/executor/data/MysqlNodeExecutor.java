@@ -53,6 +53,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author husong
+ * @since 1.2.0
  */
 public class MysqlNodeExecutor extends AbstractElementExecutor {
 
@@ -67,6 +68,7 @@ public class MysqlNodeExecutor extends AbstractElementExecutor {
     protected void doExecute(FlowRuntimeContext flowRuntimeContext) {
         MysqlNode mysqlNode = (MysqlNode) flowRuntimeContext.getCurrentNode();
         String realSql = handleSql(mysqlNode.getSql(),flowRuntimeContext.getVariableManager());
+        //DataSource dataSource = flowRuntimeContext.getDataSourceManager().getDataSource(mysqlNode.getDataSourceId());
         DataSource dataSource = getDataSource();
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();

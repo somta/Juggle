@@ -15,6 +15,10 @@ export async function updateDataSourceById(params: {
   return request.put(`/v1/datasource/update`,params);
 }
 
+export async function queryDataSourceInfo(dataSourceId: number): ResponsePageResult {
+  return request.get('/v1/datasource/info/' + dataSourceId);
+}
+
 export async function dataSourcePage(params: { pageNum: number; pageSize: number;}): ResponsePageResult {
   return request.post('/v1/datasource/page', params);
 }

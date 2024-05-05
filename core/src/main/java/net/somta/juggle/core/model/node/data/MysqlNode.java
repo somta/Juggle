@@ -24,11 +24,21 @@ import net.somta.juggle.core.model.node.FlowNode;
  */
 public class MysqlNode extends FlowNode {
 
+    private Long dataSourceId;
     private OperationType operationType;
+
     private String sql;
     // 输入的结果对象的定义  可以是一个list  可以是一个对象，可以是一个基础类型 应该是把结果输出给某个变量
     //这里定义的应该是一个变量key
     private String output;
+
+    public Long getDataSourceId() {
+        return dataSourceId;
+    }
+
+    public void setDataSourceId(Long dataSourceId) {
+        this.dataSourceId = dataSourceId;
+    }
 
     public OperationType getOperationType() {
         return operationType;

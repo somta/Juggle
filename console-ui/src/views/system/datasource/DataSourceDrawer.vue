@@ -1,39 +1,39 @@
 <script setup lang="ts">
 import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
-import SuiteSelect from '@/components/form/SuiteSelect.vue';
-import ParamSetting from '@/components/form/ParamSetting.vue';
-import { apiService } from '@/service';
-import type { ApiInfo } from '@/typings';
-import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const';
+import { dataSourceService } from '@/service';
+import {DataSource} from "@/service/module/dataSource.ts";
 
-const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
-const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 
 const dialogVisible = ref(false);
-const apiFormRef = ref<FormInstance>();
+const dataSourceFormRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
 function getDefault () {
   return {
     id: null,
-    suiteId: null,
-    apiName: '',
-    apiDesc: '',
-    apiUrl: '',
-    apiRequestType: '',
-    apiRequestContentType: '',
-    apiHeaders: [],
-    apiInputParams: [],
-    apiOutputParams: [],
+    dataSourceName: '',
+    dataSourceType: '',
+    dataSourceDesc: '',
+    address: '',
+    port: '',
+    userName: '',
+    password: '',
+    databaseName: '',
+    connectExtInfo: '',
+    minPoolSize: 5,
+    maxPoolSize: 5,
+    queryTimeout: 30,
   }
 }
-const formValue = reactive<ApiInfo>(getDefault());
+const formValue = reactive<DataSource>(getDefault());
 const rules = reactive<FormRules>({
-  suiteId: [{ required: true, message: '请选择套件', trigger: 'blur' }],
-  apiName: [{ required: true, message: '请输入接口名称', trigger: 'blur' }],
-  apiUrl: [{ required: true, message: '请输入接口地址', trigger: 'blur' },{ type:'url', message: '请输入正确的接口地址 如: http://127.0.0.1/getUser', trigger: ['blur', 'change'] }],
-  apiRequestType: [{ required: true, message: '请选择请求类型', trigger: 'blur' }],
-  apiRequestContentType: [{ required: true, message: '请选择请求内容类型', trigger: 'blur' }],
+  dataSourceName: [{ required: true, message: '请输入数据源名称', trigger: 'blur' }],
+  dataSourceType: [{ required: true, message: '请选择数据源类型', trigger: 'blur' }],
+  address: [{ required: true, message: '请输入连接地址', trigger: 'blur' }],
+  port: [{ required: true, message: '请输入连接端口', trigger: 'blur' }],
+  userName: [{ required: true, message: '请输入连接账号', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入连接密码', trigger: 'blur' }],
+
 });
 
 const emit = defineEmits(['add', 'edit']);
@@ -43,8 +43,8 @@ function onCancel() {
 }
 
 async function onSubmit() {
-  if (!apiFormRef.value) return;
-  const valid = await apiFormRef.value?.validate(() => {});
+  if (!dataSourceFormRef.value) return;
+  const valid = await dataSourceFormRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
@@ -61,20 +61,20 @@ function open(item?: Record<string, any>) {
   editItem.value = item;
   dialogVisible.value = true;
   nextTick(async () => {
-    apiFormRef.value?.resetFields();
+    dataSourceFormRef.value?.resetFields();
     if (item) {
-      const res = await apiService.queryApiInfo(item.id);
+      const res = await dataSourceService.queryDataSourceInfo(item.id);
       if (res.success) {
         formValue.id = res.result.id;
-        formValue.suiteId = res.result.suiteId;
-        formValue.apiName = res.result.apiName;
-        formValue.apiDesc = res.result.apiDesc;
-        formValue.apiUrl = res.result.apiUrl;
-        formValue.apiRequestType = res.result.apiRequestType;
-        formValue.apiRequestContentType = res.result.apiRequestContentType;
-        formValue.apiHeaders = res.result.apiHeaders;
-        formValue.apiInputParams = res.result.apiInputParams;
-        formValue.apiOutputParams = res.result.apiOutputParams;
+        formValue.dataSourceName = res.result.dataSourceName;
+        formValue.dataSourceType = res.result.dataSourceType;
+        formValue.dataSourceDesc = res.result.dataSourceDesc;
+        formValue.address = res.result.address;
+        formValue.port = res.result.port;
+        formValue.userName = res.result.userName;
+        formValue.password = res.result.password;
+        formValue.databaseName = res.result.databaseName;
+        formValue.connectExtInfo = res.result.connectExtInfo;
       }
     } else {
       // 清空
@@ -85,9 +85,9 @@ function open(item?: Record<string, any>) {
 
 const title = computed(() => {
   if (editItem.value) {
-    return '编辑接口';
+    return '编辑数据源';
   }
-  return '新增接口';
+  return '新增数据源';
 });
 
 defineExpose({ open });
@@ -95,45 +95,49 @@ defineExpose({ open });
 <template>
   <el-drawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose>
     <div class="form">
-      <el-form ref="apiFormRef" label-position="top" :model="formValue" :rules="rules">
-        <el-form-item label="套件" prop="suiteId">
-          <SuiteSelect v-model="formValue.suiteId" :auto="true" />
+      <el-form ref="dataSourceFormRef" label-position="top" :model="formValue" :rules="rules">
+        <el-form-item label="数据源名称" prop="dataSourceName">
+          <el-input v-model="formValue.dataSourceName" maxlength="30" />
         </el-form-item>
-        <el-form-item label="接口名称" prop="apiName">
-          <el-input v-model="formValue.apiName" maxlength="30" />
+        <el-form-item label="数据源类型" prop="dataSourceType">
+          <el-select v-model="formValue.dataSourceType">
+            <el-option value="MySql" key="MySql">MySql</el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="接口地址" prop="apiUrl">
-          <el-input v-model="formValue.apiUrl" />
+        <el-form-item label="描述" prop="dataSourceDesc">
+          <el-input v-model="formValue.dataSourceDesc" type="textarea" :rows="2" maxlength="120"/>
         </el-form-item>
         <el-row :gutter="20">
-          <el-col :span="6">
-            <el-form-item label="请求类型" prop="apiRequestType">
-              <el-select v-model="formValue.apiRequestType">
-                <el-option v-for="op in ApiRequestTypes" :value="op" :key="op">{{ op }}</el-option>
-              </el-select>
+          <el-col :span="18">
+            <el-form-item label="连接地址" prop="address">
+              <el-input v-model="formValue.address" />
             </el-form-item>
           </el-col>
-          <el-col :span="18">
-            <el-form-item label="请求内容类型" prop="apiRequestContentType">
-              <el-select v-model="formValue.apiRequestContentType" style="width: 100%">
-                <el-option v-for="op in ApiRequestContentTypes" :value="op" :key="op">{{ op }}</el-option>
-              </el-select>
+          <el-col :span="6">
+            <el-form-item label="端口" prop="port">
+              <el-input v-model="formValue.port" />
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="账号" prop="userName">
+              <el-input v-model="formValue.userName" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="密码" prop="password">
+              <el-input type="password" v-model="formValue.password" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="数据库名称" prop="databaseName">
+          <el-input v-model="formValue.databaseName" />
+        </el-form-item>
+        <el-form-item label="连接拓展信息" prop="connectExtInfo">
+          <el-input v-model="formValue.connectExtInfo" />
+        </el-form-item>
 
-        <el-form-item label="接口描述" prop="apiDesc">
-          <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" maxlength="120"/>
-        </el-form-item>
-        <el-form-item label="请求头">
-          <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" dataTypeClassify="basic" showRequired/>
-        </el-form-item>
-        <el-form-item label="入参">
-          <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showRequired/>
-        </el-form-item>
-        <el-form-item label="出参">
-          <ParamSetting v-model="formValue.apiOutputParams" addText="新增出参" />
-        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>
           <el-button @click="onCancel">取消</el-button>
