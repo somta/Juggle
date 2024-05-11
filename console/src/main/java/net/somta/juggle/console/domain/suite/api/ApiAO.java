@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.suite.api;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
@@ -7,9 +8,14 @@ import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.infrastructure.converter.IParameterConverter;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
+import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
+import net.somta.juggle.core.model.DataType;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -71,6 +77,23 @@ public class ApiAO {
                 .filter(parameter -> ParameterTypeEnum.HEADER.getCode() == parameter.getParamType())
                 .collect(Collectors.toList());
         this.apiHeaders = IParameterConverter.IMPL.headerParamerterPoListToVoList(headerPoList);
+    }
+
+    public Map<String, Object> handleApiResponseResult(Map<String, Object> originalResult) {
+        Map<String, Object> result = new HashMap<>();
+        List<OutputParameterVO> outputParameterList = this.parameterEntity.getOutputParameterList();
+        if(CollectionUtils.isNotEmpty(outputParameterList)){
+            for (OutputParameterVO outputParameter : outputParameterList){
+                DataType dataType = JsonSerializeHelper.deserialize(outputParameter.getDataType(), DataType.class);
+                if(DataTypeEnum.Object.equals(dataType.getType())){
+
+                } else {
+                    result.put(outputParameter.getParamKey(),originalResult.get(outputParameter.getParamKey()));
+                }
+            }
+        }
+        //todo 待完善，要根据出参和原始map，封装一个新的响应map
+        return originalResult;
     }
 
     public Long getId() {

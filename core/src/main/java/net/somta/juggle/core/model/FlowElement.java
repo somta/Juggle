@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.model.node.*;
+import net.somta.juggle.core.model.node.data.MysqlNode;
 
 /**
  * 流程元素类
@@ -37,6 +38,7 @@ import net.somta.juggle.core.model.node.*;
         @JsonSubTypes.Type(value = MethodNode.class, name = "METHOD"),
         @JsonSubTypes.Type(value = ConditionNode.class, name = "CONDITION"),
         @JsonSubTypes.Type(value = CodeNode.class, name = "CODE"),
+        @JsonSubTypes.Type(value = MysqlNode.class, name = "MYSQL"),
         @JsonSubTypes.Type(value = OpenAiNode.class, name = "AI"),
 })
 public class FlowElement {

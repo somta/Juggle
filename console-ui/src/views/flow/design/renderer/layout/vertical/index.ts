@@ -168,6 +168,9 @@ export class VerticalLayout {
       case ElementType.CODE:
         this.drawNormal(container, node, type);
         break;
+      case ElementType.MYSQL:
+        this.drawNormal(container, node, type);
+        break;
       case ElementType.AI:
         this.drawNormal(container, node, type);
         break;

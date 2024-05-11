@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import {apiService} from '@/service';
 import { ElMessage } from 'element-plus';
 import CodeEditor from "@/components/form/CodeEditor.vue";
-import {ApiInfo, InputParams} from "@/typings";
+import {ApiInfo, DataTypeItem, InputParams} from "@/typings";
 import FilterValue from '@/components/filter/FilterValue.vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 
@@ -96,7 +96,13 @@ function getParams () {
   const params: any = {};
   apiInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      params[param.paramKey] = param.value;
+      const dataType:DataTypeItem = JSON.parse(param.dataType);
+      if(dataType.type === "Object" || dataType.type === "List"){
+        params[param.paramKey] = JSON.parse(param.value);
+      }else{
+        params[param.paramKey] = param.value;
+      }
+      console.log(param);
     }
   });
   return params;

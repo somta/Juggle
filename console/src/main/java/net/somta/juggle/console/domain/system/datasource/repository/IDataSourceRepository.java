@@ -19,5 +19,5 @@ public interface IDataSourceRepository {
 
     DataSourceAO queryDataSource(Long dataSourceId);
 
-    List<DataSourceVO> queryDataSourcePageList(DataSourceQueryVO dataSourceQueryVO);
+    List<DataSourceVO> queryDataSourceList(DataSourceQueryVO dataSourceQueryVO);
 }

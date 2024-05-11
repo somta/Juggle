@@ -26,6 +26,11 @@ const flowNodes = [
     type: ElementType.CODE,
     icon: '⊛',
   },
+  {
+    name: 'MySql节点',
+    type: ElementType.MYSQL,
+    icon: '⊛',
+  },
   /*{
     name: 'OpenAi',
     type: ElementType.AI,

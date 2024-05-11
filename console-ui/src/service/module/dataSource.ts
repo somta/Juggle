@@ -17,8 +17,8 @@ export interface DataSource {
     queryTimeout: number,
 }
 
-export async function addDataSource(tokenDesc:string) {
-    return datasourceAPI.addDataSource(tokenDesc);
+export async function addDataSource(params: Parameters<typeof datasourceAPI.addDataSource>[0]) {
+    return datasourceAPI.addDataSource(params);
 }
 
 export async function deleteDataSource(dataSourceId:number) {
@@ -33,6 +33,14 @@ export async function queryDataSourceInfo(dataSourceId: number): ResponsePageRes
     return datasourceAPI.queryDataSourceInfo(dataSourceId);
 }
 
+export async function queryDataSourceList() {
+    return datasourceAPI.dataSourceList();
+}
+
 export async function queryDataSourcePage(params: Parameters<typeof datasourceAPI.dataSourcePage>[0]) {
     return datasourceAPI.dataSourcePage(params);
+}
+
+export async function connectDataSource(dataSourceId: number): ResponsePageResult<boolean> {
+    return datasourceAPI.connectDataSource(dataSourceId);
 }

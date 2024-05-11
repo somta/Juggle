@@ -51,8 +51,8 @@ public class DataSourceRepositoryImpl implements IDataSourceRepository {
     }
 
     @Override
-    public List<DataSourceVO> queryDataSourcePageList(DataSourceQueryVO dataSourceQueryVO) {
-        List<DataSourcePO> dataSourceList =dataSourceMapper.queryByList(dataSourceQueryVO);
+    public List<DataSourceVO> queryDataSourceList(DataSourceQueryVO dataSourceQueryVO) {
+        List<DataSourcePO> dataSourceList =dataSourceMapper.queryDataSourceList(dataSourceQueryVO);
         return IDataSourceConverter.IMPL.poListToVoList(dataSourceList);
     }
 

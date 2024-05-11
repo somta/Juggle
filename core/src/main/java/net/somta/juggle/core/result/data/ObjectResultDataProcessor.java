@@ -20,7 +20,7 @@ public class ObjectResultDataProcessor extends AbstractResultDataProcessor {
     @Override
     protected Object getFillResultData(ResultSet resultSet, Variable variable) throws SQLException {
         Map<String,Object> result = new HashMap<>(16);
-        String schema = variable.getDataType().getStructureSchema();
+        String schema = variable.getDataType().getObjectStructure();
         List<Property> propertyList = JsonSerializeHelper.deserialize(schema,List.class, Property.class);
         propertyList.forEach(property -> property.setDataTypeObj(JsonSerializeHelper.deserialize(property.getDataType(), DataType.class)));
         while (resultSet.next()) {

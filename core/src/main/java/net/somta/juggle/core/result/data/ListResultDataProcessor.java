@@ -23,7 +23,7 @@ public class ListResultDataProcessor extends AbstractResultDataProcessor {
     protected Object getFillResultData(ResultSet resultSet, Variable variable) throws SQLException {
         List<Map<String,Object>> resultList = new ArrayList<>();
         if(DataTypeEnum.Object.name().equals(variable.getDataType().getItemType())){
-            String schema = variable.getDataType().getStructureSchema();
+            String schema = variable.getDataType().getObjectStructure();
             List<Property> propertyList = JsonSerializeHelper.deserialize(schema,List.class, Property.class);
             propertyList.forEach(property -> property.setDataTypeObj(JsonSerializeHelper.deserialize(property.getDataType(), DataType.class)));
             Map<String,Object> result = null;

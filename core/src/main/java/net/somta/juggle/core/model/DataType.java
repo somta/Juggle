@@ -37,9 +37,9 @@ public class DataType {
     private String itemType;
 
     /**
-     * 结构对象的Schema描述
+     * 对象的结构
      */
-    private String structureSchema;
+    private String objectStructure;
 
     public DataType() {
     }
@@ -64,11 +64,11 @@ public class DataType {
         this.itemType = itemType;
     }
 
-    public String getStructureSchema() {
-        return structureSchema;
+    public String getObjectStructure() {
+        return objectStructure;
     }
 
-    public void setStructureSchema(String structureSchema) {
-        this.structureSchema = structureSchema;
+    public void setObjectStructure(String objectStructure) {
+        this.objectStructure = objectStructure;
     }
 }

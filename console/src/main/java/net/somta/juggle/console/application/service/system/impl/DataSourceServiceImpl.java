@@ -8,12 +8,13 @@ import net.somta.juggle.console.application.service.system.IDataSourceManager;
 import net.somta.juggle.console.application.service.system.IDataSourceService;
 import net.somta.juggle.console.domain.system.datasource.DataSourceAO;
 import net.somta.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
+import net.somta.juggle.console.domain.system.datasource.service.DataSourceInstanceFactory;
+import net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO;
 import net.somta.juggle.console.domain.system.datasource.vo.DataSourceVO;
 import net.somta.juggle.console.interfaces.dto.system.DataSourceDTO;
 import net.somta.juggle.console.interfaces.param.system.DataSourceAddParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceQueryParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceUpdateParam;
-import net.somta.juggle.core.executor.data.IDataSource;
 import net.somta.juggle.core.model.DataSource;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,6 @@ public class DataSourceServiceImpl implements IDataSourceService {
         Long dataSourceId = dataSourceRepository.addDataSource(dataSourceAo);
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         dataSource.setId(dataSourceId);
-        dataSourceManager.addDataSourceToCache(dataSource);
         return true;
     }
 
@@ -63,12 +63,31 @@ public class DataSourceServiceImpl implements IDataSourceService {
     }
 
     @Override
+    public List<DataSourceDTO> getAllDataSourceList() {
+        List<DataSourceVO> dataSourceVoList = dataSourceRepository.queryDataSourceList(new DataSourceQueryVO());
+        List<DataSourceDTO> dataSourceList = IDataSourceAssembler.IMPL.voListToDtoList(dataSourceVoList);
+        return dataSourceList;
+    }
+
+    @Override
     public PageInfo getDataSourcePageList(DataSourceQueryParam dataSourceQueryParam) {
         Page<DataSourceDTO> page = PageHelper.startPage(dataSourceQueryParam.getPageNum(), dataSourceQueryParam.getPageSize());
-        List<DataSourceVO> dataSourceVoList = dataSourceRepository.queryDataSourcePageList(IDataSourceAssembler.IMPL.paramToVo(dataSourceQueryParam));
+        List<DataSourceVO> dataSourceVoList = dataSourceRepository.queryDataSourceList(IDataSourceAssembler.IMPL.paramToVo(dataSourceQueryParam));
         List<DataSourceDTO> dataSourceList = IDataSourceAssembler.IMPL.voListToDtoList(dataSourceVoList);
         PageInfo pageInfo = new PageInfo(dataSourceList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
+    }
+
+    @Override
+    public Boolean connectDataSource(Long dataSourceId) {
+        DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
+        DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
+        dataSource.setId(dataSourceId);
+        Object dataSourceInstance = DataSourceInstanceFactory.getDataSourceInstance(dataSource);
+        if(dataSourceInstance != null){
+            return true;
+        }
+        return false;
     }
 }

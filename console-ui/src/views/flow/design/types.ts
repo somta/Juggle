@@ -33,6 +33,7 @@ export enum ElementType {
   METHOD = 'METHOD',
   CONDITION = 'CONDITION',
   CODE = 'CODE',
+  MYSQL = 'MYSQL',
   AI = 'AI',
   END = 'END',
 
@@ -53,7 +54,7 @@ export enum FlowVariableType {
 export type FlowVariableDataType = {
   type: string;
   itemType: string;
-  structureSchema: any;
+  objectStructure: any;
 }
 
 export type FlowVariable = {

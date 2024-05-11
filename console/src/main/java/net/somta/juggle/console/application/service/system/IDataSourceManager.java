@@ -9,8 +9,6 @@ import net.somta.juggle.core.model.DataSource;
  */
 public interface IDataSourceManager extends IDataSource {
 
-    void addDataSourceToCache(DataSource dataSource);
-
     void deleteDataSourceFromCache(Long dataSourceId);
 
 }

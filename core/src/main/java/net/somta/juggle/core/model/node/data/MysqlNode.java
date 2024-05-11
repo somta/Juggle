@@ -16,21 +16,18 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.model.node.data;
 
-import net.somta.juggle.core.model.FillStruct;
 import net.somta.juggle.core.model.node.FlowNode;
 
 /**
  * @author husong
+ * @since 1.2.0
  */
 public class MysqlNode extends FlowNode {
 
     private Long dataSourceId;
     private OperationType operationType;
-
     private String sql;
-    // 输入的结果对象的定义  可以是一个list  可以是一个对象，可以是一个基础类型 应该是把结果输出给某个变量
-    //这里定义的应该是一个变量key
-    private String output;
+    private String variableKey;
 
     public Long getDataSourceId() {
         return dataSourceId;
@@ -56,12 +53,12 @@ public class MysqlNode extends FlowNode {
         this.sql = sql;
     }
 
-    public String getOutput() {
-        return output;
+    public String getVariableKey() {
+        return variableKey;
     }
 
-    public void setOutput(String output) {
-        this.output = output;
+    public void setVariableKey(String variableKey) {
+        this.variableKey = variableKey;
     }
 
     public enum OperationType {

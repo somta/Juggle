@@ -25,7 +25,6 @@ import net.somta.juggle.core.http.IHttpClient;
 import net.somta.juggle.core.http.Request;
 import net.somta.juggle.core.model.*;
 import net.somta.juggle.core.model.node.MethodNode;
-import net.somta.juggle.core.model.node.StartNode;
 import net.somta.juggle.core.variable.AbstractVariableManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -60,11 +59,6 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
             logger.debug("接口执行完，获得的结果为：" + resultData.toString());
 
             buildOutputParameterData(methodNode.getMethod(), flowRuntimeContext.getVariableManager(),resultData);
-
-            //从变量管理器中获取看看
-            Object envName = flowRuntimeContext.getVariableManager().getVariableValue("env_name");
-            System.out.println(envName);
-
         } catch (FlowException e) {
             e.printStackTrace();
         }
@@ -101,8 +95,12 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
         Map<String,Object> headerData = new HashMap<>(headerFillRules.size());
         for(FillStruct fillStruct : headerFillRules){
             String fieldKey = fillStruct.getTarget();
-            Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
-            headerData.put(fieldKey,variableValue);
+            if(FieldSourceEnum.CONSTANT.equals(fillStruct.getSourceType())){
+                headerData.put(fieldKey,fillStruct.getSource());
+            } else {
+                Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
+                headerData.put(fieldKey,variableValue);
+            }
         }
         return headerData;
     }
@@ -130,33 +128,6 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
     }
 
     /**
-     * 根据填充结构和参数描述构建带数据的参数对象
-     * @return
-     */
-/*    private Map<String,Object> buildInputParameterData2(List<InputParameter> parameters, List<FillStruct> inputFillRules, VariableManager variableManager) throws FlowException {
-        Map<String,Object> paramData = new HashMap<>();
-        for (InputParameter parameter : parameters){
-            String fieldKey = parameter.getKey();
-            // 1.先找填充结构里面有没有，没有就看默认值里面有没有，还没有就map的value赋值为空
-            for(FillStruct fillStruct : inputFillRules){
-                if (fieldKey.equals(fillStruct.getTarget())){
-                    Object variableValue = variableManager.getVariableValue(fillStruct.getSource());
-                    if(variableValue == null){
-                        String defaultValue = parameter.getDefaultValue();
-                        if(StringUtils.isNotEmpty(defaultValue)){
-                            // todo 如果有默认值，要将值根据具体的字段的类型转换成对应的类型才行
-                            paramData.put(fieldKey,defaultValue);
-                        }
-                    }else {
-                        paramData.put(fieldKey,variableValue);
-                    }
-                }
-            }
-        }
-        return paramData;
-    }*/
-
-    /**
      * 处理填充出参数据
      * @param method
      * @param variableManager
@@ -175,25 +146,4 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
             variableManager.setVariableValue(envKey,fieldValue);
         }
     }
-
-    /**
-     * 处理填充出参数据
-     * @param method
-     * @param variableManager
-     */
-    /*private void buildOutputParameterData2(Method method,VariableManager variableManager, Map<String,Object> resultData) throws FlowException {
-        List<OutputParameter> outputParameters = method.getOutputParameters();
-        List<FillStruct> outputFillRules = method.getOutputFillRules();
-        if(CollectionUtils.isEmpty(outputFillRules)){
-            return;
-        }
-        for (FillStruct fillStruct : outputFillRules) {
-            String fieldKey = fillStruct.getSource();
-            Object fieldValue = resultData.get(fieldKey);
-
-            //设置变量
-            String envKey = fillStruct.getTarget();
-            variableManager.setVariableValue(envKey,fieldValue);
-        }
-    }*/
 }

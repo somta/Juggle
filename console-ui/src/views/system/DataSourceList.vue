@@ -63,10 +63,7 @@ async function addDataSourceItem(row: any) {
 }
 
 async function editDataSourceItem(row: any) {
-  const res = await dataSourceService.updateDataSource({
-    id: row.id,
-    tokenDesc:row.tokenDesc,
-  });
+  const res = await dataSourceService.updateDataSource(row);
   if (res.result) {
     ElMessage({ type: 'success', message: '编辑成功' });
     await queryPage();
@@ -80,6 +77,15 @@ async function deleteDataSourceItem(row: any) {
   if (res.result) {
     ElMessage({ type: 'success', message: '删除成功' });
     await queryPage();
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
+async function connectDataSource(row: any){
+  const res = await dataSourceService.connectDataSource(row.id);
+  if (res.result) {
+    ElMessage({ type: 'success', message: '连接成功' });
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -99,6 +105,7 @@ async function deleteDataSourceItem(row: any) {
             :pageSize="pageSize"
             :loading="loading"
             @pageChange="onPageChange"
+            @connect="connectDataSource"
             @edit="openEdit"
             @delete="openDelete"
         />

@@ -4,7 +4,7 @@ import net.somta.juggle.console.application.assembler.system.IDataSourceAssemble
 import net.somta.juggle.console.application.service.system.IDataSourceManager;
 import net.somta.juggle.console.domain.system.datasource.DataSourceAO;
 import net.somta.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
-import net.somta.juggle.core.executor.data.IDataSource;
+import net.somta.juggle.console.domain.system.datasource.service.DataSourceInstanceFactory;
 import net.somta.juggle.core.model.DataSource;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +23,6 @@ public class DataSourceManager implements IDataSourceManager {
     }
 
     @Override
-    public void addDataSourceToCache(DataSource dataSource) {
-        //todo 转换成对应的数据源对象
-        //dataSourceCache.put(dataSource.getId().toString(), dataSource);
-    }
-
-    @Override
     public void deleteDataSourceFromCache(Long dataSourceId) {
         dataSourceCache.remove(dataSourceId);
     }
@@ -40,7 +34,7 @@ public class DataSourceManager implements IDataSourceManager {
         }
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
-        //todo 转换成对应的数据源对象
-        return dataSource;
+        Object dataSourceInstance = DataSourceInstanceFactory.getDataSourceInstance(dataSource);
+        return dataSourceInstance;
     }
 }

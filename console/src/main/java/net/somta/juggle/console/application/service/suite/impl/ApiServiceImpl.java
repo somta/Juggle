@@ -104,7 +104,8 @@ public class ApiServiceImpl implements IApiService {
         Request request = new Request(apiAo.getApiRequestType(),apiAo.getApiUrl());
         request.setRequestHeaders(apiDebugParam.getHeaderData());
         request.setRequestParams(apiDebugParam.getInputParamData());
-        Map<String,Object> result = httpClient.sendRequest(request);
+        Map<String,Object> originalResult = httpClient.sendRequest(request);
+        Map<String,Object> result = apiAo.handleApiResponseResult(originalResult);
         return result;
     }
 

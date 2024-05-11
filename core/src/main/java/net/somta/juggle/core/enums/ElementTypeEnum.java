@@ -19,7 +19,7 @@ package net.somta.juggle.core.enums;
 /**
  * 流程元素类型枚举类
  * @author husong
- * @since 1。0.0
+ * @since 1.0.0
  **/
 public enum ElementTypeEnum {
     /**
@@ -39,7 +39,11 @@ public enum ElementTypeEnum {
      */
     CODE,
     /**
-     * 代码节点
+     * mysql节点
+     */
+    MYSQL,
+    /**
+     * AI节点
      */
     AI,
     /**

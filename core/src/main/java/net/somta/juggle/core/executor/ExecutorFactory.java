@@ -17,6 +17,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.executor;
 
 import net.somta.juggle.core.enums.ElementTypeEnum;
+import net.somta.juggle.core.executor.data.MysqlNodeExecutor;
 import net.somta.juggle.core.model.FlowElement;
 
 /**
@@ -52,6 +53,7 @@ public class ExecutorFactory {
             case METHOD: return new MethodNodeExecutor();
             case CONDITION: return new ConditionNodeExecutor();
             case CODE: return new CodeNodeExecutor();
+            case MYSQL: return new MysqlNodeExecutor();
             case AI: return new OpenAiNodeExecutor();
             default: return null;
         }

@@ -17,35 +17,40 @@ public class ApplicationConstants {
     /**
      * 用户错误码
      */
-    public final static long USER_CODE = (APPLICATION_CODE_PREFIX * 1000 + 001) * 10000;
+    public final static long USER_CODE = (APPLICATION_CODE_PREFIX * 1000 + 1) * 10000;
 
     /**
      * 套件错误码
      */
-    public final static long SUITE_CODE = (APPLICATION_CODE_PREFIX * 1000 + 002) * 10000;
+    public final static long SUITE_CODE = (APPLICATION_CODE_PREFIX * 1000 + 2) * 10000;
 
     /**
      * 接口错误码
      */
-    public final static long API_CODE = (APPLICATION_CODE_PREFIX * 1000 + 003) * 10000;
+    public final static long API_CODE = (APPLICATION_CODE_PREFIX * 1000 + 3) * 10000;
 
     /**
      * 变量错误码
      */
-    public final static long VARIABLE_CODE = (APPLICATION_CODE_PREFIX * 1000 + 004) * 10000;
+    public final static long VARIABLE_CODE = (APPLICATION_CODE_PREFIX * 1000 + 4) * 10000;
 
     /**
      * 流程定义错误码
      */
-    public final static long FLOW_DEFINITION_CODE = (APPLICATION_CODE_PREFIX * 1000 + 005) * 10000;
+    public final static long FLOW_DEFINITION_CODE = (APPLICATION_CODE_PREFIX * 1000 + 5) * 10000;
 
     /**
      * 流程错误码
      */
-    public final static long FLOW_CODE = (APPLICATION_CODE_PREFIX * 1000 + 006) * 10000;
+    public final static long FLOW_CODE = (APPLICATION_CODE_PREFIX * 1000 + 6) * 10000;
 
     /**
      * 对象错误码
      */
-    public final static long OBJECT_CODE = (APPLICATION_CODE_PREFIX * 1000 + 007) * 10000;
+    public final static long OBJECT_CODE = (APPLICATION_CODE_PREFIX * 1000 + 7) * 10000;
+
+    /**
+     * 数据源错误码
+     */
+    public final static long DATASOURCE_CODE = (APPLICATION_CODE_PREFIX * 1000 + 8) * 10000;
 }

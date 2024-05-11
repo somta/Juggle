@@ -22,6 +22,8 @@ import net.somta.juggle.console.interfaces.param.system.DataSourceAddParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceQueryParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceUpdateParam;
 
+import java.util.List;
+
 /**
  * @author husong
  * @since 1.2.0
@@ -36,5 +38,9 @@ public interface IDataSourceService {
 
     DataSourceDTO getDataSource(Long dataSourceId);
 
+    List<DataSourceDTO> getAllDataSourceList();
+
     PageInfo getDataSourcePageList(DataSourceQueryParam dataSourceQueryParam);
+
+    Boolean connectDataSource(Long dataSourceId);
 }

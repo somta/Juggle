@@ -9,4 +9,16 @@
     values (#{id},#{dataSourceName},#{dataSourceType},#{address},#{port},#{userName},#{password},#{databaseName},#{connectExtInfo},#{minPoolSize},#{maxPoolSize},#{queryTimeout},#{dataSourceExtInfo},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
+<select id="queryDataSourceList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
+    select id, data_source_name, data_source_type, data_source_desc, address, port
+    from t_data_source
+    where 1=1
+    <if test="dataSourceType != null and dataSourceType != ''">
+        and data_source_type=#{dataSourceType}
+    </if>
+    <if test="dataSourceName != null and dataSourceName != ''">
+        and data_source_name like concat("%", #{dataSourceName}, "%")
+    </if>
+</select>
+
 </mapper>   

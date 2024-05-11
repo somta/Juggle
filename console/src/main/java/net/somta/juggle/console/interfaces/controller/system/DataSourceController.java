@@ -3,12 +3,10 @@ package net.somta.juggle.console.interfaces.controller.system;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import net.somta.core.base.page.PageParam;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.system.IDataSourceService;
 import net.somta.juggle.console.interfaces.dto.system.DataSourceDTO;
-import net.somta.juggle.console.interfaces.dto.system.TokenDTO;
 import net.somta.juggle.console.interfaces.param.system.DataSourceAddParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceQueryParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceUpdateParam;
@@ -54,6 +52,12 @@ public class DataSourceController {
         return ResponseDataResult.setResponseResult(dataSourceService.getDataSource(dataSourceId));
     }
 
+    @Operation(summary = "查询数据源列表")
+    @GetMapping("/list")
+    public ResponseDataResult<List<DataSourceDTO>> getAllDataSourceList(){
+        return ResponseDataResult.setResponseResult(dataSourceService.getAllDataSourceList());
+    }
+
     @Operation(summary = "查询数据源分页列表")
     @PostMapping("/page")
     public ResponsePaginationDataResult<List<DataSourceDTO>> getDataSourcePageList(@RequestBody DataSourceQueryParam dataSourceQueryParam){
@@ -61,4 +65,9 @@ public class DataSourceController {
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
+    @Operation(summary = "连接数据源")
+    @GetMapping("/connect/{dataSourceId}")
+    public ResponseDataResult<Boolean> connectDataSource(@PathVariable Long dataSourceId){
+        return ResponseDataResult.setResponseResult(dataSourceService.connectDataSource(dataSourceId));
+    }
 }
