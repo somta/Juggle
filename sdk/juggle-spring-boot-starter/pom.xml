@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>starter</artifactId>
-        <groupId>net.somta</groupId>
-        <version>${revision}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.14</version>
+        <relativePath/>
     </parent>
 
     <groupId>net.somta</groupId>
     <artifactId>juggle-spring-boot-starter</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -23,7 +24,20 @@
         <dependency>
             <groupId>net.somta</groupId>
             <artifactId>somta-common</artifactId>
+            <version>1.4.3</version>
         </dependency>
+        <!-- starter start -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- starter end -->
     </dependencies>
 
     <profiles>
