@@ -22,7 +22,7 @@ const flowNodes = [
     icon: 'Ⓒ',
   },
   {
-    name: '自定义代码',
+    name: '代码节点',
     type: ElementType.CODE,
     icon: '⊛',
   },

@@ -11,6 +11,7 @@ import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.DataType;
+import net.somta.juggle.core.model.Property;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.HashMap;
@@ -86,7 +87,7 @@ public class ApiAO {
             for (OutputParameterVO outputParameter : outputParameterList){
                 DataType dataType = JsonSerializeHelper.deserialize(outputParameter.getDataType(), DataType.class);
                 if(DataTypeEnum.Object.equals(dataType.getType())){
-
+                    parseObjectAndFill(outputParameter.getParamKey(),dataType,result,originalResult);
                 } else {
                     result.put(outputParameter.getParamKey(),originalResult.get(outputParameter.getParamKey()));
                 }
@@ -94,6 +95,22 @@ public class ApiAO {
         }
         //todo 待完善，要根据出参和原始map，封装一个新的响应map
         return originalResult;
+    }
+
+    /**
+     * 解析对象属性并填充对象的值到结果中
+     * @param outputParameter
+     * @param result
+     * @param originalResult
+     */
+    private void parseObjectAndFill(String outputParameter, DataType outputParamDataType,Map<String, Object> result,Map<String, Object> originalResult) {
+        Property objectProperty = JsonSerializeHelper.deserialize(outputParamDataType.getObjectStructure(), Property.class);
+
+        result.put(outputParameter,null);
+    }
+
+    private Map<String,Object> getObjectRealData(){
+        return null;
     }
 
     public Long getId() {
