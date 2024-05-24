@@ -1,0 +1,28 @@
+{
+  "name": "juggle",
+  "version": "1.0.0",
+  "description": "juggle (https://juggle.plus) nodejs sdk",
+  "scripts": {
+    "contributors": "contributors -f plain -o AUTHORS",
+    "clean": "lerna clean --yes; rm -rf ./packages/**/package-lock.json",
+    "bootstrap": "rm -f ./packages/.DS*; lerna bootstrap --no-ci",
+    "release": "rm -f ./packages/.DS*; sh scripts/publish.sh"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/somta/Juggle/issues"
+  },
+  "homepage": "https://juggle.plus",
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "ci": {
+    "type": "travis",
+    "version": "8, 10"
+  },
+  "devDependencies": {
+    "contributors": "^0.5.1",
+    "lerna": "^3.4.3",
+    "lerna-relinker": "^1.5.0"
+  }
+}
