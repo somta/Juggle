@@ -1,4 +1,4 @@
-package net.somta.juggle.starter.model;
+package net.somta.juggle.client.model;
 
 import java.util.Map;
 

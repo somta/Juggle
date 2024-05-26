@@ -87,7 +87,7 @@ Juggle提供的各个语言的SDK都是通过传递，通过请求头传递的�
 下面以系统内置示例流程为例，展示调用方式
 
 ```
-http://localhost:8686/v1/open/flow/trigger/v1/sync_example?juggleToken=eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcxMjE2MTIxNDAzOH0=&userName=juggle&password=123456&deposit=1000.00
+http://localhost:9127/v1/open/flow/trigger/v1/sync_example?juggleToken=eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcxMjE2MTIxNDAzOH0=&userName=juggle&password=123456&deposit=1000.00
 ```
 
 ![](/juggle/images/guide/integration/openapi_trigger_flow.png)
@@ -120,7 +120,7 @@ http://localhost:8686/v1/open/flow/trigger/v1/sync_example?juggleToken=eyJ1c2VyS
 **示例**
 
 ```
-http://localhost:8686/v1/open/flow/getAsyncFlowResult/async_PdCPkVCdgpyAB2e0?juggleToken=eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcxMjE2MTIxNDAzOH0=
+http://localhost:9127/v1/open/flow/getAsyncFlowResult/async_PdCPkVCdgpyAB2e0?juggleToken=eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcxMjE2MTIxNDAzOH0=
 ```
 
 

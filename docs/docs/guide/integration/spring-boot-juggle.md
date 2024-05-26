@@ -13,7 +13,7 @@ SpringBoot作为Java开发最常见的框架，我们提供了对应的Starter�
 <dependency>
    <groupId>net.somta</groupId>
    <artifactId>juggle-spring-boot-starter</artifactId>
-   <version>1.1.0</version>
+   <version>1.1.1</version>
 </dependency>
 ```
 
@@ -25,7 +25,7 @@ SpringBoot作为Java开发最常见的框架，我们提供了对应的Starter�
 
 ```properties
 #Juggle服务部署的地址
-juggle.server-addr=http://127.0.0.1:8686
+juggle.server-addr=http://127.0.0.1:9127
 #Juggle后台申请的令牌
 juggle.access-token=eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcxMjE2MzgyNzE2OH0=
 ```

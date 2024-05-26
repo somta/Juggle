@@ -51,7 +51,7 @@ public class FlowDefinitionHelper {
         Method method = new Method();
         method.setSuiteId(1L);
         method.setMethodId(1L);
-        method.setUrl("http://127.0.0.1:8686/example/user/getUserById");
+        method.setUrl("http://127.0.0.1:9127/example/user/getUserById");
         method.setRequestType(RequestTypeEnum.GET);
         method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());
 
@@ -181,7 +181,7 @@ public class FlowDefinitionHelper {
         Method method2 = new Method();
         method2.setSuiteId(1L);
         method2.setMethodId(2L);
-        method2.setUrl("http://127.0.0.1:8686/example/order/queryOrderByNo");
+        method2.setUrl("http://127.0.0.1:9127/example/order/queryOrderByNo");
         method2.setRequestType(RequestTypeEnum.GET);
         method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());
 
@@ -281,7 +281,7 @@ public class FlowDefinitionHelper {
         System.out.println(flowContent);
 
 
-        String a = "[{\"key\":\"start_ppP26cro\",\"name\":\"5\",\"elementType\":\"START\",\"outgoings\":[\"method_ntu9p\"]},{\"key\":\"end_KbmGXukE\",\"name\":\"结束\",\"elementType\":\"END\",\"incomings\":[\"method_ntu9p\"]},{\"key\":\"method_ntu9p\",\"outgoings\":[\"end_KbmGXukE\"],\"incomings\":[\"start_ppP26cro\"],\"name\":\"登录接口\",\"elementType\":\"METHOD\",\"desc\":\"\",\"method\":{\"methodId\":1,\"suiteId\":1,\"url\":\"http://127.0.0.1:8686/example/user/login\",\"requestType\":\"POST\",\"requestContentType\":\"application/json\",\"headerFillRules\":[],\"inputFillRules\":[{\"source\":\"userName\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"husong\",\"targetDataType\":null,\"targetType\":\"INPUT_PARAM\"},{\"source\":\"password\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"123456\",\"targetDataType\":null,\"targetType\":\"INPUT_PARAM\"}],\"outputFillRules\":[{\"source\":\"userName\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"output_name\",\"targetDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"targetType\":\"VARIABLE\"}]}}]";
+        String a = "[{\"key\":\"start_ppP26cro\",\"name\":\"5\",\"elementType\":\"START\",\"outgoings\":[\"method_ntu9p\"]},{\"key\":\"end_KbmGXukE\",\"name\":\"结束\",\"elementType\":\"END\",\"incomings\":[\"method_ntu9p\"]},{\"key\":\"method_ntu9p\",\"outgoings\":[\"end_KbmGXukE\"],\"incomings\":[\"start_ppP26cro\"],\"name\":\"登录接口\",\"elementType\":\"METHOD\",\"desc\":\"\",\"method\":{\"methodId\":1,\"suiteId\":1,\"url\":\"http://127.0.0.1:9127/example/user/login\",\"requestType\":\"POST\",\"requestContentType\":\"application/json\",\"headerFillRules\":[],\"inputFillRules\":[{\"source\":\"userName\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"husong\",\"targetDataType\":null,\"targetType\":\"INPUT_PARAM\"},{\"source\":\"password\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"123456\",\"targetDataType\":null,\"targetType\":\"INPUT_PARAM\"}],\"outputFillRules\":[{\"source\":\"userName\",\"sourceDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"sourceType\":\"VARIABLE\",\"target\":\"output_name\",\"targetDataType\":{\"type\":\"String\",\"itemType\":\"\",\"objectKey\":null,\"objectStructure\":null},\"targetType\":\"VARIABLE\"}]}}]";
                 ObjectMapper objectMapper = new ObjectMapper();
         List<FlowElement> nodeList = new ArrayList<>();
         try {

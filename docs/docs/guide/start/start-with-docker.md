@@ -5,7 +5,7 @@
 直接在支持docker的环境运行如下命令就可以启动Juggle
 
 ```shell
-docker run --name juggle -d -p 8686:8686 somta/juggle:latest
+docker run --name juggle -d -p 9127:9127 somta/juggle:latest
 ```
 
 ## 二.使用docker-compose运行
@@ -19,7 +19,7 @@ services:
     image: somta/juggle:latest
     container_name: juggle
     ports:
-      - "8686:8686"
+      - "9127:9127"
     volumes:
       - ./conf/application.properties:/home/juggle/conf/application.properties
 ```
@@ -29,7 +29,7 @@ services:
 ### 2.在docker-compose.yml的目录下新建一个conf目录，下面新建一个application.properties配置文件
 
 ```properties
-server.port=8686
+server.port=9127
 spring.application.name=juggle
 
 ##H2##

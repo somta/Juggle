@@ -14,10 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.starter.model;
+package net.somta.juggle.client.model;
 
 
-import net.somta.juggle.starter.enums.FlowStatusEnum;
+import net.somta.juggle.client.enums.FlowStatusEnum;
 
 import java.util.Map;
 

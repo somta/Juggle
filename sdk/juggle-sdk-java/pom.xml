@@ -3,20 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.14</version>
-        <relativePath/>
-    </parent>
 
     <groupId>net.somta</groupId>
-    <artifactId>juggle-spring-boot-starter</artifactId>
-    <version>1.1.1</version>
+    <artifactId>juggle-client</artifactId>
+    <version>1.0.0</version>
 
-    <name>juggle-spring-boot-starter</name>
-    <description>juggle spring boot starter</description>
+    <name>juggle-client</name>
+    <description>juggle java sdk</description>
     <url>https://github.com/somta/Juggle</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/somta/Juggle</url>
+        <connection>git@github.com:somta/Juggle.git</connection>
+        <developerConnection>https://www.somta.net</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>somta</name>
+            <email>somta@qq.com</email>
+            <url>https://www.somta.net</url>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -27,21 +43,9 @@
     <dependencies>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>juggle-client</artifactId>
-            <version>1.0.0</version>
+            <artifactId>somta-common</artifactId>
+            <version>1.4.3</version>
         </dependency>
-        <!-- starter start -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- starter end -->
     </dependencies>
 
     <profiles>

@@ -51,7 +51,7 @@ sh startup.sh
 
 ### 4.访问Juggle
 
-启动成功后，浏览器输入http://127.0.0.1:8686访问Juggle，默认登录信息 账号：juggle 密码：juggle
+启动成功后，浏览器输入http://127.0.0.1:9127访问Juggle，默认登录信息 账号：juggle 密码：juggle
 
 ### 5.示例流程
 

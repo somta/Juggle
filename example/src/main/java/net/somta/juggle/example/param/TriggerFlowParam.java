@@ -1,7 +1,7 @@
 package net.somta.juggle.example.param;
 
 
-import net.somta.juggle.starter.model.FlowTriggerDataParam;
+import net.somta.juggle.client.model.FlowTriggerDataParam;
 
 /**
  * @author husong

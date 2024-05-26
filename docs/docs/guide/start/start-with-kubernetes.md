@@ -9,7 +9,7 @@ metadata:
   name: juggle-configmap
 data:
   application.properties: |-
-    server.port=8686
+    server.port=9127
     spring.application.name=juggle
     
     ##H2##
@@ -52,8 +52,8 @@ spec:
     app: juggle
   ports:
     - protocol: TCP
-      port: 8686
-      targetPort: 8686
+      port: 9127
+      targetPort: 9127
 ```
 
 将上述的Service的内容保存为juggle-service.yaml文件，并通过下面的命令创建Service
@@ -83,7 +83,7 @@ spec:
         - name: juggle
           image: somta/juggle:latest
           ports:
-            - containerPort: 8686
+            - containerPort: 9127
           volumeMounts:
             - name: config-volume
               mountPath: /data/application.properties
