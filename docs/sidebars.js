@@ -46,6 +46,16 @@ module.exports = {
                         'guide/user/design/variable',
                     ],
                 },
+                {
+                    type: 'category',
+                    label: '节点',
+                    items: [
+                        'guide/user/nodes/method-node',
+                        'guide/user/nodes/condition-node',
+                        'guide/user/nodes/code-node',
+                        'guide/user/nodes/mysql-node',
+                    ],
+                },
                 'guide/user/flow',
                 'guide/user/flow-version',
                 'guide/user/object',
