@@ -63,9 +63,13 @@ public class MysqlNodeExecutor extends AbstractElementExecutor {
         DataSource dataSource = (DataSource) flowRuntimeContext.getDataSourceManager().getDataSource(mysqlNode.getDataSourceId());
         try (Connection connection = dataSource.getConnection()) {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(realSql);
-            AbstractResultDataProcessor dataResultProcessor = ResultDataProcessorFactory.getDataResultProcessor(mysqlNode.getVariableKey(),flowRuntimeContext.getVariableManager());
-            dataResultProcessor.fillDataResultToVariable(rs,mysqlNode.getVariableKey());
+            if (MysqlNode.OperationType.CHANGE.equals(mysqlNode.getOperationType())) {
+                stmt.execute(realSql);
+            }else {
+                ResultSet rs = stmt.executeQuery(realSql);
+                AbstractResultDataProcessor dataResultProcessor = ResultDataProcessorFactory.getDataResultProcessor(mysqlNode.getVariableKey(),flowRuntimeContext.getVariableManager());
+                dataResultProcessor.fillDataResultToVariable(rs,mysqlNode.getVariableKey());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ElementType } from '../types';
+import IconMethod from '@/components/icons/IconMethod.vue';
+import IconCondition from '@/components/icons/IconCondition.vue';
+import IconCode from '@/components/icons/IconCode.vue';
+import IconMysql from '@/components/icons/IconMysql.vue';
 const visible = ref(false);
 type NodeInfo = { name: string; elementType: ElementType  };
 let openParams: { afterSelect: (info: NodeInfo) => void };
@@ -10,32 +14,45 @@ function open (params: typeof openParams) {
   openParams = params;
 }
 
+const containerRef = ref<HTMLElement | null>(null)
+
+const handleClick = (e: MouseEvent) => {
+  e.preventDefault()
+}
+
 const flowNodes = [
   {
     name: '方法节点',
     type: ElementType.METHOD,
-    icon: 'Ⓐ',
+    icon: IconMethod,
   },
   {
     name: '判断节点',
     type: ElementType.CONDITION,
-    icon: 'Ⓒ',
+    icon: IconCondition,
   },
   {
     name: '代码节点',
     type: ElementType.CODE,
-    icon: '⊛',
-  },
+    icon: IconCode
+    ,
+  }
+];
+
+const flowDataNodes = [
   {
     name: 'MySql节点',
     type: ElementType.MYSQL,
-    icon: '⊛',
-  },
-  /*{
+    icon: IconMysql,
+  }
+];
+
+const flowOtherNodes = [
+  {
     name: 'OpenAi',
     type: ElementType.AI,
     icon: '⦾',
-  },*/
+  }
 ];
 
 function addNode (item: { name: string; type: ElementType }) {
@@ -61,21 +78,42 @@ defineExpose({ open });
     :show-close="false"
     align-center
   >
-    <el-tabs type="border-card">
-      <el-tab-pane label="流程节点">
-        <div class="node-types">
-          <div class="node-type"
-            v-for="item in flowNodes"
-            :key="item.type"
-            @click="addNode(item)"
-          >
-            <span>{{ item.icon }}</span><span>{{ item.name }}</span>
+    <el-anchor :offset="70"
+               :container="containerRef"
+               direction="horizontal"
+               @click="handleClick">
+      <el-anchor-link href="#baseNodes" title="基础节点"/>
+      <el-anchor-link href="#dataNodes" title="数据节点"/>
+    </el-anchor>
+    <el-row>
+      <el-col>
+        <div ref="containerRef" style="height: 300px; overflow-y: auto">
+          <div id="baseNodes" class="node-types">
+            <div class="node-type-name">基础节点</div>
+            <div class="node-type"
+                 v-for="item in flowNodes"
+                 :key="item.type"
+                 @click="addNode(item)"
+            >
+              <span><el-icon :size="25"><component :is="item.icon"></component></el-icon></span>
+              <span class="node-text">{{ item.name }}</span>
+            </div>
+          </div>
+
+          <div id="dataNodes" class="node-types">
+            <div class="node-type-name">数据节点</div>
+            <div class="node-type"
+                 v-for="item in flowDataNodes"
+                 :key="item.type"
+                 @click="addNode(item)"
+            >
+              <span><el-icon :size="25"><component :is="item.icon"></component></el-icon></span>
+              <span class="node-text">{{ item.name }}</span>
+            </div>
           </div>
         </div>
-      </el-tab-pane>
-<!--      <el-tab-pane label="调用节点">
-      </el-tab-pane>-->
-    </el-tabs>
+      </el-col>
+    </el-row>
   </el-dialog>
 </template>
 
@@ -95,8 +133,8 @@ defineExpose({ open });
   .el-dialog__body {
     padding: 0;
   }
-  .el-tab-pane {
-    height: 320px;
+  .el-anchor__link{
+    font-size: 15px;
   }
   .node-types {
     padding: 8px 0;
@@ -104,11 +142,22 @@ defineExpose({ open });
     flex-direction: column;
     align-items: flex-start;
   }
+  .node-type-name{
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
   .node-type {
-    line-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 448px;
     margin-bottom: 8px;
     font-size: 14px;
     cursor: pointer;
+    border: 1px solid #f0f2f5;
+  }
+  .node-text{
+    margin: 10px 5px;
   }
 }
 </style>
