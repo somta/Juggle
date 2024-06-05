@@ -207,7 +207,7 @@ export class VerticalLayout {
       const flowNode = container.selectChild('.flow-node')
       flowNode.select('text').text(data.raw.name);
     }
-    if ([ElementType.START, ElementType.METHOD].includes(data.type)) {
+    if ([ElementType.START, ElementType.METHOD, ElementType.CODE, ElementType.MYSQL].includes(data.type)) {
       this.drawAddIcon(container, node, type);
     }
   }
