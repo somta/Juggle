@@ -50,7 +50,6 @@ watch(
 const columns = [
   { name: '参数名称', prop: 'source' },
   { name: '数据类型', prop: 'sourceDataType' },
-  { name: '必填', prop: 'required' },
   { name: '赋值方式', prop: 'targetType' },
   { name: '赋值', prop: 'target' },
 ];
@@ -124,6 +123,10 @@ function onTargetChange (rowIndex: number) {
     rules.value[rowIndex].required = true;
   }
 }
+
+function getDataTypeDisplayName(dataType: any){
+  console.log(dataType)
+}
 </script>
 
 <template>
@@ -131,10 +134,7 @@ function onTargetChange (rowIndex: number) {
     <div class="rule-setting-head">
       <div class="rule-setting-tr">
         <template v-for="column in columns" :key="column.prop">
-          <template v-if="column.prop === 'required'">
-            <div class="rule-setting-td required-td" v-if="showRequired">{{ column.name }}</div>
-          </template>
-          <template v-else-if="column.prop === 'targetType'">
+          <template v-if="column.prop === 'targetType'">
             <div class="rule-setting-td" v-if="showTargetType">{{ column.name }}</div>
           </template>
           <div class="rule-setting-td" v-else>{{ column.name }}</div>
@@ -146,15 +146,16 @@ function onTargetChange (rowIndex: number) {
       <div class="rule-setting-tr" v-for="(rule, rowIndex) in rules" :key="rowIndex">
         <template v-for="column in columns" :key="column.prop">
           <div class="rule-setting-td" v-if="column.prop === 'source'">
+            <div class="required"><span v-if="requiredKeys.includes(rule.target)">*</span></div>
             <el-select v-model="rule.target" :disabled="requiredKeys.includes(rule.target)" size="small" @change="onTargetChange(rowIndex)">
               <el-option v-for="item in getAvailableTarget(rule.target)" :key="item.paramKey" :value="item.paramKey" :label="item.paramName" :title="item.paramName" />
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
+<!--            <template>
+              {{ getDataTypeDisplayName(rule.targetDataType) }}
+            </template>-->
             <DataTypeSelect v-model="rule.targetDataType" disabled type="basic" size="small" />
-          </div>
-          <div class="rule-setting-td required-td" v-else-if="showRequired && column.prop === 'required'">
-            <el-checkbox v-model="rule.required" :disabled="requiredKeys.includes(rule.target)" @change="onChange" />
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.sourceType" size="small" @change="onSourceTypeChange(rowIndex)">
@@ -205,7 +206,11 @@ function onTargetChange (rowIndex: number) {
     padding: 0 6px;
     display: flex;
     align-items: center;
-    &.delete-td, &.required-td {
+    .required {
+      color: red;
+      width: 10px;
+    }
+    &.delete-td {
       width: 40px;
       flex: none;
       justify-content: center;

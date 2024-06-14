@@ -80,6 +80,11 @@ public class ApiAO {
         this.apiHeaders = IParameterConverter.IMPL.headerParamerterPoListToVoList(headerPoList);
     }
 
+    /**
+     *
+     * @param originalResult original API response result data
+     * @return
+     */
     public Map<String, Object> handleApiResponseResult(Map<String, Object> originalResult) {
         Map<String, Object> result = new HashMap<>();
         List<OutputParameterVO> outputParameterList = this.parameterEntity.getOutputParameterList();

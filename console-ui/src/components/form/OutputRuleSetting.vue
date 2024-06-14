@@ -19,11 +19,7 @@ const props = defineProps({
   targetList: {
     type: Array as PropType<any[]>,
     default: () => [],
-  },
-  requiredKeys: {
-    type: Array as PropType<string[]>,
-    default: () => [],
-  },
+  }
 });
 const emit = defineEmits(['update:modelValue']);
 const rules = ref<RuleItem[]>([...(props.modelValue || [])]);
@@ -65,12 +61,6 @@ function onChange() {
   emit('update:modelValue', rules.value);
 }
 
-function onTargetTypeChange (rowIndex: number) {
-  rules.value[rowIndex].target = '';
-  rules.value[rowIndex].targetDataType = '';
-  onChange();
-}
-
 function onTargetVarChange (rowIndex: number) {
   const target = rules.value[rowIndex].target;
   const param = props.targetList.find((item) => item.envKey === target);
@@ -106,9 +96,6 @@ function onSourceChange (rowIndex: number) {
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].sourceDataType = param.dataType;
   rules.value[rowIndex].sourceType = param.sourceType;
-  if (props.requiredKeys.includes(source)) {
-    rules.value[rowIndex].required = true;
-  }
 }
 </script>
 
@@ -129,7 +116,7 @@ function onSourceChange (rowIndex: number) {
       <div class="rule-setting-tr" v-for="(rule, rowIndex) in rules" :key="rowIndex">
         <template v-for="column in columns" :key="column.prop">
           <div class="rule-setting-td" v-if="column.prop === 'source'">
-            <el-select v-model="rule.source" :disabled="requiredKeys.includes(rule.source)" size="small" @change="onSourceChange(rowIndex)">
+            <el-select v-model="rule.source" size="small" @change="onSourceChange(rowIndex)">
               <el-option v-for="item in getAvailableSource(rule.source)" :key="item.paramKey" :value="item.paramKey" :label="item.paramName" :title="item.paramName" />
             </el-select>
           </div>
@@ -144,7 +131,7 @@ function onSourceChange (rowIndex: number) {
           </div>
         </template>
         <div class="rule-setting-td delete-td">
-          <el-icon @click="removeRule(rowIndex)" v-if="!requiredKeys.includes(rule.source)"><Delete /></el-icon>
+          <el-icon @click="removeRule(rowIndex)"><Delete /></el-icon>
         </div>
       </div>
     </div>
