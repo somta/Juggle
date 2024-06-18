@@ -15,6 +15,7 @@ function getDefaultData () {
   return {
     key: '',
     name: '',
+    desc: '',
     outgoings: [],
     incomings: [],
     elementType: ElementType.MYSQL,
@@ -54,6 +55,14 @@ function validate () {
     ElMessage.error('节点名称不能为空');
     return false;
   }
+  if (!nodeData.value.dataSourceId) {
+    ElMessage.error('数据源不能为空');
+    return false;
+  }
+  if (!nodeData.value.operationType) {
+    ElMessage.error('操作类型不能为空');
+    return false;
+  }
   return true;
 }
 
@@ -84,6 +93,9 @@ async function loadDataSourceData() {
       </el-form-item>
       <el-form-item label="节点名称">
         <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
+      </el-form-item>
+      <el-form-item label="节点描述">
+        <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="数据源">
         <el-select v-model="nodeData.dataSourceId" placeholder="请选择数据源">

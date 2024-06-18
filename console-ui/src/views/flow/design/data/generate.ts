@@ -94,7 +94,7 @@ function generateNodeKey(type: ElementType) {
 
 // 生成8位随机字符串
 function generateRandomKey() {
-  return Math.random().toString(36).substring(2, 7);
+  return Math.random().toString(36).substring(2, 10);
 }
 
 // 初始化节点

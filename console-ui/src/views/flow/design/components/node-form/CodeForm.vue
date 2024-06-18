@@ -12,6 +12,7 @@ function getDefaultData () {
   return {
     key: '',
     name: '',
+    desc: '',
     outgoings: [],
     incomings: [],
     elementType: ElementType.CODE,
@@ -63,6 +64,9 @@ function onCancel() {
       </el-form-item>
       <el-form-item label="节点名称">
         <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
+      </el-form-item>
+      <el-form-item label="节点描述">
+        <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="Groovy代码">
         <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="480px" height="200px" language="groovy" />
