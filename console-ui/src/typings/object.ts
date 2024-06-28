@@ -1,5 +1,3 @@
-import {OutputParams} from "@/typings/parameter.ts";
-
 export interface ObjectProperty {
     propKey: string;
     propName: string;

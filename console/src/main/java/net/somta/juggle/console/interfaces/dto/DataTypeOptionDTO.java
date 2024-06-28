@@ -1,5 +1,10 @@
 package net.somta.juggle.console.interfaces.dto;
 
+import net.somta.juggle.console.domain.object.vo.PropertyVO;
+import net.somta.juggle.core.model.Property;
+
+import java.util.List;
+
 /**
  * @author husong
  */
@@ -14,7 +19,7 @@ public class DataTypeOptionDTO {
 
     private String objectKey;
 
-    private String objectStructure;
+    private List<Property> objectStructure;
 
     public DataTypeOptionDTO() {
     }
@@ -66,12 +71,11 @@ public class DataTypeOptionDTO {
         this.objectKey = objectKey;
     }
 
-    public String getObjectStructure() {
+    public List<Property> getObjectStructure() {
         return objectStructure;
     }
 
-    public void setObjectStructure(String objectStructure) {
+    public void setObjectStructure(List<Property> objectStructure) {
         this.objectStructure = objectStructure;
     }
-
 }

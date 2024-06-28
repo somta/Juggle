@@ -1,6 +1,7 @@
 package net.somta.juggle.console.interfaces.param;
 
 import net.somta.juggle.console.domain.object.vo.PropertyVO;
+import net.somta.juggle.core.model.Property;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ObjectAddParam {
 
     private String objectDesc;
 
-    private List<PropertyVO> props;
+    private List<Property> props;
 
     public String getObjectKey() {
         return objectKey;
@@ -41,11 +42,11 @@ public class ObjectAddParam {
         this.objectDesc = objectDesc;
     }
 
-    public List<PropertyVO> getProps() {
+    public List<Property> getProps() {
         return props;
     }
 
-    public void setProps(List<PropertyVO> props) {
+    public void setProps(List<Property> props) {
         this.props = props;
     }
 }

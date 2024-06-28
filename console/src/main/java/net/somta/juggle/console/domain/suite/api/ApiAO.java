@@ -90,7 +90,7 @@ public class ApiAO {
         List<OutputParameterVO> outputParameterList = this.parameterEntity.getOutputParameterList();
         if(CollectionUtils.isNotEmpty(outputParameterList)){
             for (OutputParameterVO outputParameter : outputParameterList){
-                DataType dataType = JsonSerializeHelper.deserialize(outputParameter.getDataType(), DataType.class);
+                DataType dataType = outputParameter.getDataType();
                 if(DataTypeEnum.Object.equals(dataType.getType())){
                     parseObjectAndFill(outputParameter.getParamKey(),dataType,result,originalResult);
                 } else {
@@ -109,7 +109,7 @@ public class ApiAO {
      * @param originalResult
      */
     private void parseObjectAndFill(String outputParameter, DataType outputParamDataType,Map<String, Object> result,Map<String, Object> originalResult) {
-        Property objectProperty = JsonSerializeHelper.deserialize(outputParamDataType.getObjectStructure(), Property.class);
+        List<Property> objectProperty = outputParamDataType.getObjectStructure();
 
         result.put(outputParameter,null);
     }

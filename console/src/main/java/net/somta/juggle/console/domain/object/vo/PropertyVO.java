@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.object.vo;
 
+
 /**
  * @author Gavin
  */

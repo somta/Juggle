@@ -8,9 +8,9 @@ export enum valueType {
 
 export type DataTypeItem = {
   type: string;
-  itemType: string;
-  objectKey: string;
-  objectStructure: string;
+  itemType?: string | null;
+  objectKey?: string | null;
+  objectStructure?: string| null;
 }
 
 export type RuleItem = {

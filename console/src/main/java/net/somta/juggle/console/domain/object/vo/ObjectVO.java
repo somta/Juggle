@@ -1,5 +1,7 @@
 package net.somta.juggle.console.domain.object.vo;
 
+import net.somta.juggle.core.model.Property;
+
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public class ObjectVO {
 
     private String objectDesc;
 
-    private List<PropertyVO> propertyList;
+    private List<Property> propertyList;
 
     public Long getId() {
         return id;
@@ -49,11 +51,11 @@ public class ObjectVO {
         this.objectDesc = objectDesc;
     }
 
-    public List<PropertyVO> getPropertyList() {
+    public List<Property> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<PropertyVO> propertyList) {
+    public void setPropertyList(List<Property> propertyList) {
         this.propertyList = propertyList;
     }
 }

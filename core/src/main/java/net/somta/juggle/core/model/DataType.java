@@ -19,6 +19,8 @@ package net.somta.juggle.core.model;
 
 import net.somta.juggle.core.enums.DataTypeEnum;
 
+import java.util.List;
+
 /**
  * 数据类型描述类
  *
@@ -37,9 +39,14 @@ public class DataType {
     private String itemType;
 
     /**
+     * 对象Key
+     */
+    private String objectKey;
+
+    /**
      * 对象的结构
      */
-    private String objectStructure;
+    private List<Property> objectStructure;
 
     public DataType() {
     }
@@ -64,11 +71,19 @@ public class DataType {
         this.itemType = itemType;
     }
 
-    public String getObjectStructure() {
+    public String getObjectKey() {
+        return objectKey;
+    }
+
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
+    }
+
+    public List<Property> getObjectStructure() {
         return objectStructure;
     }
 
-    public void setObjectStructure(String objectStructure) {
+    public void setObjectStructure(List<Property> objectStructure) {
         this.objectStructure = objectStructure;
     }
 }

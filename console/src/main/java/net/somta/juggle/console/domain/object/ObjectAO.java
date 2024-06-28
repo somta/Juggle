@@ -1,7 +1,10 @@
 package net.somta.juggle.console.domain.object;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.object.vo.PropertyVO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
+import net.somta.juggle.core.model.DataType;
+import net.somta.juggle.core.model.Property;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
@@ -20,23 +23,23 @@ public class ObjectAO {
 
     private String objectDesc;
 
-    private List<PropertyVO> propertyList;
+    private List<Property> propertyList;
 
 
-    public void initPropertyList(List<PropertyVO> objPropertyList) {
+    public void initPropertyList(List<Property> objPropertyList) {
         this.propertyList = objPropertyList;
     }
 
     public void parseProperty(List<ParameterPO> propertyList) {
         this.propertyList = new ArrayList<>(propertyList.size());
         if(CollectionUtils.isNotEmpty(propertyList)){
-            PropertyVO propertyVo = null;
+            Property property = null;
             for (ParameterPO parameterPo : propertyList) {
-                propertyVo = new PropertyVO();
-                propertyVo.setPropKey(parameterPo.getParamKey());
-                propertyVo.setPropName(parameterPo.getParamName());
-                propertyVo.setDataType(parameterPo.getDataType());
-                this.propertyList.add(propertyVo);
+                property = new Property();
+                property.setPropKey(parameterPo.getParamKey());
+                property.setPropName(parameterPo.getParamName());
+                property.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
+                this.propertyList.add(property);
             }
         }
     }
@@ -73,11 +76,11 @@ public class ObjectAO {
         this.objectDesc = objectDesc;
     }
 
-    public List<PropertyVO> getPropertyList() {
+    public List<Property> getPropertyList() {
         return propertyList;
     }
 
-    public void setPropertyList(List<PropertyVO> propertyList) {
+    public void setPropertyList(List<Property> propertyList) {
         this.propertyList = propertyList;
     }
 

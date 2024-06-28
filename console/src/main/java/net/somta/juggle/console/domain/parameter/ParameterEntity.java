@@ -53,7 +53,7 @@ public class ParameterEntity {
                 inputParameterPo.setParamKey(inputParameterVO.getParamKey());
                 inputParameterPo.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
                 inputParameterPo.setParamName(inputParameterVO.getParamName());
-                inputParameterPo.setDataType(inputParameterVO.getDataType());
+                inputParameterPo.setDataType(JsonSerializeHelper.serialize(inputParameterVO.getDataType()));
                 inputParameterPo.setRequired(inputParameterVO.getRequired());
                 inputParameterPo.setSourceId(sourceId);
                 inputParameterPo.setSourceType(sourceType);
@@ -67,7 +67,7 @@ public class ParameterEntity {
                 outputParameterPo.setParamKey(outputParameterVO.getParamKey());
                 outputParameterPo.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
                 outputParameterPo.setParamName(outputParameterVO.getParamName());
-                outputParameterPo.setDataType(outputParameterVO.getDataType());
+                outputParameterPo.setDataType(JsonSerializeHelper.serialize(outputParameterVO.getDataType()));
                 outputParameterPo.setSourceId(sourceId);
                 outputParameterPo.setSourceType(sourceType);
                 outputParameterPo.setCreatedAt(currentDate);
@@ -90,7 +90,7 @@ public class ParameterEntity {
             InputParameter inputParameter = new InputParameter();
             inputParameter.setKey(inputParameterVO.getParamKey());
             inputParameter.setName(inputParameterVO.getParamName());
-            inputParameter.setDataType(JsonSerializeHelper.deserialize(inputParameterVO.getDataType(), DataType.class));
+            inputParameter.setDataType(inputParameterVO.getDataType());
             inputParameter.setRequired(inputParameterVO.getRequired());
             inputParams.add(inputParameter);
         }
@@ -110,7 +110,7 @@ public class ParameterEntity {
             OutputParameter outputParameter = new OutputParameter();
             outputParameter.setKey(outputParameterVO.getParamKey());
             outputParameter.setName(outputParameterVO.getParamName());
-            outputParameter.setDataType(JsonSerializeHelper.deserialize(outputParameterVO.getDataType(),DataType.class));
+            outputParameter.setDataType(outputParameterVO.getDataType());
             outputParams.add(outputParameter);
         }
         return outputParams;

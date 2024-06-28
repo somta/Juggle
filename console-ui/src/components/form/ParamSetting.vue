@@ -2,11 +2,12 @@
 import { ref, watch, PropType } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
 import { Delete } from '@element-plus/icons-vue';
+import {DataTypeItem} from "@/typings";
 
 type ParamItem = {
   id?: number | null;
   paramKey: string;
-  dataType: string;
+  dataType: DataTypeItem;
   paramName: string;
   required: boolean;
 };
@@ -43,7 +44,7 @@ function addParam() {
   params.value.push({
     paramKey: '',
     paramName: '',
-    dataType: JSON.stringify({ type: 'String', itemType: '', objectKey: null, objectStructure: null  }),
+    dataType: { type: 'String', itemType: null, objectKey: null, objectStructure: null  },
     required: false,
   });
   onChange();

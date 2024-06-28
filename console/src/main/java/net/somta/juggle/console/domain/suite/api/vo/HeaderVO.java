@@ -1,5 +1,7 @@
 package net.somta.juggle.console.domain.suite.api.vo;
 
+import net.somta.juggle.core.model.DataType;
+
 /**
  * @author Gavin
  */
@@ -17,7 +19,7 @@ public class HeaderVO {
     /**
      * header 的数据类型
      */
-    private String dataType;
+    private DataType dataType;
 
     private Boolean required;
 
@@ -37,11 +39,11 @@ public class HeaderVO {
         this.headerName = headerName;
     }
 
-    public String getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
 

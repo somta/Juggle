@@ -1,5 +1,7 @@
 package net.somta.juggle.console.domain.parameter.vo;
 
+import net.somta.juggle.core.model.DataType;
+
 /**
  * @author Gavin
  */
@@ -17,7 +19,7 @@ public class OutputParameterVO {
     /**
      * 参数的数据类型
      */
-    private String dataType;
+    private DataType dataType;
 
     public String getParamKey() {
         return paramKey;
@@ -35,11 +37,11 @@ public class OutputParameterVO {
         this.paramName = paramName;
     }
 
-    public String getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
 }

@@ -34,10 +34,10 @@ public class Property {
     /**
      * 参数的数据类型
      */
-    private String dataType;
+    private DataType dataType;
 
     // todo 这里能否直接反序列化成对象
-    private DataType dataTypeObj;
+    //private DataType dataTypeObj;
 
     public String getPropKey() {
         return propKey;
@@ -55,19 +55,19 @@ public class Property {
         this.propName = propName;
     }
 
-    public String getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
 
-    public DataType getDataTypeObj() {
+    /*public DataType getDataTypeObj() {
         return dataTypeObj;
     }
 
     public void setDataTypeObj(DataType dataTypeObj) {
         this.dataTypeObj = dataTypeObj;
-    }
+    }*/
 }

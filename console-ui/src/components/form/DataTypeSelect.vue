@@ -25,7 +25,7 @@ enum DataTypeEnum {
   Object = 3,
 }
 
-type DataTypeItem = {
+type DataTypeInfoItem = {
   id: number;
   dataTypeClassify: DataTypeEnum;
   type: string;
@@ -34,7 +34,7 @@ type DataTypeItem = {
   objectStructure: string;
 }
 
-const dataTypeList = ref<DataTypeItem[]>([]);
+const dataTypeList = ref<DataTypeInfoItem[]>([]);
 
 async function loadData () {
   const res = await commonService.dataType.getList();
@@ -105,7 +105,7 @@ function arrayToType (arr: string[]) {
     type: '',
     itemType: '',
     objectKey: null as unknown as string,
-    objectStructure: null as unknown as string,
+    objectStructure: null as unknown,
   };
   if (arr[0] === 'Basic') {
     result.type = arr[1];
@@ -123,6 +123,7 @@ function arrayToType (arr: string[]) {
   }
   if (result.objectKey) {
     const item = dataTypeList.value.find(item => item.objectKey === result.objectKey);
+    console.log('333',item)
     if (item) {
       result.objectStructure = item.objectStructure;
     }
@@ -134,7 +135,7 @@ const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
     if (props.valueType === 'String') {
-      val = getDataTypeObject(props.modelValue as string);
+      val = getDataTypeObject(props.modelValue);
     } else if (props.valueType === 'Object') {
       val = { ...props.modelValue as object };
     }
@@ -167,12 +168,13 @@ const handleChange = (val: any) => {
     return;
   }
   const result = arrayToType(val);
-  const resultJson = JSON.stringify(result);
-  emit('update:modelValue', resultJson);
-  emit('change', resultJson);
+  //const resultJson = JSON.stringify(result);
+  emit('update:modelValue', result);
+  emit('change', result);
 }
 
 const handleBasicChange = (val: any) => {
+  console.log('handleBasicChange:',val);
   if (!val) {
     emit('update:modelValue', null);
     emit('change', null);
@@ -184,9 +186,9 @@ const handleBasicChange = (val: any) => {
     objectKey: null,
     objectStructure: null,
   };
-  if (props.valueType === 'String') {
+  /*if (props.valueType === 'String') {
     result = JSON.stringify(result);
-  }
+  }*/
   emit('update:modelValue', result);
   emit('change', result);
 }

@@ -29,7 +29,7 @@ public abstract class AbstractResultDataProcessor {
     }
 
     protected static Object getResultValue(ResultSet resultSet, Property property) throws SQLException {
-        DataType dataType = property.getDataTypeObj();
+        DataType dataType = property.getDataType();
         switch (dataType.getType()){
             case String:
                 return resultSet.getString(property.getPropKey());

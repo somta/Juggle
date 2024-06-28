@@ -29,7 +29,7 @@ public interface IDataTypeInfoAssembler {
             dataTypeOptionDTO.setType("Object");
             dataTypeOptionDTO.setObjectKey(objectVo.getObjectKey());
             dataTypeOptionDTO.setDisplayName(objectVo.getObjectName());
-            dataTypeOptionDTO.setObjectStructure(JsonSerializeHelper.serialize(objectVo.getPropertyList()));
+            dataTypeOptionDTO.setObjectStructure(objectVo.getPropertyList());
             list.add(dataTypeOptionDTO);
         }
         return list;

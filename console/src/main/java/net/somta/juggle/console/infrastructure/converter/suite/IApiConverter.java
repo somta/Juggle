@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.converter.suite;
 
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.ApiAO;
 import net.somta.juggle.console.domain.suite.api.vo.ApiVO;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
@@ -40,7 +41,7 @@ public interface IApiConverter {
                 parameterPo.setParamKey(headerVo.getHeaderKey());
                 parameterPo.setParamName(headerVo.getHeaderName());
                 parameterPo.setParamType(ParameterTypeEnum.HEADER.getCode());
-                parameterPo.setDataType(headerVo.getDataType());
+                parameterPo.setDataType(JsonSerializeHelper.serialize(headerVo.getDataType()));
                 parameterPo.setSourceType(ParameterSourceTypeEnum.API.getCode());
                 parameterPo.setRequired(headerVo.getRequired());
                 parameterPo.setSourceId(sourceId);

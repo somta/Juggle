@@ -96,7 +96,7 @@ function getParams () {
   const params: any = {};
   apiInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType:DataTypeItem = JSON.parse(param.dataType);
+      const dataType:DataTypeItem = param.dataType;
       if(dataType.type === "Object" || dataType.type === "List"){
         params[param.paramKey] = JSON.parse(param.value);
       }else{
