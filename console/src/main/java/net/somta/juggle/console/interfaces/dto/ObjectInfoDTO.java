@@ -1,6 +1,7 @@
 package net.somta.juggle.console.interfaces.dto;
 
 import net.somta.juggle.console.domain.object.vo.PropertyVO;
+import net.somta.juggle.core.model.Property;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ObjectInfoDTO {
 
     private String objectDesc;
 
-    private List<PropertyVO> props;
+    private List<Property> props;
 
     public Long getId() {
         return id;
@@ -51,11 +52,11 @@ public class ObjectInfoDTO {
         this.objectDesc = objectDesc;
     }
 
-    public List<PropertyVO> getProps() {
+    public List<Property> getProps() {
         return props;
     }
 
-    public void setProps(List<PropertyVO> props) {
+    public void setProps(List<Property> props) {
         this.props = props;
     }
 }

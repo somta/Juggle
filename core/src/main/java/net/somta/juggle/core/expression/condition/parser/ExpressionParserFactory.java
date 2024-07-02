@@ -31,8 +31,7 @@ public class ExpressionParserFactory {
 
     private static Map<String,IExpressionParser> parserMap = new ConcurrentHashMap<>();
 
-    public static IExpressionParser getParserInstance(String dataTypeStr){
-        DataType dataTypeInfo = JsonSerializeHelper.deserialize(dataTypeStr, DataType.class);
+    public static IExpressionParser getParserInstance(DataType dataTypeInfo){
         DataTypeEnum type = dataTypeInfo.getType();
         IExpressionParser expressionParser = parserMap.get(type.name());
         if(expressionParser != null){

@@ -17,6 +17,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.model.node;
 
 import net.somta.juggle.core.enums.AssignTypeEnum;
+import net.somta.juggle.core.model.DataType;
 
 import java.util.List;
 
@@ -98,7 +99,7 @@ public class ConditionNode extends FlowNode{
         /**
          * 原变量的类型
          */
-        private String dataType;
+        private DataType dataType;
 
         /**
          * 操作符 等于 不等于
@@ -123,11 +124,11 @@ public class ConditionNode extends FlowNode{
             this.envKey = envKey;
         }
 
-        public String getDataType() {
+        public DataType getDataType() {
             return dataType;
         }
 
-        public void setDataType(String dataType) {
+        public void setDataType(DataType dataType) {
             this.dataType = dataType;
         }
 

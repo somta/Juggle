@@ -1,5 +1,9 @@
 package net.somta.juggle.console.domain.flow.definition.vo;
 
+import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.juggle.core.enums.DataTypeEnum;
+import net.somta.juggle.core.model.DataType;
+
 /**
  * @author husong
  */
@@ -24,7 +28,7 @@ public class VariableInfoVO {
     /**
      * data type
      */
-    private String dataType;
+    private DataType dataType;
 
     public Long getId() {
         return id;
@@ -58,11 +62,12 @@ public class VariableInfoVO {
         this.envType = envType;
     }
 
-    public String getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
 
-    public void setDataType(String dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
+
 }

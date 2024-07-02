@@ -110,7 +110,7 @@ public class FlowDefinitionAO {
                 variable = new Variable();
                 variable.setKey(variableInfoVo.getEnvKey());
                 variable.setName(variableInfoVo.getEnvName());
-                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoVo.getDataType(), DataType.class));
+                variable.setDataType(variableInfoVo.getDataType());
                 variables.add(variable);
             }
         }

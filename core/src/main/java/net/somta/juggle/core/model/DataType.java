@@ -17,6 +17,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 
 package net.somta.juggle.core.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import net.somta.juggle.core.enums.DataTypeEnum;
 
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author husong
  * @since 1.0.0
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataType {
 
     /**
