@@ -29,6 +29,7 @@ public class TokenPO extends BaseModel {
     private Long id;
     private String tokenValue;
     private String tokenDesc;
+    private Integer deleted;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
 
@@ -54,6 +55,14 @@ public class TokenPO extends BaseModel {
 
     public void setTokenDesc(String tokenDesc) {
         this.tokenDesc = tokenDesc;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     @Override

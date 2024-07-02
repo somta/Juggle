@@ -8,6 +8,7 @@
 	<result column="id" property="id"/>
 	<result column="user_name" property="userName"/>
 	<result column="password" property="password"/>
+	<result column="deleted" property="deleted"/>
 	<result column="created_at" property="createdAt"/>
 	<result column="created_by" property="createdBy"/>
 	<result column="updated_at" property="updatedAt"/>
@@ -24,8 +25,8 @@
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.UserPO" >
-	insert into t_user (id, user_name, password, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{userName},#{password},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_user (id, user_name, password, deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{userName},#{password},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">

@@ -23,7 +23,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression unknownConditionExpression = new ConditionExpression();
         unknownConditionExpression.setEnvKey("env_birthday");
-        unknownConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        unknownConditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         unknownConditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         try {
             dateParser.genExpression(unknownConditionExpression);
@@ -37,7 +37,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression equalConditionExpression = new ConditionExpression();
         equalConditionExpression.setEnvKey("env_birthday");
-        equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        equalConditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         equalConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
         equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("2023-12-13 18:14:34");
@@ -46,7 +46,7 @@ class DateParserTest {
 
         ConditionExpression equalConditionExpression2 = new ConditionExpression();
         equalConditionExpression2.setEnvKey("env_birthday");
-        equalConditionExpression2.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        equalConditionExpression2.setDataType(new DataType(DataTypeEnum.Date));
         equalConditionExpression2.setOperator(OperatorEnum.EQUAL.getCode());
         equalConditionExpression2.setAssignType(AssignTypeEnum.VARIABLE);
         equalConditionExpression2.setValue("input_birthday");
@@ -59,7 +59,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression notEqualConditionExpression = new ConditionExpression();
         notEqualConditionExpression.setEnvKey("env_birthday");
-        notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        notEqualConditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         notEqualConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
         notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("2023-12-13 18:14:34");
@@ -71,7 +71,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression gtConditionExpression = new ConditionExpression();
         gtConditionExpression.setEnvKey("env_birthday");
-        gtConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        gtConditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         gtConditionExpression.setOperator(OperatorEnum.GREATER_THAN.getCode());
         gtConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         gtConditionExpression.setValue("2023-12-13 18:14:34");
@@ -83,7 +83,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression conditionExpression = new ConditionExpression();
         conditionExpression.setEnvKey("env_birthday");
-        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        conditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         conditionExpression.setOperator(OperatorEnum.GREATER_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("2023-12-13 18:14:34");
@@ -95,7 +95,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression conditionExpression = new ConditionExpression();
         conditionExpression.setEnvKey("env_birthday");
-        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        conditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
         conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("2023-12-13 18:14:34");
@@ -107,7 +107,7 @@ class DateParserTest {
         IExpressionParser dateParser = new DateParser();
         ConditionExpression conditionExpression = new ConditionExpression();
         conditionExpression.setEnvKey("env_birthday");
-        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Date)));
+        conditionExpression.setDataType(new DataType(DataTypeEnum.Date));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN_OR_EQUAL.getCode());
         conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("2023-12-13 18:14:34");

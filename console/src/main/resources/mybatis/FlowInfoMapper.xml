@@ -5,10 +5,9 @@
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.flow.FlowInfoMapper" >
 
 <insert id="addFlowInfo" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" >
-	insert into t_flow_info (id, flow_key, flow_name,flow_type, remark, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{flowKey},#{flowName},#{flowType},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_flow_info (id, flow_key, flow_name,flow_type, remark,deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowKey},#{flowName},#{flowType},#{remark},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
-
 
 <select id="querySimpleFlowInfo" resultType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.Long">
 	select id,flow_key,flow_name,flow_type

@@ -60,10 +60,10 @@ public class FlowDefinitionHelper {
         FillStruct headerFillStruct = new FillStruct();
         headerFillStruct.setSource("input_id");
         headerFillStruct.setSourceType(FieldSourceEnum.VARIABLE);
-        headerFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
+        headerFillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
         headerFillStruct.setTarget("userId");
         headerFillStruct.setTargetType(FieldSourceEnum.HEADER);
-        headerFillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
+        headerFillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
         headerFillRules.add(headerFillStruct);
         method.setHeaderFillRules(headerFillRules);
 
@@ -72,10 +72,10 @@ public class FlowDefinitionHelper {
         FillStruct fillStruct = new FillStruct();
         fillStruct.setSource("input_id");
         fillStruct.setSourceType(FieldSourceEnum.VARIABLE);
-        fillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
+        fillStruct.setSourceDataType(new DataType(DataTypeEnum.Integer));
         fillStruct.setTarget("userId");
         fillStruct.setTargetType(FieldSourceEnum.INPUT_PARAM);
-        fillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
+        fillStruct.setTargetDataType(new DataType(DataTypeEnum.Integer));
         inputFillRules.add(fillStruct);
         method.setInputFillRules(inputFillRules);
 
@@ -85,10 +85,10 @@ public class FlowDefinitionHelper {
         FillStruct outFillStruct = new FillStruct();
         outFillStruct.setSource("name");
         outFillStruct.setSourceType(FieldSourceEnum.OUTPUT_PARAM);
-        outFillStruct.setSourceDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        outFillStruct.setSourceDataType(new DataType(DataTypeEnum.String));
         outFillStruct.setTarget("output_userName");
         outFillStruct.setTargetType(FieldSourceEnum.VARIABLE);
-        outFillStruct.setTargetDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        outFillStruct.setTargetDataType(new DataType(DataTypeEnum.String));
         outputFillRules.add(outFillStruct);
         method.setOutputFillRules(outputFillRules);
 
@@ -119,7 +119,7 @@ public class FlowDefinitionHelper {
         List<ConditionExpression> conditionExpressions11 = new ArrayList<>();
         ConditionExpression conditionExpression11 = new ConditionExpression();
         conditionExpression11.setEnvKey("input_name");
-        conditionExpression11.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        conditionExpression11.setDataType(new DataType(DataTypeEnum.String));
         conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression11.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression11.setValue("张三");
@@ -129,7 +129,7 @@ public class FlowDefinitionHelper {
         List<ConditionExpression> conditionExpressions12 = new ArrayList<>();
         ConditionExpression conditionExpression12 = new ConditionExpression();
         conditionExpression12.setEnvKey("input_name");
-        conditionExpression12.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        conditionExpression12.setDataType(new DataType(DataTypeEnum.String));
         conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression12.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression12.setValue("三");
@@ -153,7 +153,7 @@ public class FlowDefinitionHelper {
         List<ConditionExpression> conditionExpressions21 = new ArrayList<>();
         ConditionExpression conditionExpression21 = new ConditionExpression();
         conditionExpression21.setEnvKey("input_name");
-        conditionExpression21.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        conditionExpression21.setDataType(new DataType(DataTypeEnum.String));
         conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression21.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression21.setValue("lisi");
@@ -226,7 +226,7 @@ public class FlowDefinitionHelper {
         OutputParameterVO outputParameterVO = new OutputParameterVO();
         outputParameterVO.setParamKey("userName");
         outputParameterVO.setParamName("流程出参-用户名称");
-        outputParameterVO.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        outputParameterVO.setDataType(new DataType(DataTypeEnum.String));
         outputParameters.add(outputParameterVO);
         parameterEntity.setOutputParameterList(outputParameters);
 
@@ -241,21 +241,21 @@ public class FlowDefinitionHelper {
         inputVariable1.setEnvKey("input_id");
         inputVariable1.setEnvName("入参-用户ID变量");
         inputVariable1.setEnvType(1);
-        inputVariable1.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        inputVariable1.setDataType(new DataType(DataTypeEnum.String));
         variableInfoList.add(inputVariable1);
 
         VariableInfoVO inputVariable2 = new VariableInfoVO();
         inputVariable2.setEnvKey("input_name");
         inputVariable2.setEnvName("入参-用户姓名变量");
         inputVariable2.setEnvType(1);
-        inputVariable2.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        inputVariable2.setDataType(new DataType(DataTypeEnum.String));
         variableInfoList.add(inputVariable2);
 
         VariableInfoVO outputVariable1 = new VariableInfoVO();
         outputVariable1.setEnvKey("output_userName");
         outputVariable1.setEnvName("流程出参-用户姓名变量");
         outputVariable1.setEnvType(2);
-        outputVariable1.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        outputVariable1.setDataType(new DataType(DataTypeEnum.String));
         variableInfoList.add(outputVariable1);
 
         return variableInfoList;
@@ -268,7 +268,7 @@ public class FlowDefinitionHelper {
                 Variable variable = new Variable();
                 variable.setKey(variableInfoVo.getEnvKey());
                 variable.setName(variableInfoVo.getEnvName());
-                variable.setDataType(JsonSerializeHelper.deserialize(variableInfoVo.getDataType(), DataType.class));
+                variable.setDataType(variableInfoVo.getDataType());
                 variables.add(variable);
             }
         }

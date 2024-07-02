@@ -5,8 +5,8 @@
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.system.DataSourceMapper" >
 
 <insert id="addDataSource" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
-    insert into t_data_source (id, data_source_name, data_source_type, address, port, user_name, password, database_name, connect_ext_info, min_pool_size, max_pool_size, query_timeout, data_source_ext_info, created_at, created_by, updated_at, updated_by)
-    values (#{id},#{dataSourceName},#{dataSourceType},#{address},#{port},#{userName},#{password},#{databaseName},#{connectExtInfo},#{minPoolSize},#{maxPoolSize},#{queryTimeout},#{dataSourceExtInfo},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+    insert into t_data_source (id, data_source_name, data_source_type, address, port, user_name, password, database_name, connect_ext_info, min_pool_size, max_pool_size, query_timeout, data_source_ext_info, deleted,created_at, created_by, updated_at, updated_by)
+    values (#{id},#{dataSourceName},#{dataSourceType},#{address},#{port},#{userName},#{password},#{databaseName},#{connectExtInfo},#{minPoolSize},#{maxPoolSize},#{queryTimeout},#{dataSourceExtInfo},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <select id="queryDataSourceList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">

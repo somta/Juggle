@@ -9,6 +9,7 @@
 	<result column="object_key" property="objectKey"/>
 	<result column="object_name" property="objectName"/>
 	<result column="object_desc" property="objectDesc"/>
+	<result column="deleted" property="deleted"/>
 	<result column="created_at" property="createdAt"/>
 	<result column="created_by" property="createdBy"/>
 	<result column="updated_at" property="updatedAt"/>
@@ -28,8 +29,8 @@
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ObjectPO" >
-	insert into t_object (id, object_key, object_name, object_desc, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{objectKey},#{objectName},#{objectDesc},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_object (id, object_key, object_name, object_desc,deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{objectKey},#{objectName},#{objectDesc},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">

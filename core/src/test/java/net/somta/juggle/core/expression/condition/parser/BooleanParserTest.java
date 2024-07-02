@@ -16,7 +16,7 @@ class BooleanParserTest {
         IExpressionParser booleanParser = new BooleanParser();
         ConditionExpression equalConditionExpression = new ConditionExpression();
         equalConditionExpression.setEnvKey("env_loginFlag");
-        equalConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
+        equalConditionExpression.setDataType(new DataType(DataTypeEnum.Boolean));
         equalConditionExpression.setOperator(OperatorEnum.EQUAL.getCode());
         equalConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         equalConditionExpression.setValue("true");
@@ -25,7 +25,7 @@ class BooleanParserTest {
 
         ConditionExpression notEqualConditionExpression = new ConditionExpression();
         notEqualConditionExpression.setEnvKey("env_loginFlag");
-        notEqualConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
+        notEqualConditionExpression.setDataType(new DataType(DataTypeEnum.Boolean));
         notEqualConditionExpression.setOperator(OperatorEnum.NOT_EQUAL.getCode());
         notEqualConditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         notEqualConditionExpression.setValue("true");
@@ -34,7 +34,7 @@ class BooleanParserTest {
 
         ConditionExpression unknownConditionExpression = new ConditionExpression();
         unknownConditionExpression.setEnvKey("env_loginFlag");
-        unknownConditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Boolean)));
+        unknownConditionExpression.setDataType(new DataType(DataTypeEnum.Boolean));
         unknownConditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         try {
             booleanParser.genExpression(unknownConditionExpression);

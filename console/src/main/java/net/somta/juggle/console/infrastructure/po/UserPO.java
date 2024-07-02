@@ -9,6 +9,7 @@ public class UserPO extends BaseModel {
     private Long id;
     private String userName;
     private String password;
+    private Integer deleted;
 
     public Long getId() {
         return id;
@@ -32,5 +33,13 @@ public class UserPO extends BaseModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

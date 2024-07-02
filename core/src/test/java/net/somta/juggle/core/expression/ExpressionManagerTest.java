@@ -26,7 +26,7 @@ class ExpressionManagerTest {
         List<ConditionNode.ConditionExpression> expressionList1 = new ArrayList<>();
         ConditionNode.ConditionExpression expressionVo1 = new ConditionNode.ConditionExpression();
         expressionVo1.setEnvKey("env_userName");
-        expressionVo1.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        expressionVo1.setDataType(new DataType(DataTypeEnum.String));
         expressionVo1.setOperator(OperatorEnum.EQUAL.getCode());
         expressionVo1.setAssignType(AssignTypeEnum.CONSTANT);
         expressionVo1.setValue("zhansan");
@@ -34,7 +34,7 @@ class ExpressionManagerTest {
 
         ConditionNode.ConditionExpression expressionVo2 = new ConditionNode.ConditionExpression();
         expressionVo2.setEnvKey("env_age");
-        expressionVo2.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Integer)));
+        expressionVo2.setDataType(new DataType(DataTypeEnum.Integer));
         expressionVo2.setOperator(OperatorEnum.EQUAL.getCode());
         expressionVo2.setAssignType(AssignTypeEnum.CONSTANT);
         expressionVo2.setValue("18");
@@ -46,7 +46,7 @@ class ExpressionManagerTest {
         List<ConditionNode.ConditionExpression> expressionList2 = new ArrayList<>();
         ConditionNode.ConditionExpression expressionVo3 = new ConditionNode.ConditionExpression();
         expressionVo3.setEnvKey("env_userName");
-        expressionVo3.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.String)));
+        expressionVo3.setDataType(new DataType(DataTypeEnum.String));
         expressionVo3.setOperator(OperatorEnum.CONTAINS.getCode());
         expressionVo3.setAssignType(AssignTypeEnum.CONSTANT);
         expressionVo3.setValue("san");

@@ -32,6 +32,8 @@ public class DataSourcePO extends BaseModel {
     private Integer queryTimeout;
     private String dataSourceExtInfo;
 
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -142,5 +144,13 @@ public class DataSourcePO extends BaseModel {
 
     public void setDataSourceExtInfo(String dataSourceExtInfo) {
         this.dataSourceExtInfo = dataSourceExtInfo;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

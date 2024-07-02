@@ -32,6 +32,7 @@ public class SuitePO extends BaseModel {
     private String suiteDesc;
     private String suiteHelpDocUrl;
     private Integer suiteFlag;
+    private Integer deleted;
 
     public Long getId() {
         return id;
@@ -103,5 +104,13 @@ public class SuitePO extends BaseModel {
 
     public void setSuiteFlag(Integer suiteFlag) {
         this.suiteFlag = suiteFlag;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

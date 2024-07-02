@@ -22,6 +22,8 @@ public class FlowTemplatePO extends BaseModel {
 
     private String variables;
 
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -84,5 +86,13 @@ public class FlowTemplatePO extends BaseModel {
 
     public void setVariables(String variables) {
         this.variables = variables;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

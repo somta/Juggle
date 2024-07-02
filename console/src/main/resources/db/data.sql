@@ -13,6 +13,7 @@ INSERT INTO `t_api` VALUES (16, 1, '获取订单列表', 'http://127.0.0.1:9127/
 INSERT INTO `t_api` VALUES (17, 1, '查询订单详情', 'http://127.0.0.1:9127/example/order/queryOrderByNo', '查询订单信息 -测试接口', 'GET', 'application/x-www-form-urlencoded', '2024-03-11 22:24:25', 1, '2024-03-10 23:24:27', 1);
 
 
+
 INSERT INTO `t_parameter` (`param_type`, `param_key`, `param_name`, `param_desc`, `data_type`, `required`, `source_type`, `source_id`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (1, 'userName', '用户名', NULL, '{"type":"String","itemType":"","objectKey":null,"objectStructure":null}', 1, 'api', 1, '2024-03-10 22:16:37', NULL, '2024-03-10 23:17:49', NULL);
 INSERT INTO `t_parameter` (`param_type`, `param_key`, `param_name`, `param_desc`, `data_type`, `required`, `source_type`, `source_id`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (1, 'password', '密码', NULL, '{"type":"String","itemType":"","objectKey":null,"objectStructure":null}', 1, 'api', 1, '2024-03-10 22:16:37', NULL, '2024-03-10 23:17:49', NULL);
 INSERT INTO `t_parameter` (`param_type`, `param_key`, `param_name`, `param_desc`, `data_type`, `required`, `source_type`, `source_id`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (2, 'userId', '用户ID', NULL, '{"type":"Integer","itemType":"","objectKey":null,"objectStructure":null}', NULL, 'api', 1, '2024-03-10 22:15:37', NULL, '2024-03-10 23:16:49', NULL);

@@ -10,6 +10,7 @@
 	<result column="flow_name" property="flowName"/>
 	<result column="flow_type" property="flowType"/>
 	<result column="remark" property="remark"/>
+	<result column="deleted" property="deleted"/>
 	<result column="created_at" property="createdAt"/>
 	<result column="created_by" property="createdBy"/>
 	<result column="updated_at" property="updatedAt"/>
@@ -31,8 +32,8 @@
 </sql>
    
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.flow.FlowDefinitionInfoPO" >
-	insert into t_flow_info (id, flow_key, flow_name,flow_type, remark, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{flowKey},#{flowName},#{flowType},#{remark},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_flow_info (id, flow_key, flow_name,flow_type, remark,deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowKey},#{flowName},#{flowType},#{remark},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">

@@ -34,7 +34,7 @@ public class FlowDefinitionInfoPO extends BaseModel {
      */
     private String remark;
 
-    private Date createdAt;
+    private Integer deleted;
 
 
     public Long getId() {
@@ -85,13 +85,11 @@ public class FlowDefinitionInfoPO extends BaseModel {
         this.remark = remark;
     }
 
-    @Override
-    public Date getCreatedAt() {
-        return createdAt;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    @Override
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

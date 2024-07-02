@@ -16,6 +16,8 @@ public class FlowInfoPO extends BaseModel {
 
     private String remark;
 
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -54,5 +56,13 @@ public class FlowInfoPO extends BaseModel {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

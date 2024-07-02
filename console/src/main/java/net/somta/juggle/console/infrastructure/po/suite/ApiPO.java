@@ -36,6 +36,8 @@ public class ApiPO extends BaseModel {
      */
     private String apiRequestContentType;
 
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -90,5 +92,13 @@ public class ApiPO extends BaseModel {
 
     public void setApiRequestContentType(String apiRequestContentType) {
         this.apiRequestContentType = apiRequestContentType;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

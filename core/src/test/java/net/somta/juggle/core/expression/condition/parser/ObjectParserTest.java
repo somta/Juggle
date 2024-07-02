@@ -24,7 +24,7 @@ class ObjectParserTest {
         IExpressionParser objectParser = new ObjectParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_user");
-        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Object)));
+        conditionExpression.setDataType(new DataType(DataTypeEnum.Object));
         conditionExpression.setOperator(OperatorEnum.EMPTY.getCode());
         String str = objectParser.genExpression(conditionExpression);
         Assertions.assertEquals("object.empty(env_user)",str);
@@ -34,7 +34,7 @@ class ObjectParserTest {
         IExpressionParser objectParser = new ObjectParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_user");
-        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Object)));
+        conditionExpression.setDataType(new DataType(DataTypeEnum.Object));
         conditionExpression.setOperator(OperatorEnum.NOT_EMPTY.getCode());
         String str = objectParser.genExpression(conditionExpression);
         Assertions.assertEquals("!object.empty(env_user)",str);
@@ -44,7 +44,7 @@ class ObjectParserTest {
         IExpressionParser objectParser = new ObjectParser();
         ConditionNode.ConditionExpression conditionExpression = new ConditionNode.ConditionExpression();
         conditionExpression.setEnvKey("env_user");
-        conditionExpression.setDataType(JsonSerializeHelper.serialize(new DataType(DataTypeEnum.Object)));
+        conditionExpression.setDataType(new DataType(DataTypeEnum.Object));
         conditionExpression.setOperator(OperatorEnum.LESS_THAN.getCode());
         conditionExpression.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression.setValue("100");
