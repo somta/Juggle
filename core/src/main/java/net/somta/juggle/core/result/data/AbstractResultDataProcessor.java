@@ -4,8 +4,11 @@ import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Property;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.variable.AbstractVariableManager;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.RowId;
 import java.sql.SQLException;
 
 public abstract class AbstractResultDataProcessor {
@@ -30,6 +33,9 @@ public abstract class AbstractResultDataProcessor {
 
     protected static Object getResultValue(ResultSet resultSet, Property property) throws SQLException {
         DataType dataType = property.getDataType();
+        if(!isExistColumn(resultSet,property.getPropKey())){
+            return null;
+        }
         switch (dataType.getType()){
             case String:
                 return resultSet.getString(property.getPropKey());
@@ -40,6 +46,28 @@ public abstract class AbstractResultDataProcessor {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Determine if there is a column in the returned dataset that corresponds to the attribute key of the receiving object
+     * @param resultSet Query the returned dataset object
+     * @param propKey The key of the receiving object
+     * @return
+     * @throws SQLException
+     */
+    private static boolean isExistColumn(ResultSet resultSet,String propKey) throws SQLException {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int count = metaData.getColumnCount();
+        if(count <= 0){
+            return false;
+        }
+        for (int i=1; i<=count; i++){
+            String columnName = metaData.getColumnLabel(i);
+            if(StringUtils.isNotEmpty(columnName) && columnName.equals(propKey)){
+                return true;
+            }
+        }
+        return false;
     }
 
     protected abstract Object getFillResultData(ResultSet resultSet, Variable variable) throws SQLException;
