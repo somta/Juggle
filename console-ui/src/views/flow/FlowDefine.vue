@@ -144,6 +144,7 @@ function openEdit(row: any) {
           :pageNum="pageNum"
           :pageSize="pageSize"
           :loading="loading"
+          @pageChange="onPageChange"
           @deploy="openDeployDialog"
           @edit="openEdit"
           @delete="openDelete"

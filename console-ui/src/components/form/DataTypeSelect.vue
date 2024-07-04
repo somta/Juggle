@@ -103,8 +103,8 @@ function arrayToType (arr: string[]) {
   }
   const result = {
     type: '',
-    itemType: '',
-    objectKey: null as unknown as string,
+    itemType: null as string,
+    objectKey: null as string,
     objectStructure: null as unknown,
   };
   if (arr[0] === 'Basic') {

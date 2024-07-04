@@ -104,14 +104,17 @@ public class ApiAO {
 
     /**
      * 解析对象属性并填充对象的值到结果中
-     * @param outputParameter
+     * @param outputParameterKey
      * @param result
      * @param originalResult
      */
-    private void parseObjectAndFill(String outputParameter, DataType outputParamDataType,Map<String, Object> result,Map<String, Object> originalResult) {
+    private void parseObjectAndFill(String outputParameterKey, DataType outputParamDataType,Map<String, Object> result,Map<String, Object> originalResult) {
         List<Property> objectProperty = outputParamDataType.getObjectStructure();
+        for (Property property : objectProperty){
+            originalResult.get(property.getPropKey());
+        }
 
-        result.put(outputParameter,null);
+        result.put(outputParameterKey,null);
     }
 
     private Map<String,Object> getObjectRealData(){

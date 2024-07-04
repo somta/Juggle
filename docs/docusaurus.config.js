@@ -172,7 +172,7 @@ module.exports = {
                         ],
                     }
                 ],
-                copyright: `GPL 3.0 | Copyright © 2018-${new Date().getFullYear()}-明天的地平线 `
+                copyright: `<a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备18059311号-4</a> | GPL 3.0 | Copyright © 2018-${new Date().getFullYear()}-明天的地平线 `
             },
             algolia: {
                 appId: 'DADHMSXO5L',

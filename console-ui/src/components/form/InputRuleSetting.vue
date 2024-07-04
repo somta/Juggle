@@ -6,7 +6,7 @@ import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
 
-const targetTypeList = [
+const assignTypeList = [
   { value: valueType.CONSTANT, label: '常量' },
   { value: valueType.VARIABLE, label: '变量' },
 ];
@@ -57,10 +57,10 @@ const columns = [
 function addrule() {
   rules.value.push({
     source: '',
-    sourceDataType: '',
+    sourceDataType: null,
     sourceType: valueType.VARIABLE,
     target: '',
-    targetDataType: '',
+    targetDataType: null,
     targetType: valueType.INPUT_PARAM,
     required: false,
   });
@@ -78,14 +78,15 @@ function onChange() {
 
 function onSourceTypeChange (rowIndex: number) {
   rules.value[rowIndex].source = '';
-  rules.value[rowIndex].sourceDataType = '';
+  rules.value[rowIndex].sourceDataType = null;
   onChange();
 }
 
 function onSourceVarChange (rowIndex: number) {
   const source = rules.value[rowIndex].source;
+  //console.log(props.sourceList,source);
   const param = props.sourceList.find((item) => item.envKey === source);
-  rules.value[rowIndex].sourceDataType = param.dataType;
+  rules.value[rowIndex].sourceDataType = param?.dataType;
   onChange();
 }
 
@@ -159,7 +160,7 @@ function getDataTypeDisplayName(dataType: any){
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.sourceType" size="small" @change="onSourceTypeChange(rowIndex)">
-              <el-option v-for="item in targetTypeList" :key="item.value" :value="item.value" :label="item.label" />
+              <el-option v-for="item in assignTypeList" :key="item.value" :value="item.value" :label="item.label" />
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
