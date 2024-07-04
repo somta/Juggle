@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration= \
-  net.somta.juggle.starter.JuggleOpenApiAutoConfiguration
-org.springframework.context.ApplicationListener= \
-  net.somta.juggle.starter.listener.CollectListener
