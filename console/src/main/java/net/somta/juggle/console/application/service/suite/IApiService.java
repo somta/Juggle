@@ -58,5 +58,11 @@ public interface IApiService {
      */
     PageInfo getApiPageList(ApiQueryParam apiQueryParam);
 
+    /**
+     * Debugging API interfaces
+     * @param apiId api id
+     * @param apiDebugParam API interface input parameter data
+     * @return Response results of API interface
+     */
     Map<String, Object> debugApi(Long apiId, ApiDebugParam apiDebugParam);
 }

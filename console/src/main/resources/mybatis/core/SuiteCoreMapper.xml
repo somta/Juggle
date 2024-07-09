@@ -12,7 +12,7 @@
 	<result column="suite_image" property="suiteImage"/>
 	<result column="suite_version" property="suiteVersion"/>
 	<result column="suite_desc" property="suiteDesc"/>
-	<result column="suite_help_doc_url" property="suiteHelpDocUrl"/>
+	<result column="suite_help_doc_json" property="suiteHelpDocJson"/>
 	<result column="suite_flag" property="suiteFlag"/>
 	<result column="deleted" property="deleted"/>
 	<result column="created_at" property="createdAt"/>
@@ -31,12 +31,12 @@
 
 <!-- t_suite table all fields -->
 <sql id="Base_Column_List" >
-	id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_url, suite_flag, created_at, created_by, updated_at, updated_by
+	id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_json, suite_flag, created_at, created_by, updated_at, updated_by
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.suite.SuitePO" >
-	insert into t_suite (id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_url, suite_flag,deleted, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{suiteCode},#{suiteName},#{suiteClassifyId},#{suiteImage},#{suiteVersion},#{suiteDesc},#{suiteHelpDocUrl},#{suiteFlag},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_suite (id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_json, suite_flag,deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{suiteCode},#{suiteName},#{suiteClassifyId},#{suiteImage},#{suiteVersion},#{suiteDesc},#{suiteHelpDocJson},#{suiteFlag},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -64,8 +64,8 @@
 	<if test="suiteDesc != null and suiteDesc != ''">
 		suite_desc=#{suiteDesc},
 	</if>
-	<if test="suiteHelpDocUrl != null and suiteHelpDocUrl != ''">
-		suite_help_doc_url=#{suiteHelpDocUrl},
+	<if test="suiteHelpDocJson != null and suiteHelpDocJson != ''">
+		suite_help_doc_json=#{suiteHelpDocJson},
 	</if>
 	<if test="suiteFlag != null">
 		suite_flag=#{suiteFlag},

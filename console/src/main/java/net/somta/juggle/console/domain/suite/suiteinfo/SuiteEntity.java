@@ -10,7 +10,7 @@ public class SuiteEntity {
     private String suiteName;
     private String suiteImage;
     private String suiteDesc;
-    private String suiteHelpDocUrl;
+    private String suiteHelpDocJson;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class SuiteEntity {
         this.suiteDesc = suiteDesc;
     }
 
-    public String getSuiteHelpDocUrl() {
-        return suiteHelpDocUrl;
+    public String getSuiteHelpDocJson() {
+        return suiteHelpDocJson;
     }
 
-    public void setSuiteHelpDocUrl(String suiteHelpDocUrl) {
-        this.suiteHelpDocUrl = suiteHelpDocUrl;
+    public void setSuiteHelpDocJson(String suiteHelpDocJson) {
+        this.suiteHelpDocJson = suiteHelpDocJson;
     }
 }

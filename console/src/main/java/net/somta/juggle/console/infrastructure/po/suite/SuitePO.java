@@ -30,7 +30,7 @@ public class SuitePO extends BaseModel {
     private String suiteImage;
     private String suiteVersion;
     private String suiteDesc;
-    private String suiteHelpDocUrl;
+    private String suiteHelpDocJson;
     private Integer suiteFlag;
     private Integer deleted;
 
@@ -90,12 +90,12 @@ public class SuitePO extends BaseModel {
         this.suiteDesc = suiteDesc;
     }
 
-    public String getSuiteHelpDocUrl() {
-        return suiteHelpDocUrl;
+    public String getSuiteHelpDocJson() {
+        return suiteHelpDocJson;
     }
 
-    public void setSuiteHelpDocUrl(String suiteHelpDocUrl) {
-        this.suiteHelpDocUrl = suiteHelpDocUrl;
+    public void setSuiteHelpDocJson(String suiteHelpDocJson) {
+        this.suiteHelpDocJson = suiteHelpDocJson;
     }
 
     public Integer getSuiteFlag() {

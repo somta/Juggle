@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.suite.api;
 
+import net.somta.common.utils.MapUtil;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
@@ -13,6 +14,7 @@ import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Property;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,11 +95,14 @@ public class ApiAO {
                 DataType dataType = outputParameter.getDataType();
                 if(DataTypeEnum.Object.equals(dataType.getType())){
                     parseObjectAndFill(outputParameter.getParamKey(),dataType,result,originalResult);
+                } else if (DataTypeEnum.List.equals(dataType.getType())) {
+                    //todo 待完善
                 } else {
                     result.put(outputParameter.getParamKey(),originalResult.get(outputParameter.getParamKey()));
                 }
             }
         }
+        System.out.println(result);
         //todo 待完善，要根据出参和原始map，封装一个新的响应map
         return originalResult;
     }
@@ -111,6 +116,13 @@ public class ApiAO {
     private void parseObjectAndFill(String outputParameterKey, DataType outputParamDataType,Map<String, Object> result,Map<String, Object> originalResult) {
         List<Property> objectProperty = outputParamDataType.getObjectStructure();
         for (Property property : objectProperty){
+            if(DataTypeEnum.Object.equals(property.getDataType().getType())){
+                parseObjectAndFill(property.getPropKey(),property.getDataType(),result,originalResult);
+            } else if (DataTypeEnum.List.equals(property.getDataType().getType())) {
+                // todo 待完善
+            } else {
+                result.put(outputParameterKey,null);
+            }
             originalResult.get(property.getPropKey());
         }
 
