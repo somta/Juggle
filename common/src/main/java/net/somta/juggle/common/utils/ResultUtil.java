@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ResultUtil {
 
-    public static Object getResultFromData(String paramKey,Map<String, Object> originalResult){
+    public static Object getValueFromResultData(String paramKey,Map<String, Object> originalResult){
         boolean containsDot = paramKey.contains(".");
         if(containsDot){
             Object value = null;
@@ -34,6 +34,11 @@ public class ResultUtil {
         }
     }
 
+    public static Map<String, Object> buildResultMap(Map<String, Object> result){
+
+        return null;
+    }
+
     public static void main(String[] args) {
         Map<String, Object> nestedMap = new HashMap<>();
 
@@ -51,13 +56,13 @@ public class ResultUtil {
         // 使用JsonPath获取嵌套Map中的值
         //String value = JsonPath.read(nestedMap, "$.key3.key2");
 
-        /*Object value1 = getResultFromData("key1",nestedMap);
+        /*Object value1 = getValueFromResultData("key1",nestedMap);
         System.out.println(value1); // 输出 "value2"*/
 
-        /*Object value2 = getResultFromData("map1.key2",nestedMap);
+        /*Object value2 = getValueFromResultData("map1.key2",nestedMap);
         System.out.println(value2);*/
 
-        Object value3 = getResultFromData("map1.key21.key3",nestedMap);
+        Object value3 = getValueFromResultData("map1.key21.key3",nestedMap);
         System.out.println(value3);
 
     }

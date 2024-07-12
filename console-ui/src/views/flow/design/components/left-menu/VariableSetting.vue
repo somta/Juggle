@@ -4,6 +4,7 @@ import {shallowRef, computed, ref} from 'vue';
 import { Edit, Delete, Search } from '@element-plus/icons-vue';
 import ParamSettingModal from './ParamSettingModal.vue'
 import { useFlowDataInject } from '../../hooks/flow-data';
+import {cloneDeep} from "lodash-es";
 const flowContext = useFlowDataInject();
 const searchValue = ref("");
 const treeData = computed(() => {
@@ -42,10 +43,12 @@ function onEditOpen (data: any) {
   paramSettingModal.value.edit(data);
 }
 function onAdd (data: any) {
+  console.log("开始增加",data)
   flowContext.update(draft => {
     const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index === -1) {
-      draft.flowVariables.push(data);
+      console.log(draft.flowVariables)
+      draft.flowVariables.push(cloneDeep(data));
     }
   });
 }

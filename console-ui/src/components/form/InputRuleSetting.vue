@@ -84,7 +84,6 @@ function onSourceTypeChange (rowIndex: number) {
 
 function onSourceVarChange (rowIndex: number) {
   const source = rules.value[rowIndex].source;
-  //console.log(props.sourceList,source);
   const param = props.sourceList.find((item) => item.envKey === source);
   rules.value[rowIndex].sourceDataType = param?.dataType;
   onChange();

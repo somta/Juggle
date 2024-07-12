@@ -58,7 +58,7 @@ export type FlowVariableDataType = {
 }
 
 export type FlowVariable = {
-  dataType: string;
+  dataType: any;
   envKey: string;
   envName: string;
   envType: FlowVariableType;

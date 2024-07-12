@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, nextTick } from 'vue';
-import type { FormInstance, FormRules } from 'element-plus';
+import type {FormInstance, FormRules} from 'element-plus';
 import {ElMessage} from "element-plus";
 import { Plus } from '@element-plus/icons-vue'
 const dialogVisible = ref(false);
@@ -43,7 +43,9 @@ function open(item?: Record<string, any>) {
   dialogVisible.value = true;
   nextTick(() => {
     formRef.value?.resetFields();
+    formValue.suiteImage = '';
     if (item) {
+      formValue.suiteImage = item.suiteImage;
       formValue.suiteCode = item.suiteCode;
       formValue.suiteName = item.suiteName;
       formValue.suiteDesc = item.suiteDesc;
@@ -58,11 +60,10 @@ const title = computed(() => {
   return '新增套件';
 });
 
-const imageUrl = ref('')
 function beforeSuiteImageUpload(file){
-  const isJPG = file.type === 'image/jpeg';
-  const isPNG = file.type === 'image/png';
-  const isLt30K = file.size / 1024 < 230
+  const isJPG = file.raw.type === 'image/jpeg';
+  const isPNG = file.raw.type === 'image/png';
+  const isLt30K = file.size / 1024 < 30
   if (!isJPG && !isPNG) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片');
     return false;
@@ -76,34 +77,31 @@ function beforeSuiteImageUpload(file){
 }
 
 function convertImageToBase64(file) {
-  console.log('2222')
   const reader = new FileReader();
-  reader.onload = () => {
-    const base64Data = reader.result.split(',')[1]; // 获取 base64 编码的图片数据
-    console.log(base64Data); // 在控制台输出 Base64 字符串
-//todo 套件的base64的图像放到suiteImage上传给后端
-    // 在这里可以将 base64Data 用于其他操作，比如显示图片预览等
-  };
   reader.readAsDataURL(file.raw);
+  reader.onload = () => {
+    const base64Data = reader.result;
+    formValue.suiteImage = base64Data as string;
+  };
 }
 
 defineExpose({ open });
 </script>
 <template>
-  <el-dialog v-model="dialogVisible" :title="title" width="400">
+  <el-dialog v-model="dialogVisible" :title="title" width="600">
     <div class="form">
       <el-form ref="formRef" label-position="top" :model="formValue" :rules="rules">
-<!--        <el-form-item label="套件图像">
+        <el-form-item label="套件图像">
           <el-upload
               class="suite-image-uploader"
               :show-file-list="false"
-              :before-upload="beforeSuiteImageUpload"
+              :on-change="beforeSuiteImageUpload"
               :auto-upload="false"
           >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+            <img v-if="formValue.suiteImage" :src="formValue.suiteImage" class="avatar"  alt=""/>
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
-        </el-form-item>-->
+        </el-form-item>
         <el-form-item label="套件编码" prop="suiteCode">
           <el-input v-model="formValue.suiteCode" maxlength="20" />
         </el-form-item>
@@ -124,21 +122,16 @@ defineExpose({ open });
   </el-dialog>
 </template>
 
-<style lang="less" scoped>
-.dialog-footer button:first-child {
-  margin-right: 10px;
-}
+<style lang="less">
 
-.suite-image-uploader{
-  width: 60px;
-  height: 60px;
+.suite-image-uploader .avatar {
+  width: 90px;
+  height: 90px;
   display: block;
-  border: 1px #8c939d solid;
-
 }
 
 .suite-image-uploader .el-upload {
-  border: 1px dashed var(--el-border-color);
+  border: 1px dashed #4C4D4F;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
@@ -153,8 +146,8 @@ defineExpose({ open });
 .el-icon.avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   text-align: center;
 }
 </style>

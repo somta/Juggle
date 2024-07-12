@@ -8,7 +8,7 @@ const flowContext = useFlowDataInject();
 type ParamItem = {
   envKey: string;
   envName: string;
-  dataType: string;
+  dataType: any;
   envType: number;
   id: number;
 };
@@ -17,7 +17,7 @@ const formRef = ref<FormInstance>();
 const form = reactive<ParamItem>({
   envKey: '',
   envName: '',
-  dataType: '',
+  dataType: null,
   envType: 3,
   id: 0,
 });
@@ -49,7 +49,7 @@ const add = (maxId: number) => {
   isEdit.value = false;
   form.envKey = '';
   form.envName = '';
-  form.dataType = '';
+  form.dataType = null;
   form.envType = 3;
   form.id = maxId;
   _originalData = { ...form };
@@ -66,6 +66,7 @@ function onCancel () {
   visible.value = false;
 }
 async function onSubmit() {
+  console.log(123,formRef.value)
   if (!formRef.value) return;
   const valid = await formRef.value?.validate(() => {
   });

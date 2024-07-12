@@ -71,7 +71,7 @@ public class HttpClientTest {
         //todo get 的path请求
     }
 
-    //@Test
+    @Test
     public void postByFormRequestTest(){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request = new Request(RequestTypeEnum.POST,"http://127.0.0.1:9127/example/order/placeOrder");
