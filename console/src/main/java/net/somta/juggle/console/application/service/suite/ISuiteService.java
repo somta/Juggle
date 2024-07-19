@@ -18,6 +18,7 @@ package net.somta.juggle.console.application.service.suite;
 
 import com.github.pagehelper.PageInfo;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteUpdateParam;
@@ -37,5 +38,11 @@ public interface ISuiteService {
 
     PageInfo getSuitePageList(SuiteQueryParam suiteQueryParam);
 
-    List<SuiteDTO> getAllDomainList();
+    List<SuiteDTO> getAllSuiteList();
+
+    List<SuiteDTO> getSuiteMarketList();
+
+    SuiteMarketDTO getSuiteMarketInfo(Long suiteId);
+
+    Boolean installSuiteMarket(Long suiteId);
 }

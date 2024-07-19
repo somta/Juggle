@@ -26,6 +26,7 @@ import net.somta.juggle.console.application.service.suite.ISuiteService;
 import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum;
 import net.somta.juggle.console.interfaces.dto.suite.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteUpdateParam;
@@ -80,7 +81,7 @@ public class SuiteController {
     @Operation(summary = "查询套件列表")
     @GetMapping("/list")
     public ResponseDataResult<List<SuiteDTO>> getAllSuiteList(){
-        List<SuiteDTO> list = suiteService.getAllDomainList();
+        List<SuiteDTO> list = suiteService.getAllSuiteList();
         return ResponseDataResult.setResponseResult(list);
     }
 
@@ -90,5 +91,27 @@ public class SuiteController {
         PageInfo pageInfo = suiteService.getSuitePageList(suiteQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
+
+    @Operation(summary = "查询市场套件列表")
+    @PostMapping("/market")
+    public ResponseDataResult<List<SuiteDTO>> getSuiteMarketList(){
+        List<SuiteDTO> list = suiteService.getSuiteMarketList();
+        return ResponseDataResult.setResponseResult(list);
+    }
+
+    @Operation(summary = "查询市场套件详情")
+    @GetMapping("/market/info/{suiteId}")
+    public ResponseDataResult<SuiteMarketDTO> getSuiteMarketInfo(@PathVariable Long suiteId){
+        SuiteMarketDTO suiteMarketDto = suiteService.getSuiteMarketInfo(suiteId);
+        return ResponseDataResult.setResponseResult(suiteMarketDto);
+    }
+
+    @Operation(summary = "安装市场套件")
+    @PostMapping("/market/install/{suiteId}")
+    public ResponseDataResult<Boolean> installSuiteMarket(@PathVariable Long suiteId){
+        suiteService.installSuiteMarket(suiteId);
+        return ResponseDataResult.setResponseResult();
+    }
+
 
 }

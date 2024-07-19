@@ -2,7 +2,7 @@ const { externalLinkProcessor } = require('./tools/utils/externalLink');
 
 module.exports = {
     title: 'Juggle',
-    tagline: '一个可用于接口编排，第三方系统集成，定制开发等场景的一套完整解决方案',
+    tagline: '一个零码+低码+AI的微服务接口编排&系统集成的强大编排工具平台',
     url: 'https://www.juggle.plus',
     baseUrl: '/',
     organizationName: 'somta',

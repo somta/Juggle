@@ -4,11 +4,11 @@ import LoginView from '../views/LoginView.vue';
 import HomeView from '../views/HomeView.vue';
 import NotFound from '../views/NotFound.vue';
 import { FlowRoutes } from '../views/flow';
-import { ApiRoutes } from '../views/api';
 import { CommonRoutes } from '../views/common';
 import ObjectList from "@/views/object/ObjectList.vue";
 import {SystemRoutes} from "@/views/system";
 import {SuiteRoutes} from "@/views/suite";
+import SuiteMarket from "@/views/market/SuiteMarket.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -40,6 +40,12 @@ const router = createRouter({
           name: 'object-list',
           component: ObjectList,
           meta: { name: '对象' },
+        },
+        {
+          path: 'market/suite',
+          name: 'suite-market',
+          component: SuiteMarket,
+          meta: { name: '套件市场' },
         },
         ...SystemRoutes,
         {
