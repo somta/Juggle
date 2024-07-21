@@ -3,44 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.ParameterMapper" >
-<!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.ParameterPO" >
-	<result column="id" property="id"/>
-	<result column="param_type" property="paramType"/>
-	<result column="param_key" property="paramKey"/>
-	<result column="param_name" property="paramName"/>
-	<result column="param_desc" property="paramDesc"/>
-	<result column="data_type" property="dataType"/>
-	<result column="required" property="required"/>
-	<result column="source_type" property="sourceType"/>
-	<result column="source_id" property="sourceId"/>
-</resultMap>
-       
-<!-- t_parameter table all fields -->
-<sql id="Base_Column_List" >
-	id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id
-</sql>
    
 <insert id="addParameter" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
-	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id)
-	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId});
+	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <insert id="batchAddParameter" parameterType="java.util.List">
-	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id,created_at)
+	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id, deleted, created_at)
 	values
 	<foreach collection ="parameterList" item="param" separator =",">
-		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.paramDesc},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},#{param.createdAt})
+		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.paramDesc},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},0,#{param.createdAt})
 	</foreach>
 </insert>
 
-<delete id="deleteParameter" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
- delete from t_parameter where source_type=#{sourceType} and source_id=#{sourceId}
-</delete>
+<update id="deleteParameter" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
+ update t_parameter set deleted=1 where source_type=#{sourceType} and source_id=#{sourceId}
+</update>
 
-<select id="getParameterListByVO" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
-	select <include refid="Base_Column_List" />
-	from t_parameter where 1=1
+<select id="getParameterListByVO" resultType="net.somta.juggle.console.infrastructure.po.ParameterPO" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
+	select id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id
+	from t_parameter where 1=1 and deleted=0
 	<if test="sourceType != null and sourceType != ''">
 		and source_type=#{sourceType}
 	</if>

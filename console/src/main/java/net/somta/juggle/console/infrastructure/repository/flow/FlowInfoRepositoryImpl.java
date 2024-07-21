@@ -52,7 +52,10 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean deleteFlowInfoAndFlowVersion(Long flowId) {
-        flowInfoMapper.deleteById(flowId);
+        FlowInfoPO flowInfoPo = new FlowInfoPO();
+        flowInfoPo.setId(flowId);
+        flowInfoPo.setDeleted(1);
+        flowInfoMapper.update(flowInfoPo);
         flowVersionMapper.deleteFlowVersionByFlowId(flowId);
         return true;
     }

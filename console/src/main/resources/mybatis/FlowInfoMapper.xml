@@ -11,12 +11,12 @@
 
 <select id="querySimpleFlowInfo" resultType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.Long">
 	select id,flow_key,flow_name,flow_type
-	from t_flow_info where id = #{flowId}
+	from t_flow_info where deleted = 0 and id = #{flowId}
 </select>
 
 <select id="queryFlowByFlowKey" resultType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.String">
 	select id,flow_key, flow_name,flow_type, remark
-	from t_flow_info where flow_key = #{flowKey}
+	from t_flow_info where deleted = 0 and flow_key = #{flowKey}
 </select>
 
 </mapper>   

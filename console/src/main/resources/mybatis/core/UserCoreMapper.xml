@@ -16,7 +16,7 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1
+	where 1=1 and deleted=0
 </sql>
 
 <!-- t_user table all fields -->
@@ -41,6 +41,9 @@
 		</if>
 		<if test="password != null and password != ''">
 			password=#{password},
+		</if>
+		<if test="deleted != null">
+			deleted=#{deleted},
 		</if>
 		<if test="createdAt != null">
 			created_at=#{createdAt},

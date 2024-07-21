@@ -3,10 +3,11 @@ import * as flowDefineService from './flowDefine';
 import * as flowService from './flow';
 import * as flowVersionService from './flowVersion';
 import * as suiteService from './suite';
+import * as suiteMarketService from './suiteMarket.ts';
 import * as apiService from './api';
 import * as objectService from './object';
 import * as tokenService from './token';
 import * as dataSourceService from './dataSource.ts';
 import * as commonService from './common';
 
-export { userService, flowDefineService, flowService, flowVersionService,suiteService, apiService, objectService,tokenService,dataSourceService, commonService };
+export { userService, flowDefineService, flowService, flowVersionService,suiteService, suiteMarketService, apiService, objectService,tokenService,dataSourceService, commonService };

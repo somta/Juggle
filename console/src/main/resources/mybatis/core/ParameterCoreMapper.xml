@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ParameterMapper" >
+<!-- Result Map-->
+<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+	<result column="id" property="id"/>
+	<result column="param_type" property="paramType"/>
+	<result column="param_key" property="paramKey"/>
+	<result column="param_name" property="paramName"/>
+	<result column="param_desc" property="paramDesc"/>
+	<result column="data_type" property="dataType"/>
+	<result column="required" property="required"/>
+	<result column="source_type" property="sourceType"/>
+	<result column="source_id" property="sourceId"/>
+	<result column="deleted" property="deleted"/>
+</resultMap>
+
+<sql id="Example_Where_Clause">
+	where 1=1 and deleted=0
+</sql>
+
+<!-- t_parameter table all fields -->
+<sql id="Base_Column_List" >
+	id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id
+</sql>
+   
+<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
+
+<delete id="deleteById" parameterType="java.lang.Long">
+	delete from t_parameter where id=#{id}
+</delete>
+
+<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+	update t_parameter set
+	<trim  suffixOverrides="," >
+		<if test="paramType != null">
+			param_type=#{paramType},
+		</if>
+		<if test="paramKey != null and paramKey != ''">
+			param_key=#{paramKey},
+		</if>
+		<if test="paramName != null and paramName != ''">
+			param_name=#{paramName},
+		</if>
+		<if test="paramDesc != null and paramDesc != ''">
+			param_desc=#{paramDesc},
+		</if>
+		<if test="dataType != null and dataType != ''">
+			data_type=#{dataType},
+		</if>
+		<if test="required != null">
+			required=#{required},
+		</if>
+		<if test="sourceType != null and sourceType != ''">
+			source_type=#{sourceType},
+		</if>
+		<if test="sourceId != null">
+			source_id=#{sourceId},
+		</if>
+		<if test="deleted != null">
+			deleted=#{deleted},
+		</if>
+		<if test="createdAt != null">
+			created_at=#{createdAt},
+		</if>
+		<if test="createdBy != null">
+			created_by=#{createdBy},
+		</if>
+		<if test="updatedAt != null">
+			updated_at=#{updatedAt},
+		</if>
+		<if test="updatedBy != null">
+			updated_by=#{updatedBy},
+		</if>
+	</trim> where id=#{id}
+</update>
+
+<select id="queryById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select <include refid="Base_Column_List" />
+	from t_parameter where id = #{id}
+</select>
+
+<select id="queryListCount" resultType="java.lang.Long">
+	select count(*)
+	from t_parameter
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<select id="queryByList" resultMap="BaseResultMap">
+	select <include refid="Base_Column_List" />
+	from t_parameter
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>   

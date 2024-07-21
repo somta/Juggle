@@ -18,7 +18,7 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1
+	where 1=1 and deleted=0
 	<if test="flowName != null and flowName != ''">
 		and flow_name like concat("%",#{flowName},"%")
 	</if>
@@ -54,6 +54,9 @@
 	</if>
 	<if test="remark != null and remark != ''">
 		remark=#{remark},
+	</if>
+	<if test="deleted != null">
+		deleted=#{deleted},
 	</if>
 	<if test="createdAt != null">
 		created_at=#{createdAt},

@@ -20,7 +20,7 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1
+	where 1=1 and deleted=0
 	<if test="suiteId != null">
 		and suite_id=#{suiteId}
 	</if>
@@ -66,6 +66,9 @@
 		</if>
 		<if test="apiRequestContentType != null and apiRequestContentType != ''">
 			api_request_content_type=#{apiRequestContentType},
+		</if>
+		<if test="deleted != null">
+			deleted=#{deleted},
 		</if>
 		<if test="createdAt != null">
 			created_at=#{createdAt},

@@ -9,7 +9,7 @@ const FeatureList = [
         description: (
             <>
                 <ul>
-                    <li>基于领域的接口管理</li>
+                    <li>基于套件的接口管理</li>
                     <li>支持多种部署形态</li>
                 </ul>
             </>

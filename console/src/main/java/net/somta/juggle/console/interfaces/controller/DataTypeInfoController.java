@@ -43,7 +43,7 @@ public class DataTypeInfoController {
     }
 
     /**
-     * 获取API列表
+     * 获取数据类型下拉列表
      * @return Boolean
      */
     @Operation(summary = "获取数据类型下拉列表")

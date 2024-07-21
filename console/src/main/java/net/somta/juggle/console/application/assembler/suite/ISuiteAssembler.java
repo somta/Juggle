@@ -27,5 +27,4 @@ public interface ISuiteAssembler {
 
     SuiteMarketDTO voToDto(SuiteMarketVO suiteMarketVo);
 
-    SuiteEntity voToEntity(SuiteMarketVO suiteMarketVo);
 }

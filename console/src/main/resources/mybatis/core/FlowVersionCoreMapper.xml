@@ -22,7 +22,7 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1
+	where 1=1 and deleted=0
 	<if test="flowId != null">
 		and flow_id = #{flowId}
 	</if>
@@ -70,6 +70,9 @@
 	</if>
 	<if test="variables != null and variables != ''">
 		variables=#{variables},
+	</if>
+	<if test="deleted != null">
+		deleted=#{deleted},
 	</if>
 	<if test="createdAt != null">
 		created_at=#{createdAt},

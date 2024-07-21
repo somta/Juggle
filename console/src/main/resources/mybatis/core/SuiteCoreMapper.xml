@@ -22,7 +22,7 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1
+	where 1=1 and deleted=0
 	<if test="suiteName != null and suiteName != ''">
 		and suite_name like concat("%",#{suiteName},"%")
 	</if>
@@ -69,6 +69,9 @@
 	</if>
 	<if test="suiteFlag != null">
 		suite_flag=#{suiteFlag},
+	</if>
+	<if test="deleted != null">
+		deleted=#{deleted},
 	</if>
 	<if test="createdAt != null">
 		created_at=#{createdAt},

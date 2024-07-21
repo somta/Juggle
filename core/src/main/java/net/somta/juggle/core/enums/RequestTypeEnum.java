@@ -21,5 +21,5 @@ package net.somta.juggle.core.enums;
  * @since 1.0.0
  */
 public enum RequestTypeEnum {
-        GET,POST,PUT,DELETE
-    }
+    GET,POST,PUT,DELETE
+}

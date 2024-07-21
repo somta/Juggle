@@ -16,6 +16,8 @@ public class ObjectPO extends BaseModel {
 
     private String objectDesc;
 
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +48,13 @@ public class ObjectPO extends BaseModel {
 
     public void setObjectDesc(String objectDesc) {
         this.objectDesc = objectDesc;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

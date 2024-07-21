@@ -27,7 +27,7 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1
+	where 1=1 and deleted=0
 	<if test="dataSourceType != null and dataSourceType != ''">
 		and data_source_type=#{dataSourceType}
 	</if>
@@ -91,6 +91,9 @@
 		</if>
 		<if test="dataSourceExtInfo != null and dataSourceExtInfo != ''">
 			data_source_ext_info=#{dataSourceExtInfo},
+		</if>
+		<if test="deleted != null">
+			deleted=#{deleted},
 		</if>
 		<if test="createdAt != null">
 			created_at=#{createdAt},

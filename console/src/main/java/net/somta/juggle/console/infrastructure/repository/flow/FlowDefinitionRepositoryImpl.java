@@ -80,7 +80,10 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean deleteFlowDefinitionById(Long flowDefinitionId) {
-        flowDefinitionMapper.deleteById(flowDefinitionId);
+        FlowDefinitionInfoPO flowDefinitionInfoPo = new FlowDefinitionInfoPO();
+        flowDefinitionInfoPo.setId(flowDefinitionId);
+        flowDefinitionInfoPo.setDeleted(1);
+        flowDefinitionMapper.update(flowDefinitionInfoPo);
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(),flowDefinitionId));
         return true;
     }

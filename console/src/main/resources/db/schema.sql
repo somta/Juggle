@@ -100,6 +100,7 @@ CREATE TABLE `t_parameter` (
   `required` int(2) DEFAULT NULL,
   `source_type` varchar(8) DEFAULT NULL,
   `source_id` bigint(20) DEFAULT NULL,
+  `deleted` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,

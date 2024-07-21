@@ -43,7 +43,10 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
 
     @Override
     public void deleteFlowVersionById(Long flowVersionId) {
-        flowVersionMapper.deleteById(flowVersionId);
+        FlowVersionPO flowVersionPo = new FlowVersionPO();
+        flowVersionPo.setId(flowVersionId);
+        flowVersionPo.setDeleted(1);
+        flowVersionMapper.update(flowVersionPo);
     }
 
     @Override

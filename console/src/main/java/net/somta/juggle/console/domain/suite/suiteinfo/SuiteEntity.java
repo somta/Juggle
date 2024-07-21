@@ -59,4 +59,6 @@ public class SuiteEntity {
     public void setSuiteHelpDocJson(String suiteHelpDocJson) {
         this.suiteHelpDocJson = suiteHelpDocJson;
     }
+
+
 }

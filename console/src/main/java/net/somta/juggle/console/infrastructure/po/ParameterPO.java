@@ -45,6 +45,8 @@ public class ParameterPO extends BaseModel {
 
     private Long sourceId;
 
+    private Integer deleted;
+
     public Long getId() {
         return id;
     }
@@ -115,5 +117,13 @@ public class ParameterPO extends BaseModel {
 
     public void setSourceId(Long sourceId) {
         this.sourceId = sourceId;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

@@ -65,6 +65,9 @@
         <if test="variables != null and variables != ''">
             variables=#{variables},
         </if>
+        <if test="deleted != null">
+            deleted=#{deleted},
+        </if>
         <if test="createdAt != null">
             created_at=#{createdAt},
         </if>
