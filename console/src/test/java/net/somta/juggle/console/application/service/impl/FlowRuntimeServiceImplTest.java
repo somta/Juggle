@@ -8,14 +8,11 @@ import net.somta.juggle.common.param.TriggerDataParam;
 import net.somta.juggle.core.enums.FlowResultManagerTypeEnum;
 import net.somta.juggle.core.model.Flow;
 import net.somta.juggle.core.model.FlowResult;
-import net.somta.juggle.core.result.MemoryFlowResultManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.HashMap;
@@ -43,7 +40,7 @@ class FlowRuntimeServiceImplTest {
         flow.setFlowKey("flow_123");
         flow.setFlowName("单侧流程");
         flow.setFlowContent(FlowDefinitionHelper.getFlowDefinitionContent());
-        flow.setInputParams(FlowDefinitionHelper.getFlowDefinitionParameterEntity().getFlowRuntimeInputParameters());
+        flow.setInputParams(FlowDefinitionHelper.getFlowDefinitionParameterEntity().getInputParameterSchema());
         flow.setOutputParams(FlowDefinitionHelper.getFlowDefinitionParameterEntity().getFlowRuntimeOutputParameters());
         flow.setVariables(FlowDefinitionHelper.getFlowRuntimeVariables(FlowDefinitionHelper.getFlowDefinitionVariableInfoList()));
 

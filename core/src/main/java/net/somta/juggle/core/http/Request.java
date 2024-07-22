@@ -16,9 +16,16 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.http;
 
+import feign.template.Template;
+import feign.template.UriTemplate;
+import net.somta.juggle.core.enums.ParameterPositionEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
+import net.somta.juggle.core.model.InputParameter;
+import org.apache.commons.collections4.CollectionUtils;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 请求实体
@@ -61,12 +68,38 @@ public class Request {
      */
     private Integer retryInterval = 1000;
 
-    public Request(RequestTypeEnum requestType, String requestUrl) {
+    public Request(RequestTypeEnum requestType) {
+        this.requestType = requestType;
+    }
+
+    public void initUrlAndRequestParams(String apiUrl, List<InputParameter> inputParameterSchema, Map<String, Object> inputParamData) {
         if (requestUrl == null) {
             throw new IllegalArgumentException("reqMethod,reqHeaders,reqBody should not be null");
         }
-        this.requestType = requestType;
         this.requestUrl = requestUrl;
+    }
+
+    private String buildRequestUrl(String apiUrl, List<InputParameter> inputParameterSchema, Map<String, Object> inputParamData){
+        if(CollectionUtils.isEmpty(inputParameterSchema)){
+            return apiUrl;
+        }
+        List<InputParameter> pathInputParameterSchema = inputParameterSchema.stream()
+                .filter(p -> ParameterPositionEnum.PATH.getCode().equals(p.getPosition()))
+                .collect(Collectors.toList());
+        if(CollectionUtils.isEmpty(pathInputParameterSchema)){
+            return apiUrl;
+        }
+        for (InputParameter inputParamSchema : pathInputParameterSchema) {
+
+        }
+
+        //feign能实现这个功能
+        //UriTemplate template = new Template("/users/{userId}");
+
+        //todo 将参数 http://baidu.com/info/{id}/{type}  传入map的值 替换url 获取新的连接地址
+
+
+        return apiUrl;
     }
 
     public String getRequestUrl() {
@@ -115,4 +148,5 @@ public class Request {
     public void setRetryInterval(Integer retryInterval) {
         this.retryInterval = retryInterval;
     }
+
 }

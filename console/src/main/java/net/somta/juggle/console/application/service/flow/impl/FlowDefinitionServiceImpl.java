@@ -137,9 +137,9 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         flowInfoAo.setFlowVersionRemark(flowDefinitionDeployParam.getFlowVersionRemark());
 
         ParameterEntity parameterEntity = flowDefinitionAo.getParameterEntity();
-        String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeInputParameters());
+        String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getInputParameterSchema());
         flowInfoAo.setInputs(inputParameterString);
-        String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getFlowRuntimeOutputParameters());
+        String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getOutputParameterSchema());
         flowInfoAo.setOutputs(outputParameterString);
 
         String variablesString = JsonSerializeHelper.serialize(flowDefinitionAo.getFlowRuntimeVariables());
@@ -154,8 +154,8 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         flow.setFlowKey(flowDefinitionAo.getFlowKey());
         flow.setFlowName(flowDefinitionAo.getFlowName());
         flow.setFlowContent(flowDefinitionAo.getFlowContent());
-        flow.setInputParams(flowDefinitionAo.getParameterEntity().getFlowRuntimeInputParameters());
-        flow.setOutputParams(flowDefinitionAo.getParameterEntity().getFlowRuntimeOutputParameters());
+        flow.setInputParams(flowDefinitionAo.getParameterEntity().getInputParameterSchema());
+        flow.setOutputParams(flowDefinitionAo.getParameterEntity().getOutputParameterSchema());
         flow.setVariables(flowDefinitionAo.getFlowRuntimeVariables());
         return flowRuntimeService.triggerFlow(flow, flowDefinitionAo.getFlowType(),triggerData);
     }

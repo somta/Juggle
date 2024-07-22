@@ -30,6 +30,7 @@ public interface IParameterConverter {
             InputParameterVO inputParameterVo = new InputParameterVO();
             inputParameterVo.setParamKey(parameterPo.getParamKey());
             inputParameterVo.setParamName(parameterPo.getParamName());
+            inputParameterVo.setParamPosition(parameterPo.getParamPosition());
             inputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
             inputParameterVo.setRequired(parameterPo.getRequired());
             list.add(inputParameterVo);

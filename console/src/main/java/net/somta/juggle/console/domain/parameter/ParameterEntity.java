@@ -53,6 +53,7 @@ public class ParameterEntity {
                 inputParameterPo.setParamKey(inputParameterVO.getParamKey());
                 inputParameterPo.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
                 inputParameterPo.setParamName(inputParameterVO.getParamName());
+                inputParameterPo.setParamPosition(inputParameterVO.getParamPosition());
                 inputParameterPo.setDataType(JsonSerializeHelper.serialize(inputParameterVO.getDataType()));
                 inputParameterPo.setRequired(inputParameterVO.getRequired());
                 inputParameterPo.setSourceId(sourceId);
@@ -78,10 +79,10 @@ public class ParameterEntity {
     }
 
     /**
-     * 获取流程运行时入参
+     * 获取流程运行时入参Schema
      * @return
      */
-    public List<InputParameter> getFlowRuntimeInputParameters(){
+    public List<InputParameter> getInputParameterSchema(){
         List<InputParameter> inputParams = new ArrayList<>();
         if(CollectionUtils.isEmpty(this.inputParameterList)){
             return inputParams;
@@ -90,6 +91,7 @@ public class ParameterEntity {
             InputParameter inputParameter = new InputParameter();
             inputParameter.setKey(inputParameterVO.getParamKey());
             inputParameter.setName(inputParameterVO.getParamName());
+            inputParameter.setPosition(inputParameterVO.getParamPosition());
             inputParameter.setDataType(inputParameterVO.getDataType());
             inputParameter.setRequired(inputParameterVO.getRequired());
             inputParams.add(inputParameter);
@@ -98,10 +100,10 @@ public class ParameterEntity {
     }
 
     /**
-     * 获取流程运行时出参
+     * 获取流程运行时出参Schema
      * @return
      */
-    public List<OutputParameter> getFlowRuntimeOutputParameters(){
+    public List<OutputParameter> getOutputParameterSchema(){
         List<OutputParameter> outputParams = new ArrayList<>();
         if(CollectionUtils.isEmpty(this.outputParameterList)){
             return outputParams;

@@ -26,6 +26,14 @@ public class ParameterPO extends BaseModel {
      */
     private String paramName;
 
+    /**
+     * 参数位置
+     */
+    private String paramPosition;
+
+    /**
+     * 参数描述
+     */
     private String paramDesc;
 
     /**
@@ -77,6 +85,14 @@ public class ParameterPO extends BaseModel {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
+    }
+
+    public String getParamPosition() {
+        return paramPosition;
+    }
+
+    public void setParamPosition(String paramPosition) {
+        this.paramPosition = paramPosition;
     }
 
     public String getParamDesc() {

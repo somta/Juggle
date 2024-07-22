@@ -95,6 +95,7 @@ CREATE TABLE `t_parameter` (
   `param_type` int(2) DEFAULT NULL,
   `param_key` varchar(20) DEFAULT NULL,
   `param_name` varchar(30) DEFAULT NULL,
+  `param_position` varchar(20) DEFAULT NULL,
   `param_desc` varchar(100) DEFAULT NULL,
   `data_type` text,
   `required` int(2) DEFAULT NULL,

@@ -14,35 +14,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-
-package net.somta.juggle.core.model;
+package net.somta.juggle.core.enums;
 
 /**
- * 入参类
- * @author husong
- * @date 2022/12/14
- **/
-public class InputParameter extends BaseParameter {
+ * @author Gavin
+ * @since 1.2.1
+ */
+public enum ParameterPositionEnum {
+    PATH("path","path参数"),
+    QUERY("query","query参数"),
+    BODY("body","body参数");
 
-    private String position;
-    /**
-     * 是否必填
-     */
-    private Boolean required;
+    private String code;
+    private String desc;
 
-    public String getPosition() {
-        return position;
+    ParameterPositionEnum(String code, String desc) {
+        this.code = code;
+        this.desc = desc;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public Boolean getRequired() {
-        return required;
-    }
-
-    public void setRequired(Boolean required) {
-        this.required = required;
+    public String getCode() {
+        return code;
     }
 }

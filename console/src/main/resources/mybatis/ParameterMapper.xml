@@ -5,15 +5,15 @@
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.ParameterMapper" >
    
 <insert id="addParameter" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
-	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_parameter (id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramPosition},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <insert id="batchAddParameter" parameterType="java.util.List">
-	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id, deleted, created_at)
+	insert into t_parameter (id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id, deleted, created_at)
 	values
 	<foreach collection ="parameterList" item="param" separator =",">
-		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.paramDesc},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},0,#{param.createdAt})
+		(#{param.id},#{param.paramType},#{param.paramKey},#{param.paramName},#{param.paramPosition},#{param.paramDesc},#{param.dataType},#{param.required},#{param.sourceType},#{param.sourceId},0,#{param.createdAt})
 	</foreach>
 </insert>
 
@@ -22,7 +22,7 @@
 </update>
 
 <select id="getParameterListByVO" resultType="net.somta.juggle.console.infrastructure.po.ParameterPO" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
-	select id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id
+	select id, param_type, param_key, param_name,param_position, param_desc, data_type, required, source_type, source_id
 	from t_parameter where 1=1 and deleted=0
 	<if test="sourceType != null and sourceType != ''">
 		and source_type=#{sourceType}

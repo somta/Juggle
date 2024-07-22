@@ -129,7 +129,7 @@ defineExpose({ open });
           <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" dataTypeClassify="basic" showRequired/>
         </el-form-item>
         <el-form-item label="入参">
-          <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showRequired/>
+          <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showParamPosition showRequired/>
         </el-form-item>
         <el-form-item label="出参">
           <ParamSetting v-model="formValue.apiOutputParams" addText="新增出参" />

@@ -18,6 +18,11 @@ public class InputParameterVO {
     private String paramName;
 
     /**
+     * 参数位置
+     */
+    private String paramPosition;
+
+    /**
      * 参数的数据类型
      */
     private DataType dataType;
@@ -41,6 +46,14 @@ public class InputParameterVO {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
+    }
+
+    public String getParamPosition() {
+        return paramPosition;
+    }
+
+    public void setParamPosition(String paramPosition) {
+        this.paramPosition = paramPosition;
     }
 
     public DataType getDataType() {

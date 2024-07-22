@@ -9,6 +9,7 @@
 	<result column="param_type" property="paramType"/>
 	<result column="param_key" property="paramKey"/>
 	<result column="param_name" property="paramName"/>
+	<result column="param_position" property="paramPosition"/>
 	<result column="param_desc" property="paramDesc"/>
 	<result column="data_type" property="dataType"/>
 	<result column="required" property="required"/>
@@ -23,12 +24,12 @@
 
 <!-- t_parameter table all fields -->
 <sql id="Base_Column_List" >
-	id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id
+	id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id
 </sql>
    
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
-	insert into t_parameter (id, param_type, param_key, param_name, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_parameter (id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramPosition},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -46,6 +47,9 @@
 		</if>
 		<if test="paramName != null and paramName != ''">
 			param_name=#{paramName},
+		</if>
+		<if test="paramPosition != null and paramPosition != ''">
+			param_position=#{paramPosition},
 		</if>
 		<if test="paramDesc != null and paramDesc != ''">
 			param_desc=#{paramDesc},

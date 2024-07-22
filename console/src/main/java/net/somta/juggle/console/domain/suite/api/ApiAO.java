@@ -12,10 +12,12 @@ import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.DataType;
+import net.somta.juggle.core.model.InputParameter;
 import net.somta.juggle.core.model.Property;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,7 +202,6 @@ public class ApiAO {
     public void setParameterEntity(ParameterEntity parameterEntity) {
         this.parameterEntity = parameterEntity;
     }
-
 
 
 }
