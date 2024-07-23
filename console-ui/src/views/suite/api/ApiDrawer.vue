@@ -93,7 +93,7 @@ const title = computed(() => {
 defineExpose({ open });
 </script>
 <template>
-  <el-drawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose>
+  <el-drawer v-model="dialogVisible" :size="500" :title="title" destroyOnClose>
     <div class="form">
       <el-form ref="apiFormRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="套件" prop="suiteId">

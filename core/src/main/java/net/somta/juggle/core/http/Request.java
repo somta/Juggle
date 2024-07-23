@@ -21,6 +21,8 @@ import net.somta.juggle.core.enums.ParameterPositionEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.InputParameter;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -34,6 +36,8 @@ import java.util.stream.Collectors;
  * @since 1.0.0
  */
 public class Request {
+
+    private final static Logger logger = LoggerFactory.getLogger(Request.class);
 
     /**
      * 请求url,带域名的完整地址
@@ -49,7 +53,10 @@ public class Request {
      */
     private Map<String,Object> requestHeaders;
 
-    private List<InputParameter> inputParamSchema;
+    /**
+     *
+     */
+    private List<InputParameter> inputParamSchemas;
 
     /**
      * 请求参数
@@ -71,25 +78,25 @@ public class Request {
      */
     private Integer retryInterval = 1000;
 
-    public Request(RequestTypeEnum requestType,List<InputParameter> inputParamSchema) {
+    public Request(RequestTypeEnum requestType,List<InputParameter> inputParamSchemas) {
         this.requestType = requestType;
-        this.inputParamSchema = inputParamSchema;
+        this.inputParamSchemas = inputParamSchemas;
     }
 
-    public void initRequest(String apiUrl, Map<String, Object> headerData, Map<String, Object> inputParamData) {
+    public void initRequest(String requestUrl, Map<String, Object> headerData, Map<String, Object> inputParamData) {
         if (requestUrl == null) {
             throw new IllegalArgumentException("reqMethod,reqHeaders,reqBody should not be null");
         }
-        this.requestUrl = buildRequestUrl(apiUrl,inputParamData);
+        this.requestUrl = buildRequestUrl(requestUrl,inputParamData);
         this.requestHeaders = headerData;
         this.requestParams = buildRequestParams(inputParamData);
     }
 
     private String buildRequestUrl(String apiUrl, Map<String, Object> inputParamData){
-        if(CollectionUtils.isEmpty(inputParamSchema)){
+        if(CollectionUtils.isEmpty(inputParamSchemas)){
             return apiUrl;
         }
-        List<InputParameter> pathInputParameterSchema = inputParamSchema.stream()
+        List<InputParameter> pathInputParameterSchema = inputParamSchemas.stream()
                 .filter(p -> ParameterPositionEnum.PATH.getCode().equals(p.getPosition()))
                 .collect(Collectors.toList());
         if(CollectionUtils.isEmpty(pathInputParameterSchema)){
@@ -103,14 +110,15 @@ public class Request {
 
         UriTemplate template =  UriTemplate.create(apiUrl, StandardCharsets.UTF_8);
         apiUrl = template.expand(templateVariables);
+        logger.debug("request real url:" + apiUrl);
         return apiUrl;
     }
 
     private Map<String, Object> buildRequestParams(Map<String, Object> inputParamData) {
-        if(CollectionUtils.isEmpty(inputParamSchema)){
+        if(CollectionUtils.isEmpty(inputParamSchemas)){
             return inputParamData;
         }
-        List<InputParameter> pathInputParameterSchema = inputParamSchema.stream()
+        List<InputParameter> pathInputParameterSchema = inputParamSchemas.stream()
                 .filter(p -> ParameterPositionEnum.PATH.getCode().equals(p.getPosition()))
                 .collect(Collectors.toList());
         if(CollectionUtils.isEmpty(pathInputParameterSchema)){

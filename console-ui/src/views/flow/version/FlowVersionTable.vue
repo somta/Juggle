@@ -6,7 +6,7 @@ defineProps({
   dataTotal: Number,
   loading: Boolean,
 });
-const emit = defineEmits(['pageChange', 'flowStatusChange', 'delete']);
+const emit = defineEmits(['pageChange', 'flowVersionStatusChange', 'delete']);
 
 function deleteRow(row: any, index: number) {
   emit('delete', row, index);

@@ -81,10 +81,11 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
      */
     private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> headerData, Map<String, Object> parameterData){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(method.getRequestContentType()));
-        Request request = new Request(method.getRequestType());
-        request.setRequestHeaders(headerData);
+        Request request = new Request(method.getRequestType(),method.getInputParamSchemas());
+        request.initRequest(method.getUrl(),headerData,parameterData);
+        //request.setRequestHeaders(headerData);
         //request.setRequestParams(parameterData);
-        //todo  这里参考接口debug完善
+        //todo  这里参考接口debug完善 这个参数位置到底放那个对象里面呢
         Map<String,Object> result = httpClient.sendRequest(request);
         return result;
     }

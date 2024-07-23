@@ -41,7 +41,7 @@ class FlowRuntimeServiceImplTest {
         flow.setFlowName("单侧流程");
         flow.setFlowContent(FlowDefinitionHelper.getFlowDefinitionContent());
         flow.setInputParams(FlowDefinitionHelper.getFlowDefinitionParameterEntity().getInputParameterSchema());
-        flow.setOutputParams(FlowDefinitionHelper.getFlowDefinitionParameterEntity().getFlowRuntimeOutputParameters());
+        flow.setOutputParams(FlowDefinitionHelper.getFlowDefinitionParameterEntity().getOutputParameterSchema());
         flow.setVariables(FlowDefinitionHelper.getFlowRuntimeVariables(FlowDefinitionHelper.getFlowDefinitionVariableInfoList()));
 
 

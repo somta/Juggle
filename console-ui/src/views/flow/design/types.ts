@@ -23,6 +23,7 @@ export type MethodInfo = {
   requestContentType: string;
   requestType: string;
   url: string;
+  inputParamSchemas: any,
   headerFillRules: any;
   inputFillRules: any;
   outputFillRules: any;

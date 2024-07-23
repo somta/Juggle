@@ -16,7 +16,18 @@ let paramsData = reactive({
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
 let flowResponseJson = ref('');
-const apiInfo = ref<ApiInfo>();
+const apiInfo = ref<ApiInfo>({
+  id: null,
+  suiteId: null,
+  apiUrl: '',
+  apiName: '',
+  apiDesc: '',
+  apiRequestType: '',
+  apiRequestContentType: '',
+  apiHeaders: [],
+  apiInputParams: [],
+  apiOutputParams: []
+});
 
 const responseHeaderData = ref([]);
 

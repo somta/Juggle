@@ -6,7 +6,7 @@ defineProps({
   dataTotal: Number,
   loading: Boolean,
 });
-const emit = defineEmits(['pageChange', 'delete']);
+const emit = defineEmits(['pageChange', 'edit', 'delete']);
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
