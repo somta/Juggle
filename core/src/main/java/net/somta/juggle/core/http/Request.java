@@ -16,13 +16,14 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.http;
 
-import feign.template.Template;
 import feign.template.UriTemplate;
 import net.somta.juggle.core.enums.ParameterPositionEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.InputParameter;
 import org.apache.commons.collections4.CollectionUtils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,6 +49,8 @@ public class Request {
      */
     private Map<String,Object> requestHeaders;
 
+    private List<InputParameter> inputParamSchema;
+
     /**
      * 请求参数
      */
@@ -68,38 +71,55 @@ public class Request {
      */
     private Integer retryInterval = 1000;
 
-    public Request(RequestTypeEnum requestType) {
+    public Request(RequestTypeEnum requestType,List<InputParameter> inputParamSchema) {
         this.requestType = requestType;
+        this.inputParamSchema = inputParamSchema;
     }
 
-    public void initUrlAndRequestParams(String apiUrl, List<InputParameter> inputParameterSchema, Map<String, Object> inputParamData) {
+    public void initRequest(String apiUrl, Map<String, Object> headerData, Map<String, Object> inputParamData) {
         if (requestUrl == null) {
             throw new IllegalArgumentException("reqMethod,reqHeaders,reqBody should not be null");
         }
-        this.requestUrl = requestUrl;
+        this.requestUrl = buildRequestUrl(apiUrl,inputParamData);
+        this.requestHeaders = headerData;
+        this.requestParams = buildRequestParams(inputParamData);
     }
 
-    private String buildRequestUrl(String apiUrl, List<InputParameter> inputParameterSchema, Map<String, Object> inputParamData){
-        if(CollectionUtils.isEmpty(inputParameterSchema)){
+    private String buildRequestUrl(String apiUrl, Map<String, Object> inputParamData){
+        if(CollectionUtils.isEmpty(inputParamSchema)){
             return apiUrl;
         }
-        List<InputParameter> pathInputParameterSchema = inputParameterSchema.stream()
+        List<InputParameter> pathInputParameterSchema = inputParamSchema.stream()
                 .filter(p -> ParameterPositionEnum.PATH.getCode().equals(p.getPosition()))
                 .collect(Collectors.toList());
         if(CollectionUtils.isEmpty(pathInputParameterSchema)){
             return apiUrl;
         }
+        Map<String,Object> templateVariables = new HashMap<>();
         for (InputParameter inputParamSchema : pathInputParameterSchema) {
-
+            Object value = inputParamData.get(inputParamSchema.getKey());
+            templateVariables.put(inputParamSchema.getKey(),value);
         }
 
-        //feign能实现这个功能
-        //UriTemplate template = new Template("/users/{userId}");
-
-        //todo 将参数 http://baidu.com/info/{id}/{type}  传入map的值 替换url 获取新的连接地址
-
-
+        UriTemplate template =  UriTemplate.create(apiUrl, StandardCharsets.UTF_8);
+        apiUrl = template.expand(templateVariables);
         return apiUrl;
+    }
+
+    private Map<String, Object> buildRequestParams(Map<String, Object> inputParamData) {
+        if(CollectionUtils.isEmpty(inputParamSchema)){
+            return inputParamData;
+        }
+        List<InputParameter> pathInputParameterSchema = inputParamSchema.stream()
+                .filter(p -> ParameterPositionEnum.PATH.getCode().equals(p.getPosition()))
+                .collect(Collectors.toList());
+        if(CollectionUtils.isEmpty(pathInputParameterSchema)){
+            return inputParamData;
+        }
+        for (InputParameter inputParamSchema : pathInputParameterSchema) {
+            inputParamData.remove(inputParamSchema.getKey());
+        }
+        return inputParamData;
     }
 
     public String getRequestUrl() {
@@ -114,17 +134,17 @@ public class Request {
         return requestHeaders;
     }
 
-    public void setRequestHeaders(Map<String, Object> requestHeaders) {
+    /*public void setRequestHeaders(Map<String, Object> requestHeaders) {
         this.requestHeaders = requestHeaders;
-    }
+    }*/
 
     public Map<String, Object> getRequestParams() {
         return requestParams;
     }
 
-    public void setRequestParams(Map<String, Object> requestParams) {
+    /*public void setRequestParams(Map<String, Object> requestParams) {
         this.requestParams = requestParams;
-    }
+    }*/
 
     public Integer getTimeout() {
         return timeout;

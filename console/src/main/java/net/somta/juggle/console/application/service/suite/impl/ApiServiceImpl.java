@@ -101,9 +101,9 @@ public class ApiServiceImpl implements IApiService {
     public Map<String, Object> debugApi(Long apiId, ApiDebugParam apiDebugParam) {
         ApiAO apiAo = apiRepository.queryApi(apiId);
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(apiAo.getApiRequestContentType()));
-        Request request = new Request(apiAo.getApiRequestType());
-        request.setRequestHeaders(apiDebugParam.getHeaderData());
-        request.initUrlAndRequestParams(apiAo.getApiUrl(),apiAo.getParameterEntity().getInputParameterSchema(),apiDebugParam.getInputParamData());
+        Request request = new Request(apiAo.getApiRequestType(),apiAo.getParameterEntity().getInputParameterSchema());
+        //request.setRequestHeaders(apiDebugParam.getHeaderData());
+        request.initRequest(apiAo.getApiUrl(),apiDebugParam.getHeaderData(),apiDebugParam.getInputParamData());
         //request.setRequestParams(apiDebugParam.getInputParamData());
         Map<String,Object> originalResult = httpClient.sendRequest(request);
         Map<String,Object> result = apiAo.handleApiResponseResult(originalResult);
