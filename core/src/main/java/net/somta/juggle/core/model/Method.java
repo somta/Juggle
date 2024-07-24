@@ -31,6 +31,11 @@ public class Method {
     private String requestContentType;
 
     /**
+     * input parameter schema
+     */
+    private List<InputParameter> inputParamSchemas;
+
+    /**
      * header的填充规则
      */
     private List<FillStruct> headerFillRules;
@@ -83,6 +88,14 @@ public class Method {
 
     public void setRequestContentType(String requestContentType) {
         this.requestContentType = requestContentType;
+    }
+
+    public List<InputParameter> getInputParamSchemas() {
+        return inputParamSchemas;
+    }
+
+    public void setInputParamSchemas(List<InputParameter> inputParamSchemas) {
+        this.inputParamSchemas = inputParamSchemas;
     }
 
     public List<FillStruct> getHeaderFillRules() {

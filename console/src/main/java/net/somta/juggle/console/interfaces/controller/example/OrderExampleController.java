@@ -53,6 +53,28 @@ public class OrderExampleController {
         return order;
     }
 
+    @Operation(summary = "根据用户ID查询用户订单列表")
+    @GetMapping("/getOrderListByUserId/{userId}")
+    public UserOrderDTO getOrderListByUserId(@PathVariable Integer userId){
+        UserOrderDTO userOrderDto = new UserOrderDTO();
+        List<OrderDTO> orderDtoList = new ArrayList<>();
+        OrderDTO order = new OrderDTO();
+        order.setOrderNo("NO123");
+        order.setOrderName("测试订单");
+        order.setUserId(userId);
+        orderDtoList.add(order);
+
+        OrderDTO order2 = new OrderDTO();
+        order2.setOrderNo("NO456");
+        order2.setOrderName("测试订单");
+        order2.setUserId(userId);
+        orderDtoList.add(order2);
+
+        userOrderDto.setUserId(userId);
+        userOrderDto.setOrderList(orderDtoList);
+        return userOrderDto;
+    }
+
     @Operation(summary = "查询用户订单列表")
     @GetMapping("/getUserOrderList")
     public UserOrderDTO getUserOrderList(@ParameterObject OrderParam orderParam){
