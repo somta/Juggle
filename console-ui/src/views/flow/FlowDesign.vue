@@ -22,9 +22,11 @@ import { rebuildCondition } from './design/data/generate';
 
 const flowContext = useFlowDataProvide();
 const route = useRoute();
+const flowName = ref();
 async function queryFlowDefineInfo() {
   const res = await flowDefineService.getDefineInfo(route.params.flowDefinitionId as unknown as number);
   if (res.success) {
+    flowName.value = res.result.flowName;
     flowContext.update(draft => {
       Object.assign(draft, res.result);
       draft.flowContent = JSON.parse(res.result.flowContent);
@@ -37,7 +39,7 @@ async function queryFlowDefineInfo() {
 const flowCanvas = shallowRef();
 const addNodeModal = shallowRef();
 const editNodeModal = shallowRef();
-const conditionFilterModal = shallowRef();
+const conditionFilterModalRef = shallowRef();
 let flowRenderer: FlowRenderer;
 const scale = ref(1);
 function onZoomToolChange(value: number) {
@@ -70,7 +72,7 @@ onMounted(async () => {
       if (d.data.type === ElementType.BRANCH) {
         const data = d.data as DataBranch;
         const parent = data.getParent();
-        conditionFilterModal.value.open({
+        conditionFilterModalRef.value.open({
           data: parent!.raw,
           index: data.branchIndex,
           afterEdit: (val: ConditionItem) => {
@@ -133,13 +135,16 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
 
 <template>
   <div class="page-flow-design">
+    <div class="flow-header">
+      {{flowName}}
+    </div>
     <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
     </div>
     <LeftMenu />
     <AddNodeModal ref="addNodeModal"/>
     <EditNodeDrawer ref="editNodeModal" />
-    <ConditionFilterModal ref="conditionFilterModal" />
+    <ConditionFilterModal ref="conditionFilterModalRef" />
     <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
   </div>
 </template>
@@ -148,6 +153,12 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
 .layout-view .layout-router-view.page-flow-design {
   background-color: #fff;
 }
+
+.flow-header {
+  border-bottom: 1px solid #dcdfe6;
+  padding: 9.5px;
+}
+
 .page-flow-design {
   position: relative;
   .flow-canvas {
@@ -177,7 +188,7 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
   }
   .flow-submit {
     position: absolute;
-    top: 20px;
+    top: 4px;
     right: 20px;
   }
 }

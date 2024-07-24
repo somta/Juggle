@@ -10,18 +10,18 @@ const props = defineProps({
   },
 });
 
-const step = 0.25; // 25的倍数，因为0.25 * 100 = 25
+const step = 0.1; // 缩放因子 每次10%
 
 const percent = computed(() => {
   return `${Math.round(props.scale * 100)}%`;
 });
 
 function plus() {
-  emit('change', Math.floor((props.scale + step) * 4) / 4); // 保证结果为25的倍数
+  emit('change', props.scale + step);
 }
 
 function minus() {
-  emit('change', Math.floor((props.scale - step) * 4) / 4); // 保证结果为25的倍数
+  emit('change', props.scale - step);
 }
 </script>
 

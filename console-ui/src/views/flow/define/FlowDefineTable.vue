@@ -64,7 +64,7 @@ function goDesignPage(flowDefinitionId: number, flowKey: string) {
     <el-table-column prop="createdAt" label="创建时间" width="140" />
     <el-table-column label="操作" width="250">
       <template #default="scope">
-        <el-button link type="primary" size="small" @click="goDesignPage(scope.row.id, scope.row.flowKey)"> 流程 </el-button>
+        <el-button link type="primary" size="small" @click="goDesignPage(scope.row.id, scope.row.flowKey)"> 设计 </el-button>
         <el-button link type="primary" size="small" @click="goDebugPage(scope.row.id, scope.row.flowKey)"> 调试 </el-button>
         <el-button link type="primary" size="small" @click.prevent="deployFlow(scope.row)"> 部署 </el-button>
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>
