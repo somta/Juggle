@@ -5,7 +5,8 @@ import { LayoutNode } from '../LayoutNode';
 export const box = {
   width: 180,
   height: 40,
-  marginBottom: 60,
+  headerHeight:26,
+  marginBottom: 80,
   marginRight: 60,
   conditionWidth: 140,
   conditionHeight: 40,

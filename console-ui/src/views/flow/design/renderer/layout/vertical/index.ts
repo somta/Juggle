@@ -184,6 +184,8 @@ export class VerticalLayout {
     if (type === 'enter') {
       const flowNode = container.append('g').attr('class', 'flow-node');
 
+
+
       flowNode
         .append('rect')
         .attr('width', width)
@@ -191,7 +193,7 @@ export class VerticalLayout {
         .attr('fill', '#fff')
         .attr('stroke', '#aaa')
         .attr('stroke-width', 1)
-        .attr('rx', 4)
+        .attr('rx', 1)
         .attr('ry', 4);
 
       flowNode
@@ -202,9 +204,12 @@ export class VerticalLayout {
         .attr('y', height / 2)
         .text(data.raw.name);
 
+      this.drawHeader(flowNode,width,height);
+
       this.drawHoverButtons(flowNode, node);
     } else {
       const flowNode = container.selectChild('.flow-node')
+      console.log(data.raw.name);
       flowNode.select('text').text(data.raw.name);
     }
     if ([ElementType.START, ElementType.METHOD, ElementType.CODE, ElementType.MYSQL].includes(data.type)) {
@@ -216,14 +221,6 @@ export class VerticalLayout {
 
     if (type === 'enter') {
       container.append('rect')
-        // .attr('class', 'sup-rect')
-        // .attr('width', node.width)
-        // .attr('height', node.height)
-        // .attr('fill', 'transparent')
-        // .attr('stroke', '#aaa')
-        // .attr('stroke-width', 1)
-        // .attr('rx', 4)
-        // .attr('ry', 4);
 
       const conditionBox = node.contentBox;
       const conditionStart = container
@@ -238,7 +235,7 @@ export class VerticalLayout {
         .attr('fill', '#fff')
         .attr('stroke', '#aaa')
         .attr('stroke-width', 1)
-        .attr('rx', 4)
+        .attr('rx', 1)
         .attr('ry', 4);
       conditionStart
         .append('text')
@@ -248,6 +245,7 @@ export class VerticalLayout {
         .attr('y', conditionBox.height / 2)
         .text(node.data.raw.name);
 
+      this.drawHeader(conditionStart,conditionBox.width,conditionBox.height);
       this.drawHoverButtons(conditionStart, node);
     } else {
       container.selectChild('.flow-node').attr('transform', `translate(${node.contentBox.left}, 0)`);
@@ -280,16 +278,6 @@ export class VerticalLayout {
   drawBranch(container: D3Element, branch: LayoutNode, type: string) {
     if (branch.data.key !== 'root' && branch.data.type === ElementType.BRANCH) {
       if (type === 'enter') {
-        // container.append('rect')
-        //   .attr('class', 'sup-rect')
-        //   .attr('width', branch.width)
-        //   .attr('height', branch.height)
-        //   .attr('fill', 'transparent')
-        //   .attr('stroke', '#aaa')
-        //   .attr('stroke-width', 1)
-        //   .attr('rx', 4)
-        //   .attr('ry', 4)
-        //   .attr('x', -branch.width / 2);
         const conditionBox = branch.contentBox;
         const branchStart = container
           .append('g')
@@ -357,14 +345,14 @@ export class VerticalLayout {
       const addButton = container
         .append('g')
         .attr('class', 'flow-btn flow-btn-add')
-        .attr('transform', `translate(${width / 2}, ${height + box.marginBottom / 2})`)
+        .attr('transform', `translate(${width / 2}, ${height - box.headerHeight/2 + box.marginBottom / 2})`)
         .on('click', (_, d) => {
           this.renderer.options.onAdd?.(d);
         });
       addButton.append('circle').attr('cx', 0).attr('cy', 0).attr('r', btn_radius).attr('fill', '#409eff');
       addButton.append('use').attr('href', '#icon-plus').attr('width', 16).attr('height', 16).attr('x', -8).attr('y', -8).attr('fill', '#fff');
     } else {
-      container.select('.flow-btn-add').attr('transform', `translate(${width / 2}, ${height + box.marginBottom / 2})`);
+      container.select('.flow-btn-add').attr('transform', `translate(${width / 2}, ${height - box.headerHeight/2 + box.marginBottom / 2})`);
     }
   }
 
@@ -379,7 +367,7 @@ export class VerticalLayout {
       const flowBtns = container
         .append('g')
         .attr('class', `flow-btn flow-btn-${btn}`)
-        .attr('transform', `translate(${width - i * 36}, 0)`)
+        .attr('transform', `translate(${width - i * 36}, ${-box.headerHeight})`)
         .on('click', (_, d) => {
           if (btn === 'edit') {
             this.renderer.options.onEdit?.(d);
@@ -392,5 +380,28 @@ export class VerticalLayout {
 
       flowBtns.append('use').attr('href', `#icon-${btn}`).attr('width', 16).attr('height', 16).attr('x', -8).attr('y', -8).attr('fill', '#777');
     });
+  }
+
+  drawHeader(flowNode:any,width:number,height:number){
+    //todo 这里的颜色要根据节点来
+    flowNode
+        .append('rect')
+        .attr('width', width)
+        .attr('height', box.headerHeight)
+        .attr('fill', '#e5cf7a')
+        .attr('stroke', '#aaa')
+        .attr('stroke-width', 1)
+        .attr('rx', 4)
+        .attr('ry', 1)
+        .attr('transform', `translate(0, -${box.headerHeight})`);
+
+    //todo 这里的节点名称要根据节点来
+    flowNode
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('x', width / 2)
+        .attr('y', height / 2 -33)
+        .text('开始节点');
   }
 }
