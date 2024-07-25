@@ -155,7 +155,7 @@ function getDataTypeDisplayName(dataType: any){
 <!--            <template>
               {{ getDataTypeDisplayName(rule.targetDataType) }}
             </template>-->
-            <DataTypeSelect v-model="rule.targetDataType" disabled type="basic" size="small" />
+            <DataTypeSelect v-model="rule.targetDataType" disabled size="small" />
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.sourceType" size="small" @change="onSourceTypeChange(rowIndex)">

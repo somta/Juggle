@@ -7,10 +7,6 @@ import { isDataTypeEqual } from '@/utils/dataType';
 
 const props = defineProps({
   modelValue: Array as PropType<RuleItem[]>,
-  /*showTargetType: {
-    type: Boolean,
-    default: true,
-  },*/
   addText: String,
   sourceList: {
     type: Array as PropType<any[]>,
@@ -90,7 +86,6 @@ function getAvailableTarget (source: string, sourceDataType: DataTypeItem) {
 }
 
 function onSourceChange (rowIndex: number) {
-  console.log("onSourceChange",rules.value[rowIndex]);
   const source = rules.value[rowIndex].source;
   const param = props.sourceList.find((item) => item.paramKey === source);
   rules.value[rowIndex].target = '';
@@ -104,9 +99,6 @@ function onSourceChange (rowIndex: number) {
     <div class="rule-setting-head">
       <div class="rule-setting-tr">
         <template v-for="column in columns" :key="column.prop">
-<!--          <template v-if="column.prop === 'targetType'">
-            <div class="rule-setting-td" v-if="showTargetType">{{ column.name }}</div>
-          </template>-->
           <div class="rule-setting-td">{{ column.name }}</div>
         </template>
         <div class="rule-setting-td delete-td"></div>
