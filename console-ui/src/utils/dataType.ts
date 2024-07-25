@@ -4,7 +4,7 @@ import { DataTypeItem } from '@/typings/flowDesign';
 const DATA_TYPE_TEMP: Map<string, DataTypeItem> = new Map();
 
 export function getDataTypeObject (dataType: any): DataTypeItem {
-  console.log("getDataTypeObject",dataType)
+  //console.log("getDataTypeObject",dataType)
   const key = JSON.stringify(dataType);
   if (DATA_TYPE_TEMP.has(key)) {
     return DATA_TYPE_TEMP.get(key) as DataTypeItem;

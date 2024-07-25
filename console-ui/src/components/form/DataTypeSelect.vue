@@ -1,19 +1,20 @@
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import {ref, computed, PropType} from 'vue';
 import { commonService } from '@/service';
 import { getDataTypeObject } from '@/utils/dataType';
 
 const props = defineProps({
-  modelValue: [String, Object],
+  //modelValue: [String, Object],
+  modelValue: Object,
   type: String,
-  valueType: {
+  /*valueType: {
     type: String,
     default: 'String',
-  },
+  },*/
   disabled: Boolean,
   size: {
-    type: String,
+    type: String as PropType<"large" | "default" | "small">,
     default: 'default'
   },
 });
@@ -133,11 +134,12 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    if (props.valueType === 'String') {
+    val = { ...props.modelValue as object };
+    /*if (props.valueType === 'String') {
       val = getDataTypeObject(props.modelValue);
     } else if (props.valueType === 'Object') {
       val = { ...props.modelValue as object };
-    }
+    }*/
   }
   return val;
 });
@@ -172,7 +174,6 @@ const handleChange = (val: any) => {
 }
 
 const handleBasicChange = (val: any) => {
-  console.log('handleBasicChange:',val);
   if (!val) {
     emit('update:modelValue', null);
     emit('change', null);
