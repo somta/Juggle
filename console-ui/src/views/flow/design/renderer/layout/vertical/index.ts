@@ -4,6 +4,7 @@ import { LayoutNode } from '../LayoutNode';
 import { FlowRenderer } from '../../index';
 import { DataNode } from '../../../data';
 import { layoutTree, box, setLayoutToMap } from './generate';
+import {nodeMap} from "@/views/flow/design/config.ts";
 
 type D3Point = [number, number];
 
@@ -204,7 +205,7 @@ export class VerticalLayout {
         .attr('y', height / 2)
         .text(data.raw.name);
 
-      this.drawHeader(flowNode,width,height);
+      this.drawHeader(flowNode,node,width,height);
 
       this.drawHoverButtons(flowNode, node);
     } else {
@@ -245,7 +246,7 @@ export class VerticalLayout {
         .attr('y', conditionBox.height / 2)
         .text(node.data.raw.name);
 
-      this.drawHeader(conditionStart,conditionBox.width,conditionBox.height);
+      this.drawHeader(conditionStart,node,conditionBox.width,conditionBox.height);
       this.drawHoverButtons(conditionStart, node);
     } else {
       container.selectChild('.flow-node').attr('transform', `translate(${node.contentBox.left}, 0)`);
@@ -367,7 +368,7 @@ export class VerticalLayout {
       const flowBtns = container
         .append('g')
         .attr('class', `flow-btn flow-btn-${btn}`)
-        .attr('transform', `translate(${width - i * 36}, ${-box.headerHeight})`)
+        .attr('transform', `translate(${width - i * 36}, ${ElementType.BRANCH === data.type ? 0 : -box.headerHeight})`)
         .on('click', (_, d) => {
           if (btn === 'edit') {
             this.renderer.options.onEdit?.(d);
@@ -382,26 +383,26 @@ export class VerticalLayout {
     });
   }
 
-  drawHeader(flowNode:any,width:number,height:number){
-    //todo 这里的颜色要根据节点来
+  drawHeader(flowNode:any, node: LayoutNode,width:number,height:number){
+    const nodeType = node.data.type as ElementType;
+    const nodeCard = nodeMap[nodeType];
     flowNode
         .append('rect')
         .attr('width', width)
         .attr('height', box.headerHeight)
-        .attr('fill', '#e5cf7a')
+        .attr('fill', nodeCard.nodeHeaderColor)
         .attr('stroke', '#aaa')
         .attr('stroke-width', 1)
         .attr('rx', 4)
         .attr('ry', 1)
         .attr('transform', `translate(0, -${box.headerHeight})`);
 
-    //todo 这里的节点名称要根据节点来
     flowNode
         .append('text')
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('x', width / 2)
         .attr('y', height / 2 -33)
-        .text('开始节点');
+        .text(nodeCard.nodeName);
   }
 }
