@@ -10,7 +10,13 @@ const route = useRoute();
 let paramsData = reactive({
   params: route.params,
 });
-const suiteMarketInfo = ref<SuiteMarket>();
+const suiteMarketInfo = ref<SuiteMarket>({
+  id: null,
+  suiteCode: '',
+  suiteName: '',
+  suiteImage: '',
+  suiteDesc: '',
+});
 
 const headerData = [
   {
@@ -63,7 +69,7 @@ async function querySuiteMarketList() {
 <template>
   <div class="suite-market-detail">
     <div class="suite-head">
-      <img :src="suiteMarketInfo.suiteImage">
+      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage">
       <h3>
         {{suiteMarketInfo.suiteName}}
         <p>{{suiteMarketInfo.suiteDesc}}</p>
@@ -75,7 +81,7 @@ async function querySuiteMarketList() {
     <div class="suite-doc">
       <el-tabs model-value="apiList">
         <el-tab-pane label="套件接口" name="apiList">
-          <el-tabs tab-position="left" style="height: 200px" class="demo-tabs">
+          <el-tabs tab-position="left" class="demo-tabs">
             <el-tab-pane label="发生邮件">
               <div class="api-info">
                 <div>
@@ -170,10 +176,10 @@ async function querySuiteMarketList() {
 }
 
 .suite-doc{
-
-  /*.el-tabs__nav-wrap:after{
-    background-color: #fff !important;
-  }*/
+  :deep(.el-tabs__nav-wrap)::after{
+    background-color: transparent;
+    height: 0;
+  }
 
   .help-doc a{
     display: block;

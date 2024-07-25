@@ -26,7 +26,7 @@ export function getDataTypeObject (dataType: any): DataTypeItem {
   return result;
 }
 
-export function isDataTypeEqual (typeA: string, typeB: string) {
+export function isDataTypeEqual (typeA: DataTypeItem, typeB: DataTypeItem) {
   if (typeA === typeB) {
     return true;
   }

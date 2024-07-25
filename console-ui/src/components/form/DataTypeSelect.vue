@@ -123,7 +123,6 @@ function arrayToType (arr: string[]) {
   }
   if (result.objectKey) {
     const item = dataTypeList.value.find(item => item.objectKey === result.objectKey);
-    console.log('333',item)
     if (item) {
       result.objectStructure = item.objectStructure;
     }
@@ -161,7 +160,6 @@ const innerBasicValue = computed(() => {
 });
 
 const handleChange = (val: any) => {
-  console.log(val);
   if (!Array.isArray(val)) {
     emit('update:modelValue', null);
     emit('change', null);

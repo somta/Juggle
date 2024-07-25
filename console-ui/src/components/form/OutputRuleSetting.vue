@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
-import { valueType, RuleItem } from '@/typings';
+import {valueType, RuleItem, DataTypeItem} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
 
 const props = defineProps({
   modelValue: Array as PropType<RuleItem[]>,
-  showTargetType: {
+  /*showTargetType: {
     type: Boolean,
     default: true,
-  },
+  },*/
   addText: String,
   sourceList: {
     type: Array as PropType<any[]>,
@@ -42,10 +42,10 @@ const columns = [
 function addrule() {
   rules.value.push({
     source: '',
-    sourceDataType: '',
+    sourceDataType: null,
     sourceType: valueType.INPUT_PARAM,
     target: '',
-    targetDataType: '',
+    targetDataType: null,
     targetType: valueType.VARIABLE,
     required: false,
   });
@@ -78,7 +78,7 @@ function getAvailableSource (source: string) {
     return !rules.value.map(item => item.source).includes(item.paramKey);
   });
 }
-function getAvailableTarget (source: string, sourceDataType: string) {
+function getAvailableTarget (source: string, sourceDataType: DataTypeItem) {
   return props.targetList.filter((item) => {
     // 不选取自己
     if (item.envKey === source) {
@@ -104,10 +104,10 @@ function onSourceChange (rowIndex: number) {
     <div class="rule-setting-head">
       <div class="rule-setting-tr">
         <template v-for="column in columns" :key="column.prop">
-          <template v-if="column.prop === 'targetType'">
+<!--          <template v-if="column.prop === 'targetType'">
             <div class="rule-setting-td" v-if="showTargetType">{{ column.name }}</div>
-          </template>
-          <div class="rule-setting-td" v-else>{{ column.name }}</div>
+          </template>-->
+          <div class="rule-setting-td">{{ column.name }}</div>
         </template>
         <div class="rule-setting-td delete-td"></div>
       </div>
@@ -121,7 +121,7 @@ function onSourceChange (rowIndex: number) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeSelect v-model="rule.sourceDataType" disabled type="basic" size="small" />
+            <DataTypeSelect v-model="rule.sourceDataType" disabled size="small" />
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 变量 -->

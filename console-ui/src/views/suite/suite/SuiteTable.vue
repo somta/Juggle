@@ -18,10 +18,10 @@ function editRow(row: any) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
     <el-table-column prop="suiteCode" label="套件编码" width="180" />
     <el-table-column prop="suiteName" label="套件名称" width="180" />
-    <el-table-column prop="suiteDesc" label="套件描述" />
+    <el-table-column prop="suiteDesc" label="套件描述" show-overflow-tooltip/>
     <el-table-column label="操作" width="180">
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>

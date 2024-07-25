@@ -55,7 +55,6 @@ export class FlowRenderer {
     this.dataRoot = generateDataTree(options.flowContext);
     this.layout = new VerticalLayout(this);
     this.refresh();
-    console.log(this.dataRoot, 'ww');
   }
 
   updateDatas(root: DataNode) {

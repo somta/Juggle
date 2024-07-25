@@ -7,7 +7,7 @@ import InputRuleSetting from '@/components/form/InputRuleSetting.vue';
 import {computed, PropType, ref, watch} from 'vue';
 import {ElementType, FlowVariableType, MethodInfo, RawData} from '../../types';
 import {apiService} from '@/service';
-import {ApiHeader, InputParams, valueType} from '@/typings';
+import {InputParams, valueType} from '@/typings';
 import {useFlowDataInject} from '../../hooks/flow-data';
 import {cloneDeep} from 'lodash-es';
 import {ElMessage} from 'element-plus';
@@ -239,7 +239,6 @@ function onCancel() {
           addText="新增出参赋值"
           :sourceList="outputSourceList"
           :targetList="outputTargetList"
-          :showTargetType="false"
         />
       </el-form-item>
       <el-form-item>

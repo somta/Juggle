@@ -14,17 +14,6 @@ function deleteRow(row: any, index: number) {
   emit('delete', row, index);
 }
 
-// todo 应该有更优雅的写法
-function flowTypeFormat(flowType: string) {
-  if (flowType == 'sync') {
-    return '同步';
-  } else if (flowType == 'async') {
-    return '异步';
-  } else {
-    return '未知';
-  }
-}
-
 function goFlowVersionListPage(flowId: number) {
   router.push({
     name: 'flow-version',
@@ -36,15 +25,16 @@ function goFlowVersionListPage(flowId: number) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
     <el-table-column prop="flowKey" label="流程编码" width="180" />
     <el-table-column prop="flowName" label="流程名称" width="220" />
     <el-table-column prop="flowType" label="流程类型" width="140">
       <template #default="scope">
-        {{ flowTypeFormat(scope.row.flowType) }}
+        <el-tag v-if="scope.row.flowType == 'sync'" type="success">同步</el-tag>
+        <el-tag v-else type="warning">异步</el-tag>
       </template>
     </el-table-column>
-    <el-table-column prop="remark" label="流程描述" width="420" />
+    <el-table-column prop="remark" label="流程描述" width="480" show-overflow-tooltip/>
     <el-table-column label="操作" width="250">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="goFlowVersionListPage(scope.row.id)"> 版本列表 </el-button>

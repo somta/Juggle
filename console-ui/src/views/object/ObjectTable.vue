@@ -21,9 +21,9 @@ function editRow(row: any) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
     <el-table-column prop="objectKey" label="对象编码" width="200" />
-    <el-table-column prop="objectName" label="对象名称" width="240" />
+    <el-table-column prop="objectName" label="对象名称" width="280" />
     <el-table-column prop="objectDesc" label="对象描述" width="520" />
     <el-table-column label="操作" width="250">
       <template #default="scope">
