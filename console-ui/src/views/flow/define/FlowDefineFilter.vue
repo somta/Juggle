@@ -22,7 +22,7 @@ const onReset = () => {
     <el-form-item label="流程名称">
       <el-input v-model="formValue.flowName" placeholder="请输入流程名称" />
     </el-form-item>
-    <el-form-item label="流程类型" style="width: 200px;">
+    <el-form-item label="流程类型" style="width: 200px">
       <el-select v-model="formValue.flowType" placeholder="请选择流程类型">
         <el-option key="all" label="全部" value="" />
         <el-option key="sync" label="同步" value="sync" />

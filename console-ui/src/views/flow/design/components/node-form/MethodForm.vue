@@ -1,22 +1,21 @@
-
 <script lang="ts" setup>
 import SuiteSelect from '@/components/form/SuiteSelect.vue';
 import ApiSelect from '@/components/form/ApiSelect.vue';
 import OutputRuleSetting from '@/components/form/OutputRuleSetting.vue';
 import InputRuleSetting from '@/components/form/InputRuleSetting.vue';
-import {computed, PropType, ref, watch} from 'vue';
-import {ElementType, FlowVariableType, MethodInfo, RawData} from '../../types';
-import {apiService} from '@/service';
-import {InputParams, valueType} from '@/typings';
-import {useFlowDataInject} from '../../hooks/flow-data';
-import {cloneDeep} from 'lodash-es';
-import {ElMessage} from 'element-plus';
+import { computed, PropType, ref, watch } from 'vue';
+import { ElementType, FlowVariableType, MethodInfo, RawData } from '../../types';
+import { apiService } from '@/service';
+import { InputParams, valueType } from '@/typings';
+import { useFlowDataInject } from '../../hooks/flow-data';
+import { cloneDeep } from 'lodash-es';
+import { ElMessage } from 'element-plus';
 
 const flowContext = useFlowDataInject();
 
 type MethodRawData = RawData & { method: MethodInfo };
 
-function getDefaultData () {
+function getDefaultData() {
   return {
     key: '',
     name: '',
@@ -35,7 +34,7 @@ function getDefaultData () {
       inputFillRules: [],
       outputFillRules: [],
     },
-  }
+  };
 }
 
 const emit = defineEmits(['update', 'cancel']);
@@ -47,23 +46,27 @@ const props = defineProps({
 });
 
 const nodeData = ref(getDefaultData() as MethodRawData);
-watch(() => props.data, val => {
-  if (val !== nodeData.value) {
-    nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
-    if (nodeData.value.method.methodId) {
-      initApiSourceList(nodeData.value.method.methodId);
+watch(
+  () => props.data,
+  val => {
+    if (val !== nodeData.value) {
+      nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
+      if (nodeData.value.method.methodId) {
+        initApiSourceList(nodeData.value.method.methodId);
+      }
     }
-  }
-}, { immediate: true });
+  },
+  { immediate: true }
+);
 
-function onSuiteChange () {
+function onSuiteChange() {
   nodeData.value.method = {
     ...getDefaultData().method,
     suiteId: nodeData.value.method?.suiteId as number,
   };
 }
 
-function paramToRule (param: { dataType: string; paramKey: string; paramName: string; required?: boolean },sourceType:valueType) {
+function paramToRule(param: { dataType: string; paramKey: string; paramName: string; required?: boolean }, sourceType: valueType) {
   const result = {
     source: '',
     sourceDataType: null,
@@ -72,17 +75,17 @@ function paramToRule (param: { dataType: string; paramKey: string; paramName: st
     targetDataType: param.dataType,
     targetType: sourceType,
     required: true,
-  }
+  };
   return result;
 }
 
-async function initApiSourceList (val: number) {
+async function initApiSourceList(val: number) {
   const res = await apiService.queryApiInfo(val);
   if (res.result) {
     const result = res.result;
-    headerSourceList.value = result.apiHeaders.map(item => ({...item, targetType: valueType.HEADER }));
-    inputSourceList.value = result.apiInputParams.map(item => ({...item, targetType: valueType.INPUT_PARAM }));
-    outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
+    headerSourceList.value = result.apiHeaders.map(item => ({ ...item, targetType: valueType.HEADER }));
+    inputSourceList.value = result.apiInputParams.map(item => ({ ...item, targetType: valueType.INPUT_PARAM }));
+    outputSourceList.value = result.apiOutputParams.map(item => ({ ...item, sourceType: valueType.OUTPUT_PARAM }));
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);
     headerRequiredKeys.value = headerRequired.map(item => item.paramKey);
@@ -92,7 +95,7 @@ async function initApiSourceList (val: number) {
   }
 }
 
-async function onApiChange (val: number) {
+async function onApiChange(val: number) {
   const res = await apiService.queryApiInfo(val);
   if (res.result) {
     const result = res.result;
@@ -104,20 +107,20 @@ async function onApiChange (val: number) {
         paramKey: item.paramKey,
         paramName: item.paramName,
         dataType: item.dataType,
-        position: item.paramPosition
+        position: item.paramPosition,
       };
     });
-    headerSourceList.value = result.apiHeaders.map(item => ({...item, targetType: valueType.HEADER }));
-    inputSourceList.value = result.apiInputParams.map(item => ({...item, targetType: valueType.INPUT_PARAM }));
-    outputSourceList.value = result.apiOutputParams.map(item => ({...item, sourceType: valueType.OUTPUT_PARAM }));
+    headerSourceList.value = result.apiHeaders.map(item => ({ ...item, targetType: valueType.HEADER }));
+    inputSourceList.value = result.apiInputParams.map(item => ({ ...item, targetType: valueType.INPUT_PARAM }));
+    outputSourceList.value = result.apiOutputParams.map(item => ({ ...item, sourceType: valueType.OUTPUT_PARAM }));
     // 默认必填 - 头参
     const headerRequired = result.apiHeaders.filter(item => item.required);
-    method.headerFillRules = headerRequired.map(item => paramToRule(item,valueType.HEADER));
+    method.headerFillRules = headerRequired.map(item => paramToRule(item, valueType.HEADER));
     headerRequiredKeys.value = headerRequired.map(item => item.paramKey);
-    
+
     // 默认必填 - 入参
     const inputRequired = result.apiInputParams.filter(item => item.required);
-    method.inputFillRules = inputRequired.map(item => paramToRule(item,valueType.INPUT_PARAM));
+    method.inputFillRules = inputRequired.map(item => paramToRule(item, valueType.INPUT_PARAM));
     inputRequiredKeys.value = inputRequired.map(item => item.paramKey);
 
     method.outputFillRules = [];
@@ -135,21 +138,15 @@ const inputRequiredKeys = ref<string[]>([]);
 
 const inputTargetList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [
-    FlowVariableType.INPUT,
-    FlowVariableType.TEMP,
-  ].includes(item.envType));
+  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.envType));
 });
 
 const outputTargetList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [
-    FlowVariableType.OUTPUT,
-    FlowVariableType.TEMP,
-  ].includes(item.envType))
+  return flowVariables.filter(item => [FlowVariableType.OUTPUT, FlowVariableType.TEMP].includes(item.envType));
 });
 
-function validateParam (param: any) {
+function validateParam(param: any) {
   if (!param.source) {
     return false;
   }
@@ -159,7 +156,7 @@ function validateParam (param: any) {
   return true;
 }
 
-function validate () {
+function validate() {
   if (!nodeData.value.name) {
     ElMessage.error('节点名称不能为空');
     return false;

@@ -47,10 +47,10 @@ function openDelete(row: any) {
     cancelButtonText: '取消',
     type: 'warning',
   })
-      .then(() => {
-        deleteDataSourceItem(row);
-      })
-      .catch(() => {});
+    .then(() => {
+      deleteDataSourceItem(row);
+    })
+    .catch(() => {});
 }
 
 async function addDataSourceItem(row: any) {
@@ -82,7 +82,7 @@ async function deleteDataSourceItem(row: any) {
   }
 }
 
-async function connectDataSource(row: any){
+async function connectDataSource(row: any) {
   const res = await dataSourceService.connectDataSource(row.id);
   if (res.result) {
     ElMessage({ type: 'success', message: '连接成功' });
@@ -99,15 +99,15 @@ async function connectDataSource(row: any){
       </el-header>
       <el-main class="page-body">
         <DataSourceTable
-            :dataRows="dataRows"
-            :dataTotal="dataTotal"
-            :pageNum="pageNum"
-            :pageSize="pageSize"
-            :loading="loading"
-            @pageChange="onPageChange"
-            @connect="connectDataSource"
-            @edit="openEdit"
-            @delete="openDelete"
+          :dataRows="dataRows"
+          :dataTotal="dataTotal"
+          :pageNum="pageNum"
+          :pageSize="pageSize"
+          :loading="loading"
+          @pageChange="onPageChange"
+          @connect="connectDataSource"
+          @edit="openEdit"
+          @delete="openDelete"
         />
       </el-main>
     </el-container>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref } from 'vue';
-import {FormInstance, FormRules} from 'element-plus';
-import {FlowDefineInfo} from '@/typings';
-import ParamSetting from "@/components/form/ParamSetting.vue";
-import {flowDefineService} from "@/service";
+import { FormInstance, FormRules } from 'element-plus';
+import { FlowDefineInfo } from '@/typings';
+import ParamSetting from '@/components/form/ParamSetting.vue';
+import { flowDefineService } from '@/service';
 
 const flowDefineDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -18,7 +18,7 @@ function getDefaultFlowDefine() {
     remark: '',
     flowInputParams: [],
     flowOutputParams: [],
-  }
+  };
 }
 
 const rules = reactive<FormRules>({
@@ -62,7 +62,7 @@ function open(item?: Record<string, any>) {
         flowDefineFormValue.flowInputParams = res.result.flowInputParams;
         flowDefineFormValue.flowOutputParams = res.result.flowOutputParams;
       }
-    }else {
+    } else {
       Object.assign(flowDefineFormValue, getDefaultFlowDefine());
     }
   });
@@ -92,10 +92,10 @@ defineExpose({ open });
           </el-select>
         </el-form-item>
         <el-form-item label="流程描述">
-          <el-input type="textarea" v-model="flowDefineFormValue.remark" maxlength="120"/>
+          <el-input type="textarea" v-model="flowDefineFormValue.remark" maxlength="120" />
         </el-form-item>
         <el-form-item label="流程入参">
-          <ParamSetting v-model="flowDefineFormValue.flowInputParams" addText="新增入参" showRequired/>
+          <ParamSetting v-model="flowDefineFormValue.flowInputParams" addText="新增入参" showRequired />
         </el-form-item>
         <el-form-item label="流程出参">
           <ParamSetting v-model="flowDefineFormValue.flowOutputParams" addText="新增出参" />

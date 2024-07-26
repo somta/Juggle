@@ -2,7 +2,7 @@
 import { ref, watch, PropType } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
 import { Delete } from '@element-plus/icons-vue';
-import {DataTypeItem} from "@/typings";
+import { DataTypeItem } from '@/typings';
 
 type ParamItem = {
   id?: number | null;
@@ -51,13 +51,13 @@ function addParam() {
     paramKey: '',
     paramName: '',
     paramPosition: '',
-    dataType: { type: 'String', itemType: null, objectKey: null, objectStructure: null  },
+    dataType: { type: 'String', itemType: null, objectKey: null, objectStructure: null },
     required: false,
   });
   onChange();
 }
 
-function removeParam (rowIndex: number) {
+function removeParam(rowIndex: number) {
   params.value.splice(rowIndex, 1);
   onChange();
 }
@@ -65,7 +65,6 @@ function removeParam (rowIndex: number) {
 function onChange() {
   emit('update:modelValue', params.value);
 }
-
 </script>
 
 <template>
@@ -93,9 +92,9 @@ function onChange() {
           </div>
           <div class="param-setting-td" v-if="showParamPosition && column.prop === 'paramPosition'">
             <el-select v-model="param.paramPosition" size="small" @change="onChange">
-              <el-option label="path" value="path"/>
-              <el-option label="query" value="query"/>
-              <el-option label="body" value="body"/>
+              <el-option label="path" value="path" />
+              <el-option label="query" value="query" />
+              <el-option label="body" value="body" />
             </el-select>
           </div>
           <div class="param-setting-td" v-else-if="column.prop === 'dataType'">
@@ -111,7 +110,7 @@ function onChange() {
       </div>
     </div>
     <div class="param-setting-foot">
-      <el-button size="small" type="info" @click="addParam">{{ addText || '新增入参'}}</el-button>
+      <el-button size="small" type="info" @click="addParam">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>
@@ -138,7 +137,8 @@ function onChange() {
     padding: 0 6px;
     display: flex;
     align-items: center;
-    &.delete-td, &.required-td {
+    &.delete-td,
+    &.required-td {
       width: 40px;
       flex: none;
       justify-content: center;

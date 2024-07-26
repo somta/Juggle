@@ -67,7 +67,7 @@ function addrule() {
   onChange();
 }
 
-function removeRule (rowIndex: number) {
+function removeRule(rowIndex: number) {
   rules.value.splice(rowIndex, 1);
   onChange();
 }
@@ -76,22 +76,22 @@ function onChange() {
   emit('update:modelValue', rules.value);
 }
 
-function onSourceTypeChange (rowIndex: number) {
+function onSourceTypeChange(rowIndex: number) {
   rules.value[rowIndex].source = '';
   rules.value[rowIndex].sourceDataType = null;
   onChange();
 }
 
-function onSourceVarChange (rowIndex: number) {
+function onSourceVarChange(rowIndex: number) {
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList.find((item) => item.envKey === source);
+  const param = props.sourceList.find(item => item.envKey === source);
   rules.value[rowIndex].sourceDataType = param?.dataType;
   onChange();
 }
 
-function getAvailableTarget (target: string) {
+function getAvailableTarget(target: string) {
   //console.log(props);
-  return props.sourceList.filter((item) => {
+  return props.sourceList.filter(item => {
     // 已选参数也能选
     if (item.paramKey === target) {
       return item;
@@ -100,9 +100,9 @@ function getAvailableTarget (target: string) {
     return !rules.value.map(item => item.target).includes(item.paramKey);
   });
 }
-function getAvailableSource (target: string, targetDataType: string) {
+function getAvailableSource(target: string, targetDataType: string) {
   //console.log(props.sourceList,target,targetDataType)
-  return props.targetList.filter((item) => {
+  return props.targetList.filter(item => {
     // 不选取自己
     if (item.envKey === target) {
       return false;
@@ -112,10 +112,10 @@ function getAvailableSource (target: string, targetDataType: string) {
   });
 }
 
-function onTargetChange (rowIndex: number) {
-  console.log("onTargetChange",rules.value[rowIndex]);
+function onTargetChange(rowIndex: number) {
+  console.log('onTargetChange', rules.value[rowIndex]);
   const target = rules.value[rowIndex].target;
-  const param = props.sourceList.find((item) => item.paramKey === target);
+  const param = props.sourceList.find(item => item.paramKey === target);
   rules.value[rowIndex].source = '';
   rules.value[rowIndex].targetDataType = param.dataType;
   rules.value[rowIndex].targetType = param.targetType;
@@ -124,8 +124,8 @@ function onTargetChange (rowIndex: number) {
   }
 }
 
-function getDataTypeDisplayName(dataType: any){
-  console.log(dataType)
+function getDataTypeDisplayName(dataType: any) {
+  console.log(dataType);
 }
 </script>
 
@@ -148,11 +148,17 @@ function getDataTypeDisplayName(dataType: any){
           <div class="rule-setting-td" v-if="column.prop === 'source'">
             <div class="required"><span v-if="requiredKeys.includes(rule.target)">*</span></div>
             <el-select v-model="rule.target" :disabled="requiredKeys.includes(rule.target)" size="small" @change="onTargetChange(rowIndex)">
-              <el-option v-for="item in getAvailableTarget(rule.target)" :key="item.paramKey" :value="item.paramKey" :label="item.paramName" :title="item.paramName" />
+              <el-option
+                v-for="item in getAvailableTarget(rule.target)"
+                :key="item.paramKey"
+                :value="item.paramKey"
+                :label="item.paramName"
+                :title="item.paramName"
+              />
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-<!--            <template>
+            <!--            <template>
               {{ getDataTypeDisplayName(rule.targetDataType) }}
             </template>-->
             <DataTypeSelect v-model="rule.targetDataType" disabled size="small" />
@@ -169,7 +175,13 @@ function getDataTypeDisplayName(dataType: any){
             </template>
             <!-- 变量 -->
             <el-select v-else v-model="rule.source" size="small" @change="onSourceVarChange(rowIndex)">
-              <el-option v-for="item in getAvailableSource(rule.target, rule.targetDataType)" :key="item.envKey" :value="item.envKey" :label="item.envName" :title="item.envName" />
+              <el-option
+                v-for="item in getAvailableSource(rule.target, rule.targetDataType)"
+                :key="item.envKey"
+                :value="item.envKey"
+                :label="item.envName"
+                :title="item.envName"
+              />
             </el-select>
           </div>
         </template>
@@ -179,7 +191,7 @@ function getDataTypeDisplayName(dataType: any){
       </div>
     </div>
     <div class="rule-setting-foot">
-      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参'}}</el-button>
+      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>

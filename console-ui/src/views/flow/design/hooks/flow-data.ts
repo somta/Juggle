@@ -1,10 +1,9 @@
-
 import { provide, inject } from 'vue';
 import { FlowData, RawData } from '../types';
 import { useImmer } from './immer';
 
 export function useFlowDataProvide() {
-  const [data, update ] = useImmer<FlowData>({
+  const [data, update] = useImmer<FlowData>({
     flowKey: '',
     flowName: '',
     flowType: '',
@@ -16,17 +15,17 @@ export function useFlowDataProvide() {
     remark: '',
   });
 
-  function getFlowNodes () {
+  function getFlowNodes() {
     return data.value.flowContent;
   }
 
-  function getFlowNode (key: string) {
-    return data.value.flowContent.find((node) => node.key === key) as RawData;
+  function getFlowNode(key: string) {
+    return data.value.flowContent.find(node => node.key === key) as RawData;
   }
 
-  function updateFlowNode (key: string, data: Partial<RawData>) {
-    update((draft) => {
-      const node = draft.flowContent.find((node) => node.key === key);
+  function updateFlowNode(key: string, data: Partial<RawData>) {
+    update(draft => {
+      const node = draft.flowContent.find(node => node.key === key);
       if (node) {
         Object.assign(node, data);
       }
@@ -46,7 +45,7 @@ export function useFlowDataProvide() {
   return flowContext;
 }
 
-export type FlowContext = ReturnType<typeof useFlowDataProvide>; 
+export type FlowContext = ReturnType<typeof useFlowDataProvide>;
 
 export function useFlowDataInject() {
   return inject('flowContext') as ReturnType<typeof useFlowDataProvide>;

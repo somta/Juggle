@@ -151,7 +151,7 @@ function openEdit(row: any) {
         />
       </el-main>
     </el-container>
-    <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" @edit="updateFlowDefineItem"/>
+    <FlowDefineDrawer ref="drawerRef" @add="addFlowDefineItem" @edit="updateFlowDefineItem" />
 
     <el-dialog v-model="deployFormVisible" :show-close="false" title="部署流程" width="400">
       <el-form :model="deployForm">
@@ -162,7 +162,7 @@ function openEdit(row: any) {
           <el-input v-model="deployForm.flowDeployVersion" disabled />
         </el-form-item>
         <el-form-item label="版本描述">
-          <el-input type="textarea" v-model="deployForm.flowVersionRemark" maxlength="120"/>
+          <el-input type="textarea" v-model="deployForm.flowVersionRemark" maxlength="120" />
         </el-form-item>
       </el-form>
       <template #footer>

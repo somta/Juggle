@@ -7,7 +7,7 @@ export async function listDataType() {
 export const dataType = (function () {
   let dataTypeList: any[] = [];
   let pedding: any = null;
-  async function getList (useCache: boolean = true) {
+  async function getList(useCache: boolean = true) {
     if (!useCache || dataTypeList.length === 0) {
       pedding = pedding || listDataType();
       const res = await pedding;
@@ -17,12 +17,12 @@ export const dataType = (function () {
       }
     }
     return dataTypeList;
-  };
-  function clearList () {
+  }
+  function clearList() {
     dataTypeList = [];
   }
   return {
     getList,
-    clearList
-  }
+    clearList,
+  };
 })();

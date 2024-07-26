@@ -17,11 +17,10 @@ function deleteRow(row: any, index: number) {
 function editRow(row: any) {
   emit('edit', row);
 }
-
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
     <el-table-column prop="objectKey" label="对象编码" width="200" />
     <el-table-column prop="objectName" label="对象名称" width="280" />
     <el-table-column prop="objectDesc" label="对象描述" width="520" />

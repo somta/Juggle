@@ -10,4 +10,4 @@ import * as tokenAPI from './token.ts';
 import * as datasourceAPI from './dataSource.ts';
 import * as commonAPI from './common.ts';
 
-export { userAPI, flowDefineAPI, flowAPI, flowVersionAPI, suiteAPI, suiteMarketAPI, apiAPI, objectAPI, tokenAPI,datasourceAPI,commonAPI };
+export { userAPI, flowDefineAPI, flowAPI, flowVersionAPI, suiteAPI, suiteMarketAPI, apiAPI, objectAPI, tokenAPI, datasourceAPI, commonAPI };

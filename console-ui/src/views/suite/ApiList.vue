@@ -67,13 +67,13 @@ function openDelete(row: any) {
 
 async function addApiItem(row: any) {
   const paramArray = row.apiHeaders;
-  if(Array.isArray(paramArray) && paramArray.length !== 0){
+  if (Array.isArray(paramArray) && paramArray.length !== 0) {
     const headerArray = paramArray.map((item: any) => {
       return {
         headerKey: item.paramKey,
         headerName: item.paramName,
         dataType: item.dataType,
-        required: item.required
+        required: item.required,
       };
     });
     row.apiHeaders = headerArray;
@@ -89,13 +89,13 @@ async function addApiItem(row: any) {
 
 async function editApiItem(row: any) {
   const paramArray = row.apiHeaders;
-  if(Array.isArray(paramArray) && paramArray.length !== 0){
+  if (Array.isArray(paramArray) && paramArray.length !== 0) {
     const headerArray = paramArray.map((item: any) => {
       return {
         headerKey: item.paramKey,
         headerName: item.paramName,
         dataType: item.dataType,
-        required: item.required
+        required: item.required,
       };
     });
     row.apiHeaders = headerArray;

@@ -17,11 +17,15 @@ async function loadData() {
   apiLoading.value = false;
 }
 
-watch(() => props.suiteId, (val: number) => {
-  if (val) {
-    loadData();
-  }
-}, { immediate: true })
+watch(
+  () => props.suiteId,
+  (val: number) => {
+    if (val) {
+      loadData();
+    }
+  },
+  { immediate: true }
+);
 
 function onChange(val: number) {
   emit('update:modelValue', val);
@@ -29,7 +33,7 @@ function onChange(val: number) {
 }
 </script>
 <template>
-  <el-select :modelValue="props.modelValue" placeholder="请选择领域" style="width: 100%;" filterable @change="onChange">
+  <el-select :modelValue="props.modelValue" placeholder="请选择领域" style="width: 100%" filterable @change="onChange">
     <template v-slot:empty>
       <div class="select-option-empty" v-loading="apiLoading">
         <span v-if="!apiLoading">无数据</span>

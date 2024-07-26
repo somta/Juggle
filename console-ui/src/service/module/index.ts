@@ -10,4 +10,16 @@ import * as tokenService from './token';
 import * as dataSourceService from './dataSource.ts';
 import * as commonService from './common';
 
-export { userService, flowDefineService, flowService, flowVersionService,suiteService, suiteMarketService, apiService, objectService,tokenService,dataSourceService, commonService };
+export {
+  userService,
+  flowDefineService,
+  flowService,
+  flowVersionService,
+  suiteService,
+  suiteMarketService,
+  apiService,
+  objectService,
+  tokenService,
+  dataSourceService,
+  commonService,
+};

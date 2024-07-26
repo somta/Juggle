@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {suiteMarketService} from "@/service";
-import {SuiteMarket} from "@/typings";
-import {ElMessage} from "element-plus";
-
+import { suiteMarketService } from '@/service';
+import { SuiteMarket } from '@/typings';
+import { ElMessage } from 'element-plus';
 
 const route = useRoute();
 let paramsData = reactive({
@@ -39,8 +38,7 @@ const headerData = [
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
-]
-
+];
 
 querySuiteMarketList();
 
@@ -63,16 +61,15 @@ async function querySuiteMarketList() {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
-
 </script>
 
 <template>
   <div class="suite-market-detail">
     <div class="suite-head">
-      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage">
+      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" />
       <h3>
-        {{suiteMarketInfo.suiteName}}
-        <p>{{suiteMarketInfo.suiteDesc}}</p>
+        {{ suiteMarketInfo.suiteName }}
+        <p>{{ suiteMarketInfo.suiteDesc }}</p>
       </h3>
       <div class="operation-button">
         <a class="btn" @click="installSuiteMarket">安装</a>
@@ -123,33 +120,31 @@ async function querySuiteMarketList() {
         </el-tab-pane>
       </el-tabs>
     </div>
-
   </div>
 </template>
 
 <style lang="less" scoped>
-
-.suite-market-detail{
+.suite-market-detail {
   border-radius: 4px;
   height: 100%;
   margin: 0 auto;
   padding: 0 0 16px 24px;
 }
 
-.suite-head{
+.suite-head {
   display: flex;
   padding: 24px 0px;
   align-items: center;
   border-bottom: 1px solid #dee0e3;
 
-  img{
+  img {
     width: 96px;
     height: 96px;
     margin-right: 24px;
     border-radius: 6px;
   }
 
-  p{
+  p {
     color: #1f2329;
     margin-top: 5px;
     font-size: 15px;
@@ -160,7 +155,7 @@ async function querySuiteMarketList() {
     margin-right: 100px;
     padding-left: 10px;
 
-    .btn{
+    .btn {
       border-radius: 4px;
       height: 36px;
       display: inline-block;
@@ -175,20 +170,17 @@ async function querySuiteMarketList() {
   }
 }
 
-.suite-doc{
-  :deep(.el-tabs__nav-wrap)::after{
+.suite-doc {
+  :deep(.el-tabs__nav-wrap)::after {
     background-color: transparent;
     height: 0;
   }
 
-  .help-doc a{
+  .help-doc a {
     display: block;
     margin: 5px 0px;
     text-decoration: none;
     color: #409eff;
   }
-
-
 }
-
 </style>

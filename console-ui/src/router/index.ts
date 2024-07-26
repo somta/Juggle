@@ -5,11 +5,11 @@ import HomeView from '../views/HomeView.vue';
 import NotFound from '../views/NotFound.vue';
 import { FlowRoutes } from '../views/flow';
 import { CommonRoutes } from '../views/common';
-import ObjectList from "@/views/object/ObjectList.vue";
-import {SystemRoutes} from "@/views/system";
-import {SuiteRoutes} from "@/views/suite";
-import SuiteMarket from "@/views/market/SuiteMarket.vue";
-import SuiteMarketDetail from "@/views/market/SuiteMarketDetail.vue";
+import ObjectList from '@/views/object/ObjectList.vue';
+import { SystemRoutes } from '@/views/system';
+import { SuiteRoutes } from '@/views/suite';
+import SuiteMarket from '@/views/market/SuiteMarket.vue';
+import SuiteMarketDetail from '@/views/market/SuiteMarketDetail.vue';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),

@@ -6,7 +6,7 @@ defineProps({
   dataTotal: Number,
   loading: Boolean,
 });
-const emit = defineEmits(['pageChange', 'connect','edit', 'delete']);
+const emit = defineEmits(['pageChange', 'connect', 'edit', 'delete']);
 
 function connect(row: any) {
   emit('connect', row);
@@ -18,15 +18,13 @@ function editRow(row: any) {
 function deleteRow(row: any, index: number) {
   emit('delete', row, index);
 }
-
-
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
     <el-table-column prop="dataSourceName" label="数据源名称" />
     <el-table-column prop="dataSourceType" label="数据源类型" />
-    <el-table-column prop="address" label="连接地址" width="380"/>
+    <el-table-column prop="address" label="连接地址" width="380" />
     <el-table-column label="操作" width="180">
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="connect(scope.row)"> 连接 </el-button>

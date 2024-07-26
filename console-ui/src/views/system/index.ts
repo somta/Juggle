@@ -1,6 +1,6 @@
 import RouterNest from '@/views/RouterNest.vue';
-import TokenList from "@/views/system/TokenList.vue";
-import DataSourceList from "@/views/system/DataSourceList.vue";
+import TokenList from '@/views/system/TokenList.vue';
+import DataSourceList from '@/views/system/DataSourceList.vue';
 
 export const SystemRoutes = [
   {

@@ -43,7 +43,7 @@ export async function queryApiInfo(id: number): ResponseResult<ApiInfo> {
 }
 
 export function debugApi(apiId: number, params: { headerData: any; inputParamData: any }): ResponseResult<any> {
-  return request.post(`/v1/api/debug/${apiId}`,params);
+  return request.post(`/v1/api/debug/${apiId}`, params);
 }
 
 export async function getApiListBySuiteId(suiteId: number): ResponseResult<ApiInfo[]> {

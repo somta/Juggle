@@ -2,7 +2,7 @@ import { DataNode, initNewNode } from './data';
 import { ElementType, RawData, MyOptional } from './types';
 
 // 添加节点
-export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementType'>; prev: DataNode; }) {
+export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementType'>; prev: DataNode }) {
   const { info, prev } = params;
   const next = DataNode.DataNodeMap.get(prev.out);
   // 创建节点
@@ -21,7 +21,7 @@ export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementTyp
 }
 
 // 删除节点
-export function deleteNode(params: { current: DataNode; }) {
+export function deleteNode(params: { current: DataNode }) {
   const { current } = params;
   const prev = DataNode.DataNodeMap.get(current.in);
   const next = DataNode.DataNodeMap.get(current.out);
@@ -32,7 +32,7 @@ export function deleteNode(params: { current: DataNode; }) {
 }
 
 // 处理节点关系
-function connectNodes(params: { node: DataNode; next: DataNode; }) {
+function connectNodes(params: { node: DataNode; next: DataNode }) {
   const { node, next } = params;
   // out
   // node -> node/condition（正常）

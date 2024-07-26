@@ -1,6 +1,5 @@
-
 <script lang="ts" setup>
-import {ref, computed, PropType} from 'vue';
+import { ref, computed, PropType } from 'vue';
 import { commonService } from '@/service';
 import { getDataTypeObject } from '@/utils/dataType';
 
@@ -14,8 +13,8 @@ const props = defineProps({
   },*/
   disabled: Boolean,
   size: {
-    type: String as PropType<"large" | "default" | "small">,
-    default: 'default'
+    type: String as PropType<'large' | 'default' | 'small'>,
+    default: 'default',
   },
 });
 const emit = defineEmits(['update:modelValue', 'change']);
@@ -33,11 +32,11 @@ type DataTypeInfoItem = {
   displayName: string;
   objectKey: string;
   objectStructure: string;
-}
+};
 
 const dataTypeList = ref<DataTypeInfoItem[]>([]);
 
-async function loadData () {
+async function loadData() {
   const res = await commonService.dataType.getList();
   dataTypeList.value = res || [];
 }
@@ -46,7 +45,7 @@ loadData();
 
 const cascaderProps = {
   expandTrigger: 'hover' as const,
-}
+};
 
 const options = computed(() => {
   const basicTypeList = dataTypeList.value.filter(item => item.dataTypeClassify === DataTypeEnum.Basic);
@@ -55,7 +54,7 @@ const options = computed(() => {
     value: 'Basic',
     label: '基础类型',
     children: basicTypeList.map(item => ({ value: item.type, label: item.displayName })),
-  }
+  };
   const objectNode = {
     value: 'Object',
     label: '对象类型',
@@ -76,14 +75,10 @@ const options = computed(() => {
       };
     }),
   };
-  return [
-    basicNode,
-    listNode,
-    objectNode,
-  ];
+  return [basicNode, listNode, objectNode];
 });
 
-function typeToArray (type: string, dataType: any): string[] {
+function typeToArray(type: string, dataType: any): string[] {
   const item = dataTypeList.value.find(item => item.type === type);
   if (!item) {
     return [];
@@ -98,7 +93,7 @@ function typeToArray (type: string, dataType: any): string[] {
   return [];
 }
 
-function arrayToType (arr: string[]) {
+function arrayToType(arr: string[]) {
   if (!Array.isArray(arr) || arr.length === 0) {
     return null;
   }
@@ -134,7 +129,7 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    val = { ...props.modelValue as object };
+    val = { ...(props.modelValue as object) };
     /*if (props.valueType === 'String') {
       val = getDataTypeObject(props.modelValue);
     } else if (props.valueType === 'Object') {
@@ -171,7 +166,7 @@ const handleChange = (val: any) => {
   //const resultJson = JSON.stringify(result);
   emit('update:modelValue', result);
   emit('change', result);
-}
+};
 
 const handleBasicChange = (val: any) => {
   if (!val) {
@@ -190,22 +185,12 @@ const handleBasicChange = (val: any) => {
   }*/
   emit('update:modelValue', result);
   emit('change', result);
-}
+};
 </script>
 
 <template>
-  <el-select
-    :size="size"
-    v-if="type === 'basic'"
-    :modelValue="innerBasicValue"
-    :disabled="disabled" @change="handleBasicChange"
-  >
-    <el-option
-      v-for="item in options[0]?.children"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
-    />
+  <el-select :size="size" v-if="type === 'basic'" :modelValue="innerBasicValue" :disabled="disabled" @change="handleBasicChange">
+    <el-option v-for="item in options[0]?.children" :key="item.value" :label="item.label" :value="item.value" />
   </el-select>
   <el-cascader
     v-else
@@ -215,10 +200,9 @@ const handleBasicChange = (val: any) => {
     :disabled="disabled"
     :show-all-levels="false"
     :size="size"
-    style="width: 100%;"
+    style="width: 100%"
     @change="handleChange"
   />
 </template>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

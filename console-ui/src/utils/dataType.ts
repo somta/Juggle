@@ -1,9 +1,8 @@
-
 import { DataTypeItem } from '@/typings/flowDesign';
 
 const DATA_TYPE_TEMP: Map<string, DataTypeItem> = new Map();
 
-export function getDataTypeObject (dataType: any): DataTypeItem {
+export function getDataTypeObject(dataType: any): DataTypeItem {
   //console.log("getDataTypeObject",dataType)
   const key = JSON.stringify(dataType);
   if (DATA_TYPE_TEMP.has(key)) {
@@ -26,7 +25,7 @@ export function getDataTypeObject (dataType: any): DataTypeItem {
   return result;
 }
 
-export function isDataTypeEqual (typeA: DataTypeItem, typeB: DataTypeItem) {
+export function isDataTypeEqual(typeA: DataTypeItem, typeB: DataTypeItem) {
   if (typeA === typeB) {
     return true;
   }

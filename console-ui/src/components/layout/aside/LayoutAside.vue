@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { HomeFilled, Coin, Setting,ShoppingBag } from '@element-plus/icons-vue';
+import { HomeFilled, Coin, Setting, ShoppingBag } from '@element-plus/icons-vue';
 import IconFlow from '@/components/icons/IconFlow.vue';
 import IconInterface from '@/components/icons/IconInterface.vue';
 </script>

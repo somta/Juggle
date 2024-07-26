@@ -1,18 +1,17 @@
-
 <script lang="ts" setup>
 import { PropType, ref, watch } from 'vue';
 import { ElementType, RawData } from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
 
-function getDefaultData () {
+function getDefaultData() {
   return {
     key: '',
     name: '',
     outgoings: [],
     incomings: [],
     elementType: ElementType.START,
-  }
+  };
 }
 
 const emit = defineEmits(['update', 'cancel']);
@@ -24,13 +23,17 @@ const props = defineProps({
 });
 
 const nodeData = ref(getDefaultData() as RawData);
-watch(() => props.data, val => {
-  if (val !== nodeData.value) {
-    nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
-  }
-}, { immediate: true });
+watch(
+  () => props.data,
+  val => {
+    if (val !== nodeData.value) {
+      nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
+    }
+  },
+  { immediate: true }
+);
 
-function validate () {
+function validate() {
   if (!nodeData.value.name) {
     ElMessage.error('节点名称不能为空');
     return false;

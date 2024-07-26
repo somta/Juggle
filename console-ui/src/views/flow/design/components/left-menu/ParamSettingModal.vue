@@ -1,8 +1,7 @@
-
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
-import {FormInstance, FormRules} from "element-plus";
+import { FormInstance, FormRules } from 'element-plus';
 import { useFlowDataInject } from '../../hooks/flow-data';
 const flowContext = useFlowDataInject();
 type ParamItem = {
@@ -25,23 +24,26 @@ const rules = reactive<FormRules>({
   envKey: [
     { required: true, message: '请输入变量编码', trigger: 'blur' },
     { pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' },
-    { validator: (_, value, callback) => {
-      // 校验唯一性
-      // 未改变时不校验
-      if (value === _originalData.envKey) {
+    {
+      validator: (_, value, callback) => {
+        // 校验唯一性
+        // 未改变时不校验
+        if (value === _originalData.envKey) {
+          callback();
+          return;
+        }
+        const item = flowContext.data.value.flowVariables.find(item => item.envKey === value);
+        if (item) {
+          callback(new Error('变量编码已存在'));
+          return;
+        }
         callback();
-        return;
-      }
-      const item = flowContext.data.value.flowVariables.find((item) => item.envKey === value);
-      if (item) {
-        callback(new Error('变量编码已存在'));
-        return;
-      }
-      callback();
-    }, trigger: 'blur' }
+      },
+      trigger: 'blur',
+    },
   ],
   envName: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
-  dataType:[{ required: true, message: '请选择数据类型', trigger: 'blur' }]
+  dataType: [{ required: true, message: '请选择数据类型', trigger: 'blur' }],
 });
 const visible = ref(false);
 const isEdit = ref(false);
@@ -54,7 +56,7 @@ const add = (maxId: number) => {
   form.id = maxId;
   _originalData = { ...form };
   visible.value = true;
-}
+};
 let _originalData: ParamItem;
 const edit = (data: ParamItem) => {
   isEdit.value = true;
@@ -62,19 +64,18 @@ const edit = (data: ParamItem) => {
   _originalData = { ...form };
   visible.value = true;
 };
-function onCancel () {
+function onCancel() {
   visible.value = false;
 }
 async function onSubmit() {
-  console.log(123,formRef.value)
+  console.log(123, formRef.value);
   if (!formRef.value) return;
-  const valid = await formRef.value?.validate(() => {
-  });
+  const valid = await formRef.value?.validate(() => {});
   if (!valid) {
     return;
   }
   visible.value = false;
-  const result = {...form};
+  const result = { ...form };
   if (isEdit.value) {
     emit('edit', result);
   } else {
@@ -85,18 +86,8 @@ defineExpose({ add, edit });
 </script>
 
 <template>
-  <el-dialog
-    :title="isEdit ? '编辑变量' : '新增中间变量'"
-    v-model="visible"
-    append-to-body
-    :width="400"
-  >
-    <el-form
-      labelPosition="top"
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-    >
+  <el-dialog :title="isEdit ? '编辑变量' : '新增中间变量'" v-model="visible" append-to-body :width="400">
+    <el-form labelPosition="top" ref="formRef" :model="form" :rules="rules">
       <el-form-item label="变量键" prop="envKey">
         <el-input v-model="form.envKey" placeholder="请输入" maxlength="30" />
       </el-form-item>

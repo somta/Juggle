@@ -23,7 +23,7 @@ export type MethodInfo = {
   requestContentType: string;
   requestType: string;
   url: string;
-  inputParamSchemas: any,
+  inputParamSchemas: any;
   headerFillRules: any;
   inputFillRules: any;
   outputFillRules: any;
@@ -56,7 +56,7 @@ export type FlowVariableDataType = {
   type: string;
   itemType: string;
   objectStructure: any;
-}
+};
 
 export type FlowVariable = {
   dataType: any;
@@ -64,12 +64,12 @@ export type FlowVariable = {
   envName: string;
   envType: FlowVariableType;
   id: number;
-}
+};
 
 export type FlowData = {
   flowKey: string;
   flowName: string;
-  flowType: string
+  flowType: string;
   flowContent: RawData[];
   flowInputParams: any[];
   flowOutputParams: any[];

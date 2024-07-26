@@ -5,41 +5,41 @@ import { DataNode, DataBranch } from './DataNode';
 export function generateDataTree(flowContext: FlowContext) {
   // 初始化数据关联
   DataNode.context = {
-    getRaw: (key) => flowContext.getFlowNode(key),
-    getType: (key) => flowContext.getFlowNode(key)?.elementType,
-    getIn: (key) => flowContext.getFlowNode(key)?.incomings?.[0],
+    getRaw: key => flowContext.getFlowNode(key),
+    getType: key => flowContext.getFlowNode(key)?.elementType,
+    getIn: key => flowContext.getFlowNode(key)?.incomings?.[0],
     setIn: (key, val) => {
       flowContext.updateFlowNode(key, { incomings: [val] });
     },
-    getOut: (key) => flowContext.getFlowNode(key)?.outgoings?.[0],
+    getOut: key => flowContext.getFlowNode(key)?.outgoings?.[0],
     setOut: (key, val) => {
       flowContext.updateFlowNode(key, { outgoings: [val] });
     },
     setBranchOut: (key, branchIndex, val) => {
       flowContext.update(draft => {
-        const parentRaw = draft.flowContent.find((item) => item.key === key);
+        const parentRaw = draft.flowContent.find(item => item.key === key);
         const branch = parentRaw?.conditions?.[branchIndex];
         if (branch) {
           branch.outgoing = val;
         }
       });
     },
-    addRaw: (raw) => {
+    addRaw: raw => {
       flowContext.update(draft => {
-        const item = draft.flowContent.find((item) => item.key === raw.key);
+        const item = draft.flowContent.find(item => item.key === raw.key);
         if (!item) {
           draft.flowContent.push(raw);
         }
       });
     },
-    deleteRaw: (key) => {
+    deleteRaw: key => {
       flowContext.update(draft => {
-        const index = draft.flowContent.findIndex((item) => item.key === key);
+        const index = draft.flowContent.findIndex(item => item.key === key);
         if (index !== -1) {
           draft.flowContent.splice(index, 1);
         }
       });
-    }
+    },
   };
   DataNode.DataNodeMap = new Map();
 
@@ -54,7 +54,7 @@ export function generateDataTree(flowContext: FlowContext) {
   // 清理无用的节点
   if (datas.length > DataNode.DataNodeMap.size) {
     flowContext.update(draft => {
-      draft.flowContent = draft.flowContent.filter((item) => {
+      draft.flowContent = draft.flowContent.filter(item => {
         return DataNode.DataNodeMap.has(item.key);
       });
     });
@@ -98,7 +98,7 @@ function generateRandomKey() {
 }
 
 // 初始化节点
-export function initNewNode (info: MyOptional<RawData, 'name' | 'elementType'>, next: DataNode) {
+export function initNewNode(info: MyOptional<RawData, 'name' | 'elementType'>, next: DataNode) {
   // 创建节点
   const currentRaw: RawData = {
     key: generateNodeKey(info.elementType),
@@ -139,7 +139,7 @@ export function initNewNode (info: MyOptional<RawData, 'name' | 'elementType'>, 
   return current;
 }
 
-export function rebuildCondition (flowContext: FlowContext, node: DataNode, oldData: RawData) {
+export function rebuildCondition(flowContext: FlowContext, node: DataNode, oldData: RawData) {
   if (node.type !== ElementType.CONDITION) {
     return;
   }
@@ -149,7 +149,7 @@ export function rebuildCondition (flowContext: FlowContext, node: DataNode, oldD
       oldChilds.push(oldCondition.outgoing);
     }
   });
-  node.getChildren().forEach((child) => {
+  node.getChildren().forEach(child => {
     if (oldChilds.includes(child.out)) {
       node.removeChild(child);
     } else {

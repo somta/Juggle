@@ -5,7 +5,6 @@ import { ElementType, RawData } from '../types';
  * 数据节点
  */
 export class DataNode extends TreeNode {
-
   public static context: {
     getRaw: (key: string) => RawData;
     getType: (key: string) => ElementType;
@@ -30,7 +29,7 @@ export class DataNode extends TreeNode {
 
   private _key: string;
 
-  get key () {
+  get key() {
     return this._key;
   }
 
@@ -42,19 +41,19 @@ export class DataNode extends TreeNode {
     return DataNode.context.getType(this.key);
   }
 
-  get in () {
+  get in() {
     return DataNode.context.getIn(this.key);
   }
 
-  set in (val: string) {
+  set in(val: string) {
     DataNode.context.setIn(this.key, val);
   }
 
-  get out () {
+  get out() {
     return DataNode.context.getOut(this.key);
   }
 
-  set out (val: string) {
+  set out(val: string) {
     DataNode.context.setOut(this.key, val);
     // 条件节点 - 额外工作
     if (this.type === ElementType.CONDITION) {
@@ -81,11 +80,11 @@ export class DataNode extends TreeNode {
     return super.getChildren() as DataNode[];
   }
 
-  public setBranchOut (branchIndex: number, val: string) {
+  public setBranchOut(branchIndex: number, val: string) {
     DataNode.context.setBranchOut(this.key, branchIndex, val);
   }
 
-  removeChild (node: DataNode) {
+  removeChild(node: DataNode) {
     super.removeChild(node);
     DataNode.DataNodeMap.delete(node.key);
     DataNode.context.deleteRaw(node.key);
@@ -96,7 +95,6 @@ export class DataNode extends TreeNode {
  * 分支
  */
 export class DataBranch extends DataNode {
-
   private _branchIndex: number;
 
   constructor(branchIndex: number) {
@@ -104,11 +102,11 @@ export class DataBranch extends DataNode {
     this._branchIndex = branchIndex;
   }
 
-  get condition () {
+  get condition() {
     return this.getParent() as DataNode;
   }
 
-  get key () {
+  get key() {
     if (!this.condition) {
       return 'root';
     }
@@ -119,7 +117,7 @@ export class DataBranch extends DataNode {
     return ElementType.BRANCH;
   }
 
-  get raw () {
+  get raw() {
     return {
       key: this.key,
       name: this.branch?.conditionName,
@@ -129,7 +127,7 @@ export class DataBranch extends DataNode {
     } as RawData;
   }
 
-  get branchIndex () {
+  get branchIndex() {
     return this._branchIndex;
   }
 
@@ -138,18 +136,18 @@ export class DataBranch extends DataNode {
     return parent?.raw.conditions?.[this._branchIndex];
   }
 
-  get in () {
+  get in() {
     const parent = this.getParent() as DataNode;
     return parent?.key;
   }
 
-  set in (_val: string) {}
+  set in(_val: string) {}
 
-  get out () {
+  get out() {
     return this.branch?.outgoing as string;
   }
 
-  set out (val) {
+  set out(val) {
     this.condition.setBranchOut(this._branchIndex, val);
   }
 

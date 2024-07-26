@@ -13,7 +13,7 @@ const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 const dialogVisible = ref(false);
 const apiFormRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-function getDefault () {
+function getDefault() {
   return {
     id: null,
     suiteId: null,
@@ -25,13 +25,16 @@ function getDefault () {
     apiHeaders: [],
     apiInputParams: [],
     apiOutputParams: [],
-  }
+  };
 }
 const formValue = reactive<ApiInfo>(getDefault());
 const rules = reactive<FormRules>({
   suiteId: [{ required: true, message: '请选择套件', trigger: 'blur' }],
   apiName: [{ required: true, message: '请输入接口名称', trigger: 'blur' }],
-  apiUrl: [{ required: true, message: '请输入接口地址', trigger: 'blur' },{ type:'url', message: '请输入正确的接口地址 如: http://127.0.0.1/getUser', trigger: ['blur', 'change'] }],
+  apiUrl: [
+    { required: true, message: '请输入接口地址', trigger: 'blur' },
+    { type: 'url', message: '请输入正确的接口地址 如: http://127.0.0.1/getUser', trigger: ['blur', 'change'] },
+  ],
   apiRequestType: [{ required: true, message: '请选择请求类型', trigger: 'blur' }],
   apiRequestContentType: [{ required: true, message: '请选择请求内容类型', trigger: 'blur' }],
 });
@@ -123,13 +126,13 @@ defineExpose({ open });
         </el-row>
 
         <el-form-item label="接口描述" prop="apiDesc">
-          <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" maxlength="120"/>
+          <el-input v-model="formValue.apiDesc" type="textarea" :rows="2" maxlength="120" />
         </el-form-item>
         <el-form-item label="请求头">
-          <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" dataTypeClassify="basic" showRequired/>
+          <ParamSetting v-model="formValue.apiHeaders" addText="新增请求头" dataTypeClassify="basic" showRequired />
         </el-form-item>
         <el-form-item label="入参">
-          <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showParamPosition showRequired/>
+          <ParamSetting v-model="formValue.apiInputParams" addText="新增入参" showParamPosition showRequired />
         </el-form-item>
         <el-form-item label="出参">
           <ParamSetting v-model="formValue.apiOutputParams" addText="新增出参" />

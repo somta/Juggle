@@ -4,7 +4,7 @@ import { LayoutNode } from '../LayoutNode';
 import { FlowRenderer } from '../../index';
 import { DataNode } from '../../../data';
 import { layoutTree, box, setLayoutToMap } from './generate';
-import {nodeMap} from "@/views/flow/design/config.ts";
+import { nodeMap } from '@/views/flow/design/config.ts';
 
 type D3Point = [number, number];
 
@@ -104,46 +104,27 @@ export class VerticalLayout {
     // 条件节点
     if (fromNode.data.type === ElementType.CONDITION) {
       if (toNode.data.type === ElementType.BRANCH) {
-        return [
-          from,
-          [to[0], from[1]],
-          to,
-        ];
+        return [from, [to[0], from[1]], to];
       } else if (isLastChild) {
         const bottomCenter = fromNode.getBottomCenter();
         const condition = parent.getParent();
         const parentBottomCenter = condition.getBottomCenter();
-        return [
-          bottomCenter,
-          [bottomCenter[0], parentBottomCenter[1]],
-          parentBottomCenter,
-        ];
+        return [bottomCenter, [bottomCenter[0], parentBottomCenter[1]], parentBottomCenter];
       } else {
         const bottomCenter = fromNode.getBottomCenter();
-        return [
-          bottomCenter,
-          to,
-        ];
+        return [bottomCenter, to];
       }
     }
     // 空分支节点
     if (fromNode.data.type === ElementType.BRANCH && fromNode.getChildren().length === 0) {
       const bottomCenter = parent.getBottomCenter();
-      return [
-        from,
-        [from[0], bottomCenter[1]],
-        bottomCenter,
-      ];
+      return [from, [from[0], bottomCenter[1]], bottomCenter];
     }
     // 最后一个分支节点
     if (parent.data.type === ElementType.BRANCH && isLastChild) {
       const condition = parent.getParent();
       const bottomCenter = condition.getBottomCenter();
-      return [
-        from,
-        [from[0], bottomCenter[1]],
-        bottomCenter,
-      ];
+      return [from, [from[0], bottomCenter[1]], bottomCenter];
     }
     // 其他节点
     return [from, to];
@@ -185,8 +166,6 @@ export class VerticalLayout {
     if (type === 'enter') {
       const flowNode = container.append('g').attr('class', 'flow-node');
 
-
-
       flowNode
         .append('rect')
         .attr('width', width)
@@ -205,11 +184,11 @@ export class VerticalLayout {
         .attr('y', height / 2)
         .text(data.raw.name);
 
-      this.drawHeader(flowNode,node,width,height);
+      this.drawHeader(flowNode, node, width, height);
 
       this.drawHoverButtons(flowNode, node);
     } else {
-      const flowNode = container.selectChild('.flow-node')
+      const flowNode = container.selectChild('.flow-node');
       console.log(data.raw.name);
       flowNode.select('text').text(data.raw.name);
     }
@@ -219,15 +198,11 @@ export class VerticalLayout {
   }
 
   drawCondition(container: D3Element, node: LayoutNode, type: string) {
-
     if (type === 'enter') {
-      container.append('rect')
+      container.append('rect');
 
       const conditionBox = node.contentBox;
-      const conditionStart = container
-        .append('g')
-        .attr('class', 'flow-node')
-        .attr('transform', `translate(${conditionBox.left}, 0)`);
+      const conditionStart = container.append('g').attr('class', 'flow-node').attr('transform', `translate(${conditionBox.left}, 0)`);
 
       conditionStart
         .append('rect')
@@ -246,12 +221,12 @@ export class VerticalLayout {
         .attr('y', conditionBox.height / 2)
         .text(node.data.raw.name);
 
-      this.drawHeader(conditionStart,node,conditionBox.width,conditionBox.height);
+      this.drawHeader(conditionStart, node, conditionBox.width, conditionBox.height);
       this.drawHoverButtons(conditionStart, node);
     } else {
       container.selectChild('.flow-node').attr('transform', `translate(${node.contentBox.left}, 0)`);
       container.selectChild('.sup-rect').attr('width', node.width).attr('height', node.height);
-      const conditionStart = container.selectChild('.flow-node')
+      const conditionStart = container.selectChild('.flow-node');
       conditionStart.select('text').text(node.data.raw.name);
     }
     this.drawAddIcon(container, node, type);
@@ -280,10 +255,7 @@ export class VerticalLayout {
     if (branch.data.key !== 'root' && branch.data.type === ElementType.BRANCH) {
       if (type === 'enter') {
         const conditionBox = branch.contentBox;
-        const branchStart = container
-          .append('g')
-          .attr('class', 'flow-node')
-          .attr('transform', `translate(${conditionBox.left}, 0)`);
+        const branchStart = container.append('g').attr('class', 'flow-node').attr('transform', `translate(${conditionBox.left}, 0)`);
 
         branchStart
           .append('rect')
@@ -333,7 +305,7 @@ export class VerticalLayout {
   }
 
   drawAddIcon(container: D3Element, node: LayoutNode, type: string) {
-    let { width, height} = node.contentBox;
+    let { width, height } = node.contentBox;
     if (node.data.type === ElementType.CONDITION) {
       width = node.width;
       height = node.height;
@@ -346,14 +318,14 @@ export class VerticalLayout {
       const addButton = container
         .append('g')
         .attr('class', 'flow-btn flow-btn-add')
-        .attr('transform', `translate(${width / 2}, ${height - box.headerHeight/2 + box.marginBottom / 2})`)
+        .attr('transform', `translate(${width / 2}, ${height - box.headerHeight / 2 + box.marginBottom / 2})`)
         .on('click', (_, d) => {
           this.renderer.options.onAdd?.(d);
         });
       addButton.append('circle').attr('cx', 0).attr('cy', 0).attr('r', btn_radius).attr('fill', '#409eff');
       addButton.append('use').attr('href', '#icon-plus').attr('width', 16).attr('height', 16).attr('x', -8).attr('y', -8).attr('fill', '#fff');
     } else {
-      container.select('.flow-btn-add').attr('transform', `translate(${width / 2}, ${height - box.headerHeight/2 + box.marginBottom / 2})`);
+      container.select('.flow-btn-add').attr('transform', `translate(${width / 2}, ${height - box.headerHeight / 2 + box.marginBottom / 2})`);
     }
   }
 
@@ -383,26 +355,26 @@ export class VerticalLayout {
     });
   }
 
-  drawHeader(flowNode:any, node: LayoutNode,width:number,height:number){
+  drawHeader(flowNode: any, node: LayoutNode, width: number, height: number) {
     const nodeType = node.data.type as ElementType;
-    const nodeCard = nodeMap[nodeType];
+    const nodeCard = nodeMap[nodeType as keyof typeof nodeMap];
     flowNode
-        .append('rect')
-        .attr('width', width)
-        .attr('height', box.headerHeight)
-        .attr('fill', nodeCard.nodeHeaderColor)
-        .attr('stroke', '#aaa')
-        .attr('stroke-width', 1)
-        .attr('rx', 4)
-        .attr('ry', 1)
-        .attr('transform', `translate(0, -${box.headerHeight})`);
+      .append('rect')
+      .attr('width', width)
+      .attr('height', box.headerHeight)
+      .attr('fill', nodeCard.nodeHeaderColor)
+      .attr('stroke', '#aaa')
+      .attr('stroke-width', 1)
+      .attr('rx', 4)
+      .attr('ry', 1)
+      .attr('transform', `translate(0, -${box.headerHeight})`);
 
     flowNode
-        .append('text')
-        .attr('text-anchor', 'middle')
-        .attr('dominant-baseline', 'middle')
-        .attr('x', width / 2)
-        .attr('y', height / 2 -33)
-        .text(nodeCard.nodeName);
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('x', width / 2)
+      .attr('y', height / 2 - 33)
+      .text(nodeCard.nodeName);
   }
 }

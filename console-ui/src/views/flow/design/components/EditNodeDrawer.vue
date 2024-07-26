@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { ref, shallowRef } from 'vue';
 import { RawData } from '../types';
@@ -10,7 +9,7 @@ let openParams: {
   data: RawData;
   afterEdit: (oldData: RawData) => void;
 };
-function open (params: typeof openParams) {
+function open(params: typeof openParams) {
   visible.value = true;
   openParams = params;
   currentNodeForm.value = getNodeForm(params.data.elementType);
@@ -19,7 +18,7 @@ function open (params: typeof openParams) {
 const currentNodeForm = shallowRef();
 const currentData = ref<RawData>();
 
-function onUpdate (val: RawData) {
+function onUpdate(val: RawData) {
   flowContext.update(draft => {
     const index = draft.flowContent.findIndex(item => item.key === val.key);
     if (index > -1) {
@@ -30,7 +29,7 @@ function onUpdate (val: RawData) {
   openParams.afterEdit(currentData.value as RawData);
 }
 
-function onClosed () {
+function onClosed() {
   currentNodeForm.value = null;
 }
 

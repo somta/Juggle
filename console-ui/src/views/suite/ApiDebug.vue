@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {apiService} from '@/service';
+import { apiService } from '@/service';
 import { ElMessage } from 'element-plus';
-import CodeEditor from "@/components/form/CodeEditor.vue";
-import {ApiInfo, DataTypeItem, InputParams} from "@/typings";
+import CodeEditor from '@/components/form/CodeEditor.vue';
+import { ApiInfo, DataTypeItem, InputParams } from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 
@@ -26,7 +26,7 @@ const apiInfo = ref<ApiInfo>({
   apiRequestContentType: '',
   apiHeaders: [],
   apiInputParams: [],
-  apiOutputParams: []
+  apiOutputParams: [],
 });
 
 const responseHeaderData = ref([]);
@@ -47,8 +47,8 @@ async function sendApiDebug() {
     return;
   }
   const params = {
-    headerData:getHeaders(),
-    inputParamData : getParams()
+    headerData: getHeaders(),
+    inputParamData: getParams(),
   };
   const res = await apiService.debugApi(paramsData.params.apiId as number, params);
   if (res.success) {
@@ -59,12 +59,12 @@ async function sendApiDebug() {
   responseHeaderData.value = Object.entries(res.response?.headers).map(([key, value]) => {
     return {
       headerKey: key,
-      headerValue: value
+      headerValue: value,
     };
   });
 }
 
-function isEmpty (val: any) {
+function isEmpty(val: any) {
   return val === undefined || val === null || val === '';
 }
 
@@ -102,15 +102,15 @@ function getHeaders() {
   return params;
 }
 
-function getParams () {
+function getParams() {
   const apiInputParams = apiInfo.value?.apiInputParams || [];
   const params: any = {};
   apiInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType:DataTypeItem = param.dataType;
-      if(dataType.type === "Object" || dataType.type === "List"){
+      const dataType: DataTypeItem = param.dataType;
+      if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
-      }else{
+      } else {
         params[param.paramKey] = param.value;
       }
       console.log(param);
@@ -119,7 +119,7 @@ function getParams () {
   return params;
 }
 
-function resetParams () {
+function resetParams() {
   apiInfo.value?.apiHeaders.forEach((param: any) => {
     param.value = '';
     param.error = '';
@@ -217,7 +217,7 @@ function resetParams () {
       <el-tab-pane label="响应头" name="responseHeader">
         <el-table :data="responseHeaderData" style="width: 100%">
           <el-table-column prop="headerKey" label="响应头" width="350" />
-          <el-table-column prop="headerValue" label="值"/>
+          <el-table-column prop="headerValue" label="值" />
         </el-table>
       </el-tab-pane>
     </el-tabs>

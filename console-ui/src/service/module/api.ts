@@ -1,5 +1,5 @@
 import { apiAPI } from '../api';
-import {ApiHeader} from "@/typings";
+import { ApiHeader } from '@/typings';
 
 export async function listQuery(params: Parameters<typeof apiAPI.listQuery>[0]) {
   return apiAPI.listQuery(params);
@@ -27,7 +27,7 @@ export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo
           paramKey: item.headerKey,
           paramName: item.headerName,
           dataType: item.dataType,
-          required: item.required
+          required: item.required,
         };
       });
       res.result.apiHeaders = paramArray as any;
@@ -37,7 +37,7 @@ export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo
 }
 
 export async function debugApi(apiId: number, params: { headerData: any; inputParamData: any }) {
-  return apiAPI.debugApi(apiId,params);
+  return apiAPI.debugApi(apiId, params);
 }
 
 export async function getApiListBySuiteId(params: Parameters<typeof apiAPI.getApiListBySuiteId>[0]) {

@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import FilterGroup from '@/components/filter/FilterGroup.vue';
@@ -8,7 +7,7 @@ import { useFlowDataInject } from '../hooks/flow-data';
 const flowContext = useFlowDataInject();
 type ConditionRawData = RawData & { conditions: ConditionItem[] };
 const visible = ref(false);
-function getDefault () {
+function getDefault() {
   return {
     conditionName: '',
     conditionType: 'CUSTOM',
@@ -23,7 +22,7 @@ let openParams: {
   index?: number;
   afterEdit: (val: ConditionItem) => void;
 };
-function open (params: typeof openParams) {
+function open(params: typeof openParams) {
   openParams = params;
   if (typeof params.index === 'number') {
     condition.value = cloneDeep(params.data.conditions[params.index]);
@@ -32,13 +31,13 @@ function open (params: typeof openParams) {
   }
   visible.value = true;
 }
-function onChange (value: any) {
+function onChange(value: any) {
   condition.value.conditionExpressions = value;
 }
-function onCancel () {
+function onCancel() {
   visible.value = false;
 }
-function onSubmit () {
+function onSubmit() {
   visible.value = false;
   if (typeof openParams.afterEdit === 'function') {
     openParams.afterEdit(cloneDeep(condition.value));
@@ -52,20 +51,10 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog
-    title="设置分支条件"
-    :width="640"
-    v-model="visible"
-    class="condition-filter-modal"
-  >
+  <el-dialog title="设置分支条件" :width="640" v-model="visible" class="condition-filter-modal">
     <div class="condition-name-label">分支名称</div>
     <el-input v-model="condition.conditionName" class="condition-name-input" placeholder="请输入" />
-    <FilterGroup
-      :value="condition.conditionExpressions"
-      @change="onChange"
-      :sourceList="sourceList"
-      :targetList="sourceList"
-    />
+    <FilterGroup :value="condition.conditionExpressions" @change="onChange" :sourceList="sourceList" :targetList="sourceList" />
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="onCancel">取消</el-button>

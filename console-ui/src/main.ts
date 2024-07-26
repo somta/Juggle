@@ -13,7 +13,7 @@ app.use(router);
 
 app.config.errorHandler = (err, instance, info) => {
   console.error(err);
-}
+};
 
 async function startup() {
   // 检查登录状态

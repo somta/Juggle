@@ -1,11 +1,10 @@
-
 <script lang="ts" setup>
 import { getDataTypeObject } from '@/utils/dataType';
 import { computed } from 'vue';
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean, Array, Object],
-    default: ''
+    default: '',
   },
   dataType: {
     type: String,
@@ -13,13 +12,13 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: 'default'
+    default: 'default',
   },
   showNumberControls: {
     type: Boolean,
-    default: true
+    default: true,
   },
-})
+});
 const emit = defineEmits(['update:modelValue']);
 
 const innerValue = computed({
@@ -30,12 +29,12 @@ const innerValue = computed({
       }
       return Number(props.modelValue);
     }
-    return props.modelValue
+    return props.modelValue;
   },
-  set: (value) => {
-    emit('update:modelValue', value)
-  }
-})
+  set: value => {
+    emit('update:modelValue', value);
+  },
+});
 
 const currentType = computed(() => {
   return getDataTypeObject(props.dataType)?.type;
@@ -63,12 +62,7 @@ const currentType = computed(() => {
       :size="size"
       placeholder="请输入"
     />
-    <el-date-picker
-      v-else-if="currentType === 'Date'"
-      v-model="innerValue"
-      :size="size"
-      type="datetime"
-    />
+    <el-date-picker v-else-if="currentType === 'Date'" v-model="innerValue" :size="size" type="datetime" />
     <el-switch
       v-else-if="currentType === 'Boolean'"
       v-model="innerValue"
@@ -78,12 +72,7 @@ const currentType = computed(() => {
       :size="size"
       :width="48"
     />
-    <el-input
-      v-else
-      v-model="innerValue"
-      :size="size"
-      placeholder="请输入"
-    />
+    <el-input v-else v-model="innerValue" :size="size" placeholder="请输入" />
   </div>
 </template>
 

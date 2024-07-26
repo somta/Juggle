@@ -1,4 +1,4 @@
-import {InputParams, OutputParams} from "@/typings/parameter.ts";
+import { InputParams, OutputParams } from '@/typings/parameter.ts';
 
 export interface FlowDefineInfo {
   id: number | null;

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import {suiteService} from '@/service';
+import { suiteService } from '@/service';
 
 const props = defineProps(['modelValue', 'auto']);
 const emit = defineEmits(['update:modelValue', 'change']);
@@ -38,7 +38,14 @@ function onChange(val: number) {
 }
 </script>
 <template>
-  <el-select :modelValue="props.modelValue" placeholder="请选择套件" style="width: 100%;" filterable @visibleChange="onVisibleChange" @change="onChange">
+  <el-select
+    :modelValue="props.modelValue"
+    placeholder="请选择套件"
+    style="width: 100%"
+    filterable
+    @visibleChange="onVisibleChange"
+    @change="onChange"
+  >
     <template v-slot:empty>
       <div class="select-option-empty" v-loading="suiteLoading">
         <span v-if="!suiteLoading">无数据</span>

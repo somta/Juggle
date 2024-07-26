@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { CaretLeft } from '@element-plus/icons-vue';
 import { ref } from 'vue';
@@ -9,7 +8,7 @@ const menuItems: Array<{ key: string; icon: any; name: string }> = [
     key: 'variable',
     icon: '[x]',
     name: '变量',
-  }
+  },
 ];
 function switchItem(key: string) {
   if (activeItem.value === key) {
@@ -22,7 +21,7 @@ function switchItem(key: string) {
 
 <template>
   <div class="flow-design-left-menu">
-    <div class="left-menu-panel" :class="{ active: activeItem}">
+    <div class="left-menu-panel" :class="{ active: activeItem }">
       <VariableSetting v-if="activeItem === 'variable'" />
       <div class="left-menu-close" @click="switchItem('')" v-if="activeItem">
         <el-icon><CaretLeft /></el-icon>
@@ -30,7 +29,8 @@ function switchItem(key: string) {
     </div>
     <div class="left-menu">
       <div class="left-menu-list">
-        <div class="left-menu-item"
+        <div
+          class="left-menu-item"
           v-for="item in menuItems"
           :key="item.key"
           :class="{ active: activeItem === item.key }"
@@ -60,7 +60,7 @@ function switchItem(key: string) {
     border: solid 1px var(--el-menu-border-color);
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-  
+
     .left-menu-list {
       width: 100%;
       height: 100%;
@@ -71,7 +71,7 @@ function switchItem(key: string) {
       justify-content: center;
       background-color: #fff;
     }
-  
+
     .left-menu-item {
       position: relative;
       width: 48px;
@@ -85,7 +85,7 @@ function switchItem(key: string) {
       transition: all 0.3s;
       user-select: none;
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -96,7 +96,8 @@ function switchItem(key: string) {
         opacity: 0;
         transition: opacity 0.3s;
       }
-      &:hover, &.active {
+      &:hover,
+      &.active {
         background-color: #f0f2f5;
       }
       &.active::after {

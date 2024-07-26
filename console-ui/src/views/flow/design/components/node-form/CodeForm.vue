@@ -1,14 +1,13 @@
-
 <script lang="ts" setup>
 import { PropType, ref, watch } from 'vue';
-import {ElementType, RawData} from '../../types';
+import { ElementType, RawData } from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
-import CodeEditor from "@/components/form/CodeEditor.vue";
+import CodeEditor from '@/components/form/CodeEditor.vue';
 
-type CodeRawData = RawData & { language: string; content:string };
+type CodeRawData = RawData & { language: string; content: string };
 
-function getDefaultData () {
+function getDefaultData() {
   return {
     key: '',
     name: '',
@@ -18,7 +17,7 @@ function getDefaultData () {
     elementType: ElementType.CODE,
     language: 'groovy',
     content: '',
-  }
+  };
 }
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
@@ -31,13 +30,17 @@ const props = defineProps({
 });
 
 const nodeData = ref(getDefaultData() as CodeRawData);
-watch(() => props.data, val => {
-  if (val !== nodeData.value) {
-    nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
-  }
-}, { immediate: true });
+watch(
+  () => props.data,
+  val => {
+    if (val !== nodeData.value) {
+      nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
+    }
+  },
+  { immediate: true }
+);
 
-function validate () {
+function validate() {
   if (!nodeData.value.name) {
     ElMessage.error('节点名称不能为空');
     return false;
@@ -79,6 +82,4 @@ function onCancel() {
   </div>
 </template>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

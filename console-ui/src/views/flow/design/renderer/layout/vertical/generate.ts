@@ -5,14 +5,13 @@ import { LayoutNode } from '../LayoutNode';
 export const box = {
   width: 180,
   height: 40,
-  headerHeight:26,
+  headerHeight: 26,
   marginBottom: 80,
   marginRight: 60,
   conditionWidth: 140,
   conditionHeight: 40,
 };
 
-// const widthAndMargin = box.width + box.marginRight;
 const heightAndMargin = box.height + box.marginBottom;
 const branchTop = box.height + box.marginBottom / 2;
 
@@ -150,7 +149,7 @@ function setConditionBox(node: LayoutNode) {
   const first = children[0];
   const last = children[children.length - 1];
   // branch的left为中点
-  const width = (last.left + last.width / 2) - (first.left - first.width / 2);
+  const width = last.left + last.width / 2 - (first.left - first.width / 2);
   const height = branchTop + Math.max(...node.getChildren().map(child => child.height));
   node.setSize(width, height);
   node.setContentBox({
@@ -169,10 +168,10 @@ function offsetBranch(node: LayoutNode) {
   node.setRelative(node.left + node.width / 2, node.top);
 }
 
-export function setLayoutToMap(node: LayoutNode, dataNodemap: Map<string, LayoutNode>) {
-  dataNodemap.set(node.data.key, node);
+export function setLayoutToMap(node: LayoutNode, dataNodeMap: Map<string, LayoutNode>) {
+  dataNodeMap.set(node.data.key, node);
   node.getChildren().forEach(child => {
-    setLayoutToMap(child, dataNodemap);
+    setLayoutToMap(child, dataNodeMap);
   });
-  return dataNodemap;
+  return dataNodeMap;
 }

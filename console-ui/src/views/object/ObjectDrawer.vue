@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref } from 'vue';
-import {FormInstance, FormRules} from 'element-plus';
-import {ObjectInfo, ObjectProperty} from '@/typings';
-import ParamSetting from "@/components/form/ParamSetting.vue";
-import {objectService} from "@/service";
+import { FormInstance, FormRules } from 'element-plus';
+import { ObjectInfo, ObjectProperty } from '@/typings';
+import ParamSetting from '@/components/form/ParamSetting.vue';
+import { objectService } from '@/service';
 
 const objectDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -16,12 +16,15 @@ function getDefaultObject() {
     objectKey: '',
     objectName: '',
     objectDesc: '',
-    props: []
-  }
+    props: [],
+  };
 }
 
 const rules = reactive<FormRules>({
-  objectKey: [{ required: true, message: '请输入对象编码', trigger: 'blur' },{ pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母、下划线和数字', trigger: 'blur' }],
+  objectKey: [
+    { required: true, message: '请输入对象编码', trigger: 'blur' },
+    { pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母、下划线和数字', trigger: 'blur' },
+  ],
   objectName: [{ required: true, message: '请输入对象名称', trigger: 'blur' }],
 });
 
@@ -58,13 +61,13 @@ function open(item?: Record<string, any>) {
         objectFormValue.objectKey = res.result.objectKey;
         objectFormValue.objectName = res.result.objectName;
         objectFormValue.objectDesc = res.result.objectDesc;
-        const propArray: ObjectProperty[] =res.result.props;
-        if(Array.isArray(propArray) && propArray.length !== 0){
+        const propArray: ObjectProperty[] = res.result.props;
+        if (Array.isArray(propArray) && propArray.length !== 0) {
           const paramArray = propArray.map((item: ObjectProperty) => {
             return {
               paramKey: item.propKey,
               paramName: item.propName,
-              dataType: item.dataType
+              dataType: item.dataType,
             };
           });
           objectFormValue.props = paramArray as any;
@@ -94,13 +97,13 @@ defineExpose({ open });
           <el-input v-model="objectFormValue.objectKey" maxlength="20" />
         </el-form-item>
         <el-form-item label="对象名称" prop="objectName">
-          <el-input v-model="objectFormValue.objectName" maxlength="30"/>
+          <el-input v-model="objectFormValue.objectName" maxlength="30" />
         </el-form-item>
         <el-form-item label="对象描述">
-          <el-input type="textarea" v-model="objectFormValue.objectDesc" maxlength="120"/>
+          <el-input type="textarea" v-model="objectFormValue.objectDesc" maxlength="120" />
         </el-form-item>
         <el-form-item label="对象属性">
-          <ParamSetting v-model="objectFormValue.props" addText="新增属性"/>
+          <ParamSetting v-model="objectFormValue.props" addText="新增属性" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

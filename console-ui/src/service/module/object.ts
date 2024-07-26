@@ -1,23 +1,23 @@
-import { objectAPI} from "@/service/api";
-import {ResponseResult} from "@/service/base";
-import {ObjectInfo} from "@/typings";
+import { objectAPI } from '@/service/api';
+import { ResponseResult } from '@/service/base';
+import { ObjectInfo } from '@/typings';
 
 export async function addObject(params: Parameters<typeof objectAPI.addObject>[0]) {
-    return objectAPI.addObject(params);
+  return objectAPI.addObject(params);
 }
 
-export async function deleteObject(objectId:number) {
-    return objectAPI.deleteObjectById(objectId);
+export async function deleteObject(objectId: number) {
+  return objectAPI.deleteObjectById(objectId);
 }
 
 export async function updateObject(params: Parameters<typeof objectAPI.updateObjectById>[0]) {
-    return objectAPI.updateObjectById(params);
+  return objectAPI.updateObjectById(params);
 }
 
 export async function queryObjectInfo(objectId: number): ResponseResult<ObjectInfo> {
-    return objectAPI.queryObjectInfo(objectId);
+  return objectAPI.queryObjectInfo(objectId);
 }
 
 export async function queryObjectPage(params: Parameters<typeof objectAPI.objectPage>[0]) {
-    return objectAPI.objectPage(params);
+  return objectAPI.objectPage(params);
 }

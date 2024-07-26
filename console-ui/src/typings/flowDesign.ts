@@ -3,15 +3,15 @@ export enum valueType {
   CONSTANT = 'CONSTANT',
   INPUT_PARAM = 'INPUT_PARAM',
   OUTPUT_PARAM = 'OUTPUT_PARAM',
-  HEADER = 'HEADER'
+  HEADER = 'HEADER',
 }
 
 export type DataTypeItem = {
   type: string;
   itemType?: string | null;
   objectKey?: string | null;
-  objectStructure?: string| null;
-}
+  objectStructure?: string | null;
+};
 
 export type RuleItem = {
   source: string;
