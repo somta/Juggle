@@ -87,10 +87,10 @@ function layoutNormal(prev: LayoutNode, node: DataNode) {
     top: 0,
   });
   if ([ElementType.START, ElementType.END].includes(node.type)) {
-    layout.setSize(80, 40);
+    layout.setSize(50, 50);
     layout.setContentBox({
-      width: 80,
-      height: 40,
+      width: 50,
+      height: 50,
       left: 0,
       top: 0,
     });
