@@ -64,7 +64,7 @@ onMounted(async () => {
         afterSelect: (info: { name: string; elementType: ElementType }) => {
           addNode({ info, prev: d.data });
           flowRenderer.refresh();
-        }
+        },
       });
     },
     onEdit: d => {
@@ -78,7 +78,7 @@ onMounted(async () => {
           afterEdit: (val: ConditionItem) => {
             if (val) {
               flowContext.update(draft => {
-                const parentRaw = draft.flowContent.find((item) => item.key === parent.key);
+                const parentRaw = draft.flowContent.find(item => item.key === parent.key);
                 const branch = parentRaw?.conditions?.[data.branchIndex];
                 if (branch) {
                   branch.conditionName = val.conditionName;
@@ -87,7 +87,7 @@ onMounted(async () => {
               });
               flowRenderer.refresh();
             }
-          }
+          },
         });
       } else if (d.data.type === ElementType.CONDITION) {
         editNodeModal.value.open({
@@ -95,14 +95,14 @@ onMounted(async () => {
           afterEdit: (oldData: RawData) => {
             rebuildCondition(flowContext, d.data, oldData);
             flowRenderer.refresh();
-          }
+          },
         });
       } else {
         editNodeModal.value.open({
           data: d.data.raw,
           afterEdit: () => {
             flowRenderer.refresh();
-          }
+          },
         });
       }
     },
@@ -114,16 +114,16 @@ onMounted(async () => {
   });
 });
 
-function flowSubmit () {
+function flowSubmit() {
   const { flowContent, flowVariables } = flowContext.data.value;
   saveFlowDefineContent(JSON.stringify(flowContent), flowVariables);
 }
 
-async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVariable[]) {
+async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVariable[]) {
   const res = await flowDefineService.saveFlowContent({
     id: route.params.flowDefinitionId as unknown as number,
-    flowContent:flowContent,
-    flowVariables: flowVariables
+    flowContent: flowContent,
+    flowVariables: flowVariables,
   });
   if (res.success) {
     ElMessage({ type: 'success', message: '保存成功' });
@@ -136,13 +136,13 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
 <template>
   <div class="page-flow-design">
     <div class="flow-header">
-      {{flowName}}
+      {{ flowName }}
     </div>
     <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
     </div>
     <LeftMenu />
-    <AddNodeModal ref="addNodeModal"/>
+    <AddNodeModal ref="addNodeModal" />
     <EditNodeDrawer ref="editNodeModal" />
     <ConditionFilterModal ref="conditionFilterModalRef" />
     <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
@@ -161,6 +161,8 @@ async function saveFlowDefineContent(flowContent:string,flowVariables: FlowVaria
 
 .page-flow-design {
   position: relative;
+  overflow-y: hidden !important;
+
   .flow-canvas {
     width: 100%;
     height: 100%;
