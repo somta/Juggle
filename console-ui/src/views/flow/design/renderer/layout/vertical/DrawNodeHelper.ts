@@ -19,7 +19,7 @@ export class DrawNodeHelper {
     public drawNode(container: D3Element, node: LayoutNode, type: string = 'update') {
         switch (node.data.type) {
             case ElementType.START:
-                this.drawStartNode(container);
+                this.drawStartNode(container, node, type);
                 break;
             case ElementType.METHOD:
             case ElementType.CODE:
@@ -52,7 +52,7 @@ export class DrawNodeHelper {
             const flowNode = container.selectChild('.flow-node');
             flowNode.select('text').text(data.raw.name);
         }
-        if ([ElementType.START, ElementType.METHOD, ElementType.CODE, ElementType.MYSQL].includes(data.type)) {
+        if ([ElementType.METHOD, ElementType.CODE, ElementType.MYSQL].includes(data.type)) {
             this.drawAddIcon(container, node, type);
         }
     }
@@ -176,7 +176,10 @@ export class DrawNodeHelper {
         const { width } = node.contentBox;
         const { data } = node;
         let btns = ['delete', 'edit'];
-        if ([ElementType.START, ElementType.END, ElementType.BRANCH].includes(data.type)) {
+        if ([ElementType.START, ElementType.END].includes(data.type)) {
+            btns = [];
+        }
+        if ([ElementType.BRANCH].includes(data.type)) {
             btns = ['edit'];
         }
         btns.forEach((btn, i) => {
@@ -241,15 +244,16 @@ export class DrawNodeHelper {
             .text(nodeCard.nodeName);
     }
 
-    private drawStartNode(container: D3Element){
+    private drawStartNode(container: D3Element, node: LayoutNode, type: string){
         container.append('g')
             .attr('transform', `translate(8, -2)`)
             .append('use').attr('href', `#icon-start`).attr('width', 50).attr('height', 50).attr('x', -8).attr('y', -8).attr('fill', '#02CA83');
+        this.drawAddIcon(container, node, type);
     }
 
     private drawEndNode(container: D3Element){
         container.append('g')
-            .attr('transform', `translate(8, 8)`)
-            .append('use').attr('href', `#icon-end`).attr('width', 50).attr('height', 50).attr('x', -8).attr('y', -8).attr('fill', '#777');
+            .attr('transform', `translate(6, -2)`)
+            .append('use').attr('href', `#icon-end`).attr('width', 57).attr('height', 57).attr('x', -8).attr('y', -8).attr('fill', '#777');
     }
 }
