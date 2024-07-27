@@ -17,7 +17,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <revision>1.2.0</revision>
+        <revision>1.2.1</revision>
         <somta-dependencies.varsion>1.4.3</somta-dependencies.varsion>
         <somta-core.version>1.4.3</somta-core.version>
         <somta-common.version>1.4.3</somta-common.version>

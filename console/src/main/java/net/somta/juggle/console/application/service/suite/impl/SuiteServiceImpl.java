@@ -141,13 +141,13 @@ public class SuiteServiceImpl implements ISuiteService {
         List<SuiteMarketApiVO> apiList = suiteMarketVo.getApiList();
         if(CollectionUtils.isNotEmpty(apiList)){
             for (SuiteMarketApiVO suiteMarketApi : apiList) {
-                addaSuiteMarketApi(suiteMarketApi);
+                addSuiteMarketApi(suiteMarketApi);
             }
         }
         return true;
     }
 
-    private void addaSuiteMarketApi(SuiteMarketApiVO suiteMarketApi){
+    private void addSuiteMarketApi(SuiteMarketApiVO suiteMarketApi){
         ApiAddParam apiAddParam = new ApiAddParam();
         apiAddParam.setApiUrl(suiteMarketApi.getApiUrl());
         apiAddParam.setApiName(suiteMarketApi.getApiName());
