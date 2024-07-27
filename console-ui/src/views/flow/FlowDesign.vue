@@ -152,20 +152,22 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
 <style lang="less">
 .layout-view .layout-router-view.page-flow-design {
   background-color: #fff;
+  overflow: hidden !important;
 }
 
 .flow-header {
   border-bottom: 1px solid #dcdfe6;
   padding: 9.5px;
+  position: relative;
+  height: 40px;
 }
 
 .page-flow-design {
   position: relative;
-  overflow-y: hidden !important;
 
   .flow-canvas {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
     overflow: hidden;
     position: relative;
     font-size: 14px;
