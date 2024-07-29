@@ -57,11 +57,11 @@ public abstract class AbstractResultDataProcessor {
      */
     private static boolean isExistColumn(ResultSet resultSet,String propKey) throws SQLException {
         ResultSetMetaData metaData = resultSet.getMetaData();
-        int count = metaData.getColumnCount();
-        if(count <= 0){
+        int columnCount = metaData.getColumnCount();
+        if(columnCount <= 0){
             return false;
         }
-        for (int i=1; i<=count; i++){
+        for (int i=1; i<=columnCount; i++){
             String columnName = metaData.getColumnLabel(i);
             if(StringUtils.isNotEmpty(columnName) && columnName.equals(propKey)){
                 return true;

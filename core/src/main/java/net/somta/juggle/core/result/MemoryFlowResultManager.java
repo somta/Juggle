@@ -27,16 +27,16 @@ import java.util.Map;
  */
 public class MemoryFlowResultManager implements IFlowResultManager {
 
-    private LRUMap<String, Map<String,Object>> result = new LRUMap<>(2000,500);
+    private LRUMap<String, Map<String,Object>> results = new LRUMap<>(2000,500);
 
     @Override
     public boolean putFlowResult(String flowInstanceId,Map<String,Object> resultData) {
-        result.put(flowInstanceId,resultData);
+        results.put(flowInstanceId,resultData);
         return true;
     }
 
     @Override
     public Map<String, Object> getFlowResult(String flowInstanceId) {
-        return result.get(flowInstanceId);
+        return results.get(flowInstanceId);
     }
 }
