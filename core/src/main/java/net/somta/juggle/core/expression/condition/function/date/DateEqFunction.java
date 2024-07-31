@@ -45,8 +45,8 @@ public class DateEqFunction extends AbstractFunction {
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);
-                int rst = sourceDate.compareTo(targetDate);
-                return rst == 0 ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
+                int result = sourceDate.compareTo(targetDate);
+                return result == 0 ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

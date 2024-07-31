@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.RowId;
 import java.sql.SQLException;
 
 public abstract class AbstractResultDataProcessor {
@@ -33,7 +32,7 @@ public abstract class AbstractResultDataProcessor {
 
     protected static Object getResultValue(ResultSet resultSet, Property property) throws SQLException {
         DataType dataType = property.getDataType();
-        if(!isExistColumn(resultSet,property.getPropKey())){
+        if(!isColumnExist(resultSet,property.getPropKey())){
             return null;
         }
         switch (dataType.getType()){
@@ -55,7 +54,7 @@ public abstract class AbstractResultDataProcessor {
      * @return
      * @throws SQLException
      */
-    private static boolean isExistColumn(ResultSet resultSet,String propKey) throws SQLException {
+    private static boolean isColumnExist(ResultSet resultSet, String propKey) throws SQLException {
         ResultSetMetaData metaData = resultSet.getMetaData();
         int columnCount = metaData.getColumnCount();
         if(columnCount <= 0){

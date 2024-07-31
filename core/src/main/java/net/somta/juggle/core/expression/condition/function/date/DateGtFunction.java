@@ -46,8 +46,8 @@ public class DateGtFunction extends AbstractFunction {
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);
-                boolean rst = sourceDate.after(targetDate);
-                return rst ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
+                boolean result = sourceDate.after(targetDate);
+                return result ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

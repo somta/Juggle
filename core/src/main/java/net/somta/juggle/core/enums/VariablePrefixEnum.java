@@ -26,11 +26,11 @@ public enum VariablePrefixEnum {
     OUTPUT_VARIABLE_PREFIX("output_","出参变量前缀");
 
     private String code;
-    private String desc;
+    private String description;
 
-    VariablePrefixEnum(String code, String desc) {
+    VariablePrefixEnum(String code, String description) {
         this.code = code;
-        this.desc = desc;
+        this.description = description;
     }
 
     public String getCode() {

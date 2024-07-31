@@ -46,8 +46,8 @@ public class DateLeFunction extends AbstractFunction {
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);
-                boolean rst = sourceDate.before(targetDate) || sourceDate.compareTo(targetDate) == 0;
-                return rst ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
+                boolean result = sourceDate.before(targetDate) || sourceDate.compareTo(targetDate) == 0;
+                return result ? AviatorBoolean.TRUE : AviatorBoolean.FALSE;
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
