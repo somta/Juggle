@@ -52,6 +52,7 @@ public class ExecutorFactory {
             case END: return new EndNodeExecutor();
             case METHOD: return new MethodNodeExecutor();
             case CONDITION: return new ConditionNodeExecutor();
+            case ASSIGN: return new AssignNodeExecutor();
             case CODE: return new CodeNodeExecutor();
             case MYSQL: return new MysqlNodeExecutor();
             case AI: return new OpenAiNodeExecutor();

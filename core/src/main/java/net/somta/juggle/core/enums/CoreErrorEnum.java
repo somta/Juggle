@@ -24,7 +24,8 @@ public enum CoreErrorEnum {
 
     ENV_KEY_ERROR(1001, "变量的key不能为空"),
     FLOW_ELEMENT_IS_EMPTY_ERROR(1002, "流程元素不能为空"),
-    FLOW_NOT_EXIST_START_NODE_ERROR(1003, "流程不存在开始节点")
+    FLOW_NOT_EXIST_START_NODE_ERROR(1003, "流程不存在开始节点"),
+    ASSIGN_NODE_ASSIGN_TYPE_ERROR(1004, "赋值节点不支持该赋值类型"),
     ;
 
 

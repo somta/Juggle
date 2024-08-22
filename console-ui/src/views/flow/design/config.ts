@@ -9,6 +9,10 @@ export const nodeMap = {
     nodeName: '判断节点',
     nodeHeaderColor: '#e5cf7a',
   },
+  [ElementType.ASSIGN]: {
+    nodeName: '赋值节点',
+    nodeHeaderColor: '#e0b290',
+  },
   [ElementType.CODE]: {
     nodeName: '代码节点',
     nodeHeaderColor: '#b471e7',

@@ -124,7 +124,7 @@ function onCancel() {
       <el-form-item label="节点编码">
         <span>{{ nodeData.key }}</span>
       </el-form-item>
-      <el-form-item label="节点名称">
+      <el-form-item label="节点名称" required>
         <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">

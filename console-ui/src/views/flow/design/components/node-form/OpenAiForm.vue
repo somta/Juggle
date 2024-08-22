@@ -63,7 +63,7 @@ function onCancel() {
 <template>
   <div class="node-method-form">
     <el-form label-position="top">
-      <el-form-item label="节点编码">
+      <el-form-item label="节点编码" required>
         <span>{{ nodeData.key }}</span>
       </el-form-item>
       <el-form-item label="节点名称">

@@ -22,6 +22,7 @@ export class DrawNodeHelper {
                 this.drawStartNode(container, node, type);
                 break;
             case ElementType.METHOD:
+            case ElementType.ASSIGN:
             case ElementType.CODE:
             case ElementType.MYSQL:
             case ElementType.AI:

@@ -34,6 +34,7 @@ export enum ElementType {
   METHOD = 'METHOD',
   CONDITION = 'CONDITION',
   CODE = 'CODE',
+  ASSIGN = 'ASSIGN',
   MYSQL = 'MYSQL',
   AI = 'AI',
   END = 'END',

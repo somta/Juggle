@@ -5,6 +5,7 @@ import IconMethod from '@/components/icons/IconMethod.vue';
 import IconCondition from '@/components/icons/IconCondition.vue';
 import IconCode from '@/components/icons/IconCode.vue';
 import IconMysql from '@/components/icons/IconMysql.vue';
+import IconAssign from '@/components/icons/IconAssign.vue';
 const visible = ref(false);
 type NodeInfo = { name: string; elementType: ElementType };
 let openParams: { afterSelect: (info: NodeInfo) => void };
@@ -29,6 +30,11 @@ const flowNodes = [
     name: '判断节点',
     type: ElementType.CONDITION,
     icon: IconCondition,
+  },
+  {
+    name: '赋值节点',
+    type: ElementType.ASSIGN,
+    icon: IconAssign,
   },
   {
     name: '代码节点',
@@ -68,7 +74,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="visible" title="" class="design-add-node-modal" :width="480" :show-close="false" align-center>
+  <el-dialog v-model="visible" title="" class="design-add-node-modal" :width="500" :show-close="false" align-center>
     <el-anchor :offset="70" :container="containerRef" direction="horizontal" @click="handleClick">
       <el-anchor-link href="#baseNodes" title="基础节点" />
       <el-anchor-link href="#dataNodes" title="数据节点" />
@@ -89,9 +95,7 @@ defineExpose({ open });
           <div id="dataNodes" class="node-types">
             <div class="node-type-name">数据节点</div>
             <div class="node-type" v-for="item in flowDataNodes" :key="item.type" @click="addNode(item)">
-              <span
-                ><el-icon :size="25"><component :is="item.icon"></component></el-icon
-              ></span>
+              <el-icon :size="25"><component :is="item.icon"></component></el-icon>
               <span class="node-text">{{ item.name }}</span>
             </div>
           </div>

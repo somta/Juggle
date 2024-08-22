@@ -20,6 +20,7 @@ function getDefaultData() {
   };
 }
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
+const codeDialogVisible = ref(false);
 
 const emit = defineEmits(['update', 'cancel']);
 const props = defineProps({
@@ -72,6 +73,7 @@ function onCancel() {
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="Groovy代码">
+        <div class="code-btn"> <el-button @click="codeDialogVisible = true">编辑代码</el-button></div>
         <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="480px" height="200px" language="groovy" />
       </el-form-item>
       <el-form-item>
@@ -79,7 +81,15 @@ function onCancel() {
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
+    <el-dialog v-model="codeDialogVisible" title="代码" width="1000">
+      <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="960px" height="500px" language="groovy" />
+    </el-dialog>
   </div>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.code-btn{
+  padding-bottom: 5px;
+  margin-left: auto;
+}
+</style>

@@ -92,18 +92,18 @@ async function loadDataSourceData() {
       <el-form-item label="节点编码">
         <span>{{ nodeData.key }}</span>
       </el-form-item>
-      <el-form-item label="节点名称">
+      <el-form-item label="节点名称" required>
         <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
-      <el-form-item label="数据源">
+      <el-form-item label="数据源" required>
         <el-select v-model="nodeData.dataSourceId" placeholder="请选择数据源">
           <el-option v-for="item in dataSourceList" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item label="操作类型">
+      <el-form-item label="操作类型" required>
         <el-select v-model="nodeData.operationType" placeholder="请选择操作类型">
           <el-option key="CHANGE" label="更改(增/删/改)" value="CHANGE" />
           <el-option key="QUERY" label="查询" value="QUERY" />
