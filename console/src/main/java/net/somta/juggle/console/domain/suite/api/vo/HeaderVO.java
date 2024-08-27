@@ -23,6 +23,8 @@ public class HeaderVO {
 
     private Boolean required;
 
+    private String headerDesc;
+
     public String getHeaderKey() {
         return headerKey;
     }
@@ -53,5 +55,13 @@ public class HeaderVO {
 
     public void setRequired(Boolean required) {
         this.required = required;
+    }
+
+    public String getHeaderDesc() {
+        return headerDesc;
+    }
+
+    public void setHeaderDesc(String headerDesc) {
+        this.headerDesc = headerDesc;
     }
 }

@@ -2,45 +2,23 @@
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { suiteMarketService } from '@/service';
-import { SuiteMarket } from '@/typings';
+import {SuiteMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
 
 const route = useRoute();
 let paramsData = reactive({
   params: route.params,
 });
-const suiteMarketInfo = ref<SuiteMarket>({
+const suiteMarketInfo = ref<SuiteMarketInfo>({
   id: null,
   suiteCode: '',
   suiteName: '',
   suiteImage: '',
   suiteDesc: '',
+  apiList: []
 });
 
-const headerData = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-];
-
-querySuiteMarketList();
+querySuiteMarketInfo();
 
 async function installSuiteMarket() {
   let suiteId = Number(paramsData.params.suiteId);
@@ -52,7 +30,7 @@ async function installSuiteMarket() {
   }
 }
 
-async function querySuiteMarketList() {
+async function querySuiteMarketInfo() {
   let suiteId = Number(paramsData.params.suiteId);
   const res = await suiteMarketService.querySuiteMarketDetail(suiteId);
   if (res.success) {
@@ -78,38 +56,45 @@ async function querySuiteMarketList() {
     <div class="suite-doc">
       <el-tabs model-value="apiList">
         <el-tab-pane label="套件接口" name="apiList">
-          <el-tabs tab-position="left" class="demo-tabs">
-            <el-tab-pane label="发生邮件">
-              <div class="api-info">
-                <div>
-                  <div>请求头</div>
-                  <el-table :data="headerData" style="width: 100%">
-                    <el-table-column prop="date" label="Date" width="180" />
-                    <el-table-column prop="name" label="Name" width="180" />
-                    <el-table-column prop="address" label="Address" />
-                  </el-table>
-                </div>
-                <div>
-                  <div>入参</div>
-                  <el-table :data="headerData" style="width: 100%">
-                    <el-table-column prop="date" label="Date" width="180" />
-                    <el-table-column prop="name" label="Name" width="180" />
-                    <el-table-column prop="address" label="Address" />
-                  </el-table>
-                </div>
+          <el-tabs tab-position="left">
+            <template v-for="api in suiteMarketInfo.apiList" :key="api.apiUrl">
+              <el-tab-pane :label="api.apiName">
+                <div class="api-info">
+                  <div>
+                    <div class="title">请求头</div>
+                    <el-table :data="api.apiHeaders" border size="large" :header-cell-style="{ background: '#f0f0f0' }" >
+                      <el-table-column prop="paramKey" label="参数编码" width="280" />
+                      <el-table-column prop="paramName" label="参数名称" />
+                      <el-table-column prop="required" label="是否必填" >
+                        <template #default="scope">
+                          {{scope.row.required ? '是' : '否'}}
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
+                  <div>
+                    <div class="title">入参</div>
+                    <el-table :data="api.apiInputParameter" border size="large" :header-cell-style="{ background: '#f0f0f0' }" >
+                      <el-table-column prop="paramKey" label="参数编码" width="280" />
+                      <el-table-column prop="paramName" label="参数名称" />
+                      <el-table-column prop="required" label="是否必填" >
+                        <template #default="scope">
+                          {{scope.row.required ? '是' : '否'}}
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
 
-                <div>
-                  <div>出参</div>
-                  <el-table :data="headerData" style="width: 100%">
-                    <el-table-column prop="date" label="Date" width="180" />
-                    <el-table-column prop="name" label="Name" width="180" />
-                    <el-table-column prop="address" label="Address" />
-                  </el-table>
+                  <div>
+                    <div class="title">出参</div>
+                    <el-table :data="api.apiOutputParameter" border size="large" :header-cell-style="{ background: '#f0f0f0' }" >
+                      <el-table-column prop="paramKey" label="参数编码" width="280" />
+                      <el-table-column prop="paramName" label="参数名称" />
+                    </el-table>
+                  </div>
                 </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="批量发送邮件">批量发送邮件</el-tab-pane>
-            <el-tab-pane label="获取授权">获取授权</el-tab-pane>
+              </el-tab-pane>
+            </template>
           </el-tabs>
         </el-tab-pane>
         <el-tab-pane label="帮助文档" name="helpDoc">
@@ -174,6 +159,14 @@ async function querySuiteMarketList() {
   :deep(.el-tabs__nav-wrap)::after {
     background-color: transparent;
     height: 0;
+  }
+
+  .api-info{
+    padding-left: 15px;
+    padding-right: 15px;
+    .title{
+      margin: 14px 0 12px 0;
+    }
   }
 
   .help-doc a {

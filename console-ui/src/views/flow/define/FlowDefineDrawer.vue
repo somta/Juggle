@@ -79,7 +79,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="flowDefineDrawerVisible" :title="title" destroyOnClose>
+  <el-drawer v-model="flowDefineDrawerVisible" :size="600" :title="title" destroyOnClose>
     <div>
       <el-form ref="formRef" label-position="top" :model="flowDefineFormValue" :rules="rules">
         <el-form-item label="流程名称" prop="flowName">

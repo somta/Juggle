@@ -5,6 +5,7 @@ export interface ApiHeader {
   headerName: string;
   dataType: string;
   required: boolean;
+  headerDesc: string;
 }
 
 export interface ApiInfo {

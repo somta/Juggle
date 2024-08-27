@@ -35,6 +35,7 @@ import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import net.somta.juggle.console.interfaces.param.suite.ApiAddParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
@@ -118,9 +119,9 @@ public class SuiteServiceImpl implements ISuiteService {
     }
 
     @Override
-    public SuiteMarketDTO getSuiteMarketInfo(Long suiteId) {
+    public SuiteMarketInfoDTO getSuiteMarketInfo(Long suiteId) {
         SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteId);
-        SuiteMarketDTO suiteMarketDTO = ISuiteAssembler.IMPL.voToDto(suiteMarketVo);
+        SuiteMarketInfoDTO suiteMarketDTO = ISuiteAssembler.IMPL.voToDto(suiteMarketVo);
         return suiteMarketDTO;
     }
 
@@ -154,21 +155,9 @@ public class SuiteServiceImpl implements ISuiteService {
         apiAddParam.setApiDesc(suiteMarketApi.getApiDesc());
         apiAddParam.setApiRequestType(RequestTypeEnum.valueOf(suiteMarketApi.getApiRequestType()));
         apiAddParam.setApiRequestContentType(suiteMarketApi.getApiRequestContentType());
-        String apiHeaders = suiteMarketApi.getApiHeaders();
-        if(StringUtils.isNotEmpty(apiHeaders)){
-            List<HeaderVO> headerVoList = JsonSerializeHelper.deserialize(apiHeaders,List.class, HeaderVO.class);
-            apiAddParam.setApiHeaders(headerVoList);
-        }
-        String apiInputParameter = suiteMarketApi.getApiInputParameter();
-        if(StringUtils.isNotEmpty(apiInputParameter)){
-            List<InputParameterVO> inputParameterVoList = JsonSerializeHelper.deserialize(apiInputParameter,List.class, InputParameterVO.class);
-            apiAddParam.setApiInputParams(inputParameterVoList);
-        }
-        String apiOutputParameter = suiteMarketApi.getApiOutputParameter();
-        if(StringUtils.isNotEmpty(apiOutputParameter)){
-            List<OutputParameterVO> outputParameterVoList = JsonSerializeHelper.deserialize(apiOutputParameter,List.class, OutputParameterVO.class);
-            apiAddParam.setApiOutputParams(outputParameterVoList);
-        }
+        apiAddParam.setApiHeaders(suiteMarketApi.getApiHeaders());
+        apiAddParam.setApiInputParams(suiteMarketApi.getApiInputParameter());
+        apiAddParam.setApiOutputParams(suiteMarketApi.getApiOutputParameter());
         apiService.addApi(apiAddParam);
     }
 }

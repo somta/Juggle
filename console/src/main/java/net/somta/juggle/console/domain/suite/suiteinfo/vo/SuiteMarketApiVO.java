@@ -1,5 +1,11 @@
 package net.somta.juggle.console.domain.suite.suiteinfo.vo;
 
+import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
+import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
+import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
+
+import java.util.List;
+
 /**
  * @author husong
  * @since 1.2.1
@@ -35,16 +41,16 @@ public class SuiteMarketApiVO {
     /**
      * api请求头
      */
-    private String apiHeaders;
+    private List<HeaderVO> apiHeaders;
 
     /**
      * api入参
      */
-    private String apiInputParameter;
+    private List<InputParameterVO> apiInputParameter;
     /**
      * api出参
      */
-    private String apiOutputParameter;
+    private List<OutputParameterVO> apiOutputParameter;
 
     public Long getId() {
         return id;
@@ -94,27 +100,27 @@ public class SuiteMarketApiVO {
         this.apiRequestContentType = apiRequestContentType;
     }
 
-    public String getApiHeaders() {
+    public List<HeaderVO> getApiHeaders() {
         return apiHeaders;
     }
 
-    public void setApiHeaders(String apiHeaders) {
+    public void setApiHeaders(List<HeaderVO> apiHeaders) {
         this.apiHeaders = apiHeaders;
     }
 
-    public String getApiInputParameter() {
+    public List<InputParameterVO> getApiInputParameter() {
         return apiInputParameter;
     }
 
-    public void setApiInputParameter(String apiInputParameter) {
+    public void setApiInputParameter(List<InputParameterVO> apiInputParameter) {
         this.apiInputParameter = apiInputParameter;
     }
 
-    public String getApiOutputParameter() {
+    public List<OutputParameterVO> getApiOutputParameter() {
         return apiOutputParameter;
     }
 
-    public void setApiOutputParameter(String apiOutputParameter) {
+    public void setApiOutputParameter(List<OutputParameterVO> apiOutputParameter) {
         this.apiOutputParameter = apiOutputParameter;
     }
 }

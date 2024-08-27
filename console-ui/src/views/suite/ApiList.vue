@@ -74,6 +74,7 @@ async function addApiItem(row: any) {
         headerName: item.paramName,
         dataType: item.dataType,
         required: item.required,
+        headerDesc: item.paramDesc,
       };
     });
     row.apiHeaders = headerArray;
@@ -96,6 +97,7 @@ async function editApiItem(row: any) {
         headerName: item.paramName,
         dataType: item.dataType,
         required: item.required,
+        headerDesc: item.paramDesc,
       };
     });
     row.apiHeaders = headerArray;

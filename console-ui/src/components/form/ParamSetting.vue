@@ -11,6 +11,7 @@ type ParamItem = {
   paramPosition: string;
   dataType: DataTypeItem;
   required: boolean;
+  paramDesc: string;
 };
 
 const props = defineProps({
@@ -44,6 +45,7 @@ const columns = [
   { name: '参数位置', prop: 'paramPosition' },
   { name: '数据类型', prop: 'dataType' },
   { name: '必填', prop: 'required' },
+  { name: '描述', prop: 'paramDesc' },
 ];
 
 function addParam() {
@@ -53,6 +55,7 @@ function addParam() {
     paramPosition: '',
     dataType: { type: 'String', itemType: null, objectKey: null, objectStructure: null },
     required: false,
+    paramDesc: '',
   });
   onChange();
 }
@@ -77,6 +80,7 @@ function onChange() {
           <div class="param-setting-td" v-if="showParamPosition && column.prop === 'paramPosition'">{{ column.name }}</div>
           <div class="param-setting-td" v-if="column.prop === 'dataType'">{{ column.name }}</div>
           <div class="param-setting-td required-td" v-if="showRequired && column.prop === 'required'">{{ column.name }}</div>
+          <div class="param-setting-td" v-if="column.prop === 'paramDesc'">{{ column.name }}</div>
         </template>
         <div class="param-setting-td delete-td"></div>
       </div>
@@ -102,6 +106,9 @@ function onChange() {
           </div>
           <div class="param-setting-td required-td" v-else-if="showRequired && column.prop === 'required'">
             <el-checkbox v-model="param.required" @change="onChange" />
+          </div>
+          <div class="param-setting-td" v-if="column.prop === 'paramDesc'">
+            <el-input v-model="param.paramDesc" size="small" @change="onChange" />
           </div>
         </template>
         <div class="param-setting-td delete-td">

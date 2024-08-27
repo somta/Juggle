@@ -18,7 +18,7 @@ public class InputParameterVO {
     private String paramName;
 
     /**
-     * 参数位置
+     * parameter position
      */
     private String paramPosition;
 
@@ -31,6 +31,8 @@ public class InputParameterVO {
      * 是否必填  0：非必填  1：必填
      */
     private Boolean required;
+
+    private String paramDesc;
 
     public String getParamKey() {
         return paramKey;
@@ -70,5 +72,13 @@ public class InputParameterVO {
 
     public void setRequired(Boolean required) {
         this.required = required;
+    }
+
+    public String getParamDesc() {
+        return paramDesc;
+    }
+
+    public void setParamDesc(String paramDesc) {
+        this.paramDesc = paramDesc;
     }
 }

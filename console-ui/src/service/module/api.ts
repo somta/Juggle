@@ -28,6 +28,7 @@ export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo
           paramName: item.headerName,
           dataType: item.dataType,
           required: item.required,
+          paramDesc: item.headerDesc,
         };
       });
       res.result.apiHeaders = paramArray as any;

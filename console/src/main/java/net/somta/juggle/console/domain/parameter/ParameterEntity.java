@@ -56,6 +56,7 @@ public class ParameterEntity {
                 inputParameterPo.setParamPosition(inputParameterVO.getParamPosition());
                 inputParameterPo.setDataType(JsonSerializeHelper.serialize(inputParameterVO.getDataType()));
                 inputParameterPo.setRequired(inputParameterVO.getRequired());
+                inputParameterPo.setParamDesc(inputParameterVO.getParamDesc());
                 inputParameterPo.setSourceId(sourceId);
                 inputParameterPo.setSourceType(sourceType);
                 inputParameterPo.setCreatedAt(currentDate);
@@ -69,6 +70,7 @@ public class ParameterEntity {
                 outputParameterPo.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
                 outputParameterPo.setParamName(outputParameterVO.getParamName());
                 outputParameterPo.setDataType(JsonSerializeHelper.serialize(outputParameterVO.getDataType()));
+                outputParameterPo.setParamDesc(outputParameterVO.getParamDesc());
                 outputParameterPo.setSourceId(sourceId);
                 outputParameterPo.setSourceType(sourceType);
                 outputParameterPo.setCreatedAt(currentDate);

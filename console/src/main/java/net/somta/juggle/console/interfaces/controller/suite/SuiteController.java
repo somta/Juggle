@@ -27,6 +27,7 @@ import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum;
 import net.somta.juggle.console.interfaces.dto.suite.ApiDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteMarketParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
@@ -102,8 +103,8 @@ public class SuiteController {
 
     @Operation(summary = "查询市场套件详情")
     @GetMapping("/market/info/{suiteId}")
-    public ResponseDataResult<SuiteMarketDTO> getSuiteMarketInfo(@PathVariable Long suiteId){
-        SuiteMarketDTO suiteMarketDto = suiteService.getSuiteMarketInfo(suiteId);
+    public ResponseDataResult<SuiteMarketInfoDTO> getSuiteMarketInfo(@PathVariable Long suiteId){
+        SuiteMarketInfoDTO suiteMarketDto = suiteService.getSuiteMarketInfo(suiteId);
         return ResponseDataResult.setResponseResult(suiteMarketDto);
     }
 

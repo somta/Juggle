@@ -1,12 +1,12 @@
 import { suiteMarketAPI } from '@/service/api';
 import { ResponseResult } from '@/service/base';
-import { SuiteMarket } from '@/typings';
+import {SuiteMarket, SuiteMarketInfo} from '@/typings';
 
 export async function querySuiteMarketList() {
   return suiteMarketAPI.querySuiteMarketList();
 }
 
-export async function querySuiteMarketDetail(suiteId: number): ResponseResult<SuiteMarket> {
+export async function querySuiteMarketDetail(suiteId: number): ResponseResult<SuiteMarketInfo> {
   return suiteMarketAPI.querySuiteMarketDetail(suiteId);
 }
 

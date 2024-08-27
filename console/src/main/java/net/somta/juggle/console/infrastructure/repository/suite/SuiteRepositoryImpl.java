@@ -7,6 +7,7 @@ import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
 import net.somta.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketInfoVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
@@ -122,12 +123,13 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
 
     @Override
     public SuiteMarketVO querySuiteMarketInfo(Long suiteId) {
+        SuiteMarketVO suiteMarketVo = new SuiteMarketVO();
         ResponseDataResult result = HttpClientUtil.doGet(JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info/"+suiteId);
         if(result.isSuccess()){
             ResponseDataResult resultData = JsonSerializeHelper.deserialize(String.valueOf(result.getResult()),ResponseDataResult.class);
-            SuiteMarketVO suiteMarketVo = JsonSerializeHelper.deserialize(JsonSerializeHelper.serialize(resultData.getResult()),SuiteMarketVO.class);
-            return suiteMarketVo;
+            SuiteMarketInfoVO suiteMarketInfoVo = JsonSerializeHelper.deserialize(JsonSerializeHelper.serialize(resultData.getResult()), SuiteMarketInfoVO.class);
+            suiteMarketVo = ISuiteConverter.IMPL.voToVo(suiteMarketInfoVo);
         }
-        return null;
+        return suiteMarketVo;
     }
 }

@@ -33,6 +33,7 @@ public interface IParameterConverter {
             inputParameterVo.setParamPosition(parameterPo.getParamPosition());
             inputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
             inputParameterVo.setRequired(parameterPo.getRequired());
+            inputParameterVo.setParamDesc(parameterPo.getParamDesc());
             list.add(inputParameterVo);
         }
         return list;
@@ -48,6 +49,7 @@ public interface IParameterConverter {
             outputParameterVo.setParamKey(parameterPo.getParamKey());
             outputParameterVo.setParamName(parameterPo.getParamName());
             outputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
+            outputParameterVo.setParamDesc(parameterPo.getParamDesc());
             list.add(outputParameterVo);
         }
         return list;
@@ -65,6 +67,7 @@ public interface IParameterConverter {
             headerVo.setHeaderName(parameterPo.getParamName());
             headerVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
             headerVo.setRequired(parameterPo.getRequired());
+            headerVo.setHeaderDesc(parameterPo.getParamDesc());
             list.add(headerVo);
         }
         return list;
