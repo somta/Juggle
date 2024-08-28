@@ -18,7 +18,13 @@ function editRow(row: any) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
+    <el-table-column prop="suiteCode" label="套件图像" width="100" >
+      <template #default="scope">
+        <img v-if="scope.row.suiteImage" :src="scope.row.suiteImage" class="suite-image" alt="" />
+        <img v-else class="suite-image">
+      </template>
+    </el-table-column>
     <el-table-column prop="suiteCode" label="套件编码" width="180" />
     <el-table-column prop="suiteName" label="套件名称" width="180" />
     <el-table-column prop="suiteDesc" label="套件描述" show-overflow-tooltip />
@@ -41,9 +47,9 @@ function editRow(row: any) {
   </div>
 </template>
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
+.suite-image{
+  width: 40px;
+  height: 40px;
 }
+
 </style>

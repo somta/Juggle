@@ -57,7 +57,8 @@ function switchItem(key: string) {
     left: 0;
     height: 100%;
     width: 60px;
-    border: solid 1px var(--el-menu-border-color);
+    border-right: solid 1px var(--el-menu-border-color);
+    border-bottom: solid 1px var(--el-menu-border-color);
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 
@@ -120,7 +121,7 @@ function switchItem(key: string) {
     transform: translateX(-180px);
     width: 240px;
     height: 100%;
-    border: 1px solid var(--el-menu-border-color);
+    border-right: 1px solid var(--el-menu-border-color);
     border-left: none;
     background-color: #fff;
     transition: transform ease 0.2s;

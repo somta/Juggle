@@ -21,7 +21,7 @@ function deleteRow(row: any, index: number) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="dataSourceName" label="数据源名称" />
     <el-table-column prop="dataSourceType" label="数据源类型" />
     <el-table-column prop="address" label="连接地址" width="380" />
@@ -45,9 +45,5 @@ function deleteRow(row: any, index: number) {
   </div>
 </template>
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

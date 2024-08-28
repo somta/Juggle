@@ -4,6 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.suite.SuiteMapper">
 
+<insert id="addSuite" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.suite.SuitePO" >
+    insert into t_suite (id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_json, suite_flag,deleted, created_at, created_by, updated_at, updated_by)
+    values (#{id},#{suiteCode},#{suiteName},#{suiteClassifyId},#{suiteImage},#{suiteVersion},#{suiteDesc},#{suiteHelpDocJson},#{suiteFlag},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+</insert>
+
 <select id="querySuiteByCode" resultType="net.somta.juggle.console.infrastructure.po.suite.SuitePO" parameterType="java.lang.String">
     select id, suite_code, suite_name, suite_classify_id, suite_version, suite_desc, suite_help_doc_json, suite_flag
     from t_suite where suite_code = #{suiteCode}

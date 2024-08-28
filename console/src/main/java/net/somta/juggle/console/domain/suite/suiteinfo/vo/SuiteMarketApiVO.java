@@ -11,7 +11,6 @@ import java.util.List;
  * @since 1.2.1
  */
 public class SuiteMarketApiVO {
-    private Long id;
 
     /**
      * api接口地址
@@ -46,19 +45,12 @@ public class SuiteMarketApiVO {
     /**
      * api入参
      */
-    private List<InputParameterVO> apiInputParameter;
+    private List<InputParameterVO> apiInputParams;
     /**
      * api出参
      */
-    private List<OutputParameterVO> apiOutputParameter;
+    private List<OutputParameterVO> apiOutputParams;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getApiUrl() {
         return apiUrl;
@@ -108,19 +100,19 @@ public class SuiteMarketApiVO {
         this.apiHeaders = apiHeaders;
     }
 
-    public List<InputParameterVO> getApiInputParameter() {
-        return apiInputParameter;
+    public List<InputParameterVO> getApiInputParams() {
+        return apiInputParams;
     }
 
-    public void setApiInputParameter(List<InputParameterVO> apiInputParameter) {
-        this.apiInputParameter = apiInputParameter;
+    public void setApiInputParams(List<InputParameterVO> apiInputParams) {
+        this.apiInputParams = apiInputParams;
     }
 
-    public List<OutputParameterVO> getApiOutputParameter() {
-        return apiOutputParameter;
+    public List<OutputParameterVO> getApiOutputParams() {
+        return apiOutputParams;
     }
 
-    public void setApiOutputParameter(List<OutputParameterVO> apiOutputParameter) {
-        this.apiOutputParameter = apiOutputParameter;
+    public void setApiOutputParams(List<OutputParameterVO> apiOutputParams) {
+        this.apiOutputParams = apiOutputParams;
     }
 }

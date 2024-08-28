@@ -29,7 +29,14 @@ public class SuiteMarketInfoDTO {
     private String suiteCode;
     private String suiteName;
     private String suiteImage;
+    private String suiteVersion;
     private String suiteDesc;
+    private Integer priceStatus;
+    private Double suitePrice;
+    private String suiteHelpDocJson;
+
+    private Boolean installStatus = false;
+
     private List<SuiteMarketApiVO> apiList;
 
     public Long getId() {
@@ -64,12 +71,52 @@ public class SuiteMarketInfoDTO {
         this.suiteImage = suiteImage;
     }
 
+    public String getSuiteVersion() {
+        return suiteVersion;
+    }
+
+    public void setSuiteVersion(String suiteVersion) {
+        this.suiteVersion = suiteVersion;
+    }
+
     public String getSuiteDesc() {
         return suiteDesc;
     }
 
     public void setSuiteDesc(String suiteDesc) {
         this.suiteDesc = suiteDesc;
+    }
+
+    public Integer getPriceStatus() {
+        return priceStatus;
+    }
+
+    public void setPriceStatus(Integer priceStatus) {
+        this.priceStatus = priceStatus;
+    }
+
+    public Double getSuitePrice() {
+        return suitePrice;
+    }
+
+    public void setSuitePrice(Double suitePrice) {
+        this.suitePrice = suitePrice;
+    }
+
+    public String getSuiteHelpDocJson() {
+        return suiteHelpDocJson;
+    }
+
+    public void setSuiteHelpDocJson(String suiteHelpDocJson) {
+        this.suiteHelpDocJson = suiteHelpDocJson;
+    }
+
+    public Boolean getInstallStatus() {
+        return installStatus;
+    }
+
+    public void setInstallStatus(Boolean installStatus) {
+        this.installStatus = installStatus;
     }
 
     public List<SuiteMarketApiVO> getApiList() {

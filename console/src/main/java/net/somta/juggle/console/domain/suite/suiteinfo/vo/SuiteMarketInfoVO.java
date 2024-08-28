@@ -5,53 +5,26 @@ import java.util.List;
 public class SuiteMarketInfoVO {
 
     private Long id;
-    /**
-     * 套件编码
-     */
+
     private String suiteCode;
-    /**
-     * 套件名称
-     */
+
     private String suiteName;
 
-    /**
-     * 套件类型 1：官方套件  2：非官方套件
-     */
     private Integer suiteType;
 
-    /**
-     * 套件头像
-     */
     private String suiteImage;
-    /**
-     * 套件版本
-     */
+
     private String suiteVersion;
-    /**
-     * 套件描述
-     */
+
     private String suiteDesc;
 
-    /**
-     * 是否收费  0：免费  1:付费
-     */
     private Integer priceStatus;
 
-    /**
-     * 套件价格
-     */
     private Double suitePrice;
 
-    /**
-     * 套件的帮助文档JSON
-     */
     private String suiteHelpDocJson;
 
-    /**
-     * 套件接口列表
-     */
     private List<ApiInfoVO> apiList;
-
 
     public Long getId() {
         return id;
@@ -142,54 +115,22 @@ public class SuiteMarketInfoVO {
     }
 
     public static class ApiInfoVO {
-        private Long id;
 
-        /**
-         * api接口地址
-         */
         private String apiUrl;
 
-        /**
-         * api接口名称
-         */
         private String apiName;
 
-        /**
-         * api描述
-         */
         private String apiDesc;
 
-        /**
-         * api请求类型  GET POST PUT
-         */
         private String apiRequestType;
 
-        /**
-         * api请求内容类型 application/json
-         */
         private String apiRequestContentType;
 
-        /**
-         * api请求头
-         */
         private String apiHeaders;
 
-        /**
-         * api入参
-         */
-        private String apiInputParameter;
-        /**
-         * api出参
-         */
-        private String apiOutputParameter;
+        private String apiInputParams;
 
-        public Long getId() {
-            return id;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
+        private String apiOutputParams;
 
         public String getApiUrl() {
             return apiUrl;
@@ -239,20 +180,20 @@ public class SuiteMarketInfoVO {
             this.apiHeaders = apiHeaders;
         }
 
-        public String getApiInputParameter() {
-            return apiInputParameter;
+        public String getApiInputParams() {
+            return apiInputParams;
         }
 
-        public void setApiInputParameter(String apiInputParameter) {
-            this.apiInputParameter = apiInputParameter;
+        public void setApiInputParams(String apiInputParams) {
+            this.apiInputParams = apiInputParams;
         }
 
-        public String getApiOutputParameter() {
-            return apiOutputParameter;
+        public String getApiOutputParams() {
+            return apiOutputParams;
         }
 
-        public void setApiOutputParameter(String apiOutputParameter) {
-            this.apiOutputParameter = apiOutputParameter;
+        public void setApiOutputParams(String apiOutputParams) {
+            this.apiOutputParams = apiOutputParams;
         }
     }
 

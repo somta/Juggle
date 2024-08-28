@@ -51,7 +51,6 @@ public interface ISuiteConverter {
             SuiteMarketApiVO suiteMarketApiVo = null;
             for (SuiteMarketInfoVO.ApiInfoVO apiInfo : apiInfoList){
                 suiteMarketApiVo = new SuiteMarketApiVO();
-                suiteMarketApiVo.setId(apiInfo.getId());
                 suiteMarketApiVo.setApiUrl(apiInfo.getApiUrl());
                 suiteMarketApiVo.setApiName(apiInfo.getApiName());
                 suiteMarketApiVo.setApiDesc(apiInfo.getApiDesc());
@@ -60,11 +59,11 @@ public interface ISuiteConverter {
                 if(StringUtils.isNotEmpty(apiInfo.getApiHeaders())){
                     suiteMarketApiVo.setApiHeaders(JsonSerializeHelper.deserialize(apiInfo.getApiHeaders(),List.class, HeaderVO.class));
                 }
-                if(StringUtils.isNotEmpty(apiInfo.getApiInputParameter())){
-                    suiteMarketApiVo.setApiInputParameter(JsonSerializeHelper.deserialize(apiInfo.getApiInputParameter(),List.class, InputParameterVO.class));
+                if(StringUtils.isNotEmpty(apiInfo.getApiInputParams())){
+                    suiteMarketApiVo.setApiInputParams(JsonSerializeHelper.deserialize(apiInfo.getApiInputParams(),List.class, InputParameterVO.class));
                 }
-                if(StringUtils.isNotEmpty(apiInfo.getApiOutputParameter())){
-                    suiteMarketApiVo.setApiOutputParameter(JsonSerializeHelper.deserialize(apiInfo.getApiOutputParameter(),List.class, OutputParameterVO.class));
+                if(StringUtils.isNotEmpty(apiInfo.getApiOutputParams())){
+                    suiteMarketApiVo.setApiOutputParams(JsonSerializeHelper.deserialize(apiInfo.getApiOutputParams(),List.class, OutputParameterVO.class));
                 }
                 apiList.add(suiteMarketApiVo);
             }

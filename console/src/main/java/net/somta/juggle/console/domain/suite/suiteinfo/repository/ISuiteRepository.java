@@ -13,7 +13,7 @@ import java.util.List;
  * @since 1.1.1
  */
 public interface ISuiteRepository {
-    void addSuite(SuiteEntity suiteEntity);
+    Long addSuite(SuiteEntity suiteEntity);
 
     void updateSuite(SuiteEntity suiteEntity);
 

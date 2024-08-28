@@ -1,6 +1,6 @@
 import { suiteMarketAPI } from '@/service/api';
 import { ResponseResult } from '@/service/base';
-import {SuiteMarket, SuiteMarketInfo} from '@/typings';
+import {SuiteMarketInfo} from '@/typings';
 
 export async function querySuiteMarketList() {
   return suiteMarketAPI.querySuiteMarketList();

@@ -9,5 +9,7 @@ import net.somta.juggle.console.infrastructure.po.suite.SuitePO;
  */
 public interface SuiteMapper extends IBaseMapper {
 
+    int addSuite(SuitePO suitePo);
+
     SuitePO querySuiteByCode(String suiteCode);
 }

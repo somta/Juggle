@@ -31,7 +31,7 @@ function buildFullTriggerUrl(triggerUrl: string) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="flowName" label="流程名称" width="120" />
     <el-table-column prop="flowVersion" label="版本" width="60" />
     <el-table-column prop="flowVersion" label="流程状态" width="100">
@@ -68,9 +68,5 @@ function buildFullTriggerUrl(triggerUrl: string) {
 </template>
 
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

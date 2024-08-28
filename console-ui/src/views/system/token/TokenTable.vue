@@ -40,9 +40,5 @@ function editRow(row: any) {
   </div>
 </template>
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

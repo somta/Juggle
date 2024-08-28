@@ -28,7 +28,7 @@ function goApiDebugPage(apiId: number) {
 }
 </script>
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="apiName" label="接口名称" width="150" />
     <el-table-column prop="apiUrl" label="接口地址" width="270" show-overflow-tooltip />
     <el-table-column prop="suiteName" label="套件" width="150" />
@@ -55,9 +55,5 @@ function goApiDebugPage(apiId: number) {
   </div>
 </template>
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

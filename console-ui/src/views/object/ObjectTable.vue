@@ -20,7 +20,7 @@ function editRow(row: any) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="objectKey" label="对象编码" width="200" />
     <el-table-column prop="objectName" label="对象名称" width="280" />
     <el-table-column prop="objectDesc" label="对象描述" width="520" />
@@ -44,9 +44,5 @@ function editRow(row: any) {
 </template>
 
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

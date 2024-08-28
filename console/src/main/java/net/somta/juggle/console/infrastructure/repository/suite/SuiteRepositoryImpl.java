@@ -47,13 +47,14 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
-    public void addSuite(SuiteEntity suiteEntity) {
+    public Long addSuite(SuiteEntity suiteEntity) {
         SuitePO suitePo = ISuiteConverter.IMPL.entityToPo(suiteEntity);
         suitePo.setSuiteVersion("v1.0.0");
         suitePo.setSuiteFlag(1);
         suitePo.setCreatedAt(new Date());
         suitePo.setCreatedBy(IdentityContext.getIdentity().getUserId());
-        suiteMapper.add(suitePo);
+        suiteMapper.addSuite(suitePo);
+        return suitePo.getId();
     }
 
     @Override

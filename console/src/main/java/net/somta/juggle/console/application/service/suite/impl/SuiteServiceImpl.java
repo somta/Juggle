@@ -122,6 +122,10 @@ public class SuiteServiceImpl implements ISuiteService {
     public SuiteMarketInfoDTO getSuiteMarketInfo(Long suiteId) {
         SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteId);
         SuiteMarketInfoDTO suiteMarketDTO = ISuiteAssembler.IMPL.voToDto(suiteMarketVo);
+        SuiteVO suiteVo = suiteRepository.querySuiteByCode(suiteMarketVo.getSuiteCode());
+        if(suiteVo != null){
+            suiteMarketDTO.setInstallStatus(true);
+        }
         return suiteMarketDTO;
     }
 
@@ -138,26 +142,31 @@ public class SuiteServiceImpl implements ISuiteService {
         suiteEntity.setSuiteImage(suiteMarketVo.getSuiteImage());
         suiteEntity.setSuiteDesc(suiteMarketVo.getSuiteDesc());
         suiteEntity.setSuiteHelpDocJson(suiteMarketVo.getSuiteHelpDocJson());
-        suiteRepository.addSuite(suiteEntity);
+        Long newSuiteId = suiteRepository.addSuite(suiteEntity);
         List<SuiteMarketApiVO> apiList = suiteMarketVo.getApiList();
         if(CollectionUtils.isNotEmpty(apiList)){
             for (SuiteMarketApiVO suiteMarketApi : apiList) {
-                addSuiteMarketApi(suiteMarketApi);
+                addSuiteMarketApi(newSuiteId,suiteMarketApi);
             }
         }
         return true;
     }
 
-    private void addSuiteMarketApi(SuiteMarketApiVO suiteMarketApi){
+    /**
+     * List of interfaces for newly added packages
+     * @param suiteMarketApi suite api list
+     */
+    private void addSuiteMarketApi(Long suiteId,SuiteMarketApiVO suiteMarketApi){
         ApiAddParam apiAddParam = new ApiAddParam();
+        apiAddParam.setSuiteId(suiteId);
         apiAddParam.setApiUrl(suiteMarketApi.getApiUrl());
         apiAddParam.setApiName(suiteMarketApi.getApiName());
         apiAddParam.setApiDesc(suiteMarketApi.getApiDesc());
         apiAddParam.setApiRequestType(RequestTypeEnum.valueOf(suiteMarketApi.getApiRequestType()));
         apiAddParam.setApiRequestContentType(suiteMarketApi.getApiRequestContentType());
         apiAddParam.setApiHeaders(suiteMarketApi.getApiHeaders());
-        apiAddParam.setApiInputParams(suiteMarketApi.getApiInputParameter());
-        apiAddParam.setApiOutputParams(suiteMarketApi.getApiOutputParameter());
+        apiAddParam.setApiInputParams(suiteMarketApi.getApiInputParams());
+        apiAddParam.setApiOutputParams(suiteMarketApi.getApiOutputParams());
         apiService.addApi(apiAddParam);
     }
 }
