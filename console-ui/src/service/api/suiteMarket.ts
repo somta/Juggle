@@ -1,4 +1,4 @@
-import { request, type ResponsePageResult, type ResponseResult } from '../base';
+import { request, type ResponseResult } from '../base';
 
 export async function querySuiteMarketList(): ResponseResult {
   return request.post('/v1/suite/market');

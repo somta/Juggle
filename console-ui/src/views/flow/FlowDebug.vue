@@ -7,6 +7,7 @@ import CodeEditor from '@/components/form/CodeEditor.vue';
 import { DataTypeItem, FlowDefineInfo } from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
+import {InfoFilled} from "@element-plus/icons-vue";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -141,8 +142,13 @@ function resetParams() {
             <div class="input-param-td">
               <template v-if="param.required">*</template>
             </div>
-            <div class="input-param-td" :title="param.paramKey">{{ param.paramKey }}</div>
-            <div class="input-param-td" :title="param.paramName">{{ param.paramName }}</div>
+            <div class="input-param-td" >{{ param.paramKey }}</div>
+            <div class="input-param-td" :title="param.paramName">
+              {{ param.paramName }}
+              <el-tooltip v-if="param.paramDesc" effect="dark" placement="top" :content="param.paramDesc">
+                <el-icon><InfoFilled /></el-icon>
+              </el-tooltip>
+            </div>
             <div class="input-param-td">
               <DataTypeSelect :modelValue="param.dataType" disabled />
             </div>
