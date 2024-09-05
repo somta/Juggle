@@ -12,6 +12,8 @@ export interface SuiteMarketInfo {
   suiteName: string;
   suiteImage: string;
   suiteDesc: string;
+  priceStatus: number;
+  suitePrice: number;
   suiteHelpDocJson: string;
   installStatus: boolean;
   apiList: any[];

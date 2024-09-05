@@ -36,10 +36,7 @@ import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
-import net.somta.juggle.console.interfaces.param.suite.ApiAddParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteUpdateParam;
+import net.somta.juggle.console.interfaces.param.suite.*;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -120,19 +117,21 @@ public class SuiteServiceImpl implements ISuiteService {
 
     @Override
     public SuiteMarketInfoDTO getSuiteMarketInfo(Long suiteId) {
-        SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteId);
+        SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteId,null);
         SuiteMarketInfoDTO suiteMarketDTO = ISuiteAssembler.IMPL.voToDto(suiteMarketVo);
-        SuiteVO suiteVo = suiteRepository.querySuiteByCode(suiteMarketVo.getSuiteCode());
-        if(suiteVo != null){
-            suiteMarketDTO.setInstallStatus(true);
+        if(suiteMarketVo != null){
+            SuiteVO suiteVo = suiteRepository.querySuiteByCode(suiteMarketVo.getSuiteCode());
+            if(suiteVo != null){
+                suiteMarketDTO.setInstallStatus(true);
+            }
         }
         return suiteMarketDTO;
     }
 
     @Transactional
     @Override
-    public Boolean installSuiteMarket(Long suiteId) {
-        SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteId);
+    public Boolean installSuiteMarket(SuiteMarketParam suiteMarketParam) {
+        SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteMarketParam.getSuiteId(),suiteMarketParam.getBill());
         if(suiteMarketVo == null){
             throw new BizException(SUITE_NOT_EXIST_ERROR);
         }

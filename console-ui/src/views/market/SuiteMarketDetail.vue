@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { suiteMarketService } from '@/service';
-import {SuiteMarketInfo} from '@/typings';
+import {orderService, suiteMarketService} from '@/service';
+import {CreateOrder, SuiteMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
+import QRCode from 'qrcode'
 
 const route = useRoute();
 let paramsData = reactive({
@@ -15,17 +16,69 @@ const suiteMarketInfo = ref<SuiteMarketInfo>({
   suiteName: '',
   suiteImage: '',
   suiteDesc: '',
+  priceStatus: 0,
+  suitePrice: 0,
   suiteHelpDocJson: '',
   installStatus: false,
   apiList: []
 });
 const suiteHelpDocList = ref([]);
+const payDialogVisible = ref(false);
+const payQrCode = ref();
+const createOrder = ref<CreateOrder>({
+  orderNo: '',
+  qrCode:''
+});
 
 querySuiteMarketInfo();
 
-async function installSuiteMarket() {
+async function handleInstallSuiteMarket() {
+  if(suiteMarketInfo.value.priceStatus == 1 && suiteMarketInfo.value.suitePrice > 0){
+    await createSuiteOrder();
+  } else {
+    await installSuiteMarket();
+  }
+}
+
+let timerId;
+async function createSuiteOrder() {
   let suiteId = Number(paramsData.params.suiteId);
-  const res = await suiteMarketService.installSuiteMarket(suiteId);
+  const res = await orderService.createOrder({
+    orderName: suiteMarketInfo.value.suiteName + "套件",
+    orderType: 1,
+    goodsId: suiteId,
+  });
+  if (res.success) {
+    createOrder.value = res.result;
+    QRCode.toDataURL(res.result.qrCode)
+        .then(code => {
+          payQrCode.value = code;
+        }).catch(err => {
+          console.error(err)
+        })
+    payDialogVisible.value = true;
+    timerId = setInterval(getOrderPayStatus, 1500, res.result.orderNo);
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
+async function getOrderPayStatus(orderNo:string) {
+  const res = await orderService.getOrderPayStatus(orderNo);
+  if (res.success) {
+    if(res.result){
+      payDialogVisible.value = false;
+      clearInterval(timerId);
+      await installSuiteMarket(res.result)
+    }
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
+async function installSuiteMarket(bill?: string) {
+  let suiteId = Number(paramsData.params.suiteId);
+  const res = await suiteMarketService.installSuiteMarket(suiteId,bill);
   if (res.success) {
     ElMessage({ type: 'success', message: '安装成功' });
   } else {
@@ -52,10 +105,11 @@ async function querySuiteMarketInfo() {
       <h3>
         {{ suiteMarketInfo.suiteName }}
         <p>{{ suiteMarketInfo.suiteDesc }}</p>
+        <div class="price"><em>{{ suiteMarketInfo.suitePrice }}</em>元</div>
       </h3>
       <div class="operation-button">
         <a v-if="suiteMarketInfo.installStatus" class="btn">已安装</a>
-        <a v-else class="btn" @click="installSuiteMarket">安装</a>
+        <a v-else class="btn" @click="handleInstallSuiteMarket">安装</a>
       </div>
     </div>
     <div class="suite-doc">
@@ -112,6 +166,12 @@ async function querySuiteMarketInfo() {
       </el-tabs>
     </div>
   </div>
+  <el-dialog v-model="payDialogVisible" title="支付" width="500">
+    <div>
+      <div>支付宝扫描下方二维码</div>
+      <img :src="payQrCode" alt="">
+    </div>
+  </el-dialog>
 </template>
 
 <style lang="less" scoped>
@@ -139,6 +199,16 @@ async function querySuiteMarketInfo() {
     color: #1f2329;
     margin-top: 5px;
     font-size: 15px;
+  }
+
+  .price{
+    margin-top: 5px;
+    em{
+      color: #e3584d;
+      font-size: 22px;
+      font-weight: 700;
+      margin-right: 3px;
+    }
   }
 
   .operation-button {

@@ -42,6 +42,7 @@ public interface ISuiteConverter {
         suiteMarketVo.setSuiteType(suiteMarketInfoVo.getSuiteType());
         suiteMarketVo.setSuiteImage(suiteMarketInfoVo.getSuiteImage());
         suiteMarketVo.setSuiteVersion(suiteMarketInfoVo.getSuiteVersion());
+        suiteMarketVo.setSuiteDesc(suiteMarketInfoVo.getSuiteDesc());
         suiteMarketVo.setPriceStatus(suiteMarketInfoVo.getPriceStatus());
         suiteMarketVo.setSuitePrice(suiteMarketInfoVo.getSuitePrice());
         suiteMarketVo.setSuiteHelpDocJson(suiteMarketInfoVo.getSuiteHelpDocJson());

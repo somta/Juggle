@@ -10,6 +10,6 @@ export async function querySuiteMarketDetail(suiteId: number): ResponseResult<Su
   return suiteMarketAPI.querySuiteMarketDetail(suiteId);
 }
 
-export async function installSuiteMarket(suiteId: number) {
-  return suiteMarketAPI.installSuiteMarket(suiteId);
+export async function installSuiteMarket(suiteId: number, bill?:string) {
+  return suiteMarketAPI.installSuiteMarket(suiteId,bill);
 }

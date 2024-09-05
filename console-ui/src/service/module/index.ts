@@ -6,6 +6,7 @@ import * as suiteService from './suite';
 import * as suiteMarketService from './suiteMarket.ts';
 import * as apiService from './api';
 import * as objectService from './object';
+import * as orderService from './orderService.ts';
 import * as tokenService from './token';
 import * as dataSourceService from './dataSource.ts';
 import * as commonService from './common';
@@ -19,6 +20,7 @@ export {
   suiteMarketService,
   apiService,
   objectService,
+  orderService,
   tokenService,
   dataSourceService,
   commonService,

@@ -14,6 +14,7 @@ import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.infrastructure.converter.suite.ISuiteConverter;
 import net.somta.juggle.console.infrastructure.mapper.suite.SuiteMapper;
 import net.somta.juggle.console.infrastructure.po.suite.SuitePO;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -27,9 +28,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_DOMAIN;
 
 /**
  * @author husong
@@ -38,7 +39,6 @@ import java.util.List;
 @Repository
 public class SuiteRepositoryImpl implements ISuiteRepository {
     private final static Logger logger = LoggerFactory.getLogger(SuiteRepositoryImpl.class);
-    private static final String JUGGLE_OPEN_DOMAIN = "http://open.juggle.plus";
 
     private final SuiteMapper suiteMapper;
 
@@ -123,10 +123,16 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
-    public SuiteMarketVO querySuiteMarketInfo(Long suiteId) {
-        SuiteMarketVO suiteMarketVo = new SuiteMarketVO();
-        ResponseDataResult result = HttpClientUtil.doGet(JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info/"+suiteId);
+    public SuiteMarketVO querySuiteMarketInfo(Long suiteId,String bill) {
+        SuiteMarketVO suiteMarketVo = null;
+        Map<String,Object> param = new HashMap<>();
+        param.put("suiteId",suiteId);
+        if(StringUtils.isNotEmpty(bill)){
+            param.put("bill",bill);
+        }
+        ResponseDataResult result = HttpClientUtil.doPost(JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info",JsonSerializeHelper.serialize(param));
         if(result.isSuccess()){
+            suiteMarketVo = new SuiteMarketVO();
             ResponseDataResult resultData = JsonSerializeHelper.deserialize(String.valueOf(result.getResult()),ResponseDataResult.class);
             SuiteMarketInfoVO suiteMarketInfoVo = JsonSerializeHelper.deserialize(JsonSerializeHelper.serialize(resultData.getResult()), SuiteMarketInfoVO.class);
             suiteMarketVo = ISuiteConverter.IMPL.voToVo(suiteMarketInfoVo);

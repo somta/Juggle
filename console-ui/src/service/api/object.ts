@@ -1,5 +1,5 @@
 import { request, ResponsePageResult, type ResponseResult } from '@/service/base';
-import { ApiInfo, ObjectInfo, ObjectProperty } from '@/typings';
+import { ObjectInfo, ObjectProperty } from '@/typings';
 
 export async function addObject(params: {
   objectKey: string;

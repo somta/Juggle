@@ -21,6 +21,7 @@ import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
+import net.somta.juggle.console.interfaces.param.suite.SuiteMarketParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
 import net.somta.juggle.console.interfaces.param.suite.SuiteUpdateParam;
 
@@ -45,5 +46,5 @@ public interface ISuiteService {
 
     SuiteMarketInfoDTO getSuiteMarketInfo(Long suiteId);
 
-    Boolean installSuiteMarket(Long suiteId);
+    Boolean installSuiteMarket(SuiteMarketParam suiteMarketParam);
 }

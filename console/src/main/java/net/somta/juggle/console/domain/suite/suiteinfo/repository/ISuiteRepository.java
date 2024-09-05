@@ -25,7 +25,7 @@ public interface ISuiteRepository {
 
     List<SuiteVO> querySuiteMarketList();
 
-    SuiteMarketVO querySuiteMarketInfo(Long suiteId);
+    SuiteMarketVO querySuiteMarketInfo(Long suiteId,String bill);
 
 
 }

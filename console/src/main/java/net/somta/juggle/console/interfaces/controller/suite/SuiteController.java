@@ -111,7 +111,7 @@ public class SuiteController {
     @Operation(summary = "安装市场套件")
     @PostMapping("/market/install")
     public ResponseDataResult<Boolean> installSuiteMarket(@RequestBody SuiteMarketParam suiteMarketParam){
-        suiteService.installSuiteMarket(suiteMarketParam.getSuiteId());
+        suiteService.installSuiteMarket(suiteMarketParam);
         return ResponseDataResult.setResponseResult();
     }
 
