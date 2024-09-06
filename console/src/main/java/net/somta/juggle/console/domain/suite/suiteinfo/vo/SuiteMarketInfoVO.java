@@ -132,6 +132,8 @@ public class SuiteMarketInfoVO {
 
         private String apiOutputParams;
 
+        private String objectList;
+
         public String getApiUrl() {
             return apiUrl;
         }
@@ -194,6 +196,14 @@ public class SuiteMarketInfoVO {
 
         public void setApiOutputParams(String apiOutputParams) {
             this.apiOutputParams = apiOutputParams;
+        }
+
+        public String getObjectList() {
+            return objectList;
+        }
+
+        public void setObjectList(String objectList) {
+            this.objectList = objectList;
         }
     }
 

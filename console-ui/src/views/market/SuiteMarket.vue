@@ -2,8 +2,15 @@
 import { useRouter } from 'vue-router';
 import { suiteMarketService } from '@/service';
 import { ref } from 'vue';
+import {Search} from "@element-plus/icons-vue";
+import { reactive } from 'vue';
 const router = useRouter();
 const suiteMarketList = ref<Record<string, any>[]>([]);
+
+const filterValue = reactive({
+  suiteName: '',
+  suiteClassifyId: '',
+});
 
 querySuiteMarketList();
 
@@ -22,10 +29,53 @@ function goToSuiteMarketDetail(suiteId: number) {
     },
   });
 }
+
+const options = [
+  {
+    value: 'Option1',
+    label: 'Option1',
+  },
+  {
+    value: 'Option2',
+    label: 'Option2',
+  },
+  {
+    value: 'Option3',
+    label: 'Option3',
+  },
+  {
+    value: 'Option4',
+    label: 'Option4',
+  },
+  {
+    value: 'Option5',
+    label: 'Option5',
+  },
+]
+
 </script>
 
 <template>
   <div class="suite-market">
+    <div class="suite-filter">
+      <el-select
+          v-model="filterValue.suiteClassifyId"
+          size="large"
+          style="width: 240px;margin-right: 20px;"
+      >
+        <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+        />
+      </el-select>
+      <el-input v-model="filterValue.suiteName"
+          style="width: 300px"
+          size="large"
+          :suffix-icon="Search"
+      />
+    </div>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in suiteMarketList" :key="item.id">
         <el-card @click="goToSuiteMarketDetail(item.id)" style="cursor: pointer">
@@ -48,8 +98,15 @@ function goToSuiteMarketDetail(suiteId: number) {
 .suite-market {
   padding: 20px;
 
+  .suite-filter {
+    margin-bottom: 10px;
+  }
+
   .el-col {
     margin-bottom: 20px;
+  }
+  .description {
+    font-size: 13px;
   }
 }
 
@@ -65,28 +122,4 @@ function goToSuiteMarketDetail(suiteId: number) {
     margin-right: 12px;
   }
 }
-
-/*
-.image {
-  width: 100%;
-  display: block;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
-.description {
-  font-size: 14px;
-  color: #666;
-}
-
-.clearfix:before, .clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
-  clear: both;
-}*/
 </style>

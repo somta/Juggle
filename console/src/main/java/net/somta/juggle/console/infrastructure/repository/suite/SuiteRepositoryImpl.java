@@ -1,7 +1,5 @@
 package net.somta.juggle.console.infrastructure.repository.suite;
 
-import net.somta.common.utils.MapUtil;
-import net.somta.common.utils.httpclient.HttpClientUtil;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.common.identity.IdentityContext;
@@ -15,19 +13,13 @@ import net.somta.juggle.console.infrastructure.converter.suite.ISuiteConverter;
 import net.somta.juggle.console.infrastructure.mapper.suite.SuiteMapper;
 import net.somta.juggle.console.infrastructure.po.suite.SuitePO;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.HttpStatus;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.util.*;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_DOMAIN;
@@ -41,9 +33,11 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     private final static Logger logger = LoggerFactory.getLogger(SuiteRepositoryImpl.class);
 
     private final SuiteMapper suiteMapper;
+    private final RestTemplate restTemplate;
 
-    public SuiteRepositoryImpl(SuiteMapper suiteMapper) {
+    public SuiteRepositoryImpl(SuiteMapper suiteMapper, RestTemplate restTemplate) {
         this.suiteMapper = suiteMapper;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -85,41 +79,20 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
 
     @Override
     public List<SuiteVO> querySuiteMarketList() {
-        List<SuiteVO> list = new ArrayList<>();
-       /* ResponseDataResult result = HttpClientUtil.doPost(JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/list");
-        if(result.isSuccess()){
-            System.out.println(result.getResult());
-            list = (List)result.getResult();
-        }else {
-            logger.error("调用Juggle开放域名接口失败{}",result.getResult());
+        List<SuiteVO> suiteList = new ArrayList<>();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
+        ResponseEntity<ResponseDataResult<List<SuiteVO>>> response = restTemplate.exchange(
+                JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/list",
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<ResponseDataResult<List<SuiteVO>>>() {});
+        if(response.getStatusCode() == org.springframework.http.HttpStatus.OK){
+            suiteList = response.getBody().getResult();
         }
-        return list;*/
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpPost httpPost = new HttpPost(JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/list");
-            httpPost.setHeader("Content-type", "application/json");
-            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                if(response != null){
-                    int statusCode = response.getCode();
-                    HttpEntity responseEntity = response.getEntity();
-                    if (statusCode >= HttpStatus.SC_MULTIPLE_CHOICES) {
-                        logger.error(response.getReasonPhrase());
-                    }
-                    if (responseEntity != null) {
-                        String resultStr = EntityUtils.toString(responseEntity, "UTF-8");
-                        ResponseDataResult resultData = JsonSerializeHelper.deserialize(resultStr,ResponseDataResult.class);
-                        if(resultData.isSuccess()){
-                            String listStr = JsonSerializeHelper.serialize(resultData.getResult());
-                            list = JsonSerializeHelper.deserialize(listStr,List.class,SuiteVO.class);
-                        }
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
+        return suiteList;
     }
 
     @Override
@@ -130,11 +103,17 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         if(StringUtils.isNotEmpty(bill)){
             param.put("bill",bill);
         }
-        ResponseDataResult result = HttpClientUtil.doPost(JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info",JsonSerializeHelper.serialize(param));
-        if(result.isSuccess()){
-            suiteMarketVo = new SuiteMarketVO();
-            ResponseDataResult resultData = JsonSerializeHelper.deserialize(String.valueOf(result.getResult()),ResponseDataResult.class);
-            SuiteMarketInfoVO suiteMarketInfoVo = JsonSerializeHelper.deserialize(JsonSerializeHelper.serialize(resultData.getResult()), SuiteMarketInfoVO.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+
+        ResponseEntity<ResponseDataResult<SuiteMarketInfoVO>> response = restTemplate.exchange(
+                JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info",
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<ResponseDataResult<SuiteMarketInfoVO>>() {});
+        if(response.getStatusCode() == org.springframework.http.HttpStatus.OK){
+            SuiteMarketInfoVO suiteMarketInfoVo = response.getBody().getResult();
             suiteMarketVo = ISuiteConverter.IMPL.voToVo(suiteMarketInfoVo);
         }
         return suiteMarketVo;

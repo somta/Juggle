@@ -57,7 +57,7 @@ async function createSuiteOrder() {
           console.error(err)
         })
     payDialogVisible.value = true;
-    timerId = setInterval(getOrderPayStatus, 1500, res.result.orderNo);
+    timerId = setInterval(getOrderPayStatus, 2000, res.result.orderNo);
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -129,6 +129,7 @@ async function querySuiteMarketInfo() {
                           {{scope.row.required ? '是' : '否'}}
                         </template>
                       </el-table-column>
+                      <el-table-column prop="paramDesc" label="参数描述" />
                     </el-table>
                   </div>
                   <div>
@@ -141,6 +142,7 @@ async function querySuiteMarketInfo() {
                           {{scope.row.required ? '是' : '否'}}
                         </template>
                       </el-table-column>
+                      <el-table-column prop="paramDesc" label="参数描述" />
                     </el-table>
                   </div>
 
@@ -149,6 +151,7 @@ async function querySuiteMarketInfo() {
                     <el-table :data="api.apiOutputParams" border size="large" header-cell-class-name="table-header" >
                       <el-table-column prop="paramKey" label="参数编码" width="280" />
                       <el-table-column prop="paramName" label="参数名称" />
+                      <el-table-column prop="paramDesc" label="参数描述" />
                     </el-table>
                   </div>
                 </div>
@@ -165,13 +168,27 @@ async function querySuiteMarketInfo() {
         </el-tab-pane>
       </el-tabs>
     </div>
+    <el-dialog v-model="payDialogVisible" title="订单详情" width="500">
+      <div>
+        <el-descriptions
+            :column="1"
+        >
+          <el-descriptions-item label="订单名称"> {{ suiteMarketInfo.suiteName }}套件</el-descriptions-item>
+          <el-descriptions-item label="订单价格"><em class="pay-price">{{ suiteMarketInfo.suitePrice }}</em> 元</el-descriptions-item>
+          <el-descriptions-item label="下单时间">{{ new Date().toLocaleString() }}</el-descriptions-item>
+        </el-descriptions>
+        <el-tabs model-value="alipay">
+          <el-tab-pane label="支付宝" name="alipay">
+            <img :src="payQrCode" alt="">
+            <div class="pay-tip">支付宝扫描上方二维码完成支付</div>
+          </el-tab-pane>
+          <!--        <el-tab-pane label="微信" name="wechat">
+                    <div class="pay-tip">支付宝扫描上方二维码完成支付</div>
+                  </el-tab-pane>-->
+        </el-tabs>
+      </div>
+    </el-dialog>
   </div>
-  <el-dialog v-model="payDialogVisible" title="支付" width="500">
-    <div>
-      <div>支付宝扫描下方二维码</div>
-      <img :src="payQrCode" alt="">
-    </div>
-  </el-dialog>
 </template>
 
 <style lang="less" scoped>
@@ -180,6 +197,7 @@ async function querySuiteMarketInfo() {
   height: 100%;
   margin: 0 auto;
   padding: 0 0 16px 24px;
+  background-color: #fff;
 }
 
 .suite-head {
@@ -251,5 +269,13 @@ async function querySuiteMarketInfo() {
     text-decoration: none;
     color: #409eff;
   }
+}
+
+.pay-price {
+  color: #e3584d;
+  margin-right: 2px;
+}
+.pay-tip {
+  font-size: 12px;
 }
 </style>
