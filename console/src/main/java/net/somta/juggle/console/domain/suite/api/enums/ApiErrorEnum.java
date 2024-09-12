@@ -8,6 +8,7 @@ import net.somta.juggle.common.constants.ApplicationConstants;
  */
 public enum ApiErrorEnum implements IBaseError {
     API_NOT_EXIST(1000,  "api接口不存在"),
+    API_NOT_EDIT_ERROR(1001,  "不能修改官方套件下的接口"),
     ;
 
     private int errorCode;

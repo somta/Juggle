@@ -24,14 +24,8 @@ import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.service.suite.IApiService;
 import net.somta.juggle.console.application.service.suite.ISuiteService;
 import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum;
-import net.somta.juggle.console.interfaces.dto.suite.ApiDTO;
-import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
-import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
-import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
-import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteMarketParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteUpdateParam;
+import net.somta.juggle.console.interfaces.dto.suite.*;
+import net.somta.juggle.console.interfaces.param.suite.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,16 +83,22 @@ public class SuiteController {
 
     @Operation(summary = "查询套件分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<List<SuiteDTO>> getSuitePageList(@RequestBody SuiteQueryParam suiteQueryParam){
+    public ResponsePaginationDataResult<SuiteDTO> getSuitePageList(@RequestBody SuiteQueryParam suiteQueryParam){
         PageInfo pageInfo = suiteService.getSuitePageList(suiteQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }
 
+    @Operation(summary = "查询市场套件分类列表")
+    @PostMapping("/market/classify")
+    public ResponseDataResult<List<SuiteMarketClassifyDTO>> getSuiteMarketClassifyList(){
+        List<SuiteMarketClassifyDTO> list = suiteService.getSuiteMarketClassifyList();
+        return ResponseDataResult.setResponseResult(list);
+    }
+
     @Operation(summary = "查询市场套件列表")
     @PostMapping("/market")
-    public ResponseDataResult<List<SuiteDTO>> getSuiteMarketList(){
-        List<SuiteDTO> list = suiteService.getSuiteMarketList();
-        return ResponseDataResult.setResponseResult(list);
+    public ResponsePaginationDataResult<SuiteDTO> getSuiteMarketList(@RequestBody SuiteMarketQueryParam suiteMarketQueryParam){
+        return suiteService.getSuiteMarketList(suiteMarketQueryParam);
     }
 
     @Operation(summary = "查询市场套件详情")

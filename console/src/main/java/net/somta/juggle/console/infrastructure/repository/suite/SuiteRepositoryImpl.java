@@ -2,13 +2,11 @@ package net.somta.juggle.console.infrastructure.repository.suite;
 
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
+import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
 import net.somta.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketInfoVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.*;
 import net.somta.juggle.console.infrastructure.converter.suite.ISuiteConverter;
 import net.somta.juggle.console.infrastructure.mapper.suite.SuiteMapper;
 import net.somta.juggle.console.infrastructure.po.suite.SuitePO;
@@ -43,8 +41,8 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     @Override
     public Long addSuite(SuiteEntity suiteEntity) {
         SuitePO suitePo = ISuiteConverter.IMPL.entityToPo(suiteEntity);
-        suitePo.setSuiteVersion("v1.0.0");
-        suitePo.setSuiteFlag(1);
+        suitePo.setSuiteVersion(suiteEntity.getSuiteVersion());
+        suitePo.setSuiteFlag(suiteEntity.getSuiteFlag());
         suitePo.setCreatedAt(new Date());
         suitePo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         suiteMapper.addSuite(suitePo);
@@ -65,6 +63,12 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
+    public SuiteVO querySuiteById(Long suiteId) {
+        SuitePO suitePo =suiteMapper.queryById(suiteId);
+        return ISuiteConverter.IMPL.poToVo(suitePo);
+    }
+
+    @Override
     public List<SuiteVO> querySuiteList(SuiteQueryVO suiteQueryVO) {
         List<SuitePO> suitePoList = suiteMapper.queryByList(suiteQueryVO);
         return ISuiteConverter.IMPL.poListToVoList(suitePoList);
@@ -78,21 +82,46 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
-    public List<SuiteVO> querySuiteMarketList() {
-        List<SuiteVO> suiteList = new ArrayList<>();
-
+    public List<SuiteMarketClassifyVO> querySuiteMarketClassifyList() {
+        List<SuiteMarketClassifyVO> suiteMarketClassifyList = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
-        ResponseEntity<ResponseDataResult<List<SuiteVO>>> response = restTemplate.exchange(
+        ResponseEntity<ResponseDataResult<List<SuiteMarketClassifyVO>>> response = restTemplate.exchange(
+                JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/classify/list",
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<ResponseDataResult<List<SuiteMarketClassifyVO>>>() {});
+        if(response.getStatusCode() == HttpStatus.OK){
+            suiteMarketClassifyList = response.getBody().getResult();
+        }
+        return suiteMarketClassifyList;
+    }
+
+    @Override
+    public ResponsePaginationDataResult<SuiteVO> querySuiteMarketList(Integer pageNum,Integer pageSize,String suiteName,Long suiteClassifyId) {
+        ResponsePaginationDataResult<SuiteVO> result = new ResponsePaginationDataResult<>();
+        Map<String,Object> param = new HashMap<>();
+        param.put("pageNum",pageNum);
+        param.put("pageSize",pageSize);
+        if(StringUtils.isNotEmpty(suiteName)){
+            param.put("suiteName",suiteName);
+        }
+        if(suiteClassifyId != null){
+            param.put("suiteClassifyId",suiteClassifyId);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        ResponseEntity<ResponsePaginationDataResult<SuiteVO>> response = restTemplate.exchange(
                 JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/list",
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<ResponseDataResult<List<SuiteVO>>>() {});
-        if(response.getStatusCode() == org.springframework.http.HttpStatus.OK){
-            suiteList = response.getBody().getResult();
+                new ParameterizedTypeReference<ResponsePaginationDataResult<SuiteVO>>() {});
+        if(response.getStatusCode() == HttpStatus.OK){
+            result =  response.getBody();
         }
-        return suiteList;
+        return result;
     }
 
     @Override
@@ -105,16 +134,16 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        HttpEntity<String> entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
 
-        ResponseEntity<ResponseDataResult<SuiteMarketInfoVO>> response = restTemplate.exchange(
+        ResponseEntity<ResponseDataResult<SuiteMarketVO>> response = restTemplate.exchange(
                 JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info",
                 HttpMethod.POST,
                 entity,
-                new ParameterizedTypeReference<ResponseDataResult<SuiteMarketInfoVO>>() {});
+                new ParameterizedTypeReference<ResponseDataResult<SuiteMarketVO>>() {});
         if(response.getStatusCode() == org.springframework.http.HttpStatus.OK){
-            SuiteMarketInfoVO suiteMarketInfoVo = response.getBody().getResult();
-            suiteMarketVo = ISuiteConverter.IMPL.voToVo(suiteMarketInfoVo);
+            suiteMarketVo = response.getBody().getResult();
+            //suiteMarketVo = ISuiteConverter.IMPL.voToVo(suiteMarketInfoVo);
         }
         return suiteMarketVo;
     }

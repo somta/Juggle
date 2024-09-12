@@ -71,7 +71,7 @@ public class TokenController {
 
     @Operation(summary = "查询令牌分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<List<TokenDTO>> getTokenPageList(@RequestBody PageParam pageParam){
+    public ResponsePaginationDataResult<TokenDTO> getTokenPageList(@RequestBody PageParam pageParam){
         PageInfo pageInfo = tokenService.getTokenPageList(pageParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }

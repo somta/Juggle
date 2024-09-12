@@ -60,7 +60,7 @@ public class DataSourceController {
 
     @Operation(summary = "查询数据源分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<List<DataSourceDTO>> getDataSourcePageList(@RequestBody DataSourceQueryParam dataSourceQueryParam){
+    public ResponsePaginationDataResult<DataSourceDTO> getDataSourcePageList(@RequestBody DataSourceQueryParam dataSourceQueryParam){
         PageInfo pageInfo = dataSourceService.getDataSourcePageList(dataSourceQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }

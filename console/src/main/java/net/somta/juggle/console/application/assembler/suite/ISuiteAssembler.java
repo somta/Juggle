@@ -1,9 +1,11 @@
 package net.somta.juggle.console.application.assembler.suite;
 
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketClassifyVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketClassifyDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
@@ -27,5 +29,7 @@ public interface ISuiteAssembler {
     List<SuiteDTO> voListToDtoList(List<SuiteVO> suiteVoList);
 
     SuiteMarketInfoDTO voToDto(SuiteMarketVO suiteMarketVo);
+
+    List<SuiteMarketClassifyDTO> voSuiteMarketListToDtoList(List<SuiteMarketClassifyVO> suiteVoList);
 
 }

@@ -21,6 +21,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.somta.core.exception.BizException;
 import net.somta.core.helper.JsonSerializeHelper;
+import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.assembler.suite.ISuiteAssembler;
 import net.somta.juggle.console.application.service.suite.IApiService;
 import net.somta.juggle.console.application.service.suite.ISuiteService;
@@ -28,12 +29,11 @@ import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
+import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteTypeEnum;
 import net.somta.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketApiVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.*;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketClassifyDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import net.somta.juggle.console.interfaces.param.suite.*;
@@ -69,6 +69,8 @@ public class SuiteServiceImpl implements ISuiteService {
             throw new BizException(SUITE_IS_EXIST_ERROR,suiteAddParam.getSuiteCode());
         }
         SuiteEntity suiteEntity = ISuiteAssembler.IMPL.paramToEntity(suiteAddParam);
+        suiteEntity.setSuiteVersion("v1.0.0");
+        suiteEntity.setSuiteFlag(SuiteTypeEnum.PERSONAL_SUITE.getCode());
         suiteRepository.addSuite(suiteEntity);
     }
 
@@ -87,6 +89,11 @@ public class SuiteServiceImpl implements ISuiteService {
     @Override
     public void deleteSuite(Long suiteId) {
         suiteRepository.deleteSuiteById(suiteId);
+    }
+
+    @Override
+    public SuiteVO getSuiteInfo(Long suiteId) {
+        return suiteRepository.querySuiteById(suiteId);
     }
 
     @Override
@@ -109,10 +116,17 @@ public class SuiteServiceImpl implements ISuiteService {
     }
 
     @Override
-    public List<SuiteDTO> getSuiteMarketList() {
-        List<SuiteVO> suiteVoList = suiteRepository.querySuiteMarketList();
-        List<SuiteDTO> suiteList = ISuiteAssembler.IMPL.voListToDtoList(suiteVoList);
-        return suiteList;
+    public List<SuiteMarketClassifyDTO> getSuiteMarketClassifyList() {
+        List<SuiteMarketClassifyVO> suiteMarketClassifyVoList = suiteRepository.querySuiteMarketClassifyList();
+        List<SuiteMarketClassifyDTO> classifyDtoList = ISuiteAssembler.IMPL.voSuiteMarketListToDtoList(suiteMarketClassifyVoList);
+        return classifyDtoList;
+    }
+
+    @Override
+    public ResponsePaginationDataResult<SuiteDTO> getSuiteMarketList(SuiteMarketQueryParam suiteMarketQueryParam) {
+        ResponsePaginationDataResult<SuiteVO> result = suiteRepository.querySuiteMarketList(suiteMarketQueryParam.getPageNum(),suiteMarketQueryParam.getPageSize(),suiteMarketQueryParam.getSuiteName(),suiteMarketQueryParam.getSuiteClassifyId());
+        List<SuiteDTO> suiteList = ISuiteAssembler.IMPL.voListToDtoList(result.getResult());
+        return ResponsePaginationDataResult.setPaginationDataResult(result.getTotal(),suiteList);
     }
 
     @Override
@@ -141,6 +155,7 @@ public class SuiteServiceImpl implements ISuiteService {
         suiteEntity.setSuiteImage(suiteMarketVo.getSuiteImage());
         suiteEntity.setSuiteDesc(suiteMarketVo.getSuiteDesc());
         suiteEntity.setSuiteHelpDocJson(suiteMarketVo.getSuiteHelpDocJson());
+        suiteEntity.setSuiteFlag(SuiteTypeEnum.OFFICIAL_SUITE.getCode());
         Long newSuiteId = suiteRepository.addSuite(suiteEntity);
         List<SuiteMarketApiVO> apiList = suiteMarketVo.getApiList();
         if(CollectionUtils.isNotEmpty(apiList)){

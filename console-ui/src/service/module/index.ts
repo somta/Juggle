@@ -3,7 +3,7 @@ import * as flowDefineService from './flowDefine';
 import * as flowService from './flow';
 import * as flowVersionService from './flowVersion';
 import * as suiteService from './suite';
-import * as suiteMarketService from './suiteMarket.ts';
+import * as suiteMarketService from './suiteMarketService.ts';
 import * as apiService from './api';
 import * as objectService from './object';
 import * as orderService from './orderService.ts';

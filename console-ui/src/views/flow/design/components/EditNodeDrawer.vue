@@ -37,7 +37,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="visible" :size="480" :title="currentData?.name" @closed="onClosed">
+  <el-drawer v-model="visible" :size="560" :title="currentData?.name" @closed="onClosed">
     <component :is="currentNodeForm" :data="currentData" @update="onUpdate" @cancel="visible = false" />
   </el-drawer>
 </template>

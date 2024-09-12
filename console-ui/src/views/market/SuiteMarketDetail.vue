@@ -122,8 +122,7 @@ async function querySuiteMarketInfo() {
                   <div>
                     <div class="title">请求头</div>
                     <el-table :data="api.apiHeaders" border size="large" header-cell-class-name="table-header" >
-                      <el-table-column prop="paramKey" label="参数编码" width="280" />
-                      <el-table-column prop="paramName" label="参数名称" />
+                      <el-table-column prop="paramName" label="参数名称" width="280"/>
                       <el-table-column prop="required" label="是否必填" >
                         <template #default="scope">
                           {{scope.row.required ? '是' : '否'}}
@@ -135,8 +134,7 @@ async function querySuiteMarketInfo() {
                   <div>
                     <div class="title">入参</div>
                     <el-table :data="api.apiInputParams" border size="large" header-cell-class-name="table-header">
-                      <el-table-column prop="paramKey" label="参数编码" width="280" />
-                      <el-table-column prop="paramName" label="参数名称" />
+                      <el-table-column prop="paramName" label="参数名称" width="280"/>
                       <el-table-column prop="required" label="是否必填" >
                         <template #default="scope">
                           {{scope.row.required ? '是' : '否'}}
@@ -149,8 +147,7 @@ async function querySuiteMarketInfo() {
                   <div>
                     <div class="title">出参</div>
                     <el-table :data="api.apiOutputParams" border size="large" header-cell-class-name="table-header" >
-                      <el-table-column prop="paramKey" label="参数编码" width="280" />
-                      <el-table-column prop="paramName" label="参数名称" />
+                      <el-table-column prop="paramName" label="参数名称" width="280"/>
                       <el-table-column prop="paramDesc" label="参数描述" />
                     </el-table>
                   </div>
