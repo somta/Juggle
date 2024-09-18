@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class SuiteMarketApiVO {
 
+    private String apiCode;
     /**
      * api接口地址
      */
@@ -51,6 +52,13 @@ public class SuiteMarketApiVO {
      */
     private List<OutputParameterVO> apiOutputParams;
 
+    public String getApiCode() {
+        return apiCode;
+    }
+
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
+    }
 
     public String getApiUrl() {
         return apiUrl;

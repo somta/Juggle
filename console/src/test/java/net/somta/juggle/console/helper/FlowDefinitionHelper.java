@@ -49,8 +49,8 @@ public class FlowDefinitionHelper {
         methodNode.setElementType(ElementTypeEnum.METHOD);
 
         Method method = new Method();
-        method.setSuiteId(1L);
-        method.setMethodId(1L);
+        method.setSuiteCode("example_suite");
+        method.setMethodCode("7da045369a437a29e66c3154229e3190");
         method.setUrl("http://127.0.0.1:9127/example/user/getUserById");
         method.setRequestType(RequestTypeEnum.GET);
         method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());
@@ -179,8 +179,8 @@ public class FlowDefinitionHelper {
         methodNode2.setName("获取订单信息");
         methodNode2.setElementType(ElementTypeEnum.METHOD);
         Method method2 = new Method();
-        method2.setSuiteId(1L);
-        method2.setMethodId(2L);
+        method2.setSuiteCode("example_suite");
+        method2.setMethodCode("ad1ecc2a3dbd189f3fa478f30755a200");
         method2.setUrl("http://127.0.0.1:9127/example/order/queryOrderByNo");
         method2.setRequestType(RequestTypeEnum.GET);
         method.setRequestContentType(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED.getValue());

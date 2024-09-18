@@ -1,6 +1,7 @@
 package net.somta.juggle.console.domain.suite.api;
 
 import net.somta.common.utils.MapUtil;
+import net.somta.common.utils.encrypt.Md5Util;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
@@ -17,6 +18,8 @@ import net.somta.juggle.core.model.Property;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +35,7 @@ public class ApiAO {
 
     private Long suiteId;
 
+    private String apiCode;
     /**
      * api接口地址
      */
@@ -60,6 +64,17 @@ public class ApiAO {
     private List<HeaderVO> apiHeaders;
 
     private ParameterEntity parameterEntity;
+
+    public void initApiCode(){
+        URL url = null;
+        try {
+            url = new URL(this.apiUrl);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        String originalCode = url.getPath() + this.apiRequestType.toString();
+        this.apiCode = Md5Util.encode(originalCode);
+    }
 
     /**
      * 初始化参数实体
@@ -151,6 +166,10 @@ public class ApiAO {
         this.suiteId = suiteId;
     }
 
+    public String getApiCode() {
+        return apiCode;
+    }
+
     public String getApiUrl() {
         return apiUrl;
     }
@@ -202,6 +221,7 @@ public class ApiAO {
     public void setParameterEntity(ParameterEntity parameterEntity) {
         this.parameterEntity = parameterEntity;
     }
+
 
 
 }

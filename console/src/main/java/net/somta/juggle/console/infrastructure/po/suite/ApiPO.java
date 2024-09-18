@@ -11,18 +11,19 @@ public class ApiPO extends BaseModel {
 
     private Long suiteId;
 
+    private String apiCode;
     /**
-     * api接口地址
+     * http api request address
      */
     private String apiUrl;
 
     /**
-     * api接口名称
+     * api name
      */
     private String apiName;
 
     /**
-     * api描述
+     * api desc
      */
     private String apiDesc;
 
@@ -52,6 +53,14 @@ public class ApiPO extends BaseModel {
 
     public void setSuiteId(Long suiteId) {
         this.suiteId = suiteId;
+    }
+
+    public String getApiCode() {
+        return apiCode;
+    }
+
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 
     public String getApiUrl() {

@@ -7,6 +7,7 @@
 <resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
 	<result column="id" property="id"/>
 	<result column="suite_id" property="suiteId"/>
+	<result column="api_code" property="apiCode"/>
 	<result column="api_url" property="apiUrl"/>
 	<result column="api_name" property="apiName"/>
 	<result column="api_desc" property="apiDesc"/>
@@ -34,12 +35,12 @@
        
 <!-- t_data_type_info table all fields -->
 <sql id="Base_Column_List" >
-	id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by
+	id, suite_id, api_code, api_url, api_name, api_desc, api_request_type, api_request_content_type, created_at, created_by, updated_at, updated_by
 </sql>
 
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
-	insert into t_api (id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type,deleted, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{suiteId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_api (id, suite_id, api_code, api_url, api_name, api_desc, api_request_type, api_request_content_type,deleted, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{suiteId},#{apiCode},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -51,6 +52,9 @@
 	<trim  suffixOverrides="," >
 		<if test="suiteId != null">
 			suite_id=#{suiteId},
+		</if>
+		<if test="apiCode != null and apiCode != ''">
+			api_code=#{apiCode},
 		</if>
 		<if test="apiUrl != null and apiUrl != ''">
 			api_url=#{apiUrl},

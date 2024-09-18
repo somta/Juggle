@@ -18,8 +18,8 @@ export type RawData = {
 };
 
 export type MethodInfo = {
-  methodId: number;
-  suiteId: number;
+  methodCode: string;
+  suiteCode: string;
   requestContentType: string;
   requestType: string;
   url: string;

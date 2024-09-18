@@ -15,8 +15,9 @@ public class ApiAddParam {
     private Long suiteId;
 
     /**
-     * api接口地址
+     * api code,
      */
+    private String apiCode;
     private String apiUrl;
 
     /**
@@ -51,6 +52,14 @@ public class ApiAddParam {
 
     public void setSuiteId(Long suiteId) {
         this.suiteId = suiteId;
+    }
+
+    public String getApiCode() {
+        return apiCode;
+    }
+
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 
     public String getApiUrl() {

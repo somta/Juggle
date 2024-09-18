@@ -111,8 +111,32 @@ public class ApiRepositoryImpl implements IApiRepository {
     }
 
     @Override
+    public ApiAO queryApiByCode(String apiCode) {
+        ApiPO apiPo = apiMapper.queryApiByCode(apiCode);
+        if(apiPo == null){
+            throw new BizException(ApiErrorEnum.API_NOT_EXIST);
+        }
+        ApiAO apiAo = IApiConverter.IMPL.poToAo(apiPo);
+        List<ParameterPO> parameters = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiPo.getId()));
+
+        apiAo.parseHeader(parameters);
+
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.parseParameter(parameters);
+        apiAo.setParameterEntity(parameterEntity);
+        return apiAo;
+    }
+
+    @Override
     public List<ApiVO> getApiListBySuiteId(Long suiteId) {
         List<ApiPO> apiList = apiMapper.queryApiListBySuiteId(suiteId);
+        List<ApiVO> apis = IApiConverter.IMPL.poListToVoList(apiList);
+        return apis;
+    }
+
+    @Override
+    public List<ApiVO> getApiListBySuiteCode(String suiteCode) {
+        List<ApiPO> apiList = apiMapper.queryApiListBySuiteCode(suiteCode);
         List<ApiVO> apis = IApiConverter.IMPL.poListToVoList(apiList);
         return apis;
     }

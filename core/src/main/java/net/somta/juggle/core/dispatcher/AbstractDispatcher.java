@@ -19,6 +19,7 @@ package net.somta.juggle.core.dispatcher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.juggle.core.IWorkRunner;
 import net.somta.juggle.core.FlowRuntimeContext;
@@ -49,8 +50,11 @@ public abstract class AbstractDispatcher implements IDispatcher {
      */
     protected IWorkRunner workRunner;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     public AbstractDispatcher(IWorkRunner workRunner) {
         this.workRunner = workRunner;
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     @Override
@@ -115,7 +119,6 @@ public abstract class AbstractDispatcher implements IDispatcher {
      * @return
      */
     private Map<String, FlowElement> buildFlowElementMap(String content){
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<FlowElement> elementList = objectMapper.readValue(content, new TypeReference<List<FlowElement>>() {});
             Map<String, FlowElement> flowElementMap = elementList.stream().collect(Collectors.toMap(FlowElement::getKey,e -> e));

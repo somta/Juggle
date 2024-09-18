@@ -173,6 +173,7 @@ public class SuiteServiceImpl implements ISuiteService {
     private void addSuiteMarketApi(Long suiteId,SuiteMarketApiVO suiteMarketApi){
         ApiAddParam apiAddParam = new ApiAddParam();
         apiAddParam.setSuiteId(suiteId);
+        apiAddParam.setApiCode(suiteMarketApi.getApiCode());
         apiAddParam.setApiUrl(suiteMarketApi.getApiUrl());
         apiAddParam.setApiName(suiteMarketApi.getApiName());
         apiAddParam.setApiDesc(suiteMarketApi.getApiDesc());

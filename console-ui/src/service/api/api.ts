@@ -42,10 +42,18 @@ export async function queryApiInfo(id: number): ResponseResult<ApiInfo> {
   return request.get(`/v1/api/info/${id}`);
 }
 
+export async function queryApiInfoByCode(apiCode: string): ResponseResult<ApiInfo> {
+  return request.get(`/v1/api/info/code/${apiCode}`);
+}
+
 export function debugApi(apiId: number, params: { headerData: any; inputParamData: any }): ResponseResult<any> {
   return request.post(`/v1/api/debug/${apiId}`, params);
 }
 
 export async function getApiListBySuiteId(suiteId: number): ResponseResult<ApiInfo[]> {
   return request.post(`/v1/api/getApiListBySuiteId/${suiteId}`);
+}
+
+export async function getApiListBySuiteCode(suiteCode: string): ResponseResult<ApiInfo[]> {
+  return request.post(`/v1/api/getApiListBySuiteCode/${suiteCode}`);
 }

@@ -44,12 +44,16 @@ public interface IApiService {
      */
     ApiInfoDTO getApiInfo(Long apiId);
 
+    ApiInfoDTO getApiInfoByCode(String apiCode);
+
     /**
      * Query API interface information list based on domain ID
      * @param suiteId suite id
      * @return API interface information list
      */
     List<ApiDTO> getApiListBySuiteId(Long suiteId);
+
+    List<ApiDTO> getApiListBySuiteCode(String suiteCode);
 
     /**
      * Query API pagination list
@@ -65,4 +69,5 @@ public interface IApiService {
      * @return Response results of API interface
      */
     Map<String, Object> debugApi(Long apiId, ApiDebugParam apiDebugParam);
+
 }

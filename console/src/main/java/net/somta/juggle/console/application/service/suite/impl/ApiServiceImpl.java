@@ -55,6 +55,7 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public Boolean addApi(ApiAddParam apiAddParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiAddParam);
+        apiAo.initApiCode();
         apiAo.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
         apiAo.initHeaderList(apiAddParam.getApiHeaders());
         return apiRepository.addApi(apiAo);
@@ -68,6 +69,7 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public Boolean updateApi(ApiUpdateParam apiUpdateParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
+        apiAo.initApiCode();
         apiAo.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
         apiAo.initHeaderList(apiUpdateParam.getApiHeaders());
         return apiRepository.updateApi(apiAo);
@@ -81,10 +83,23 @@ public class ApiServiceImpl implements IApiService {
     }
 
     @Override
+    public ApiInfoDTO getApiInfoByCode(String apiCode) {
+        ApiAO apiAo = apiRepository.queryApiByCode(apiCode);
+        ApiInfoDTO apiInfoDto = IApiAssembler.IMPL.aoToDto(apiAo);
+        return apiInfoDto;
+    }
+
+    @Override
     public List<ApiDTO> getApiListBySuiteId(Long suiteId) {
         List<ApiVO> apiVoList = apiRepository.getApiListBySuiteId(suiteId);
         List<ApiDTO> apiDtoList = IApiAssembler.IMPL.voListToDtoList(apiVoList);
         return apiDtoList;
+    }
+
+    @Override
+    public List<ApiDTO> getApiListBySuiteCode(String suiteCode) {
+        List<ApiVO> apiVoList = apiRepository.getApiListBySuiteCode(suiteCode);
+        return IApiAssembler.IMPL.voListToDtoList(apiVoList);
     }
 
     @Override

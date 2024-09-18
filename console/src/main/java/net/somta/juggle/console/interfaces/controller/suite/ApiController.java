@@ -90,15 +90,25 @@ public class ApiController {
         ApiInfoDTO apiInfoDTO = apiService.getApiInfo(apiId);
         return ResponseDataResult.setResponseResult(apiInfoDTO);
     }
+    @Operation(summary = "根据编码查询接口详情")
+    @GetMapping("/info/code/{apiCode}")
+    public ResponseDataResult<ApiInfoDTO> getApiByCode(@PathVariable String apiCode){
+        ApiInfoDTO apiInfoDTO = apiService.getApiInfoByCode(apiCode);
+        return ResponseDataResult.setResponseResult(apiInfoDTO);
+    }
 
-    /**
-     * 获取API列表
-     * @return Boolean
-     */
+
     @Operation(summary = "根据套件ID查询接口列表")
     @PostMapping("/getApiListBySuiteId/{suiteId}")
     public ResponseDataResult<List<ApiDTO>> getApiListBySuiteId(@PathVariable Long suiteId){
         List<ApiDTO> apiList = apiService.getApiListBySuiteId(suiteId);
+        return ResponseDataResult.setResponseResult(apiList);
+    }
+
+    @Operation(summary = "根据套件编码查询接口列表")
+    @PostMapping("/getApiListBySuiteCode/{suiteCode}")
+    public ResponseDataResult<List<ApiDTO>> getApiListBySuiteId(@PathVariable String suiteCode){
+        List<ApiDTO> apiList = apiService.getApiListBySuiteCode(suiteCode);
         return ResponseDataResult.setResponseResult(apiList);
     }
 

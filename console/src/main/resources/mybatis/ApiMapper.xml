@@ -5,13 +5,23 @@
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.suite.ApiMapper" >
 
 <insert id="addApi" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
-	insert into t_api (id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type,deleted,created_at, created_by, updated_at, updated_by)
-	values (#{id},#{suiteId},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_api (id, suite_id, api_code, api_url, api_name, api_desc, api_request_type, api_request_content_type,deleted,created_at, created_by, updated_at, updated_by)
+	values (#{id},#{suiteId},#{apiCode},#{apiUrl},#{apiName},#{apiDesc},#{apiRequestType},#{apiRequestContentType},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
-<select id="queryApiListBySuiteId" resultMap="BaseResultMap" parameterType="java.lang.Long">
-	select <include refid="Base_Column_List" />
+<select id="queryApiByCode" resultType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" parameterType="java.lang.String">
+	select id, suite_id, api_code, api_url, api_name, api_desc, api_request_type, api_request_content_type
+	from t_api where api_code=#{apiCode}
+</select>
+
+<select id="queryApiListBySuiteId" resultType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" parameterType="java.lang.Long">
+	select id, suite_id, api_url, api_name, api_desc, api_request_type, api_request_content_type
 	from t_api where suite_id=#{suiteId}
+</select>
+
+<select id="queryApiListBySuiteCode" resultType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" parameterType="java.lang.String">
+	select a.id, a.suite_id,a.api_code, a.api_url, a.api_name, a.api_desc, a.api_request_type, a.api_request_content_type
+	from t_api a inner join t_suite s on a.suite_id = s.id where s.suite_code=#{suiteCode}
 </select>
 
 <select id="queryApiCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
