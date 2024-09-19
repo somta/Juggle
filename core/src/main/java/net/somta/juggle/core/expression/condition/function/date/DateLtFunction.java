@@ -42,7 +42,7 @@ public class DateLtFunction extends AbstractFunction {
             return AviatorBoolean.FALSE;
         }
         if(StringUtils.isNotEmpty(source) && StringUtils.isNotEmpty(target)){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);

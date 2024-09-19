@@ -58,6 +58,10 @@ public class ExpressionParserFactory {
                 expressionParser= new DateParser();
                 parserMap.put(DataTypeEnum.Date.name(),expressionParser);
                 break;
+            case Time:
+                expressionParser= new TimeParser();
+                parserMap.put(DataTypeEnum.Time.name(),expressionParser);
+                break;
             case List:
                 expressionParser= new ListParser();
                 parserMap.put(DataTypeEnum.List.name(),expressionParser);

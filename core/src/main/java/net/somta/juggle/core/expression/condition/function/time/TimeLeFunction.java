@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.core.expression.condition.function.date;
+package net.somta.juggle.core.expression.condition.function.time;
 
 import com.googlecode.aviator.runtime.function.AbstractFunction;
 import com.googlecode.aviator.runtime.function.FunctionUtils;
@@ -32,7 +32,7 @@ import java.util.Map;
  * @author husong
  * @since 1.0.0
  */
-public class DateLeFunction extends AbstractFunction {
+public class TimeLeFunction extends AbstractFunction {
 
     @Override
     public AviatorObject call(Map<String, Object> env, AviatorObject sourceArg, AviatorObject targetArg) {
@@ -42,7 +42,7 @@ public class DateLeFunction extends AbstractFunction {
             return AviatorBoolean.FALSE;
         }
         if(StringUtils.isNotEmpty(source) && StringUtils.isNotEmpty(target)){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);
@@ -58,7 +58,7 @@ public class DateLeFunction extends AbstractFunction {
 
     @Override
     public String getName() {
-        return "date.le";
+        return "time.le";
     }
 
 }

@@ -41,7 +41,7 @@ public class DateEqFunction extends AbstractFunction {
             return AviatorBoolean.TRUE;
         }
         if(StringUtils.isNotEmpty(source) && StringUtils.isNotEmpty(target)){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date sourceDate = sdf.parse(source);
                 Date targetDate = sdf.parse(target);

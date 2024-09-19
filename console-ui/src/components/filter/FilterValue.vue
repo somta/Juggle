@@ -62,7 +62,18 @@ const currentType = computed(() => {
       :size="size"
       placeholder="请输入"
     />
-    <el-date-picker v-else-if="currentType === 'Date'" v-model="innerValue" :size="size" type="datetime" />
+    <el-date-picker
+        v-else-if="currentType === 'Date'"
+        v-model="innerValue"
+        :size="size"
+        type="date"
+        value-format="YYYY-MM-DD" />
+    <el-date-picker
+        v-else-if="currentType === 'Time'"
+        v-model="innerValue"
+        :size="size"
+        type="datetime"
+        value-format="YYYY-MM-DD HH:mm:ss"/>
     <el-switch
       v-else-if="currentType === 'Boolean'"
       v-model="innerValue"

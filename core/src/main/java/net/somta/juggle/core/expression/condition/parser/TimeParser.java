@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author husong
- * @since 1.2.2
+ * @since 1.0.0
  */
-public class DateParser implements IExpressionParser {
-    private final static Logger logger = LoggerFactory.getLogger(DateParser.class);
+public class TimeParser implements IExpressionParser {
+    private final static Logger logger = LoggerFactory.getLogger(TimeParser.class);
 
     @Override
     public String genExpression(ConditionExpression conditionExpression) {
@@ -35,25 +35,25 @@ public class DateParser implements IExpressionParser {
         String expression = null;
         switch (operatorEnum) {
             case EQUAL:
-                expression = "date.eq("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
+                expression = "time.eq("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             case NOT_EQUAL:
-                expression = "!date.eq("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
+                expression = "!time.eq("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             case GREATER_THAN:
-                expression = "date.gt("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
+                expression = "time.gt("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             case GREATER_THAN_OR_EQUAL:
-                expression = "date.ge("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
+                expression = "time.ge("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             case LESS_THAN:
-                expression = "date.lt("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
+                expression = "time.lt("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             case LESS_THAN_OR_EQUAL:
-                expression = "date.le("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
+                expression = "time.le("+conditionExpression.getEnvKey()+","+formatValue(conditionExpression.getValue(),conditionExpression.getAssignType())+")";
                 break;
             default:
-                throw new IllegalArgumentException("日期类型不支持"+operatorEnum.getCode()+"操作符");
+                throw new IllegalArgumentException("时间类型不支持"+operatorEnum.getCode()+"操作符");
         }
         return expression;
     }
