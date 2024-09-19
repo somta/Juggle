@@ -77,9 +77,10 @@ module.exports = {
                         position: 'left',
                     },
                     {
-                        to: '/blog',
-                        label: '博客',
-                        position: 'left'
+                        to: 'docs/suite',
+                        label: '套件学堂',
+                        activeBasePath: '/docs/suite',
+                        position: 'left',
                     },
                     {
                         to: 'docs/changelog',
