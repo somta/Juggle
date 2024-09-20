@@ -44,6 +44,11 @@ public interface IApiService {
      */
     ApiInfoDTO getApiInfo(Long apiId);
 
+    /**
+     * Query API interface information
+     * @param apiCode api code
+     * @return Interface information dto object
+     */
     ApiInfoDTO getApiInfoByCode(String apiCode);
 
     /**

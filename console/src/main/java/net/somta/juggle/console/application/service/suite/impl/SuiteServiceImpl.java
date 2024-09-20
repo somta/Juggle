@@ -23,19 +23,18 @@ import net.somta.core.exception.BizException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.application.assembler.suite.ISuiteAssembler;
+import net.somta.juggle.console.application.service.IObjectService;
 import net.somta.juggle.console.application.service.suite.IApiService;
 import net.somta.juggle.console.application.service.suite.ISuiteService;
-import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
-import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
-import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
+import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
 import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteTypeEnum;
 import net.somta.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.*;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketClassifyDTO;
-import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
+import net.somta.juggle.console.interfaces.param.ObjectAddParam;
 import net.somta.juggle.console.interfaces.param.suite.*;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import org.apache.commons.collections4.CollectionUtils;
@@ -43,6 +42,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
@@ -56,10 +56,12 @@ import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEn
 public class SuiteServiceImpl implements ISuiteService {
     private final ISuiteRepository suiteRepository;
     private final IApiService apiService;
+    private final IObjectService objectService;
 
-    public SuiteServiceImpl(ISuiteRepository suiteRepository,IApiService apiService) {
+    public SuiteServiceImpl(ISuiteRepository suiteRepository, IApiService apiService, IObjectService objectService) {
         this.suiteRepository = suiteRepository;
         this.apiService = apiService;
+        this.objectService = objectService;
     }
 
     @Override
@@ -157,6 +159,7 @@ public class SuiteServiceImpl implements ISuiteService {
         suiteEntity.setSuiteHelpDocJson(suiteMarketVo.getSuiteHelpDocJson());
         suiteEntity.setSuiteFlag(SuiteTypeEnum.OFFICIAL_SUITE.getCode());
         Long newSuiteId = suiteRepository.addSuite(suiteEntity);
+        addSuiteObjectList(suiteMarketVo.getObjectList());
         List<SuiteMarketApiVO> apiList = suiteMarketVo.getApiList();
         if(CollectionUtils.isNotEmpty(apiList)){
             for (SuiteMarketApiVO suiteMarketApi : apiList) {
@@ -164,6 +167,22 @@ public class SuiteServiceImpl implements ISuiteService {
             }
         }
         return true;
+    }
+
+    /**
+     * add suite object
+     * @param objectListStr suite object list
+     */
+    private void addSuiteObjectList(String objectListStr) {
+        if(StringUtils.isNotBlank(objectListStr)){
+            List<ObjectAddParam> objectList = JsonSerializeHelper.deserialize(objectListStr,List.class,ObjectAddParam.class);
+            for (ObjectAddParam objectAddParam : objectList){
+                ObjectAO objectAo = objectService.getObjectInfoByKey(objectAddParam.getObjectKey());
+                if(objectAo == null){
+                    objectService.addObject(objectAddParam);
+                }
+            }
+        }
     }
 
     /**

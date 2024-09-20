@@ -30,7 +30,7 @@
         select o.id, o.object_key, o.object_name, o.object_desc,
                p.param_key, p.param_name, p.data_type
         from t_object o
-        LEFT JOIN t_parameter p ON o.id = p.source_id and p.source_type = 'object'
+        LEFT JOIN t_parameter p ON o.id = p.source_id and p.source_type = 'object' and p.deleted=0
     </select>
 
 </mapper>   

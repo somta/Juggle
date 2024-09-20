@@ -126,6 +126,9 @@ function onSourceEnvChange(rowIndex: number) {
 }
 
 function addAssignRule() {
+  if(nodeData.value.assignRules === null){
+    nodeData.value.assignRules = [];
+  }
   nodeData.value.assignRules.push({
     source: '',
     sourceDataType: null,

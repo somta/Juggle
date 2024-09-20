@@ -1,6 +1,6 @@
 {
   "name": "juggle",
-  "version": "1.0.0",
+  "version": "1.2.2",
   "private": true,
   "scripts": {
     "dev": "node scripts/predev.js && vite",

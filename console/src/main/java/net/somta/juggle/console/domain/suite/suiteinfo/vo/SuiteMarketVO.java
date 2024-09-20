@@ -50,6 +50,8 @@ public class SuiteMarketVO {
      */
     private String suiteHelpDocJson;
 
+    private String objectList;
+
     /**
      * 套件接口列表
      */
@@ -133,6 +135,14 @@ public class SuiteMarketVO {
 
     public void setSuiteHelpDocJson(String suiteHelpDocJson) {
         this.suiteHelpDocJson = suiteHelpDocJson;
+    }
+
+    public String getObjectList() {
+        return objectList;
+    }
+
+    public void setObjectList(String objectList) {
+        this.objectList = objectList;
     }
 
     public List<SuiteMarketApiVO> getApiList() {

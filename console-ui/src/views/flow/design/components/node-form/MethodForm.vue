@@ -111,8 +111,8 @@ async function onApiChange(apiCode: string) {
     method.requestContentType = result.apiRequestContentType;
     method.inputParamSchemas = result.apiInputParams.map((item: InputParams) => {
       return {
-        paramKey: item.paramKey,
-        paramName: item.paramName,
+        key: item.paramKey,
+        name: item.paramName,
         dataType: item.dataType,
         position: item.paramPosition,
       };

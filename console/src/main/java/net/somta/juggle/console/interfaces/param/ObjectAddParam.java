@@ -1,6 +1,5 @@
 package net.somta.juggle.console.interfaces.param;
 
-import net.somta.juggle.console.domain.object.vo.PropertyVO;
 import net.somta.juggle.core.model.Property;
 
 import java.util.List;
