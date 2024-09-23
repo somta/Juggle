@@ -40,7 +40,6 @@ import net.somta.juggle.core.model.node.data.MysqlNode;
         @JsonSubTypes.Type(value = AssignNode.class, name = "ASSIGN"),
         @JsonSubTypes.Type(value = CodeNode.class, name = "CODE"),
         @JsonSubTypes.Type(value = MysqlNode.class, name = "MYSQL"),
-        @JsonSubTypes.Type(value = OpenAiNode.class, name = "AI"),
 })
 public class FlowElement {
     /**

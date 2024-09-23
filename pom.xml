@@ -27,7 +27,6 @@
         <aviator.version>5.3.3</aviator.version>
         <groovy.version>4.0.20</groovy.version>
         <freemarker.version>2.3.32</freemarker.version>
-        <dashscope.version>2.12.0</dashscope.version>
         <httpclient.version>5.2.1</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
         <caffeine.version>2.9.3</caffeine.version>
@@ -103,11 +102,6 @@
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
                 <version>${freemarker.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dashscope-sdk-java</artifactId>
-                <version>${dashscope.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
