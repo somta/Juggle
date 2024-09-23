@@ -6,7 +6,7 @@ ADD console/target/*.jar juggle-server.jar
 
 EXPOSE 9127
 
-COPY console/src/main/resources/application-default.properties /home/juggle/conf/application.properties
+COPY console/src/main/resources/data/application-default.properties /home/juggle/conf/application.properties
 COPY console/src/main/resources/data/db_juggle.mv.db /home/juggle/data/
 
 ENV JAVA_OPTS=" -Xss228k  -Xmx512m -Xms512m  -Duser.timezone=GMT+08 "
