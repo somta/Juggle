@@ -111,17 +111,3 @@ async function deleteTokenItem(row: any) {
     <TokenSuccessForm ref="successFormRef" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-interface-token {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

@@ -15,6 +15,15 @@ body {
   height: 100%;
 }
 
+.page-header {
+  height: auto !important;
+  padding: 24px 20px 0px 20px !important;
+}
+
+.page-body {
+  min-height: 0;
+  overflow: auto;
+}
 
 .table-header{
   background-color: #f0f0f0 !important;

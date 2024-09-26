@@ -1,4 +1,4 @@
-import FlowDefine from './FlowDefine.vue';
+import FlowDefineList from './FlowDefineList.vue';
 import FlowList from './FlowList.vue';
 import FlowVersionList from './FlowVersionList.vue';
 import FlowDebug from './FlowDebug.vue';
@@ -16,7 +16,7 @@ export const FlowRoutes = [
       {
         path: 'define',
         name: 'flow-define',
-        component: FlowDefine,
+        component: FlowDefineList,
         meta: { name: '流程定义' },
       },
       {

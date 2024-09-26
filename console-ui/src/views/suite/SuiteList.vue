@@ -113,17 +113,3 @@ async function deleteSuiteItem(row: any) {
     <SuiteForm ref="formRef" @add="addSuiteItem" @edit="editSuiteItem" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-interface-suite {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

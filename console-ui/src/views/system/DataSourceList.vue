@@ -114,17 +114,3 @@ async function connectDataSource(row: any) {
     <DataSourceDrawer ref="formRef" @add="addDataSourceItem" @edit="editDataSourceItem" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-interface-token {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>
