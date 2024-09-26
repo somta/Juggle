@@ -143,7 +143,6 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
                 new ParameterizedTypeReference<ResponseDataResult<SuiteMarketVO>>() {});
         if(response.getStatusCode() == org.springframework.http.HttpStatus.OK){
             suiteMarketVo = response.getBody().getResult();
-            //suiteMarketVo = ISuiteConverter.IMPL.voToVo(suiteMarketInfoVo);
         }
         return suiteMarketVo;
     }

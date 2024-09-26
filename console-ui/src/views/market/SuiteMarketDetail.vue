@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 import {orderService, suiteMarketService} from '@/service';
 import {CreateOrder, SuiteMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
 import QRCode from 'qrcode'
+import UserAgreement from '../common/UserAgreement.vue'
 
 const route = useRoute();
+const router = useRouter();
 let paramsData = reactive({
   params: route.params,
 });
@@ -23,6 +25,9 @@ const suiteMarketInfo = ref<SuiteMarketInfo>({
   apiList: []
 });
 const suiteHelpDocList = ref([]);
+const orderDetailDialogVisible = ref(false);
+const userAgreementCheck = ref(false);
+const userAgreementRef = ref();
 const payDialogVisible = ref(false);
 const payQrCode = ref();
 const createOrder = ref<CreateOrder>({
@@ -34,10 +39,24 @@ querySuiteMarketInfo();
 
 async function handleInstallSuiteMarket() {
   if(suiteMarketInfo.value.priceStatus == 1 && suiteMarketInfo.value.suitePrice > 0){
-    await createSuiteOrder();
+    orderDetailDialogVisible.value = true;
   } else {
     await installSuiteMarket();
   }
+}
+
+function openUserAgreement(){
+  if (userAgreementRef.value) {
+    userAgreementRef.value.openUserAgreementDialog();
+  }
+}
+
+async function handleBuySuiteMarket() {
+  if(!userAgreementCheck.value){
+    ElMessage({ type: 'error', message: '请先勾选用户协议' });
+    return;
+  }
+  await createSuiteOrder();
 }
 
 let timerId;
@@ -56,6 +75,7 @@ async function createSuiteOrder() {
         }).catch(err => {
           console.error(err)
         })
+    orderDetailDialogVisible.value = false;
     payDialogVisible.value = true;
     timerId = setInterval(getOrderPayStatus, 2000, res.result.orderNo);
   } else {
@@ -81,6 +101,7 @@ async function installSuiteMarket(bill?: string) {
   const res = await suiteMarketService.installSuiteMarket(suiteId,bill);
   if (res.success) {
     ElMessage({ type: 'success', message: '安装成功' });
+    await router.push('/suite/list');
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -91,7 +112,9 @@ async function querySuiteMarketInfo() {
   const res = await suiteMarketService.querySuiteMarketDetail(suiteId);
   if (res.success) {
     suiteMarketInfo.value = res.result;
-    suiteHelpDocList.value = JSON.parse(res.result.suiteHelpDocJson);
+    if(res.result.suiteHelpDocJson.length > 0){
+      suiteHelpDocList.value = JSON.parse(res.result.suiteHelpDocJson);
+    }
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -165,6 +188,30 @@ async function querySuiteMarketInfo() {
         </el-tab-pane>
       </el-tabs>
     </div>
+
+    <el-dialog v-model="orderDetailDialogVisible" title="订单详情" width="500" center>
+      <div>
+        <el-descriptions
+            :column="1"
+        >
+          <el-descriptions-item label="套件名称"> {{ suiteMarketInfo.suiteName }}</el-descriptions-item>
+          <el-descriptions-item label="套件价格"><em class="pay-price">{{ suiteMarketInfo.suitePrice }}</em> 元</el-descriptions-item>
+          <el-descriptions-item label="套件描述"> {{ suiteMarketInfo.suiteDesc }}</el-descriptions-item>
+          <el-descriptions-item label="用户协议"> <el-checkbox v-model="userAgreementCheck"><a @click="openUserAgreement" class="agreement">用户协议</a></el-checkbox></el-descriptions-item>
+        </el-descriptions>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="handleBuySuiteMarket">
+            购买
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <UserAgreement ref="userAgreementRef"/>
+
+    <!-- order detail -->
     <el-dialog v-model="payDialogVisible" title="订单详情" width="500">
       <div>
         <el-descriptions
@@ -274,5 +321,9 @@ async function querySuiteMarketInfo() {
 }
 .pay-tip {
   font-size: 12px;
+}
+
+.agreement{
+  color: #409eff;
 }
 </style>

@@ -15,7 +15,7 @@ const formValue = reactive({
 const rules = reactive<FormRules>({
   suiteCode: [
     { required: true, message: '请输入套件编码', trigger: 'blur' },
-    { pattern: /^[a-zA-Z_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' },
+    { pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母数字或下划线', trigger: 'blur' },
   ],
   suiteName: [{ required: true, message: '请输入套件名称', trigger: 'blur' }],
 });

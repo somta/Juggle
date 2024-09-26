@@ -155,6 +155,7 @@ public class SuiteServiceImpl implements ISuiteService {
         suiteEntity.setSuiteCode(suiteMarketVo.getSuiteCode());
         suiteEntity.setSuiteName(suiteMarketVo.getSuiteName());
         suiteEntity.setSuiteImage(suiteMarketVo.getSuiteImage());
+        suiteEntity.setSuiteVersion(suiteMarketVo.getSuiteVersion());
         suiteEntity.setSuiteDesc(suiteMarketVo.getSuiteDesc());
         suiteEntity.setSuiteHelpDocJson(suiteMarketVo.getSuiteHelpDocJson());
         suiteEntity.setSuiteFlag(SuiteTypeEnum.OFFICIAL_SUITE.getCode());
