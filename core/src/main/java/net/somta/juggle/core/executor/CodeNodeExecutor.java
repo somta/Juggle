@@ -23,6 +23,11 @@ import net.somta.juggle.core.model.node.CodeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 /**
  * code executor
  *
@@ -39,11 +44,26 @@ public class CodeNodeExecutor extends AbstractElementExecutor{
     @Override
     protected void doExecute(FlowRuntimeContext flowRuntimeContext) {
         CodeNode codeNode = (CodeNode) flowRuntimeContext.getCurrentNode();
-        Binding binding = new Binding();
-        binding.setVariable("$var", flowRuntimeContext.getVariableManager());
-        GroovyShell shell = new GroovyShell(binding);
-        Object result = shell.evaluate(codeNode.getContent());
-        logger.debug("Script result: " + result);
+        if(CodeNode.LanguageType.groovy.equals(codeNode.getLanguage())){
+            Binding binding = new Binding();
+            binding.setVariable("$var", flowRuntimeContext.getVariableManager());
+            GroovyShell shell = new GroovyShell(binding);
+            Object result = shell.evaluate(codeNode.getContent());
+            logger.debug("Groovy Script result: " + result);
+        } else if (CodeNode.LanguageType.javascript.equals(codeNode.getLanguage())) {
+            ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+            ScriptEngine nashorn = scriptEngineManager.getEngineByName("nashorn");
+            nashorn.put("console", new Console());
+            nashorn.getBindings(ScriptContext.GLOBAL_SCOPE).put("$var", flowRuntimeContext.getVariableManager());
+            try {
+                Object result = nashorn.eval(codeNode.getContent());
+                logger.debug("JavaScript Script result: " + result);
+            }catch(ScriptException e){
+                System.out.println("执行脚本错误: "+ e.getMessage());
+            }
+        }else {
+            throw new IllegalArgumentException("不支持"+codeNode.getLanguage()+"语言");
+        }
     }
 
     @Override
@@ -52,5 +72,13 @@ public class CodeNodeExecutor extends AbstractElementExecutor{
         String nextNodeKey = codeNode.getOutgoings().get(0);
         logger.debug("方法节点执行器完毕，下一个节点的KEY为：{}", nextNodeKey);
         super.fillNextNode(flowRuntimeContext,nextNodeKey);
+    }
+
+    public static class Console {
+        public void log(Object... objects) {
+            for (Object obj : objects) {
+                logger.info(obj + " ");
+            }
+        }
     }
 }

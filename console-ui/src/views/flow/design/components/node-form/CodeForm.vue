@@ -72,17 +72,23 @@ function onCancel() {
       <el-form-item label="节点描述">
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
-      <el-form-item label="Groovy代码">
+      <el-form-item label="脚本语言">
+        <el-select v-model="nodeData.language" placeholder="请选择脚本语言">
+          <el-option key="groovy" label="Groovy" value="groovy" />
+          <el-option key="javascript" label="JavaScript" value="javascript" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="脚本代码">
         <div class="code-btn"> <el-button @click="codeDialogVisible = true">编辑代码</el-button></div>
-        <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="480px" height="200px" language="groovy" />
+        <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="480px" height="200px" :language="nodeData.language" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确定</el-button>
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
-    <el-dialog v-model="codeDialogVisible" title="代码" width="1000">
-      <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="960px" height="500px" language="groovy" />
+    <el-dialog v-model="codeDialogVisible" title="脚本代码" width="1000">
+      <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="960px" height="500px" :language="nodeData.language" />
     </el-dialog>
   </div>
 </template>

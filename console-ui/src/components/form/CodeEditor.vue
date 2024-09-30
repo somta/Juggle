@@ -7,8 +7,8 @@ import { useCodeEditor } from '@/hooks/useCodeEditor.ts';
 
 const props = withDefaults(
   defineProps<{
-    width?: string | number;
-    height?: string | number;
+    width?: string;
+    height?: string;
     language?: string;
     editorOption?: Object;
     modelValue: string;
@@ -29,8 +29,8 @@ const emits = defineEmits<{
 
 const monacoEditorStyle = computed(() => {
   return {
-    width: typeof props.width === 'string' ? props.width : props.width + 'px',
-    height: typeof props.height === 'string' ? props.height : props.height + 'px',
+    width: props.width,
+    height: props.height,
   };
 });
 
