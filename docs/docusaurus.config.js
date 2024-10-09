@@ -34,10 +34,6 @@ module.exports = {
                     sidebarPath: './sidebars.js',
                     rehypePlugins: [externalLinkProcessor],
                 },
-                blog: {
-                    blogSidebarTitle: '最新文章',
-                    showReadingTime: true,
-                },
                 theme: {
                     customCss: 'src/css/custom.css',
                 },
@@ -117,7 +113,7 @@ module.exports = {
                 additionalLanguages: ['docker', 'log'],
             },
             metadata: [
-                {name: 'keywords', content: '微服务编排, 流程引擎, 接口编排, 低代码, 集成平台, 定制开发'},
+                {name: 'keywords', content: 'Juggle,juggle,微服务编排, 流程引擎, 接口编排, 低代码, 集成平台, 定制开发'},
                 {name: 'description', content: 'Juggle一个可用于微服务接口编排,定制开发,第三方系统集成等场景的一套完整解决方案,支持零码编排流程，复杂场景可以通过低码开发进行拓展，支持多种方式集成第三方系统，打破单一系统孤岛。'},
             ],
             footer: {

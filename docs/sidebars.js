@@ -79,6 +79,22 @@ module.exports = {
                 },
             ],
         },{
+            type: 'category',
+            label: '运维手册',
+            collapsed: true,
+            items: [
+                {
+                    type: 'category',
+                    label: '部署手册',
+                    items: [
+                        'guide/operation/deployment-overview',
+                        'guide/operation/deployment-standalone',
+                        'guide/operation/deployment-cluster',
+                    ],
+                },
+                'guide/operation/system-configurations',
+            ],
+        },{
         type: 'category',
         label: '开源共建',
         collapsed: true,
