@@ -4,10 +4,13 @@
 ![Static Badge](https://img.shields.io/badge/Vue-3.x-purple)
 
 # Juggle
+
+Juggle官方文档地址: https://juggle.plus
+Juggle演示环境地址: http://demo.juggle.plus/#/login
+
 ## 项目介绍
 Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
 
-Juggle演示环境地址: http://demo.juggle.plus/#/login
 
 ## 什么时候需要Juggle
 1.适合已有基础服务能力，通过Juggle进行微服务接口编排快速搭建一个新产品。
@@ -22,7 +25,7 @@ Juggle演示环境地址: http://demo.juggle.plus/#/login
 ## 功能特性
 1.流程多版本管理，天然支持流程灰度能力
 
-2.支持字符串，布尔，整数，小数，日期，时间，列表，对象等数据结构，满足绝大数数据定义常见
+2.支持字符串，布尔，整数，小数，日期，时间，列表，对象等数据结构，满足绝大数数据定义场景
 
 3.内置方法节点，判断节点，代码节点，赋值节点，MySql节点等多种节点，能灵活设计流程
 

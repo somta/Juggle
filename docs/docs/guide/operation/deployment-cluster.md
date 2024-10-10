@@ -12,10 +12,7 @@ keywords: [Juggle集群部署方案, Juggle高可用部署, 部署Juggle]
 
 集群模式下，架构图如下所示
 
-
-
-todo补充架构图
-
+![集群部署架构图](/juggle/images/guide/operation/cluster_deploy_framework.png)
 
 
 具体切换MySql数据库和Redis缓存的方法可以参考Juggle单机部署的方法 [单机模式部署](https://juggle.plus/docs/guide/operation/deployment-standalone)
