@@ -130,7 +130,12 @@ function onSourceChange(rowIndex: number) {
                 :value="item.envKey"
                 :label="item.envName"
                 :title="item.envName"
-              />
+              >
+                <span style="float: left">{{ item.envKey }}</span>
+                <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">
+                        {{ item.envName }}
+                      </span>
+              </el-option>
             </el-select>
           </div>
         </template>

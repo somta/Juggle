@@ -37,12 +37,6 @@ export const FlowRoutes = [
         component: FlowDebug,
         meta: { name: '流程调试' },
       },
-      {
-        path: 'design/:flowDefinitionId/:flowKey',
-        name: 'flow-design',
-        component: FlowDesign,
-        meta: { name: '流程设计' },
-      },
     ],
   },
 ];

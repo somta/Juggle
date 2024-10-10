@@ -36,7 +36,6 @@ export enum ElementType {
   CODE = 'CODE',
   ASSIGN = 'ASSIGN',
   MYSQL = 'MYSQL',
-  AI = 'AI',
   END = 'END',
 
   // 前端创建的

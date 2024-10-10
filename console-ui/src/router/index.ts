@@ -10,6 +10,7 @@ import { SystemRoutes } from '@/views/system';
 import { SuiteRoutes } from '@/views/suite';
 import SuiteMarket from '@/views/market/SuiteMarket.vue';
 import SuiteMarketDetail from '@/views/market/SuiteMarketDetail.vue';
+import FlowDesign from "@/views/flow/FlowDesign.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,12 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
       meta: { name: '登录' },
+    },
+    {
+      path: '/design/:flowDefinitionId/:flowKey',
+      name: 'flow-design',
+      component: FlowDesign,
+      meta: { name: '流程设计' },
     },
     {
       path: '/',

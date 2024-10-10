@@ -52,11 +52,7 @@ const flowDataNodes = [
 ];
 
 const flowOtherNodes = [
-  {
-    name: 'OpenAi',
-    type: ElementType.AI,
-    icon: '⦾',
-  },
+
 ];
 
 function addNode(item: { name: string; type: ElementType }) {

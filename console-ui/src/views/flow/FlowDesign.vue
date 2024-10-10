@@ -136,7 +136,8 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
 <template>
   <div class="page-flow-design">
     <div class="flow-header">
-      {{ flowName }}
+      <p>{{ flowName }}</p>
+      <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
     </div>
     <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
@@ -145,7 +146,7 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
     <AddNodeModal ref="addNodeModal" />
     <EditNodeDrawer ref="editNodeModal" />
     <ConditionFilterModal ref="conditionFilterModalRef" />
-    <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
+
   </div>
 </template>
 
@@ -157,19 +158,27 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
 
 .flow-header {
   border-bottom: 1px solid #dcdfe6;
-  padding: 9.5px;
   position: relative;
-  height: 40px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  p {
+    margin-left: 10px;
+  }
+  .flow-submit {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .page-flow-design {
-  position: relative;
-
   .flow-canvas {
     width: 100%;
     height: calc(100% - 40px);
     overflow: hidden;
-    position: relative;
+    position: absolute;
     font-size: 14px;
 
     .flow-btn {
@@ -190,10 +199,6 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
       }
     }
   }
-  .flow-submit {
-    position: absolute;
-    top: 4px;
-    right: 20px;
-  }
+
 }
 </style>

@@ -2,7 +2,6 @@ import ConditionForm from './ConditionForm.vue';
 import MethodForm from './MethodForm.vue';
 import CodeForm from './CodeForm.vue';
 import MySqlForm from './MySqlForm.vue';
-import OpenAiForm from './OpenAiForm.vue';
 import { ElementType } from '../../types';
 import AssignForm from "./AssignForm.vue";
 
@@ -12,7 +11,6 @@ const nodeFormMap = {
   [ElementType.CODE]: CodeForm,
   [ElementType.ASSIGN]: AssignForm,
   [ElementType.MYSQL]: MySqlForm,
-  [ElementType.AI]: OpenAiForm,
 };
 
 export function getNodeForm(type: ElementType) {

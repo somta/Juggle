@@ -31,13 +31,9 @@ function goDebugPage(flowDefinitionId: number, flowKey: string) {
   });
 }
 function goDesignPage(flowDefinitionId: number, flowKey: string) {
-  router.push({
-    name: 'flow-design',
-    params: {
-      flowDefinitionId: flowDefinitionId,
-      flowKey: flowKey,
-    },
-  });
+  const path = "/design/"+flowDefinitionId+"/"+flowKey;
+  const { href } = router.resolve({ path })
+  window.open(href, '_blank')
 }
 </script>
 
