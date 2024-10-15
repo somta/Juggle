@@ -96,6 +96,10 @@ async function getOrderPayStatus(orderNo:string) {
   }
 }
 
+function closeOrder(){
+  clearInterval(timerId);
+}
+
 async function installSuiteMarket(bill?: string) {
   let suiteId = Number(paramsData.params.suiteId);
   const res = await suiteMarketService.installSuiteMarket(suiteId,bill);
@@ -189,7 +193,7 @@ async function querySuiteMarketInfo() {
       </el-tabs>
     </div>
 
-    <el-dialog v-model="orderDetailDialogVisible" title="订单详情" width="500" center>
+    <el-dialog v-model="orderDetailDialogVisible" :close-on-click-modal="false" title="订单详情" width="500" center>
       <div>
         <el-descriptions
             :column="1"
@@ -212,7 +216,7 @@ async function querySuiteMarketInfo() {
     <UserAgreement ref="userAgreementRef"/>
 
     <!-- order detail -->
-    <el-dialog v-model="payDialogVisible" title="订单详情" width="500">
+    <el-dialog v-model="payDialogVisible" :close-on-click-modal="false" title="订单详情" width="500" @close="closeOrder">
       <div>
         <el-descriptions
             :column="1"
