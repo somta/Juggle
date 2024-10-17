@@ -21,13 +21,6 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 4.适合需要面向私有化或大量定制开发的产品，通过Juggle编排定制化接口，避免对标准代码的污染。
 
-
-## 谁在用Juggle
-![华盛通](https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png)
-![平安科技](https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png)
-![西南证券](https://www.swsc.com.cn/r/cms/www/default/images/logo.png)
-
-
 ## 功能特性
 1.流程多版本管理，天然支持流程灰度能力
 
@@ -39,7 +32,7 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 5.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大提升流程设计复杂度
 
-6.全信创
+6.全信创支持
 
 ## 快速开始
 
@@ -90,6 +83,13 @@ sh startup.sh
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
 ![](/docs/static/juggle/images/guide/wxqq.png) 
+
+## 客户与案例
+<div align = "center"> 
+    <img src="https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png" width="33%" style="background-color: #e6dddd"/>
+    <img src="https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png" width="33%" />
+    <img src="https://www.swsc.com.cn/r/cms/www/default/images/logo.png" width="33%" />
+</div>
 
 ## 感恩与支持
 感谢为Juggle功能持续更新日夜奋战的小伙伴们，感谢为项目提出宝贵优化意见的大佬们！
