@@ -1,4 +1,4 @@
-package net.somta.juggle.example.dto;
+package net.somta.juggle.boot.example.dto;
 
 /**
  * @author husong

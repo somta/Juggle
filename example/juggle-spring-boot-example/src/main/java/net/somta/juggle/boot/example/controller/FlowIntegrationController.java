@@ -1,11 +1,11 @@
-package net.somta.juggle.example.controller;
+package net.somta.juggle.boot.example.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
+import net.somta.juggle.boot.example.dto.BaseResponse;
+import net.somta.juggle.boot.example.param.TriggerFlowParam;
 import net.somta.juggle.client.model.FlowResultModel;
-import net.somta.juggle.example.dto.BaseResponse;
-import net.somta.juggle.example.param.TriggerFlowParam;
 import net.somta.juggle.starter.impl.IJuggleTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

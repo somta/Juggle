@@ -1,4 +1,4 @@
-package net.somta.juggle.example.param;
+package net.somta.juggle.boot.example.param;
 
 
 import net.somta.juggle.client.model.FlowTriggerDataParam;

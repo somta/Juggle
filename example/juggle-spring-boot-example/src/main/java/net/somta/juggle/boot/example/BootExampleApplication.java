@@ -1,4 +1,4 @@
-package net.somta.juggle.example;
+package net.somta.juggle.boot.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author husong
  */
 @SpringBootApplication
-public class ExampleApplication {
+public class BootExampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExampleApplication.class, args);
+        SpringApplication.run(BootExampleApplication.class, args);
     }
 }
