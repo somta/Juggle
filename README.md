@@ -6,7 +6,7 @@
 # Juggle
 
 Juggle官方文档地址: https://juggle.plus
-Juggle演示环境地址: http://demo.juggle.plus/#/login
+Juggle演示环境地址: https://demo.juggle.plus/#/login
 
 ## 项目介绍
 Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
@@ -22,6 +22,12 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 4.适合需要面向私有化或大量定制开发的产品，通过Juggle编排定制化接口，避免对标准代码的污染。
 
 
+## 谁在用Juggle
+![华盛通](https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png)
+![平安科技](https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png)
+![西南证券](https://www.swsc.com.cn/r/cms/www/default/images/logo.png)
+
+
 ## 功能特性
 1.流程多版本管理，天然支持流程灰度能力
 
@@ -33,6 +39,7 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 5.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大提升流程设计复杂度
 
+6.全信创
 
 ## 快速开始
 

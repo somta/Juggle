@@ -74,6 +74,7 @@ module.exports = {
                     label: '系统集成',
                     items: [
                         'guide/integration/integration',
+                        'guide/integration/java-juggle',
                         'guide/integration/spring-boot-juggle',
                     ],
                 },

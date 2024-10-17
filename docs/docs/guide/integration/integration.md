@@ -15,6 +15,7 @@ Juggle提供了非常强大的流程设计能力，通过Juggle的流程编排�
 
 为了简化集成流程，Juggle提供了对应语言的sdk，业务系统引入相关的sdk，就能直接调用设计好的流程，具体不同语言的sdk的使用方式如下：
 
+- [普通Java项目集成Juggle](https://www.juggle.plus/docs/guide/integration/java-juggle)
 - [SpringBoot集成Juggle](https://www.juggle.plus/docs/guide/integration/spring-boot-juggle)
 
 更多语言的sdk，持续更新中......
