@@ -115,7 +115,7 @@ function goToSuiteMarketDetail(suiteId: number) {
       <el-col :xs="24" :sm="12" :md="8" v-for="item in suiteMarketList" :key="item.id">
         <el-card class="card" @click="goToSuiteMarketDetail(item.id)">
           <div class="card-header">
-            <img class="image" :src="item.suiteImage" alt="" />
+            <img class="image" :src="item.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
             <h3>{{ item.suiteName }}</h3>
           </div>
           <div class="card-body">

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="矩形_34" data-name="矩形 34" width="50" height="50"/>
+    </clipPath>
+  </defs>
+  <g id="自定义大小_29" data-name="自定义大小 – 29" clip-path="url(#clip-path)">
+    <g id="weiban" clip-path="url(#clip-path)">
+      <g id="组_174" data-name="组 174" transform="translate(-55.152 5)">
+        <path id="路径_85" data-name="路径 85" d="M65.807,0H96.373a2.437,2.437,0,0,1,2.444,2.429V30.88a2.438,2.438,0,0,1-2.445,2.429H84.406L76.7,40V33.309H65.808a2.437,2.437,0,0,1-2.445-2.429V2.429A2.436,2.436,0,0,1,65.807,0Z" fill="#1584ff"/>
+        <path id="路径_86" data-name="路径 86" d="M319.936,266.235l-3.838-3.623-2.2,1.985,6.029,5.612,11.839-10.626-2.2-1.984Z" transform="translate(-240.459 -247.291)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

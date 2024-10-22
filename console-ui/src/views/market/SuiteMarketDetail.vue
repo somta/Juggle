@@ -128,7 +128,7 @@ async function querySuiteMarketInfo() {
 <template>
   <div class="suite-market-detail">
     <div class="suite-head">
-      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" />
+      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" />
       <h3>
         {{ suiteMarketInfo.suiteName }}
         <p>{{ suiteMarketInfo.suiteDesc }}</p>

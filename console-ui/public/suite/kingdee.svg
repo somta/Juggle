@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="矩形_3" data-name="矩形 3" width="50" height="50"/>
+    </clipPath>
+  </defs>
+  <g id="自定义大小_1" data-name="自定义大小 – 1" clip-path="url(#clip-path)">
+    <g id="jindie" clip-path="url(#clip-path)">
+      <g id="金蝶" transform="translate(10.001 -4.144)">
+        <path id="路径_2040" data-name="路径 2040" d="M6.732,14.644a5.4,5.4,0,0,0,5.308,5.5,5.51,5.51,0,0,0,0-11,5.4,5.4,0,0,0-5.3,5.5Z" transform="translate(3.572)" fill="#2386ee"/>
+        <path id="路径_2041" data-name="路径 2041" d="M0,22.229a3.738,3.738,0,0,0,3.674,3.81,3.807,3.807,0,0,0,0-7.61A3.738,3.738,0,0,0,0,22.229Z" transform="translate(0 4.926)" fill="#00ccfe"/>
+        <path id="路径_2042" data-name="路径 2042" d="M7.265,28.9a4.572,4.572,0,0,0,4.492,4.655,4.658,4.658,0,0,0,0-9.309A4.572,4.572,0,0,0,7.271,28.9Z" transform="translate(3.855 8.016)" fill="#05c8c8"/>
+        <path id="路径_2043" data-name="路径 2043" d="M15.38,34.505a2.856,2.856,0,1,0,2.855-2.96,2.908,2.908,0,0,0-2.855,2.96Z" transform="translate(8.161 11.887)" fill="#a06eff"/>
+      </g>
+    </g>
+  </g>
+</svg>
