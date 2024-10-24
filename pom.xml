@@ -17,9 +17,9 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <revision>1.2.2</revision>
-        <somta-dependencies.varsion>1.4.3</somta-dependencies.varsion>
-        <somta-core.version>1.4.3</somta-core.version>
-        <somta-common.version>1.4.3</somta-common.version>
+        <kernel-dependencies.varsion>1.0.0</kernel-dependencies.varsion>
+        <kernel-core.version>1.0.0</kernel-core.version>
+        <kernel-common.version>1.0.0</kernel-common.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.2.220</h2.version>
@@ -42,8 +42,8 @@
         <dependencies>
             <dependency>
                 <groupId>net.somta</groupId>
-                <artifactId>somta-dependencies</artifactId>
-                <version>${somta-dependencies.varsion}</version>
+                <artifactId>kernel-dependencies</artifactId>
+                <version>${kernel-dependencies.varsion}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -59,13 +59,13 @@
             </dependency>
             <dependency>
                 <groupId>net.somta</groupId>
-                <artifactId>somta-common</artifactId>
-                <version>${somta-common.version}</version>
+                <artifactId>kernel-common</artifactId>
+                <version>${kernel-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.somta</groupId>
-                <artifactId>somta-core</artifactId>
-                <version>${somta-core.version}</version>
+                <artifactId>kernel-core</artifactId>
+                <version>${kernel-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>

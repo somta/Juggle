@@ -1,3 +1,6 @@
-# Juggle 官方文档
+# Juggle官方文档
 
-访问地址：https://juggle.plus
+
+
+构建镜像命令
+docker build -t juggle/juggle-docker/juggle-doc:v20 -f Dockerfile .

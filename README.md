@@ -73,7 +73,7 @@ sh startup.sh
 ### 5.示例流程
 
 为了让用户更好的上手Juggle，系统自带了示例接口和示例流程，通过示例流程能快速了解Juggle的基础能力，示例流程核心逻辑请移步[示例流程核心逻辑](https://www.juggle.plus/docs/guide/user/example-flow) ，示例流程图如下：
-![](/docs/static/juggle/images/guide/user/flow_example.png)
+![](/docs/docs/notes/guide/user/images/flow_example.png)
 
 
 示例接口地址：https://www.juggle.plus/docs/guide/user/example-api

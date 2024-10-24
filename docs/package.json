@@ -1,43 +1,32 @@
 {
-    "scripts": {
-        "docusaurus": "docusaurus",
-        "start": "rimraf .docusaurus && docusaurus start",
-        "build": "rimraf .docusaurus && docusaurus build",
-        "build-netlify": "rimraf .docusaurus && docusaurus build",
-        "serve": "docusaurus serve",
-        "publish-gh-pages": "docusaurus-publish",
-        "write-translations": "docusaurus write-translations",
-        "version": "docusaurus version",
-        "rename-version": "docusaurus rename-version",
-        "prettify": "prettier --write --config ./tools/docs-prettier.config.js ./docs/guides/*.md",
-        "swizzle": "docusaurus swizzle",
-        "deploy": "rimraf .docusaurus && docusaurus deploy"
-    },
-    "devDependencies": {
-        "@apify/eslint-config-ts": "^0.2.3",
-        "@apify/tsconfig": "^0.1.0",
-        "@types/react": "^17.0.45",
-        "@typescript-eslint/eslint-plugin": "^5.26.0",
-        "@typescript-eslint/parser": "^5.26.0",
-        "eslint": "^8.16.0",
-        "eslint-plugin-react": "^7.30.0",
-        "eslint-plugin-react-hooks": "^4.5.0",
-        "fs-extra": "^10.1.0",
-        "got": "^11.8.5",
-        "path-browserify": "^1.0.1",
-        "prettier": "^2.6.2",
-        "rimraf": "^3.0.2"
-    },
-    "dependencies": {
-        "@docusaurus/core": "2.4.1",
-        "@docusaurus/preset-classic": "2.4.1",
-        "@giscus/react": "^2.2.0",
-        "clsx": "^1.2.1",
-        "docusaurus-plugin-typedoc-api": "2.3.0",
-        "prop-types": "^15.8.1",
-        "raw-loader": "^4.0.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "unist-util-visit": "^4.1.0"
-    }
+  "name": "juggle-doc",
+  "version": "1.0.0",
+  "description": "Juggle官网",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "clean": "rimraf docs/.vuepress/.temp docs/.vuepress/.cache docs/.vuepress/dist",
+    "build": "vuepress build docs --clean-cache --clean-temp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/Somta/official-website.git"
+  },
+  "keywords": [
+    "somta"
+  ],
+  "author": "明天的地平线",
+  "license": "ISC",
+  "dependencies": {
+    "swiper": "^11.1.14",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.17",
+    "rimraf": "^5.0.7",
+    "sass-embedded": "^1.79.4",
+    "typescript": "^5.5.2",
+    "vuepress": "2.0.0-rc.17",
+    "vuepress-theme-plume": "1.0.0-rc.107"
+  },
+  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

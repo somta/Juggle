@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository.suite;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
@@ -112,7 +113,12 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        HttpEntity<String> entity = null;
+        try {
+            entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         ResponseEntity<ResponsePaginationDataResult<SuiteVO>> response = restTemplate.exchange(
                 JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/list",
                 HttpMethod.POST,
@@ -134,7 +140,12 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        HttpEntity<String> entity = null;
+        try {
+            entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         ResponseEntity<ResponseDataResult<SuiteMarketVO>> response = restTemplate.exchange(
                 JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info",

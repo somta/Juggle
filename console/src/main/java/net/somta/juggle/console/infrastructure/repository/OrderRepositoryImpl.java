@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.juggle.console.domain.order.repository.IOrderRepository;
@@ -33,7 +34,12 @@ public class OrderRepositoryImpl implements IOrderRepository {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        HttpEntity<String> entity = null;
+        try {
+            entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         ResponseEntity<ResponseDataResult<CreateOrderVO>> response = restTemplate.exchange(
                 JUGGLE_OPEN_DOMAIN+"/open/v1/order/create",
@@ -53,7 +59,12 @@ public class OrderRepositoryImpl implements IOrderRepository {
         param.put("orderNo",orderNo);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        HttpEntity<String> entity = null;
+        try {
+            entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         ResponseEntity<ResponseDataResult<String>> response = restTemplate.exchange(
                 JUGGLE_OPEN_DOMAIN+"/open/v1/order/pay/status",

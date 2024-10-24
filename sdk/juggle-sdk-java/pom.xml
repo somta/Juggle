@@ -43,8 +43,8 @@
     <dependencies>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>somta-common</artifactId>
-            <version>1.4.3</version>
+            <artifactId>kernel-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
