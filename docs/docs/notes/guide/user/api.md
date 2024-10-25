@@ -27,7 +27,7 @@ permalink: /docs/guide/user/api/
 
 请求体类型支持: **application/json**, **application/x-www-form-urlencoded**
 
-数据类型支持：[Juggle支持的数据类型](/docs/notes/guide/user/data-type-info)
+数据类型支持：[Juggle支持的数据类型](/docs/guide/user/data-type-info/)
 
 ### 修改接口
 

@@ -27,7 +27,7 @@ permalink: /docs/guide/user/design/nodes/
 
 判断节点是用来承载判断条件的，一个判断节点会有多个分支，默认会有一个else分支，每个分支之间是互斥的，从左往右依次执行，第一个命中的分支将会被触发，如果都没命中就会进入默认的else分支。
 
-判断节点的判断条件只能由一个或多个变量组成，每种数据类型的变量支持的[表达式](/docs/notes/guide/user/data-type-info#数据类型支持的表达式)是不一样，变量可以是入参变量，出参变量，中间变量，具体变量的赋值来源可以参考[变量](/docs/notes/guide/user/design/variable)章节。
+判断节点的判断条件只能由一个或多个变量组成，每种数据类型的变量支持的[表达式](/docs/guide/user/data-type-info/#数据类型支持的表达式)是不一样，变量可以是入参变量，出参变量，中间变量，具体变量的赋值来源可以参考[变量](/docs/guide/user/design/variable/)章节。
 
 ### 5.代码节点
 
