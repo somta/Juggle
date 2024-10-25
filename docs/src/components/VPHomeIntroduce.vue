@@ -14,7 +14,6 @@ const props = defineProps<PlumeHomeConfigBase & {
     light?: number;
     dark?: number;
   };
-  name: string
   desc?: string
   actions: PlumeThemeHeroAction[];
   imageLinks: ImageLink[]
@@ -41,23 +40,19 @@ const imageLinks = computed(() => props.imageLinks ? props.imageLinks : [])
       :background-attachment="backgroundAttachment"
       :full="true"
   >
-    <!-- 自定义你的内容 -->
     <div class="vp-home-introduce">
       <div class="banner-mask" :style="{ opacity: mask }" />
       <div class="container">
         <div class="content">
-          <h2 v-if="name" class="name">
-            {{ name }}
+          <h2 class="name">
+            一个<span class="main">零码</span> , <span class="main">低码</span> , <span class="main">AI</span>的微服务<span class="function">接口编排</span> & <span class="function">系统集成</span>的强大编排工具平台
           </h2>
-<!--          <p v-if="tagline" class="hero-tagline">
-            <span class="line" /> <span>{{ tagline }}</span>
-          </p>-->
+
           <p v-if="desc" class="hero-text">
             {{ desc }}
           </p>
 
           <div v-if="actions.length" class="actions">
-
             <div v-for="action in actions" :key="action.link" class="action">
               <VPButton
                   tag="a"
@@ -95,16 +90,6 @@ const imageLinks = computed(() => props.imageLinks ? props.imageLinks : [])
   transition: all var(--vp-t-color);
 }
 
-/*.vp-home-introduce .banner-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0, 0, 0);
-  transition: opacity var(--vp-t-color);
-}*/
-
 .vp-home-introduce .container {
   position: relative;
   z-index: 1;
@@ -124,26 +109,16 @@ const imageLinks = computed(() => props.imageLinks ? props.imageLinks : [])
 .vp-home-introduce .content .name {
   font-size: 50px;
   font-weight: 600;
-  line-height: 1;
-  color: var(--vp-c-text-hero-name);
+  line-height: 60px;
+  color: var(--vp-c-text-1);
 }
 
-.vp-home-introduce .content .hero-tagline {
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1.25;
-  color: var(--vp-c-text-hero-tagline);
+.vp-home-introduce .content .main{
+  color: #fb980e;
 }
 
-.vp-home-introduce .content .hero-tagline .line {
-  display: inline-block;
-  width: 80px;
-  height: 0;
-  margin-right: 1rem;
-  border-top: solid 1px var(--vp-c-text-hero-tagline);
+.vp-home-introduce .content .function{
+  color: #ef473a;
 }
 
 .vp-home-introduce .content .hero-text {
@@ -159,7 +134,7 @@ const imageLinks = computed(() => props.imageLinks ? props.imageLinks : [])
 @media (min-width: 960px) {
   .vp-home-introduce .container {
     max-width: 768px;
-    padding-top: 8rem;
+    padding-top: 6rem;
   }
 
   .vp-home-introduce .content .name {
@@ -171,10 +146,6 @@ const imageLinks = computed(() => props.imageLinks ? props.imageLinks : [])
   .vp-home-introduce .container {
     max-width: 1104px;
     padding-top: 8rem;
-  }
-
-  .vp-home-introduce .content .hero-tagline {
-    font-size: 32px;
   }
 }
 

@@ -1,14 +1,10 @@
 ---
 pageLayout: home
+backToTop: false
 externalLink: false
 config:
   -
     type: introduce
-#    backgroundImage: https://api.pengzhanbo.cn/wallpaper/bing
-#    backgroundImageMask:
-#      light: 0.1
-#      dark: 0.3
-    name: 一个零码+低码+AI的微服务接口编排&系统集成的强大编排工具平台
     desc: 大幅提高开发效率，为企业降本增效.
     actions:
       -
@@ -26,25 +22,6 @@ config:
       -
         image: https://img.shields.io/github/stars/somta/Juggle
         link: https://github.com/somta/Juggle
-  
-  -
-    type: banner
-    banner: https://api.pengzhanbo.cn/wallpaper/bing
-    bannerMask:
-      light: 0.1
-      dark: 0.3
-    hero:
-      name: Juggle
-      tagline: Juggle是一个可用于接口编排 ， 定制开发等场景的一套完整解决方案
-      text: 以终为始，方得始终
-      actions:
-        -
-          theme: brand
-          text: 快速开始
-        -
-          theme: alt
-          text: 在线演示
-          link: https://gitee.com/Somta/Juggle/badge/star.svg?theme=dark
   -
     type: features
     features:
@@ -55,7 +32,7 @@ config:
       -
         title: 性能
         icon: 🚀
-        details: 渲染与执行为一体的极简设计，内存占用少，运行速度块
+        details: 渲染与执行为一体的极简设计，内存占用少，全携程设计，运行速度快
       -
         title: 安全
         icon: twemoji:locked-with-key
