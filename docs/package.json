@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vuepress dev docs",
     "clean": "rimraf docs/.vuepress/.temp docs/.vuepress/.cache docs/.vuepress/dist",
-    "build": "vuepress build docs --clean-cache --clean-temp"
+    "build": "vuepress build docs"
   },
   "repository": {
     "type": "git",
