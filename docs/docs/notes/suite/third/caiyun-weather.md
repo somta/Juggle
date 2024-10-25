@@ -1,5 +1,5 @@
 ---
-title: 彩云天气如何获取token？
+title: 彩云天气
 description: 彩云天气如何创建并获取token？
 keywords:
   - juggle
@@ -16,10 +16,10 @@ permalink: /suite/third/caiyun-weather.html
 
 2.登录后，在“应用管理”中点击“创建应用”
 
-![彩云上创建应用](/images/caiyun_weather_1.png)
+![彩云上创建应用](images/caiyun_weather_1.png)
 
 3.创建成功后，就可以在应用列表页面查看Token
-![查看彩云token](/images/caiyun_weather_2.png)
+![查看彩云token](images/caiyun_weather_2.png)
 
 
 

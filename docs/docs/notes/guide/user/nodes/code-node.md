@@ -18,7 +18,7 @@ permalink: /docs/guide/user/nodes/code-node/
 
 2.在代码节点页面，输入**节点名称**，**自定义代码**，点击**“确定”**按钮
 
-![](/juggle/images/guide/user/nodes/add_code_node.png)
+![新增节点](images/add_code_node.png)
 
 ### 功能介绍
 

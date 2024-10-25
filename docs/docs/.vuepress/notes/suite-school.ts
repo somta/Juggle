@@ -14,7 +14,7 @@ export const suiteSchool = defineNoteConfig({
             text: '第三方套件',
             collapsed: false,
             prefix: 'third',
-            items: ['qq-email'],
+            items: ['qq-email','caiyun-weather'],
         }
     ],
 })

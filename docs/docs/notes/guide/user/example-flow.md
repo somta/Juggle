@@ -32,7 +32,7 @@ permalink: /docs/guide/user/example-flow/
 
 ### 流程图
 
-![](/juggle/images/guide/user/flow_example.png)
+![](images/flow_example.png)
 
 ### 核心逻辑
 
@@ -47,13 +47,13 @@ permalink: /docs/guide/user/example-flow/
 ### 测试过程
 
 1.输出错误的登录密码，不会送任何东西，直接返回
-![](/juggle/images/guide/user/flow_example_1.png)
+![错误信息](images/flow_example_1.png)
 
 2.用户名和密码正确，存款金额为1000.00，返回的订单是送10元话费
-![](/juggle/images/guide/user/flow_example_2.png)
+![小于10万](images/flow_example_2.png)
 
 
 3.用户名和密码正确，存款金额为300000.00，返回的订单是送一双耐克的鞋
-![](/juggle/images/guide/user/flow_example_3.png)
+![大于10万](images/flow_example_3.png)
 
 
