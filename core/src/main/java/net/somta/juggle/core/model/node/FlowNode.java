@@ -28,12 +28,18 @@ import java.util.List;
  **/
 public class FlowNode extends FlowElement {
     private String desc;
+
     /**
-     * 节点入口
+     * flow status : warning, error
+     */
+    private String status;
+
+    /**
+     * flow input
      */
     private List<String> incomings;
     /**
-     * 节点出口
+     * flow output
      */
     private List<String> outgoings;
 
@@ -43,6 +49,14 @@ public class FlowNode extends FlowElement {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<String> getIncomings() {

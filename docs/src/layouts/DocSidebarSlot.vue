@@ -10,7 +10,7 @@
       </a>-->
     </div>
     <div class="sidebar_sponsor_submit">
-      <a href="/donate.html">成为赞助商</a>
+      <a href="/docs/guide/community/donate/">成为赞助商</a>
     </div>
     <div>
     </div></div>

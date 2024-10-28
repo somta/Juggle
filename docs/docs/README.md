@@ -32,7 +32,7 @@ config:
       -
         title: 性能
         icon: 🚀
-        details: 渲染与执行为一体的极简设计，内存占用少，全携程设计，运行速度快
+        details: 渲染与执行为一体的极简设计，内存占用少，全协程设计，运行速度快
       -
         title: 安全
         icon: twemoji:locked-with-key
@@ -103,8 +103,8 @@ config:
 <script setup>
 import Swiper from 'vuepress-theme-plume/features/Swiper.vue';
 const customerList = [
-    'https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png',
-    'https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png',
+    '/donate/hstong.png',
+    '/donate/pingankeji.png',
     'https://www.swsc.com.cn/r/cms/www/default/images/logo.png',
 ];
 </script>
@@ -114,7 +114,7 @@ const customerList = [
 <Swiper
 :items="customerList"
 mode="carousel"
-:height="80"
+:height="95"
 :slides-per-view="3"
 :space-between="20"
 :speed="5500"
