@@ -16,5 +16,5 @@ public interface SuiteMapper extends IBaseMapper {
 
     SuitePO querySuiteByCode(String suiteCode);
 
-    List<SuiteVO> queryNotBuySuiteByCodes(List<String> suiteCodes);
+    List<SuiteVO> queryExistSuiteByCodes(List<String> suiteCodes);
 }

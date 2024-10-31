@@ -30,11 +30,6 @@ public class FlowNode extends FlowElement {
     private String desc;
 
     /**
-     * flow status : warning, error
-     */
-    /*private String status;*/
-
-    /**
      * flow input
      */
     private List<String> incomings;
@@ -50,14 +45,6 @@ public class FlowNode extends FlowElement {
     public void setDesc(String desc) {
         this.desc = desc;
     }
-
-    /*public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }*/
 
     public List<String> getIncomings() {
         return incomings;

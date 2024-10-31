@@ -83,8 +83,8 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
-    public List<SuiteVO> queryNotBuySuiteByCodes(List<String> suiteCodes) {
-        return suiteMapper.queryNotBuySuiteByCodes(suiteCodes);
+    public List<SuiteVO> queryExistSuiteByCodes(List<String> suiteCodes) {
+        return suiteMapper.queryExistSuiteByCodes(suiteCodes);
     }
 
     @Override

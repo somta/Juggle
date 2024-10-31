@@ -57,7 +57,11 @@ public class TemplateServiceImpl implements ITemplateService {
         TemplateMarketInfoVO templateMarketInfoVo = templateRepository.queryTemplateMarketInfo(templateId,null);
         TemplateMarketInfoDTO templateMarketInfoDto = ITemplateAssembler.IMPL.voToDto(templateMarketInfoVo);
         List<String> suiteCodes = templateMarketInfoVo.getSuiteList().stream().map(suiteVO -> suiteVO.getSuiteCode()).collect(Collectors.toList());
-        List<SuiteVO> noBuySuiteList = suiteRepository.queryNotBuySuiteByCodes(suiteCodes);
+        List<SuiteVO> isExistSuiteList = suiteRepository.queryExistSuiteByCodes(suiteCodes);
+
+        List<SuiteVO> noBuySuiteList = templateMarketInfoVo.getSuiteList().stream()
+                .filter(templateSuite -> isExistSuiteList.stream().noneMatch(localSuite -> templateSuite.getSuiteCode().equals(localSuite.getSuiteCode())))
+                .collect(Collectors.toList());
         if(CollectionUtils.isNotEmpty(noBuySuiteList)){
             templateMarketInfoDto.setNoBuySuiteList(noBuySuiteList);
         }

@@ -136,7 +136,10 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
 <template>
   <div class="page-flow-design">
     <div class="flow-header">
-      <p>{{ flowName }}</p>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="'/flow/define'">流程定义</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ flowName }}</el-breadcrumb-item>
+      </el-breadcrumb>
       <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
     </div>
     <div class="flow-canvas" ref="flowCanvas">
@@ -146,7 +149,6 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
     <AddNodeModal ref="addNodeModal" />
     <EditNodeDrawer ref="editNodeModal" />
     <ConditionFilterModal ref="conditionFilterModalRef" />
-
   </div>
 </template>
 
@@ -162,7 +164,7 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
   height: 50px;
   align-items: center;
   display: flex;
-  p {
+  .el-breadcrumb {
     margin-left: 10px;
   }
   .flow-submit {
@@ -200,5 +202,16 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
     }
   }
 
+}
+
+.errorMsg {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 100;
+  display: none;
 }
 </style>
