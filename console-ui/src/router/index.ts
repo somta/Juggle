@@ -8,9 +8,8 @@ import { CommonRoutes } from '../views/common';
 import ObjectList from '@/views/object/ObjectList.vue';
 import { SystemRoutes } from '@/views/system';
 import { SuiteRoutes } from '@/views/suite';
-import SuiteMarket from '@/views/market/SuiteMarket.vue';
-import SuiteMarketDetail from '@/views/market/SuiteMarketDetail.vue';
 import FlowDesign from "@/views/flow/FlowDesign.vue";
+import {MarketRoutes} from "@/views/market";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -49,18 +48,7 @@ const router = createRouter({
           component: ObjectList,
           meta: { name: '对象' },
         },
-        {
-          path: 'market/suite',
-          name: 'suite-market',
-          component: SuiteMarket,
-          meta: { name: '套件市场' },
-        },
-        {
-          path: 'market/suite/detail/:suiteId',
-          name: 'suite-market-detail',
-          component: SuiteMarketDetail,
-          meta: { name: '套件详情' },
-        },
+        ...MarketRoutes,
         ...SystemRoutes,
         {
           path: '/:pathMatch(.*)*',

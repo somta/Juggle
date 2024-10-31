@@ -83,6 +83,11 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
+    public List<SuiteVO> queryNotBuySuiteByCodes(List<String> suiteCodes) {
+        return suiteMapper.queryNotBuySuiteByCodes(suiteCodes);
+    }
+
+    @Override
     public List<SuiteMarketClassifyVO> querySuiteMarketClassifyList() {
         List<SuiteMarketClassifyVO> suiteMarketClassifyList = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
@@ -157,4 +162,5 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
         return suiteMarketVo;
     }
+
 }

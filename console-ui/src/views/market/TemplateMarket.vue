@@ -1,86 +1,86 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { suiteMarketService } from '@/service';
+import {templateMarketService} from '@/service';
 import {ref} from 'vue';
 import {Search} from "@element-plus/icons-vue";
 import { reactive } from 'vue';
 const router = useRouter();
-const suiteMarketList = ref<Record<string, any>[]>([]);
-const suiteMarketClassifyList = ref<Record<string, any>[]>([]);
+const templateMarketList = ref<Record<string, any>[]>([]);
+const templateMarketClassifyList = ref<Record<string, any>[]>([]);
 
 const pageNum = ref(1);
 const loading = ref(false);
-const noMoreSuite = ref(false);
+const noMoreTemplate = ref(false);
 const filterValue = reactive({
-  suiteName: '',
-  suiteClassifyId: null,
+  templateName: '',
+  templateClassifyId: null,
 });
 
 
-querySuiteMarketClassifyList();
-querySuiteMarketList();
+queryTemplateMarketClassifyList();
+queryTemplateMarketList();
 
-async function changeSuiteClassify(){
-  noMoreSuite.value = false;
-  suiteMarketList.value = [];
-  await querySuiteMarketList();
+async function changeTemplateClassify(){
+  noMoreTemplate.value = false;
+  templateMarketList.value = [];
+  await queryTemplateMarketList();
 }
 
-async function changeSuiteName(){
-  noMoreSuite.value = false;
-  suiteMarketList.value = [];
-  await querySuiteMarketList();
+async function changeTemplateName(){
+  noMoreTemplate.value = false;
+  templateMarketList.value = [];
+  await queryTemplateMarketList();
 }
 
-async function loadNextSuiteMarket(){
-  if(noMoreSuite.value){
+async function loadNextTemplateMarket(){
+  if(noMoreTemplate.value){
     return;
   }
   loading.value = true;
   pageNum.value = pageNum.value+1;
-  const res = await suiteMarketService.querySuiteMarketList({
+  const res = await templateMarketService.queryTemplateMarketList({
     pageNum:pageNum.value,
     pageSize:15,
-    suiteName:filterValue.suiteName,
-    suiteClassifyId: filterValue.suiteClassifyId
+    templateName:filterValue.templateName,
+    templateClassifyId: filterValue.templateClassifyId
   });
   if (res.success) {
     loading.value = false;
     if(res.result.length > 0){
       res.result.forEach(item => {
-        suiteMarketList.value.push(item);
+        templateMarketList.value.push(item);
       });
     } else {
-      noMoreSuite.value = true;
+      noMoreTemplate.value = true;
     }
   }
 }
 
-async function querySuiteMarketList() {
+async function queryTemplateMarketList() {
   pageNum.value = 1;
-  const res = await suiteMarketService.querySuiteMarketList({
+  const res = await templateMarketService.queryTemplateMarketList({
     pageNum:pageNum.value,
     pageSize:15,
-    suiteName:filterValue.suiteName,
-    suiteClassifyId: filterValue.suiteClassifyId
+    templateName:filterValue.templateName,
+    templateClassifyId: filterValue.templateClassifyId
   });
   if (res.success) {
-    suiteMarketList.value = res.result;
+    templateMarketList.value = res.result;
   }
 }
 
-async function querySuiteMarketClassifyList() {
-  const res = await suiteMarketService.querySuiteMarketClassifyList();
+async function queryTemplateMarketClassifyList() {
+  const res = await templateMarketService.queryTemplateMarketClassifyList();
   if (res.success) {
-    suiteMarketClassifyList.value = res.result;
+    templateMarketClassifyList.value = res.result;
   }
 }
 
-function goToSuiteMarketDetail(suiteId: number) {
+function goToTemplateMarketDetail(templateId: number) {
   router.push({
-    name: 'suite-market-detail',
+    name: 'template-market-detail',
     params: {
-      suiteId: suiteId,
+      templateId: templateId,
     },
   });
 }
@@ -88,39 +88,42 @@ function goToSuiteMarketDetail(suiteId: number) {
 </script>
 
 <template>
-  <div class="suite-market">
-    <div class="suite-filter">
+  <div class="template-market">
+    <div class="template-filter">
       <el-select
-          v-model="filterValue.suiteClassifyId"
-          size="large"
+          v-model="filterValue.templateClassifyId"
           style="width: 240px;margin-right: 20px;"
-          @change="changeSuiteClassify"
+          @change="changeTemplateClassify"
       >
         <el-option label="所有类型" value=""/>
         <el-option
-            v-for="classify in suiteMarketClassifyList"
+            v-for="classify in templateMarketClassifyList"
             :key="classify.id"
             :label="classify.classifyName"
             :value="classify.id"
         />
       </el-select>
-      <el-input v-model="filterValue.suiteName"
+      <el-input v-model="filterValue.templateName"
           style="width: 300px"
-          size="large"
           :suffix-icon="Search"
-          @change="changeSuiteName"
+          @change="changeTemplateName"
       />
     </div>
-    <el-row :gutter="20" v-infinite-scroll="loadNextSuiteMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
-      <el-col :xs="24" :sm="12" :md="8" v-for="item in suiteMarketList" :key="item.id">
-        <el-card class="card" @click="goToSuiteMarketDetail(item.id)">
+    <el-row :gutter="20" v-infinite-scroll="loadNextTemplateMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
+      <el-col :xs="24" :sm="12" :md="8" v-for="item in templateMarketList" :key="item.id">
+        <el-card class="card" @click="goToTemplateMarketDetail(item.id)">
           <div class="card-header">
-            <img class="image" :src="item.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
-            <h3>{{ item.suiteName }}</h3>
+            <template v-for="(suite, index)  in item.suiteList">
+              <img class="image" :src="suite.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
+              <template v-if="index !== item.suiteList.length - 1">
+                <img src="../../assets/link.svg" alt="">
+              </template>
+            </template>
           </div>
           <div class="card-body">
+            <h3>{{ item.templateName }}</h3>
             <div class="bottom clearfix">
-              <p class="description">{{ item.suiteDesc }}</p>
+              <p class="description">{{ item.templateRemark }}</p>
             </div>
           </div>
         </el-card>
@@ -131,10 +134,10 @@ function goToSuiteMarketDetail(suiteId: number) {
 </template>
 
 <style lang="less" scoped>
-.suite-market {
+.template-market {
   padding: 20px;
 
-  .suite-filter {
+  .template-filter {
     margin-bottom: 20px;
   }
 
@@ -166,16 +169,19 @@ function goToSuiteMarketDetail(suiteId: number) {
   align-items: center;
 
   .image {
-    width: 48px;
-    height: 48px;
+    width: 30px;
+    height: 30px;
     border-radius: 12px;
-    margin-right: 12px;
   }
 }
 
 .card-body{
   margin-top: 10px;
   margin-bottom: 10px;
+
+  h3{
+    margin-bottom: 6px;
+  }
 }
 
 .loading{

@@ -91,7 +91,6 @@ function goToSuiteMarketDetail(suiteId: number) {
     <div class="suite-filter">
       <el-select
           v-model="filterValue.suiteClassifyId"
-          size="large"
           style="width: 240px;margin-right: 20px;"
           @change="changeSuiteClassify"
       >
@@ -105,7 +104,6 @@ function goToSuiteMarketDetail(suiteId: number) {
       </el-select>
       <el-input v-model="filterValue.suiteName"
           style="width: 300px"
-          size="large"
           :suffix-icon="Search"
           @change="changeSuiteName"
       />

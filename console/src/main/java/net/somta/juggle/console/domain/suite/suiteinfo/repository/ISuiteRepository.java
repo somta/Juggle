@@ -33,5 +33,5 @@ public interface ISuiteRepository {
 
     SuiteMarketVO querySuiteMarketInfo(Long suiteId,String bill);
 
-
+    List<SuiteVO> queryNotBuySuiteByCodes(List<String> suiteCodes);
 }

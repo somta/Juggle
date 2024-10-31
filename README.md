@@ -82,7 +82,7 @@ sh startup.sh
 
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
-![](/docs/static/juggle/images/guide/wxqq.png) 
+![](/docs/docs/notes/guide/community/images/wxqq.png) 
 
 ## 客户与案例
 <div align = "center"> 
