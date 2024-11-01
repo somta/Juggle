@@ -57,7 +57,7 @@ public class ExpressionManager {
         if(StringUtils.isEmpty(expression)){
             return true;
         }
-        Expression compiledExp = aviatorEvaluatorInstance.compile(expression);
+        Expression compiledExp = aviatorEvaluatorInstance.compile(expression, true);
         List<String> variableKeys = compiledExp.getVariableNames();
         Map<String, Object> env = new HashMap<>(8);
         for (String key : variableKeys){
