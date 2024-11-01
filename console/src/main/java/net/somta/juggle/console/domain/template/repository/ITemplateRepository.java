@@ -14,4 +14,6 @@ public interface ITemplateRepository {
     ResponsePaginationDataResult<TemplateMarketVO> queryTemplateMarketList(Integer pageNum, Integer pageSize, String templateName, Long templateClassifyId);
 
     TemplateMarketInfoVO queryTemplateMarketInfo(Long templateId,String bill);
+
+    List<TemplateMarketVO> getRecommendTemplateList(Long templateId);
 }

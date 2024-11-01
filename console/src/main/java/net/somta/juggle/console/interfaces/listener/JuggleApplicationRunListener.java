@@ -24,8 +24,9 @@ public class JuggleApplicationRunListener implements SpringApplicationRunListene
     public void environmentPrepared(ConfigurableBootstrapContext bootstrapContext, ConfigurableEnvironment environment) {
         initBannerEnv();
         String apiKey = environment.getProperty("juggle.api-key");
-        System.setProperty("apiKey",apiKey);
-        System.out.println(apiKey);
+        if(StringUtils.isNotEmpty(apiKey)){
+            System.setProperty("apiKey",apiKey);
+        }
     }
 
     private void initBannerEnv(){

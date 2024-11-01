@@ -23,3 +23,7 @@ export async function useTemplateMarket(templateId: number,bill?:string): Respon
     bill: bill
   });
 }
+
+export function queryRecommendTemplateList(templateId: number): ResponseResult  {
+  return request.get('/v1/template/market/recommend/'+templateId);
+}

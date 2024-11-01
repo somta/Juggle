@@ -106,9 +106,34 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<TemplateMarketInfoVO>>() {});
-        if(response.getStatusCode() == org.springframework.http.HttpStatus.OK){
+        if(response.getStatusCode() == HttpStatus.OK){
             templateMarketVo = response.getBody().getResult();
         }
         return templateMarketVo;
+    }
+
+    @Override
+    public List<TemplateMarketVO> getRecommendTemplateList(Long templateId) {
+        List<TemplateMarketVO> templateMarketVoList = new ArrayList<>();
+        Map<String,Object> param = new HashMap<>();
+        param.put("templateId",templateId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = null;
+        try {
+            entity = new HttpEntity<>(JsonSerializeHelper.serialize(param),headers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResponseEntity<ResponseDataResult<List<TemplateMarketVO>>> response = restTemplate.exchange(
+                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/recommend",
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<ResponseDataResult<List<TemplateMarketVO>>>() {});
+        if(response.getStatusCode() == HttpStatus.OK){
+            templateMarketVoList = response.getBody().getResult();
+        }
+        return templateMarketVoList;
     }
 }

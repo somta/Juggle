@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 import {orderService, templateMarketService} from '@/service';
-import {CreateOrder, TemplateMarketInfo} from '@/typings';
+import {CreateOrder, TemplateMarket, TemplateMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
 import QRCode from 'qrcode'
 import UserAgreement from '../common/UserAgreement.vue'
@@ -23,6 +23,7 @@ const templateMarketInfo = ref<TemplateMarketInfo>({
   suiteList: [],
   noBuySuiteList: [],
 });
+const recommendTemplateList = ref<TemplateMarket[]>([]);
 const orderDetailDialogVisible = ref(false);
 const userAgreementCheck = ref(false);
 const userAgreementRef = ref();
@@ -34,6 +35,7 @@ const createOrder = ref<CreateOrder>({
 });
 
 queryTemplateMarketInfo();
+queryRecommendTemplateList();
 
 async function handleUseTemplateMarket() {
   if(templateMarketInfo.value.priceStatus == 1 && templateMarketInfo.value.templatePrice > 0){
@@ -109,6 +111,16 @@ async function userTemplateMarket(bill?: string) {
   }
 }
 
+async function queryRecommendTemplateList() {
+  let templateId = Number(paramsData.params.templateId);
+  const res = await templateMarketService.queryRecommendTemplateList(templateId);
+  if (res.success) {
+    recommendTemplateList.value = res.result;
+  } else {
+    ElMessage({ type: 'error', message: res.errorMsg });
+  }
+}
+
 async function queryTemplateMarketInfo() {
   let templateId = Number(paramsData.params.templateId);
   const res = await templateMarketService.queryTemplateMarketDetail(templateId);
@@ -117,6 +129,16 @@ async function queryTemplateMarketInfo() {
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
+}
+
+function goToTemplateMarketDetail(templateId: number) {
+  const routeData = router.resolve({
+    name: 'template-market-detail',
+    params: {
+      templateId: templateId,
+    },
+  });
+  window.open(routeData.href, '_blank');
 }
 </script>
 
@@ -128,7 +150,7 @@ async function queryTemplateMarketInfo() {
           <template v-for="(suite, index)  in templateMarketInfo.suiteList">
             <img class="image" :src="suite.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
             <template v-if="index !== templateMarketInfo.suiteList.length - 1">
-              <img src="../../assets/link.svg" alt="">
+              <img class="link" src="../../assets/link.svg" alt="">
             </template>
           </template>
         </div>
@@ -141,11 +163,33 @@ async function queryTemplateMarketInfo() {
       </div>
     </div>
     <div class="template-content">
-
+      <h2 class="title">模板内容</h2>
     </div>
 
     <div class="template-recommend-list">
-        <h3>相关流程模板</h3>
+        <h2 class="title">模板推荐</h2>
+        <div class="template-list">
+          <el-row :gutter="20">
+            <el-col :xs="24" :sm="12" :md="8" v-for="item in recommendTemplateList" :key="item.id">
+              <el-card class="card" @click="goToTemplateMarketDetail(item.id)">
+                <div class="card-header">
+                  <template v-for="(suite, index)  in item.suiteList">
+                    <img class="image" :src="suite.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
+                    <template v-if="index !== item.suiteList.length - 1">
+                      <img src="../../assets/link.svg" alt="">
+                    </template>
+                  </template>
+                </div>
+                <div class="card-body">
+                  <h3>{{ item.templateName }}</h3>
+                  <div class="bottom clearfix">
+                    <p class="description">{{ item.templateRemark }}</p>
+                  </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </div>
     </div>
 
     <el-dialog v-model="orderDetailDialogVisible" :close-on-click-modal="false" title="订单详情" width="500" center>
@@ -203,11 +247,14 @@ async function queryTemplateMarketInfo() {
   background-color: #fff;
 }
 
-suite-list img{
-  width: 32px;
-  height: 32px;
-  margin-right: 24px;
-  border-radius: 6px;
+.suite-list{
+
+  img{
+    width: 48px;
+    height: 48px;
+    margin-right: 6px;
+    border-radius: 6px;
+  }
 }
 
 .template-head {
@@ -252,7 +299,6 @@ suite-list img{
   }
 }
 
-
 .pay-price {
   color: #e3584d;
   margin-right: 2px;
@@ -264,4 +310,61 @@ suite-list img{
 .agreement{
   color: #409eff;
 }
+
+.template-content{
+  .title{
+    text-align: center;
+    margin: 14px 0px;
+  }
+}
+
+
+.template-recommend-list{
+  .title{
+    text-align: center;
+    margin: 14px 0px;
+  }
+  .el-col {
+    margin-bottom: 20px;
+  }
+  .description {
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+.card{
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+
+  .image {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+  }
+}
+
+.card-body{
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  h3{
+    margin-bottom: 6px;
+  }
+}
+
 </style>

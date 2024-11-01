@@ -32,11 +32,14 @@ public class TemplateMarketInfoDTO {
 
     private String templateRemark;
 
+    private Integer priceStatus;
+
+    private Double templatePrice;
+
+    private String templateContent;
     private List<SuiteVO> suiteList;
 
     private List<SuiteVO> noBuySuiteList;
-
-    private String templateContent;
 
     private String flowType;
 
@@ -74,8 +77,28 @@ public class TemplateMarketInfoDTO {
         this.templateRemark = templateRemark;
     }
 
+    public Integer getPriceStatus() {
+        return priceStatus;
+    }
+
+    public void setPriceStatus(Integer priceStatus) {
+        this.priceStatus = priceStatus;
+    }
+
+    public Double getTemplatePrice() {
+        return templatePrice;
+    }
+
+    public void setTemplatePrice(Double templatePrice) {
+        this.templatePrice = templatePrice;
+    }
+
     public String getTemplateContent() {
         return templateContent;
+    }
+
+    public void setTemplateContent(String templateContent) {
+        this.templateContent = templateContent;
     }
 
     public List<SuiteVO> getSuiteList() {
@@ -94,9 +117,6 @@ public class TemplateMarketInfoDTO {
         this.noBuySuiteList = noBuySuiteList;
     }
 
-    public void setTemplateContent(String templateContent) {
-        this.templateContent = templateContent;
-    }
 
     public String getFlowType() {
         return flowType;

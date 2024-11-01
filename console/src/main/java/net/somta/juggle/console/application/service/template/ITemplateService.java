@@ -18,7 +18,9 @@ public interface ITemplateService {
 
     ResponsePaginationDataResult<TemplateMarketDTO> getTemplateMarketList(TemplateMarketQueryParam templateMarketQueryParam);
 
-    TemplateMarketInfoDTO getTemplateMarketInfo(Long suiteId);
+    TemplateMarketInfoDTO getTemplateMarketInfo(Long templateId);
 
     Boolean useTemplateMarket(TemplateMarketParam templateMarketParam);
+
+    List<TemplateMarketDTO> getRecommendTemplateList(Long templateId);
 }

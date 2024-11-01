@@ -48,8 +48,8 @@ public class TemplateServiceImpl implements ITemplateService {
     @Override
     public ResponsePaginationDataResult<TemplateMarketDTO> getTemplateMarketList(TemplateMarketQueryParam templateMarketQueryParam) {
         ResponsePaginationDataResult<TemplateMarketVO> result = templateRepository.queryTemplateMarketList(templateMarketQueryParam.getPageNum(),templateMarketQueryParam.getPageSize(),templateMarketQueryParam.getTemplateName(),templateMarketQueryParam.getTemplateClassifyId());
-        List<TemplateMarketDTO> suiteList = ITemplateAssembler.IMPL.voListToDtoList(result.getResult());
-        return ResponsePaginationDataResult.setPaginationDataResult(result.getTotal(),suiteList);
+        List<TemplateMarketDTO> templateList = ITemplateAssembler.IMPL.voListToDtoList(result.getResult());
+        return ResponsePaginationDataResult.setPaginationDataResult(result.getTotal(),templateList);
     }
 
     @Override
@@ -75,5 +75,11 @@ public class TemplateServiceImpl implements ITemplateService {
             throw new BizException(TEMPLATE_NOT_EXIST_ERROR);
         }
         return true;
+    }
+
+    @Override
+    public List<TemplateMarketDTO> getRecommendTemplateList(Long templateId) {
+        List<TemplateMarketVO> templateMarketVoList = templateRepository.getRecommendTemplateList(templateId);
+        return ITemplateAssembler.IMPL.voListToDtoList(templateMarketVoList);
     }
 }

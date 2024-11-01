@@ -17,3 +17,7 @@ export async function queryTemplateMarketDetail(templateId: number): ResponseRes
 export async function useTemplateMarket(templateId: number, bill?:string) {
   return templateMarketAPI.useTemplateMarket(templateId,bill);
 }
+
+export async function queryRecommendTemplateList(templateId: number){
+  return templateMarketAPI.queryRecommendTemplateList(templateId);
+}

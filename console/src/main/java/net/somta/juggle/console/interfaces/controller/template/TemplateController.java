@@ -41,9 +41,9 @@ public class TemplateController {
     }
 
     @Operation(summary = "查询市场模板详情")
-    @GetMapping("/market/info/{suiteId}")
-    public ResponseDataResult<TemplateMarketInfoDTO> getTemplateMarketInfo(@PathVariable Long suiteId){
-        TemplateMarketInfoDTO templateMarketInfoDto = templateService.getTemplateMarketInfo(suiteId);
+    @GetMapping("/market/info/{templateId}")
+    public ResponseDataResult<TemplateMarketInfoDTO> getTemplateMarketInfo(@PathVariable Long templateId){
+        TemplateMarketInfoDTO templateMarketInfoDto = templateService.getTemplateMarketInfo(templateId);
         return ResponseDataResult.setResponseResult(templateMarketInfoDto);
     }
 
@@ -54,5 +54,11 @@ public class TemplateController {
         return ResponseDataResult.setResponseResult();
     }
 
+    @Operation(summary = "查询市场模板推荐模板列表")
+    @GetMapping("/market/recommend/{templateId}")
+    public ResponseDataResult<List<TemplateMarketDTO>> getRecommendTemplateList(@PathVariable Long templateId){
+        List<TemplateMarketDTO> list = templateService.getRecommendTemplateList(templateId);
+        return ResponseDataResult.setResponseResult(list);
+    }
 
 }
