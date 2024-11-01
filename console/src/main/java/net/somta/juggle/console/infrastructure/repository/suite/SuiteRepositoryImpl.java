@@ -5,6 +5,7 @@ import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.common.identity.IdentityContext;
+import net.somta.juggle.console.configuration.JuggleProperties;
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
 import net.somta.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.*;
@@ -21,8 +22,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
-import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_DOMAIN;
-
 /**
  * @author husong
  * @since 1.1.1
@@ -34,9 +33,12 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     private final SuiteMapper suiteMapper;
     private final RestTemplate restTemplate;
 
-    public SuiteRepositoryImpl(SuiteMapper suiteMapper, RestTemplate restTemplate) {
+    private final JuggleProperties juggleProperties;
+
+    public SuiteRepositoryImpl(SuiteMapper suiteMapper, RestTemplate restTemplate, JuggleProperties juggleProperties) {
         this.suiteMapper = suiteMapper;
         this.restTemplate = restTemplate;
+        this.juggleProperties = juggleProperties;
     }
 
     @Override
@@ -94,7 +96,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
         ResponseEntity<ResponseDataResult<List<SuiteMarketClassifyVO>>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/classify/list",
+                juggleProperties.getOpenServerAddr()+"/open/v1/suite/market/classify/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<List<SuiteMarketClassifyVO>>>() {});
@@ -125,7 +127,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
             throw new RuntimeException(e);
         }
         ResponseEntity<ResponsePaginationDataResult<SuiteVO>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/list",
+                juggleProperties.getOpenServerAddr()+"/open/v1/suite/market/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponsePaginationDataResult<SuiteVO>>() {});
@@ -153,7 +155,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
 
         ResponseEntity<ResponseDataResult<SuiteMarketVO>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/suite/market/info",
+                juggleProperties.getOpenServerAddr()+"/open/v1/suite/market/info",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<SuiteMarketVO>>() {});

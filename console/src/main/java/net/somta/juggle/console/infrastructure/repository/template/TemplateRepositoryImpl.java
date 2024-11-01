@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketClassifyVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketVO;
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
+import net.somta.juggle.console.configuration.JuggleProperties;
 import net.somta.juggle.console.domain.template.repository.ITemplateRepository;
 import net.somta.juggle.console.domain.template.vo.TemplateMarketClassifyVO;
 import net.somta.juggle.console.domain.template.vo.TemplateMarketInfoVO;
@@ -22,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_DOMAIN;
-
 /**
  * @author husong
  * @since 1.2.3
@@ -33,8 +29,11 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
 
     private final RestTemplate restTemplate;
 
-    public TemplateRepositoryImpl(RestTemplate restTemplate) {
+    private final JuggleProperties juggleProperties;
+
+    public TemplateRepositoryImpl(RestTemplate restTemplate, JuggleProperties juggleProperties) {
         this.restTemplate = restTemplate;
+        this.juggleProperties = juggleProperties;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
         ResponseEntity<ResponseDataResult<List<TemplateMarketClassifyVO>>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/template/market/classify/list",
+                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/classify/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<List<TemplateMarketClassifyVO>>>() {});
@@ -75,7 +74,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
             throw new RuntimeException(e);
         }
         ResponseEntity<ResponsePaginationDataResult<TemplateMarketVO>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/template/market/list",
+                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponsePaginationDataResult<TemplateMarketVO>>() {});
@@ -103,7 +102,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
         }
 
         ResponseEntity<ResponseDataResult<TemplateMarketInfoVO>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/template/market/info",
+                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/info",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<TemplateMarketInfoVO>>() {});

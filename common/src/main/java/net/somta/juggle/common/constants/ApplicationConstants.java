@@ -9,8 +9,6 @@ public class ApplicationConstants {
 
     public static final String JUGGLE_OPEN_API_PREFIX = JUGGLE_SERVER_VERSION + "/open";
 
-    public static final String JUGGLE_OPEN_DOMAIN = "https://open.juggle.plus";
-
     /**
      * 应用统一前缀
      */

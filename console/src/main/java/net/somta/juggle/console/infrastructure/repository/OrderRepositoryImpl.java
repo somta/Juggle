@@ -3,6 +3,7 @@ package net.somta.juggle.console.infrastructure.repository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.core.protocol.ResponseDataResult;
+import net.somta.juggle.console.configuration.JuggleProperties;
 import net.somta.juggle.console.domain.order.repository.IOrderRepository;
 import net.somta.juggle.console.domain.order.vo.CreateOrderVO;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,15 +14,15 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_DOMAIN;
-
 @Repository
 public class OrderRepositoryImpl implements IOrderRepository {
 
     private final RestTemplate restTemplate;
+    private final JuggleProperties juggleProperties;
 
-    public OrderRepositoryImpl(RestTemplate restTemplate) {
+    public OrderRepositoryImpl(RestTemplate restTemplate, JuggleProperties juggleProperties) {
         this.restTemplate = restTemplate;
+        this.juggleProperties = juggleProperties;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
         }
 
         ResponseEntity<ResponseDataResult<CreateOrderVO>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/order/create",
+                juggleProperties.getOpenServerAddr()+"/open/v1/order/create",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<CreateOrderVO>>() {});
@@ -67,7 +68,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
         }
 
         ResponseEntity<ResponseDataResult<String>> response = restTemplate.exchange(
-                JUGGLE_OPEN_DOMAIN+"/open/v1/order/pay/status",
+                juggleProperties.getOpenServerAddr()+"/open/v1/order/pay/status",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<String>>() {});

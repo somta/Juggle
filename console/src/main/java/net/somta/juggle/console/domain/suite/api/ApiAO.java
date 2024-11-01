@@ -170,6 +170,10 @@ public class ApiAO {
         return apiCode;
     }
 
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
+    }
+
     public String getApiUrl() {
         return apiUrl;
     }

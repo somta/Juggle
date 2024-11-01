@@ -39,6 +39,7 @@ public class Request {
 
     private final static Logger logger = LoggerFactory.getLogger(Request.class);
 
+    private String apiCode;
     /**
      * 请求url,带域名的完整地址
      */
@@ -83,10 +84,11 @@ public class Request {
         this.inputParamSchemas = inputParamSchemas;
     }
 
-    public void initRequest(String requestUrl, Map<String, Object> headerData, Map<String, Object> inputParamData) {
+    public void initRequest(String apiCode,String requestUrl, Map<String, Object> headerData, Map<String, Object> inputParamData) {
         if (requestUrl == null) {
             throw new IllegalArgumentException("reqMethod,reqHeaders,reqBody should not be null");
         }
+        this.apiCode = apiCode;
         this.requestUrl = buildRequestUrl(requestUrl,inputParamData);
         this.requestHeaders = headerData;
         this.requestParams = buildRequestParams(inputParamData);
@@ -128,6 +130,10 @@ public class Request {
             inputParamData.remove(inputParamSchema.getKey());
         }
         return inputParamData;
+    }
+
+    public String getApiCode() {
+        return apiCode;
     }
 
     public String getRequestUrl() {
