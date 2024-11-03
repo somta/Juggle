@@ -8,6 +8,7 @@ import { ApiInfo, DataTypeItem, InputParams } from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 import { InfoFilled } from '@element-plus/icons-vue';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -208,7 +209,8 @@ function resetParams() {
               </el-tooltip>
             </div>
             <div class="input-param-td">
-              <DataTypeSelect :modelValue="param.dataType" disabled />
+              <DataTypeDisplay :dataType="param.dataType"/>
+<!--              <DataTypeSelect :modelValue="param.dataType" disabled />-->
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="param.value" :dataType="param.dataType" />
