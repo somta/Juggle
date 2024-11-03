@@ -4,11 +4,14 @@ const DATA_TYPE_TEMP: Map<string, DataTypeItem> = new Map();
 
 export function getDataTypeObject(dataType: any): DataTypeItem {
   //console.log("getDataTypeObject",dataType)
+  let result = null as unknown as DataTypeItem;
+  if (!dataType) {
+    return result;
+  }
   const key = JSON.stringify(dataType);
   if (DATA_TYPE_TEMP.has(key)) {
     return DATA_TYPE_TEMP.get(key) as DataTypeItem;
   }
-  let result = null as unknown as DataTypeItem;
   try {
     if (key) {
       //const dataType = JSON.parse(json);

@@ -9,6 +9,7 @@ import {DataTypeItem, RuleItem, valueType} from "@/typings";
 import DataTypeSelect from "@/components/form/DataTypeSelect.vue";
 import FilterValue from "@/components/filter/FilterValue.vue";
 import {isDataTypeEqual} from "@/utils/dataType.ts";
+import VariableSelect from '@/components/form/VariableSelect.vue';
 
 const flowContext = useFlowDataInject();
 
@@ -108,7 +109,16 @@ function getAvailableSource(target: string, targetDataType: DataTypeItem) {
 
 function onTargetEnvChange(rowIndex: number) {
   const target = nodeData.value.assignRules[rowIndex].target;
-  const param = targetEnvList.value.find(item => item.envKey === target);
+  let param = targetEnvList.value.find(item => item.envKey === target);
+  // 此处应该考虑Object类型的下探
+  if (target.includes('.')) {
+    param = target.split('.').reduce((acc, cur) => {
+      if (acc) {
+        return (acc?.dataType?.objectStructure).find((item: any) => item.propKey === cur);
+      }
+      return targetEnvList.value.find(item => item.envKey === cur);
+    }, null as any);
+  }
   nodeData.value.assignRules[rowIndex].source = '';
   nodeData.value.assignRules[rowIndex].sourceDataType = param?.dataType;
   nodeData.value.assignRules[rowIndex].targetDataType = param?.dataType;
@@ -171,7 +181,13 @@ function removeRule(rowIndex: number) {
             <div class="rule-setting-tr" v-for="(rule, rowIndex) in nodeData.assignRules" :key="rowIndex">
               <template v-for="column in columns" :key="column.prop">
                 <div class="rule-setting-td" v-if="column.prop === 'source'">
-                  <el-select v-model="rule.target" size="small" @change="onTargetEnvChange(rowIndex)">
+                  <VariableSelect
+                    v-model="rule.target"
+                    size="small"
+                    :options="getAvailableTarget(rule.target)"
+                    @change="onTargetEnvChange(rowIndex)"
+                  />
+                  <!-- <el-select v-model="rule.target" size="small" @change="onTargetEnvChange(rowIndex)">
                     <el-option
                         v-for="item in getAvailableTarget(rule.target)"
                         :key="item.envKey"
@@ -184,7 +200,7 @@ function removeRule(rowIndex: number) {
                         {{ item.envName }}
                       </span>
                     </el-option>
-                  </el-select>
+                  </el-select> -->
                 </div>
                 <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
                   <DataTypeSelect v-model="rule.targetDataType" disabled size="small" />
