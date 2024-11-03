@@ -96,5 +96,8 @@ const currentType = computed(() => {
       text-align: left;
     }
   }
+  :deep(.el-date-editor){
+    width: 100%;
+  }
 }
 </style>
