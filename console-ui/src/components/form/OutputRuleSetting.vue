@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import { valueType, RuleItem, DataTypeItem } from '@/typings';
+import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
@@ -74,7 +74,7 @@ function getAvailableSource(source: string) {
     return !rules.value.map(item => item.source).includes(item.paramKey);
   });
 }
-function getAvailableTarget(source: string, sourceDataType: DataTypeItem) {
+function getAvailableTarget(source: string, sourceDataType: DataType) {
   return props.targetList.filter(item => {
     // 不选取自己
     if (item.envKey === source) {

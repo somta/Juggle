@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
-import { DataTypeItem } from '@/typings/flowDesign';
-//todo 树中的数据要根据传入的数据类型进行过滤
+import {isDataTypeMatch} from "@/utils/dataType.ts";
+import {DataType} from "@/typings";
 const props = defineProps({
   modelValue: String,
   options: Array as PropType<Array<{
     envName: string;
     envKey: string;
-    dataType: DataTypeItem,
+    dataType: DataType,
   }>>,
+  filterDataType: Object as PropType<DataType>,
   disabled: Boolean,
   size: {
     type: String as PropType<'large' | 'default' | 'small'>,
@@ -38,16 +39,19 @@ const hasObjectOption = computed(() => {
 type propItem = {
   propName: string;
   propKey: string;
-  dataType: DataTypeItem;
+  dataType: DataType;
 }
-function getOptionChildren (dataType: DataTypeItem, preValue: string, count: number = 0):
+function getOptionChildren (dataType: DataType, preValue: string, count: number = 0):
   Array<{ label: string, value: string, children?: any }> | undefined  {
   if (dataType.type === 'Object') {
     // 循环嵌套最多99层
     if (count > 99) {
       return;
     }
-    const list = (dataType.objectStructure || []) as propItem[];
+    let list = (dataType.objectStructure || []) as propItem[];
+    if(props.filterDataType){
+      list = list.filter(item => isDataTypeMatch(item.dataType,props.filterDataType));
+    }
     return list.map(item => {
       const newItem = {
         label: item.propName,

@@ -21,6 +21,9 @@ const displayName = computed(() => {
 
 function getDataTypeDisplayName(dataType:DataType){
   let displayName;
+  if(!dataType){
+    return ;
+  }
   if('Object' == dataType.type){
     displayName = objectDataTypeMap.value[dataType.objectKey];
   } else if('List' == dataType.type){
@@ -58,5 +61,10 @@ async function loadDataTypeList() {
 </template>
 
 <style scoped lang="less">
-
+.dataTypeName{
+  width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>

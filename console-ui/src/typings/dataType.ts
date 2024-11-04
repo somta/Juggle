@@ -1,4 +1,4 @@
-enum DataTypeEnum {
+export enum DataTypeEnum {
     Basic = 1,
     List = 2,
     Object = 3,

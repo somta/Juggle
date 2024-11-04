@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { flowDefineService, flowVersionService } from '@/service';
 import { ElMessage } from 'element-plus';
 import CodeEditor from '@/components/form/CodeEditor.vue';
-import { DataTypeItem, FlowDefineInfo } from '@/typings';
+import {DataType, FlowDefineInfo} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import {InfoFilled} from "@element-plus/icons-vue";
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
@@ -95,7 +95,7 @@ function getParams() {
   const params: any = {};
   flowInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType: DataTypeItem = param.dataType;
+      const dataType: DataType = param.dataType;
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
       } else {

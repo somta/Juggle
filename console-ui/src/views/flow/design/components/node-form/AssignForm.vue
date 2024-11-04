@@ -5,11 +5,11 @@ import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
 import { Delete } from '@element-plus/icons-vue';
 import {useFlowDataInject} from "@/views/flow/design/hooks/flow-data.ts";
-import {DataTypeItem, RuleItem, valueType} from "@/typings";
-import DataTypeSelect from "@/components/form/DataTypeSelect.vue";
+import {DataType, RuleItem, valueType} from "@/typings";
 import FilterValue from "@/components/filter/FilterValue.vue";
-import {isDataTypeEqual, isDataTypeMatch} from "@/utils/dataType.ts";
+import {isDataTypeMatch} from "@/utils/dataType.ts";
 import VariableSelect from '@/components/form/VariableSelect.vue';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const flowContext = useFlowDataInject();
 
@@ -96,7 +96,7 @@ function getAvailableTarget(target: string) {
   });
 }
 
-function getAvailableSource(target: string, targetDataType: DataTypeItem) {
+function getAvailableSource(target: string, targetDataType: DataType) {
   return sourceEnvList.value.filter(item => {
     // 不选取自己
     if (item.envKey === target) {
@@ -110,17 +110,7 @@ function getAvailableSource(target: string, targetDataType: DataTypeItem) {
 
 function onTargetEnvChange(rowIndex: number) {
   const target = nodeData.value.assignRules[rowIndex].target;
-  console.log("target:",target);
   let param = targetEnvList.value.find(item => item.envKey === target);
-  // 此处应该考虑Object类型的下探
- /* if (target.includes('.')) {
-    param = target.split('.').reduce((acc, cur) => {
-      if (acc) {
-        return (acc?.dataType?.objectStructure).find((item: any) => item.propKey === cur);
-      }
-      return targetEnvList.value.find(item => item.envKey === cur);
-    }, null as any);
-  }*/
   nodeData.value.assignRules[rowIndex].source = '';
   nodeData.value.assignRules[rowIndex].sourceDataType = param?.dataType;
   nodeData.value.assignRules[rowIndex].targetDataType = param?.dataType;
@@ -183,12 +173,6 @@ function removeRule(rowIndex: number) {
             <div class="rule-setting-tr" v-for="(rule, rowIndex) in nodeData.assignRules" :key="rowIndex">
               <template v-for="column in columns" :key="column.prop">
                 <div class="rule-setting-td" v-if="column.prop === 'source'">
-<!--                  <VariableSelect
-                    v-model="rule.target"
-                    size="small"
-                    :options="getAvailableTarget(rule.target)"
-                    @change="onTargetEnvChange(rowIndex)"
-                  />-->
                   <el-select v-model="rule.target" size="small" @change="onTargetEnvChange(rowIndex)">
                     <el-option
                         v-for="item in getAvailableTarget(rule.target)"
@@ -205,7 +189,7 @@ function removeRule(rowIndex: number) {
                   </el-select>
                 </div>
                 <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-                  <DataTypeSelect v-model="rule.targetDataType" disabled size="small" />
+                  <DataTypeDisplay :dataType="rule.targetDataType"/>
                 </div>
                 <div class="rule-setting-td" v-if="column.prop === 'targetType'">
                   <el-select v-model="rule.sourceType" size="small" @change="onAssignTypeChange(rowIndex)">
@@ -218,24 +202,13 @@ function removeRule(rowIndex: number) {
                     <FilterValue v-model="rule.source" :dataType="rule.targetDataType" size="small" :showNumberControls="false" />
                   </template>
                   <!-- 变量 -->
-
                   <VariableSelect
                       v-model="rule.source"
                       size="small"
-                      :options="getAvailableSource(rule.target, rule.targetDataType as DataTypeItem)"
+                      :options="getAvailableSource(rule.target, rule.targetDataType as DataType)"
+                      :filterDataType="rule.targetDataType"
                       @change="onSourceEnvChange(rowIndex)"
                   />
-
-<!--                  <el-select v-else v-model="rule.source" size="small" @change="onSourceEnvChange(rowIndex)">
-                    <el-option
-                        v-for="item in getAvailableSource(rule.target, rule.targetDataType as DataTypeItem)"
-                        :key="item.envKey"
-                        :value="item.envKey"
-                        :label="item.envName"
-                        :title="item.envName"
-                    />
-                  </el-select>-->
-
                 </div>
               </template>
               <div class="rule-setting-td delete-td">
@@ -299,6 +272,12 @@ function removeRule(rowIndex: number) {
   &-foot {
     text-align: center;
     padding: 6px 0;
+  }
+}
+
+.rule-setting-td{
+  .dataTypeName {
+    color: var(--el-text-color-regular);
   }
 }
 </style>

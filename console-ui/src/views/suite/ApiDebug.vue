@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { apiService } from '@/service';
 import { ElMessage } from 'element-plus';
 import CodeEditor from '@/components/form/CodeEditor.vue';
-import { ApiInfo, DataTypeItem, InputParams } from '@/typings';
+import {ApiInfo, DataType, InputParams} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
@@ -108,7 +108,7 @@ function getParams() {
   const params: any = {};
   apiInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType: DataTypeItem = param.dataType;
+      const dataType: DataType = param.dataType;
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
       } else {

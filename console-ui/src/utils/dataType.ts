@@ -1,17 +1,17 @@
-import { DataTypeItem } from '@/typings/flowDesign';
 import {FlowVariable} from "@/views/flow/design";
+import {DataType} from "@/typings";
 
-const DATA_TYPE_TEMP: Map<string, DataTypeItem> = new Map();
+const DATA_TYPE_TEMP: Map<string, DataType> = new Map();
 
-export function getDataTypeObject(dataType: any): DataTypeItem {
+export function getDataTypeObject(dataType: any): DataType {
   //console.log("getDataTypeObject",dataType)
-  let result = null as unknown as DataTypeItem;
+  let result = null as unknown as DataType;
   if (!dataType) {
     return result;
   }
   const key = JSON.stringify(dataType);
   if (DATA_TYPE_TEMP.has(key)) {
-    return DATA_TYPE_TEMP.get(key) as DataTypeItem;
+    return DATA_TYPE_TEMP.get(key) as DataType;
   }
   try {
     if (key) {
@@ -29,7 +29,7 @@ export function getDataTypeObject(dataType: any): DataTypeItem {
   return result;
 }
 
-export function isDataTypeEqual(typeA: DataTypeItem, typeB: DataTypeItem) {
+export function isDataTypeEqual(typeA: DataType, typeB: DataType) {
   if (typeA === typeB) {
     return true;
   }
@@ -54,20 +54,21 @@ export function isDataTypeEqual(typeA: DataTypeItem, typeB: DataTypeItem) {
   return true;
 }
 
-export function isDataTypeMatch(sourceDataTypeItem: DataTypeItem, targetDataTypeItem: DataTypeItem) {
+export function isDataTypeMatch(sourceDataTypeItem: DataType, targetDataTypeItem: DataType) {
   if (!targetDataTypeItem || !targetDataTypeItem) {
     return false;
   }
   if (sourceDataTypeItem === targetDataTypeItem) {
     return true;
   }
-  if (sourceDataTypeItem.type == sourceDataTypeItem.type) {
+  if (sourceDataTypeItem.type == targetDataTypeItem.type) {
     return true;
   }
   //原始类似是对象的变量也要返回
   if(sourceDataTypeItem.type == "Object"){
     return true;
   }
+  return false;
 }
 
 
