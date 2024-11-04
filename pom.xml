@@ -29,6 +29,7 @@
         <httpclient.version>5.2.1</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
         <caffeine.version>2.9.3</caffeine.version>
+        <json-path.version>2.9.0</json-path.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
 
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
@@ -121,6 +122,11 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json-path.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
