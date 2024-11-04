@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 import { DataTypeItem } from '@/typings/flowDesign';
-
+//todo 树中的数据要根据传入的数据类型进行过滤
 const props = defineProps({
   modelValue: String,
   options: Array as PropType<Array<{

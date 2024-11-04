@@ -1,4 +1,5 @@
 import { DataTypeItem } from '@/typings/flowDesign';
+import {FlowVariable} from "@/views/flow/design";
 
 const DATA_TYPE_TEMP: Map<string, DataTypeItem> = new Map();
 
@@ -52,3 +53,36 @@ export function isDataTypeEqual(typeA: DataTypeItem, typeB: DataTypeItem) {
   }
   return true;
 }
+
+export function isDataTypeMatch(sourceDataTypeItem: DataTypeItem, targetDataTypeItem: DataTypeItem) {
+  if (!targetDataTypeItem || !targetDataTypeItem) {
+    return false;
+  }
+  if (sourceDataTypeItem === targetDataTypeItem) {
+    return true;
+  }
+  if (sourceDataTypeItem.type == sourceDataTypeItem.type) {
+    return true;
+  }
+  //原始类似是对象的变量也要返回
+  if(sourceDataTypeItem.type == "Object"){
+    return true;
+  }
+}
+
+
+export function getVariableDataType(envKey:string, envList:FlowVariable[]){
+  let variable;
+  if (envKey.includes('.')) {
+    variable = envKey.split('.').reduce((acc, cur) => {
+      if (acc) {
+        return (acc?.dataType?.objectStructure).find((item: any) => item.propKey === cur);
+      }
+      return envList.find(item => item.envKey === cur);
+    }, null as any);
+  }else{
+    variable = envList.find(item => item.envKey === envKey);
+  }
+  return variable;
+}
+

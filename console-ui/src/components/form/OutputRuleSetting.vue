@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import DataTypeSelect from './DataTypeSelect.vue';
 import { valueType, RuleItem, DataTypeItem } from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const props = defineProps({
   modelValue: Array as PropType<RuleItem[]>,
@@ -119,7 +119,7 @@ function onSourceChange(rowIndex: number) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeSelect v-model="rule.sourceDataType" disabled size="small" />
+            <DataTypeDisplay :dataType="rule.sourceDataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 变量 -->
@@ -190,6 +190,12 @@ function onSourceChange(rowIndex: number) {
   &-foot {
     text-align: center;
     padding: 6px 0;
+  }
+}
+
+.rule-setting-td{
+  .dataTypeName {
+    color: var(--el-text-color-regular);
   }
 }
 </style>

@@ -1,17 +1,13 @@
 <script lang="ts" setup>
-import { getDataTypeObject } from '@/utils/dataType';
-import { computed } from 'vue';
+import {computed, PropType} from 'vue';
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean, Array, Object],
     default: '',
   },
-  dataType: {
-    type: String,
-    default: '',
-  },
+  dataType: Object,
   size: {
-    type: String,
+    type: String as PropType<'large' | 'default' | 'small'>,
     default: 'default',
   },
   showNumberControls: {
@@ -19,6 +15,7 @@ const props = defineProps({
     default: true,
   },
 });
+
 const emit = defineEmits(['update:modelValue']);
 
 const innerValue = computed({
@@ -37,7 +34,7 @@ const innerValue = computed({
 });
 
 const currentType = computed(() => {
-  return getDataTypeObject(props.dataType)?.type;
+  return props.dataType?.type;
 });
 </script>
 
@@ -48,7 +45,7 @@ const currentType = computed(() => {
       v-model="innerValue"
       :controls="showNumberControls"
       controls-position="right"
-      max="100000000"
+      :max="100000000"
       :precision="0"
       :size="size"
       placeholder="请输入"

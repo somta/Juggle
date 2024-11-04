@@ -6,7 +6,6 @@ import { ElMessage } from 'element-plus';
 import CodeEditor from '@/components/form/CodeEditor.vue';
 import { ApiInfo, DataTypeItem, InputParams } from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
-import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
@@ -177,7 +176,7 @@ function resetParams() {
               </el-tooltip>
             </div>
             <div class="input-param-td">
-              <DataTypeSelect :modelValue="header.dataType" disabled />
+              <DataTypeDisplay :dataType="header.dataType"/>
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="header.value" :dataType="header.dataType" />
@@ -210,7 +209,6 @@ function resetParams() {
             </div>
             <div class="input-param-td">
               <DataTypeDisplay :dataType="param.dataType"/>
-<!--              <DataTypeSelect :modelValue="param.dataType" disabled />-->
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="param.value" :dataType="param.dataType" />
@@ -252,7 +250,7 @@ function resetParams() {
   }
   .input-param-td {
     margin-right: 12px;
-    width: 120px;
+    width: 130px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

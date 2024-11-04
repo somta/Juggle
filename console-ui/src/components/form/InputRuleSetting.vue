@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import DataTypeSelect from './DataTypeSelect.vue';
 import { valueType, RuleItem } from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const assignTypeList = [
   { value: valueType.CONSTANT, label: '常量' },
@@ -90,7 +90,6 @@ function onSourceVarChange(rowIndex: number) {
 }
 
 function getAvailableTarget(target: string) {
-  //console.log(props);
   return props.sourceList.filter(item => {
     // 已选参数也能选
     if (item.paramKey === target) {
@@ -123,10 +122,6 @@ function onTargetChange(rowIndex: number) {
     rules.value[rowIndex].required = true;
   }
 }
-
-function getDataTypeDisplayName(dataType: any) {
-  console.log(dataType);
-}
 </script>
 
 <template>
@@ -158,10 +153,7 @@ function getDataTypeDisplayName(dataType: any) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <!--            <template>
-              {{ getDataTypeDisplayName(rule.targetDataType) }}
-            </template>-->
-            <DataTypeSelect v-model="rule.targetDataType" disabled size="small" />
+            <DataTypeDisplay :dataType="rule.targetDataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.sourceType" size="small" @change="onSourceTypeChange(rowIndex)">
@@ -242,6 +234,12 @@ function getDataTypeDisplayName(dataType: any) {
   &-foot {
     text-align: center;
     padding: 6px 0;
+  }
+}
+
+.rule-setting-td{
+  .dataTypeName {
+    color: var(--el-text-color-regular);
   }
 }
 </style>

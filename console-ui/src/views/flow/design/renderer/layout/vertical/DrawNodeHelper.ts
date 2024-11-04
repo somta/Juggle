@@ -205,7 +205,6 @@ export class DrawNodeHelper {
         const { data } = node;
         const nodeType = node.data.type as ElementType;
         const nodeCard = nodeMap[nodeType as keyof typeof nodeMap];
-        console.log("drawNormalCard",node)
         flowNode
             .append('rect')
             .attr('width', width)
