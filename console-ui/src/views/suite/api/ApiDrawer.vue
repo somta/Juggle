@@ -13,6 +13,7 @@ const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
 const dialogVisible = ref(false);
 const apiFormRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
+const suitFlag = ref();
 function getDefault() {
   return {
     id: null,
@@ -78,6 +79,7 @@ function open(item?: Record<string, any>) {
         formValue.apiHeaders = res.result.apiHeaders;
         formValue.apiInputParams = res.result.apiInputParams;
         formValue.apiOutputParams = res.result.apiOutputParams;
+        suitFlag.value = res.result.suiteFlag;
       }
     } else {
       // 清空
@@ -137,7 +139,7 @@ defineExpose({ open });
         <el-form-item label="出参">
           <ParamSetting v-model="formValue.apiOutputParams" addText="新增出参" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item v-if="suitFlag !== 1">
           <el-button type="primary" @click="onSubmit">确定</el-button>
           <el-button @click="onCancel">取消</el-button>
         </el-form-item>

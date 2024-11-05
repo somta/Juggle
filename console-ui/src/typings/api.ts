@@ -11,6 +11,7 @@ export interface ApiHeader {
 export interface ApiInfo {
   id: number | null;
   suiteId: number | null;
+  suiteFlag: number;
   apiCode: string;
   apiUrl: string;
   apiName: string;
