@@ -66,7 +66,9 @@ export function isDataTypeMatch(sourceDataTypeItem: DataType, targetDataTypeItem
   }
   //原始类似是对象的变量也要返回
   if(sourceDataTypeItem.type == "Object"){
-    return true;
+    if(sourceDataTypeItem.objectKey === targetDataTypeItem.objectKey){
+      return true;
+    }
   }
   return false;
 }

@@ -8,7 +8,7 @@ import {useFlowDataInject} from "@/views/flow/design/hooks/flow-data.ts";
 import {DataType, RuleItem, valueType} from "@/typings";
 import FilterValue from "@/components/filter/FilterValue.vue";
 import {isDataTypeMatch} from "@/utils/dataType.ts";
-import VariableSelect from '@/components/form/VariableSelect.vue';
+import VariableSelect from '@/components/common/VariableSelect.vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const flowContext = useFlowDataInject();
@@ -109,6 +109,7 @@ function getAvailableSource(target: string, targetDataType: DataType) {
 }
 
 function onTargetEnvChange(rowIndex: number) {
+  console.log('1111')
   const target = nodeData.value.assignRules[rowIndex].target;
   let param = targetEnvList.value.find(item => item.envKey === target);
   nodeData.value.assignRules[rowIndex].source = '';
@@ -203,6 +204,7 @@ function removeRule(rowIndex: number) {
                   </template>
                   <!-- 变量 -->
                   <VariableSelect
+                      v-else
                       v-model="rule.source"
                       size="small"
                       :options="getAvailableSource(rule.target, rule.targetDataType as DataType)"

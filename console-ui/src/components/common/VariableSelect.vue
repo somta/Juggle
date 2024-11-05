@@ -10,7 +10,6 @@ const props = defineProps({
     dataType: DataType,
   }>>,
   filterDataType: Object as PropType<DataType>,
-  disabled: Boolean,
   size: {
     type: String as PropType<'large' | 'default' | 'small'>,
     default: 'default',
@@ -24,11 +23,14 @@ const innerOptions = computed(() => {
       label: option.envName,
       value: option.envKey,
     };
-    return {
-      ...newItem,
-      children: getOptionChildren(option.dataType, newItem.value),
-    };
-  });
+    if(handleShowObject(option.dataType, newItem.value)){
+      return {
+        ...newItem,
+        children: getOptionChildren(option.dataType, newItem.value),
+      };
+    }
+    return null;
+  }).filter(item => item !== null);
   return result;
 });
 
@@ -41,6 +43,28 @@ type propItem = {
   propKey: string;
   dataType: DataType;
 }
+
+function handleShowObject(dataType: DataType, preValue: string){
+  if(dataType.type == 'List' && props.filterDataType?.type == 'List'
+  && dataType.itemType != props.filterDataType.itemType){
+    return false;
+  }
+  if(dataType.type !== 'Object'){
+    return true;
+  }
+  const propList = getOptionChildren(dataType,preValue);
+  if(props.filterDataType){
+    if(props.filterDataType.type == "Object"){
+      return props.filterDataType.type == dataType.type;
+    }else{
+      if(propList?.length == 0){
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 function getOptionChildren (dataType: DataType, preValue: string, count: number = 0):
   Array<{ label: string, value: string, children?: any }> | undefined  {
   if (dataType.type === 'Object') {
@@ -50,7 +74,7 @@ function getOptionChildren (dataType: DataType, preValue: string, count: number 
     }
     let list = (dataType.objectStructure || []) as propItem[];
     if(props.filterDataType){
-      list = list.filter(item => isDataTypeMatch(item.dataType,props.filterDataType));
+      list = list.filter(item => isDataTypeMatch(item.dataType,props.filterDataType as DataType));
     }
     return list.map(item => {
       const newItem = {
@@ -74,7 +98,7 @@ function getLabel (val: string) {
   if (!val) return '';
   const arr = val.split('.');
   let key = arr.shift();
-  let parent = innerOptions.value.find(item => item.value === key);
+  let parent = innerOptions?.value.find(item => item?.value === key);
   let result = parent?.label;
   while (parent && arr.length > 0) {
     key = key + '.' + arr.shift();
@@ -105,10 +129,10 @@ function getLabel (val: string) {
   <el-select v-else :modelValue="modelValue" :size="size" @change="handleChange">
     <el-option
         v-for="item in innerOptions"
-        :key="item.value"
-        :value="item.value"
-        :label="item.label"
-        :title="item.label"
+        :key="item?.value"
+        :value="item?.value"
+        :label="item?.label"
+        :title="item?.label"
     >
       <span style="float: left">{{ item.value }}</span>
       <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">

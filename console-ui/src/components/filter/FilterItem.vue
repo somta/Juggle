@@ -4,7 +4,7 @@ import { Delete } from '@element-plus/icons-vue';
 import { PropType, computed } from 'vue';
 import { DataTypeOperatorMap, BaseDataType, OperatorNameMap, Operator } from './config';
 import FilterValue from './FilterValue.vue';
-import VariableSelect from "@/components/form/VariableSelect.vue";
+import VariableSelect from "@/components/common/VariableSelect.vue";
 import {FlowVariable} from "@/views/flow/design";
 
 enum FilterAssignType {

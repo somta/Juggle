@@ -113,7 +113,6 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
             return Collections.EMPTY_MAP;
         }
         Map<String,Object> paramData = new HashMap<>(8);
-        // todo 如果是这种类型，怎么支持高级类型，user.id这样的结构，看看bizw是怎么做的
         for(FillStruct fillStruct : inputFillRules){
             String fieldKey = fillStruct.getTarget();
             if(FieldSourceEnum.CONSTANT.equals(fillStruct.getSourceType())){

@@ -2,25 +2,28 @@
   <div ref="monacoEditorRef" :style="monacoEditorStyle"></div>
 </template>
 <script setup lang="ts">
-import { onMounted, computed, watch } from 'vue';
+import {onMounted, computed, watch} from 'vue';
 import { useCodeEditor } from '@/hooks/useCodeEditor.ts';
 
-const props = withDefaults(
-  defineProps<{
-    width?: string;
-    height?: string;
-    language?: string;
-    editorOption?: Object;
-    modelValue: string;
-  }>(),
-  {
-    width: '100%',
-    height: '100%',
-    language: 'javascript',
-    editorOption: () => ({}),
-    modelValue: '',
-  }
-);
+const props = defineProps({
+  modelValue: String,
+  width:  {
+    type: String,
+    default: '100%'
+  },
+  height: {
+    type: String,
+    default: '100%'
+  },
+  language: {
+    type: String,
+    default: 'javascript'
+  },
+  editorOption:  {
+    type: Object,
+    default: () => ({})
+  },
+});
 
 const emits = defineEmits<{
   (e: 'blue'): void;
@@ -54,7 +57,7 @@ watch(
   }
 );
 
-function updateMonacoVal(val: string) {
+function updateMonacoVal(val: Object) {
   if (val !== getEditor()?.getValue()) {
     updateVal(val);
   }

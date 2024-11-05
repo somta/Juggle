@@ -3,7 +3,7 @@ import { PropType, ref, watch } from 'vue';
 import { ElementType, RawData } from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
-import CodeEditor from '@/components/form/CodeEditor.vue';
+import CodeEditor from '@/components/common/CodeEditor.vue';
 
 type CodeRawData = RawData & { language: string; content: string };
 

@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { apiService } from '@/service';
 import { ElMessage } from 'element-plus';
-import CodeEditor from '@/components/form/CodeEditor.vue';
+import CodeEditor from '@/components/common/CodeEditor.vue';
 import {ApiInfo, DataType, InputParams} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import { InfoFilled } from '@element-plus/icons-vue';

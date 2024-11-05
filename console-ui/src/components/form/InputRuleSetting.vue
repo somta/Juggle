@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import { valueType, RuleItem } from '@/typings';
+import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
-import { isDataTypeEqual } from '@/utils/dataType';
+import {isDataTypeEqual, isDataTypeMatch} from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
+import VariableSelect from "@/components/common/VariableSelect.vue";
 
 const assignTypeList = [
   { value: valueType.CONSTANT, label: '常量' },
@@ -54,7 +55,7 @@ const columns = [
   { name: '赋值', prop: 'target' },
 ];
 
-function addrule() {
+function addRule() {
   rules.value.push({
     source: '',
     sourceDataType: null,
@@ -99,7 +100,7 @@ function getAvailableTarget(target: string) {
     return !rules.value.map(item => item.target).includes(item.paramKey);
   });
 }
-function getAvailableSource(target: string, targetDataType: string) {
+function getAvailableSource(target: string, targetDataType: DataType) {
   //console.log(props.sourceList,target,targetDataType)
   return props.targetList.filter(item => {
     // 不选取自己
@@ -107,7 +108,7 @@ function getAvailableSource(target: string, targetDataType: string) {
       return false;
     }
     // 只能选与自己类型一致的
-    return isDataTypeEqual(item.dataType, targetDataType);
+    return isDataTypeMatch(item.dataType, targetDataType);
   });
 }
 
@@ -166,18 +167,14 @@ function onTargetChange(rowIndex: number) {
               <FilterValue v-model="rule.source" :dataType="rule.targetDataType" size="small" :showNumberControls="false" />
             </template>
             <!-- 变量 -->
-            <el-select v-else v-model="rule.source" size="small" @change="onSourceVarChange(rowIndex)">
-              <el-option
-                v-for="item in getAvailableSource(rule.target, rule.targetDataType)"
-                :key="item.envKey"
-                :value="item.envKey"
-                :label="item.envName"
-                :title="item.envName"
-              >
-                <span style="float: left">{{ item.envKey }}</span>
-                <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">{{ item.envName }}</span>
-              </el-option>
-            </el-select>
+            <VariableSelect
+                v-else
+                v-model="rule.source"
+                size="small"
+                :options="getAvailableSource(rule.target, rule.targetDataType)"
+                :filterDataType="rule.targetDataType"
+                @change="onSourceVarChange(rowIndex)"
+            />
           </div>
         </template>
         <div class="rule-setting-td delete-td">
@@ -186,7 +183,7 @@ function onTargetChange(rowIndex: number) {
       </div>
     </div>
     <div class="rule-setting-foot">
-      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参' }}</el-button>
+      <el-button size="small" type="info" @click="addRule">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>

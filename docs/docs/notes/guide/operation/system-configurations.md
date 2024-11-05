@@ -29,10 +29,11 @@ Juggle提供了丰富的配置适配不同的场景，可以通过修改applicat
 
 ### 3.缓存配置
 
-| 参数名                             | 含义                                | 可选值                                                    | 默认值 |
-| ---------------------------------- | ----------------------------------- | --------------------------------------------------------- | ------ |
-| juggle.cache.cache-type            | 缓存类型                            | memory/redis                                              | memory |
-| juggle.cache.redis.model           | 当使用redis作为缓存时，redis的模式  | single: 单机模式   sentinel: 哨兵模式   cluster: 集群模式 | single |
-| juggle.cache.redis.address         | Redis的连接地址，多个地址用逗号隔开 | 字符串                                                    | null   |
-| juggle.cache.redis.password        | Redis的密码                         | 字符串                                                    | null   |
-| juggle.cache.redis.sentinel-master | Redis采用哨兵模式时，主服务器名称   | 字符串                                                    | null   |
+| 参数名                             | 含义                                     | 可选值                                                    | 默认值                   |
+| ---------------------------------- | ---------------------------------------- | --------------------------------------------------------- | ------------------------ |
+| juggle.open-server-addr            | 市场域名，用于私有化市场时配置自己的域名 | 根据用户环境的域名进行配置                                | https://open.juggle.plus |
+| juggle.cache.cache-type            | 缓存类型                                 | memory/redis                                              | memory                   |
+| juggle.cache.redis.model           | 当使用redis作为缓存时，redis的模式       | single: 单机模式   sentinel: 哨兵模式   cluster: 集群模式 | single                   |
+| juggle.cache.redis.address         | Redis的连接地址，多个地址用逗号隔开      | 字符串                                                    | null                     |
+| juggle.cache.redis.password        | Redis的密码                              | 字符串                                                    | null                     |
+| juggle.cache.redis.sentinel-master | Redis采用哨兵模式时，主服务器名称        | 字符串                                                    | null                     |
