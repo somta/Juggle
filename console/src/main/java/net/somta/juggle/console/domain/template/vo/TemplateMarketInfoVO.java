@@ -36,8 +36,6 @@ public class TemplateMarketInfoVO {
 
     private Double templatePrice;
 
-    private String templateContent;
-
     private List<SuiteVO> suiteList;
 
     private String flowType;
@@ -98,14 +96,6 @@ public class TemplateMarketInfoVO {
 
     public void setSuiteList(List<SuiteVO> suiteList) {
         this.suiteList = suiteList;
-    }
-
-    public String getTemplateContent() {
-        return templateContent;
-    }
-
-    public void setTemplateContent(String templateContent) {
-        this.templateContent = templateContent;
     }
 
     public String getFlowType() {

@@ -15,7 +15,7 @@ export interface TemplateMarketInfo {
   recommend: boolean;
   priceStatus: number;
   templatePrice: number;
-  templateContent: string;
   suiteList: SuiteMarket[];
   noBuySuiteList: SuiteMarket[];
+  flowContent:string;
 }

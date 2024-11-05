@@ -1,12 +1,18 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import {onMounted, reactive, ref, shallowRef} from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 import {orderService, templateMarketService} from '@/service';
 import {CreateOrder, TemplateMarket, TemplateMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
 import QRCode from 'qrcode'
 import UserAgreement from '../common/UserAgreement.vue'
+import {useFlowDataProvide} from "@/views/flow/design/hooks/flow-data.ts";
+import {ConditionItem, ElementType, FlowRenderer, RawData, ZoomTool} from "@/views/flow/design";
+import {addNode, deleteNode} from "@/views/flow/design/operate.ts";
+import {DataBranch} from "@/views/flow/design/data";
+import {rebuildCondition} from "@/views/flow/design/data/generate.ts";
 
+const flowContext = useFlowDataProvide();
 const route = useRoute();
 const router = useRouter();
 let paramsData = reactive({
@@ -19,10 +25,12 @@ const templateMarketInfo = ref<TemplateMarketInfo>({
   recommend: false,
   priceStatus: 0,
   templatePrice: 0,
-  templateContent:'',
   suiteList: [],
   noBuySuiteList: [],
+  flowContent: '',
 });
+let flowRenderer: FlowRenderer;
+const flowCanvas = shallowRef();
 const recommendTemplateList = ref<TemplateMarket[]>([]);
 const orderDetailDialogVisible = ref(false);
 const userAgreementCheck = ref(false);
@@ -34,7 +42,14 @@ const createOrder = ref<CreateOrder>({
   qrCode:''
 });
 
-queryTemplateMarketInfo();
+onMounted(async () => {
+  await queryTemplateMarketInfo();
+  flowRenderer = new FlowRenderer(flowCanvas.value, {
+    flowContext: flowContext,
+  });
+});
+
+
 queryRecommendTemplateList();
 
 async function handleUseTemplateMarket() {
@@ -126,6 +141,10 @@ async function queryTemplateMarketInfo() {
   const res = await templateMarketService.queryTemplateMarketDetail(templateId);
   if (res.success) {
     templateMarketInfo.value = res.result;
+    flowContext.update(draft => {
+      Object.assign(draft, res.result);
+      draft.flowContent = JSON.parse(res.result.flowContent);
+    });
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -164,6 +183,9 @@ function goToTemplateMarketDetail(templateId: number) {
     </div>
     <div class="template-content">
       <h2 class="title">模板内容</h2>
+      <div class="flow-canvas" ref="flowCanvas">
+<!--        <ZoomTool :scale="scale" @change="onZoomToolChange" />-->
+      </div>
     </div>
 
     <div class="template-recommend-list">
@@ -315,6 +337,9 @@ function goToTemplateMarketDetail(templateId: number) {
   .title{
     text-align: center;
     margin: 14px 0px;
+  }
+  .flow-canvas{
+    height: 600px;
   }
 }
 

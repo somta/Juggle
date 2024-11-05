@@ -36,7 +36,6 @@ public class TemplateMarketInfoDTO {
 
     private Double templatePrice;
 
-    private String templateContent;
     private List<SuiteVO> suiteList;
 
     private List<SuiteVO> noBuySuiteList;
@@ -91,14 +90,6 @@ public class TemplateMarketInfoDTO {
 
     public void setTemplatePrice(Double templatePrice) {
         this.templatePrice = templatePrice;
-    }
-
-    public String getTemplateContent() {
-        return templateContent;
-    }
-
-    public void setTemplateContent(String templateContent) {
-        this.templateContent = templateContent;
     }
 
     public List<SuiteVO> getSuiteList() {
