@@ -43,12 +43,12 @@ public class TemplateMarketInfoVO {
 
     private String flowContent;
 
-    private String flowInputParameter;
+    private String flowInputParams;
 
 
-    private String flowOutputParameter;
+    private String flowOutputParams;
 
-    private String flowVariable;
+    private String flowVariables;
 
     public Long getId() {
         return id;
@@ -114,27 +114,27 @@ public class TemplateMarketInfoVO {
         this.flowContent = flowContent;
     }
 
-    public String getFlowInputParameter() {
-        return flowInputParameter;
+    public String getFlowInputParams() {
+        return flowInputParams;
     }
 
-    public void setFlowInputParameter(String flowInputParameter) {
-        this.flowInputParameter = flowInputParameter;
+    public void setFlowInputParams(String flowInputParams) {
+        this.flowInputParams = flowInputParams;
     }
 
-    public String getFlowOutputParameter() {
-        return flowOutputParameter;
+    public String getFlowOutputParams() {
+        return flowOutputParams;
     }
 
-    public void setFlowOutputParameter(String flowOutputParameter) {
-        this.flowOutputParameter = flowOutputParameter;
+    public void setFlowOutputParams(String flowOutputParams) {
+        this.flowOutputParams = flowOutputParams;
     }
 
-    public String getFlowVariable() {
-        return flowVariable;
+    public String getFlowVariables() {
+        return flowVariables;
     }
 
-    public void setFlowVariable(String flowVariable) {
-        this.flowVariable = flowVariable;
+    public void setFlowVariables(String flowVariables) {
+        this.flowVariables = flowVariables;
     }
 }

@@ -95,3 +95,7 @@ sh startup.sh
 感谢为Juggle功能持续更新日夜奋战的小伙伴们，感谢为项目提出宝贵优化意见的大佬们！
      
      动动您发财的手，点个Star，是对我们更新最大的支持！
+
+## 开源共建
+如果你也有开源的梦想，可以在下面的Juggle功能认领表中领取需求，与我们进行沟通后进行开发哦！
+https://docs.qq.com/sheet/DWVZGZGV0dFhva01s?tab=BB08J2

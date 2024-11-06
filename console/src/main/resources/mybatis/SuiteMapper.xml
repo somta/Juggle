@@ -15,7 +15,7 @@
 </select>
 
 <select id="queryExistSuiteByCodes" resultType="net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO" parameterType="java.util.List">
-    SELECT id, suite_code, suite_name, suite_image FROM t_suite WHERE suite_code IN
+    SELECT id, suite_code, suite_name, suite_desc, suite_image FROM t_suite WHERE suite_code IN
     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
         #{item}
     </foreach>

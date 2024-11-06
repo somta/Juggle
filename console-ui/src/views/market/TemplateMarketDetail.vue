@@ -7,10 +7,7 @@ import { ElMessage } from 'element-plus';
 import QRCode from 'qrcode'
 import UserAgreement from '../common/UserAgreement.vue'
 import {useFlowDataProvide} from "@/views/flow/design/hooks/flow-data.ts";
-import {ConditionItem, ElementType, FlowRenderer, RawData, ZoomTool} from "@/views/flow/design";
-import {addNode, deleteNode} from "@/views/flow/design/operate.ts";
-import {DataBranch} from "@/views/flow/design/data";
-import {rebuildCondition} from "@/views/flow/design/data/generate.ts";
+import {FlowRenderer,} from "@/views/flow/design";
 
 const flowContext = useFlowDataProvide();
 const route = useRoute();
@@ -32,6 +29,7 @@ const templateMarketInfo = ref<TemplateMarketInfo>({
 let flowRenderer: FlowRenderer;
 const flowCanvas = shallowRef();
 const recommendTemplateList = ref<TemplateMarket[]>([]);
+const noBuySuiteListDialogVisible = ref(false);
 const orderDetailDialogVisible = ref(false);
 const userAgreementCheck = ref(false);
 const userAgreementRef = ref();
@@ -47,12 +45,17 @@ onMounted(async () => {
   flowRenderer = new FlowRenderer(flowCanvas.value, {
     flowContext: flowContext,
   });
+  flowRenderer.scaleFromTop(0.5);
 });
 
 
 queryRecommendTemplateList();
 
 async function handleUseTemplateMarket() {
+  if(templateMarketInfo.value.noBuySuiteList !== null && templateMarketInfo.value.noBuySuiteList.length != 0){
+    noBuySuiteListDialogVisible.value = true;
+    return;
+  }
   if(templateMarketInfo.value.priceStatus == 1 && templateMarketInfo.value.templatePrice > 0){
     orderDetailDialogVisible.value = true;
   } else {
@@ -183,9 +186,7 @@ function goToTemplateMarketDetail(templateId: number) {
     </div>
     <div class="template-content">
       <h2 class="title">模板内容</h2>
-      <div class="flow-canvas" ref="flowCanvas">
-<!--        <ZoomTool :scale="scale" @change="onZoomToolChange" />-->
-      </div>
+      <div class="flow-canvas" ref="flowCanvas"/>
     </div>
 
     <div class="template-recommend-list">
@@ -213,6 +214,21 @@ function goToTemplateMarketDetail(templateId: number) {
           </el-row>
         </div>
     </div>
+
+    <el-dialog v-model="noBuySuiteListDialogVisible" :close-on-click-modal="false" title="套件列表" width="800" center>
+      <div class="no-buy-suite-list">
+        <p class="title">模板中的如下套件，您还暂未拥有，请先购买相关套件，避免影响模板使用</p>
+        <div class="suite-item" v-for="suite in templateMarketInfo.noBuySuiteList">
+          <img class="image" :src="suite.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
+          <div class="name">{{suite.suiteName}}</div>
+          <div class="desc" :title="suite.suiteDesc">{{suite.suiteDesc}}</div>
+          <router-link :to="'/market/suite/detail/'+suite.id">
+            <el-button>购买</el-button>
+          </router-link>
+        </div>
+        <p class="tip">购买的套件，可以永久使用哦！</p>
+      </div>
+    </el-dialog>
 
     <el-dialog v-model="orderDetailDialogVisible" :close-on-click-modal="false" title="订单详情" width="500" center>
       <div>
@@ -260,12 +276,12 @@ function goToTemplateMarketDetail(templateId: number) {
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
 .template-market-detail {
   border-radius: 4px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 0 16px 24px;
+  padding: 0 24px 16px 24px;
   background-color: #fff;
 }
 
@@ -336,18 +352,20 @@ function goToTemplateMarketDetail(templateId: number) {
 .template-content{
   .title{
     text-align: center;
-    margin: 14px 0px;
+    margin: 14px 0;
   }
   .flow-canvas{
-    height: 600px;
+    height: 700px;
+    .flow-btn-edit, .flow-btn-delete{
+      display: none;
+    }
   }
 }
-
 
 .template-recommend-list{
   .title{
     text-align: center;
-    margin: 14px 0px;
+    margin: 14px 0;
   }
   .el-col {
     margin-bottom: 20px;
@@ -391,5 +409,47 @@ function goToTemplateMarketDetail(templateId: number) {
     margin-bottom: 6px;
   }
 }
+
+.no-buy-suite-list{
+  .title{
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .suite-item{
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+
+    .image {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      margin-right: 10px;
+    }
+
+    .name{
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .desc{
+      width: 550px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+  }
+
+  .tip{
+    font-weight: bold;
+    color: #007acc;
+    text-align: center;
+  }
+
+}
+
+
 
 </style>

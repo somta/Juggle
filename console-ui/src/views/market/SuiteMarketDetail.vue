@@ -244,7 +244,7 @@ async function querySuiteMarketInfo() {
   border-radius: 4px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 0 16px 24px;
+  padding: 0 24px 16px 24px;
   background-color: #fff;
 }
 
@@ -305,7 +305,6 @@ async function querySuiteMarketInfo() {
 
   .api-info{
     padding-left: 15px;
-    padding-right: 15px;
     .title{
       margin: 14px 0 12px 0;
     }

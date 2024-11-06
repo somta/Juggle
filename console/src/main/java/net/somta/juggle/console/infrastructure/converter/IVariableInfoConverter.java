@@ -30,7 +30,6 @@ public interface IVariableInfoConverter {
         VariableInfoVO variableInfoVo = null;
         for (VariableInfoPO variableInfoPo : variableInfoPoList){
             variableInfoVo = new VariableInfoVO();
-            variableInfoVo.setId(variableInfoPo.getId());
             variableInfoVo.setEnvKey(variableInfoPo.getEnvKey());
             variableInfoVo.setEnvName(variableInfoPo.getEnvName());
             try {

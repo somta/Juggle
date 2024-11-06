@@ -1,14 +1,11 @@
 package net.somta.juggle.console.domain.flow.definition.vo;
 
-import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataType;
 
 /**
  * @author husong
  */
 public class VariableInfoVO {
-    private Long id;
 
     /**
      * 变量Key,同一流程内唯一
@@ -29,14 +26,6 @@ public class VariableInfoVO {
      * data type
      */
     private DataType dataType;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEnvKey() {
         return envKey;
