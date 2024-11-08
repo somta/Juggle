@@ -17,8 +17,9 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.core.executor;
 
 import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import net.somta.juggle.core.FlowRuntimeContext;
+import net.somta.juggle.core.executor.groovy.GroovyLogPrinter;
+import net.somta.juggle.core.executor.groovy.GroovyScriptCompiler;
 import net.somta.juggle.core.model.node.CodeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +47,20 @@ public class CodeNodeExecutor extends AbstractElementExecutor{
         CodeNode codeNode = (CodeNode) flowRuntimeContext.getCurrentNode();
         if(CodeNode.LanguageType.groovy.equals(codeNode.getLanguage())){
             Binding binding = new Binding();
-            binding.setVariable("$var", flowRuntimeContext.getVariableManager());
-            GroovyShell shell = new GroovyShell(binding);
-            Object result = shell.evaluate(codeNode.getContent());
-            logger.debug("Groovy Script result: " + result);
+            // 编译并缓存脚本
+            Class<?> compiledClass = GroovyScriptCompiler.compile(codeNode.getContent());
+            // 执行已编译的脚本，传入 Binding
+            try {
+                binding.setVariable("$var", flowRuntimeContext.getVariableManager());
+                binding.setVariable("$log", GroovyLogPrinter.class);
+                Object result = GroovyScriptCompiler.executeScript(compiledClass, binding);
+                logger.debug("Groovy Script result: " + result);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            } finally {
+                // 显式地清空 Binding 中的变量引用
+                binding.getVariables().clear();
+            }
         } else if (CodeNode.LanguageType.javascript.equals(codeNode.getLanguage())) {
             ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
             ScriptEngine nashorn = scriptEngineManager.getEngineByName("nashorn");
