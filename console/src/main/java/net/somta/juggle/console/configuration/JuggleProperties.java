@@ -16,6 +16,8 @@ public class JuggleProperties {
 
     private String apiKey;
 
+    private String secretKey;
+
     private CacheConfig cache = new CacheConfig();
 
 
@@ -33,6 +35,14 @@ public class JuggleProperties {
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 
     public CacheConfig getCache() {

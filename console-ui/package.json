@@ -30,6 +30,7 @@
     "@tsconfig/node18": "18.2.2",
     "@types/crypto-js": "4.2.1",
     "@types/node": "20.10.4",
+    "@types/qrcode": "1.5.5",
     "@vitejs/plugin-vue": "4.5.2",
     "@vue/eslint-config-prettier": "10.0.0",
     "@vue/eslint-config-typescript": "14.0.0",

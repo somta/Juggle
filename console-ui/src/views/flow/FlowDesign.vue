@@ -17,7 +17,7 @@ import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { addNode, deleteNode } from './design/operate';
 import { useFlowDataProvide } from './design/hooks/flow-data';
-import { DataNode, DataBranch } from './design/data';
+import { DataBranch } from './design/data';
 import { rebuildCondition } from './design/data/generate';
 
 const flowContext = useFlowDataProvide();

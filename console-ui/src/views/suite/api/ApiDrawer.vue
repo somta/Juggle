@@ -18,6 +18,7 @@ function getDefault() {
   return {
     id: null,
     suiteId: null,
+    apiCode: '',
     apiName: '',
     apiDesc: '',
     apiUrl: '',
@@ -71,6 +72,7 @@ function open(item?: Record<string, any>) {
       if (res.success) {
         formValue.id = res.result.id;
         formValue.suiteId = res.result.suiteId;
+        formValue.apiCode = res.result.apiCode;
         formValue.apiName = res.result.apiName;
         formValue.apiDesc = res.result.apiDesc;
         formValue.apiUrl = res.result.apiUrl;

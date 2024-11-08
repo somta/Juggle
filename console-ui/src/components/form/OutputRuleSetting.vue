@@ -35,7 +35,7 @@ const columns = [
   { name: '赋值', prop: 'target' },
 ];
 
-function addrule() {
+function addRule() {
   rules.value.push({
     source: '',
     sourceDataType: null,
@@ -59,13 +59,13 @@ function onChange() {
 
 function onTargetVarChange(rowIndex: number) {
   const target = rules.value[rowIndex].target;
-  const param = props.targetList.find(item => item.envKey === target);
+  const param = props.targetList!.find(item => item.envKey === target);
   rules.value[rowIndex].targetDataType = param.dataType;
   onChange();
 }
 
 function getAvailableSource(source: string) {
-  return props.sourceList.filter(item => {
+  return props.sourceList!.filter(item => {
     // 已选参数也能选
     if (item.paramKey === source) {
       return item;
@@ -75,7 +75,7 @@ function getAvailableSource(source: string) {
   });
 }
 function getAvailableTarget(source: string, sourceDataType: DataType) {
-  return props.targetList.filter(item => {
+  return props.targetList!.filter(item => {
     // 不选取自己
     if (item.envKey === source) {
       return false;
@@ -87,7 +87,7 @@ function getAvailableTarget(source: string, sourceDataType: DataType) {
 
 function onSourceChange(rowIndex: number) {
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList.find(item => item.paramKey === source);
+  const param = props.sourceList!.find(item => item.paramKey === source);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].sourceDataType = param.dataType;
   rules.value[rowIndex].sourceType = param.sourceType;
@@ -119,13 +119,13 @@ function onSourceChange(rowIndex: number) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeDisplay :dataType="rule.sourceDataType"/>
+            <DataTypeDisplay :dataType="rule.sourceDataType as DataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 变量 -->
             <el-select v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
               <el-option
-                v-for="item in getAvailableTarget(rule.source, rule.sourceDataType)"
+                v-for="item in getAvailableTarget(rule.source, rule.sourceDataType as DataType)"
                 :key="item.envKey"
                 :value="item.envKey"
                 :label="item.envName"
@@ -145,7 +145,7 @@ function onSourceChange(rowIndex: number) {
       </div>
     </div>
     <div class="rule-setting-foot">
-      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参' }}</el-button>
+      <el-button size="small" type="info" @click="addRule">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>

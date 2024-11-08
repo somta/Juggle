@@ -2,7 +2,6 @@
 import { PropType, ref, watch, shallowRef } from 'vue';
 import { RawData, ConditionItem, ElementType } from '../../types';
 import { Delete, Edit, Top, Bottom } from '@element-plus/icons-vue';
-import ConditionFilterModal from '../ConditionFilterModal.vue';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
 

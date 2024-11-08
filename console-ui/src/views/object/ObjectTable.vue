@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 defineProps({
-  dataRows: Array,
+  dataRows: {
+    type: Array,
+    default: [],
+  },
   pageNum: Number,
   pageSize: Number,
   dataTotal: Number,

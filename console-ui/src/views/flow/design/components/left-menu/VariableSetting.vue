@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { shallowRef, computed, ref } from 'vue';
 import { Edit, Delete, Search } from '@element-plus/icons-vue';
-import ParamSettingModal from './ParamSettingModal.vue';
 import { useFlowDataInject } from '../../hooks/flow-data';
 import { cloneDeep } from 'lodash-es';
 const flowContext = useFlowDataInject();

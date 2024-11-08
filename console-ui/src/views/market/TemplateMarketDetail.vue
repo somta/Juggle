@@ -194,7 +194,7 @@ function goToTemplateMarketDetail(templateId: number) {
         <div class="template-list">
           <el-row :gutter="20">
             <el-col :xs="24" :sm="12" :md="8" v-for="item in recommendTemplateList" :key="item.id">
-              <el-card class="card" @click="goToTemplateMarketDetail(item.id)">
+              <el-card class="card" @click="goToTemplateMarketDetail(item.id as number)">
                 <div class="card-header">
                   <template v-for="(suite, index)  in item.suiteList">
                     <img class="image" :src="suite.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />

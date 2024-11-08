@@ -88,6 +88,5 @@ export function useCodeEditor(language: string = 'javascript') {
     updateVal,
     updateOptions,
     getOption,
-    formatDoc,
   };
 }

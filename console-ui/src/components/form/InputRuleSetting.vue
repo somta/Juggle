@@ -2,7 +2,7 @@
 import { ref, watch, PropType } from 'vue';
 import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
-import {isDataTypeEqual, isDataTypeMatch} from '@/utils/dataType';
+import {isDataTypeMatch} from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 import VariableSelect from "@/components/common/VariableSelect.vue";
@@ -85,13 +85,13 @@ function onSourceTypeChange(rowIndex: number) {
 
 function onSourceVarChange(rowIndex: number) {
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList.find(item => item.envKey === source);
+  const param = props.sourceList!.find(item => item.envKey === source);
   rules.value[rowIndex].sourceDataType = param?.dataType;
   onChange();
 }
 
 function getAvailableTarget(target: string) {
-  return props.sourceList.filter(item => {
+  return props.sourceList!.filter(item => {
     // 已选参数也能选
     if (item.paramKey === target) {
       return item;
@@ -102,7 +102,7 @@ function getAvailableTarget(target: string) {
 }
 function getAvailableSource(target: string, targetDataType: DataType) {
   //console.log(props.sourceList,target,targetDataType)
-  return props.targetList.filter(item => {
+  return props.targetList!.filter(item => {
     // 不选取自己
     if (item.envKey === target) {
       return false;
@@ -115,11 +115,11 @@ function getAvailableSource(target: string, targetDataType: DataType) {
 function onTargetChange(rowIndex: number) {
   console.log('onTargetChange', rules.value[rowIndex]);
   const target = rules.value[rowIndex].target;
-  const param = props.sourceList.find(item => item.paramKey === target);
+  const param = props.sourceList!.find(item => item.paramKey === target);
   rules.value[rowIndex].source = '';
   rules.value[rowIndex].targetDataType = param.dataType;
   rules.value[rowIndex].targetType = param.targetType;
-  if (props.requiredKeys.includes(target)) {
+  if (props.requiredKeys!.includes(target)) {
     rules.value[rowIndex].required = true;
   }
 }
@@ -154,7 +154,7 @@ function onTargetChange(rowIndex: number) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeDisplay :dataType="rule.targetDataType"/>
+            <DataTypeDisplay :dataType="rule.targetDataType as DataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.sourceType" size="small" @change="onSourceTypeChange(rowIndex)">
@@ -171,8 +171,8 @@ function onTargetChange(rowIndex: number) {
                 v-else
                 v-model="rule.source"
                 size="small"
-                :options="getAvailableSource(rule.target, rule.targetDataType)"
-                :filterDataType="rule.targetDataType"
+                :options="getAvailableSource(rule.target, rule.targetDataType as DataType)"
+                :filterDataType="rule.targetDataType as DataType"
                 @change="onSourceVarChange(rowIndex)"
             />
           </div>

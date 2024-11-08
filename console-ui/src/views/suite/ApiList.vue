@@ -55,11 +55,10 @@ function openEdit(row: any) {
 
 function openDelete(row: any) {
   ElMessageBox.confirm(`确定删除'${row.apiName}'吗?`, '操作确认', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
     type: 'warning',
-  })
-    .then(() => {
+    cancelButtonText: '取消',
+    confirmButtonText: '确定',
+  }).then(() => {
       deleteApiItem(row);
     })
     .catch(() => {});

@@ -86,9 +86,10 @@ sh startup.sh
 
 ## 客户与案例
 <div align = "center"> 
-    <img src="https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png" width="33%" style="background-color: #e6dddd"/>
+    <img src="https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png" width="33%" style="background-color: #383434"/>
     <img src="https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png" width="33%" />
     <img src="https://www.swsc.com.cn/r/cms/www/default/images/logo.png" width="33%" />
+    <img src="https://www.xinyucores.com/data/upload/image/20220606/1654501776108189.png" width="33%" style="background-color: #000"/>
 </div>
 
 ## 感恩与支持

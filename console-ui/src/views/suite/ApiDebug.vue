@@ -20,6 +20,8 @@ let flowResponseJson = ref('');
 const apiInfo = ref<ApiInfo>({
   id: null,
   suiteId: null,
+  suiteFlag: null,
+  apiCode: '',
   apiUrl: '',
   apiName: '',
   apiDesc: '',

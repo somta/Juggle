@@ -1,6 +1,6 @@
 import {templateMarketAPI} from '@/service/api';
 import { ResponseResult } from '@/service/base';
-import {SuiteMarketInfo, TemplateMarketInfo} from '@/typings';
+import { TemplateMarketInfo} from '@/typings';
 
 export async function queryTemplateMarketClassifyList() {
   return templateMarketAPI.queryTemplateMarketClassifyList();

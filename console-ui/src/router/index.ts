@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import LayoutView from '../views/LayoutView.vue';
 import LoginView from '../views/LoginView.vue';
-import HomeView from '../views/HomeView.vue';
 import NotFound from '../views/NotFound.vue';
 import { FlowRoutes } from '../views/flow';
 import { CommonRoutes } from '../views/common';

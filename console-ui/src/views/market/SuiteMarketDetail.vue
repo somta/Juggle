@@ -4,7 +4,7 @@ import { useRoute,useRouter } from 'vue-router';
 import {orderService, suiteMarketService} from '@/service';
 import {CreateOrder, SuiteMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
-import QRCode from 'qrcode'
+import {QRCode} from 'qrcode'
 import UserAgreement from '../common/UserAgreement.vue'
 
 const route = useRoute();
@@ -128,12 +128,12 @@ async function querySuiteMarketInfo() {
 <template>
   <div class="suite-market-detail">
     <div class="suite-head">
-      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" />
-      <h3>
-        {{ suiteMarketInfo.suiteName }}
+      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }"  alt="suite image"/>
+      <div>
+        <h3>{{ suiteMarketInfo.suiteName }}</h3>
         <p>{{ suiteMarketInfo.suiteDesc }}</p>
         <div class="price"><em>{{ suiteMarketInfo.suitePrice }}</em>元</div>
-      </h3>
+      </div>
       <div class="operation-button">
         <a v-if="suiteMarketInfo.installStatus" class="btn">已安装</a>
         <a v-else class="btn" @click="handleInstallSuiteMarket">安装</a>

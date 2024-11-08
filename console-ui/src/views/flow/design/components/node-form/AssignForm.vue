@@ -190,7 +190,7 @@ function removeRule(rowIndex: number) {
                   </el-select>
                 </div>
                 <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-                  <DataTypeDisplay :dataType="rule.targetDataType"/>
+                  <DataTypeDisplay :dataType="rule.targetDataType as DataType"/>
                 </div>
                 <div class="rule-setting-td" v-if="column.prop === 'targetType'">
                   <el-select v-model="rule.sourceType" size="small" @change="onAssignTypeChange(rowIndex)">
@@ -208,7 +208,7 @@ function removeRule(rowIndex: number) {
                       v-model="rule.source"
                       size="small"
                       :options="getAvailableSource(rule.target, rule.targetDataType as DataType)"
-                      :filterDataType="rule.targetDataType"
+                      :filterDataType="rule.targetDataType as DataType"
                       @change="onSourceEnvChange(rowIndex)"
                   />
                 </div>

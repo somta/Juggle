@@ -8,6 +8,6 @@
     </clipPath>
   </defs>
   <g id="kuaidi100" clip-path="url(#clip-kuaidi100)">
-    <rect id="kuaidi100-2" data-name="kuaidi100" width="50" height="50" fill="url(#pattern)"/>
+    <rect width="50" height="50" fill="url(#pattern)"/>
   </g>
 </svg>

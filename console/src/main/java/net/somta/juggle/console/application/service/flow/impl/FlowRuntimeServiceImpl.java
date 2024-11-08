@@ -53,7 +53,7 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
 
     public FlowRuntimeServiceImpl(JuggleProperties juggleProperties, IDataSourceRepository dataSourceRepository) {
         initFlowResultManager(juggleProperties);
-        this.dataSourceManager = new DataSourceManager(dataSourceRepository);
+        this.dataSourceManager = new DataSourceManager(dataSourceRepository, juggleProperties);
     }
 
     @Override

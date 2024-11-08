@@ -1,3 +1,5 @@
+import {DataType} from "@/typings";
+
 export type ConditionItem = {
   conditionName: string;
   conditionType: string;
@@ -52,14 +54,8 @@ export enum FlowVariableType {
   TEMP = 3,
 }
 
-export type FlowVariableDataType = {
-  type: string;
-  itemType: string;
-  objectStructure: any;
-};
-
 export type FlowVariable = {
-  dataType: any;
+  dataType: DataType;
   envKey: string;
   envName: string;
   envType: FlowVariableType;
