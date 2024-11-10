@@ -26,7 +26,7 @@ public class GroovyScriptCompiler {
      * @return 已编译的脚本类
      */
     public static Class<?> compile(String script) {
-        String scriptMd5 = Md5Util.encode(script);
+        String scriptMd5 = Md5Util.encrypt(script);
         // 使用 ConcurrentHashMap 的 computeIfAbsent 原子操作进行缓存检查和编译
         return scriptCache.computeIfAbsent(scriptMd5, key -> {
             // 编译脚本

@@ -7,7 +7,7 @@ import { Delete } from '@element-plus/icons-vue';
 import {useFlowDataInject} from "@/views/flow/design/hooks/flow-data.ts";
 import {DataType, RuleItem, valueType} from "@/typings";
 import FilterValue from "@/components/filter/FilterValue.vue";
-import {isDataTypeMatch} from "@/utils/dataType.ts";
+import {getVariableDataType, isDataTypeEqual, isDataTypeMatch} from "@/utils/dataType.ts";
 import VariableSelect from '@/components/common/VariableSelect.vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
@@ -123,9 +123,18 @@ function onAssignTypeChange(rowIndex: number) {
 }
 
 function onSourceEnvChange(rowIndex: number) {
+  const target = nodeData.value.assignRules[rowIndex].target;
+  let targetEnv = getVariableDataType(target,targetEnvList.value);
+
   const source =  nodeData.value.assignRules[rowIndex].source;
-  const param = sourceEnvList.value.find(item => item.envKey === source);
-  nodeData.value.assignRules[rowIndex].sourceDataType = param?.dataType;
+  let sourceEnv = getVariableDataType(source,sourceEnvList.value);
+  if(!isDataTypeEqual(targetEnv.dataType,sourceEnv.dataType)){
+    ElMessage.error('所选变量的数据类型与目标变量数据类型不匹配');
+    nodeData.value.assignRules[rowIndex].source = '';
+    return;
+  }
+  //const param = sourceEnvList.value.find(item => item.envKey === source);
+  nodeData.value.assignRules[rowIndex].sourceDataType = sourceEnv.dataType;
 }
 
 function addAssignRule() {

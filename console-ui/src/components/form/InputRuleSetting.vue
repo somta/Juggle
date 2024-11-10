@@ -2,10 +2,11 @@
 import { ref, watch, PropType } from 'vue';
 import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
-import {isDataTypeMatch} from '@/utils/dataType';
+import {getVariableDataType, isDataTypeEqual, isDataTypeMatch} from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 import VariableSelect from "@/components/common/VariableSelect.vue";
+import {ElMessage} from "element-plus";
 
 const assignTypeList = [
   { value: valueType.CONSTANT, label: '常量' },
@@ -84,9 +85,18 @@ function onSourceTypeChange(rowIndex: number) {
 }
 
 function onSourceVarChange(rowIndex: number) {
+  const target = rules.value[rowIndex].target;
+  const targetEnv = props.sourceList!.find(item => item.paramKey === target);
+
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList!.find(item => item.envKey === source);
-  rules.value[rowIndex].sourceDataType = param?.dataType;
+  let sourceEnv = getVariableDataType(source,props.targetList);
+  if(!isDataTypeEqual(targetEnv.dataType,sourceEnv.dataType)){
+    ElMessage.error('所选变量的数据类型与目标变量数据类型不匹配');
+    rules.value[rowIndex].source = '';
+    return;
+  }
+  //const param = props.sourceList!.find(item => item.envKey === source);
+  rules.value[rowIndex].sourceDataType = sourceEnv.dataType;
   onChange();
 }
 
@@ -113,7 +123,6 @@ function getAvailableSource(target: string, targetDataType: DataType) {
 }
 
 function onTargetChange(rowIndex: number) {
-  console.log('onTargetChange', rules.value[rowIndex]);
   const target = rules.value[rowIndex].target;
   const param = props.sourceList!.find(item => item.paramKey === target);
   rules.value[rowIndex].source = '';

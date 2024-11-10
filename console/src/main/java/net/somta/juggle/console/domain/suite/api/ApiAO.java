@@ -73,13 +73,13 @@ public class ApiAO {
             throw new RuntimeException(e);
         }
         String originalCode = url.getPath() + this.apiRequestType.toString();
-        this.apiCode = Md5Util.encode(originalCode);
+        this.apiCode = Md5Util.encrypt(originalCode);
     }
 
     /**
      * 初始化参数实体
-     * @param apiInputParamList
-     * @param apiOutputParamList
+     * @param apiInputParamList api input param list
+     * @param apiOutputParamList api output param list
      */
     public void initParameterList(List<InputParameterVO> apiInputParamList, List<OutputParameterVO> apiOutputParamList) {
         ParameterEntity parameterEntity = new ParameterEntity();

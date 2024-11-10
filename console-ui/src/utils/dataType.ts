@@ -54,22 +54,35 @@ export function isDataTypeEqual(typeA: DataType, typeB: DataType) {
   return true;
 }
 
-export function isDataTypeMatch(sourceDataTypeItem: DataType, targetDataTypeItem: DataType) {
-  if (!targetDataTypeItem || !targetDataTypeItem) {
+/**
+ *
+ * @param sourceDataTypeItem
+ * @param filterDataType 期望的数据类型
+ */
+export function isDataTypeMatch(sourceDataTypeItem: DataType, filterDataType: DataType) {
+  if (!sourceDataTypeItem || !filterDataType) {
     return false;
   }
-  if (sourceDataTypeItem === targetDataTypeItem) {
+  if (sourceDataTypeItem === filterDataType) {
     return true;
   }
-  if (sourceDataTypeItem.type == targetDataTypeItem.type) {
+  if (sourceDataTypeItem.type == filterDataType.type) {
     return true;
   }
-  //原始类似是对象的变量也要返回
-  if(sourceDataTypeItem.type == "Object"){
-    if(sourceDataTypeItem.objectKey === targetDataTypeItem.objectKey){
+
+  if(filterDataType.type == "String" || filterDataType.type == "Integer" ||
+      filterDataType.type == "Double" || filterDataType.type == "Boolean" ||
+      filterDataType.type == "Date" || filterDataType.type == "Time"){
+    if(sourceDataTypeItem.type == filterDataType.type || sourceDataTypeItem.type == 'Object'){
       return true;
     }
   }
+
+  /*if(filterDataType.type == "Object"){
+    if(sourceDataTypeItem.type == 'Object' && sourceDataTypeItem.objectKey == filterDataType.objectKey){
+      return true;
+    }
+  }*/
   return false;
 }
 
