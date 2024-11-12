@@ -36,11 +36,11 @@ public class FlowOpenController {
     }
 
     /**
-     * 触发流程
+     * 触发单参数流程
      * @param flowData trigger flow data
      * @return Boolean
      */
-    @Operation(summary = "触发流程")
+    @Operation(summary = "触发单参数流程")
     @GetMapping("/trigger/{flowVersion}/{flowKey}")
     public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowVersion, @PathVariable String flowKey, @RequestParam Map<String,Object> flowData){
         if(StringUtils.isEmpty(flowKey)){
@@ -55,6 +55,28 @@ public class FlowOpenController {
         }
         TriggerDataParam triggerData = new TriggerDataParam();
         triggerData.setFlowData(flowData);
+        FlowResult rst = flowVersionService.triggerFlow(flowVersionAo,triggerData);
+        return ResponseDataResult.setResponseResult(rst);
+    }
+
+    /**
+     * 触发流程
+     * @param triggerData trigger flow data
+     * @return Boolean
+     */
+    @Operation(summary = "触发流程")
+    @PostMapping("/trigger/{flowVersion}/{flowKey}")
+    public ResponseDataResult<FlowResult> triggerFlow(@PathVariable String flowVersion, @PathVariable String flowKey, @RequestBody TriggerDataParam triggerData){
+        if(StringUtils.isEmpty(flowKey)){
+            return ResponseDataResult.setErrorResponseResult(FLOW_KEY_IS_EMPTY);
+        }
+        FlowVersionAO flowVersionAo = flowVersionService.getFlowVersionInfoByKey(flowKey,flowVersion);
+        if(flowVersionAo == null){
+            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_EXIST);
+        }
+        if(FlowVersionStatusEnum.DISABLED == flowVersionAo.getFlowVersionStatusEnum()){
+            return ResponseDataResult.setErrorResponseResult(FLOW_NOT_ENABLE);
+        }
         FlowResult rst = flowVersionService.triggerFlow(flowVersionAo,triggerData);
         return ResponseDataResult.setResponseResult(rst);
     }

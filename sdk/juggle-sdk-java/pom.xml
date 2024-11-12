@@ -6,7 +6,7 @@
 
     <groupId>net.somta</groupId>
     <artifactId>juggle-client</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 
     <name>juggle-client</name>
     <description>juggle java sdk</description>

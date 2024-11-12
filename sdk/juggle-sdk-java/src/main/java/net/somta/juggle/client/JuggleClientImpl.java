@@ -6,13 +6,16 @@ import net.somta.juggle.client.model.FlowResultModel;
 import net.somta.juggle.client.model.FlowTriggerDataParam;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 
@@ -39,17 +42,19 @@ public class JuggleClientImpl implements JuggleClient {
         this.juggleConfig = juggleConfig;
         connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setMaxTotal(20);
-        connectionManager.setDefaultMaxPerRoute(5);
+        connectionManager.setDefaultMaxPerRoute(10);
     }
 
     @Override
     public ResponseDataResult<FlowResultModel> triggerFlow(String flowVersion, String flowKey, FlowTriggerDataParam triggerData) throws IOException{
         String url = juggleConfig.getServerAddr() + String.format(TRIGGER_FLOW_URL, flowVersion, flowKey);
         HttpClient httpClient =getHttpClient();
-        HttpUriRequestBase request = new HttpGet(url);
+        HttpUriRequestBase request = new HttpPost(url);
         fillCommonHttpHeader(request, juggleConfig.getAccessToken());
         if (triggerData.getFlowData() != null) {
-            buildRequestParams(request,url,triggerData.getFlowData());
+            String triggerDataJson = JsonSerializeHelper.serialize(triggerData);
+            StringEntity entity = new StringEntity(triggerDataJson, ContentType.APPLICATION_JSON);
+            request.setEntity(entity);
         }
 
         final HttpClientResponseHandler<ResponseDataResult<FlowResultModel>> responseHandler = response -> {
@@ -95,27 +100,6 @@ public class JuggleClientImpl implements JuggleClient {
                 .setConnectionManager(connectionManager)
                 .build();
         return httpClient;
-    }
-
-    /**
-     *
-     * @param httpRequest http request
-     * @param url http url
-     * @param url http params
-     */
-    private void buildRequestParams(HttpUriRequestBase httpRequest, String url, Map<String,Object> params) {
-        List<NameValuePair> list = new ArrayList<>();
-        for (Map.Entry<String, Object> param : params.entrySet()) {
-            list.add(new BasicNameValuePair(param.getKey(), String.valueOf(param.getValue())));
-        }
-        try {
-            URI uri = new URIBuilder(new URI(url))
-                    .addParameters(list)
-                    .build();
-            httpRequest.setUri(uri);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**
