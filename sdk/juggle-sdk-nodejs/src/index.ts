@@ -1,12 +1,7 @@
 import * as request from './utils/request';
 import qs from 'query-string';
+import {IConfig} from "./IConfig";
 
-export interface IConfig {
-  /** 密钥 */
-  accessToken: string;
-  /** 服务地址 */
-  serverAddr: string;
-}
 
 const TRIGGER_FLOW_URL = '/v1/open/flow/trigger';
 const GET_ASYNC_FLOW_RESULT_URL = '/v1/open/flow/getAsyncFlowResult';
