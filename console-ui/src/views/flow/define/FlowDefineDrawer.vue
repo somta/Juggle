@@ -5,7 +5,6 @@ import { FlowDefineInfo } from '@/typings';
 import ParamSetting from '@/components/form/ParamSetting.vue';
 import { flowDefineService } from '@/service';
 import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
-import {DrawerKey} from "@/components/common/types.ts";
 
 const flowDefineDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -81,7 +80,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <ResizableDrawer v-model="flowDefineDrawerVisible" :size="600" :title="title" :drawer-key="DrawerKey.FLOW_DEFINE_DRAWER" destroyOnClose>
+  <ResizableDrawer v-model="flowDefineDrawerVisible" :size="600" :title="title" drawer-key="FLOW_DEFINE" destroyOnClose>
     <div>
       <el-form ref="formRef" label-position="top" :model="flowDefineFormValue" :rules="rules">
         <el-form-item label="流程名称" prop="flowName">

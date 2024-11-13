@@ -4,7 +4,6 @@ import type { FormInstance, FormRules } from 'element-plus';
 import { dataSourceService } from '@/service';
 import { DataSource } from '@/service/module/dataSource.ts';
 import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
-import {DrawerKey} from "@/components/common/types.ts";
 
 const dialogVisible = ref(false);
 const dataSourceFormRef = ref<FormInstance>();
@@ -97,7 +96,7 @@ const title = computed(() => {
 defineExpose({ open });
 </script>
 <template>
-  <ResizableDrawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose :drawer-key="DrawerKey.DATA_SOURCE_DRAWER">
+  <ResizableDrawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose drawer-key="DATA_SOURCE">
     <div class="form">
       <el-form ref="dataSourceFormRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="数据源名称" prop="dataSourceName">

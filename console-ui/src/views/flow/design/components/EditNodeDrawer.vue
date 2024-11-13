@@ -3,14 +3,14 @@ import { ref, shallowRef } from 'vue';
 import { RawData } from '../types';
 import { getNodeForm } from './node-form';
 import { useFlowDataInject } from '../hooks/flow-data';
+import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
 const flowContext = useFlowDataInject();
 const visible = ref(false);
-import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
-import {DrawerKey} from "@/components/common/types.ts";
 let openParams: {
   data: RawData;
   afterEdit: (oldData: RawData) => void;
 };
+
 function open(params: typeof openParams) {
   visible.value = true;
   openParams = params;
@@ -39,7 +39,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <ResizableDrawer v-model="visible" :size="560" :title="currentData?.name" @closed="onClosed" :drawer-key="DrawerKey.EDIT_NODE_DRAWER">
+  <ResizableDrawer v-model="visible" :size="560" :title="currentData?.name" @closed="onClosed" drawer-key="FLOW_NODE">
     <component :is="currentNodeForm" :data="currentData" @update="onUpdate" @cancel="visible = false" />
   </ResizableDrawer>
 </template>
