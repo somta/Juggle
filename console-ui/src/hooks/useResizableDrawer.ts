@@ -1,4 +1,4 @@
-import {ref, computed, onMounted, onUnmounted} from 'vue';
+import {computed, onUnmounted, ref} from 'vue';
 
 export function useResizableDrawer(props: any, emit: any, drawerSize: any) {
     const resizeBar = ref<HTMLElement | null>(null);
@@ -33,9 +33,6 @@ export function useResizableDrawer(props: any, emit: any, drawerSize: any) {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     }
-
-    onMounted(() => {
-    });
 
     onUnmounted(() => {
         document.removeEventListener('mousemove', onMouseMove);
@@ -74,11 +71,11 @@ export function getDrawerSize(drawerKey: string, defaultSize: number) {
 export function setDrawerSize(drawerKey: string, size: number) {
     if (!drawerKey) return;
     const drawList = JSON.parse(localStorage.getItem('drawList') || '[]');
-    const index = drawList.findIndex((item: any) => item.key === drawerKey);
-    if (index !== -1) {
-        drawList[index].size = size;
+    const drawer = drawList.find((item: any) => item.key === drawerKey);
+    if (drawer) {
+        drawer.size = size;
     } else {
-        drawList.push({key: drawerKey, size});
+        drawList.push({key: drawerKey, size: size});
     }
     localStorage.setItem('drawList', JSON.stringify(drawList));
 }
