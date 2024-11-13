@@ -4,6 +4,8 @@ import { FormInstance, FormRules } from 'element-plus';
 import { FlowDefineInfo } from '@/typings';
 import ParamSetting from '@/components/form/ParamSetting.vue';
 import { flowDefineService } from '@/service';
+import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
+import {DrawerKey} from "@/components/common/types.ts";
 
 const flowDefineDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -79,7 +81,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="flowDefineDrawerVisible" :size="600" :title="title" destroyOnClose>
+  <ResizableDrawer v-model="flowDefineDrawerVisible" :size="600" :title="title" :drawer-key="DrawerKey.FLOW_DEFINE_DRAWER" destroyOnClose>
     <div>
       <el-form ref="formRef" label-position="top" :model="flowDefineFormValue" :rules="rules">
         <el-form-item label="流程名称" prop="flowName">
@@ -106,7 +108,7 @@ defineExpose({ open });
         </el-form-item>
       </el-form>
     </div>
-  </el-drawer>
+  </ResizableDrawer>
 </template>
 
 <style scoped></style>

@@ -3,6 +3,8 @@ import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import { dataSourceService } from '@/service';
 import { DataSource } from '@/service/module/dataSource.ts';
+import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
+import {DrawerKey} from "@/components/common/types.ts";
 
 const dialogVisible = ref(false);
 const dataSourceFormRef = ref<FormInstance>();
@@ -95,7 +97,7 @@ const title = computed(() => {
 defineExpose({ open });
 </script>
 <template>
-  <el-drawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose>
+  <ResizableDrawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose :drawer-key="DrawerKey.DATA_SOURCE_DRAWER">
     <div class="form">
       <el-form ref="dataSourceFormRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="数据源名称" prop="dataSourceName">
@@ -160,7 +162,7 @@ defineExpose({ open });
         </el-form-item>
       </el-form>
     </div>
-  </el-drawer>
+  </ResizableDrawer>
 </template>
 
 <style scoped>

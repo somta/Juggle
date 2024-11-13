@@ -6,6 +6,7 @@ import { useFlowDataInject } from '../hooks/flow-data';
 const flowContext = useFlowDataInject();
 const visible = ref(false);
 import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
+import {DrawerKey} from "@/components/common/types.ts";
 let openParams: {
   data: RawData;
   afterEdit: (oldData: RawData) => void;
@@ -38,7 +39,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <ResizableDrawer v-model="visible" :size="560" :title="currentData?.name" @closed="onClosed">
+  <ResizableDrawer v-model="visible" :size="560" :title="currentData?.name" @closed="onClosed" :drawer-key="DrawerKey.EDIT_NODE_DRAWER">
     <component :is="currentNodeForm" :data="currentData" @update="onUpdate" @cancel="visible = false" />
   </ResizableDrawer>
 </template>

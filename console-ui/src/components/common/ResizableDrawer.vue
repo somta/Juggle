@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import {computed, onMounted, onUnmounted, ref, watch} from 'vue';
+import { ref, watch } from 'vue';
+import { useResizableDrawer, getDrawerSize, setDrawerSize } from '@/hooks/useResizableDrawer'; // 确保路径正确
 
 const props = defineProps({
+  drawerKey: String,
   size: {
     type: Number,
     default: 560,
@@ -22,62 +24,27 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'closed']);
 
-const resizeBar = ref<HTMLElement | null>(null);
-const drawerSize = ref(props.size);
+const drawerSize = ref(getDrawerSize(props.drawerKey, props.size));
 const visible = ref(props.modelValue);
 
-let startX = 0;
-let startY = 0;
-let initialSize = 0;
-
-function onMouseMove(e: MouseEvent) {
-  if (props.direction === 'ltr' || props.direction === 'rtl') {
-    const deltaX = props.direction === 'ltr' ?  e.clientX - startX: startX - e.clientX ;
-    drawerSize.value = Math.max(200, initialSize + deltaX);
-  } else if (props.direction === 'ttb' || props.direction === 'btt') {
-    const deltaY = props.direction === 'ttb' ? e.clientY - startY : startY - e.clientY;
-    drawerSize.value = Math.max(200, initialSize + deltaY);
-  }
-}
-
-function onMouseUp() {
-  document.removeEventListener('mousemove', onMouseMove);
-  document.removeEventListener('mouseup', onMouseUp);
-}
-
-function onMouseDown(e: MouseEvent) {
-  e.preventDefault();
-  startX = e.clientX;
-  startY = e.clientY;
-  initialSize = drawerSize.value;
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
-}
-
-onMounted(() => {
-});
-
-onUnmounted(() => {
-  document.removeEventListener('mousemove', onMouseMove);
-  document.removeEventListener('mouseup', onMouseUp);
-});
-
-function onClosed() {
-  emit('closed');
-  emit('update:modelValue', false);
-}
+const {
+  resizeBar,
+  onMouseDown,
+  onClosed,
+  drawerClass,
+  resizeBarClass,
+} = useResizableDrawer(props, emit, drawerSize);
 
 // 监听父组件的 v-model 更新
 watch(() => props.modelValue, (newVal) => {
   visible.value = newVal;
 });
 
-const drawerClass = computed(() => {
-  return `resize-drawer-${props.direction}`;
-});
-
-const resizeBarClass = computed(() => {
-  return `resize-bar resize-bar-${props.direction}`;
+// 监听 drawerSize 的变化并更新 localStorage
+watch(drawerSize, (newSize) => {
+  if (props.drawerKey) {
+    setDrawerSize(props.drawerKey, newSize);
+  }
 });
 </script>
 
@@ -138,5 +105,4 @@ const resizeBarClass = computed(() => {
     top: 0;
   }
 }
-
 </style>
