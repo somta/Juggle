@@ -6,6 +6,8 @@ import ParamSetting from '@/components/form/ParamSetting.vue';
 import { apiService } from '@/service';
 import type { ApiInfo } from '@/typings';
 import { ApiRequestContentTypeMap, ApiRequestTypeMap } from '@/const';
+import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
+import {DrawerKey} from "@/components/common/types.ts";
 
 const ApiRequestTypes = Object.keys(ApiRequestTypeMap);
 const ApiRequestContentTypes = Object.keys(ApiRequestContentTypeMap);
@@ -100,7 +102,7 @@ const title = computed(() => {
 defineExpose({ open });
 </script>
 <template>
-  <el-drawer v-model="dialogVisible" :size="600" :title="title" destroyOnClose>
+  <ResizableDrawer v-model="dialogVisible" :size="600" :title="title" destroyOnClose :drawer-key="DrawerKey.API_DRAWER">
     <div class="form">
       <el-form ref="apiFormRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="套件" prop="suiteId">
@@ -147,7 +149,7 @@ defineExpose({ open });
         </el-form-item>
       </el-form>
     </div>
-  </el-drawer>
+  </ResizableDrawer>
 </template>
 
 <style scoped>
