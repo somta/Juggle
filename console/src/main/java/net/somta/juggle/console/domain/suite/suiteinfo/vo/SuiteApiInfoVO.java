@@ -10,7 +10,7 @@ import java.util.List;
  * @author husong
  * @since 1.2.1
  */
-public class SuiteMarketApiVO {
+public class SuiteApiInfoVO {
 
     private String apiCode;
     /**

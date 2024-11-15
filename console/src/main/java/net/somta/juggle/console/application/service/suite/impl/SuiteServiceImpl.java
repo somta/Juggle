@@ -43,7 +43,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
@@ -162,9 +161,9 @@ public class SuiteServiceImpl implements ISuiteService {
         suiteEntity.setSuiteFlag(SuiteTypeEnum.OFFICIAL_SUITE.getCode());
         Long newSuiteId = suiteRepository.addSuite(suiteEntity);
         addSuiteObjectList(suiteMarketVo.getObjectList());
-        List<SuiteMarketApiVO> apiList = suiteMarketVo.getApiList();
+        List<SuiteApiInfoVO> apiList = suiteMarketVo.getApiList();
         if(CollectionUtils.isNotEmpty(apiList)){
-            for (SuiteMarketApiVO suiteMarketApi : apiList) {
+            for (SuiteApiInfoVO suiteMarketApi : apiList) {
                 addSuiteMarketApi(newSuiteId,suiteMarketApi);
             }
         }
@@ -196,7 +195,7 @@ public class SuiteServiceImpl implements ISuiteService {
      * List of interfaces for newly added packages
      * @param suiteMarketApi suite api list
      */
-    private void addSuiteMarketApi(Long suiteId,SuiteMarketApiVO suiteMarketApi){
+    private void addSuiteMarketApi(Long suiteId, SuiteApiInfoVO suiteMarketApi){
         ApiAddParam apiAddParam = new ApiAddParam();
         apiAddParam.setSuiteId(suiteId);
         apiAddParam.setApiCode(suiteMarketApi.getApiCode());
