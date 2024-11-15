@@ -25,7 +25,7 @@ function editRow(row: any) {
     <el-table-column prop="suiteCode" label="套件图像" width="100" >
       <template #default="scope">
         <img v-if="scope.row.suiteImage" :src="scope.row.suiteImage" class="suite-image" alt="suite image" />
-        <img v-else class="suite-image" alt="default" src="">
+        <img v-else class="suite-image" >
       </template>
     </el-table-column>
     <el-table-column prop="suiteCode" label="套件编码" width="180" />
