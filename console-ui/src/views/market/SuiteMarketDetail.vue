@@ -4,7 +4,7 @@ import { useRoute,useRouter } from 'vue-router';
 import {orderService, suiteMarketService} from '@/service';
 import {CreateOrder, SuiteMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
-import QRCode from 'qrcode'
+import {QRCode} from 'qrcode'
 import UserAgreement from '../common/UserAgreement.vue'
 
 const route = useRoute();
@@ -96,6 +96,10 @@ async function getOrderPayStatus(orderNo:string) {
   }
 }
 
+function closeOrder(){
+  clearInterval(timerId);
+}
+
 async function installSuiteMarket(bill?: string) {
   let suiteId = Number(paramsData.params.suiteId);
   const res = await suiteMarketService.installSuiteMarket(suiteId,bill);
@@ -124,12 +128,12 @@ async function querySuiteMarketInfo() {
 <template>
   <div class="suite-market-detail">
     <div class="suite-head">
-      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" />
-      <h3>
-        {{ suiteMarketInfo.suiteName }}
+      <img v-if="suiteMarketInfo.suiteImage != ''" :src="suiteMarketInfo.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }"  alt="suite image"/>
+      <div>
+        <h3>{{ suiteMarketInfo.suiteName }}</h3>
         <p>{{ suiteMarketInfo.suiteDesc }}</p>
         <div class="price"><em>{{ suiteMarketInfo.suitePrice }}</em>元</div>
-      </h3>
+      </div>
       <div class="operation-button">
         <a v-if="suiteMarketInfo.installStatus" class="btn">已安装</a>
         <a v-else class="btn" @click="handleInstallSuiteMarket">安装</a>
@@ -189,7 +193,7 @@ async function querySuiteMarketInfo() {
       </el-tabs>
     </div>
 
-    <el-dialog v-model="orderDetailDialogVisible" title="订单详情" width="500" center>
+    <el-dialog v-model="orderDetailDialogVisible" :close-on-click-modal="false" title="订单详情" width="500" center>
       <div>
         <el-descriptions
             :column="1"
@@ -212,7 +216,7 @@ async function querySuiteMarketInfo() {
     <UserAgreement ref="userAgreementRef"/>
 
     <!-- order detail -->
-    <el-dialog v-model="payDialogVisible" title="订单详情" width="500">
+    <el-dialog v-model="payDialogVisible" :close-on-click-modal="false" title="订单详情" width="500" @close="closeOrder">
       <div>
         <el-descriptions
             :column="1"
@@ -240,7 +244,7 @@ async function querySuiteMarketInfo() {
   border-radius: 4px;
   height: 100%;
   margin: 0 auto;
-  padding: 0 0 16px 24px;
+  padding: 0 24px 16px 24px;
   background-color: #fff;
 }
 
@@ -301,7 +305,6 @@ async function querySuiteMarketInfo() {
 
   .api-info{
     padding-left: 15px;
-    padding-right: 15px;
     .title{
       margin: 14px 0 12px 0;
     }

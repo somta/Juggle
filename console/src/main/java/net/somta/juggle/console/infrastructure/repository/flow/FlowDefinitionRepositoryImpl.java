@@ -16,12 +16,15 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.infrastructure.repository.flow;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.flow.definition.FlowDefinitionAO;
 import net.somta.juggle.console.domain.flow.definition.repository.IFlowDefinitionRepository;
 import net.somta.juggle.console.domain.flow.definition.vo.FlowDefinitionInfoQueryVO;
 import net.somta.juggle.console.domain.flow.definition.vo.FlowDefinitionInfoVO;
 import net.somta.juggle.console.domain.flow.definition.vo.VariableDeleteVO;
+import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterSourceTypeEnum;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
@@ -44,6 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author husong
@@ -140,7 +144,28 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     private void saveParametersAndVariables(Long flowDefinitionId,FlowDefinitionAO flowDefinitionAo){
         List<ParameterPO> parameterPoList = flowDefinitionAo.getParameterEntity().getParameterPoList(flowDefinitionId,ParameterSourceTypeEnum.FLOW.getCode());
         List<VariableInfoPO> variableInfoPoList = new ArrayList<>();
-        flowDefinitionAo.getParameterEntity().getInputParameterList();
+
+        if(CollectionUtils.isNotEmpty(flowDefinitionAo.getVariableInfoList())){
+            List<VariableInfoVO> middleVariableList = flowDefinitionAo.getVariableInfoList().stream()
+                    .filter(variable -> VariableTypeEnum.MIDDLE_VARIABLE.getCode() == variable.getEnvType())
+                    .collect(Collectors.toList());
+
+            VariableInfoPO middleVariableInfoPo;
+            for (VariableInfoVO variableInfo :middleVariableList){
+                middleVariableInfoPo = new VariableInfoPO();
+                middleVariableInfoPo.setFlowDefinitionId(flowDefinitionId);
+                middleVariableInfoPo.setEnvKey(variableInfo.getEnvKey());
+                middleVariableInfoPo.setEnvName(variableInfo.getEnvName());
+                middleVariableInfoPo.setEnvType(VariableTypeEnum.MIDDLE_VARIABLE.getCode());
+                try {
+                    middleVariableInfoPo.setDataType(JsonSerializeHelper.serialize(variableInfo.getDataType()));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+                variableInfoPoList.add(middleVariableInfoPo);
+            }
+        }
+
         if(CollectionUtils.isNotEmpty(parameterPoList)){
             parameterPoList.stream().forEach(parameter -> {
                 parameter.setSourceId(flowDefinitionId);
@@ -159,10 +184,10 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
                 variableInfoPoList.add(variableInfoPo);
             });
             parameterMapper.batchAddParameter(parameterPoList);
+        }
 
-            if(CollectionUtils.isNotEmpty(variableInfoPoList)){
-                variableInfoMapper.batchAddVariable(variableInfoPoList);
-            }
+        if(CollectionUtils.isNotEmpty(variableInfoPoList)){
+            variableInfoMapper.batchAddVariable(variableInfoPoList);
         }
     }
 }

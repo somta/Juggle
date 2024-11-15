@@ -82,7 +82,7 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
     private Map<String,Object> sendHttpRequest(Method method, Map<String, Object> headerData, Map<String, Object> parameterData){
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(method.getRequestContentType()));
         Request request = new Request(method.getRequestType(),method.getInputParamSchemas());
-        request.initRequest(method.getUrl(),headerData,parameterData);
+        request.initRequest(method.getMethodCode(),method.getUrl(),headerData,parameterData);
         Map<String,Object> result = httpClient.sendRequest(request);
         return result;
     }
@@ -113,7 +113,6 @@ public class MethodNodeExecutor extends AbstractElementExecutor {
             return Collections.EMPTY_MAP;
         }
         Map<String,Object> paramData = new HashMap<>(8);
-        // todo 如果是这种类型，怎么支持高级类型，user.id这样的结构，看看bizw是怎么做的
         for(FillStruct fillStruct : inputFillRules){
             String fieldKey = fillStruct.getTarget();
             if(FieldSourceEnum.CONSTANT.equals(fillStruct.getSourceType())){

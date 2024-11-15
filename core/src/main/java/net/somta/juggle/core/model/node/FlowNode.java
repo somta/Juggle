@@ -28,12 +28,13 @@ import java.util.List;
  **/
 public class FlowNode extends FlowElement {
     private String desc;
+
     /**
-     * 节点入口
+     * flow input
      */
     private List<String> incomings;
     /**
-     * 节点出口
+     * flow output
      */
     private List<String> outgoings;
 

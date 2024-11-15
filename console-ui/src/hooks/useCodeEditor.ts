@@ -47,12 +47,12 @@ export function useCodeEditor(language: string = 'javascript') {
   }
 
   // 数据更新
-  function updateVal(val: string) {
+  function updateVal(val: Object) {
     nextTick(() => {
       if (getOption(monaco.editor.EditorOption.readOnly)) {
         updateOptions({ readOnly: false });
       }
-      monacoEditor?.setValue(val);
+      monacoEditor?.setValue(val.toString());
       setTimeout(async () => {
         await formatDoc();
       }, 10);
@@ -88,6 +88,5 @@ export function useCodeEditor(language: string = 'javascript') {
     updateVal,
     updateOptions,
     getOption,
-    formatDoc,
   };
 }

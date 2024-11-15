@@ -3,6 +3,7 @@ package net.somta.juggle.core.expression;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
+import net.somta.juggle.core.model.Father;
 import net.somta.juggle.core.model.Student;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -331,6 +332,35 @@ public class ExpressionAviatorEvaluatorTest {
         Boolean result2 = (Boolean) compiledExp2.execute(env2);
         Assertions.assertEquals(result2, true);
 
+    }
+
+    @Test
+    public void objectPropExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        Map<String, Object> env = new HashMap<>();
+        Student student = new Student();
+        student.setName("zhansan");
+        student.setFather(new Father("lisi",29));
+        env.put("student",student);
+
+        //下探字符串
+        Expression compiledExp = instance.compile("student.name==\"zhansan\"");
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        Expression compiledExp2 = instance.compile("!string.empty(student.name)");
+        Boolean result2 = (Boolean) compiledExp2.execute(env);
+        Assertions.assertEquals(result2, true);
+
+        Expression compiledExp3 = instance.compile("student.father.fatherName==\"lisi\"");
+        Boolean result3 = (Boolean) compiledExp3.execute(env);
+        Assertions.assertEquals(result3, true);
+
+        //数字下探
+        Expression compiledExp4 = instance.compile("student.father.fatherAge>18");
+        Boolean result4 = (Boolean) compiledExp4.execute(env);
+        Assertions.assertEquals(result4, true);
     }
 
     @Test

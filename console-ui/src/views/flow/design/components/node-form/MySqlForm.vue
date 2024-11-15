@@ -3,7 +3,7 @@ import { computed, PropType, ref, watch } from 'vue';
 import { ElementType, FlowVariableType, RawData } from '../../types';
 import { cloneDeep } from 'lodash-es';
 import { ElMessage } from 'element-plus';
-import CodeEditor from '@/components/form/CodeEditor.vue';
+import CodeEditor from '@/components/common/CodeEditor.vue';
 import { dataSourceService } from '@/service';
 import { useFlowDataInject } from '@/views/flow/design/hooks/flow-data.ts';
 
@@ -114,7 +114,10 @@ async function loadDataSourceData() {
       </el-form-item>
       <el-form-item v-if="nodeData.operationType == 'QUERY'" label="结果输出">
         <el-select v-model="nodeData.variableKey" placeholder="请选择变量">
-          <el-option v-for="item in outputVariableList" :key="item.value" :label="item.label" :value="item.value" />
+          <el-option v-for="item in outputVariableList" :key="item.value" :label="item.label" :value="item.value" >
+            <span style="float: left">{{ item.value }}</span>
+            <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">{{ item.label }}</span>
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item>

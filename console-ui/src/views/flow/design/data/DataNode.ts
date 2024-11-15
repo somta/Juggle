@@ -54,21 +54,51 @@ export class DataNode extends TreeNode {
   }
 
   set out(val: string) {
-    DataNode.context.setOut(this.key, val);
     // 条件节点 - 额外工作
     if (this.type === ElementType.CONDITION) {
-      this.getChildren().forEach((child: any) => {
+
+      // 当前操作node存在的分支
+      let branchIndex = -1;
+      // 当前操作node在分支中位置
+      let branchNodeIndex = -1;
+      this.getChildren().some((child: any, childIndex: number) => {
+        const grandChildIndex = child.getChildren().findIndex((grandChild: any) => grandChild.key === val);
+
+        if (grandChildIndex != -1) {
+          branchIndex = childIndex;
+          branchNodeIndex = grandChildIndex;
+          return true; // 找到后退出 some 循环
+        }
+        return false;
+      })
+
+      // 如果操作的节点不在分支中，则设置condition的out
+      if (branchIndex == -1) {
+        DataNode.context.setOut(this.key, val);
+      }
+
+      this.getChildren().some((child: any, childIndex: number) => {
         const branch = child as DataBranch;
         const branchChildren = branch.getChildren();
-        // 如果分支存在子节点，则将末尾节点的 out 设置为 val
-        if (branchChildren.length > 0) {
+
+        if (branchNodeIndex == 0 && branchIndex == childIndex) {
+          // 如果val是分支的第一个元素，则设置 branch 的 out
+          // 只需要设置当前分支的out, 必须终止循环，以防在其他分支上设置错误的out
+          branch.out = val;
+          return true; // 找到并设置 branch.out 后终止循环
+        } else if (branchIndex == -1 && branchChildren.length == 0) {
+          // 如果val不是分支上的元素，并且分支上没有元素，则设置 branch 的 out，且继续循环
+          branch.out = val;
+          return false;
+        } else if (branchChildren.length > 0) {
           const last = branchChildren[branchChildren.length - 1];
           last.out = val;
-        } else {
-          // 否则把分支节点的out设置为 val
-          branch.out = val;
         }
+
+        return false; // 继续循环
       });
+    } else {
+      DataNode.context.setOut(this.key, val);
     }
   }
 

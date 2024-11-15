@@ -4,6 +4,7 @@ import { FormInstance, FormRules } from 'element-plus';
 import { ObjectInfo, ObjectProperty } from '@/typings';
 import ParamSetting from '@/components/form/ParamSetting.vue';
 import { objectService } from '@/service';
+import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
 
 const objectDrawerVisible = ref(false);
 const formRef = ref<FormInstance>();
@@ -90,7 +91,7 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-drawer v-model="objectDrawerVisible" :title="title" destroyOnClose>
+  <ResizableDrawer v-model="objectDrawerVisible" :title="title" destroyOnClose drawer-key="OBJECT">
     <div>
       <el-form ref="formRef" label-position="top" :model="objectFormValue" :rules="rules">
         <el-form-item label="对象编码" prop="objectKey">
@@ -111,5 +112,5 @@ defineExpose({ open });
         </el-form-item>
       </el-form>
     </div>
-  </el-drawer>
+  </ResizableDrawer>
 </template>

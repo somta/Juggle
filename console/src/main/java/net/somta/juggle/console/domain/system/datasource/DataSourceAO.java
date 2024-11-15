@@ -1,5 +1,10 @@
 package net.somta.juggle.console.domain.system.datasource;
 
+import net.somta.common.encrypt.AESUtil;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.crypto.spec.SecretKeySpec;
+
 public class DataSourceAO {
     private Long id;
     private String dataSourceName;
@@ -24,6 +29,24 @@ public class DataSourceAO {
      * query data timeout（seconds）
      */
     private Integer queryTimeout;
+
+
+    public void encryptData(String secretKey){
+        if(StringUtils.isNotBlank(secretKey)){
+            SecretKeySpec secretKeySpec = AESUtil.stringToSecretKey(secretKey);
+            String encryptPassword = AESUtil.encrypt(this.password, secretKeySpec);
+            this.password = encryptPassword;
+        }
+    }
+
+    public void decryptData(String secretKey) {
+        if(StringUtils.isNotBlank(secretKey)){
+            SecretKeySpec secretKeySpec = AESUtil.stringToSecretKey(secretKey);
+            String encryptPassword = AESUtil.decrypt(this.password, secretKeySpec);
+            this.password = encryptPassword;
+        }
+    }
+
 
     public Long getId() {
         return id;
@@ -128,4 +151,5 @@ public class DataSourceAO {
     public void setQueryTimeout(Integer queryTimeout) {
         this.queryTimeout = queryTimeout;
     }
+
 }

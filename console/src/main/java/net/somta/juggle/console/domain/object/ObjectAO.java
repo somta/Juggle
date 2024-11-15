@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.object;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.object.vo.PropertyVO;
 import net.somta.juggle.console.infrastructure.po.ParameterPO;
@@ -38,7 +39,11 @@ public class ObjectAO {
                 property = new Property();
                 property.setPropKey(parameterPo.getParamKey());
                 property.setPropName(parameterPo.getParamName());
-                property.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
+                try {
+                    property.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
                 this.propertyList.add(property);
             }
         }

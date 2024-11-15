@@ -33,13 +33,13 @@ const maxId = computed(() => {
   return Math.max(...flowContext.data.value.flowVariables.map(v => v.id), 0);
 });
 
-const paramSettingModal = shallowRef();
+const paramSettingModalRef = shallowRef();
 
 function onAddOpen() {
-  paramSettingModal.value.add(maxId.value + 1);
+  paramSettingModalRef.value.add(maxId.value + 1);
 }
 function onEditOpen(data: any) {
-  paramSettingModal.value.edit(data);
+  paramSettingModalRef.value.edit(data);
 }
 function onAdd(data: any) {
   console.log('开始增加', data);
@@ -112,7 +112,7 @@ function filterNode(value: any, data: any) {
         </template>
       </el-tree>
     </div>
-    <ParamSettingModal ref="paramSettingModal" @edit="onEdit" @add="onAdd" />
+    <ParamSettingModal ref="paramSettingModalRef" @edit="onEdit" @add="onAdd" />
   </div>
 </template>
 

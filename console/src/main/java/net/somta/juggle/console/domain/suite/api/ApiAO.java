@@ -1,7 +1,7 @@
 package net.somta.juggle.console.domain.suite.api;
 
+import net.somta.common.encrypt.Md5Util;
 import net.somta.common.utils.MapUtil;
-import net.somta.common.utils.encrypt.Md5Util;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
@@ -73,13 +73,13 @@ public class ApiAO {
             throw new RuntimeException(e);
         }
         String originalCode = url.getPath() + this.apiRequestType.toString();
-        this.apiCode = Md5Util.encode(originalCode);
+        this.apiCode = Md5Util.encrypt(originalCode);
     }
 
     /**
      * 初始化参数实体
-     * @param apiInputParamList
-     * @param apiOutputParamList
+     * @param apiInputParamList api input param list
+     * @param apiOutputParamList api output param list
      */
     public void initParameterList(List<InputParameterVO> apiInputParamList, List<OutputParameterVO> apiOutputParamList) {
         ParameterEntity parameterEntity = new ParameterEntity();
@@ -168,6 +168,10 @@ public class ApiAO {
 
     public String getApiCode() {
         return apiCode;
+    }
+
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 
     public String getApiUrl() {

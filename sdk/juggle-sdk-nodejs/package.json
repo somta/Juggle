@@ -1,28 +1,59 @@
 {
-  "name": "juggle",
+  "name": "juggle-client",
   "version": "1.0.0",
   "description": "juggle (https://juggle.plus) nodejs sdk",
   "scripts": {
+    "test": "ts-node test.ts",
+    "clear": "rimraf dist types",
+    "build-types": "tsc --declaration -p . -t es2015 --emitDeclarationOnly --outDir types",
+    "build": "rollup -c",
     "contributors": "contributors -f plain -o AUTHORS",
     "clean": "lerna clean --yes; rm -rf ./packages/**/package-lock.json",
     "bootstrap": "rm -f ./packages/.DS*; lerna bootstrap --no-ci",
     "release": "rm -f ./packages/.DS*; sh scripts/publish.sh"
   },
+  "types": "types/index.d.ts",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.js",
+      "import": "./esm/index.js"
+    }
+  },
+  "files": [
+    "cjs/",
+    "esm/",
+    "types/",
+    "README.md"
+  ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/somta/Juggle/issues"
   },
   "homepage": "https://juggle.plus",
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 18"
   },
   "ci": {
     "type": "travis",
     "version": "8, 10"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@types/node-fetch": "2",
     "contributors": "^0.5.1",
     "lerna": "^3.4.3",
-    "lerna-relinker": "^1.5.0"
+    "lerna-relinker": "^1.5.0",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.24.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "node-fetch": "2",
+    "query-string": "^7.1.3"
   }
 }

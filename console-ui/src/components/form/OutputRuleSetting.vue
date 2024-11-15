@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import DataTypeSelect from './DataTypeSelect.vue';
-import { valueType, RuleItem, DataTypeItem } from '@/typings';
+import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const props = defineProps({
   modelValue: Array as PropType<RuleItem[]>,
@@ -35,7 +35,7 @@ const columns = [
   { name: '赋值', prop: 'target' },
 ];
 
-function addrule() {
+function addRule() {
   rules.value.push({
     source: '',
     sourceDataType: null,
@@ -59,13 +59,13 @@ function onChange() {
 
 function onTargetVarChange(rowIndex: number) {
   const target = rules.value[rowIndex].target;
-  const param = props.targetList.find(item => item.envKey === target);
+  const param = props.targetList!.find(item => item.envKey === target);
   rules.value[rowIndex].targetDataType = param.dataType;
   onChange();
 }
 
 function getAvailableSource(source: string) {
-  return props.sourceList.filter(item => {
+  return props.sourceList!.filter(item => {
     // 已选参数也能选
     if (item.paramKey === source) {
       return item;
@@ -74,8 +74,8 @@ function getAvailableSource(source: string) {
     return !rules.value.map(item => item.source).includes(item.paramKey);
   });
 }
-function getAvailableTarget(source: string, sourceDataType: DataTypeItem) {
-  return props.targetList.filter(item => {
+function getAvailableTarget(source: string, sourceDataType: DataType) {
+  return props.targetList!.filter(item => {
     // 不选取自己
     if (item.envKey === source) {
       return false;
@@ -87,7 +87,7 @@ function getAvailableTarget(source: string, sourceDataType: DataTypeItem) {
 
 function onSourceChange(rowIndex: number) {
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList.find(item => item.paramKey === source);
+  const param = props.sourceList!.find(item => item.paramKey === source);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].sourceDataType = param.dataType;
   rules.value[rowIndex].sourceType = param.sourceType;
@@ -119,18 +119,23 @@ function onSourceChange(rowIndex: number) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeSelect v-model="rule.sourceDataType" disabled size="small" />
+            <DataTypeDisplay :dataType="rule.sourceDataType as DataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 变量 -->
             <el-select v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
               <el-option
-                v-for="item in getAvailableTarget(rule.source, rule.sourceDataType)"
+                v-for="item in getAvailableTarget(rule.source, rule.sourceDataType as DataType)"
                 :key="item.envKey"
                 :value="item.envKey"
                 :label="item.envName"
                 :title="item.envName"
-              />
+              >
+                <span style="float: left">{{ item.envKey }}</span>
+                <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">
+                        {{ item.envName }}
+                      </span>
+              </el-option>
             </el-select>
           </div>
         </template>
@@ -140,7 +145,7 @@ function onSourceChange(rowIndex: number) {
       </div>
     </div>
     <div class="rule-setting-foot">
-      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参' }}</el-button>
+      <el-button size="small" type="info" @click="addRule">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>
@@ -185,6 +190,12 @@ function onSourceChange(rowIndex: number) {
   &-foot {
     text-align: center;
     padding: 6px 0;
+  }
+}
+
+.rule-setting-td{
+  .dataTypeName {
+    color: var(--el-text-color-regular);
   }
 }
 </style>

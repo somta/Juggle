@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.parameter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
@@ -54,7 +55,11 @@ public class ParameterEntity {
                 inputParameterPo.setParamType(ParameterTypeEnum.INPUT_PARAM.getCode());
                 inputParameterPo.setParamName(inputParameterVO.getParamName());
                 inputParameterPo.setParamPosition(inputParameterVO.getParamPosition());
-                inputParameterPo.setDataType(JsonSerializeHelper.serialize(inputParameterVO.getDataType()));
+                try {
+                    inputParameterPo.setDataType(JsonSerializeHelper.serialize(inputParameterVO.getDataType()));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
                 inputParameterPo.setRequired(inputParameterVO.getRequired());
                 inputParameterPo.setParamDesc(inputParameterVO.getParamDesc());
                 inputParameterPo.setSourceId(sourceId);
@@ -69,7 +74,11 @@ public class ParameterEntity {
                 outputParameterPo.setParamKey(outputParameterVO.getParamKey());
                 outputParameterPo.setParamType(ParameterTypeEnum.OUTPUT_PARAM.getCode());
                 outputParameterPo.setParamName(outputParameterVO.getParamName());
-                outputParameterPo.setDataType(JsonSerializeHelper.serialize(outputParameterVO.getDataType()));
+                try {
+                    outputParameterPo.setDataType(JsonSerializeHelper.serialize(outputParameterVO.getDataType()));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
                 outputParameterPo.setParamDesc(outputParameterVO.getParamDesc());
                 outputParameterPo.setSourceId(sourceId);
                 outputParameterPo.setSourceType(sourceType);

@@ -1,16 +1,11 @@
 <script lang="ts" setup>
 import { ref, computed, PropType } from 'vue';
 import { commonService } from '@/service';
-import { getDataTypeObject } from '@/utils/dataType';
+import {DataTypeEnum, DataTypeInfo} from "@/typings";
 
 const props = defineProps({
-  //modelValue: [String, Object],
   modelValue: Object,
   type: String,
-  /*valueType: {
-    type: String,
-    default: 'String',
-  },*/
   disabled: Boolean,
   size: {
     type: String as PropType<'large' | 'default' | 'small'>,
@@ -19,22 +14,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['update:modelValue', 'change']);
 
-enum DataTypeEnum {
-  Basic = 1,
-  List = 2,
-  Object = 3,
-}
-
-type DataTypeInfoItem = {
-  id: number;
-  dataTypeClassify: DataTypeEnum;
-  type: string;
-  displayName: string;
-  objectKey: string;
-  objectStructure: string;
-};
-
-const dataTypeList = ref<DataTypeInfoItem[]>([]);
+const dataTypeList = ref<DataTypeInfo[]>([]);
 
 async function loadData() {
   const res = await commonService.dataType.getList();
@@ -130,11 +110,6 @@ const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
     val = { ...(props.modelValue as object) };
-    /*if (props.valueType === 'String') {
-      val = getDataTypeObject(props.modelValue);
-    } else if (props.valueType === 'Object') {
-      val = { ...props.modelValue as object };
-    }*/
   }
   return val;
 });
@@ -163,7 +138,6 @@ const handleChange = (val: any) => {
     return;
   }
   const result = arrayToType(val);
-  //const resultJson = JSON.stringify(result);
   emit('update:modelValue', result);
   emit('change', result);
 };
@@ -180,9 +154,6 @@ const handleBasicChange = (val: any) => {
     objectKey: null,
     objectStructure: null,
   };
-  /*if (props.valueType === 'String') {
-    result = JSON.stringify(result);
-  }*/
   emit('update:modelValue', result);
   emit('change', result);
 };

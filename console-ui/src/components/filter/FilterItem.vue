@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { getDataTypeObject, isDataTypeEqual } from '@/utils/dataType';
+import {getDataTypeObject, getVariableDataType, isDataTypeEqual} from '@/utils/dataType';
 import { Delete } from '@element-plus/icons-vue';
 import { PropType, computed } from 'vue';
 import { DataTypeOperatorMap, BaseDataType, OperatorNameMap, Operator } from './config';
 import FilterValue from './FilterValue.vue';
+import VariableSelect from "@/components/common/VariableSelect.vue";
+import {FlowVariable} from "@/views/flow/design";
 
 enum FilterAssignType {
   Constant = 'CONSTANT',
@@ -18,7 +20,7 @@ const props = defineProps({
     required: true,
   },
   sourceList: {
-    type: Array as PropType<any[]>,
+    type: Array as PropType<FlowVariable[]>,
     default: () => [],
   },
   targetList: {
@@ -30,7 +32,8 @@ const props = defineProps({
 const sourceModel = computed({
   get: () => props.item.envKey,
   set: value => {
-    const current = props.sourceList.find(item => item.envKey === value);
+    /*const current = props.sourceList.find(item => item.envKey === value);*/
+    const current = getVariableDataType(value,props.sourceList as FlowVariable[]);
     emit('change', { envKey: value, dataType: current.dataType });
   },
 });
@@ -94,9 +97,13 @@ const filteredTargetList = computed(() => {
 <template>
   <div class="filter-item">
     <div class="filter-item-key">
-      <el-select placeholder="请选择" v-model="sourceModel">
+<!--      <el-select placeholder="请选择" v-model="sourceModel">
         <el-option v-for="source in sourceList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
-      </el-select>
+      </el-select>-->
+      <VariableSelect
+          v-model="sourceModel"
+          :options="sourceList"
+      />
     </div>
     <div class="filter-item-operator">
       <el-select placeholder="请选择" v-model="operatorModel">

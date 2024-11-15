@@ -19,6 +19,7 @@ package net.somta.juggle.core.http;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.exception.FlowException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.config.RequestConfig;
@@ -79,12 +80,24 @@ public abstract class AbstractHttpClient implements IHttpClient{
     }
 
     private void fillHttpHeader(HttpUriRequestBase httpRequest, Request request){
+        fillDefaultHttpHeader(httpRequest,request);
         Map<String,Object> headers = request.getRequestHeaders();
         if(headers != null){
             for (Map.Entry<String, Object> header : headers.entrySet()) {
                 httpRequest.addHeader(header.getKey(), header.getValue());
             }
         }
+    }
+
+    private void fillDefaultHttpHeader(HttpUriRequestBase httpRequest, Request request){
+        Package pkg = AbstractHttpClient.class.getPackage();
+        String version = pkg.getImplementationVersion();
+        if(StringUtils.isNotBlank(version)){
+            httpRequest.addHeader("Juggle-Version", version);
+        }
+        String apiKey = System.getProperty("apiKey");
+        httpRequest.addHeader("Api-Key", apiKey);
+        httpRequest.addHeader("Api-Code", request.getApiCode());
     }
 
     private void fillHttpConfig(HttpUriRequestBase httpRequest,Request request){

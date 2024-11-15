@@ -53,7 +53,7 @@ function switchItem(key: string) {
   height: 100%;
   .left-menu {
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: 0;
     height: 100%;
     width: 60px;
@@ -116,7 +116,7 @@ function switchItem(key: string) {
   }
   .left-menu-panel {
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: 0;
     transform: translateX(-180px);
     width: 240px;

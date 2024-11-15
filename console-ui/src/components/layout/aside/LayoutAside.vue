@@ -37,6 +37,7 @@ import IconInterface from '@/components/icons/IconInterface.vue';
           <span>市场</span>
         </template>
         <el-menu-item index="/market/suite">套件市场</el-menu-item>
+        <el-menu-item index="/market/template">模板市场</el-menu-item>
       </el-sub-menu>
       <el-sub-menu index="5">
         <template #title>

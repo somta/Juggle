@@ -4,6 +4,7 @@ import * as flowService from './flow';
 import * as flowVersionService from './flowVersion';
 import * as suiteService from './suite';
 import * as suiteMarketService from './suiteMarketService.ts';
+import * as templateMarketService from './templateMarketService.ts';
 import * as apiService from './api';
 import * as objectService from './object';
 import * as orderService from './orderService.ts';
@@ -18,6 +19,7 @@ export {
   flowVersionService,
   suiteService,
   suiteMarketService,
+  templateMarketService,
   apiService,
   objectService,
   orderService,

@@ -4,12 +4,16 @@
 ![Static Badge](https://img.shields.io/badge/Vue-3.x-purple)
 
 # Juggle
+
+Juggle官方文档地址: https://juggle.plus
+Juggle演示环境地址: https://demo.juggle.plus/#/login
+
 ## 项目介绍
 Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
 
 
 ## 什么时候需要Juggle
-1.适合已有基础服务能力，通过Juggle进行编排编排快速搭建一个新产品。
+1.适合已有基础服务能力，通过Juggle进行微服务接口编排快速搭建一个新产品。
 
 2.系统需要与第三方系统进行对接，通过Juggle直接进行编排，无需任何开发就可以完成对接。
 
@@ -17,6 +21,18 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 4.适合需要面向私有化或大量定制开发的产品，通过Juggle编排定制化接口，避免对标准代码的污染。
 
+## 功能特性
+1.流程多版本管理，天然支持流程灰度能力
+
+2.支持字符串，布尔，整数，小数，日期，时间，列表，对象等数据结构，满足绝大数数据定义场景
+
+3.内置方法节点，判断节点，代码节点，赋值节点，MySql节点等多种节点，能灵活设计流程
+
+4.支持Groovy,JavaScript等多种脚本语言来增强流程
+
+5.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大降低流程设计的复杂度
+
+6.全信创支持，支持MySql，达梦，TiDB，OceanBase等数据库
 
 ## 快速开始
 
@@ -57,7 +73,7 @@ sh startup.sh
 ### 5.示例流程
 
 为了让用户更好的上手Juggle，系统自带了示例接口和示例流程，通过示例流程能快速了解Juggle的基础能力，示例流程核心逻辑请移步[示例流程核心逻辑](https://www.juggle.plus/docs/guide/user/example-flow) ，示例流程图如下：
-![](/docs/static/juggle/images/guide/user/flow_example.png)
+![](/docs/docs/notes/guide/user/images/flow_example.png)
 
 
 示例接口地址：https://www.juggle.plus/docs/guide/user/example-api
@@ -66,9 +82,21 @@ sh startup.sh
 
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
-![](/docs/static/juggle/images/guide/wxqq.png) 
+![](/docs/docs/notes/guide/community/images/wxqq.png) 
+
+## 客户与案例
+<div align = "center"> 
+    <img src="https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png" width="33%" style="background-color: #383434"/>
+    <img src="https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png" width="33%" />
+    <img src="https://www.swsc.com.cn/r/cms/www/default/images/logo.png" width="33%" />
+    <img src="https://www.xinyucores.com/data/upload/image/20220606/1654501776108189.png" width="33%" style="background-color: #000"/>
+</div>
 
 ## 感恩与支持
 感谢为Juggle功能持续更新日夜奋战的小伙伴们，感谢为项目提出宝贵优化意见的大佬们！
      
      动动您发财的手，点个Star，是对我们更新最大的支持！
+
+## 开源共建
+如果你也有开源的梦想，可以在下面的Juggle功能认领表中领取需求，与我们进行沟通后进行开发哦！
+https://docs.qq.com/sheet/DWVZGZGV0dFhva01s?tab=BB08J2

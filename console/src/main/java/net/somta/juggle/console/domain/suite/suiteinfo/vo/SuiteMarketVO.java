@@ -55,7 +55,7 @@ public class SuiteMarketVO {
     /**
      * 套件接口列表
      */
-    private List<SuiteMarketApiVO> apiList;
+    private List<SuiteApiInfoVO> apiList;
 
     public Long getId() {
         return id;
@@ -145,11 +145,11 @@ public class SuiteMarketVO {
         this.objectList = objectList;
     }
 
-    public List<SuiteMarketApiVO> getApiList() {
+    public List<SuiteApiInfoVO> getApiList() {
         return apiList;
     }
 
-    public void setApiList(List<SuiteMarketApiVO> apiList) {
+    public void setApiList(List<SuiteApiInfoVO> apiList) {
         this.apiList = apiList;
     }
 }

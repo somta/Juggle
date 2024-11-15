@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.converter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.object.ObjectAO;
 import net.somta.juggle.console.domain.object.vo.ObjectVO;
@@ -51,7 +52,11 @@ public interface IObjectConverter {
                     property = new Property();
                     property.setPropKey(propertyVo.getPropKey());
                     property.setPropName(propertyVo.getPropName());
-                    property.setDataType(JsonSerializeHelper.deserialize(propertyVo.getDataType(), DataType.class));
+                    try {
+                        property.setDataType(JsonSerializeHelper.deserialize(propertyVo.getDataType(), DataType.class));
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
                     propertyList.add(property);
                 }
                 objectVo.setPropertyList(propertyList);
@@ -71,7 +76,11 @@ public interface IObjectConverter {
                 parameterPo.setParamKey(property.getPropKey());
                 parameterPo.setParamName(property.getPropName());
                 parameterPo.setParamType(ParameterTypeEnum.PROPERTY.getCode());
-                parameterPo.setDataType(JsonSerializeHelper.serialize(property.getDataType()));
+                try {
+                    parameterPo.setDataType(JsonSerializeHelper.serialize(property.getDataType()));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
                 parameterPo.setSourceType(ParameterSourceTypeEnum.OBJECT.getCode());
                 parameterPo.setSourceId(sourceId);
                 parameterPo.setCreatedAt(currentDate);

@@ -1,3 +1,5 @@
+import {DataType} from "@/typings/dataType.ts";
+
 export enum valueType {
   VARIABLE = 'VARIABLE',
   CONSTANT = 'CONSTANT',
@@ -6,19 +8,12 @@ export enum valueType {
   HEADER = 'HEADER',
 }
 
-export type DataTypeItem = {
-  type: string;
-  itemType?: string | null;
-  objectKey?: string | null;
-  objectStructure?: string | null;
-};
-
 export type RuleItem = {
   source: string;
-  sourceDataType: DataTypeItem | null;
+  sourceDataType: DataType | null;
   sourceType: valueType;
   target: string;
-  targetDataType: DataTypeItem | null;
+  targetDataType: DataType | null;
   targetType: valueType;
   required?: boolean;
 };

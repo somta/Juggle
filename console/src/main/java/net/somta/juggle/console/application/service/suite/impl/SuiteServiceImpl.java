@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.application.service.suite.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -42,7 +43,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
@@ -161,9 +161,9 @@ public class SuiteServiceImpl implements ISuiteService {
         suiteEntity.setSuiteFlag(SuiteTypeEnum.OFFICIAL_SUITE.getCode());
         Long newSuiteId = suiteRepository.addSuite(suiteEntity);
         addSuiteObjectList(suiteMarketVo.getObjectList());
-        List<SuiteMarketApiVO> apiList = suiteMarketVo.getApiList();
+        List<SuiteApiInfoVO> apiList = suiteMarketVo.getApiList();
         if(CollectionUtils.isNotEmpty(apiList)){
-            for (SuiteMarketApiVO suiteMarketApi : apiList) {
+            for (SuiteApiInfoVO suiteMarketApi : apiList) {
                 addSuiteMarketApi(newSuiteId,suiteMarketApi);
             }
         }
@@ -176,7 +176,12 @@ public class SuiteServiceImpl implements ISuiteService {
      */
     private void addSuiteObjectList(String objectListStr) {
         if(StringUtils.isNotBlank(objectListStr)){
-            List<ObjectAddParam> objectList = JsonSerializeHelper.deserialize(objectListStr,List.class,ObjectAddParam.class);
+            List<ObjectAddParam> objectList = null;
+            try {
+                objectList = JsonSerializeHelper.deserialize(objectListStr, List.class, ObjectAddParam.class);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             for (ObjectAddParam objectAddParam : objectList){
                 ObjectAO objectAo = objectService.getObjectInfoByKey(objectAddParam.getObjectKey());
                 if(objectAo == null){
@@ -190,7 +195,7 @@ public class SuiteServiceImpl implements ISuiteService {
      * List of interfaces for newly added packages
      * @param suiteMarketApi suite api list
      */
-    private void addSuiteMarketApi(Long suiteId,SuiteMarketApiVO suiteMarketApi){
+    private void addSuiteMarketApi(Long suiteId, SuiteApiInfoVO suiteMarketApi){
         ApiAddParam apiAddParam = new ApiAddParam();
         apiAddParam.setSuiteId(suiteId);
         apiAddParam.setApiCode(suiteMarketApi.getApiCode());

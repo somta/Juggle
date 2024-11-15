@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.http;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.core5.http.ContentType;
@@ -47,7 +48,12 @@ public class JsonHttpClient extends AbstractHttpClient{
     @Override
     protected void buildRequestParams(HttpUriRequestBase httpRequest, Request request) {
         if (request.getRequestParams() != null) {
-            String jsonParam = JsonSerializeHelper.serialize(request.getRequestParams());
+            String jsonParam = null;
+            try {
+                jsonParam = JsonSerializeHelper.serialize(request.getRequestParams());
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             StringEntity stringEntity = new StringEntity(jsonParam, ContentType.APPLICATION_JSON);
             httpRequest.setEntity(stringEntity);
         }

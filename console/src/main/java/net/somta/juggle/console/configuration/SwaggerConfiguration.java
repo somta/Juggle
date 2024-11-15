@@ -48,9 +48,9 @@ public class SwaggerConfiguration {
                         .title("Juggle微服务编排系统API")
                         .version("1.0")
                         .description( "Juggle是一个微服务编排框架")
-                        .termsOfService("http://www.juggle.plus")
+                        .termsOfService("https://juggle.plus")
                         .license(new License().name("GPL-3.0")
-                        .url("http://www.juggle.plus")));
+                        .url("https://juggle.plus")));
     }
 
 
