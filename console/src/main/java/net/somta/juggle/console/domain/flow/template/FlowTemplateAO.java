@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.flow.template;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
@@ -34,11 +35,21 @@ public class FlowTemplateAO {
     public ParameterEntity initParameterEntity() {
         ParameterEntity parameterEntity = new ParameterEntity();
         if(StringUtils.isNotEmpty(this.inputs)){
-            List<InputParameterVO> flowInputParamList = JsonSerializeHelper.deserialize(this.inputs,List.class,InputParameterVO.class);
+            List<InputParameterVO> flowInputParamList = null;
+            try {
+                flowInputParamList = JsonSerializeHelper.deserialize(this.inputs, List.class, InputParameterVO.class);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             parameterEntity.setInputParameterList(flowInputParamList);
         }
         if(StringUtils.isNotEmpty(this.inputs)){
-            List<OutputParameterVO> flowOutputParamList = JsonSerializeHelper.deserialize(this.outputs,List.class,OutputParameterVO.class);
+            List<OutputParameterVO> flowOutputParamList = null;
+            try {
+                flowOutputParamList = JsonSerializeHelper.deserialize(this.outputs, List.class, OutputParameterVO.class);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             parameterEntity.setOutputParameterList(flowOutputParamList);
         }
         return parameterEntity;
@@ -51,7 +62,11 @@ public class FlowTemplateAO {
     public List<VariableInfoVO> getFlowVariableInfoList(){
         List<VariableInfoVO> variableInfoList = null;
         if(StringUtils.isNotEmpty(this.variables)){
-            variableInfoList = JsonSerializeHelper.deserialize(this.variables,List.class,VariableInfoVO.class);
+            try {
+                variableInfoList = JsonSerializeHelper.deserialize(this.variables,List.class,VariableInfoVO.class);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
         }
         return variableInfoList;
     }

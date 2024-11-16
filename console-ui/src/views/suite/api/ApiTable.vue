@@ -1,8 +1,12 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import {PropType} from "vue";
 const router = useRouter();
 defineProps({
-  dataRows: Array,
+  dataRows: {
+    type: Array,
+    default: [],
+  },
   pageNum: Number,
   pageSize: Number,
   dataTotal: Number,

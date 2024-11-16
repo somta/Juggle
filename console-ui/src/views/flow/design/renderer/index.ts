@@ -32,7 +32,7 @@ export class FlowRenderer {
   };
 
   constructor(el: HTMLElement, options: FlowRenderer['options']) {
-    this.svg = d3.select(el).append('svg').attr('width', '100%').attr('height', '100%');
+    this.svg = d3.select(el).append('svg').attr('width', '100%').attr('height', '100%').attr("style", "background-color: #f1f6fb;");
 
     loadSvgIcon(this.svg);
 

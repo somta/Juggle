@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.converter.suite;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.ApiAO;
 import net.somta.juggle.console.domain.suite.api.vo.ApiVO;
@@ -41,7 +42,11 @@ public interface IApiConverter {
                 parameterPo.setParamKey(headerVo.getHeaderKey());
                 parameterPo.setParamName(headerVo.getHeaderName());
                 parameterPo.setParamType(ParameterTypeEnum.HEADER.getCode());
-                parameterPo.setDataType(JsonSerializeHelper.serialize(headerVo.getDataType()));
+                try {
+                    parameterPo.setDataType(JsonSerializeHelper.serialize(headerVo.getDataType()));
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
                 parameterPo.setParamDesc(headerVo.getHeaderDesc());
                 parameterPo.setSourceType(ParameterSourceTypeEnum.API.getCode());
                 parameterPo.setRequired(headerVo.getRequired());

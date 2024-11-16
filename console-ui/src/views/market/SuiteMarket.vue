@@ -16,7 +16,6 @@ const filterValue = reactive({
   suiteClassifyId: null,
 });
 
-
 querySuiteMarketClassifyList();
 querySuiteMarketList();
 
@@ -92,7 +91,6 @@ function goToSuiteMarketDetail(suiteId: number) {
     <div class="suite-filter">
       <el-select
           v-model="filterValue.suiteClassifyId"
-          size="large"
           style="width: 240px;margin-right: 20px;"
           @change="changeSuiteClassify"
       >
@@ -106,16 +104,15 @@ function goToSuiteMarketDetail(suiteId: number) {
       </el-select>
       <el-input v-model="filterValue.suiteName"
           style="width: 300px"
-          size="large"
           :suffix-icon="Search"
           @change="changeSuiteName"
       />
     </div>
     <el-row :gutter="20" v-infinite-scroll="loadNextSuiteMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in suiteMarketList" :key="item.id">
-        <el-card @click="goToSuiteMarketDetail(item.id)" style="cursor: pointer">
+        <el-card class="card" @click="goToSuiteMarketDetail(item.id)">
           <div class="card-header">
-            <img class="image" :src="item.suiteImage" alt="" />
+            <img class="image" :src="item.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" alt="" />
             <h3>{{ item.suiteName }}</h3>
           </div>
           <div class="card-body">
@@ -148,6 +145,16 @@ function goToSuiteMarketDetail(suiteId: number) {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+}
+
+.card{
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
 .card-header {

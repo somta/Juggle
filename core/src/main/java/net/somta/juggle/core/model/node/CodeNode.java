@@ -22,7 +22,7 @@ package net.somta.juggle.core.model.node;
  */
 public class CodeNode extends FlowNode{
 
-    private LanguageType language = LanguageType.groovy;
+    private LanguageType language;
 
     private String content;
 
@@ -43,6 +43,7 @@ public class CodeNode extends FlowNode{
     }
 
     public enum LanguageType {
-        groovy
+        groovy,
+        javascript;
     }
 }

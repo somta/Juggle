@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 defineProps({
-  dataRows: Array,
+  dataRows: {
+    type: Array,
+    default: [],
+  },
   pageNum: Number,
   pageSize: Number,
   dataTotal: Number,
@@ -18,7 +21,7 @@ function editRow(row: any) {
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" size="large" :header-cell-style="{ background: '#f0f0f0' }" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="tokenDesc" label="令牌描述" />
     <el-table-column prop="createdAt" label="创建时间" width="180" />
     <el-table-column label="操作" width="180">

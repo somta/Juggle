@@ -3,11 +3,11 @@ import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { flowDefineService, flowVersionService } from '@/service';
 import { ElMessage } from 'element-plus';
-import CodeEditor from '@/components/form/CodeEditor.vue';
-import { DataTypeItem, FlowDefineInfo } from '@/typings';
+import CodeEditor from '@/components/common/CodeEditor.vue';
+import {DataType, FlowDefineInfo} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
-import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
 import {InfoFilled} from "@element-plus/icons-vue";
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -95,7 +95,7 @@ function getParams() {
   const params: any = {};
   flowInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType: DataTypeItem = param.dataType;
+      const dataType: DataType = param.dataType;
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
       } else {
@@ -150,7 +150,7 @@ function resetParams() {
               </el-tooltip>
             </div>
             <div class="input-param-td">
-              <DataTypeSelect :modelValue="param.dataType" disabled />
+              <DataTypeDisplay :dataType="param.dataType"/>
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="param.value" :dataType="param.dataType" />

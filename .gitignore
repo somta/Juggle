@@ -37,3 +37,8 @@ mvnw.*
 build/
 dist/
 .flattened-pom.xml
+
+### sdk-nodejs ###
+esm/
+cjs/
+sdk/juggle-sdk-nodejs/types/

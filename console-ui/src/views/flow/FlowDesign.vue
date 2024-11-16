@@ -17,7 +17,7 @@ import { useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { addNode, deleteNode } from './design/operate';
 import { useFlowDataProvide } from './design/hooks/flow-data';
-import { DataNode, DataBranch } from './design/data';
+import { DataBranch } from './design/data';
 import { rebuildCondition } from './design/data/generate';
 
 const flowContext = useFlowDataProvide();
@@ -136,7 +136,11 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
 <template>
   <div class="page-flow-design">
     <div class="flow-header">
-      {{ flowName }}
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="'/flow/define'">流程定义</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ flowName }}</el-breadcrumb-item>
+      </el-breadcrumb>
+      <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
     </div>
     <div class="flow-canvas" ref="flowCanvas">
       <ZoomTool :scale="scale" @change="onZoomToolChange" />
@@ -145,7 +149,6 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
     <AddNodeModal ref="addNodeModal" />
     <EditNodeDrawer ref="editNodeModal" />
     <ConditionFilterModal ref="conditionFilterModalRef" />
-    <el-button class="flow-submit" type="primary" @click="flowSubmit">保存</el-button>
   </div>
 </template>
 
@@ -157,19 +160,27 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
 
 .flow-header {
   border-bottom: 1px solid #dcdfe6;
-  padding: 9.5px;
   position: relative;
-  height: 40px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  .el-breadcrumb {
+    margin-left: 10px;
+  }
+  .flow-submit {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .page-flow-design {
-  position: relative;
-
   .flow-canvas {
     width: 100%;
     height: calc(100% - 40px);
     overflow: hidden;
-    position: relative;
+    position: absolute;
     font-size: 14px;
 
     .flow-btn {
@@ -190,10 +201,17 @@ async function saveFlowDefineContent(flowContent: string, flowVariables: FlowVar
       }
     }
   }
-  .flow-submit {
-    position: absolute;
-    top: 4px;
-    right: 20px;
-  }
+
+}
+
+.errorMsg {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 100;
+  display: none;
 }
 </style>

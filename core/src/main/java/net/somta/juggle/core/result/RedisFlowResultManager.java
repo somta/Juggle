@@ -19,6 +19,7 @@ package net.somta.juggle.core.result;
 
 import net.somta.core.cache.redis.client.AbstractRedisClient;
 import net.somta.core.helper.JsonSerializeHelper;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RMap;
@@ -26,6 +27,7 @@ import org.redisson.api.RedissonClient;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author husong
@@ -42,7 +44,14 @@ public class RedisFlowResultManager implements IFlowResultManager {
     @Override
     public boolean putFlowResult(String flowInstanceId,Map<String,Object> resultData) {
         RMap map = redissonClient.getMap(flowInstanceId);
-        map.putAll(resultData);
+        Map<String, Object> noNullValueResultMap = resultData;
+        if(resultData != null) {
+            noNullValueResultMap = resultData.entrySet()
+                    .stream()
+                    .filter(entry -> entry.getValue() != null)
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+        map.putAll(noNullValueResultMap);
         return true;
     }
 

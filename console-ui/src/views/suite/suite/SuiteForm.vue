@@ -4,6 +4,7 @@ import type { FormInstance, FormRules } from 'element-plus';
 import { ElMessage } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 const dialogVisible = ref(false);
+const suiteFlag = ref();
 const formRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
 const formValue = reactive({
@@ -46,8 +47,10 @@ function open(item?: Record<string, any>) {
   dialogVisible.value = true;
   nextTick(() => {
     formRef.value?.resetFields();
+    suiteFlag.value = null;
     formValue.suiteImage = '';
     if (item) {
+      suiteFlag.value = item.suiteFlag;
       formValue.suiteImage = item.suiteImage;
       formValue.suiteCode = item.suiteCode;
       formValue.suiteName = item.suiteName;
@@ -107,11 +110,11 @@ defineExpose({ open });
           <el-input v-model="formValue.suiteName" maxlength="30" />
         </el-form-item>
         <el-form-item label="套件描述" prop="suiteDesc">
-          <el-input v-model="formValue.suiteDesc" type="textarea" maxlength="120" />
+          <el-input v-model="formValue.suiteDesc" type="textarea" :rows="3" maxlength="120" />
         </el-form-item>
       </el-form>
     </div>
-    <template #footer>
+    <template #footer v-if="suiteFlag !== 1">
       <span class="dialog-footer">
         <el-button @click="onCancel">取消</el-button>
         <el-button type="primary" @click="onSubmit">确定</el-button>

@@ -47,7 +47,7 @@ function extractColorByName(name) {
 <style lang="less" scoped>
 .app-current-userPO-dropdown {
   height: 100%;
-  padding: 0px 20px 0px 0px;
+  padding: 0 20px 0 0;
 }
 .app-current-userPO {
   height: 100%;

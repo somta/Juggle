@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>net.somta</groupId>
-            <artifactId>somta-core</artifactId>
+            <artifactId>kernel-core</artifactId>
         </dependency>
         <!-- jwt start -->
         <dependency>

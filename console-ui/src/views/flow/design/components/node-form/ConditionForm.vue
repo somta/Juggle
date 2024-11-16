@@ -15,7 +15,7 @@ const props = defineProps({
     required: true,
   },
 });
-const conditionFilterModal = shallowRef();
+const conditionFilterModalRef = shallowRef();
 
 function getDefaultData() {
   return {
@@ -56,7 +56,7 @@ function validate() {
 }
 
 function edit(index: number) {
-  conditionFilterModal.value.open({
+  conditionFilterModalRef.value.open({
     data: nodeData.value,
     index: index,
     afterEdit: (val: ConditionItem) => {
@@ -93,7 +93,7 @@ function remove(index: number) {
 }
 
 function addCondition() {
-  conditionFilterModal.value.open({
+  conditionFilterModalRef.value.open({
     data: nodeData.value,
     afterEdit: (val: ConditionItem) => {
       if (val) {
@@ -156,7 +156,7 @@ function onCancel() {
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
-    <ConditionFilterModal ref="conditionFilterModal" />
+    <ConditionFilterModal ref="conditionFilterModalRef" />
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.flow.version;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.core.model.InputParameter;
@@ -43,17 +44,32 @@ public class FlowVersionAO {
     }
 
     public List<InputParameter> getFlowRuntimeInputParameters() {
-        List<InputParameter> inputParameterList = JsonSerializeHelper.deserialize(this.inputs,List.class,InputParameter.class);
+        List<InputParameter> inputParameterList = null;
+        try {
+            inputParameterList = JsonSerializeHelper.deserialize(this.inputs, List.class, InputParameter.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         return inputParameterList;
     }
 
     public List<OutputParameter> getFlowRuntimeOutputParameters() {
-        List<OutputParameter> outputParameterList = JsonSerializeHelper.deserialize(this.outputs,List.class,OutputParameter.class);
+        List<OutputParameter> outputParameterList = null;
+        try {
+            outputParameterList = JsonSerializeHelper.deserialize(this.outputs, List.class, OutputParameter.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         return outputParameterList;
     }
 
     public List<Variable> getFlowRuntimeVariables() {
-        List<Variable> variableList = JsonSerializeHelper.deserialize(this.variables,List.class,Variable.class);
+        List<Variable> variableList = null;
+        try {
+            variableList = JsonSerializeHelper.deserialize(this.variables, List.class, Variable.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         return variableList;
     }
 

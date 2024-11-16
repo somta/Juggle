@@ -16,7 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.interfaces.dto.suite;
 
-import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketApiVO;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteApiInfoVO;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class SuiteMarketInfoDTO {
 
     private Boolean installStatus = false;
 
-    private List<SuiteMarketApiVO> apiList;
+    private List<SuiteApiInfoVO> apiList;
 
     public Long getId() {
         return id;
@@ -119,11 +119,11 @@ public class SuiteMarketInfoDTO {
         this.installStatus = installStatus;
     }
 
-    public List<SuiteMarketApiVO> getApiList() {
+    public List<SuiteApiInfoVO> getApiList() {
         return apiList;
     }
 
-    public void setApiList(List<SuiteMarketApiVO> apiList) {
+    public void setApiList(List<SuiteApiInfoVO> apiList) {
         this.apiList = apiList;
     }
 }

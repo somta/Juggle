@@ -2,14 +2,14 @@
 import { ref, watch, PropType } from 'vue';
 import DataTypeSelect from './DataTypeSelect.vue';
 import { Delete } from '@element-plus/icons-vue';
-import { DataTypeItem } from '@/typings';
+import {DataType} from '@/typings';
 
 type ParamItem = {
   id?: number | null;
   paramKey: string;
   paramName: string;
   paramPosition: string;
-  dataType: DataTypeItem;
+  dataType: DataType;
   required: boolean;
   paramDesc: string;
 };

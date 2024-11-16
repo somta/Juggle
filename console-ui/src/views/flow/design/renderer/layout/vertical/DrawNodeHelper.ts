@@ -25,7 +25,6 @@ export class DrawNodeHelper {
             case ElementType.ASSIGN:
             case ElementType.CODE:
             case ElementType.MYSQL:
-            case ElementType.AI:
                 this.drawNormal(container, node, type);
                 break;
             case ElementType.CONDITION:
@@ -206,7 +205,6 @@ export class DrawNodeHelper {
         const { data } = node;
         const nodeType = node.data.type as ElementType;
         const nodeCard = nodeMap[nodeType as keyof typeof nodeMap];
-
         flowNode
             .append('rect')
             .attr('width', width)

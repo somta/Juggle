@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.domain.system.token;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.common.identity.IdentityContext;
 import net.somta.juggle.console.domain.system.token.vo.OpenApiTokenVO;
@@ -31,7 +32,12 @@ public class TokenEntity {
 
     public OpenApiTokenVO parseTokenValue(String encoderStr){
         byte[] decodedBytes = Base64.getUrlDecoder().decode(encoderStr);
-        OpenApiTokenVO openApiTokenVo = JsonSerializeHelper.deserialize(new String(decodedBytes),OpenApiTokenVO.class);
+        OpenApiTokenVO openApiTokenVo = null;
+        try {
+            openApiTokenVo = JsonSerializeHelper.deserialize(new String(decodedBytes), OpenApiTokenVO.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         return openApiTokenVo;
     }
 
@@ -39,7 +45,12 @@ public class TokenEntity {
         OpenApiTokenVO openApiTokenVo = new OpenApiTokenVO();
         openApiTokenVo.setUserId(IdentityContext.getIdentity().getUserId());
         openApiTokenVo.setTimestamp(System.currentTimeMillis());
-        String tokenString = JsonSerializeHelper.serialize(openApiTokenVo);
+        String tokenString = null;
+        try {
+            tokenString = JsonSerializeHelper.serialize(openApiTokenVo);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         String tokenValue = Base64.getUrlEncoder().encodeToString(tokenString.getBytes());
         return tokenValue;
     }

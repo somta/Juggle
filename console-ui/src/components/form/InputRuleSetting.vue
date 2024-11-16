@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import DataTypeSelect from './DataTypeSelect.vue';
-import { valueType, RuleItem } from '@/typings';
+import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
-import { isDataTypeEqual } from '@/utils/dataType';
+import {getVariableDataType, isDataTypeEqual, isDataTypeMatch} from '@/utils/dataType';
 import FilterValue from '../filter/FilterValue.vue';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
+import VariableSelect from "@/components/common/VariableSelect.vue";
+import {ElMessage} from "element-plus";
 
 const assignTypeList = [
   { value: valueType.CONSTANT, label: '常量' },
@@ -54,7 +56,7 @@ const columns = [
   { name: '赋值', prop: 'target' },
 ];
 
-function addrule() {
+function addRule() {
   rules.value.push({
     source: '',
     sourceDataType: null,
@@ -83,15 +85,23 @@ function onSourceTypeChange(rowIndex: number) {
 }
 
 function onSourceVarChange(rowIndex: number) {
+  const target = rules.value[rowIndex].target;
+  const targetEnv = props.sourceList!.find(item => item.paramKey === target);
+
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList.find(item => item.envKey === source);
-  rules.value[rowIndex].sourceDataType = param?.dataType;
+  let sourceEnv = getVariableDataType(source,props.targetList);
+  if(!isDataTypeEqual(targetEnv.dataType,sourceEnv.dataType)){
+    ElMessage.error('所选变量的数据类型与目标变量数据类型不匹配');
+    rules.value[rowIndex].source = '';
+    return;
+  }
+  //const param = props.sourceList!.find(item => item.envKey === source);
+  rules.value[rowIndex].sourceDataType = sourceEnv.dataType;
   onChange();
 }
 
 function getAvailableTarget(target: string) {
-  //console.log(props);
-  return props.sourceList.filter(item => {
+  return props.sourceList!.filter(item => {
     // 已选参数也能选
     if (item.paramKey === target) {
       return item;
@@ -100,32 +110,27 @@ function getAvailableTarget(target: string) {
     return !rules.value.map(item => item.target).includes(item.paramKey);
   });
 }
-function getAvailableSource(target: string, targetDataType: string) {
+function getAvailableSource(target: string, targetDataType: DataType) {
   //console.log(props.sourceList,target,targetDataType)
-  return props.targetList.filter(item => {
+  return props.targetList!.filter(item => {
     // 不选取自己
     if (item.envKey === target) {
       return false;
     }
     // 只能选与自己类型一致的
-    return isDataTypeEqual(item.dataType, targetDataType);
+    return isDataTypeMatch(item.dataType, targetDataType);
   });
 }
 
 function onTargetChange(rowIndex: number) {
-  console.log('onTargetChange', rules.value[rowIndex]);
   const target = rules.value[rowIndex].target;
-  const param = props.sourceList.find(item => item.paramKey === target);
+  const param = props.sourceList!.find(item => item.paramKey === target);
   rules.value[rowIndex].source = '';
   rules.value[rowIndex].targetDataType = param.dataType;
   rules.value[rowIndex].targetType = param.targetType;
-  if (props.requiredKeys.includes(target)) {
+  if (props.requiredKeys!.includes(target)) {
     rules.value[rowIndex].required = true;
   }
-}
-
-function getDataTypeDisplayName(dataType: any) {
-  console.log(dataType);
 }
 </script>
 
@@ -158,10 +163,7 @@ function getDataTypeDisplayName(dataType: any) {
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <!--            <template>
-              {{ getDataTypeDisplayName(rule.targetDataType) }}
-            </template>-->
-            <DataTypeSelect v-model="rule.targetDataType" disabled size="small" />
+            <DataTypeDisplay :dataType="rule.targetDataType as DataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'targetType' && showTargetType">
             <el-select v-model="rule.sourceType" size="small" @change="onSourceTypeChange(rowIndex)">
@@ -174,15 +176,14 @@ function getDataTypeDisplayName(dataType: any) {
               <FilterValue v-model="rule.source" :dataType="rule.targetDataType" size="small" :showNumberControls="false" />
             </template>
             <!-- 变量 -->
-            <el-select v-else v-model="rule.source" size="small" @change="onSourceVarChange(rowIndex)">
-              <el-option
-                v-for="item in getAvailableSource(rule.target, rule.targetDataType)"
-                :key="item.envKey"
-                :value="item.envKey"
-                :label="item.envName"
-                :title="item.envName"
-              />
-            </el-select>
+            <VariableSelect
+                v-else
+                v-model="rule.source"
+                size="small"
+                :options="getAvailableSource(rule.target, rule.targetDataType as DataType)"
+                :filterDataType="rule.targetDataType as DataType"
+                @change="onSourceVarChange(rowIndex)"
+            />
           </div>
         </template>
         <div class="rule-setting-td delete-td">
@@ -191,7 +192,7 @@ function getDataTypeDisplayName(dataType: any) {
       </div>
     </div>
     <div class="rule-setting-foot">
-      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参' }}</el-button>
+      <el-button size="small" type="info" @click="addRule">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>
@@ -239,6 +240,12 @@ function getDataTypeDisplayName(dataType: any) {
   &-foot {
     text-align: center;
     padding: 6px 0;
+  }
+}
+
+.rule-setting-td{
+  .dataTypeName {
+    color: var(--el-text-color-regular);
   }
 }
 </style>

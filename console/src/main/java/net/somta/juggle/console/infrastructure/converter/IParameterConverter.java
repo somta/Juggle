@@ -1,5 +1,6 @@
 package net.somta.juggle.console.infrastructure.converter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
@@ -31,7 +32,11 @@ public interface IParameterConverter {
             inputParameterVo.setParamKey(parameterPo.getParamKey());
             inputParameterVo.setParamName(parameterPo.getParamName());
             inputParameterVo.setParamPosition(parameterPo.getParamPosition());
-            inputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
+            try {
+                inputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             inputParameterVo.setRequired(parameterPo.getRequired());
             inputParameterVo.setParamDesc(parameterPo.getParamDesc());
             list.add(inputParameterVo);
@@ -48,7 +53,11 @@ public interface IParameterConverter {
             OutputParameterVO outputParameterVo = new OutputParameterVO();
             outputParameterVo.setParamKey(parameterPo.getParamKey());
             outputParameterVo.setParamName(parameterPo.getParamName());
-            outputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
+            try {
+                outputParameterVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(), DataType.class));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             outputParameterVo.setParamDesc(parameterPo.getParamDesc());
             list.add(outputParameterVo);
         }
@@ -65,7 +74,11 @@ public interface IParameterConverter {
             HeaderVO headerVo = new HeaderVO();
             headerVo.setHeaderKey(parameterPo.getParamKey());
             headerVo.setHeaderName(parameterPo.getParamName());
-            headerVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
+            try {
+                headerVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
             headerVo.setRequired(parameterPo.getRequired());
             headerVo.setHeaderDesc(parameterPo.getParamDesc());
             list.add(headerVo);

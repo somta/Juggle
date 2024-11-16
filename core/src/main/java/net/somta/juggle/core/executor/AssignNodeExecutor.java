@@ -47,7 +47,7 @@ public class AssignNodeExecutor extends AbstractElementExecutor {
                 String envKey = fillStruct.getTarget();
                 variableManager.setVariableValue(envKey,sourceValue);
             }else {
-                new FlowException(ASSIGN_NODE_ASSIGN_TYPE_ERROR);
+                throw new FlowException(ASSIGN_NODE_ASSIGN_TYPE_ERROR);
             }
         }
     }
