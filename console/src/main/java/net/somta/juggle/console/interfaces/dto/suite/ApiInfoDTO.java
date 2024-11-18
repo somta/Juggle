@@ -15,6 +15,8 @@ public class ApiInfoDTO {
 
     private Long suiteId;
 
+    private Integer suiteFlag;
+
     private String apiUrl;
 
     private String apiName;
@@ -45,6 +47,14 @@ public class ApiInfoDTO {
 
     public void setSuiteId(Long suiteId) {
         this.suiteId = suiteId;
+    }
+
+    public Integer getSuiteFlag() {
+        return suiteFlag;
+    }
+
+    public void setSuiteFlag(Integer suiteFlag) {
+        this.suiteFlag = suiteFlag;
     }
 
     public String getApiUrl() {

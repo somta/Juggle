@@ -21,7 +21,7 @@ const onReset = () => {
 </script>
 <template>
   <el-form :inline="true" :model="formValue">
-    <el-form-item label="套件" style="width: 200px;">
+    <el-form-item label="套件" style="width: 200px">
       <SuiteSelect v-model="formValue.suiteId" />
     </el-form-item>
     <el-form-item label="接口名称">

@@ -9,8 +9,10 @@ public class SuiteEntity {
     private String suiteCode;
     private String suiteName;
     private String suiteImage;
+    private String suiteVersion;
     private String suiteDesc;
     private String suiteHelpDocJson;
+    private Integer suiteFlag;
 
     public Long getId() {
         return id;
@@ -44,6 +46,14 @@ public class SuiteEntity {
         this.suiteImage = suiteImage;
     }
 
+    public String getSuiteVersion() {
+        return suiteVersion;
+    }
+
+    public void setSuiteVersion(String suiteVersion) {
+        this.suiteVersion = suiteVersion;
+    }
+
     public String getSuiteDesc() {
         return suiteDesc;
     }
@@ -60,5 +70,11 @@ public class SuiteEntity {
         this.suiteHelpDocJson = suiteHelpDocJson;
     }
 
+    public Integer getSuiteFlag() {
+        return suiteFlag;
+    }
 
+    public void setSuiteFlag(Integer suiteFlag) {
+        this.suiteFlag = suiteFlag;
+    }
 }

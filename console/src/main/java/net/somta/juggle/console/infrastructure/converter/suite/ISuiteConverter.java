@@ -20,4 +20,5 @@ public interface ISuiteConverter {
     List<SuiteVO> poListToVoList(List<SuitePO> suitePoList);
 
     SuiteVO poToVo(SuitePO suitePo);
+
 }

@@ -1,5 +1,6 @@
 package net.somta.juggle.console.domain.flow.definition;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.InputParameterVO;
@@ -68,8 +69,11 @@ public class FlowDefinitionAO {
         endEventNode.setElementType(ElementTypeEnum.END);
         endEventNode.setIncomings(Arrays.asList(startNodeKey));
         elementList.add(endEventNode);
-        String content = JsonSerializeHelper.serialize(elementList);
-        this.flowContent = content;
+        try {
+            this.flowContent = JsonSerializeHelper.serialize(elementList);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void initParameterList(List<InputParameterVO> flowInputParamList, List<OutputParameterVO> flowOutputParamList) {
@@ -82,7 +86,7 @@ public class FlowDefinitionAO {
     /**
      * 处理流程内容
      */
-    public void processFlowContent(){
+    public void processFlowContent() throws JsonProcessingException {
         List<FlowElement> elementList = JsonSerializeHelper.deserialize(this.flowContent,List.class,FlowElement.class);
         elementList.stream()
                 .filter(flowElement -> ElementTypeEnum.CONDITION.equals(flowElement.getElementType()))

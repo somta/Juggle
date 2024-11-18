@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {flowDefineService, flowVersionService} from '@/service';
+import { flowDefineService, flowVersionService } from '@/service';
 import { ElMessage } from 'element-plus';
-import CodeEditor from "@/components/form/CodeEditor.vue";
-import {DataTypeItem, FlowDefineInfo} from "@/typings";
+import CodeEditor from '@/components/common/CodeEditor.vue';
+import {DataType, FlowDefineInfo} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
-import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
+import {InfoFilled} from "@element-plus/icons-vue";
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -26,7 +27,7 @@ queryFlowDefineInfo();
 async function queryFlowDefineInfo() {
   const res = await flowDefineService.getDefineInfo(paramsData.params.flowDefinitionId as number);
   if (res.success) {
-    debugUrl.value = window.location.origin + '/v1/flow/definition/debug/'+ paramsData.params.flowKey;
+    debugUrl.value = window.location.origin + '/v1/flow/definition/debug/' + paramsData.params.flowKey;
     flowDefine.value = res.result;
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
@@ -39,14 +40,14 @@ async function sendFlowDebug() {
     return;
   }
   const params = {
-    flowData : getParams()
+    flowData: getParams(),
   };
   const res = await flowDefineService.debugFlow(paramsData.params.flowKey as string, params);
   if (res.success) {
-    if(flowDefine.value?.flowType === "sync"){
+    if (flowDefine.value?.flowType === 'sync') {
       flowResponseJson.value = JSON.stringify(res.result);
-    }else{
-      timerId = setInterval(getAsyncFlowResult, 1000,res.result.flowInstanceId);
+    } else {
+      timerId = setInterval(getAsyncFlowResult, 1000, res.result.flowInstanceId);
     }
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
@@ -54,7 +55,7 @@ async function sendFlowDebug() {
   responseHeaderData.value = Object.entries(res.response?.headers).map(([key, value]) => {
     return {
       headerKey: key,
-      headerValue: value
+      headerValue: value,
     };
   });
 }
@@ -62,7 +63,7 @@ async function sendFlowDebug() {
 async function getAsyncFlowResult(flowInstanceId: string) {
   const res = await flowVersionService.getAsyncFlowResult(flowInstanceId);
   if (res.success) {
-    if(res.result){
+    if (res.result) {
       flowResponseJson.value = JSON.stringify(res.result);
       clearInterval(timerId);
     }
@@ -71,7 +72,7 @@ async function getAsyncFlowResult(flowInstanceId: string) {
   }
 }
 
-function isEmpty (val: any) {
+function isEmpty(val: any) {
   return val === undefined || val === null || val === '';
 }
 
@@ -89,15 +90,15 @@ function validate() {
   return errors.length === 0;
 }
 
-function getParams () {
+function getParams() {
   const flowInputParams = flowDefine.value?.flowInputParams || [];
   const params: any = {};
   flowInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType:DataTypeItem = param.dataType;
-      if(dataType.type === "Object" || dataType.type === "List"){
+      const dataType: DataType = param.dataType;
+      if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
-      }else{
+      } else {
         params[param.paramKey] = param.value;
       }
       console.log(param);
@@ -106,20 +107,19 @@ function getParams () {
   return params;
 }
 
-function resetParams () {
+function resetParams() {
   flowDefine.value?.flowInputParams.forEach((param: any) => {
     param.value = '';
     param.error = '';
   });
 }
-
 </script>
 
 <template>
   <div class="flow-debug">
     <el-row :gutter="16">
       <el-col :span="20">
-        <el-input v-model="debugUrl"/>
+        <el-input v-model="debugUrl" />
       </el-col>
       <el-col :span="4">
         <el-button type="primary" @click="sendFlowDebug">发送</el-button>
@@ -142,10 +142,15 @@ function resetParams () {
             <div class="input-param-td">
               <template v-if="param.required">*</template>
             </div>
-            <div class="input-param-td" :title="param.paramKey">{{ param.paramKey }}</div>
-            <div class="input-param-td" :title="param.paramName">{{ param.paramName }}</div>
+            <div class="input-param-td" >{{ param.paramKey }}</div>
+            <div class="input-param-td" :title="param.paramName">
+              {{ param.paramName }}
+              <el-tooltip v-if="param.paramDesc" effect="dark" placement="top" :content="param.paramDesc">
+                <el-icon><InfoFilled /></el-icon>
+              </el-tooltip>
+            </div>
             <div class="input-param-td">
-              <DataTypeSelect :modelValue="param.dataType" disabled />
+              <DataTypeDisplay :dataType="param.dataType"/>
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="param.value" :dataType="param.dataType" />
@@ -165,7 +170,7 @@ function resetParams () {
       <el-tab-pane label="响应头" name="responseHeader">
         <el-table :data="responseHeaderData" style="width: 100%">
           <el-table-column prop="headerKey" label="响应头" width="350" />
-          <el-table-column prop="headerValue" label="值"/>
+          <el-table-column prop="headerValue" label="值" />
         </el-table>
       </el-tab-pane>
     </el-tabs>

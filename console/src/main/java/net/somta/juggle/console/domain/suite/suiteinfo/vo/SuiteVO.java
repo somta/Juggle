@@ -10,6 +10,7 @@ public class SuiteVO {
     private String suiteName;
     private String suiteImage;
     private String suiteDesc;
+    private Integer suiteFlag;
 
     public Long getId() {
         return id;
@@ -49,5 +50,13 @@ public class SuiteVO {
 
     public void setSuiteDesc(String suiteDesc) {
         this.suiteDesc = suiteDesc;
+    }
+
+    public Integer getSuiteFlag() {
+        return suiteFlag;
+    }
+
+    public void setSuiteFlag(Integer suiteFlag) {
+        this.suiteFlag = suiteFlag;
     }
 }

@@ -17,11 +17,13 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.console.application.service.suite;
 
 import com.github.pagehelper.PageInfo;
+import net.somta.core.protocol.ResponsePaginationDataResult;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketClassifyDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketDTO;
-import net.somta.juggle.console.interfaces.param.suite.SuiteAddParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteQueryParam;
-import net.somta.juggle.console.interfaces.param.suite.SuiteUpdateParam;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
+import net.somta.juggle.console.interfaces.param.suite.*;
 
 import java.util.List;
 
@@ -36,13 +38,18 @@ public interface ISuiteService {
 
     void deleteSuite(Long suiteId);
 
+    SuiteVO getSuiteInfo(Long suiteId);
+
     PageInfo getSuitePageList(SuiteQueryParam suiteQueryParam);
 
     List<SuiteDTO> getAllSuiteList();
 
-    List<SuiteDTO> getSuiteMarketList();
+    List<SuiteMarketClassifyDTO> getSuiteMarketClassifyList();
 
-    SuiteMarketDTO getSuiteMarketInfo(Long suiteId);
+    ResponsePaginationDataResult<SuiteDTO> getSuiteMarketList(SuiteMarketQueryParam suiteMarketQueryParam);
 
-    Boolean installSuiteMarket(Long suiteId);
+    SuiteMarketInfoDTO getSuiteMarketInfo(Long suiteId);
+
+    Boolean installSuiteMarket(SuiteMarketParam suiteMarketParam);
+
 }

@@ -1,27 +1,22 @@
 import { request, type ResponsePageResult, type ResponseResult } from '../base';
-import {FlowDefineInfo, InputParams, OutputParams} from "@/typings";
-import {FlowVariable} from "@/views/flow/design";
+import { FlowDefineInfo, InputParams, OutputParams } from '@/typings';
+import { FlowVariable } from '@/views/flow/design';
 
 export async function addDefineInfo(params: {
   flowName: string;
   flowType: string;
-  remark?:string;
+  remark?: string;
   flowInputParams?: InputParams[];
   flowOutputParams?: OutputParams[];
 }): ResponseResult<boolean> {
-  return request.post(`/v1/flow/definition/add`,params);
+  return request.post(`/v1/flow/definition/add`, params);
 }
 
 export async function getDefineInfo(id: number): ResponseResult<FlowDefineInfo> {
   return request.get(`/v1/flow/definition/info/${id}`);
 }
 
-export async function flowDefinePage(params: {
-  pageNum: number;
-  pageSize: number;
-  flowName?: string;
-  flowType?: string
-}): ResponsePageResult {
+export async function flowDefinePage(params: { pageNum: number; pageSize: number; flowName?: string; flowType?: string }): ResponsePageResult {
   return request.post('/v1/flow/definition/page', params);
 }
 
@@ -33,26 +28,18 @@ export async function updateDefineInfo(params: {
   id: number;
   flowName: string;
   flowType: string;
-  remark?:string;
+  remark?: string;
   flowInputParams?: InputParams[];
   flowOutputParams?: OutputParams[];
 }): ResponseResult<boolean> {
-  return request.put(`/v1/flow/definition/update`,params);
+  return request.put(`/v1/flow/definition/update`, params);
 }
 
-export async function saveFlowContent(params: {
-  id: number;
-  flowContent: string;
-  flowVariables?: FlowVariable[]
-}): ResponseResult<boolean> {
+export async function saveFlowContent(params: { id: number; flowContent: string; flowVariables?: FlowVariable[] }): ResponseResult<boolean> {
   return request.put('/v1/flow/definition/save', params);
 }
 
-export function deployFlowDefine(params: {
-  flowDefinitionId: string;
-  flowDeployVersion: string;
-  flowVersionRemark: string
-}): ResponsePageResult {
+export function deployFlowDefine(params: { flowDefinitionId: string; flowDeployVersion: string; flowVersionRemark: string }): ResponsePageResult {
   return request.post('/v1/flow/definition/deploy', params);
 }
 

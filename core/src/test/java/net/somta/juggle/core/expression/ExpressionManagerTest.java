@@ -1,5 +1,6 @@
 package net.somta.juggle.core.expression;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.AssignTypeEnum;
 import net.somta.juggle.core.enums.DataTypeEnum;
@@ -54,8 +55,13 @@ class ExpressionManagerTest {
 
         expressionList.add(expressionList2);
 
-        String str = JsonSerializeHelper.serialize(expressionList);
-        System.out.println(str);
+        try {
+            String str = JsonSerializeHelper.serialize(expressionList);
+            System.out.println(str);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
 
         String expression = ExpressionManager.generateExpression(expressionList);
         System.out.println(expression);

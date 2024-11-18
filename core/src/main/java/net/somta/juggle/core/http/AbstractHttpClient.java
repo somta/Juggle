@@ -18,6 +18,8 @@ package net.somta.juggle.core.http;
 
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
+import net.somta.juggle.core.exception.FlowException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.config.RequestConfig;
@@ -26,20 +28,26 @@ import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.util.Timeout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * @author husong
  * @since 1.0.0
  */
 public abstract class AbstractHttpClient implements IHttpClient{
-
+    private final static Logger logger = LoggerFactory.getLogger(AbstractHttpClient.class);
     private PoolingHttpClientConnectionManager connectionManager;
     public AbstractHttpClient() {
         connectionManager = new PoolingHttpClientConnectionManager();
@@ -72,12 +80,24 @@ public abstract class AbstractHttpClient implements IHttpClient{
     }
 
     private void fillHttpHeader(HttpUriRequestBase httpRequest, Request request){
+        fillDefaultHttpHeader(httpRequest,request);
         Map<String,Object> headers = request.getRequestHeaders();
         if(headers != null){
             for (Map.Entry<String, Object> header : headers.entrySet()) {
                 httpRequest.addHeader(header.getKey(), header.getValue());
             }
         }
+    }
+
+    private void fillDefaultHttpHeader(HttpUriRequestBase httpRequest, Request request){
+        Package pkg = AbstractHttpClient.class.getPackage();
+        String version = pkg.getImplementationVersion();
+        if(StringUtils.isNotBlank(version)){
+            httpRequest.addHeader("Juggle-Version", version);
+        }
+        String apiKey = System.getProperty("apiKey");
+        httpRequest.addHeader("Api-Key", apiKey);
+        httpRequest.addHeader("Api-Code", request.getApiCode());
     }
 
     private void fillHttpConfig(HttpUriRequestBase httpRequest,Request request){
@@ -92,8 +112,13 @@ public abstract class AbstractHttpClient implements IHttpClient{
     private Map<String, Object> handleHttpResponse(HttpUriRequestBase httpRequest, Request request){
         Map<String,Object> resultMap = new HashMap<>(8);
         final HttpClientResponseHandler<Map<String, Object>> responseHandler = response -> {
+            int statusCode = response.getCode();
+            if (statusCode >= HttpStatus.SC_MULTIPLE_CHOICES) {
+                logger.error("请求接口异常，接口地址:{},响应状态码：{}",request.getRequestUrl(),statusCode);
+                return Collections.EMPTY_MAP;
+            }
             HttpEntity entity = response.getEntity();
-            String resultContent = EntityUtils.toString(entity);
+            String resultContent = EntityUtils.toString(entity, StandardCharsets.UTF_8);
             Map<String,Object> map = JsonSerializeHelper.deserialize(resultContent, Map.class);
             if(entity != null){
                 EntityUtils.consume(entity);

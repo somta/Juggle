@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 defineProps({
-  dataRows: Array,
+  dataRows: {
+    type: Array,
+    default: [],
+  },
   pageNum: Number,
   pageSize: Number,
   dataTotal: Number,
@@ -17,13 +20,12 @@ function deleteRow(row: any, index: number) {
 function editRow(row: any) {
   emit('edit', row);
 }
-
 </script>
 
 <template>
-  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="objectKey" label="对象编码" width="200" />
-    <el-table-column prop="objectName" label="对象名称" width="240" />
+    <el-table-column prop="objectName" label="对象名称" width="300" />
     <el-table-column prop="objectDesc" label="对象描述" width="520" />
     <el-table-column label="操作" width="250">
       <template #default="scope">
@@ -45,9 +47,5 @@ function editRow(row: any) {
 </template>
 
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

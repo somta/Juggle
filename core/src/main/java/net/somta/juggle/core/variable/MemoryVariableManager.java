@@ -17,9 +17,11 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 
 package net.somta.juggle.core.variable;
 
+import com.jayway.jsonpath.JsonPath;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Variable;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +42,15 @@ public class MemoryVariableManager extends AbstractVariableManager {
 
     @Override
     protected Object doGetVariableValue(String key) {
-        Object value = variableValueMap.get(key);
+        Object value = null;
+        if(key.contains(".")){;
+         String path = "$." + key;
+         value = JsonPath.read(variableValueMap,path);
+         Object v = JsonPath.read(variableValueMap,path);
+         System.out.println(v);
+        }else{
+            value = variableValueMap.get(key);
+        }
         return value;
     }
 

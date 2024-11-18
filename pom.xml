@@ -11,26 +11,25 @@
         <module>core</module>
         <module>common</module>
         <module>console</module>
-        <module>example</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <revision>1.2.0</revision>
-        <somta-dependencies.varsion>1.4.3</somta-dependencies.varsion>
-        <somta-core.version>1.4.3</somta-core.version>
-        <somta-common.version>1.4.3</somta-common.version>
+        <revision>1.2.3</revision>
+        <kernel-dependencies.varsion>1.0.1</kernel-dependencies.varsion>
+        <kernel-core.version>1.0.0</kernel-core.version>
+        <kernel-common.version>1.0.1</kernel-common.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.2.220</h2.version>
         <aviator.version>5.3.3</aviator.version>
         <groovy.version>4.0.20</groovy.version>
         <freemarker.version>2.3.32</freemarker.version>
-        <dashscope.version>2.12.0</dashscope.version>
         <httpclient.version>5.2.1</httpclient.version>
         <jjwt.version>0.11.5</jjwt.version>
         <caffeine.version>2.9.3</caffeine.version>
+        <json-path.version>2.9.0</json-path.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
 
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
@@ -44,8 +43,8 @@
         <dependencies>
             <dependency>
                 <groupId>net.somta</groupId>
-                <artifactId>somta-dependencies</artifactId>
-                <version>${somta-dependencies.varsion}</version>
+                <artifactId>kernel-dependencies</artifactId>
+                <version>${kernel-dependencies.varsion}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -61,13 +60,13 @@
             </dependency>
             <dependency>
                 <groupId>net.somta</groupId>
-                <artifactId>somta-common</artifactId>
-                <version>${somta-common.version}</version>
+                <artifactId>kernel-common</artifactId>
+                <version>${kernel-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.somta</groupId>
-                <artifactId>somta-core</artifactId>
-                <version>${somta-core.version}</version>
+                <artifactId>kernel-core</artifactId>
+                <version>${kernel-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -105,11 +104,6 @@
                 <version>${freemarker.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dashscope-sdk-java</artifactId>
-                <version>${dashscope.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.httpcomponents.client5</groupId>
                 <artifactId>httpclient5</artifactId>
                 <version>${httpclient.version}</version>
@@ -128,6 +122,11 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json-path.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

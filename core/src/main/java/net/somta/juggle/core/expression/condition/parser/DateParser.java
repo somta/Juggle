@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author husong
- * @since 1.0.0
+ * @since 1.2.2
  */
 public class DateParser implements IExpressionParser {
     private final static Logger logger = LoggerFactory.getLogger(DateParser.class);

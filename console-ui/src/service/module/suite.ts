@@ -1,10 +1,10 @@
-import {suiteAPI} from '../api';
+import { suiteAPI } from '../api';
 
 export async function addSuite(params: Parameters<typeof suiteAPI.addSuite>[0]) {
   return suiteAPI.addSuite(params);
 }
 
-export async function deleteSuite(suiteId:number) {
+export async function deleteSuite(suiteId: number) {
   return suiteAPI.deleteSuite(suiteId);
 }
 
@@ -19,6 +19,3 @@ export async function querySuitePage(params: Parameters<typeof suiteAPI.suitePag
 export async function querySuiteList() {
   return suiteAPI.suiteList();
 }
-
-
-

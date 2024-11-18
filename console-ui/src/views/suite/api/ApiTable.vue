@@ -1,8 +1,12 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import {PropType} from "vue";
 const router = useRouter();
 defineProps({
-  dataRows: Array,
+  dataRows: {
+    type: Array,
+    default: [],
+  },
   pageNum: Number,
   pageSize: Number,
   dataTotal: Number,
@@ -22,20 +26,20 @@ function goApiDebugPage(apiId: number) {
   router.push({
     name: 'api-debug',
     params: {
-      apiId: apiId
+      apiId: apiId,
     },
   });
 }
 </script>
 <template>
-  <el-table v-loading="loading" :data="dataRows" :header-cell-style="{background:'#f0f0f0'}" style="width: 100%">
-    <el-table-column prop="apiName" label="接口名称" width="160" />
-    <el-table-column prop="apiUrl" label="接口地址" width="280" />
-    <el-table-column prop="suiteName" label="套件" width="160" />
-    <el-table-column prop="apiRequestType" label="请求类型" width="80" />
-    <el-table-column prop="apiDesc" label="接口描述" min-width="80" show-overflow-tooltip />
-    <el-table-column prop="createdAt" label="创建时间" width="120" />
-    <el-table-column fixed="right" label="操作" width="140">
+  <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
+    <el-table-column prop="apiName" label="接口名称" width="150" />
+    <el-table-column prop="apiUrl" label="接口地址" width="270" show-overflow-tooltip />
+    <el-table-column prop="suiteName" label="套件" width="150" />
+    <el-table-column prop="apiRequestType" label="请求类型" width="90" />
+    <el-table-column prop="apiDesc" label="接口描述" min-width="50" show-overflow-tooltip />
+    <el-table-column prop="createdAt" label="创建时间" width="110" />
+    <el-table-column fixed="right" label="操作" width="150">
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="goApiDebugPage(scope.row.id)"> 调试 </el-button>
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>
@@ -55,9 +59,5 @@ function goApiDebugPage(apiId: number) {
   </div>
 </template>
 <style lang="less" scoped>
-.table-pagination {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: row-reverse;
-}
+
 </style>

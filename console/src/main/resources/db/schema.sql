@@ -40,8 +40,9 @@ CREATE TABLE `t_suite` (
 CREATE TABLE `t_api` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
  `suite_id` bigint(20) DEFAULT NULL,
- `api_name` varchar(50) DEFAULT NULL,
+ `api_code` varchar(100) DEFAULT NULL,
  `api_url` varchar(100) DEFAULT NULL,
+ `api_name` varchar(50) DEFAULT NULL,
  `api_desc` varchar(200) DEFAULT NULL,
  `api_request_type` varchar(10) DEFAULT NULL,
  `api_request_content_type` varchar(40) DEFAULT NULL,
@@ -93,8 +94,8 @@ CREATE TABLE `t_flow_definition` (
 CREATE TABLE `t_parameter` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `param_type` int(2) DEFAULT NULL,
-  `param_key` varchar(20) DEFAULT NULL,
-  `param_name` varchar(30) DEFAULT NULL,
+  `param_key` varchar(40) DEFAULT NULL,
+  `param_name` varchar(40) DEFAULT NULL,
   `param_position` varchar(20) DEFAULT NULL,
   `param_desc` varchar(100) DEFAULT NULL,
   `data_type` text,

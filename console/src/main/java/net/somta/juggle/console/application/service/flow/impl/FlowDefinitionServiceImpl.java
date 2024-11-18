@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.application.service.flow.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -88,7 +89,11 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
     @Override
     public Boolean saveFlowDefinitionContent(FlowDefinitionContentParam flowDefinitionContentParam) {
         FlowDefinitionAO flowDefinitionAo = IFlowDefinitionAssembler.IMPL.paramToAo(flowDefinitionContentParam);
-        flowDefinitionAo.processFlowContent();
+        try {
+            flowDefinitionAo.processFlowContent();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         return flowDefinitionRepository.saveFlowDefinitionContent(flowDefinitionAo);
     }
 
@@ -137,13 +142,17 @@ public class FlowDefinitionServiceImpl implements IFlowDefinitionService {
         flowInfoAo.setFlowVersionRemark(flowDefinitionDeployParam.getFlowVersionRemark());
 
         ParameterEntity parameterEntity = flowDefinitionAo.getParameterEntity();
-        String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getInputParameterSchema());
-        flowInfoAo.setInputs(inputParameterString);
-        String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getOutputParameterSchema());
-        flowInfoAo.setOutputs(outputParameterString);
+        try {
+            String inputParameterString = JsonSerializeHelper.serialize(parameterEntity.getInputParameterSchema());
+            flowInfoAo.setInputs(inputParameterString);
+            String outputParameterString = JsonSerializeHelper.serialize(parameterEntity.getOutputParameterSchema());
+            flowInfoAo.setOutputs(outputParameterString);
 
-        String variablesString = JsonSerializeHelper.serialize(flowDefinitionAo.getFlowRuntimeVariables());
-        flowInfoAo.setVariables(variablesString);
+            String variablesString = JsonSerializeHelper.serialize(flowDefinitionAo.getFlowRuntimeVariables());
+            flowInfoAo.setVariables(variablesString);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         return flowRepository.deployFlow(flowInfoAo);
     }
 

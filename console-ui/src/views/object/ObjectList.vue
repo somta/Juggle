@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import {commonService, objectService} from '@/service';
+import { commonService, objectService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import ObjectFilter from "@/views/object/ObjectFilter.vue";
-import ObjectTable from "@/views/object/ObjectTable.vue";
-import ObjectDrawer from "@/views/object/ObjectDrawer.vue";
-import {OutputParams} from "@/typings";
+import ObjectFilter from '@/views/object/ObjectFilter.vue';
+import ObjectTable from '@/views/object/ObjectTable.vue';
+import ObjectDrawer from '@/views/object/ObjectDrawer.vue';
+import { OutputParams } from '@/typings';
 
 const pageNum = ref(1);
 const pageSize = ref(10);
@@ -68,12 +68,12 @@ function openDelete(row: any) {
 
 async function addObjectItem(row: any) {
   const paramArray = row.props;
-  if(Array.isArray(paramArray) && paramArray.length !== 0){
+  if (Array.isArray(paramArray) && paramArray.length !== 0) {
     const propArray = paramArray.map((item: any) => {
       return {
         propKey: item.paramKey,
         propName: item.paramName,
-        dataType: item.dataType
+        dataType: item.dataType,
       };
     });
     row.props = propArray;
@@ -90,12 +90,12 @@ async function addObjectItem(row: any) {
 
 async function editObjectItem(row: any) {
   const paramArray = row.props;
-  if(Array.isArray(paramArray) && paramArray.length !== 0){
+  if (Array.isArray(paramArray) && paramArray.length !== 0) {
     const propArray = paramArray.map((item: OutputParams) => {
       return {
         propKey: item.paramKey,
         propName: item.paramName,
-        dataType: item.dataType
+        dataType: item.dataType,
       };
     });
     row.props = propArray;
@@ -144,17 +144,3 @@ async function deleteItem(row: any) {
     <ObjectDrawer ref="formRef" @add="addObjectItem" @edit="editObjectItem" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-object-list {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

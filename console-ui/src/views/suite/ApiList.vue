@@ -55,11 +55,10 @@ function openEdit(row: any) {
 
 function openDelete(row: any) {
   ElMessageBox.confirm(`确定删除'${row.apiName}'吗?`, '操作确认', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
     type: 'warning',
-  })
-    .then(() => {
+    cancelButtonText: '取消',
+    confirmButtonText: '确定',
+  }).then(() => {
       deleteApiItem(row);
     })
     .catch(() => {});
@@ -67,13 +66,14 @@ function openDelete(row: any) {
 
 async function addApiItem(row: any) {
   const paramArray = row.apiHeaders;
-  if(Array.isArray(paramArray) && paramArray.length !== 0){
+  if (Array.isArray(paramArray) && paramArray.length !== 0) {
     const headerArray = paramArray.map((item: any) => {
       return {
         headerKey: item.paramKey,
         headerName: item.paramName,
         dataType: item.dataType,
-        required: item.required
+        required: item.required,
+        headerDesc: item.paramDesc,
       };
     });
     row.apiHeaders = headerArray;
@@ -89,13 +89,14 @@ async function addApiItem(row: any) {
 
 async function editApiItem(row: any) {
   const paramArray = row.apiHeaders;
-  if(Array.isArray(paramArray) && paramArray.length !== 0){
+  if (Array.isArray(paramArray) && paramArray.length !== 0) {
     const headerArray = paramArray.map((item: any) => {
       return {
         headerKey: item.paramKey,
         headerName: item.paramName,
         dataType: item.dataType,
-        required: item.required
+        required: item.required,
+        headerDesc: item.paramDesc,
       };
     });
     row.apiHeaders = headerArray;
@@ -142,17 +143,3 @@ async function deleteApiItem(row: any) {
     <ListForm ref="formRef" @add="addApiItem" @edit="editApiItem" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-interface-list {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

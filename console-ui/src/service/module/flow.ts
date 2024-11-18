@@ -1,4 +1,4 @@
-import { flowAPI, flowDefineAPI } from '@/service/api';
+import { flowAPI } from '@/service/api';
 
 export async function updateFlowStatus(flowId: number, flowStatus: number) {
   return flowAPI.updateFlowStatus(flowId, flowStatus);

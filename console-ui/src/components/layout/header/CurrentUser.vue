@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {useRouter} from 'vue-router';
-import {userService} from '@/service';
-import {ElMessage} from 'element-plus';
-import {ref} from 'vue';
+import { useRouter } from 'vue-router';
+import { userService } from '@/service';
+import { ElMessage } from 'element-plus';
+import { ref } from 'vue';
 
 const $router = useRouter();
 
@@ -22,18 +22,17 @@ async function logout() {
 
 function extractColorByName(name) {
   const temp = [];
-  temp.push("#");
+  temp.push('#');
   for (let index = 0; index < name.length; index++) {
     temp.push(parseInt(name[index].charCodeAt(0), 10).toString(16));
   }
   return temp.slice(0, 5).join('').slice(0, 4);
 }
-
 </script>
 <template>
   <el-dropdown class="app-current-userPO-dropdown">
     <div class="app-current-userPO">
-      <el-avatar :size="32" :style="`background:${extractColorByName(userName)}`">{{userNameInitial}}</el-avatar>
+      <el-avatar :size="32" :style="`background:${extractColorByName(userName)}`">{{ userNameInitial }}</el-avatar>
       <span class="current-userPO-name">{{ userName }}</span>
     </div>
     <template #dropdown>
@@ -48,7 +47,7 @@ function extractColorByName(name) {
 <style lang="less" scoped>
 .app-current-userPO-dropdown {
   height: 100%;
-  padding: 0px 20px 0px 0px;
+  padding: 0 20px 0 0;
 }
 .app-current-userPO {
   height: 100%;
@@ -57,7 +56,7 @@ function extractColorByName(name) {
   color: #fff;
   outline: none;
 
-  .el-avatar{
+  .el-avatar {
     font-size: 22px;
     font-weight: bold;
   }

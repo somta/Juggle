@@ -1,3 +1,5 @@
+import {DataType} from "@/typings";
+
 export type ConditionItem = {
   conditionName: string;
   conditionType: string;
@@ -18,12 +20,12 @@ export type RawData = {
 };
 
 export type MethodInfo = {
-  methodId: number;
-  suiteId: number;
+  methodCode: string;
+  suiteCode: string;
   requestContentType: string;
   requestType: string;
   url: string;
-  inputParamSchemas: any,
+  inputParamSchemas: any;
   headerFillRules: any;
   inputFillRules: any;
   outputFillRules: any;
@@ -34,8 +36,8 @@ export enum ElementType {
   METHOD = 'METHOD',
   CONDITION = 'CONDITION',
   CODE = 'CODE',
+  ASSIGN = 'ASSIGN',
   MYSQL = 'MYSQL',
-  AI = 'AI',
   END = 'END',
 
   // 前端创建的
@@ -52,24 +54,18 @@ export enum FlowVariableType {
   TEMP = 3,
 }
 
-export type FlowVariableDataType = {
-  type: string;
-  itemType: string;
-  objectStructure: any;
-}
-
 export type FlowVariable = {
-  dataType: any;
+  dataType: DataType;
   envKey: string;
   envName: string;
   envType: FlowVariableType;
   id: number;
-}
+};
 
 export type FlowData = {
   flowKey: string;
   flowName: string;
-  flowType: string
+  flowType: string;
   flowContent: RawData[];
   flowInputParams: any[];
   flowOutputParams: any[];

@@ -1,16 +1,12 @@
 <script lang="ts" setup>
 import { ref, watch, PropType } from 'vue';
-import DataTypeSelect from './DataTypeSelect.vue';
-import { valueType, RuleItem } from '@/typings';
+import {valueType, RuleItem, DataType} from '@/typings';
 import { Delete } from '@element-plus/icons-vue';
 import { isDataTypeEqual } from '@/utils/dataType';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const props = defineProps({
   modelValue: Array as PropType<RuleItem[]>,
-  showTargetType: {
-    type: Boolean,
-    default: true,
-  },
   addText: String,
   sourceList: {
     type: Array as PropType<any[]>,
@@ -19,7 +15,7 @@ const props = defineProps({
   targetList: {
     type: Array as PropType<any[]>,
     default: () => [],
-  }
+  },
 });
 const emit = defineEmits(['update:modelValue']);
 const rules = ref<RuleItem[]>([...(props.modelValue || [])]);
@@ -39,20 +35,20 @@ const columns = [
   { name: '赋值', prop: 'target' },
 ];
 
-function addrule() {
+function addRule() {
   rules.value.push({
     source: '',
-    sourceDataType: '',
+    sourceDataType: null,
     sourceType: valueType.INPUT_PARAM,
     target: '',
-    targetDataType: '',
+    targetDataType: null,
     targetType: valueType.VARIABLE,
     required: false,
   });
   onChange();
 }
 
-function removeRule (rowIndex: number) {
+function removeRule(rowIndex: number) {
   rules.value.splice(rowIndex, 1);
   onChange();
 }
@@ -61,15 +57,15 @@ function onChange() {
   emit('update:modelValue', rules.value);
 }
 
-function onTargetVarChange (rowIndex: number) {
+function onTargetVarChange(rowIndex: number) {
   const target = rules.value[rowIndex].target;
-  const param = props.targetList.find((item) => item.envKey === target);
+  const param = props.targetList!.find(item => item.envKey === target);
   rules.value[rowIndex].targetDataType = param.dataType;
   onChange();
 }
 
-function getAvailableSource (source: string) {
-  return props.sourceList.filter((item) => {
+function getAvailableSource(source: string) {
+  return props.sourceList!.filter(item => {
     // 已选参数也能选
     if (item.paramKey === source) {
       return item;
@@ -78,8 +74,8 @@ function getAvailableSource (source: string) {
     return !rules.value.map(item => item.source).includes(item.paramKey);
   });
 }
-function getAvailableTarget (source: string, sourceDataType: string) {
-  return props.targetList.filter((item) => {
+function getAvailableTarget(source: string, sourceDataType: DataType) {
+  return props.targetList!.filter(item => {
     // 不选取自己
     if (item.envKey === source) {
       return false;
@@ -89,10 +85,9 @@ function getAvailableTarget (source: string, sourceDataType: string) {
   });
 }
 
-function onSourceChange (rowIndex: number) {
-  console.log("onSourceChange",rules.value[rowIndex]);
+function onSourceChange(rowIndex: number) {
   const source = rules.value[rowIndex].source;
-  const param = props.sourceList.find((item) => item.paramKey === source);
+  const param = props.sourceList!.find(item => item.paramKey === source);
   rules.value[rowIndex].target = '';
   rules.value[rowIndex].sourceDataType = param.dataType;
   rules.value[rowIndex].sourceType = param.sourceType;
@@ -104,10 +99,7 @@ function onSourceChange (rowIndex: number) {
     <div class="rule-setting-head">
       <div class="rule-setting-tr">
         <template v-for="column in columns" :key="column.prop">
-          <template v-if="column.prop === 'targetType'">
-            <div class="rule-setting-td" v-if="showTargetType">{{ column.name }}</div>
-          </template>
-          <div class="rule-setting-td" v-else>{{ column.name }}</div>
+          <div class="rule-setting-td">{{ column.name }}</div>
         </template>
         <div class="rule-setting-td delete-td"></div>
       </div>
@@ -117,16 +109,33 @@ function onSourceChange (rowIndex: number) {
         <template v-for="column in columns" :key="column.prop">
           <div class="rule-setting-td" v-if="column.prop === 'source'">
             <el-select v-model="rule.source" size="small" @change="onSourceChange(rowIndex)">
-              <el-option v-for="item in getAvailableSource(rule.source)" :key="item.paramKey" :value="item.paramKey" :label="item.paramName" :title="item.paramName" />
+              <el-option
+                v-for="item in getAvailableSource(rule.source)"
+                :key="item.paramKey"
+                :value="item.paramKey"
+                :label="item.paramName"
+                :title="item.paramName"
+              />
             </el-select>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'sourceDataType'">
-            <DataTypeSelect v-model="rule.sourceDataType" disabled type="basic" size="small" />
+            <DataTypeDisplay :dataType="rule.sourceDataType as DataType"/>
           </div>
           <div class="rule-setting-td" v-if="column.prop === 'target'">
             <!-- 变量 -->
             <el-select v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
-              <el-option v-for="item in getAvailableTarget(rule.source, rule.sourceDataType)" :key="item.envKey" :value="item.envKey" :label="item.envName" :title="item.envName" />
+              <el-option
+                v-for="item in getAvailableTarget(rule.source, rule.sourceDataType as DataType)"
+                :key="item.envKey"
+                :value="item.envKey"
+                :label="item.envName"
+                :title="item.envName"
+              >
+                <span style="float: left">{{ item.envKey }}</span>
+                <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">
+                        {{ item.envName }}
+                      </span>
+              </el-option>
             </el-select>
           </div>
         </template>
@@ -136,7 +145,7 @@ function onSourceChange (rowIndex: number) {
       </div>
     </div>
     <div class="rule-setting-foot">
-      <el-button size="small" type="info" @click="addrule">{{ addText || '新增入参'}}</el-button>
+      <el-button size="small" type="info" @click="addRule">{{ addText || '新增入参' }}</el-button>
     </div>
   </div>
 </template>
@@ -163,7 +172,8 @@ function onSourceChange (rowIndex: number) {
     padding: 0 6px;
     display: flex;
     align-items: center;
-    &.delete-td, &.required-td {
+    &.delete-td,
+    &.required-td {
       width: 40px;
       flex: none;
       justify-content: center;
@@ -180,6 +190,12 @@ function onSourceChange (rowIndex: number) {
   &-foot {
     text-align: center;
     padding: 6px 0;
+  }
+}
+
+.rule-setting-td{
+  .dataTypeName {
+    color: var(--el-text-color-regular);
   }
 }
 </style>

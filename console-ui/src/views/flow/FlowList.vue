@@ -10,7 +10,6 @@ const dataTotal = ref(0);
 const dataRows = ref<Record<string, any>[]>([]);
 const loading = ref(false);
 
-const drawerRef = ref();
 const filter = ref<{
   flowName?: string;
   flowType?: string;
@@ -48,8 +47,7 @@ function openUpdateFlowStatus(row: any) {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
-  })
-    .then(() => {
+  }).then(() => {
       updateFlowStatus(row);
     })
     .catch(() => {});
@@ -108,17 +106,3 @@ async function deleteFlowItem(row: any) {
     </el-container>
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-flow {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

@@ -1,15 +1,14 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import LayoutView from '../views/LayoutView.vue';
 import LoginView from '../views/LoginView.vue';
-import HomeView from '../views/HomeView.vue';
 import NotFound from '../views/NotFound.vue';
 import { FlowRoutes } from '../views/flow';
 import { CommonRoutes } from '../views/common';
-import ObjectList from "@/views/object/ObjectList.vue";
-import {SystemRoutes} from "@/views/system";
-import {SuiteRoutes} from "@/views/suite";
-import SuiteMarket from "@/views/market/SuiteMarket.vue";
-import SuiteMarketDetail from "@/views/market/SuiteMarketDetail.vue";
+import ObjectList from '@/views/object/ObjectList.vue';
+import { SystemRoutes } from '@/views/system';
+import { SuiteRoutes } from '@/views/suite';
+import FlowDesign from "@/views/flow/FlowDesign.vue";
+import {MarketRoutes} from "@/views/market";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -19,6 +18,12 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
       meta: { name: '登录' },
+    },
+    {
+      path: '/design/:flowDefinitionId/:flowKey',
+      name: 'flow-design',
+      component: FlowDesign,
+      meta: { name: '流程设计' },
     },
     {
       path: '/',
@@ -42,18 +47,7 @@ const router = createRouter({
           component: ObjectList,
           meta: { name: '对象' },
         },
-        {
-          path: 'market/suite',
-          name: 'suite-market',
-          component: SuiteMarket,
-          meta: { name: '套件市场' },
-        },
-        {
-          path: 'market/suite/detail/:suiteId',
-          name: 'suite-market-detail',
-          component: SuiteMarketDetail,
-          meta: { name: '套件详情' },
-        },
+        ...MarketRoutes,
         ...SystemRoutes,
         {
           path: '/:pathMatch(.*)*',

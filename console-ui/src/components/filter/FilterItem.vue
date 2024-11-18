@@ -1,10 +1,11 @@
-
 <script lang="ts" setup>
-import { getDataTypeObject, isDataTypeEqual } from '@/utils/dataType';
-import { Delete } from '@element-plus/icons-vue'
+import {getDataTypeObject, getVariableDataType, isDataTypeEqual} from '@/utils/dataType';
+import { Delete } from '@element-plus/icons-vue';
 import { PropType, computed } from 'vue';
 import { DataTypeOperatorMap, BaseDataType, OperatorNameMap, Operator } from './config';
 import FilterValue from './FilterValue.vue';
+import VariableSelect from "@/components/common/VariableSelect.vue";
+import {FlowVariable} from "@/views/flow/design";
 
 enum FilterAssignType {
   Constant = 'CONSTANT',
@@ -19,7 +20,7 @@ const props = defineProps({
     required: true,
   },
   sourceList: {
-    type: Array as PropType<any[]>,
+    type: Array as PropType<FlowVariable[]>,
     default: () => [],
   },
   targetList: {
@@ -30,31 +31,32 @@ const props = defineProps({
 
 const sourceModel = computed({
   get: () => props.item.envKey,
-  set: (value) => {
-    const current = props.sourceList.find((item) => item.envKey === value);
-    emit('change', { envKey: value, dataType: current.dataType })
-  }
+  set: value => {
+    /*const current = props.sourceList.find(item => item.envKey === value);*/
+    const current = getVariableDataType(value,props.sourceList as FlowVariable[]);
+    emit('change', { envKey: value, dataType: current.dataType });
+  },
 });
 
 const operatorModel = computed({
   get: () => props.item.operator,
-  set: (value) => {
-    emit('change', { ...props.item, operator: value, assignType: FilterAssignType.Constant, value: null })
-  }
+  set: value => {
+    emit('change', { ...props.item, operator: value, assignType: FilterAssignType.Constant, value: null });
+  },
 });
 
 const assignTypeModel = computed({
   get: () => props.item.assignType,
-  set: (value) => {
-    emit('change', { ...props.item, assignType: value, value: null })
-  }
+  set: value => {
+    emit('change', { ...props.item, assignType: value, value: null });
+  },
 });
 
 const targetModel = computed({
   get: () => props.item.value,
-  set: (value) => {
-    emit('change', { ...props.item, value: value })
-  }
+  set: value => {
+    emit('change', { ...props.item, value: value });
+  },
 });
 
 const isConstant = computed(() => {
@@ -68,7 +70,7 @@ const isVariable = computed(() => {
 const operatorList = computed(() => {
   const dataType = getDataTypeObject(props.item.dataType)?.type as BaseDataType;
   const operators = DataTypeOperatorMap[dataType] || [];
-  return operators.map((operator) => {
+  return operators.map(operator => {
     return {
       value: operator,
       label: OperatorNameMap[operator],
@@ -80,7 +82,7 @@ const isNoValueOperator = computed(() => {
   return !props.item.operator || [Operator.Empty, Operator.NotEmpty].includes(props.item.operator);
 });
 
-const filteredTargetList  = computed(() => {
+const filteredTargetList = computed(() => {
   return props.targetList.filter((item: any) => {
     // 不选取自己
     if (item.envKey === props.item.envKey) {
@@ -95,9 +97,13 @@ const filteredTargetList  = computed(() => {
 <template>
   <div class="filter-item">
     <div class="filter-item-key">
-      <el-select placeholder="请选择" v-model="sourceModel">
+<!--      <el-select placeholder="请选择" v-model="sourceModel">
         <el-option v-for="source in sourceList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
-      </el-select>
+      </el-select>-->
+      <VariableSelect
+          v-model="sourceModel"
+          :options="sourceList"
+      />
     </div>
     <div class="filter-item-operator">
       <el-select placeholder="请选择" v-model="operatorModel">

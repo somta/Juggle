@@ -3,6 +3,7 @@ package net.somta.juggle.core.expression;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.AviatorEvaluatorInstance;
 import com.googlecode.aviator.Expression;
+import net.somta.juggle.core.model.Father;
 import net.somta.juggle.core.model.Student;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -192,28 +193,78 @@ public class ExpressionAviatorEvaluatorTest {
         AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
 
         //等于
-        Expression compiledExp = instance.compile("date.eq(env_birthday,'2023-12-13 18:14:34')");
+        Expression compiledExp = instance.compile("date.eq(env_birthday,'2023-12-13')");
+        Map<String, Object> env = new HashMap<>();
+        env.put("env_birthday","2023-12-13");
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        //不等于
+        Expression compiledExp2 = instance.compile("!date.eq(env_birthday,'2023-12-13')");
+        Map<String, Object> env2 = new HashMap<>();
+        env2.put("env_birthday","2023-12-15");
+        Boolean result2 = (Boolean) compiledExp2.execute(env2);
+        Assertions.assertEquals(result2, true);
+
+        //大于
+        Expression compiledExp3 = instance.compile("date.gt(env_birthday,'2023-12-13')");
+        Map<String, Object> env3 = new HashMap<>();
+        env3.put("env_birthday","2023-12-25");
+        Boolean result3 = (Boolean) compiledExp3.execute(env3);
+        Assertions.assertEquals(result3, true);
+
+        //大于等于
+        Expression compiledExp4 = instance.compile("date.ge(env_birthday,'2023-12-13')");
+        Map<String, Object> env4 = new HashMap<>();
+        env4.put("env_birthday","2023-12-13");
+        //env4.put("env_birthday","2023-12-25");
+        Boolean result4 = (Boolean) compiledExp4.execute(env4);
+        Assertions.assertEquals(result4, true);
+
+        //小于
+        Expression compiledExp5 = instance.compile("date.lt(env_birthday,'2023-12-13')");
+        Map<String, Object> env5 = new HashMap<>();
+        env5.put("env_birthday","2023-9-13");
+        Boolean result5 = (Boolean) compiledExp5.execute(env5);
+        Assertions.assertEquals(result5, true);
+
+        //小于等于
+        Expression compiledExp6 = instance.compile("date.le(env_birthday,'2023-12-13')");
+        Map<String, Object> env6 = new HashMap<>();
+        env6.put("env_birthday","2023-9-13");
+        //env6.put("env_birthday","2023-12-13");
+        Boolean result6 = (Boolean) compiledExp6.execute(env6);
+        Assertions.assertEquals(result6, true);
+
+    }
+
+    @Test
+    public void timeExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        //等于
+        Expression compiledExp = instance.compile("time.eq(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env = new HashMap<>();
         env.put("env_birthday","2023-12-13 18:14:34");
         Boolean result = (Boolean) compiledExp.execute(env);
         Assertions.assertEquals(result, true);
 
         //不等于
-        Expression compiledExp2 = instance.compile("!date.eq(env_birthday,'2023-12-13 18:14:34')");
+        Expression compiledExp2 = instance.compile("!time.eq(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env2 = new HashMap<>();
         env2.put("env_birthday","2023-12-15 18:14:34");
         Boolean result2 = (Boolean) compiledExp2.execute(env2);
         Assertions.assertEquals(result2, true);
 
         //大于
-        Expression compiledExp3 = instance.compile("date.gt(env_birthday,'2023-12-13 18:14:34')");
+        Expression compiledExp3 = instance.compile("time.gt(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env3 = new HashMap<>();
         env3.put("env_birthday","2023-12-25 18:14:34");
         Boolean result3 = (Boolean) compiledExp3.execute(env3);
         Assertions.assertEquals(result3, true);
 
         //大于等于
-        Expression compiledExp4 = instance.compile("date.ge(env_birthday,'2023-12-13 18:14:34')");
+        Expression compiledExp4 = instance.compile("time.ge(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env4 = new HashMap<>();
         env4.put("env_birthday","2023-12-13 18:14:34");
         //env4.put("env_birthday","2023-12-25 18:14:34");
@@ -221,14 +272,14 @@ public class ExpressionAviatorEvaluatorTest {
         Assertions.assertEquals(result4, true);
 
         //小于
-        Expression compiledExp5 = instance.compile("date.lt(env_birthday,'2023-12-13 18:14:34')");
+        Expression compiledExp5 = instance.compile("time.lt(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env5 = new HashMap<>();
         env5.put("env_birthday","2023-9-13 18:14:34");
         Boolean result5 = (Boolean) compiledExp5.execute(env5);
         Assertions.assertEquals(result5, true);
 
         //小于等于
-        Expression compiledExp6 = instance.compile("date.le(env_birthday,'2023-12-13 18:14:34')");
+        Expression compiledExp6 = instance.compile("time.le(env_birthday,'2023-12-13 18:14:34')");
         Map<String, Object> env6 = new HashMap<>();
         env6.put("env_birthday","2023-9-13 18:14:34");
         //env6.put("env_birthday","2023-12-13 18:14:34");
@@ -281,6 +332,35 @@ public class ExpressionAviatorEvaluatorTest {
         Boolean result2 = (Boolean) compiledExp2.execute(env2);
         Assertions.assertEquals(result2, true);
 
+    }
+
+    @Test
+    public void objectPropExpressionTest(){
+        AviatorEvaluatorInstance instance = AviatorEvaluator.getInstance();
+
+        Map<String, Object> env = new HashMap<>();
+        Student student = new Student();
+        student.setName("zhansan");
+        student.setFather(new Father("lisi",29));
+        env.put("student",student);
+
+        //下探字符串
+        Expression compiledExp = instance.compile("student.name==\"zhansan\"");
+        Boolean result = (Boolean) compiledExp.execute(env);
+        Assertions.assertEquals(result, true);
+
+        Expression compiledExp2 = instance.compile("!string.empty(student.name)");
+        Boolean result2 = (Boolean) compiledExp2.execute(env);
+        Assertions.assertEquals(result2, true);
+
+        Expression compiledExp3 = instance.compile("student.father.fatherName==\"lisi\"");
+        Boolean result3 = (Boolean) compiledExp3.execute(env);
+        Assertions.assertEquals(result3, true);
+
+        //数字下探
+        Expression compiledExp4 = instance.compile("student.father.fatherAge>18");
+        Boolean result4 = (Boolean) compiledExp4.execute(env);
+        Assertions.assertEquals(result4, true);
     }
 
     @Test

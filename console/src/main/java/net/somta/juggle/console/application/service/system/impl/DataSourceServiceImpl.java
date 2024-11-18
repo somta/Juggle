@@ -3,9 +3,11 @@ package net.somta.juggle.console.application.service.system.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.somta.common.encrypt.AESUtil;
 import net.somta.juggle.console.application.assembler.system.IDataSourceAssembler;
 import net.somta.juggle.console.application.service.system.IDataSourceManager;
 import net.somta.juggle.console.application.service.system.IDataSourceService;
+import net.somta.juggle.console.configuration.JuggleProperties;
 import net.somta.juggle.console.domain.system.datasource.DataSourceAO;
 import net.somta.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import net.somta.juggle.console.domain.system.datasource.service.DataSourceInstanceFactory;
@@ -16,8 +18,10 @@ import net.somta.juggle.console.interfaces.param.system.DataSourceAddParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceQueryParam;
 import net.somta.juggle.console.interfaces.param.system.DataSourceUpdateParam;
 import net.somta.juggle.core.model.DataSource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.util.List;
 
 /**
@@ -28,15 +32,18 @@ import java.util.List;
 public class DataSourceServiceImpl implements IDataSourceService {
     private final IDataSourceRepository dataSourceRepository;
     private final IDataSourceManager dataSourceManager;
+    private final JuggleProperties juggleProperties;
 
-    public DataSourceServiceImpl(IDataSourceRepository dataSourceRepository, IDataSourceManager dataSourceManager) {
+    public DataSourceServiceImpl(IDataSourceRepository dataSourceRepository, IDataSourceManager dataSourceManager, JuggleProperties juggleProperties) {
         this.dataSourceRepository = dataSourceRepository;
         this.dataSourceManager = dataSourceManager;
+        this.juggleProperties = juggleProperties;
     }
 
     @Override
     public Boolean addDataSource(DataSourceAddParam dataSourceAddParam) {
         DataSourceAO dataSourceAo = IDataSourceAssembler.IMPL.paramToAo(dataSourceAddParam);
+        dataSourceAo.encryptData(juggleProperties.getSecretKey());
         Long dataSourceId = dataSourceRepository.addDataSource(dataSourceAo);
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         dataSource.setId(dataSourceId);
@@ -52,6 +59,7 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public Boolean updateDataSource(DataSourceUpdateParam dataSourceUpdateParam) {
         DataSourceAO dataSourceAo = IDataSourceAssembler.IMPL.paramToAo(dataSourceUpdateParam);
+        dataSourceAo.encryptData(juggleProperties.getSecretKey());
         dataSourceManager.deleteDataSourceFromCache(dataSourceUpdateParam.getId());
         return dataSourceRepository.updateDataSource(dataSourceAo);
     }
@@ -59,6 +67,7 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public DataSourceDTO getDataSource(Long dataSourceId) {
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
+        dataSourceAo.decryptData(juggleProperties.getSecretKey());
         return IDataSourceAssembler.IMPL.aoToDto(dataSourceAo);
     }
 
@@ -82,6 +91,7 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public Boolean connectDataSource(Long dataSourceId) {
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
+        dataSourceAo.decryptData(juggleProperties.getSecretKey());
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         dataSource.setId(dataSourceId);
         Object dataSourceInstance = DataSourceInstanceFactory.getDataSourceInstance(dataSource);

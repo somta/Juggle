@@ -48,7 +48,7 @@ public class HttpClientTest {
         requestParam.put("goodsInventory",6);
 
         Request request = new Request(RequestTypeEnum.GET,inputParamSchema);
-        request.initRequest("http://127.0.0.1:9127/example/goods/getGoodsInfo",null,requestParam);
+        request.initRequest("4a6054620efab47bbd69507b4de044c9","http://127.0.0.1:9127/example/goods/getGoodsInfo",null,requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
         String resGoodsName = (String) rst.get("goodsName");
         Assertions.assertEquals(resGoodsName, "鞋");
@@ -79,7 +79,7 @@ public class HttpClientTest {
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
         Request request = new Request(RequestTypeEnum.GET,inputParamSchema);
         request.setRetryCount(3);
-        request.initRequest("http://127.0.0.1:9127/example/goods/releaseGoods",null,requestParam);
+        request.initRequest("86eaa1477f519274bb05fc90b1e76e83","http://127.0.0.1:9127/example/goods/releaseGoods",null,requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
         String resGoodsName = (String) rst.get("goodsName");
         Assertions.assertEquals(resGoodsName, "鞋");
@@ -105,7 +105,7 @@ public class HttpClientTest {
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request = new Request(RequestTypeEnum.GET,inputParamSchema);
 
-        request.initRequest("http://127.0.0.1:9127/example/order/getOrderByNo",null,requestParam);
+        request.initRequest("ad1ecc2a3dbd189f3fa478f30755a200","http://127.0.0.1:9127/example/order/getOrderByNo",null,requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
         String resOrderNo = (String) rst.get("orderNo");
         Assertions.assertEquals(resOrderNo, "NO123");
@@ -125,7 +125,7 @@ public class HttpClientTest {
        IHttpClient httpClient2 = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
        Request request2 = new Request(RequestTypeEnum.GET,inputParamSchema2);
 
-       request2.initRequest("http://127.0.0.1:9127/example/order/getUserOrderList",null,requestParam2);
+       request2.initRequest("0004812ec25f31c3f25596681997978d","http://127.0.0.1:9127/example/order/getUserOrderList",null,requestParam2);
        Map<String,Object> rst2 = httpClient2.sendRequest(request2);
        Integer resUserId = (Integer) rst2.get("userId");
        Assertions.assertEquals(resUserId, 1);
@@ -150,7 +150,7 @@ public class HttpClientTest {
         IHttpClient httpClient2 = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request2 = new Request(RequestTypeEnum.GET,inputParamSchema2);
 
-        request2.initRequest("http://127.0.0.1:9127/example/order/getOrderListByUserId/{userId}",null,requestParam2);
+        request2.initRequest("0004812ec25f31c3f25596681997978d","http://127.0.0.1:9127/example/order/getOrderListByUserId/{userId}",null,requestParam2);
         Map<String,Object> rst2 = httpClient2.sendRequest(request2);
         Integer resUserId = (Integer) rst2.get("userId");
         Assertions.assertEquals(resUserId, 1);
@@ -186,7 +186,7 @@ public class HttpClientTest {
 
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_FORM_URLENCODED);
         Request request = new Request(RequestTypeEnum.POST,inputParamSchema);
-        request.initRequest("http://127.0.0.1:9127/example/order/placeOrder",null,requestParam);
+        request.initRequest("a141ec5b270a87fe4a42a2ea1300cf0d","http://127.0.0.1:9127/example/order/placeOrder",null,requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
         String resOrderNo = (String) rst.get("orderNo");
         Assertions.assertEquals(resOrderNo, "NO123");

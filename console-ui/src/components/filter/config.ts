@@ -1,10 +1,10 @@
-
 export enum BaseDataType {
   String = 'String',
   Integer = 'Integer',
   Double = 'Double',
   Boolean = 'Boolean',
   Date = 'Date',
+  Time = 'Time',
   List = 'List',
   Object = 'Object',
 }
@@ -19,7 +19,7 @@ export enum Operator {
   GreaterThanOrEqual = 'greaterThanOrEqual',
   LessThanOrEqual = 'lessThanOrEqual',
   Contains = 'contains',
-  NotContains = 'notContains'
+  NotContains = 'notContains',
 }
 
 export const OperatorNameMap = {
@@ -36,14 +36,7 @@ export const OperatorNameMap = {
 };
 
 export const DataTypeOperatorMap = {
-  [BaseDataType.String]: [
-    Operator.Equal,
-    Operator.NotEqual,
-    Operator.Empty,
-    Operator.NotEmpty,
-    Operator.Contains,
-    Operator.NotContains,
-  ],
+  [BaseDataType.String]: [Operator.Equal, Operator.NotEqual, Operator.Empty, Operator.NotEmpty, Operator.Contains, Operator.NotContains],
   [BaseDataType.Integer]: [
     Operator.Equal,
     Operator.NotEqual,
@@ -60,10 +53,7 @@ export const DataTypeOperatorMap = {
     Operator.LessThan,
     Operator.LessThanOrEqual,
   ],
-  [BaseDataType.Boolean]: [
-    Operator.Equal,
-    Operator.NotEqual,
-  ],
+  [BaseDataType.Boolean]: [Operator.Equal, Operator.NotEqual],
   [BaseDataType.Date]: [
     Operator.Equal,
     Operator.NotEqual,
@@ -72,12 +62,14 @@ export const DataTypeOperatorMap = {
     Operator.LessThan,
     Operator.LessThanOrEqual,
   ],
-  [BaseDataType.List]: [
-    Operator.Empty,
-    Operator.NotEmpty,
+  [BaseDataType.Time]: [
+    Operator.Equal,
+    Operator.NotEqual,
+    Operator.GreaterThan,
+    Operator.GreaterThanOrEqual,
+    Operator.LessThan,
+    Operator.LessThanOrEqual,
   ],
-  [BaseDataType.Object]: [
-    Operator.Empty,
-    Operator.NotEmpty,
-  ],
-}
+  [BaseDataType.List]: [Operator.Empty, Operator.NotEmpty],
+  [BaseDataType.Object]: [Operator.Empty, Operator.NotEmpty],
+};

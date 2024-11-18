@@ -10,10 +10,9 @@ import java.util.List;
  * @since 1.0.0
  */
 public class Method {
+    private String suiteCode;
 
-    private Long suiteId;
-
-    private Long methodId;
+    private String methodCode;
 
     /**
      * 请求地址
@@ -50,20 +49,20 @@ public class Method {
      */
     private List<FillStruct> outputFillRules;
 
-    public Long getSuiteId() {
-        return suiteId;
+    public String getSuiteCode() {
+        return suiteCode;
     }
 
-    public void setSuiteId(Long suiteId) {
-        this.suiteId = suiteId;
+    public void setSuiteCode(String suiteCode) {
+        this.suiteCode = suiteCode;
     }
 
-    public Long getMethodId() {
-        return methodId;
+    public String getMethodCode() {
+        return methodCode;
     }
 
-    public void setMethodId(Long methodId) {
-        this.methodId = methodId;
+    public void setMethodCode(String methodCode) {
+        this.methodCode = methodCode;
     }
 
     public String getUrl() {

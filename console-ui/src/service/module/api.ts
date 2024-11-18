@@ -1,5 +1,6 @@
 import { apiAPI } from '../api';
-import {ApiHeader} from "@/typings";
+import { ApiHeader } from '@/typings';
+
 
 export async function listQuery(params: Parameters<typeof apiAPI.listQuery>[0]) {
   return apiAPI.listQuery(params);
@@ -17,8 +18,8 @@ export async function listDelete(params: Parameters<typeof apiAPI.listDelete>[0]
   return apiAPI.listDelete(params);
 }
 
-export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo>[0]) {
-  const res = await apiAPI.queryApiInfo(params);
+export async function queryApiInfo(apiId:number) {
+  const res = await apiAPI.queryApiInfo(apiId);
   if (res.success) {
     const headerArray: ApiHeader[] = res.result.apiHeaders;
     if (Array.isArray(headerArray) && headerArray.length !== 0) {
@@ -27,7 +28,28 @@ export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo
           paramKey: item.headerKey,
           paramName: item.headerName,
           dataType: item.dataType,
-          required: item.required
+          required: item.required,
+          paramDesc: item.headerDesc,
+        };
+      });
+      res.result.apiHeaders = paramArray as any;
+    }
+  }
+  return res;
+}
+
+export async function queryApiInfoByCode(apiCode: string) {
+  const res = await apiAPI.queryApiInfoByCode(apiCode);
+  if (res.success) {
+    const headerArray: ApiHeader[] = res.result.apiHeaders;
+    if (Array.isArray(headerArray) && headerArray.length !== 0) {
+      const paramArray = headerArray.map((item: ApiHeader) => {
+        return {
+          paramKey: item.headerKey,
+          paramName: item.headerName,
+          dataType: item.dataType,
+          required: item.required,
+          paramDesc: item.headerDesc,
         };
       });
       res.result.apiHeaders = paramArray as any;
@@ -37,9 +59,13 @@ export async function queryApiInfo(params: Parameters<typeof apiAPI.queryApiInfo
 }
 
 export async function debugApi(apiId: number, params: { headerData: any; inputParamData: any }) {
-  return apiAPI.debugApi(apiId,params);
+  return apiAPI.debugApi(apiId, params);
 }
 
 export async function getApiListBySuiteId(params: Parameters<typeof apiAPI.getApiListBySuiteId>[0]) {
   return apiAPI.getApiListBySuiteId(params);
+}
+
+export async function getApiListBySuiteCode(suiteCode: string) {
+  return apiAPI.getApiListBySuiteCode(suiteCode);
 }

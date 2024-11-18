@@ -18,9 +18,14 @@ public interface ApiMapper extends IBaseMapper {
      */
     int addApi(ApiPO apiPo);
 
+    ApiPO queryApiByCode(String apiCode);
+
     List<ApiPO> queryApiListBySuiteId(Long suiteId);
+
+    List<ApiPO> queryApiListBySuiteCode(String suiteCode);
 
     Long queryApiCount(ApiQueryParam apiQueryParam);
 
     List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam);
+
 }

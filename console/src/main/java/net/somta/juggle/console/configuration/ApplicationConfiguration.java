@@ -17,7 +17,10 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package net.somta.juggle.console.configuration;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author husong
@@ -27,5 +30,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApplicationConfiguration {
 
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder){
+        RestTemplate restTemplate = builder.build();
+        return restTemplate;
+    }
 
 }

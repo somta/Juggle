@@ -19,7 +19,12 @@ public interface IApiRepository {
 
     ApiAO queryApi(Long apiId);
 
+    ApiAO queryApiByCode(String apiCode);
+
     List<ApiVO> getApiListBySuiteId(Long suiteId);
 
+    List<ApiVO> getApiListBySuiteCode(String suiteCode);
+
     List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam);
+
 }

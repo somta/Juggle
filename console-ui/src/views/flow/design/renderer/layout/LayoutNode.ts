@@ -1,4 +1,3 @@
-
 import { TreeNode, DataNode } from '../../data';
 
 export class LayoutNode extends TreeNode {
@@ -100,23 +99,20 @@ export class LayoutNode extends TreeNode {
   };
 
   // 设置内容盒子
-  setContentBox (box: Partial<{ left: number, top: number, width: number, height: number }>) {
+  setContentBox(box: Partial<{ left: number; top: number; width: number; height: number }>) {
     this.contentBox = Object.assign(this.contentBox, box);
   }
 
   // 获取内容盒子中心点
-  getContentBoxCenter (): [number, number] {
-    return [
-      this.x + this.contentBox.left + this.contentBox.width / 2,
-      this.y + this.contentBox.top + this.contentBox.height / 2,
-    ];
+  getContentBoxCenter(): [number, number] {
+    return [this.x + this.contentBox.left + this.contentBox.width / 2, this.y + this.contentBox.top + this.contentBox.height / 2];
   }
 
-  getTopCenter (): [number, number] {
+  getTopCenter(): [number, number] {
     return [this.x + this.width / 2, this.y];
   }
 
-  getBottomCenter (): [number, number] {
+  getBottomCenter(): [number, number] {
     return [this.x + this.width / 2, this.y + this.height];
   }
 }

@@ -1,42 +1,22 @@
-
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, PropType } from 'vue';
 import { commonService } from '@/service';
-import { getDataTypeObject } from '@/utils/dataType';
+import {DataTypeEnum, DataTypeInfo} from "@/typings";
 
 const props = defineProps({
-  modelValue: [String, Object],
+  modelValue: Object,
   type: String,
-  valueType: {
-    type: String,
-    default: 'String',
-  },
   disabled: Boolean,
   size: {
-    type: String,
-    default: 'default'
+    type: String as PropType<'large' | 'default' | 'small'>,
+    default: 'default',
   },
 });
 const emit = defineEmits(['update:modelValue', 'change']);
 
-enum DataTypeEnum {
-  Basic = 1,
-  List = 2,
-  Object = 3,
-}
+const dataTypeList = ref<DataTypeInfo[]>([]);
 
-type DataTypeInfoItem = {
-  id: number;
-  dataTypeClassify: DataTypeEnum;
-  type: string;
-  displayName: string;
-  objectKey: string;
-  objectStructure: string;
-}
-
-const dataTypeList = ref<DataTypeInfoItem[]>([]);
-
-async function loadData () {
+async function loadData() {
   const res = await commonService.dataType.getList();
   dataTypeList.value = res || [];
 }
@@ -45,7 +25,7 @@ loadData();
 
 const cascaderProps = {
   expandTrigger: 'hover' as const,
-}
+};
 
 const options = computed(() => {
   const basicTypeList = dataTypeList.value.filter(item => item.dataTypeClassify === DataTypeEnum.Basic);
@@ -54,7 +34,7 @@ const options = computed(() => {
     value: 'Basic',
     label: '基础类型',
     children: basicTypeList.map(item => ({ value: item.type, label: item.displayName })),
-  }
+  };
   const objectNode = {
     value: 'Object',
     label: '对象类型',
@@ -75,14 +55,10 @@ const options = computed(() => {
       };
     }),
   };
-  return [
-    basicNode,
-    listNode,
-    objectNode,
-  ];
+  return [basicNode, listNode, objectNode];
 });
 
-function typeToArray (type: string, dataType: any): string[] {
+function typeToArray(type: string, dataType: any): string[] {
   const item = dataTypeList.value.find(item => item.type === type);
   if (!item) {
     return [];
@@ -97,7 +73,7 @@ function typeToArray (type: string, dataType: any): string[] {
   return [];
 }
 
-function arrayToType (arr: string[]) {
+function arrayToType(arr: string[]) {
   if (!Array.isArray(arr) || arr.length === 0) {
     return null;
   }
@@ -123,7 +99,6 @@ function arrayToType (arr: string[]) {
   }
   if (result.objectKey) {
     const item = dataTypeList.value.find(item => item.objectKey === result.objectKey);
-    console.log('333',item)
     if (item) {
       result.objectStructure = item.objectStructure;
     }
@@ -134,11 +109,7 @@ function arrayToType (arr: string[]) {
 const modelValueObj = computed(() => {
   let val: any = null;
   if (props.modelValue) {
-    if (props.valueType === 'String') {
-      val = getDataTypeObject(props.modelValue);
-    } else if (props.valueType === 'Object') {
-      val = { ...props.modelValue as object };
-    }
+    val = { ...(props.modelValue as object) };
   }
   return val;
 });
@@ -161,20 +132,17 @@ const innerBasicValue = computed(() => {
 });
 
 const handleChange = (val: any) => {
-  console.log(val);
   if (!Array.isArray(val)) {
     emit('update:modelValue', null);
     emit('change', null);
     return;
   }
   const result = arrayToType(val);
-  //const resultJson = JSON.stringify(result);
   emit('update:modelValue', result);
   emit('change', result);
-}
+};
 
 const handleBasicChange = (val: any) => {
-  console.log('handleBasicChange:',val);
   if (!val) {
     emit('update:modelValue', null);
     emit('change', null);
@@ -186,27 +154,14 @@ const handleBasicChange = (val: any) => {
     objectKey: null,
     objectStructure: null,
   };
-  /*if (props.valueType === 'String') {
-    result = JSON.stringify(result);
-  }*/
   emit('update:modelValue', result);
   emit('change', result);
-}
+};
 </script>
 
 <template>
-  <el-select
-    :size="size"
-    v-if="type === 'basic'"
-    :modelValue="innerBasicValue"
-    :disabled="disabled" @change="handleBasicChange"
-  >
-    <el-option
-      v-for="item in options[0]?.children"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value"
-    />
+  <el-select :size="size" v-if="type === 'basic'" :modelValue="innerBasicValue" :disabled="disabled" @change="handleBasicChange">
+    <el-option v-for="item in options[0]?.children" :key="item.value" :label="item.label" :value="item.value" />
   </el-select>
   <el-cascader
     v-else
@@ -216,10 +171,9 @@ const handleBasicChange = (val: any) => {
     :disabled="disabled"
     :show-all-levels="false"
     :size="size"
-    style="width: 100%;"
+    style="width: 100%"
     @change="handleChange"
   />
 </template>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

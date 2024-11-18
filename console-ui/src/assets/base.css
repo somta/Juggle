@@ -14,3 +14,22 @@ body {
 #app {
   height: 100%;
 }
+
+.page-header {
+  height: auto !important;
+  padding: 24px 20px 0 20px !important;
+}
+
+.page-body {
+  min-height: 0;
+  overflow: auto;
+}
+
+.table-header{
+  background-color: #f0f0f0 !important;
+}
+.table-pagination {
+  padding: 12px 0;
+  display: flex;
+  flex-direction: row-reverse;
+}

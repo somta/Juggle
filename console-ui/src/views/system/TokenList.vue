@@ -4,7 +4,7 @@ import { Plus } from '@element-plus/icons-vue';
 import { TokenTable, TokenForm } from './token';
 import { tokenService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import TokenSuccessForm from "@/views/system/token/TokenSuccessForm.vue";
+import TokenSuccessForm from '@/views/system/token/TokenSuccessForm.vue';
 
 const pageNum = ref(1);
 const pageSize = ref(10);
@@ -49,10 +49,10 @@ function openDelete(row: any) {
     cancelButtonText: '取消',
     type: 'warning',
   })
-      .then(() => {
-        deleteTokenItem(row);
-      })
-      .catch(() => {});
+    .then(() => {
+      deleteTokenItem(row);
+    })
+    .catch(() => {});
 }
 
 async function addTokenItem(row: any) {
@@ -68,7 +68,7 @@ async function addTokenItem(row: any) {
 async function editTokenItem(row: any) {
   const res = await tokenService.updateToken({
     id: row.id,
-    tokenDesc:row.tokenDesc,
+    tokenDesc: row.tokenDesc,
   });
   if (res.result) {
     ElMessage({ type: 'success', message: '编辑成功' });
@@ -96,32 +96,18 @@ async function deleteTokenItem(row: any) {
       </el-header>
       <el-main class="page-body">
         <TokenTable
-            :dataRows="dataRows"
-            :dataTotal="dataTotal"
-            :pageNum="pageNum"
-            :pageSize="pageSize"
-            :loading="loading"
-            @pageChange="onPageChange"
-            @edit="openEdit"
-            @delete="openDelete"
+          :dataRows="dataRows"
+          :dataTotal="dataTotal"
+          :pageNum="pageNum"
+          :pageSize="pageSize"
+          :loading="loading"
+          @pageChange="onPageChange"
+          @edit="openEdit"
+          @delete="openDelete"
         />
       </el-main>
     </el-container>
     <TokenForm ref="formRef" @add="addTokenItem" @edit="editTokenItem" />
-    <TokenSuccessForm ref="successFormRef"/>
+    <TokenSuccessForm ref="successFormRef" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-interface-token {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

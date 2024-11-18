@@ -2,7 +2,7 @@ import { DataNode, initNewNode } from './data';
 import { ElementType, RawData, MyOptional } from './types';
 
 // 添加节点
-export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementType'>; prev: DataNode; }) {
+export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementType'>; prev: DataNode }) {
   const { info, prev } = params;
   const next = DataNode.DataNodeMap.get(prev.out);
   // 创建节点
@@ -15,25 +15,29 @@ export function addNode(params: { info: MyOptional<RawData, 'name' | 'elementTyp
     parent?.insertAfter(current, prev);
   }
   // 处理节点入口
-  connectNodes({ node: prev!, next: current });
+  //console.log('添加节点，prev: %o, current: %o, next: %o', prev, current, next)
+  connectNodes({ node: prev!, next: current, current: current });
   // 处理节点出口
-  connectNodes({ node: current, next: next! });
+  connectNodes({ node: current, next: next!, current: current });
+  //console.dir(DataNode.DataNodeMap)
 }
 
 // 删除节点
-export function deleteNode(params: { current: DataNode; }) {
+export function deleteNode(params: { current: DataNode }) {
   const { current } = params;
   const prev = DataNode.DataNodeMap.get(current.in);
   const next = DataNode.DataNodeMap.get(current.out);
-  // 处理节点出口
-  connectNodes({ node: prev!, next: next! });
   // 删除节点
   current.delete();
+  // 处理节点出口
+  //console.log('删除节点，prev: %o, current: %o, next: %o', prev, current, next)
+  connectNodes({ node: prev!, next: next!, current: current });
+  //console.dir(DataNode.DataNodeMap)
 }
 
-// 处理节点关系
-function connectNodes(params: { node: DataNode; next: DataNode; }) {
-  const { node, next } = params;
+// 处理节点关系：设置node的out, next的in
+function connectNodes(params: { node: DataNode; next: DataNode; current: DataNode }) {
+  const { node, next, current } = params;
   // out
   // node -> node/condition（正常）
   // branch -> node/condition（正常）
@@ -43,8 +47,13 @@ function connectNodes(params: { node: DataNode; next: DataNode; }) {
   // node -> node/condition（正常）
   // branch -> node/condition (指向调整 - branch的父级)
   // condition -> node/condition （正常）
-  next.in = node.key;
-  if (node.type === ElementType.BRANCH) {
-    next.in = node.getParent()?.key as string;
+  if (current.type === ElementType.BRANCH) {
+    next.in = current.getParent()?.key as string;
+  } else {
+    if (node.type === ElementType.BRANCH) {
+      next.in = node.getParent()?.key as string;
+    } else {
+      next.in = node.key;
+    }
   }
 }

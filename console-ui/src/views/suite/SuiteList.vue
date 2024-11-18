@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 import { SuiteFilter, SuiteTable, SuiteForm } from './suite';
-import {suiteService} from '@/service';
+import { suiteService } from '@/service';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 const pageNum = ref(1);
@@ -66,7 +66,7 @@ async function addSuiteItem(row: any) {
     ElMessage({ type: 'success', message: '新建成功' });
     await querySuitePage();
   } else {
-    ElMessage({ type: 'error', message:  res.errorMsg });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
@@ -76,7 +76,7 @@ async function editSuiteItem(row: any) {
     ElMessage({ type: 'success', message: '编辑成功' });
     await querySuitePage();
   } else {
-    ElMessage({ type: 'error', message:  res.errorMsg });
+    ElMessage({ type: 'error', message: res.errorMsg });
   }
 }
 
@@ -113,17 +113,3 @@ async function deleteSuiteItem(row: any) {
     <SuiteForm ref="formRef" @add="addSuiteItem" @edit="editSuiteItem" />
   </div>
 </template>
-
-<style lang="less" scoped>
-.page-interface-suite {
-  .page-header {
-    height: auto;
-    padding: 24px 16px 0px 16px;
-  }
-
-  .page-body {
-    min-height: 0;
-    overflow: auto;
-  }
-}
-</style>

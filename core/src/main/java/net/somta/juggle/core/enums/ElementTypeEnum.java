@@ -49,5 +49,6 @@ public enum ElementTypeEnum {
     /**
      * 判断节点
      */
-    CONDITION;
+    CONDITION,
+    ASSIGN;
 }

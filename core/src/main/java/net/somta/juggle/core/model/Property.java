@@ -16,8 +16,6 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.core.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * @author husong
  */
@@ -35,9 +33,6 @@ public class Property {
      * 参数的数据类型
      */
     private DataType dataType;
-
-    // todo 这里能否直接反序列化成对象
-    //private DataType dataTypeObj;
 
     public String getPropKey() {
         return propKey;
@@ -62,12 +57,4 @@ public class Property {
     public void setDataType(DataType dataType) {
         this.dataType = dataType;
     }
-
-    /*public DataType getDataTypeObj() {
-        return dataTypeObj;
-    }
-
-    public void setDataTypeObj(DataType dataTypeObj) {
-        this.dataTypeObj = dataTypeObj;
-    }*/
 }

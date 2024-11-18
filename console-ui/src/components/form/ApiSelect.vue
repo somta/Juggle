@@ -2,40 +2,44 @@
 import { ref, watch } from 'vue';
 import { apiService } from '@/service';
 
-const props = defineProps(['modelValue', 'suiteId']);
+const props = defineProps(['modelValue', 'suiteCode']);
 const emit = defineEmits(['update:modelValue', 'change']);
 
-const apiList = ref<Array<{ value: string; label: string }>>([]);
+const apiList = ref([]);
 const apiLoading = ref(false);
 
 async function loadData() {
   apiLoading.value = true;
-  const res = await apiService.getApiListBySuiteId(props.suiteId);
+  const res = await apiService.getApiListBySuiteCode(props.suiteCode);
   if (res.success) {
     apiList.value = res.result;
   }
   apiLoading.value = false;
 }
 
-watch(() => props.suiteId, (val: number) => {
-  if (val) {
-    loadData();
-  }
-}, { immediate: true })
+watch(
+  () => props.suiteCode,
+  (val: number) => {
+    if (val) {
+      loadData();
+    }
+  },
+  { immediate: true }
+);
 
-function onChange(val: number) {
-  emit('update:modelValue', val);
-  emit('change', val);
+function onChange(apiCode: string) {
+  emit('update:modelValue', apiCode);
+  emit('change', apiCode);
 }
 </script>
 <template>
-  <el-select :modelValue="props.modelValue" placeholder="请选择领域" style="width: 100%;" filterable @change="onChange">
+  <el-select :modelValue="props.modelValue" placeholder="请选择接口" style="width: 100%" filterable @change="onChange">
     <template v-slot:empty>
       <div class="select-option-empty" v-loading="apiLoading">
         <span v-if="!apiLoading">无数据</span>
       </div>
     </template>
-    <el-option v-for="item in apiList" :key="item.id" :label="item.apiName" :value="item.id" />
+    <el-option v-for="item in apiList" :key="item.apiCode" :label="item.apiName" :value="item.apiCode" />
   </el-select>
 </template>
 <style lang="less">

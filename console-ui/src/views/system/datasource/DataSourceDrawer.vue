@@ -2,13 +2,13 @@
 import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import { dataSourceService } from '@/service';
-import {DataSource} from "@/service/module/dataSource.ts";
-
+import { DataSource } from '@/service/module/dataSource.ts';
+import ResizableDrawer from "@/components/common/ResizableDrawer.vue";
 
 const dialogVisible = ref(false);
 const dataSourceFormRef = ref<FormInstance>();
 const editItem = ref<Record<string, any>>();
-function getDefault () {
+function getDefault() {
   return {
     id: null,
     dataSourceName: '',
@@ -23,7 +23,7 @@ function getDefault () {
     minPoolSize: 5,
     maxPoolSize: 5,
     queryTimeout: 30,
-  }
+  };
 }
 const formValue = reactive<DataSource>(getDefault());
 const rules = reactive<FormRules>({
@@ -96,7 +96,7 @@ const title = computed(() => {
 defineExpose({ open });
 </script>
 <template>
-  <el-drawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose>
+  <ResizableDrawer v-model="dialogVisible" :size="480" :title="title" destroyOnClose drawer-key="DATA_SOURCE">
     <div class="form">
       <el-form ref="dataSourceFormRef" label-position="top" :model="formValue" :rules="rules">
         <el-form-item label="数据源名称" prop="dataSourceName">
@@ -108,7 +108,7 @@ defineExpose({ open });
           </el-select>
         </el-form-item>
         <el-form-item label="描述" prop="dataSourceDesc">
-          <el-input v-model="formValue.dataSourceDesc" type="textarea" :rows="2" maxlength="120"/>
+          <el-input v-model="formValue.dataSourceDesc" type="textarea" :rows="2" maxlength="120" />
         </el-form-item>
         <el-row :gutter="20">
           <el-col :span="18">
@@ -143,12 +143,12 @@ defineExpose({ open });
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="最小连接数" prop="minPoolSize">
-              <el-input-number v-model="formValue.minPoolSize" controls-position="right"/>
+              <el-input-number v-model="formValue.minPoolSize" controls-position="right" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="最大连接数" prop="maxPoolSize">
-              <el-input-number v-model="formValue.maxPoolSize" class="mx-4" controls-position="right"/>
+              <el-input-number v-model="formValue.maxPoolSize" class="mx-4" controls-position="right" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -161,7 +161,7 @@ defineExpose({ open });
         </el-form-item>
       </el-form>
     </div>
-  </el-drawer>
+  </ResizableDrawer>
 </template>
 
 <style scoped>

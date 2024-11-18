@@ -20,9 +20,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.somta.juggle.console.application.assembler.suite.IApiAssembler;
+import net.somta.juggle.console.application.service.suite.ISuiteService;
 import net.somta.juggle.console.domain.suite.api.ApiAO;
 import net.somta.juggle.console.domain.suite.api.repository.IApiRepository;
 import net.somta.juggle.console.domain.suite.api.vo.ApiVO;
+import net.somta.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.dto.suite.ApiDTO;
 import net.somta.juggle.console.application.service.suite.IApiService;
@@ -47,14 +50,17 @@ import java.util.Map;
 public class ApiServiceImpl implements IApiService {
 
     private final IApiRepository apiRepository;
+    private final ISuiteRepository suiteRepository;
 
-    public ApiServiceImpl(IApiRepository apiRepository) {
+    public ApiServiceImpl(IApiRepository apiRepository, ISuiteRepository suiteRepository) {
         this.apiRepository = apiRepository;
+        this.suiteRepository = suiteRepository;
     }
 
     @Override
     public Boolean addApi(ApiAddParam apiAddParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiAddParam);
+        apiAo.initApiCode();
         apiAo.initParameterList(apiAddParam.getApiInputParams(),apiAddParam.getApiOutputParams());
         apiAo.initHeaderList(apiAddParam.getApiHeaders());
         return apiRepository.addApi(apiAo);
@@ -68,6 +74,7 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public Boolean updateApi(ApiUpdateParam apiUpdateParam) {
         ApiAO apiAo = IApiAssembler.IMPL.paramToAo(apiUpdateParam);
+        apiAo.initApiCode();
         apiAo.initParameterList(apiUpdateParam.getApiInputParams(),apiUpdateParam.getApiOutputParams());
         apiAo.initHeaderList(apiUpdateParam.getApiHeaders());
         return apiRepository.updateApi(apiAo);
@@ -77,6 +84,15 @@ public class ApiServiceImpl implements IApiService {
     public ApiInfoDTO getApiInfo(Long apiId) {
         ApiAO apiAo = apiRepository.queryApi(apiId);
         ApiInfoDTO apiInfoDto = IApiAssembler.IMPL.aoToDto(apiAo);
+        SuiteVO suiteVo = suiteRepository.querySuiteById(apiAo.getSuiteId());
+        apiInfoDto.setSuiteFlag(suiteVo.getSuiteFlag());
+        return apiInfoDto;
+    }
+
+    @Override
+    public ApiInfoDTO getApiInfoByCode(String apiCode) {
+        ApiAO apiAo = apiRepository.queryApiByCode(apiCode);
+        ApiInfoDTO apiInfoDto = IApiAssembler.IMPL.aoToDto(apiAo);
         return apiInfoDto;
     }
 
@@ -85,6 +101,12 @@ public class ApiServiceImpl implements IApiService {
         List<ApiVO> apiVoList = apiRepository.getApiListBySuiteId(suiteId);
         List<ApiDTO> apiDtoList = IApiAssembler.IMPL.voListToDtoList(apiVoList);
         return apiDtoList;
+    }
+
+    @Override
+    public List<ApiDTO> getApiListBySuiteCode(String suiteCode) {
+        List<ApiVO> apiVoList = apiRepository.getApiListBySuiteCode(suiteCode);
+        return IApiAssembler.IMPL.voListToDtoList(apiVoList);
     }
 
     @Override
@@ -102,9 +124,7 @@ public class ApiServiceImpl implements IApiService {
         ApiAO apiAo = apiRepository.queryApi(apiId);
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.findEnumByValue(apiAo.getApiRequestContentType()));
         Request request = new Request(apiAo.getApiRequestType(),apiAo.getParameterEntity().getInputParameterSchema());
-        //request.setRequestHeaders(apiDebugParam.getHeaderData());
-        request.initRequest(apiAo.getApiUrl(),apiDebugParam.getHeaderData(),apiDebugParam.getInputParamData());
-        //request.setRequestParams(apiDebugParam.getInputParamData());
+        request.initRequest(apiAo.getApiCode(),apiAo.getApiUrl(),apiDebugParam.getHeaderData(),apiDebugParam.getInputParamData());
         Map<String,Object> originalResult = httpClient.sendRequest(request);
         Map<String,Object> result = apiAo.handleApiResponseResult(originalResult);
         return result;

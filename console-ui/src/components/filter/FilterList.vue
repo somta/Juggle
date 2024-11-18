@@ -1,6 +1,5 @@
-
 <script lang="ts" setup>
-import { Plus } from '@element-plus/icons-vue'
+import { Plus } from '@element-plus/icons-vue';
 import FilterItem from './FilterItem.vue';
 import { PropType } from 'vue';
 const props = defineProps({
@@ -18,17 +17,17 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['change']);
-function onDelete (index: number) {
+function onDelete(index: number) {
   const result = [...props.list];
   result.splice(index, 1);
   emit('change', result);
 }
-function onChange (item: any, index: number) {
+function onChange(item: any, index: number) {
   const result = [...props.list];
   result[index] = item;
   emit('change', result);
 }
-function onAdd () {
+function onAdd() {
   const result = [...props.list];
   result.push({});
   emit('change', result);
@@ -38,7 +37,7 @@ function onAdd () {
 <template>
   <div class="filter-list">
     <FilterItem
-      v-for="item, index in list"
+      v-for="(item, index) in list"
       :key="index"
       :item="item"
       :sourceList="sourceList"
@@ -46,7 +45,9 @@ function onAdd () {
       @delete="onDelete(index)"
       @change="onChange($event, index)"
     />
-    <el-button @click="onAdd"><el-icon><Plus /></el-icon>且条件</el-button>
+    <el-button @click="onAdd"
+      ><el-icon><Plus /></el-icon>且条件</el-button
+    >
   </div>
 </template>
 

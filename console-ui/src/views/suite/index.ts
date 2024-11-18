@@ -1,7 +1,7 @@
 import ApiList from './ApiList.vue';
 import RouterNest from '@/views/RouterNest.vue';
-import ApiDebug from "./ApiDebug.vue";
-import SuiteList from "./SuiteList.vue";
+import ApiDebug from './ApiDebug.vue';
+import SuiteList from './SuiteList.vue';
 
 export const SuiteRoutes = [
   {

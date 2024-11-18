@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { HomeFilled, Coin, Setting,ShoppingBag } from '@element-plus/icons-vue';
+import { HomeFilled, Coin, Setting, ShoppingBag } from '@element-plus/icons-vue';
 import IconFlow from '@/components/icons/IconFlow.vue';
 import IconInterface from '@/components/icons/IconInterface.vue';
 </script>
@@ -37,6 +37,7 @@ import IconInterface from '@/components/icons/IconInterface.vue';
           <span>市场</span>
         </template>
         <el-menu-item index="/market/suite">套件市场</el-menu-item>
+        <el-menu-item index="/market/template">模板市场</el-menu-item>
       </el-sub-menu>
       <el-sub-menu index="5">
         <template #title>

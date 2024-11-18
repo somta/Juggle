@@ -71,7 +71,6 @@ public abstract class AbstractVariableManager {
             }else if(DataTypeEnum.String == dataType.getType()){
                 value = value.toString();
             }
-            //todo 对象的真实类型如何处理待确认
         }
         return value;
     }

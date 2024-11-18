@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clip-map_1">
+      <rect width="50" height="50"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip-map_1)">
+    <rect width="50" height="50" fill="#fff"/>
+    <g transform="translate(0.001)">
+      <path d="M0,39.15A11.151,11.151,0,0,0,11.233,50H39.072A11.138,11.138,0,0,0,50,39.062V10.977A11.1,11.1,0,0,0,38.845,0H10.987A11.076,11.076,0,0,0,0,10.977Z" transform="translate(0)" fill="#f1f1f1"/>
+      <path d="M30.278,0H10.987A11.076,11.076,0,0,0,0,10.977v4.465l30.278.029Z" transform="translate(0)" fill="#afe881"/>
+      <path d="M697.207,807.546h5.028a11.139,11.139,0,0,0,10.928-10.937v-.174H697.254Z" transform="translate(-663.164 -757.547)" fill="#a3caff"/>
+      <path d="M0,320.016v-4.545H50v4.545Z" transform="translate(0 -300.067)" fill="#fff"/>
+      <path d="M620.1,50V0h3.814V50Z" transform="translate(-589.819)" fill="#fff"/>
+      <path d="M0,678.376v-6.061H50v6.061Z" transform="translate(0 -639.487)" fill="#ffdf48"/>
+      <path d="M206.866,50V0h7.576V50Z" transform="translate(-196.765)" fill="#ffcf68"/>
+      <path d="M134.463,536.911l3.585,5.669.156-4.932Z" transform="translate(-127.897 -510.695)" fill="#d6d7d4"/>
+      <path d="M207.875,555.213l6.451,10.2,1.127.121V551.859l-7.579-1.667Z" transform="translate(-197.725 -523.327)" fill="#e5ba5e"/>
+      <path d="M392.663,737.405h10.232l-6.9-3.03Z" transform="translate(-373.49 -698.517)" fill="#e4c84a"/>
+      <path d="M362.776,797.389l12.367,1.329-.031-4.77H362.791Z" transform="translate(-345.062 -755.181)" fill="#d6d7d4"/>
+      <path d="M615.458,798.723l4.49.482-4.521-5.252Z" transform="translate(-585.377 -755.186)" fill="#e7e7e8"/>
+      <path d="M346.717,186.18,318.78,209.522l1.036,9.656,2.953-7.7Z" transform="translate(-303.215 -177.089)" fill="#0066bd"/>
+      <path d="M342.5,673.808l-2.5,7.768,5.906-5.676-2.008-3.585Z" transform="translate(-323.398 -639.487)" fill="#014e9d"/>
+      <path d="M134.463,203.306l9,6.216L171.4,186.18l-24.436,25.083,15.5,9.846L171.4,186.18Z" transform="translate(-127.897 -177.089)" fill="#0093fd"/>
+    </g>
+  </g>
+</svg>

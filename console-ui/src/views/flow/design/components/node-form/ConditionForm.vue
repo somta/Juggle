@@ -1,4 +1,3 @@
-
 <script lang="ts" setup>
 import { PropType, ref, watch, shallowRef } from 'vue';
 import { RawData, ConditionItem, ElementType } from '../../types';
@@ -16,9 +15,9 @@ const props = defineProps({
     required: true,
   },
 });
-const conditionFilterModal = shallowRef();
+const conditionFilterModalRef = shallowRef();
 
-function getDefaultData () {
+function getDefaultData() {
   return {
     key: '',
     name: '',
@@ -27,24 +26,28 @@ function getDefaultData () {
     elementType: ElementType.CONDITION,
     desc: '',
     conditions: [],
-  }
+  };
 }
 
 const nodeData = ref(getDefaultData() as ConditionRawData);
-watch(() => props.data, val => {
-  if (val !== nodeData.value) {
-    nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
-  }
-  // 确保else在最后
-  const elseItemIndex = nodeData.value.conditions?.findIndex(item => item.conditionType === 'DEFAULT');
-  const elseItem = nodeData.value.conditions?.[elseItemIndex];
-  if (elseItemIndex > -1 && elseItemIndex !== nodeData.value.conditions.length - 1) {
-    nodeData.value.conditions.splice(elseItemIndex, 1);
-    nodeData.value.conditions.push(elseItem);
-  }
-}, { immediate: true });
+watch(
+  () => props.data,
+  val => {
+    if (val !== nodeData.value) {
+      nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
+    }
+    // 确保else在最后
+    const elseItemIndex = nodeData.value.conditions?.findIndex(item => item.conditionType === 'DEFAULT');
+    const elseItem = nodeData.value.conditions?.[elseItemIndex];
+    if (elseItemIndex > -1 && elseItemIndex !== nodeData.value.conditions.length - 1) {
+      nodeData.value.conditions.splice(elseItemIndex, 1);
+      nodeData.value.conditions.push(elseItem);
+    }
+  },
+  { immediate: true }
+);
 
-function validate () {
+function validate() {
   if (!nodeData.value.name) {
     ElMessage.error('节点名称不能为空');
     return false;
@@ -52,8 +55,8 @@ function validate () {
   return true;
 }
 
-function edit (index: number) {
-  conditionFilterModal.value.open({
+function edit(index: number) {
+  conditionFilterModalRef.value.open({
     data: nodeData.value,
     index: index,
     afterEdit: (val: ConditionItem) => {
@@ -63,11 +66,11 @@ function edit (index: number) {
         }
         nodeData.value.conditions.splice(index, 1, val);
       }
-    }
+    },
   });
 }
 
-function sortUp (index: number) {
+function sortUp(index: number) {
   const current = nodeData.value.conditions[index];
   if (index === 0) {
     return;
@@ -76,7 +79,7 @@ function sortUp (index: number) {
   nodeData.value.conditions.splice(index - 1, 0, current);
 }
 
-function sortDown (index: number) {
+function sortDown(index: number) {
   if (index === nodeData.value.conditions.length - 1) {
     return;
   }
@@ -85,12 +88,12 @@ function sortDown (index: number) {
   nodeData.value.conditions.splice(index + 1, 0, current);
 }
 
-function remove (index: number) {
+function remove(index: number) {
   nodeData.value.conditions.splice(index, 1);
 }
 
-function addCondition () {
-  conditionFilterModal.value.open({
+function addCondition() {
+  conditionFilterModalRef.value.open({
     data: nodeData.value,
     afterEdit: (val: ConditionItem) => {
       if (val) {
@@ -100,7 +103,7 @@ function addCondition () {
         const conditionSize = nodeData.value.conditions.length;
         nodeData.value.conditions.splice(conditionSize - 1, 0, val);
       }
-    }
+    },
   });
 }
 
@@ -121,7 +124,7 @@ function onCancel() {
       <el-form-item label="节点编码">
         <span>{{ nodeData.key }}</span>
       </el-form-item>
-      <el-form-item label="节点名称">
+      <el-form-item label="节点名称" required>
         <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
@@ -129,11 +132,7 @@ function onCancel() {
       </el-form-item>
       <el-form-item label="条件表达式">
         <div class="condition-list">
-          <div 
-            class="condition-item"
-            v-for="item, index in nodeData.conditions"
-            :key="index"
-          >
+          <div class="condition-item" v-for="(item, index) in nodeData.conditions" :key="index">
             <div class="condition-head">
               <div class="condition-title">{{ item.conditionName }}</div>
               <div class="condition-action">
@@ -157,7 +156,7 @@ function onCancel() {
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
-    <ConditionFilterModal ref="conditionFilterModal" />
+    <ConditionFilterModal ref="conditionFilterModalRef" />
   </div>
 </template>
 
@@ -187,7 +186,7 @@ function onCancel() {
           border-radius: 50%;
           font-size: 14px;
         }
-        .el-button+.el-button {
+        .el-button + .el-button {
           margin-left: 4px;
         }
       }

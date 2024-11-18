@@ -21,6 +21,8 @@ public class OutputParameterVO {
      */
     private DataType dataType;
 
+    private String paramDesc;
+
     public String getParamKey() {
         return paramKey;
     }
@@ -43,5 +45,13 @@ public class OutputParameterVO {
 
     public void setDataType(DataType dataType) {
         this.dataType = dataType;
+    }
+
+    public String getParamDesc() {
+        return paramDesc;
+    }
+
+    public void setParamDesc(String paramDesc) {
+        this.paramDesc = paramDesc;
     }
 }

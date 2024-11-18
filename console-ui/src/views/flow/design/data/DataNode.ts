@@ -5,7 +5,6 @@ import { ElementType, RawData } from '../types';
  * 数据节点
  */
 export class DataNode extends TreeNode {
-
   public static context: {
     getRaw: (key: string) => RawData;
     getType: (key: string) => ElementType;
@@ -30,7 +29,7 @@ export class DataNode extends TreeNode {
 
   private _key: string;
 
-  get key () {
+  get key() {
     return this._key;
   }
 
@@ -42,34 +41,64 @@ export class DataNode extends TreeNode {
     return DataNode.context.getType(this.key);
   }
 
-  get in () {
+  get in() {
     return DataNode.context.getIn(this.key);
   }
 
-  set in (val: string) {
+  set in(val: string) {
     DataNode.context.setIn(this.key, val);
   }
 
-  get out () {
+  get out() {
     return DataNode.context.getOut(this.key);
   }
 
-  set out (val: string) {
-    DataNode.context.setOut(this.key, val);
+  set out(val: string) {
     // 条件节点 - 额外工作
     if (this.type === ElementType.CONDITION) {
-      this.getChildren().forEach((child: any) => {
+
+      // 当前操作node存在的分支
+      let branchIndex = -1;
+      // 当前操作node在分支中位置
+      let branchNodeIndex = -1;
+      this.getChildren().some((child: any, childIndex: number) => {
+        const grandChildIndex = child.getChildren().findIndex((grandChild: any) => grandChild.key === val);
+
+        if (grandChildIndex != -1) {
+          branchIndex = childIndex;
+          branchNodeIndex = grandChildIndex;
+          return true; // 找到后退出 some 循环
+        }
+        return false;
+      })
+
+      // 如果操作的节点不在分支中，则设置condition的out
+      if (branchIndex == -1) {
+        DataNode.context.setOut(this.key, val);
+      }
+
+      this.getChildren().some((child: any, childIndex: number) => {
         const branch = child as DataBranch;
         const branchChildren = branch.getChildren();
-        // 如果分支存在子节点，则将末尾节点的 out 设置为 val
-        if (branchChildren.length > 0) {
+
+        if (branchNodeIndex == 0 && branchIndex == childIndex) {
+          // 如果val是分支的第一个元素，则设置 branch 的 out
+          // 只需要设置当前分支的out, 必须终止循环，以防在其他分支上设置错误的out
+          branch.out = val;
+          return true; // 找到并设置 branch.out 后终止循环
+        } else if (branchIndex == -1 && branchChildren.length == 0) {
+          // 如果val不是分支上的元素，并且分支上没有元素，则设置 branch 的 out，且继续循环
+          branch.out = val;
+          return false;
+        } else if (branchChildren.length > 0) {
           const last = branchChildren[branchChildren.length - 1];
           last.out = val;
-        } else {
-          // 否则把分支节点的out设置为 val
-          branch.out = val;
         }
+
+        return false; // 继续循环
       });
+    } else {
+      DataNode.context.setOut(this.key, val);
     }
   }
 
@@ -81,11 +110,11 @@ export class DataNode extends TreeNode {
     return super.getChildren() as DataNode[];
   }
 
-  public setBranchOut (branchIndex: number, val: string) {
+  public setBranchOut(branchIndex: number, val: string) {
     DataNode.context.setBranchOut(this.key, branchIndex, val);
   }
 
-  removeChild (node: DataNode) {
+  removeChild(node: DataNode) {
     super.removeChild(node);
     DataNode.DataNodeMap.delete(node.key);
     DataNode.context.deleteRaw(node.key);
@@ -96,7 +125,6 @@ export class DataNode extends TreeNode {
  * 分支
  */
 export class DataBranch extends DataNode {
-
   private _branchIndex: number;
 
   constructor(branchIndex: number) {
@@ -104,11 +132,11 @@ export class DataBranch extends DataNode {
     this._branchIndex = branchIndex;
   }
 
-  get condition () {
+  get condition() {
     return this.getParent() as DataNode;
   }
 
-  get key () {
+  get key() {
     if (!this.condition) {
       return 'root';
     }
@@ -119,7 +147,7 @@ export class DataBranch extends DataNode {
     return ElementType.BRANCH;
   }
 
-  get raw () {
+  get raw() {
     return {
       key: this.key,
       name: this.branch?.conditionName,
@@ -129,7 +157,7 @@ export class DataBranch extends DataNode {
     } as RawData;
   }
 
-  get branchIndex () {
+  get branchIndex() {
     return this._branchIndex;
   }
 
@@ -138,18 +166,18 @@ export class DataBranch extends DataNode {
     return parent?.raw.conditions?.[this._branchIndex];
   }
 
-  get in () {
+  get in() {
     const parent = this.getParent() as DataNode;
     return parent?.key;
   }
 
-  set in (_val: string) {}
+  set in(_val: string) {}
 
-  get out () {
+  get out() {
     return this.branch?.outgoing as string;
   }
 
-  set out (val) {
+  set out(val) {
     this.condition.setBranchOut(this._branchIndex, val);
   }
 

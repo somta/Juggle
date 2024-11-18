@@ -62,12 +62,7 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         apiMapper.addApi(apiPo);
 
-        List<ParameterPO> parameterPoList = new ArrayList<>();
-        List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(apiPo.getId(),ParameterSourceTypeEnum.API.getCode());
-        parameterPoList.addAll(parameterList);
-
-        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiPo.getId(),apiAo.getApiHeaders());
-        parameterPoList.addAll(headerList);
+        List<ParameterPO> parameterPoList = getApiParameterPoList(apiAo,apiPo.getId());
         if(CollectionUtils.isNotEmpty(parameterPoList)){
             parameterMapper.batchAddParameter(parameterPoList);
         }
@@ -91,12 +86,7 @@ public class ApiRepositoryImpl implements IApiRepository {
         apiMapper.update(apiPo);
 
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiAo.getId()));
-        List<ParameterPO> parameterPoList = new ArrayList<>();
-        List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(apiAo.getId(),ParameterSourceTypeEnum.API.getCode());
-        parameterPoList.addAll(parameterList);
-
-        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(apiAo.getId(),apiAo.getApiHeaders());
-        parameterPoList.addAll(headerList);
+        List<ParameterPO> parameterPoList = getApiParameterPoList(apiAo,apiAo.getId());
         if(CollectionUtils.isNotEmpty(parameterPoList)){
             parameterMapper.batchAddParameter(parameterPoList);
         }
@@ -121,6 +111,23 @@ public class ApiRepositoryImpl implements IApiRepository {
     }
 
     @Override
+    public ApiAO queryApiByCode(String apiCode) {
+        ApiPO apiPo = apiMapper.queryApiByCode(apiCode);
+        if(apiPo == null){
+            throw new BizException(ApiErrorEnum.API_NOT_EXIST);
+        }
+        ApiAO apiAo = IApiConverter.IMPL.poToAo(apiPo);
+        List<ParameterPO> parameters = parameterMapper.getParameterListByVO(new ParameterVO(ParameterSourceTypeEnum.API.getCode(),apiPo.getId()));
+
+        apiAo.parseHeader(parameters);
+
+        ParameterEntity parameterEntity = new ParameterEntity();
+        parameterEntity.parseParameter(parameters);
+        apiAo.setParameterEntity(parameterEntity);
+        return apiAo;
+    }
+
+    @Override
     public List<ApiVO> getApiListBySuiteId(Long suiteId) {
         List<ApiPO> apiList = apiMapper.queryApiListBySuiteId(suiteId);
         List<ApiVO> apis = IApiConverter.IMPL.poListToVoList(apiList);
@@ -128,7 +135,30 @@ public class ApiRepositoryImpl implements IApiRepository {
     }
 
     @Override
+    public List<ApiVO> getApiListBySuiteCode(String suiteCode) {
+        List<ApiPO> apiList = apiMapper.queryApiListBySuiteCode(suiteCode);
+        List<ApiVO> apis = IApiConverter.IMPL.poListToVoList(apiList);
+        return apis;
+    }
+
+    @Override
     public List<ApiVO> queryApiPageList(ApiQueryParam apiQueryParam) {
         return apiMapper.queryApiPageList(apiQueryParam);
+    }
+
+    /**
+     * Retrieve the persistent object list of the API
+     * @param apiAo API Aggregate Root Object
+     * @param sourceId API id
+     * @return Parameter Persistent object list
+     */
+    private List<ParameterPO> getApiParameterPoList(ApiAO apiAo,Long sourceId){
+        List<ParameterPO> parameterPoList = new ArrayList<>();
+        List<ParameterPO> parameterList = apiAo.getParameterEntity().getParameterPoList(sourceId,ParameterSourceTypeEnum.API.getCode());
+        parameterPoList.addAll(parameterList);
+
+        List<ParameterPO> headerList = IApiConverter.IMPL.headerListToParameterList(sourceId,apiAo.getApiHeaders());
+        parameterPoList.addAll(headerList);
+        return parameterPoList;
     }
 }

@@ -50,10 +50,12 @@ public class SuiteMarketVO {
      */
     private String suiteHelpDocJson;
 
+    private String objectList;
+
     /**
      * 套件接口列表
      */
-    private List<SuiteMarketApiVO> apiList;
+    private List<SuiteApiInfoVO> apiList;
 
     public Long getId() {
         return id;
@@ -135,11 +137,19 @@ public class SuiteMarketVO {
         this.suiteHelpDocJson = suiteHelpDocJson;
     }
 
-    public List<SuiteMarketApiVO> getApiList() {
+    public String getObjectList() {
+        return objectList;
+    }
+
+    public void setObjectList(String objectList) {
+        this.objectList = objectList;
+    }
+
+    public List<SuiteApiInfoVO> getApiList() {
         return apiList;
     }
 
-    public void setApiList(List<SuiteMarketApiVO> apiList) {
+    public void setApiList(List<SuiteApiInfoVO> apiList) {
         this.apiList = apiList;
     }
 }

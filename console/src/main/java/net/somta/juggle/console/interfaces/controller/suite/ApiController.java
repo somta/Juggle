@@ -19,9 +19,14 @@ package net.somta.juggle.console.interfaces.controller.suite;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import net.somta.core.exception.BizException;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
+import net.somta.juggle.console.application.service.suite.ISuiteService;
+import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteTypeEnum;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.ApiInfoDTO;
+import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import net.somta.juggle.console.interfaces.param.suite.ApiAddParam;
 import net.somta.juggle.console.interfaces.param.suite.ApiDebugParam;
 import net.somta.juggle.console.interfaces.param.suite.ApiQueryParam;
@@ -34,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
+import static net.somta.juggle.console.domain.suite.api.enums.ApiErrorEnum.API_NOT_EDIT_ERROR;
+import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
 
 /**
  * @author husong
@@ -45,9 +52,11 @@ import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERV
 public class ApiController {
 
     private final IApiService apiService;
+    private final ISuiteService suiteService;
 
-    public ApiController(IApiService apiService) {
+    public ApiController(IApiService apiService, ISuiteService suiteService) {
         this.apiService = apiService;
+        this.suiteService = suiteService;
     }
 
     @Operation(summary = "新增接口")
@@ -67,6 +76,10 @@ public class ApiController {
     @Operation(summary = "修改接口")
     @PutMapping("/update")
     public ResponseDataResult<Boolean> updateApi(@RequestBody ApiUpdateParam apiUpdateParam){
+        SuiteVO suiteVo = suiteService.getSuiteInfo(apiUpdateParam.getSuiteId());
+        if(suiteVo!=null && SuiteTypeEnum.OFFICIAL_SUITE.getCode() == suiteVo.getSuiteFlag()){
+            throw new BizException(API_NOT_EDIT_ERROR);
+        }
         apiService.updateApi(apiUpdateParam);
         return ResponseDataResult.setResponseResult();
     }
@@ -77,11 +90,14 @@ public class ApiController {
         ApiInfoDTO apiInfoDTO = apiService.getApiInfo(apiId);
         return ResponseDataResult.setResponseResult(apiInfoDTO);
     }
+    @Operation(summary = "根据编码查询接口详情")
+    @GetMapping("/info/code/{apiCode}")
+    public ResponseDataResult<ApiInfoDTO> getApiByCode(@PathVariable String apiCode){
+        ApiInfoDTO apiInfoDTO = apiService.getApiInfoByCode(apiCode);
+        return ResponseDataResult.setResponseResult(apiInfoDTO);
+    }
 
-    /**
-     * 获取API列表
-     * @return Boolean
-     */
+
     @Operation(summary = "根据套件ID查询接口列表")
     @PostMapping("/getApiListBySuiteId/{suiteId}")
     public ResponseDataResult<List<ApiDTO>> getApiListBySuiteId(@PathVariable Long suiteId){
@@ -89,9 +105,16 @@ public class ApiController {
         return ResponseDataResult.setResponseResult(apiList);
     }
 
+    @Operation(summary = "根据套件编码查询接口列表")
+    @PostMapping("/getApiListBySuiteCode/{suiteCode}")
+    public ResponseDataResult<List<ApiDTO>> getApiListBySuiteId(@PathVariable String suiteCode){
+        List<ApiDTO> apiList = apiService.getApiListBySuiteCode(suiteCode);
+        return ResponseDataResult.setResponseResult(apiList);
+    }
+
     @Operation(summary = "查询接口分页列表")
     @PostMapping("/page")
-    public ResponsePaginationDataResult<List<ApiDTO>> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
+    public ResponsePaginationDataResult<ApiDTO> getApiPageList(@RequestBody ApiQueryParam apiQueryParam){
         PageInfo pageInfo = apiService.getApiPageList(apiQueryParam);
         return ResponsePaginationDataResult.setPaginationDataResult(pageInfo.getTotal(),pageInfo.getList());
     }

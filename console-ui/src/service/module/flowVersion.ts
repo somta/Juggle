@@ -19,4 +19,3 @@ export async function deleteFlowVersionById(params: Parameters<typeof flowVersio
 export async function getAsyncFlowResult(flowInstanceId: string) {
   return flowVersionAPI.getAsyncFlowResult(flowInstanceId);
 }
-

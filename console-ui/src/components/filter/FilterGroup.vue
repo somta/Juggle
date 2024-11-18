@@ -1,6 +1,5 @@
-
 <script lang="ts" setup>
-import { Plus } from '@element-plus/icons-vue'
+import { Plus } from '@element-plus/icons-vue';
 import FilterList from './FilterList.vue';
 import { PropType } from 'vue';
 const props = defineProps({
@@ -18,7 +17,7 @@ const props = defineProps({
   },
 });
 const emit = defineEmits(['change']);
-function onChange (item: any, index: number) {
+function onChange(item: any, index: number) {
   let result = [...props.value];
   result[index] = item;
   result = result.filter((item, index) => index === 0 || item.length > 0);
@@ -27,7 +26,7 @@ function onChange (item: any, index: number) {
   }
   emit('change', result);
 }
-function onAdd () {
+function onAdd() {
   const result = [...props.value];
   result.push([{}]);
   emit('change', result);
@@ -37,13 +36,15 @@ function onAdd () {
 <template>
   <div class="filter-condition">
     <FilterList
-      v-for="list, index in value"
+      v-for="(list, index) in value"
       :key="index"
       :list="list"
       :sourceList="sourceList"
       :targetList="targetList"
       @change="onChange($event, index)"
     />
-    <el-button @click="onAdd"><el-icon><Plus /></el-icon>或条件</el-button>
+    <el-button @click="onAdd"
+      ><el-icon><Plus /></el-icon>或条件</el-button
+    >
   </div>
 </template>

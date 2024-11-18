@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {apiService} from '@/service';
+import { apiService } from '@/service';
 import { ElMessage } from 'element-plus';
-import CodeEditor from "@/components/form/CodeEditor.vue";
-import {ApiInfo, DataTypeItem, InputParams} from "@/typings";
+import CodeEditor from '@/components/common/CodeEditor.vue';
+import {ApiInfo, DataType, InputParams} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
-import DataTypeSelect from '@/components/form/DataTypeSelect.vue';
+import { InfoFilled } from '@element-plus/icons-vue';
+import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -19,6 +20,8 @@ let flowResponseJson = ref('');
 const apiInfo = ref<ApiInfo>({
   id: null,
   suiteId: null,
+  suiteFlag: null,
+  apiCode: '',
   apiUrl: '',
   apiName: '',
   apiDesc: '',
@@ -26,7 +29,7 @@ const apiInfo = ref<ApiInfo>({
   apiRequestContentType: '',
   apiHeaders: [],
   apiInputParams: [],
-  apiOutputParams: []
+  apiOutputParams: [],
 });
 
 const responseHeaderData = ref([]);
@@ -47,8 +50,8 @@ async function sendApiDebug() {
     return;
   }
   const params = {
-    headerData:getHeaders(),
-    inputParamData : getParams()
+    headerData: getHeaders(),
+    inputParamData: getParams(),
   };
   const res = await apiService.debugApi(paramsData.params.apiId as number, params);
   if (res.success) {
@@ -59,12 +62,12 @@ async function sendApiDebug() {
   responseHeaderData.value = Object.entries(res.response?.headers).map(([key, value]) => {
     return {
       headerKey: key,
-      headerValue: value
+      headerValue: value,
     };
   });
 }
 
-function isEmpty (val: any) {
+function isEmpty(val: any) {
   return val === undefined || val === null || val === '';
 }
 
@@ -102,15 +105,15 @@ function getHeaders() {
   return params;
 }
 
-function getParams () {
+function getParams() {
   const apiInputParams = apiInfo.value?.apiInputParams || [];
   const params: any = {};
   apiInputParams.forEach((param: any) => {
     if (!isEmpty(param.value)) {
-      const dataType:DataTypeItem = param.dataType;
-      if(dataType.type === "Object" || dataType.type === "List"){
+      const dataType: DataType = param.dataType;
+      if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
-      }else{
+      } else {
         params[param.paramKey] = param.value;
       }
       console.log(param);
@@ -119,7 +122,7 @@ function getParams () {
   return params;
 }
 
-function resetParams () {
+function resetParams() {
   apiInfo.value?.apiHeaders.forEach((param: any) => {
     param.value = '';
     param.error = '';
@@ -168,9 +171,14 @@ function resetParams () {
               <template v-if="header.required">*</template>
             </div>
             <div class="input-param-td" :title="header.paramKey">{{ header.paramKey }}</div>
-            <div class="input-param-td" :title="header.paramName">{{ header.paramName }}</div>
+            <div class="input-param-td" :title="header.paramName">
+              {{ header.paramName }}
+              <el-tooltip v-if="header.paramDesc" effect="dark" placement="top" :content="header.paramDesc">
+                <el-icon><InfoFilled /></el-icon>
+              </el-tooltip>
+            </div>
             <div class="input-param-td">
-              <DataTypeSelect :modelValue="header.dataType" disabled />
+              <DataTypeDisplay :dataType="header.dataType"/>
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="header.value" :dataType="header.dataType" />
@@ -194,10 +202,15 @@ function resetParams () {
             <div class="input-param-td">
               <template v-if="param.required">*</template>
             </div>
-            <div class="input-param-td" :title="param.paramKey">{{ param.paramKey }}</div>
-            <div class="input-param-td" :title="param.paramName">{{ param.paramName }}</div>
+            <div class="input-param-td" >{{ param.paramKey }}</div>
+            <div class="input-param-td" :title="param.paramName">
+              {{ param.paramName }}
+              <el-tooltip v-if="param.paramDesc" effect="dark" placement="top" :content="param.paramDesc">
+                <el-icon><InfoFilled /></el-icon>
+              </el-tooltip>
+            </div>
             <div class="input-param-td">
-              <DataTypeSelect :modelValue="param.dataType" disabled />
+              <DataTypeDisplay :dataType="param.dataType"/>
             </div>
             <div class="input-param-td td-value">
               <FilterValue v-model="param.value" :dataType="param.dataType" />
@@ -217,7 +230,7 @@ function resetParams () {
       <el-tab-pane label="响应头" name="responseHeader">
         <el-table :data="responseHeaderData" style="width: 100%">
           <el-table-column prop="headerKey" label="响应头" width="350" />
-          <el-table-column prop="headerValue" label="值"/>
+          <el-table-column prop="headerValue" label="值" />
         </el-table>
       </el-tab-pane>
     </el-tabs>
@@ -239,7 +252,7 @@ function resetParams () {
   }
   .input-param-td {
     margin-right: 12px;
-    width: 120px;
+    width: 130px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

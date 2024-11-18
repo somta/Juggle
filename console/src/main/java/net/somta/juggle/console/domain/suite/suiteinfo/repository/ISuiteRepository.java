@@ -1,6 +1,8 @@
 package net.somta.juggle.console.domain.suite.suiteinfo.repository;
 
+import net.somta.core.protocol.ResponsePaginationDataResult;
 import net.somta.juggle.console.domain.suite.suiteinfo.SuiteEntity;
+import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketClassifyVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteMarketVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
@@ -13,19 +15,23 @@ import java.util.List;
  * @since 1.1.1
  */
 public interface ISuiteRepository {
-    void addSuite(SuiteEntity suiteEntity);
+    Long addSuite(SuiteEntity suiteEntity);
 
     void updateSuite(SuiteEntity suiteEntity);
 
     void deleteSuiteById(Long suiteId);
 
+    SuiteVO querySuiteById(Long suiteId);
+
     List<SuiteVO> querySuiteList(SuiteQueryVO suiteQueryVO);
 
     SuiteVO querySuiteByCode(String suiteCode);
 
-    List<SuiteVO> querySuiteMarketList();
+    List<SuiteMarketClassifyVO> querySuiteMarketClassifyList();
 
-    SuiteMarketVO querySuiteMarketInfo(Long suiteId);
+    ResponsePaginationDataResult<SuiteVO> querySuiteMarketList(Integer pageNum,Integer pageSize,String suiteName, Long suiteClassifyId);
 
+    SuiteMarketVO querySuiteMarketInfo(Long suiteId,String bill);
 
+    List<SuiteVO> queryExistSuiteByCodes(List<String> suiteCodes);
 }

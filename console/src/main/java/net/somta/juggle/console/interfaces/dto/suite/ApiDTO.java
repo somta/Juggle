@@ -13,6 +13,7 @@ public class ApiDTO {
 
     private String suiteName;
 
+    private String apiCode;
     private String apiUrl;
 
     private String apiName;
@@ -38,6 +39,14 @@ public class ApiDTO {
 
     public void setSuiteName(String suiteName) {
         this.suiteName = suiteName;
+    }
+
+    public String getApiCode() {
+        return apiCode;
+    }
+
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 
     public String getApiUrl() {
