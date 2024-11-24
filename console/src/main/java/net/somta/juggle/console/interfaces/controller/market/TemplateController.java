@@ -1,15 +1,15 @@
-package net.somta.juggle.console.interfaces.controller.template;
+package net.somta.juggle.console.interfaces.controller.market;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.somta.core.protocol.ResponseDataResult;
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.application.service.template.ITemplateService;
-import net.somta.juggle.console.interfaces.dto.template.TemplateMarketClassifyDTO;
-import net.somta.juggle.console.interfaces.dto.template.TemplateMarketDTO;
-import net.somta.juggle.console.interfaces.dto.template.TemplateMarketInfoDTO;
-import net.somta.juggle.console.interfaces.param.template.TemplateMarketParam;
-import net.somta.juggle.console.interfaces.param.template.TemplateMarketQueryParam;
+import net.somta.juggle.console.application.service.market.ITemplateService;
+import net.somta.juggle.console.interfaces.dto.market.TemplateMarketClassifyDTO;
+import net.somta.juggle.console.interfaces.dto.market.TemplateMarketDTO;
+import net.somta.juggle.console.interfaces.dto.market.TemplateMarketInfoDTO;
+import net.somta.juggle.console.interfaces.param.market.TemplateMarketParam;
+import net.somta.juggle.console.interfaces.param.market.TemplateMarketQueryParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

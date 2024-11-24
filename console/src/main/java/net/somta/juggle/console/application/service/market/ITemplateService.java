@@ -1,11 +1,11 @@
-package net.somta.juggle.console.application.service.template;
+package net.somta.juggle.console.application.service.market;
 
 import net.somta.core.protocol.ResponsePaginationDataResult;
-import net.somta.juggle.console.interfaces.dto.template.TemplateMarketClassifyDTO;
-import net.somta.juggle.console.interfaces.dto.template.TemplateMarketDTO;
-import net.somta.juggle.console.interfaces.dto.template.TemplateMarketInfoDTO;
-import net.somta.juggle.console.interfaces.param.template.TemplateMarketParam;
-import net.somta.juggle.console.interfaces.param.template.TemplateMarketQueryParam;
+import net.somta.juggle.console.interfaces.dto.market.TemplateMarketClassifyDTO;
+import net.somta.juggle.console.interfaces.dto.market.TemplateMarketDTO;
+import net.somta.juggle.console.interfaces.dto.market.TemplateMarketInfoDTO;
+import net.somta.juggle.console.interfaces.param.market.TemplateMarketParam;
+import net.somta.juggle.console.interfaces.param.market.TemplateMarketQueryParam;
 
 import java.util.List;
 

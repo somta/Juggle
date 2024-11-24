@@ -1,4 +1,4 @@
-package net.somta.juggle.console.interfaces.dto.template;
+package net.somta.juggle.console.interfaces.dto.market;
 
 /**
  * @author husong

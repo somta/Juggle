@@ -1,4 +1,4 @@
-package net.somta.juggle.console.infrastructure.repository.template;
+package net.somta.juggle.console.infrastructure.repository.market;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.somta.core.helper.JsonSerializeHelper;
