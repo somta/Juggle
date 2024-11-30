@@ -82,14 +82,15 @@ sh startup.sh
 
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
+
 ![](/docs/docs/notes/guide/community/images/wxqq.png) 
 
 ## 客户与案例
 <div align = "center"> 
-    <img src="https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png" width="33%" style="background-color: #383434"/>
-    <img src="https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png" width="33%" />
-    <img src="https://www.swsc.com.cn/r/cms/www/default/images/logo.png" width="33%" />
-    <img src="https://www.xinyucores.com/data/upload/image/20220606/1654501776108189.png" width="33%" style="background-color: #000"/>
+    <img src="https://juggle.plus/customer/hstong.png" width="33%" style="background-color: #383434"/>
+    <img src="https://juggle.plus/customer/pingankeji.png" width="33%" />
+    <img src="https://juggle.plus/customer/swsc.png" width="33%" />
+    <img src="https://juggle.plus/customer/xinyucores.png" width="33%" style="background-color: #000"/>
 </div>
 
 ## 感恩与支持
