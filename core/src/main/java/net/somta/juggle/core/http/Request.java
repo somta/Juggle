@@ -64,21 +64,6 @@ public class Request {
      */
     private Map<String,Object> requestParams;
 
-    /**
-     * 请求超时时间 单位：毫秒
-     */
-    private Integer timeout;
-
-    /**
-     * 重试次数
-     */
-    private Integer retryCount;
-
-    /**
-     * 重试间隔时间 单位：毫秒
-     */
-    private Integer retryInterval = 1000;
-
     public Request(RequestTypeEnum requestType,List<InputParameter> inputParamSchemas) {
         this.requestType = requestType;
         this.inputParamSchemas = inputParamSchemas;
@@ -148,39 +133,10 @@ public class Request {
         return requestHeaders;
     }
 
-    /*public void setRequestHeaders(Map<String, Object> requestHeaders) {
-        this.requestHeaders = requestHeaders;
-    }*/
 
     public Map<String, Object> getRequestParams() {
         return requestParams;
     }
 
-    /*public void setRequestParams(Map<String, Object> requestParams) {
-        this.requestParams = requestParams;
-    }*/
-
-    public Integer getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(Integer timeout) {
-        this.timeout = timeout;
-    }
-
-    public Integer getRetryCount() {
-        return retryCount;
-    }
-    public void setRetryCount(Integer retryCount) {
-        this.retryCount = retryCount;
-    }
-
-    public Integer getRetryInterval() {
-        return retryInterval;
-    }
-
-    public void setRetryInterval(Integer retryInterval) {
-        this.retryInterval = retryInterval;
-    }
 
 }

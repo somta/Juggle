@@ -18,20 +18,16 @@ package net.somta.juggle.core.http;
 
 import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.core.enums.RequestTypeEnum;
-import net.somta.juggle.core.exception.FlowException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.*;
 import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,10 +98,6 @@ public abstract class AbstractHttpClient implements IHttpClient{
 
     private void fillHttpConfig(HttpUriRequestBase httpRequest,Request request){
         RequestConfig.Builder builder = RequestConfig.custom();
-        if(request.getTimeout() != null){
-            // 设置响应超时时间
-            builder.setResponseTimeout(Timeout.ofMilliseconds(request.getTimeout()));
-        }
         httpRequest.setConfig(builder.build());
     }
 
@@ -127,7 +119,6 @@ public abstract class AbstractHttpClient implements IHttpClient{
         };
 
         HttpClient httpClient = HttpClients.custom()
-                .setRetryStrategy(new CustomRetryStrategy(request))
                 .setConnectionManager(connectionManager)
                 .build();
         try {

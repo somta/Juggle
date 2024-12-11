@@ -78,7 +78,6 @@ public class HttpClientTest {
 
         IHttpClient httpClient = HttpClientFactory.getHttpClient(RequestContentTypeEnum.APPLICATION_JSON);
         Request request = new Request(RequestTypeEnum.GET,inputParamSchema);
-        request.setRetryCount(3);
         request.initRequest("86eaa1477f519274bb05fc90b1e76e83","http://127.0.0.1:9127/example/goods/releaseGoods",null,requestParam);
         Map<String,Object> rst = httpClient.sendRequest(request);
         String resGoodsName = (String) rst.get("goodsName");
