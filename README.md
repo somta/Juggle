@@ -91,6 +91,7 @@ sh startup.sh
     <img src="https://juggle.plus/customer/pingankeji.png" width="33%" />
     <img src="https://juggle.plus/customer/swsc.png" width="33%" />
     <img src="https://juggle.plus/customer/xinyucores.png" width="33%" style="background-color: #000"/>
+    <img src="https://juggle.plus/customer/scooper.png" width="33%" />
 </div>
 
 ## 感恩与支持
