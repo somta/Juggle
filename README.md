@@ -28,7 +28,7 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 3.内置方法节点，判断节点，代码节点，赋值节点，MySql节点等多种节点，能灵活设计流程
 
-4.支持Groovy,JavaScript等多种脚本语言来增强流程
+4.支持Groovy,JavaScript,Python,Java等多种脚本语言来增强流程
 
 5.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大降低流程设计的复杂度
 
@@ -82,14 +82,16 @@ sh startup.sh
 
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
+
 ![](/docs/docs/notes/guide/community/images/wxqq.png) 
 
 ## 客户与案例
 <div align = "center"> 
-    <img src="https://r.hstong.com/fe/hs-web-nuxt-hstong-www/img/logo.5426206.png" width="33%" style="background-color: #383434"/>
-    <img src="https://img.alicdn.com/tfs/TB1pwi9EwHqK1RjSZJnXXbNLpXa-479-59.png" width="33%" />
-    <img src="https://www.swsc.com.cn/r/cms/www/default/images/logo.png" width="33%" />
-    <img src="https://www.xinyucores.com/data/upload/image/20220606/1654501776108189.png" width="33%" style="background-color: #000"/>
+    <img src="https://juggle.plus/customer/hstong.png" width="33%" style="background-color: #383434"/>
+    <img src="https://juggle.plus/customer/pingankeji.png" width="33%" />
+    <img src="https://juggle.plus/customer/swsc.png" width="33%" />
+    <img src="https://juggle.plus/customer/xinyucores.png" width="33%" style="background-color: #000"/>
+    <img src="https://juggle.plus/customer/scooper.png" width="33%" />
 </div>
 
 ## 感恩与支持

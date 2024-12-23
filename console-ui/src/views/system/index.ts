@@ -8,7 +8,7 @@ export const SystemRoutes = [
     name: 'system',
     component: RouterNest,
     redirect: () => ({ name: 'api-token' }),
-    meta: { name: '系统' },
+    meta: { name: '设置' },
     children: [
       {
         path: 'token',
