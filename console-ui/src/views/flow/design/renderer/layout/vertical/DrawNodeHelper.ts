@@ -52,7 +52,7 @@ export class DrawNodeHelper {
             const flowNode = container.selectChild('.flow-node');
             flowNode.select('text').text(data.raw.name);
         }
-        if ([ElementType.METHOD, ElementType.CODE, ElementType.MYSQL].includes(data.type)) {
+        if ([ElementType.METHOD, ElementType.ASSIGN,ElementType.CODE, ElementType.MYSQL].includes(data.type)) {
             this.drawAddIcon(container, node, type);
         }
     }
