@@ -53,7 +53,7 @@ function onAdd(data: any) {
 }
 function onEdit(data: any) {
   flowContext.update(draft => {
-    const index = draft.flowVariables.findIndex(item => item.id === data.id);
+    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
     if (index > -1) {
       draft.flowVariables.splice(index, 1, data);
     }
