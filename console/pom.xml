@@ -34,6 +34,10 @@
             <groupId>net.somta</groupId>
             <artifactId>juggle-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.somta</groupId>
+            <artifactId>juggle-core</artifactId>
+        </dependency>
         <!-- mysql start -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

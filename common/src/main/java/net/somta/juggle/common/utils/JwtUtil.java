@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import net.somta.juggle.common.identity.IdentityVO;
 import org.apache.commons.lang3.StringUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class JwtUtil {
     public static final String TOKEN_HEADER_KEY = "Authorization";
     public static final String OPEN_API_HEADER_KEY = "Juggle-Token";
     public static final String OPEN_API_PARAM_KEY = "juggleToken";
-    private static final Key SIGN_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    private static final Key SIGN_KEY = Keys.hmacShaKeyFor("www.somta.net####www.juggle.plus".getBytes(StandardCharsets.UTF_8));
  
     /**
      * 生成token

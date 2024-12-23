@@ -4,7 +4,7 @@ import { useRoute,useRouter } from 'vue-router';
 import {orderService, suiteMarketService} from '@/service';
 import {CreateOrder, SuiteMarketInfo} from '@/typings';
 import { ElMessage } from 'element-plus';
-import {QRCode} from 'qrcode'
+import QRCode from 'qrcode'
 import UserAgreement from '../common/UserAgreement.vue'
 
 const route = useRoute();

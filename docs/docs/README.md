@@ -103,9 +103,11 @@ config:
 <script setup>
 import Swiper from 'vuepress-theme-plume/features/Swiper.vue';
 const customerList = [
-    '/donate/hstong.png',
-    '/donate/pingankeji.png',
-    'https://www.swsc.com.cn/r/cms/www/default/images/logo.png',
+  { link: '/customer/hstong.png',href:'https://www.hstong.com',alt: '华盛通'},
+  { link: '/customer/pingankeji.png',href:'https://tech.pingan.com',alt: '平安科技'},
+  { link: '/customer/swsc.png',href:'https://www.swsc.com.cn',alt: '西南证券'},
+  { link: '/customer/xinyucores.png',href:'https://www.xinyucores.com',alt: '成都新昱科技有限公司'},
+  { link: '/customer/scooper.png',href:'https://www.scooper.com.cn',alt: '杭州叙简科技股份有限公司'},
 ];
 </script>
 
@@ -118,6 +120,7 @@ mode="carousel"
 :slides-per-view="3"
 :space-between="20"
 :speed="5500"
+:pauseOnMouseEnter="true"
 />
 
 

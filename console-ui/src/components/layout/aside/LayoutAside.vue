@@ -42,7 +42,7 @@ import IconInterface from '@/components/icons/IconInterface.vue';
       <el-sub-menu index="5">
         <template #title>
           <el-icon><Setting /></el-icon>
-          <span>系统</span>
+          <span>设置</span>
         </template>
         <el-menu-item index="/system/token">令牌</el-menu-item>
         <el-menu-item index="/system/datasource">数据源</el-menu-item>
