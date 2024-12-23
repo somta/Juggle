@@ -32,8 +32,8 @@ import java.util.Map;
  */
 public class JuggleClientImpl implements JuggleClient {
 
-    private static final String TRIGGER_FLOW_URL = "/v1/open/flow/trigger/%s/%s";
-    private static final String GET_ASYNC_FLOW_RESULT_URL = "/v1/open/flow/getAsyncFlowResult/%s";
+    private static final String TRIGGER_FLOW_URL = "/open/v1/flow/trigger/%s/%s";
+    private static final String GET_ASYNC_FLOW_RESULT_URL = "/open/v1/flow/getAsyncFlowResult/%s";
 
     private final JuggleConfig juggleConfig;
     private PoolingHttpClientConnectionManager connectionManager;
