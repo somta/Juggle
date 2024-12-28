@@ -68,7 +68,6 @@ function onCancel() {
   visible.value = false;
 }
 async function onSubmit() {
-  console.log(123, formRef.value);
   if (!formRef.value) return;
   const valid = await formRef.value?.validate(() => {});
   if (!valid) {

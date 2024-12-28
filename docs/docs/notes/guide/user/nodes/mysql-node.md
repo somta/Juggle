@@ -41,6 +41,25 @@ permalink: /docs/guide/user/nodes/mysql-node/
 
 理论上所有mysql支持的sql语句，都能用在mysql节点，通过这些sql语句能完成普通业务服务所有SQL相关的能力，sql语句中支持插入入参变量，中间变量等，使用时语法参考freemarker即可
 
+1）查询数据
+
+```
+select api_name as apiName, api_url as apiUrl from t_api
+```
+
+:::warning
+在查询数据的时候需要保证查询的列名称与接受数据的对象的属性参数编码相同，如上面sql对应的接口列表中，接口对象的定义如下图所示
+![接口对象](images/sql_object.png)
+:::
+
+
+
+2）新增/修改/删除数据
+
+```sql
+INSERT INTO t_user (age, name) VALUES (${input_age}, '${input_name}');
+```
+
 :::warning
 如果引入的变量是一个字符串时,sql中在使用变量的时候需要在变量外面加上单引号，如下面的例子中name是一个字符串，使用入参变量input_name时在括号外面加上了单引号
 INSERT INTO t_user (age, name) VALUES (${input_age}, '${input_name}');
