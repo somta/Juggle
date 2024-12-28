@@ -3,8 +3,8 @@ import qs from 'query-string';
 import {IConfig} from "./IConfig";
 
 
-const TRIGGER_FLOW_URL = '/v1/open/flow/trigger';
-const GET_ASYNC_FLOW_RESULT_URL = '/v1/open/flow/getAsyncFlowResult';
+const TRIGGER_FLOW_URL = '/open/v1/flow/trigger';
+const GET_ASYNC_FLOW_RESULT_URL = '/open/v1/flow/getAsyncFlowResult';
 
 export type FlowTriggerDataParam = Record<string, any>;
 
