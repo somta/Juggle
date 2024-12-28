@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { userService } from '@/service';
 import {request} from "@/service/base";
+import ThirdPartyLogin from "@/components/entry/ThirdPartyLogin.vue";
 const router = useRouter();
 
 const userName = ref('');
@@ -42,7 +43,7 @@ async function submit() {
     <div class="login-form-item">
       <el-button type="primary" size="large" :style="{ width: '100%', marginTop: '24px' }" :loading="loading" @click="submit"> 登录 </el-button>
     </div>
-    <a href="http://demo.juggle.plus/open/v1/gitee/auth" style="text-decoration: none;color: #409eff;">Tip: star项目，码云一键登录体验</a>
+    <ThirdPartyLogin/>
   </div>
 </template>
 
