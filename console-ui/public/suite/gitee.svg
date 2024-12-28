@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clip-gitee">
+      <rect width="50" height="50"/>
+    </clipPath>
+  </defs>
+  <g id="gitee" clip-path="url(#clip-gitee)">
+    <g id="Group" transform="translate(5 5)">
+      <circle id="Combined-Shape" cx="20" cy="20" r="20" transform="translate(0 0)" fill="#c71d23"/>
+      <path id="G" d="M41.15,28.816H29.8a.987.987,0,0,0-.987.987V32.27a.986.986,0,0,0,.986.987H36.71a.987.987,0,0,1,.987.987h0v.247h0v.247a2.96,2.96,0,0,1-2.96,2.96H25.362a.987.987,0,0,1-.987-.987V27.336a2.96,2.96,0,0,1,2.96-2.96H41.147a.989.989,0,0,0,.987-.987l0-2.467a.986.986,0,0,0-.985-.987H27.336a7.4,7.4,0,0,0-7.4,7.4V41.15a.987.987,0,0,0,.987.987H35.476a6.66,6.66,0,0,0,6.66-6.66V29.8A.987.987,0,0,0,41.15,28.816Z" transform="translate(-11.036 -11.036)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>
