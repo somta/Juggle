@@ -4,7 +4,7 @@
 
 <template>
   <div class="third-login">
-    <div class="title">一键登录体验</div>
+    <div class="title"><span>-----------------</span> 一键登录体验 <span>------------------</span></div>
     <div class="auth_app">
       <a href="https://demo.juggle.plus/open/v1/gitee/auth">
         <img src="https://demo.juggle.plus/suite/gitee.svg" alt="gitee">
@@ -21,6 +21,7 @@
 .title{
   text-align: center;
   color: #409eff;
+  margin-bottom: 8px;
 }
 
 .auth_app{
@@ -28,6 +29,9 @@
   a {
     text-decoration: none;
     margin: 0px 10px;
+  }
+  img{
+    width: 45px;
   }
 }
 
