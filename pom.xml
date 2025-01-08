@@ -17,8 +17,9 @@
         <maven.compiler.target>8</maven.compiler.target>
         <revision>1.2.3</revision>
         <kernel-dependencies.varsion>1.0.1</kernel-dependencies.varsion>
-        <kernel-core.version>1.0.0</kernel-core.version>
+        <kernel-core.version>1.0.1</kernel-core.version>
         <kernel-common.version>1.0.1</kernel-common.version>
+        <juggle-core.version>1.0.0</juggle-core.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.2.220</h2.version>
@@ -50,7 +51,7 @@
             <dependency>
                 <groupId>net.somta</groupId>
                 <artifactId>juggle-core</artifactId>
-                <version>${revision}</version>
+                <version>${juggle-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.somta</groupId>
@@ -66,11 +67,6 @@
                 <groupId>net.somta</groupId>
                 <artifactId>kernel-core</artifactId>
                 <version>${kernel-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.somta</groupId>
-                <artifactId>juggle-core</artifactId>
-                <version>1.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
