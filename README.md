@@ -6,7 +6,8 @@
 # Juggle
 
 Juggle官方文档地址: https://juggle.plus
-Juggle演示环境地址: https://demo.juggle.plus/#/login
+
+Juggle演示环境地址: https://demo.juggle.plus/#/login (演示环境可以使用gitee或github登录体验)
 
 ## 项目介绍
 Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
