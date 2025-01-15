@@ -1,6 +1,7 @@
 package net.somta.juggle.console.application.service.flow;
 
 import com.github.pagehelper.PageInfo;
+import net.somta.juggle.console.interfaces.dto.flow.FlowInfoDTO;
 import net.somta.juggle.console.interfaces.param.flow.FlowInfoPageParam;
 
 /**
@@ -20,5 +21,5 @@ public interface IFlowInfoService {
      * @param flowInfoPageParam Flow information pagination query object
      * @return Flow Information Paging Object
      */
-    PageInfo getFlowInfoPageList(FlowInfoPageParam flowInfoPageParam);
+    PageInfo<FlowInfoDTO> getFlowInfoPageList(FlowInfoPageParam flowInfoPageParam);
 }

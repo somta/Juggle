@@ -1,8 +1,6 @@
 package net.somta.juggle.console.domain.suite.api;
 
 import net.somta.common.encrypt.Md5Util;
-import net.somta.common.utils.MapUtil;
-import net.somta.core.helper.JsonSerializeHelper;
 import net.somta.juggle.console.domain.suite.api.vo.HeaderVO;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.enums.ParameterTypeEnum;
@@ -13,14 +11,10 @@ import net.somta.juggle.console.infrastructure.po.ParameterPO;
 import net.somta.juggle.core.enums.DataTypeEnum;
 import net.somta.juggle.core.enums.RequestTypeEnum;
 import net.somta.juggle.core.model.DataType;
-import net.somta.juggle.core.model.InputParameter;
 import net.somta.juggle.core.model.Property;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -32,3 +32,7 @@ export function check() {
 export function getAuth() {
   return window.localStorage.getItem(authKey);
 }
+
+export function getProductInfo() {
+  return userAPI.getProductInfo();
+}

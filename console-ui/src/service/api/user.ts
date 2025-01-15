@@ -7,3 +7,7 @@ export function login(data: { userName: string; password: string }): ResponseRes
 export function logout() {}
 
 export function check() {}
+
+export function getProductInfo(): ResponseResult<string>  {
+  return request.get('/v1/user/product/info');
+}
