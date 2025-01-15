@@ -25,6 +25,7 @@
 	<if test="flowType != null and flowType != ''">
 		and flow_type = #{flowType}
 	</if>
+	ORDER BY created_at DESC
 </sql>
        
 <sql id="Base_Column_List" >
