@@ -104,7 +104,7 @@ defineExpose({ open });
         </el-form-item>
         <el-form-item label="数据源类型" prop="dataSourceType">
           <el-select v-model="formValue.dataSourceType">
-            <el-option value="MySql" key="MySql">MySql</el-option>
+            <el-option value="MYSQL" key="MYSQL">MySql</el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="描述" prop="dataSourceDesc">
