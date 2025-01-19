@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
+//import net.somta.juggle.core.expression.condition.enums.OperatorEnum;
 import net.somta.juggle.console.domain.parameter.ParameterEntity;
 import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
@@ -120,7 +120,7 @@ public class FlowDefinitionHelper {
         ConditionExpression conditionExpression11 = new ConditionExpression();
         conditionExpression11.setEnvKey("input_name");
         conditionExpression11.setDataType(new DataType(DataTypeEnum.String));
-        conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
+        //conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression11.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression11.setValue("张三");
         conditionExpressions11.add(conditionExpression11);
@@ -130,7 +130,7 @@ public class FlowDefinitionHelper {
         ConditionExpression conditionExpression12 = new ConditionExpression();
         conditionExpression12.setEnvKey("input_name");
         conditionExpression12.setDataType(new DataType(DataTypeEnum.String));
-        conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
+        //conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression12.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression12.setValue("三");
         conditionExpressions12.add(conditionExpression12);
@@ -154,7 +154,7 @@ public class FlowDefinitionHelper {
         ConditionExpression conditionExpression21 = new ConditionExpression();
         conditionExpression21.setEnvKey("input_name");
         conditionExpression21.setDataType(new DataType(DataTypeEnum.String));
-        conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
+        //conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression21.setAssignType(AssignTypeEnum.CONSTANT);
         conditionExpression21.setValue("lisi");
         conditionExpressions21.add(conditionExpression21);
