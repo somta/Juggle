@@ -68,12 +68,12 @@ public class FlowInfoInfoServiceImpl implements IFlowInfoService {
     }
 
     @Override
-    public PageInfo getFlowInfoPageList(FlowInfoPageParam flowInfoPageParam) {
+    public PageInfo<FlowInfoDTO> getFlowInfoPageList(FlowInfoPageParam flowInfoPageParam) {
         FlowInfoQueryVO flowInfoQueryVO = IFlowInfoAssembler.IMPL.paramToVo(flowInfoPageParam);
         Page<FlowInfoDTO> page = PageHelper.startPage(flowInfoPageParam.getPageNum(), flowInfoPageParam.getPageSize());
         List<FlowInfoVO> flowInfoList = flowInfoRepository.queryFlowInfoList(flowInfoQueryVO);
         List<FlowInfoDTO> flowInfoDTOList = IFlowInfoAssembler.IMPL.voListToDtoList(flowInfoList);
-        PageInfo pageInfo = new PageInfo(flowInfoDTOList);
+        PageInfo<FlowInfoDTO> pageInfo = new PageInfo<>(flowInfoDTOList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
     }

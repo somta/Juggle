@@ -18,7 +18,7 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 CREATE TABLE `t_suite` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `suite_code` varchar(20) DEFAULT NULL,
+  `suite_code` varchar(60) DEFAULT NULL,
   `suite_name` varchar(30) DEFAULT NULL,
   `suite_classify_id` bigint DEFAULT NULL,
   `suite_image` text,
