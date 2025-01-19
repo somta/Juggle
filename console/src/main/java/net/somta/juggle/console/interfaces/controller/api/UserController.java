@@ -25,6 +25,7 @@ import net.somta.juggle.console.domain.user.UserAO;
 import net.somta.juggle.console.domain.user.enums.UserErrorEnum;
 import net.somta.juggle.console.interfaces.dto.LoginDTO;
 import net.somta.juggle.console.interfaces.dto.UserDTO;
+import net.somta.juggle.console.interfaces.listener.JuggleApplicationRunListener;
 import net.somta.juggle.console.interfaces.param.user.LoginParam;
 import net.somta.juggle.console.interfaces.param.user.UpdatePasswordParam;
 import net.somta.juggle.console.application.service.IUserService;
@@ -32,6 +33,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,4 +108,11 @@ public class UserController {
         return ResponseDataResult.setResponseResult(true);
     }
 
+    @Operation(summary = "获取产品信息")
+    @GetMapping("/product/info")
+    public ResponseDataResult<String> getProductInfo(){
+        Package pkg = JuggleApplicationRunListener.class.getPackage();
+        String version = pkg.getImplementationVersion();
+        return ResponseDataResult.setResponseResult(version);
+    }
 }

@@ -19,7 +19,7 @@
         <kernel-dependencies.varsion>1.0.1</kernel-dependencies.varsion>
         <kernel-core.version>1.0.1</kernel-core.version>
         <kernel-common.version>1.0.1</kernel-common.version>
-        <juggle-core.version>1.0.0</juggle-core.version>
+        <juggle-core.version>1.1.1</juggle-core.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.2.220</h2.version>
