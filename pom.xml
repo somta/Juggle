@@ -15,7 +15,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <revision>1.2.3</revision>
+        <revision>1.3.0</revision>
         <kernel-dependencies.varsion>1.0.1</kernel-dependencies.varsion>
         <kernel-core.version>1.0.1</kernel-core.version>
         <kernel-common.version>1.0.1</kernel-common.version>
