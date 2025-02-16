@@ -23,6 +23,8 @@ const rules = reactive<FormRules>({
 
 const emit = defineEmits(['add', 'edit']);
 
+const isEditMode = computed(() => !!editItem.value);
+
 function onCancel() {
   dialogVisible.value = false;
 }
@@ -104,7 +106,7 @@ defineExpose({ open });
           </el-upload>
         </el-form-item>
         <el-form-item label="套件编码" prop="suiteCode">
-          <el-input v-model="formValue.suiteCode" maxlength="20" />
+          <el-input v-model="formValue.suiteCode" maxlength="20" :disabled="isEditMode"/>
         </el-form-item>
         <el-form-item label="套件名称" prop="suiteName">
           <el-input v-model="formValue.suiteName" maxlength="30" />
