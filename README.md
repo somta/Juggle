@@ -31,7 +31,7 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 4.支持Groovy,JavaScript,Python,Java等多种脚本语言来增强流程
 
-5.支持Http,Dubbo,WebService等协议的接口调用
+5.支持Http,Dubbo,WebService等协议的接口调用 
 
 6.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大降低流程设计的复杂度
 
