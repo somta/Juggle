@@ -6,12 +6,7 @@ const selectedPriceTab = ref<string>("yearly");
 
 // 定义一个函数用于处理点击事件，并设置selectedPriceTab的值为当前点击的价格选项ID
 function showServiceDetail(tabId: string) {
-  if (selectedPriceTab.value === tabId) {
-    // 如果点击的是已选中的选项，则取消选择
-    selectedPriceTab.value = null;
-  } else {
-    selectedPriceTab.value = tabId;
-  }
+  selectedPriceTab.value = tabId;
 }
 
 </script>
@@ -110,25 +105,18 @@ function showServiceDetail(tabId: string) {
               <div class="service-content-item">
                 <span class="content-title">授权时长</span><span class="content-desc">按年</span>
               </div>
-
-
-              <div class="service-content-item" style="justify-content: flex-start; padding-top: 12px;">
-                <span class="content-title">版本选择</span>
-                <span class="content-desc">尊享版</span>
+              <div class="service-content-item">
+                <span class="content-title">多买优惠</span><span class="content-desc">多年优惠</span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;">
-                <span class="content-title">授权时长</span><span class="content-desc">永久</span>
+              <div class="service-content-item">
+                <span class="content-title">定制开发</span>
+                <span class="content-desc">支持 <span title="定制化开发的内容将以人天额外计费" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">前端源码</span><span class="content-desc">监控系统</span>
+              <div class="service-content-item">
+                <span class="content-title">系统源码</span><span class="content-desc">无</span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">多买优惠</span><span class="content-desc">无</span></div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">项目数量</span><span class="content-desc">50 个</span>
-              </div>
-              <div class="service-content-item" style="justify-content: flex-start;">
-                <span class="content-title">数 据 库</span><span class="content-desc">&nbsp;Mysql + Clickhouse</span>
+              <div class="service-content-item">
+                <span class="content-title">系统文档</span><span class="content-desc">官网使用手册</span>
               </div>
             </div>
         </div>
@@ -150,42 +138,21 @@ function showServiceDetail(tabId: string) {
               <div class="service-content-item">
                 <span class="content-title">授权时长</span><span class="content-desc">永久</span>
               </div>
-
-
-
-              <div class="service-content-item" style="justify-content: flex-start; padding-top: 12px;">
-                <span class="content-title">版本选择</span>
-                <span class="content-desc">单机版</span>
-                <span class="content-desc ">尊享版</span><span
-                  class="content-desc ">至尊VIP</span>
-              </div>
-
               <div class="service-content-item">
-                <span class="content-title">授权时长</span><span class="content-desc">永久</span>
+                <span class="content-title">多买优惠</span><span class="content-desc">多套优惠</span>
               </div>
-
-
-              <div class="service-content-item"><span
-                  class="content-title">产品选择</span><span class="content-desc">
-                <div class="ant-checkbox-group"><label
-                    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked ant-checkbox-group-item"><span
-                    class="ant-checkbox ant-checkbox-checked"><input type="checkbox" class="ant-checkbox-input"
-                                                                     value="monitor" checked=""><span
-                    class="ant-checkbox-inner"></span></span><span>监控系统</span></label><label
-                    class="ant-checkbox-wrapper ant-checkbox-group-item"><span class="ant-checkbox"><input type="checkbox"
-                                                                                                           class="ant-checkbox-input"
-                                                                                                           value="event"><span
-                    class="ant-checkbox-inner"></span></span><span>埋点系统</span></label></div></span></div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">前端源码</span><span class="content-desc">监控系统</span>
+              <div class="service-content-item">
+                <span class="content-title">定制开发</span>
+                <span class="content-desc">支持 <span title="定制化开发的内容将以人天额外计费" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">多买优惠</span><span class="content-desc">无</span></div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">项目数量</span><span class="content-desc">50 个</span>
+              <div class="service-content-item">
+                <span class="content-title">系统源码</span><span class="content-desc">前端源码</span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;">
-                <span class="content-title">数 据 库</span><span class="content-desc">&nbsp;Mysql + Clickhouse</span>
+              <div class="service-content-item">
+                <span class="content-title">源码指导</span><span class="content-desc">无</span>
+              </div>
+              <div class="service-content-item">
+                <span class="content-title">系统文档</span><span class="content-desc">产品使用说明书</span>
               </div>
             </div>
         </div>
@@ -207,96 +174,166 @@ function showServiceDetail(tabId: string) {
               <div class="service-content-item">
                 <span class="content-title">授权时长</span><span class="content-desc">永久</span>
               </div>
-
-              <div class="service-content-item" style="justify-content: flex-start; padding-top: 12px;">
-                <span class="content-title">版本选择</span>
-                <span class="content-desc">单机版</span>
+              <div class="service-content-item">
+                <span class="content-title">多买优惠</span><span class="content-desc">无</span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">授权时长</span><span class="content-desc">永久</span>
+              <div class="service-content-item">
+                <span class="content-title">定制开发</span>
+                <span class="content-desc">支持 <span title="定制化开发的内容将以人天额外计费" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span>
               </div>
-              <div class="service-content-item"><span
-                  class="content-title">产品选择</span><span class="content-desc">
-                <div class="ant-checkbox-group"><label
-                    class="ant-checkbox-wrapper ant-checkbox-wrapper-checked ant-checkbox-group-item"><span
-                    class="ant-checkbox ant-checkbox-checked"><input type="checkbox" class="ant-checkbox-input"
-                                                                     value="monitor" checked=""><span
-                    class="ant-checkbox-inner"></span></span><span>监控系统</span></label><label
-                    class="ant-checkbox-wrapper ant-checkbox-group-item"><span class="ant-checkbox"><input type="checkbox"
-                                                                                                           class="ant-checkbox-input"
-                                                                                                           value="event"><span
-                    class="ant-checkbox-inner"></span></span><span>埋点系统</span></label></div></span></div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">前端源码</span><span class="content-desc">监控系统</span>
+              <div class="service-content-item">
+                <span class="content-title">系统源码</span><span class="content-desc">前后端源码</span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">多买优惠</span><span class="content-desc">无</span></div>
-              <div class="service-content-item" style="justify-content: flex-start;"><span
-                  class="content-title">项目数量</span><span class="content-desc">50 个</span>
+              <div class="service-content-item">
+                <span class="content-title">源码指导</span><span class="content-desc">提供源码解答服务</span>
               </div>
-              <div class="service-content-item" style="justify-content: flex-start;">
-                <span class="content-title">数 据 库</span><span class="content-desc">&nbsp;Mysql + Clickhouse</span>
+              <div class="service-content-item">
+                <span class="content-title">系统文档</span><span class="content-desc">产品使用说明书</span>
               </div>
             </div>
         </div>
       </div>
 
       <!-- 版本功能对比 -->
-      <div class="productDiff_product-diff-container__vt6BV">
-        <div class="productDiff_tabs-maintain-product__HFYwK">
-            <div class="productDiff_maintain-title__xZvBp">
-<!--              <img alt="" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fleft.16d25880.png&amp;w=640&amp;q=75" width="240" height="28" decoding="async" data-nimg="1" loading="lazy" style="color: transparent;">-->
-              <h3>
-<!--                <img alt="" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fproduct-icon.43ba1193.png&amp;w=256&amp;q=75" width="80" height="80" decoding="async" data-nimg="1" loading="lazy" style="color: transparent;">-->
-                产品功能对比
-              </h3>
-<!--              <img alt="" src="/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fleft.16d25880.png&amp;w=640&amp;q=75" width="240" height="28" decoding="async" data-nimg="1" loading="lazy" style="color: transparent;">-->
-            </div>
+      <div class="maintain_maintain-container__5nbIS">
+        <div class="maintain_tabs-maintain-product__5Ya7c">
+          <div class="maintain_maintain-title___XvfV">
+            <h3>维保服务订阅</h3>
+          </div>
         </div>
-        <div class="productDiff_maintain-table__rSMUB">
-          <ul class="productDiff_maintain-title__xZvBp">
-            <li><span class="productDiff_title-name__md8Xm">版本对比项</span>
-              <span class="productDiff_maintain-con__kaXk7">
-                <label>开源版本</label>
-                <label style="color: rgb(255, 118, 38);" >企业版本</label>
-              </span>
-            </li>
-          </ul>
-
-          <ul class="productDiff_maintain-list__G6ijE">
-            <li>
-              <span class="productDiff_title-name__md8Xm">产品终身升级</span>
-              <span class="productDiff_maintain-con__kaXk7">
-                <label>
-                  <img alt="" src="/images/choose.png" decoding="async" class="productDiff_choose__QKqo7" loading="lazy" style="color: transparent;">
-                </label>
-                <label>
-                  <img alt="" src="/images/choose.png" decoding="async" class="productDiff_choose__QKqo7" loading="lazy" style="color: transparent;">
-                </label>
-              </span>
-            </li>
-
-            <li>
-              <span class="productDiff_title-name__md8Xm">支持日活量</span>
-              <span class="productDiff_maintain-con__kaXk7">
-                <label>百万级</label>
-                <label>亿级</label>
-              </span>
-            </li>
-            <li>
-              <span class="productDiff_title-name__md8Xm">功能更完善
-                <span class="tip anticon anticon-question-circle productDiff_question__ZXLch">
-                  <svg viewBox="64 64 896 896" focusable="false" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg>
+        <div class="table-info">
+          <div class="table-left">
+            <div class="maintain_gong-dan__2riB2">
+              <div class="maintain_header__XdF9r">服务项目</div>
+              <div class="maintain_total__9MRKX">工单系统</div>
+              <div class="maintain_list__lT_Gz">
+                <ul class="maintain_maintain-list__T1mQP">
+                  <li><span class="maintain_title-name__K5wf2">公共交流群支持</span></li>
+                  <li><span class="maintain_title-name__K5wf2">远程故障排除协助</span></li>
+                  <li><span class="maintain_title-name__K5wf2">技术支持专群</span></li>
+                  <li><span class="maintain_title-name__K5wf2">专属客户经理</span></li>
+                  <li><span class="maintain_title-name__K5wf2">服务支持时间</span></li>
+                  <li><span class="maintain_title-name__K5wf2">服务响应时间</span></li>
+                  <li><span class="maintain_title-name__K5wf2">紧急响应支持</span></li>
+                  <li><span class="maintain_title-name__K5wf2">紧急响应时间</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="maintain_gong-dan__2riB2">
+              <div class="maintain_total__9MRKX" style="height: 400px">增值服务</div>
+              <div class="maintain_list__lT_Gz">
+                <ul class="maintain_maintain-list__T1mQP">
+                  <li><span class="maintain_title-name__K5wf2">线上专题培训</span></li>
+                  <li><span class="maintain_title-name__K5wf2">原厂协助升级</span></li>
+                  <li><span class="maintain_title-name__K5wf2">远程迁移服务</span></li>
+                  <li><span class="maintain_title-name__K5wf2">业务问题处理指导</span></li>
+                  <li><span class="maintain_title-name__K5wf2">远程技术支持</span></li>
+                  <li><span class="maintain_title-name__K5wf2">最新API文档讲解</span>
+                  </li>
+                  <li><span class="maintain_title-name__K5wf2">二开Demo教学讲解</span>
+                  </li>
+                  <li><span class="maintain_title-name__K5wf2">权限系统整合咨询</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="table-right">
+            <ul class="maintain_maintain-title___XvfV">
+              <li>
+                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                  <label class="maintain_shequ__aw7tz">基础维保</label>
+                  <label class="maintain_jichu__QJaIV">专业维保</label>
+                  <label class="maintain_huangjin__zplGe">黄金服务包</label>
                 </span>
-              </span>
-              <span class="productDiff_maintain-con__kaXk7">
-                <label>- -</label>
-                <label>
-                  <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" data-nimg="1" class="productDiff_choose__QKqo7"loading="lazy" style="color: transparent;"></label>
-              </span>
-            </li>
+              </li>
+            </ul>
+            <ul class="maintain_maintain-list__T1mQP">
 
-          </ul>
+              <li>
+                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                  <label>
+                    <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" class="maintain_choose__IScUV" loading="lazy" style="color:transparent">
+                  </label>
+                  <label>
+                  <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" class="maintain_choose__IScUV" loading="lazy" style="color:transparent">
+                  </label>
+                  <label>
+                    <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" class="maintain_choose__IScUV" loading="lazy" style="color:transparent">
+                  </label>
+                </span>
+              </li>
+
+              <li>
+                <span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label><img
+                  alt=""
+                  src="/images/choose.png"
+                  width="40" height="40" decoding="async" data-nimg="1" class="maintain_choose__IScUV" loading="lazy"
+                  style="color:transparent"></label><label><img alt=""
+                                                                src="/images/choose.png"
+                                                                width="40" height="40" decoding="async" data-nimg="1"
+                                                                class="maintain_choose__IScUV" loading="lazy"
+                                                                style="color:transparent"></label></span></li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label><img
+                  alt=""
+                  src="/images/choose.png"
+                  width="40" height="40" decoding="async" data-nimg="1" class="maintain_choose__IScUV" loading="lazy"
+                  style="color:transparent"></label><label><img alt=""
+                                                                src="/images/choose.png"
+                                                                width="40" height="40" decoding="async" data-nimg="1"
+                                                                class="maintain_choose__IScUV" loading="lazy"
+                                                                style="color:transparent"></label></span></li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>- -</label><label><img
+                  alt=""
+                  src="/images/choose.png"
+                  width="40" height="40" decoding="async" data-nimg="1" class="maintain_choose__IScUV" loading="lazy"
+                  style="color:transparent"></label></span></li>
+              <li><span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>不定时</label><label>5 × 8</label><label>7 × 8</label></span>
+              </li>
+              <li><span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>不定时</label><label>6小时</label><label>4小时</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>3次</label><label>12次</label></span>
+              </li>
+              <li><span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>90分钟</label><label>90分钟</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>1次</label><label>3次</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>1次</label><label>3次</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>1次</label><label>3次</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>支持</label><label>支持</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>- -</label><label>1人天</label></span>
+              </li>
+              <li><span
+                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>- -</label><label>1次</label></span>
+              </li>
+              <li>
+                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                  <label>- -</label>
+                  <label>- -</label>
+                  <label>1次</label>
+                </span>
+              </li>
+              <li>
+                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                  <label>- -</label>
+                  <label>- -</label>
+                  <label>1次</label>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -374,9 +411,10 @@ function showServiceDetail(tabId: string) {
 
 
 .service-detail {
-  width: 1540px;
-  margin: auto;
   text-align: center;
+  justify-content: space-between;
+  width: 800px;
+  margin: 50px auto auto;
 
   .service-detail-item {
     width: 400px;
@@ -384,7 +422,7 @@ function showServiceDetail(tabId: string) {
     justify-content: space-between;
     .service-detail-div {
       width: 368px;
-      height: 742px;
+      height: 580px;
       background: url("/images/price-bg.jpg") no-repeat;
       background-size: 100% 170px;
       position: relative;
@@ -439,122 +477,164 @@ function showServiceDetail(tabId: string) {
         }
         .content-desc {
           margin-left: 24px;
+          .tip svg{
+            display: inline-block;
+            vertical-align: -.125em;
+          }
         }
       }
     }
   }
 }
 
-.productDiff_product-diff-container__vt6BV {
+.maintain_maintain-container__5nbIS {
   width: 100%;
   max-width: 1220px;
   margin: auto;
 
-  .productDiff_tabs-maintain-product__HFYwK {
+  .maintain_tabs-maintain-product__5Ya7c {
     margin: 70px auto 26px;
     text-align: center;
   }
 
-  .productDiff_maintain-table__rSMUB {
-    border-left: 1px solid #e5e9f0;
-    border-bottom: 1px solid #e5e9f0;
-    border-right: 1px solid #e5e9f0;
+  .table-info {
     box-sizing: border-box;
     border-radius: 8px 8px 0 0;
 
-    .productDiff_maintain-title__xZvBp {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      background-color: #fff;
-      li {
-        list-style: none;
-        height: 60px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 0;
-        box-sizing: border-box;
-      }
-      .productDiff_title-name__md8Xm {
-        display: block;
-        width: 350px;
-        padding-left: 22px;
-        height: 60px;
-        background: #e6eaf2;
-        border-radius: 8px 8px 0 0;
-        font-size: 16px;
-        font-weight: 500;
-        color: #363b52;
-        line-height: 60px;
+    .table-left {
+      width: 350px;
+      float: left;
+      border-bottom: 1px solid #e5e9f0;
+      border-right: 1px solid #e5e9f0;
+      box-sizing: border-box;
 
-        .tip{
-          font-size: 16px;
-          margin-left: 6px;
-          color: #828594;
-          display: inline-block;
-          font-style: normal;
-          line-height: 0;
-          text-align: center;
-          text-transform: none;
-          vertical-align: -.125em;
-          text-rendering: optimizelegibility;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-      }
-      .productDiff_maintain-con__kaXk7 {
-        display: flex;
-        width: calc(100% - 350px);
-        justify-content: space-around;
+      .maintain_gong-dan__2riB2 {
+        background: #f5f7fa;
+        float: left;
 
-        label {
-          display: block;
-          width: 50%;
-          text-align: center;
-          font-size: 16px;
-          font-weight: 500;
-          color: #363b52;
+        .maintain_header__XdF9r {
+          height: 60px;
           line-height: 60px;
           background: #e6eaf2;
           border-radius: 8px 8px 0 0;
-        }
-
-        .productDiff_choose__QKqo7 {
-          width: 20px;
-          height: 20px;
-        }
-      }
-    }
-
-
-    .productDiff_maintain-list__G6ijE {
-      li {
-        list-style: none;
-        height: 50px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 1px solid #e5e9f0;
-        box-sizing: border-box;
-      }
-      .productDiff_title-name__md8Xm {
-        display: block;
-        width: 350px;
-        padding-left: 22px;
-      }
-      .productDiff_maintain-con__kaXk7 {
-        display: flex;
-        width: calc(100% - 350px);
-        justify-content: space-around;
-
-        label {
-          display: block;
-          width: 50%;
+          font-size: 16px;
+          font-weight: 500;
+          color: #363b52;
+          padding-left: 22px;
           text-align: center;
         }
+
+        .maintain_total__9MRKX {
+          width: 123px;
+          height: 400px;
+          writing-mode: tb-rl;
+          text-align: center;
+          line-height: 123px;
+          float: left;
+          border-bottom: 1px solid #e5e9f0;
+        }
+
+        .maintain_list__lT_Gz {
+          width: calc(100% - 123px);
+          height: 400px;
+          float: left;
+          .maintain_maintain-list__T1mQP {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            li {
+              background: #f5f7fa;
+              margin-top: 0px;
+              border-top: 1px solid #e5e9f0;
+              border-left: 1px solid #e5e9f0;
+              box-sizing: border-box;
+              list-style: none;
+              height: 50px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .maintain_title-name__K5wf2 {
+              display: block;
+              width: 350px;
+              padding-left: 22px;
+            }
+
+          }
+        }
       }
     }
+
+    .table-right {
+      width: calc(100% - 350px);
+      border-bottom: 1px solid #e5e9f0;
+      box-sizing: border-box;
+      float: right;
+
+      .maintain_maintain-title___XvfV {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        li {
+          height: 60px;
+          border-top: 0;
+          margin-top: 0px;
+          list-style: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-sizing: border-box;
+
+          .maintain_maintain-con__oCJAa {
+            display: flex;
+            width: 100%;;
+            justify-content: space-around;
+
+            label {
+              width: 34%;
+              font-size: 16px;
+              font-weight: 500;
+              color: #363b52;
+              line-height: 60px;
+              background: #e6eaf2;
+              border-radius: 8px 8px 0 0;
+            }
+          }
+        }
+      }
+
+      .maintain_maintain-list__T1mQP{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+          list-style: none;
+          height: 50px;
+          margin-top: 0px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px solid #e5e9f0;
+          box-sizing: border-box;
+          .maintain_maintain-con__oCJAa {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            label {
+              display: block;
+              width: 34%;
+              text-align: center;
+              .maintain_choose__IScUV {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+
   }
 
 }
