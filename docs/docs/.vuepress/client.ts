@@ -5,6 +5,7 @@ import {Layout} from "vuepress-theme-plume/client";
 // @ts-ignore
 import VPHomeIntroduce from "../../src/components/VPHomeIntroduce.vue";
 import VPTitle from "../../src/components/VPTitle.vue";
+import VPPrice from "../../src/components/VPPrice.vue";
 import DocSidebarSlot from "../../src/layouts/DocSidebarSlot.vue";
 import FooterSlot from "../../src/layouts/FooterSlot.vue";
 
@@ -21,6 +22,7 @@ export default defineClientConfig({
     enhance({ app,router  }) {
         app.component('introduce', VPHomeIntroduce)
         app.component('Title', VPTitle)
+        app.component('Price', VPPrice)
 
         router.beforeEach((to, from, next) => {
             console.log("切换路由", to.fullPath, from.fullPath);
