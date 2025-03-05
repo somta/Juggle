@@ -93,7 +93,7 @@ function showServiceDetail(tabId: string) {
             <div class="service-detail-div">
               <div class="service-detail-header">
                 <h4>按年订阅</h4>
-                <p class="detail-desc">私有化部署，终身免费升级</p>
+                <p class="detail-desc">按年付费，成本低廉</p>
                 <button type="button" class="contact-us">
                   <span>联系我们</span>
                 </button>
@@ -126,7 +126,7 @@ function showServiceDetail(tabId: string) {
             <div class="service-detail-div">
               <div class="service-detail-header">
                 <h4>终生授权</h4>
-                <p class="detail-desc">私有化部署，终身免费升级</p>
+                <p class="detail-desc">一次付费，终身使用</p>
                 <button type="button" class="contact-us">
                   <span>联系我们</span>
                 </button>
@@ -162,7 +162,7 @@ function showServiceDetail(tabId: string) {
             <div class="service-detail-div">
               <div class="service-detail-header">
                 <h4>源代码</h4>
-                <p class="detail-desc">私有化部署，终身免费升级</p>
+                <p class="detail-desc">源码在手，二开无忧</p>
                 <button type="button" class="contact-us">
                   <span>联系我们</span>
                 </button>
@@ -195,138 +195,174 @@ function showServiceDetail(tabId: string) {
       </div>
 
       <!-- 版本功能对比 -->
-      <div class="maintain_maintain-container__5nbIS">
-        <div class="maintain_tabs-maintain-product__5Ya7c">
-          <div class="maintain_maintain-title___XvfV">
+
+      <!-- 维保服务订阅 -->
+      <div class="service-container">
+        <div class="service-container-title">
             <h3>维保服务订阅</h3>
-          </div>
         </div>
         <div class="table-info">
           <div class="table-left">
-            <div class="maintain_gong-dan__2riB2">
-              <div class="maintain_header__XdF9r">服务项目</div>
-              <div class="maintain_total__9MRKX">工单系统</div>
-              <div class="maintain_list__lT_Gz">
+            <div class="item-classify">
+              <div class="table-left-header">服务项目</div>
+              <div class="item-type">工单系统</div>
+              <div class="item-type-list">
                 <ul class="maintain_maintain-list__T1mQP">
-                  <li><span class="maintain_title-name__K5wf2">公共交流群支持</span></li>
-                  <li><span class="maintain_title-name__K5wf2">远程故障排除协助</span></li>
-                  <li><span class="maintain_title-name__K5wf2">技术支持专群</span></li>
-                  <li><span class="maintain_title-name__K5wf2">专属客户经理</span></li>
-                  <li><span class="maintain_title-name__K5wf2">服务支持时间</span></li>
-                  <li><span class="maintain_title-name__K5wf2">服务响应时间</span></li>
-                  <li><span class="maintain_title-name__K5wf2">紧急响应支持</span></li>
-                  <li><span class="maintain_title-name__K5wf2">紧急响应时间</span></li>
+                  <li><span class="item-name">公共交流群支持</span></li>
+                  <li><span class="item-name">远程故障排除协助</span></li>
+                  <li><span class="item-name">技术支持专群</span></li>
+                  <li><span class="item-name">专属客户经理</span></li>
+                  <li><span class="item-name">服务支持时间</span></li>
+                  <li><span class="item-name">服务响应时间</span></li>
+                  <li><span class="item-name">紧急响应支持</span></li>
+                  <li><span class="item-name">紧急响应时间</span></li>
                 </ul>
               </div>
             </div>
-            <div class="maintain_gong-dan__2riB2">
-              <div class="maintain_total__9MRKX" style="height: 400px">增值服务</div>
-              <div class="maintain_list__lT_Gz">
+            <div class="item-classify">
+              <div class="item-type" style="height: 400px">增值服务</div>
+              <div class="item-type-list">
                 <ul class="maintain_maintain-list__T1mQP">
-                  <li><span class="maintain_title-name__K5wf2">线上专题培训</span></li>
-                  <li><span class="maintain_title-name__K5wf2">原厂协助升级</span></li>
-                  <li><span class="maintain_title-name__K5wf2">远程迁移服务</span></li>
-                  <li><span class="maintain_title-name__K5wf2">业务问题处理指导</span></li>
-                  <li><span class="maintain_title-name__K5wf2">远程技术支持</span></li>
-                  <li><span class="maintain_title-name__K5wf2">最新API文档讲解</span>
+                  <li><span class="item-name">线上专题培训</span></li>
+                  <li><span class="item-name">原厂协助升级</span></li>
+                  <li><span class="item-name">远程迁移服务</span></li>
+                  <li><span class="item-name">业务问题处理指导</span></li>
+                  <li><span class="item-name">远程技术支持</span></li>
+                  <li><span class="item-name">最新API文档讲解</span>
                   </li>
-                  <li><span class="maintain_title-name__K5wf2">二开Demo教学讲解</span>
+                  <li><span class="item-name">二开Demo教学讲解</span>
                   </li>
-                  <li><span class="maintain_title-name__K5wf2">权限系统整合咨询</span>
+                  <li><span class="item-name">权限系统整合咨询</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <div class="table-right">
-            <ul class="maintain_maintain-title___XvfV">
+            <ul class="option-list">
               <li>
-                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
-                  <label class="maintain_shequ__aw7tz">基础维保</label>
-                  <label class="maintain_jichu__QJaIV">专业维保</label>
-                  <label class="maintain_huangjin__zplGe">黄金服务包</label>
+                <span class="table-con">
+                  <label>基础维保</label>
+                  <label>专业维保</label>
+                  <label>黄金服务包</label>
                 </span>
               </li>
             </ul>
             <ul class="maintain_maintain-list__T1mQP">
 
               <li>
-                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                <span class="table-con">
                   <label>
-                    <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" class="maintain_choose__IScUV" loading="lazy" style="color:transparent">
+                    <img alt="" src="/images/choose.png" decoding="async" loading="lazy" style="color:transparent">
                   </label>
                   <label>
-                  <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" class="maintain_choose__IScUV" loading="lazy" style="color:transparent">
+                    <img alt="" src="/images/choose.png" decoding="async" loading="lazy" style="color:transparent">
                   </label>
                   <label>
-                    <img alt="" src="/images/choose.png" width="40" height="40" decoding="async" class="maintain_choose__IScUV" loading="lazy" style="color:transparent">
+                    <img alt="" src="/images/choose.png" decoding="async" loading="lazy" style="color:transparent">
                   </label>
                 </span>
               </li>
-
               <li>
-                <span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label><img
-                  alt=""
-                  src="/images/choose.png"
-                  width="40" height="40" decoding="async" data-nimg="1" class="maintain_choose__IScUV" loading="lazy"
-                  style="color:transparent"></label><label><img alt=""
-                                                                src="/images/choose.png"
-                                                                width="40" height="40" decoding="async" data-nimg="1"
-                                                                class="maintain_choose__IScUV" loading="lazy"
-                                                                style="color:transparent"></label></span></li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label><img
-                  alt=""
-                  src="/images/choose.png"
-                  width="40" height="40" decoding="async" data-nimg="1" class="maintain_choose__IScUV" loading="lazy"
-                  style="color:transparent"></label><label><img alt=""
-                                                                src="/images/choose.png"
-                                                                width="40" height="40" decoding="async" data-nimg="1"
-                                                                class="maintain_choose__IScUV" loading="lazy"
-                                                                style="color:transparent"></label></span></li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>- -</label><label><img
-                  alt=""
-                  src="/images/choose.png"
-                  width="40" height="40" decoding="async" data-nimg="1" class="maintain_choose__IScUV" loading="lazy"
-                  style="color:transparent"></label></span></li>
-              <li><span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>不定时</label><label>5 × 8</label><label>7 × 8</label></span>
-              </li>
-              <li><span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>不定时</label><label>6小时</label><label>4小时</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>3次</label><label>12次</label></span>
-              </li>
-              <li><span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>90分钟</label><label>90分钟</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>1次</label><label>3次</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>1次</label><label>3次</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>1次</label><label>3次</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>支持</label><label>支持</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>- -</label><label>1人天</label></span>
-              </li>
-              <li><span
-                  class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk"><label>- -</label><label>- -</label><label>1次</label></span>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy" style="color:transparent"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"style="color:transparent"></label>
+                </span>
               </li>
               <li>
-                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"style="color:transparent"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy" style="color:transparent"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"style="color:transparent"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>不定时</label>
+                  <label>5 × 8</label>
+                  <label>7 × 8</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>不定时</label>
+                  <label>6小时</label>
+                  <label>4小时</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>3次</label>
+                  <label>12次</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>90分钟</label>
+                  <label>90分钟</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>1次</label>
+                  <label>3次</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>1次</label>
+                  <label>3次</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                <label>- -</label>
+                <label>1次</label>
+                <label>3次</label>
+              </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>支持</label>
+                  <label>支持</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>- -</label>
+                  <label>1人天</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
                   <label>- -</label>
                   <label>- -</label>
                   <label>1次</label>
                 </span>
               </li>
               <li>
-                <span class="maintain_maintain-con__oCJAa maintain_maintain-con-2__AQxEk">
+                <span class="table-con">
+                  <label>- -</label>
+                  <label>- -</label>
+                  <label>1次</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
                   <label>- -</label>
                   <label>- -</label>
                   <label>1次</label>
@@ -487,154 +523,154 @@ function showServiceDetail(tabId: string) {
   }
 }
 
-.maintain_maintain-container__5nbIS {
+
+
+.service-container {
   width: 100%;
   max-width: 1220px;
   margin: auto;
-
-  .maintain_tabs-maintain-product__5Ya7c {
+  .service-container-title {
     margin: 70px auto 26px;
     text-align: center;
   }
+}
 
-  .table-info {
+.table-info {
+  box-sizing: border-box;
+  border-radius: 8px 8px 0 0;
+
+  .table-left {
+    width: 350px;
+    float: left;
+    border-bottom: 1px solid #e5e9f0;
+    border-right: 1px solid #e5e9f0;
     box-sizing: border-box;
-    border-radius: 8px 8px 0 0;
 
-    .table-left {
-      width: 350px;
+    .item-classify {
+      background: #f5f7fa;
       float: left;
-      border-bottom: 1px solid #e5e9f0;
-      border-right: 1px solid #e5e9f0;
-      box-sizing: border-box;
 
-      .maintain_gong-dan__2riB2 {
-        background: #f5f7fa;
-        float: left;
-
-        .maintain_header__XdF9r {
-          height: 60px;
-          line-height: 60px;
-          background: #e6eaf2;
-          border-radius: 8px 8px 0 0;
-          font-size: 16px;
-          font-weight: 500;
-          color: #363b52;
-          padding-left: 22px;
-          text-align: center;
-        }
-
-        .maintain_total__9MRKX {
-          width: 123px;
-          height: 400px;
-          writing-mode: tb-rl;
-          text-align: center;
-          line-height: 123px;
-          float: left;
-          border-bottom: 1px solid #e5e9f0;
-        }
-
-        .maintain_list__lT_Gz {
-          width: calc(100% - 123px);
-          height: 400px;
-          float: left;
-          .maintain_maintain-list__T1mQP {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            li {
-              background: #f5f7fa;
-              margin-top: 0px;
-              border-top: 1px solid #e5e9f0;
-              border-left: 1px solid #e5e9f0;
-              box-sizing: border-box;
-              list-style: none;
-              height: 50px;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            }
-            .maintain_title-name__K5wf2 {
-              display: block;
-              width: 350px;
-              padding-left: 22px;
-            }
-
-          }
-        }
-      }
-    }
-
-    .table-right {
-      width: calc(100% - 350px);
-      border-bottom: 1px solid #e5e9f0;
-      box-sizing: border-box;
-      float: right;
-
-      .maintain_maintain-title___XvfV {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+      .table-left-header {
+        height: 60px;
+        line-height: 60px;
+        background: #e6eaf2;
+        border-radius: 8px 8px 0 0;
+        font-size: 16px;
+        font-weight: 500;
+        color: #363b52;
+        padding-left: 22px;
         text-align: center;
-        li {
-          height: 60px;
-          border-top: 0;
-          margin-top: 0px;
-          list-style: none;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          box-sizing: border-box;
-
-          .maintain_maintain-con__oCJAa {
-            display: flex;
-            width: 100%;;
-            justify-content: space-around;
-
-            label {
-              width: 34%;
-              font-size: 16px;
-              font-weight: 500;
-              color: #363b52;
-              line-height: 60px;
-              background: #e6eaf2;
-              border-radius: 8px 8px 0 0;
-            }
-          }
-        }
       }
 
-      .maintain_maintain-list__T1mQP{
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        li {
+      .item-type {
+        width: 123px;
+        height: 400px;
+        writing-mode: tb-rl;
+        text-align: center;
+        line-height: 123px;
+        float: left;
+        border-bottom: 1px solid #e5e9f0;
+      }
+
+      .item-type-list {
+        width: calc(100% - 123px);
+        height: 400px;
+        float: left;
+        .maintain_maintain-list__T1mQP {
           list-style: none;
-          height: 50px;
-          margin-top: 0px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-top: 1px solid #e5e9f0;
-          box-sizing: border-box;
-          .maintain_maintain-con__oCJAa {
+          padding: 0;
+          margin: 0;
+          li {
+            background: #f5f7fa;
+            margin-top: 0px;
+            border-top: 1px solid #e5e9f0;
+            border-left: 1px solid #e5e9f0;
+            box-sizing: border-box;
+            list-style: none;
+            height: 50px;
             display: flex;
-            width: 100%;
-            justify-content: space-around;
-            label {
-              display: block;
-              width: 34%;
-              text-align: center;
-              .maintain_choose__IScUV {
-                width: 20px;
-                height: 20px;
-              }
-            }
+            justify-content: space-between;
+            align-items: center;
+          }
+          .item-name {
+            display: block;
+            width: 350px;
+            padding-left: 22px;
+          }
+
+        }
+      }
+    }
+  }
+
+  .table-right {
+    width: calc(100% - 350px);
+    border-bottom: 1px solid #e5e9f0;
+    box-sizing: border-box;
+    float: right;
+
+    .option-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      li {
+        height: 60px;
+        border-top: 0;
+        margin-top: 0px;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+
+        .table-con {
+          display: flex;
+          width: 100%;;
+          justify-content: space-around;
+
+          label {
+            width: 34%;
+            font-size: 16px;
+            font-weight: 500;
+            color: #363b52;
+            line-height: 60px;
+            background: #e6eaf2;
+            border-radius: 8px 8px 0 0;
           }
         }
       }
     }
 
+    .maintain_maintain-list__T1mQP{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        list-style: none;
+        height: 50px;
+        margin-top: 0px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #e5e9f0;
+        box-sizing: border-box;
+        .table-con {
+          display: flex;
+          width: 100%;
+          justify-content: space-around;
+          label {
+            display: block;
+            width: 34%;
+            text-align: center;
+            img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
   }
 
 }
