@@ -669,8 +669,8 @@ function hideModel() {
         <div class="modal-content">
           <span class="close" @click="hideModel">&times;</span>
           <div>
-            <div>添加官方微信了解更多详情，备注"Juggle"</div>
-           <img src="/images/wx.png" alt="">
+            <div>添加官方微信,了解更多详情，备注"Juggle"</div>
+            <img src="/images/wx.png" alt="">
           </div>
         </div>
       </div>
@@ -711,6 +711,7 @@ function hideModel() {
   }
 
   .price-desc {
+    color: rgba(60, 60, 67);
     padding-bottom: 15px;
   }
 
@@ -814,6 +815,7 @@ function hideModel() {
           color: #999;
         }
         .content-desc {
+          color: var(--vp-c-text-1);
           margin-left: 24px;
           .tip svg{
             display: inline-block;
@@ -859,11 +861,11 @@ function hideModel() {
     width: 350px;
     float: left;
     border-bottom: 1px solid #e5e9f0;
+    border-left: 1px solid #e5e9f0;
     border-right: 1px solid #e5e9f0;
     box-sizing: border-box;
 
     .item-classify {
-      background: #f5f7fa;
       float: left;
 
       .table-left-header {
@@ -897,7 +899,7 @@ function hideModel() {
           padding: 0;
           margin: 0;
           li {
-            background: #f5f7fa;
+            //background: #f5f7fa;
             margin-top: 0px;
             border-top: 1px solid #e5e9f0;
             border-left: 1px solid #e5e9f0;
@@ -1006,7 +1008,9 @@ function hideModel() {
   display: flex;
   justify-content: center;
   align-items: center;
+
   .modal-content {
+    color: #333333;
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
@@ -1014,6 +1018,7 @@ function hideModel() {
   }
   .close {
     position: absolute;
+    color: #1b1b1f;
     top: 10px;
     right: 15px;
     font-size: 20px;

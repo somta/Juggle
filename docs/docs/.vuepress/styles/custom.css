@@ -1,9 +1,9 @@
 
 .vp-navbar-menu .navbar-menu-link{
     font-size: 16px;
+    padding: 0 15px;
 }
 
-.vp-navbar-menu .navbar-menu-link .active {
+.navbar-menu-link.active{
     font-weight: 800;
-    color: #2ec62e !important;
 }
