@@ -3,10 +3,19 @@
 import {ref} from "vue";
 
 const selectedPriceTab = ref<string>("yearly");
+const modelVisible = ref(false);
 
 // 定义一个函数用于处理点击事件，并设置selectedPriceTab的值为当前点击的价格选项ID
 function showServiceDetail(tabId: string) {
   selectedPriceTab.value = tabId;
+}
+
+function showModel() {
+  modelVisible.value = true;
+}
+
+function hideModel() {
+  modelVisible.value = false;
 }
 
 </script>
@@ -16,6 +25,30 @@ function showServiceDetail(tabId: string) {
 
       <!-- 价格分类 -->
       <div class="price_tab-box">
+
+        <div class="price-tab" @click="showServiceDetail('open')">
+          <div class="price-title">免费使用</div>
+          <ul class="price-desc">
+            <li>
+              <span role="img" aria-label="check-circle" class="anticon anticon-check-circle">
+              <svg viewBox="64 64 896 896" focusable="false" data-icon="check-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 01-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"></path></svg>
+             </span>
+              开箱即用 | 快速尝试
+            </li>
+            <li>
+              <span role="img" aria-label="check-circle" class="anticon anticon-check-circle">
+              <svg viewBox="64 64 896 896" focusable="false" data-icon="check-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 01-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"></path></svg>
+              </span>
+              无需购买 | 立刻使用
+            </li>
+            <li>
+              <span role="img" aria-label="check-circle" class="anticon anticon-check-circle">
+                <svg viewBox="64 64 896 896" focusable="false" data-icon="check-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 01-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"></path></svg>
+              </span>
+              自助升级 | 无需二开
+            </li>
+          </ul>
+        </div>
 
         <div class="price-tab" @click="showServiceDetail('yearly')">
           <div class="price-title">按年订阅</div>
@@ -88,14 +121,47 @@ function showServiceDetail(tabId: string) {
           <h3>服务清单</h3>
         </div>
 
-         <!-- 按年订阅 -->
+        <!-- 开源版本 -->
+        <div v-if="selectedPriceTab === 'open'" class="service-detail-item">
+          <div class="service-detail-div">
+            <div class="service-detail-header">
+              <h4>开源版本-免费使用</h4>
+              <p class="detail-desc">开源免费，开箱即用</p>
+              <button type="button" class="contact-us">
+                <span @click="showModel">联系我们</span>
+              </button>
+            </div>
+
+            <div class="service-content-item">
+              <span class="content-title">部署方式</span><span class="content-desc">私有化部署</span>
+            </div>
+            <div class="service-content-item">
+              <span class="content-title">授权时长</span><span class="content-desc">永久</span>
+            </div>
+            <div class="service-content-item">
+              <span class="content-title">多买优惠</span><span class="content-desc">无</span>
+            </div>
+            <div class="service-content-item">
+              <span class="content-title">定制开发</span>
+              <span class="content-desc">支持 <span title="定制化开发的内容将以人天额外计费" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span>
+            </div>
+            <div class="service-content-item">
+              <span class="content-title">系统源码</span><span class="content-desc">无</span>
+            </div>
+            <div class="service-content-item">
+              <span class="content-title">系统文档</span><span class="content-desc">官网使用手册</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 按年订阅 -->
         <div v-if="selectedPriceTab === 'yearly'" class="service-detail-item">
             <div class="service-detail-div">
               <div class="service-detail-header">
-                <h4>按年订阅</h4>
+                <h4>企业版本-按年订阅</h4>
                 <p class="detail-desc">按年付费，成本低廉</p>
                 <button type="button" class="contact-us">
-                  <span>联系我们</span>
+                  <span @click="showModel">联系我们</span>
                 </button>
               </div>
 
@@ -116,7 +182,7 @@ function showServiceDetail(tabId: string) {
                 <span class="content-title">系统源码</span><span class="content-desc">无</span>
               </div>
               <div class="service-content-item">
-                <span class="content-title">系统文档</span><span class="content-desc">官网使用手册</span>
+                <span class="content-title">系统文档</span><span class="content-desc">产品使用说明书</span>
               </div>
             </div>
         </div>
@@ -125,10 +191,10 @@ function showServiceDetail(tabId: string) {
         <div v-else-if="selectedPriceTab === 'lifetime'" class="service-detail-item">
             <div class="service-detail-div">
               <div class="service-detail-header">
-                <h4>终生授权</h4>
+                <h4>企业版本-终生授权</h4>
                 <p class="detail-desc">一次付费，终身使用</p>
                 <button type="button" class="contact-us">
-                  <span>联系我们</span>
+                  <span @click="showModel">联系我们</span>
                 </button>
               </div>
 
@@ -161,10 +227,10 @@ function showServiceDetail(tabId: string) {
         <div v-else-if="selectedPriceTab === 'sourcecode'" class="service-detail-item">
             <div class="service-detail-div">
               <div class="service-detail-header">
-                <h4>源代码</h4>
+                <h4>企业版本-源代码</h4>
                 <p class="detail-desc">源码在手，二开无忧</p>
                 <button type="button" class="contact-us">
-                  <span>联系我们</span>
+                  <span @click="showModel">联系我们</span>
                 </button>
               </div>
 
@@ -195,6 +261,231 @@ function showServiceDetail(tabId: string) {
       </div>
 
       <!-- 版本功能对比 -->
+      <div class="product-version-diff">
+        <div class="product-version-diff-title">
+          <h3>版本功能对比</h3>
+        </div>
+        <div class="table-info">
+          <div class="table-left">
+            <div class="item-classify">
+              <div class="table-left-header">模块</div>
+              <div class="item-type" style="height: 750px">流程</div>
+              <div class="item-type-list">
+                <ul class="table-item-list">
+                  <li><span class="item-name">流程定义管理</span></li>
+                  <li><span class="item-name">支持的流程类型</span></li>
+                  <li><span class="item-name">流程设计</span></li>
+                  <li><span class="item-name">流程调试</span></li>
+                  <li><span class="item-name">流程检测 <span title="支持自动检测流程，并一键修复流程设计中的问题" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span></li>
+                  <li><span class="item-name">流程节点</span></li>
+                  <li><span class="item-name">多版本流程</span></li>
+                  <li><span class="item-name">流程历史版本</span></li>
+                  <li><span class="item-name">节点数据Mock</span></li>
+                  <li><span class="item-name">支持的脚本语言</span></li>
+                  <li><span class="item-name">流程导入导出</span></li>
+                  <li><span class="item-name">流程日志</span></li>
+                  <li><span class="item-name">企业流程模板</span></li>
+                  <li><span class="item-name">流程令牌</span></li>
+                  <li><span class="item-name">多语言SDK集成</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="item-classify">
+              <div class="item-type" style="height: 300px">套件</div>
+              <div class="item-type-list" style="height: 300px">
+                <ul class="table-item-list">
+                  <li><span class="item-name">套件管理</span></li>
+                  <li><span class="item-name">接口管理</span></li>
+                  <li><span class="item-name">对象管理</span></li>
+                  <li><span class="item-name">接口调试</span></li>
+                  <li><span class="item-name">支持的接口协议</span></li>
+                  <li><span class="item-name">套件导入/导出</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="item-classify">
+              <div class="item-type" style="height: 100px">市场</div>
+              <div class="item-type-list" style="height: 100px">
+                <ul class="table-item-list">
+                  <li><span class="item-name">套件市场</span></li>
+                  <li><span class="item-name">模板市场</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="item-classify">
+              <div class="item-type" style="height: 100px">设置</div>
+              <div class="item-type-list" style="height: 100px">
+                <ul class="table-item-list">
+                  <li><span class="item-name">数据源</span></li>
+                  <li><span class="item-name">静态变量</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="table-right">
+            <ul class="option-list">
+              <li>
+                <span class="table-con">
+                  <label style="background: #d7e3f8;">开源版本</label>
+                  <label style="background-image: url(/images/price-bg.jpg);background-size: cover;">企业版本</label>
+                </span>
+              </li>
+            </ul>
+            <ul class="table-content-list">
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>方法节点/判断节点/赋值节点/mysql节点/代码节点</label>
+                  <label>方法节点/判断节点/赋值节点/数据库节点/代码节点</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>Groovy/JavaScript</label>
+                  <label>Groovy/JavaScript/Python/Java</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>全局令牌</label>
+                  <label>应用级别细粒度令牌</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>Http</label>
+                  <label>Http/Dubbo/WebService</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>MySql数据源</label>
+                  <label>多种数据源</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <!-- 维保服务订阅 -->
       <div class="service-container">
@@ -207,7 +498,7 @@ function showServiceDetail(tabId: string) {
               <div class="table-left-header">服务项目</div>
               <div class="item-type">工单系统</div>
               <div class="item-type-list">
-                <ul class="maintain_maintain-list__T1mQP">
+                <ul class="table-item-list">
                   <li><span class="item-name">公共交流群支持</span></li>
                   <li><span class="item-name">远程故障排除协助</span></li>
                   <li><span class="item-name">技术支持专群</span></li>
@@ -222,17 +513,17 @@ function showServiceDetail(tabId: string) {
             <div class="item-classify">
               <div class="item-type" style="height: 400px">增值服务</div>
               <div class="item-type-list">
-                <ul class="maintain_maintain-list__T1mQP">
-                  <li><span class="item-name">线上专题培训</span></li>
+                <ul class="table-item-list">
+                  <li><span class="item-name">线上专题培训 <span title="通过远程会议，进行系统使用讲解" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span></li>
                   <li><span class="item-name">原厂协助升级</span></li>
                   <li><span class="item-name">远程迁移服务</span></li>
                   <li><span class="item-name">业务问题处理指导</span></li>
                   <li><span class="item-name">远程技术支持</span></li>
                   <li><span class="item-name">最新API文档讲解</span>
                   </li>
-                  <li><span class="item-name">二开Demo教学讲解</span>
+                  <li><span class="item-name">二开Demo教学讲解 <span title="针对项目源码结构，新增套件进行讲解（仅限购买源码的用户）" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span>
                   </li>
-                  <li><span class="item-name">权限系统整合咨询</span>
+                  <li><span class="item-name">权限系统整合咨询 <span title="登录，注册，权限等功能，提供系统源码讲解和对接咨询（仅限购买源码的用户）" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></span>
                   </li>
                 </ul>
               </div>
@@ -242,13 +533,13 @@ function showServiceDetail(tabId: string) {
             <ul class="option-list">
               <li>
                 <span class="table-con">
-                  <label>基础维保</label>
-                  <label>专业维保</label>
-                  <label>黄金服务包</label>
+                  <label style="background: #d7e3f8;">基础维保 <span title="我们将通过公共交流群、社区平台等方式为用户提供维保服务，响应时间不定。" class="tip"><svg viewBox="64 64 896 896" focusable="false" data-icon="question-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M623.6 316.7C593.6 290.4 554 276 512 276s-81.6 14.5-111.6 40.7C369.2 344 352 380.7 352 420v7.6c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V420c0-44.1 43.1-80 96-80s96 35.9 96 80c0 31.1-22 59.6-56.1 72.7-21.2 8.1-39.2 22.3-52.1 40.9-13.1 19-19.9 41.8-19.9 64.9V620c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8v-22.7a48.3 48.3 0 0130.9-44.8c59-22.7 97.1-74.7 97.1-132.5.1-39.3-17.1-76-48.3-103.3zM472 732a40 40 0 1080 0 40 40 0 10-80 0z"></path></svg></span></label>
+                  <label style="background: linear-gradient(181deg, #fcf0e6, #f6caa6);">专业维保</label>
+                  <label style="background-image: url(/images/price-bg.jpg);background-size: cover;">黄金服务包</label>
                 </span>
               </li>
             </ul>
-            <ul class="maintain_maintain-list__T1mQP">
+            <ul class="table-content-list">
 
               <li>
                 <span class="table-con">
@@ -373,6 +664,17 @@ function showServiceDetail(tabId: string) {
         </div>
       </div>
 
+      <!-- 弹框 -->
+      <div v-if="modelVisible" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="hideModel">&times;</span>
+          <div>
+            <div>添加官方微信了解更多详情，备注"Juggle"</div>
+           <img src="/images/wx.png" alt="">
+          </div>
+        </div>
+      </div>
+
     </div>
 </template>
 
@@ -385,12 +687,12 @@ function showServiceDetail(tabId: string) {
 .price_tab-box {
   display: flex;
   justify-content: space-between;
-  width: 800px;
+  width: 1000px;
   margin: 50px auto auto;
 }
 
 .price-tab {
-  width: 32%;
+  width: 23%;
   background: #fff;
   box-shadow: 0 0 14px rgba(82, 112, 237, .322);
   border-radius: 8px;
@@ -524,6 +826,20 @@ function showServiceDetail(tabId: string) {
 }
 
 
+.product-version-diff {
+  width: 100%;
+  height: 1350px;
+  max-width: 1220px;
+  margin: auto;
+  .product-version-diff-title {
+    margin: 70px auto 26px;
+    text-align: center;
+  }
+  label{
+    width: 50% !important;
+  }
+}
+
 
 .service-container {
   width: 100%;
@@ -576,7 +892,7 @@ function showServiceDetail(tabId: string) {
         width: calc(100% - 123px);
         height: 400px;
         float: left;
-        .maintain_maintain-list__T1mQP {
+        .table-item-list {
           list-style: none;
           padding: 0;
           margin: 0;
@@ -606,6 +922,7 @@ function showServiceDetail(tabId: string) {
   .table-right {
     width: calc(100% - 350px);
     border-bottom: 1px solid #e5e9f0;
+    border-right: 1px solid #e5e9f0;
     box-sizing: border-box;
     float: right;
 
@@ -642,7 +959,7 @@ function showServiceDetail(tabId: string) {
       }
     }
 
-    .maintain_maintain-list__T1mQP{
+    .table-content-list{
       list-style: none;
       padding: 0;
       margin: 0;
@@ -673,6 +990,36 @@ function showServiceDetail(tabId: string) {
     }
   }
 
+  .tip svg{
+    display: inline-block;
+    vertical-align: -.125em;
+  }
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
 
 </style>
