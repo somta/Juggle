@@ -37,6 +37,16 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 7.全信创支持，支持MySql，达梦，TiDB，OceanBase等数据库
 
+
+## 系统截图
+
+1.灵活流程设计
+![](/docs/docs/notes/guide/user/images/flow_example.png)
+
+2.丰富的套件市场
+![](/docs/docs/notes/guide/market/images/example_suite.png)
+
+
 ## 快速开始
 
 ### 1.环境准备
