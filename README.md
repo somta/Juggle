@@ -102,6 +102,7 @@ sh startup.sh
 <div align = "center"> 
     <img src="https://juggle.plus/customer/hstong.png" width="33%" style="background-color: #383434"/>
     <img src="https://juggle.plus/customer/pingankeji.png" width="33%" />
+    <img src="https://juggle.plus/customer/megvii.png" width="33%" />
     <img src="https://juggle.plus/customer/swsc.png" width="33%" />
     <img src="https://juggle.plus/customer/xinyucores.png" width="33%" style="background-color: #000"/>
     <img src="https://juggle.plus/customer/scooper.png" width="33%" />
