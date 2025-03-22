@@ -36,7 +36,6 @@ public class DataSourceManager implements IDataSourceManager {
             return dataSourceCache.get(dataSourceId);
         }
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
-        dataSourceAo.decryptData(juggleProperties.getSecretKey());
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         Object dataSourceInstance = DataSourceInstanceFactory.getDataSourceInstance(dataSource);
         return dataSourceInstance;

@@ -30,24 +30,6 @@ public class DataSourceAO {
      */
     private Integer queryTimeout;
 
-
-    public void encryptData(String secretKey){
-        if(StringUtils.isNotBlank(secretKey)){
-            SecretKeySpec secretKeySpec = AESUtil.stringToSecretKey(secretKey);
-            String encryptPassword = AESUtil.encrypt(this.password, secretKeySpec);
-            this.password = encryptPassword;
-        }
-    }
-
-    public void decryptData(String secretKey) {
-        if(StringUtils.isNotBlank(secretKey)){
-            SecretKeySpec secretKeySpec = AESUtil.stringToSecretKey(secretKey);
-            String encryptPassword = AESUtil.decrypt(this.password, secretKeySpec);
-            this.password = encryptPassword;
-        }
-    }
-
-
     public Long getId() {
         return id;
     }
