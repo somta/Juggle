@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { HomeFilled, Coin, Setting, ShoppingBag } from '@element-plus/icons-vue';
+import { Coin, ShoppingBag } from '@element-plus/icons-vue';
 import IconFlow from '@/components/icons/IconFlow.vue';
 import IconInterface from '@/components/icons/IconInterface.vue';
+import IconSetting from "@/components/icons/IconSetting.vue";
 </script>
 
 <template>
@@ -41,7 +42,7 @@ import IconInterface from '@/components/icons/IconInterface.vue';
       </el-sub-menu>
       <el-sub-menu index="5">
         <template #title>
-          <el-icon><Setting /></el-icon>
+          <el-icon><IconSetting/></el-icon>
           <span>设置</span>
         </template>
         <el-menu-item index="/system/token">令牌</el-menu-item>
