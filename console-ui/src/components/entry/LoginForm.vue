@@ -4,6 +4,8 @@ import { User, Lock } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import { userService } from '@/service';
+import {request} from "@/service/base";
+import ThirdPartyLogin from "@/components/entry/ThirdPartyLogin.vue";
 const router = useRouter();
 
 const userName = ref('');
@@ -27,6 +29,7 @@ async function submit() {
   }
   loading.value = false;
 }
+
 </script>
 
 <template>
@@ -40,6 +43,7 @@ async function submit() {
     <div class="login-form-item">
       <el-button type="primary" size="large" :style="{ width: '100%', marginTop: '24px' }" :loading="loading" @click="submit"> 登录 </el-button>
     </div>
+    <ThirdPartyLogin/>
   </div>
 </template>
 
