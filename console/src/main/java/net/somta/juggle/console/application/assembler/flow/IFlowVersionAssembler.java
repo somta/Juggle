@@ -13,6 +13,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
@@ -60,7 +61,7 @@ public interface IFlowVersionAssembler {
             flowVersionDTO.setFlowVersion(flowVersionView.getFlowVersion());
             flowVersionDTO.setFlowVersionStatus(flowVersionView.getFlowVersionStatus());
             flowVersionDTO.setFlowVersionRemark(flowVersionView.getFlowVersionRemark());
-            flowVersionDTO.setTriggerUrl(JUGGLE_SERVER_VERSION + "/open/flow/trigger/"+flowVersionView.getFlowVersion()+"/"+flowVersionView.getFlowKey());
+            flowVersionDTO.setTriggerUrl(JUGGLE_OPEN_API_PREFIX + "/flow/trigger/"+flowVersionView.getFlowVersion()+"/"+flowVersionView.getFlowKey());
             list.add(flowVersionDTO);
         }
         return list;
