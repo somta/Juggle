@@ -42,18 +42,16 @@ function onEditOpen(data: any) {
   paramSettingModalRef.value.edit(data);
 }
 function onAdd(data: any) {
-  console.log('开始增加', data);
   flowContext.update(draft => {
     const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index === -1) {
-      console.log(draft.flowVariables);
       draft.flowVariables.push(cloneDeep(data));
     }
   });
 }
 function onEdit(data: any) {
   flowContext.update(draft => {
-    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index > -1) {
       draft.flowVariables.splice(index, 1, data);
     }

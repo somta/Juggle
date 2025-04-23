@@ -62,7 +62,9 @@ INSERT INTO t_user (age, name) VALUES (${input_age}, '${input_name}');
 
 :::warning
 如果引入的变量是一个字符串时,sql中在使用变量的时候需要在变量外面加上单引号，如下面的例子中name是一个字符串，使用入参变量input_name时在括号外面加上了单引号
+```sql
 INSERT INTO t_user (age, name) VALUES (${input_age}, '${input_name}');
+```
 :::
 
 #### d.结果输出
