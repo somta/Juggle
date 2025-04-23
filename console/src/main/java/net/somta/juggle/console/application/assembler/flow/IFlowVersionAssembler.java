@@ -8,6 +8,7 @@ import net.somta.juggle.console.domain.flow.version.vo.FlowVersionVO;
 import net.somta.juggle.console.interfaces.dto.flow.FlowVersionDTO;
 import net.somta.juggle.console.interfaces.param.flow.FlowVersionPageParam;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public interface IFlowVersionAssembler {
      * @param flowVersionInfoView flow version view
      * @return flow version ao
      */
+    @Mapping(target = "flowVersionStatusEnum", expression = "java(net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum.getByCode(flowVersionInfoView.getFlowVersionStatus()))")
     FlowVersionAO viewToAo(FlowVersionInfoView flowVersionInfoView);
 
     /**
