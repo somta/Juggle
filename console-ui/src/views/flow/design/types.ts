@@ -26,6 +26,7 @@ export type MethodInfo = {
   requestType: string;
   url: string;
   inputParamSchemas: any;
+  outputParamSchemas: any;
   headerFillRules: any;
   inputFillRules: any;
   outputFillRules: any;
