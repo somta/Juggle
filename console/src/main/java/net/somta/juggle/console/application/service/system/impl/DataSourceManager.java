@@ -17,7 +17,7 @@ public class DataSourceManager implements IDataSourceManager {
 
     private final IDataSourceRepository dataSourceRepository;
     private final JuggleProperties juggleProperties;
-    private Map<String, Object> dataSourceCache;
+    private final Map<Long, Object> dataSourceCache;
 
     public DataSourceManager(IDataSourceRepository dataSourceRepository, JuggleProperties juggleProperties) {
         this.juggleProperties = juggleProperties;
@@ -32,12 +32,16 @@ public class DataSourceManager implements IDataSourceManager {
 
     @Override
     public Object getDataSource(Long dataSourceId) {
-        if (dataSourceCache.containsKey(dataSourceId)) {
-            return dataSourceCache.get(dataSourceId);
+        Object cacheDataSource = dataSourceCache.get(dataSourceId);
+        if (cacheDataSource != null) {
+            return cacheDataSource;
         }
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         Object dataSourceInstance = DataSourceInstanceFactory.getDataSourceInstance(dataSource);
+        if(dataSourceInstance != null){
+            dataSourceCache.put(dataSourceId, dataSourceInstance);
+        }
         return dataSourceInstance;
     }
 }
