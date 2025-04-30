@@ -3,4 +3,4 @@
     \ \ | | | |  / _` |  / _` | | |  / _ \
  /\_/ / | |_| | | (_| | | (_| | | | |  __/   Pid: ${pid}
  \___/   \__,_|  \__, |  \__, | |_|  \___|   Console: http://${server.ip}:${server.port}/index.html
-                 |___/   |___/
+                 |___/   |___/               Site: https://juggle.plus

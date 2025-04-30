@@ -23,7 +23,8 @@ export default defineConfig(({ mode }) => {
       open: true,
       host: '0.0.0.0',
       proxy: {
-        '^/v(d*)': env.VITE_API_PROXY
+        '^/v(d*)': env.VITE_API_PROXY,
+        '^/open': env.VITE_API_PROXY
       }
     }
   }

@@ -34,7 +34,7 @@ export const userGuide = defineNoteConfig({
                     text: '节点',
                     collapsed: true,
                     prefix: 'nodes',
-                    items: ['method-node','condition-node','code-node','mysql-node']
+                    items: ['method-node','condition-node','assign-node','code-node','mysql-node']
                 },
                 'flow',
                 'flow-version',

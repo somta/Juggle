@@ -1,5 +1,9 @@
 
 .vp-navbar-menu .navbar-menu-link{
-    font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
+    padding: 0 15px;
+}
+
+.navbar-menu-link.active{
+    font-weight: 800;
 }
