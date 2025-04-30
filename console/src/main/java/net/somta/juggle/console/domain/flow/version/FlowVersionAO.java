@@ -6,6 +6,7 @@ import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.core.model.InputParameter;
 import net.somta.juggle.core.model.OutputParameter;
 import net.somta.juggle.core.model.Variable;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -46,7 +47,9 @@ public class FlowVersionAO {
     public List<InputParameter> getFlowRuntimeInputParameters() {
         List<InputParameter> inputParameterList = null;
         try {
-            inputParameterList = JsonSerializeHelper.deserialize(this.inputs, List.class, InputParameter.class);
+            if(StringUtils.isNotBlank(this.inputs)){
+                inputParameterList = JsonSerializeHelper.deserialize(this.inputs, List.class, InputParameter.class);
+            }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

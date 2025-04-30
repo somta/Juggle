@@ -24,7 +24,7 @@ function editRow(row: any) {
   <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="suiteCode" label="套件图像" width="100" >
       <template #default="scope">
-        <img v-if="scope.row.suiteImage" :src="scope.row.suiteImage" class="suite-image" alt="suite image" />
+        <img v-if="scope.row.suiteImage" :src="scope.row.suiteImage" @error="e => { e.target.src = '/suite/default.svg' }" class="suite-image" alt="suite image" />
         <img v-else class="suite-image" >
       </template>
     </el-table-column>

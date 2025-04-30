@@ -12,7 +12,7 @@ public enum UserErrorEnum implements IBaseError {
     USER_PWD_ERROR(1002,  "用户密码错误"),
     USER_NOT_LOGIN_ERROR(1003,  "用户未登录"),
     OLD_PASSWORD_ERROR(1004,  "原密码错误"),
-    OPEN_API_TOKEN_ERROR(1005,  "令牌错误"),
+    OPEN_API_TOKEN_ERROR(1005,  "令牌不存在或为非法令牌"),
     ;
 
     private int errorCode;

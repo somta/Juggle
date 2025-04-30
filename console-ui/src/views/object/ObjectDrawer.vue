@@ -21,10 +21,26 @@ function getDefaultObject() {
   };
 }
 
+// 校验对象编码是否已经存在
+const validateObjectKey = (rule: any, value: string, callback: Function) => {
+  const param = {
+    id: objectFormValue.id,
+    objectKey: objectFormValue.objectKey
+  }
+  objectService.isExistObjectKey(param).then((response) => {
+    if (response.success && response.result) {
+      callback(new Error('对象key已经存在'));
+    } else {
+      callback();
+    }
+  });
+};
+
 const rules = reactive<FormRules>({
   objectKey: [
     { required: true, message: '请输入对象编码', trigger: 'blur' },
     { pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母、下划线和数字', trigger: 'blur' },
+    { validator: validateObjectKey, trigger: 'blur' },
   ],
   objectName: [{ required: true, message: '请输入对象名称', trigger: 'blur' }],
 });

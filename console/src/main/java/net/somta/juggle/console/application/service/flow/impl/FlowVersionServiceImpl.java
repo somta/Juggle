@@ -80,12 +80,12 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
     }
 
     @Override
-    public PageInfo getFlowVersionPageList(FlowVersionPageParam flowVersionPageParam) {
+    public PageInfo<FlowVersionDTO> getFlowVersionPageList(FlowVersionPageParam flowVersionPageParam) {
         FlowVersionQueryVO flowVersionQueryVO = IFlowVersionAssembler.IMPL.paramToVo(flowVersionPageParam);
         Page<FlowInfoDTO> page = PageHelper.startPage(flowVersionPageParam.getPageNum(), flowVersionPageParam.getPageSize());
         List<FlowVersionView> flowVersionViewList = flowVersionRepository.queryFlowVersionList(flowVersionQueryVO);
         List<FlowVersionDTO> flowVersionDTOList = IFlowVersionAssembler.IMPL.viewListToDtoList(flowVersionViewList);
-        PageInfo pageInfo = new PageInfo(flowVersionDTOList);
+        PageInfo<FlowVersionDTO> pageInfo = new PageInfo<>(flowVersionDTOList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
     }

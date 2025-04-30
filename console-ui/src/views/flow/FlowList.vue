@@ -99,6 +99,7 @@ async function deleteFlowItem(row: any) {
           :pageNum="pageNum"
           :pageSize="pageSize"
           :loading="loading"
+          @pageChange="onPageChange"
           @flowStatusChange="openUpdateFlowStatus"
           @delete="openDelete"
         />

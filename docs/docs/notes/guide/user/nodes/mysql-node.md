@@ -26,7 +26,7 @@ permalink: /docs/guide/user/nodes/mysql-node/
 #### a.数据源
 数据源是为SQL执行提供环境，数据源内部还提供了链接池，连接数， 查询超时等多项设置。
 
-可以在"**系统**" > "**数据源**"，新增数据源，目前暂时只支持MySql的数据源，后续还会支持ES，Redis等更多的数据源。
+可以在"**设置**" > "**数据源**"，新增数据源，目前暂时只支持MySql的数据源，后续还会支持ES，Redis等更多的数据源。
 
 
 
@@ -62,7 +62,9 @@ INSERT INTO t_user (age, name) VALUES (${input_age}, '${input_name}');
 
 :::warning
 如果引入的变量是一个字符串时,sql中在使用变量的时候需要在变量外面加上单引号，如下面的例子中name是一个字符串，使用入参变量input_name时在括号外面加上了单引号
+```sql
 INSERT INTO t_user (age, name) VALUES (${input_age}, '${input_name}');
+```
 :::
 
 #### d.结果输出

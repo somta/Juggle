@@ -58,6 +58,7 @@
 <style>
 .vp-footer{
   padding: 0px !important;
+  margin-top: 16px;
 }
 
 .vp-footer a{
