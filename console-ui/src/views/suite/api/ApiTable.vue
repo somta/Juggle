@@ -23,12 +23,13 @@ function editRow(row: any) {
 }
 
 function goApiDebugPage(apiId: number) {
-  router.push({
+  const routeData = router.resolve({
     name: 'api-debug',
     params: {
       apiId: apiId,
     },
   });
+  window.open(routeData.href, '_blank');
 }
 </script>
 <template>

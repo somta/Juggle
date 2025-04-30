@@ -43,7 +43,6 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public Boolean addDataSource(DataSourceAddParam dataSourceAddParam) {
         DataSourceAO dataSourceAo = IDataSourceAssembler.IMPL.paramToAo(dataSourceAddParam);
-        dataSourceAo.encryptData(juggleProperties.getSecretKey());
         Long dataSourceId = dataSourceRepository.addDataSource(dataSourceAo);
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         dataSource.setId(dataSourceId);
@@ -59,7 +58,6 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public Boolean updateDataSource(DataSourceUpdateParam dataSourceUpdateParam) {
         DataSourceAO dataSourceAo = IDataSourceAssembler.IMPL.paramToAo(dataSourceUpdateParam);
-        dataSourceAo.encryptData(juggleProperties.getSecretKey());
         dataSourceManager.deleteDataSourceFromCache(dataSourceUpdateParam.getId());
         return dataSourceRepository.updateDataSource(dataSourceAo);
     }
@@ -67,7 +65,6 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public DataSourceDTO getDataSource(Long dataSourceId) {
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
-        dataSourceAo.decryptData(juggleProperties.getSecretKey());
         return IDataSourceAssembler.IMPL.aoToDto(dataSourceAo);
     }
 
@@ -91,7 +88,6 @@ public class DataSourceServiceImpl implements IDataSourceService {
     @Override
     public Boolean connectDataSource(Long dataSourceId) {
         DataSourceAO dataSourceAo = dataSourceRepository.queryDataSource(dataSourceId);
-        dataSourceAo.decryptData(juggleProperties.getSecretKey());
         DataSource dataSource = IDataSourceAssembler.IMPL.aoToModel(dataSourceAo);
         dataSource.setId(dataSourceId);
         Object dataSourceInstance = DataSourceInstanceFactory.getDataSourceInstance(dataSource);

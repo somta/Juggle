@@ -28,7 +28,7 @@ config:
       -
         title: 特性
         icon: 📖
-        details: 国内首个微服务编排框架，提供了丰富的功能特性，适配国内应用场景，开箱即用，非常方便
+        details: 国内首个微服务编排框架，提供了钉钉，微信，飞书，阿里云等几十个常用套件集成和基于套件的常用模板，适配国内应用场景，开箱即用，非常方便
       -
         title: 性能
         icon: 🚀
@@ -54,7 +54,7 @@ config:
         description: 内置方法节点，判断节点，代码节点，赋值节点，MySql节点等多种节点，能灵活设计流程。
       -
         title: 支持多种脚本
-        description: 支持Groovy,JavaScript等多种脚本语言来增强流程。
+        description: 支持Groovy,JavaScript,Python,Java等多种脚本语言来增强流程。
       -
         title: 丰富的套件&模板
         description: 套件/模板市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）和官方模板等，开箱即用，大大降低流程设计的复杂度

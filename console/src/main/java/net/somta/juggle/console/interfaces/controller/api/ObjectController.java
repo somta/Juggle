@@ -85,6 +85,23 @@ public class ObjectController {
         return ResponseDataResult.setResponseResult(objectInfoDto);
     }
 
+    @Operation(summary = "判断对象key是否存在")
+    @PostMapping("/exist/key")
+    public ResponseDataResult<Boolean> isExistObjectKey(@RequestBody ObjectUpdateParam objectUpdateParam){
+        ObjectAO objectAo = objectService.getObjectInfoByKey(objectUpdateParam.getObjectKey());
+        //新增的情况
+        if(objectUpdateParam.getId() == null && objectAo != null){
+            return ResponseDataResult.setResponseResult(true);
+        }
+        //修改的情况
+        if(objectUpdateParam.getId() != null && objectAo != null
+                && !objectUpdateParam.getId().equals(objectAo.getId())
+                && objectUpdateParam.getObjectKey().equals(objectAo.getObjectKey())){
+            return ResponseDataResult.setResponseResult(true);
+        }
+        return ResponseDataResult.setResponseResult(false);
+    }
+
     @Operation(summary = "根据对象列表")
     @GetMapping("/list")
     public ResponseDataResult<List<ObjectDTO>> getObjectInfoList(){

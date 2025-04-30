@@ -6,7 +6,8 @@
 # Juggle
 
 Juggle官方文档地址: https://juggle.plus
-Juggle演示环境地址: https://demo.juggle.plus/#/login
+
+Juggle演示环境地址: https://demo.juggle.plus/#/login (演示环境可以使用gitee或github登录体验)
 
 ## 项目介绍
 Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
@@ -30,9 +31,21 @@ Juggle是一个接口编排的低代码工具，通过它可以快速将简单�
 
 4.支持Groovy,JavaScript,Python,Java等多种脚本语言来增强流程
 
-5.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大降低流程设计的复杂度
+5.支持Http,Dubbo,WebService等协议的接口调用 
 
-6.全信创支持，支持MySql，达梦，TiDB，OceanBase等数据库
+6.套件市场拥有几十个常见系统的官方套件（如：通义千问，钉钉机器人，QQ邮箱，阿里云短信）等，开箱即用，大大降低流程设计的复杂度
+
+7.全信创支持，支持MySql，达梦，TiDB，OceanBase等数据库
+
+
+## 系统截图
+
+1.灵活流程设计
+![](/docs/docs/notes/guide/user/images/flow_example.png)
+
+2.丰富的套件市场
+![](/docs/docs/notes/guide/market/images/example_suite.png)
+
 
 ## 快速开始
 
@@ -89,6 +102,7 @@ sh startup.sh
 <div align = "center"> 
     <img src="https://juggle.plus/customer/hstong.png" width="33%" style="background-color: #383434"/>
     <img src="https://juggle.plus/customer/pingankeji.png" width="33%" />
+    <img src="https://juggle.plus/customer/megvii.png" width="33%" />
     <img src="https://juggle.plus/customer/swsc.png" width="33%" />
     <img src="https://juggle.plus/customer/xinyucores.png" width="33%" style="background-color: #000"/>
     <img src="https://juggle.plus/customer/scooper.png" width="33%" />

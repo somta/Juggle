@@ -31,15 +31,11 @@ import net.somta.juggle.console.interfaces.dto.flow.FlowDefinitionInfoDTO;
 import net.somta.juggle.console.interfaces.param.flow.definition.*;
 import net.somta.juggle.console.application.service.flow.IFlowDefinitionService;
 import net.somta.juggle.common.param.TriggerDataParam;
-import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.FlowResult;
-import net.somta.juggle.core.validator.NodeValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.*;
@@ -170,18 +166,6 @@ public class FlowDefinitionController {
         if(flowDefinitionAo == null){
             return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_NOT_EXIST);
         }
-        try {
-            List<FlowElement> nodeList = objectMapper.readValue(flowDefinitionAo.getFlowContent(), new TypeReference<List<FlowElement>>() {});
-            NodeValidator nodeValidator = new NodeValidator();
-            for (FlowElement flowElement :  nodeList) {
-                nodeValidator.validateNode(flowElement);
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-            return ResponseDataResult.setErrorResponseResult(FLOW_DEFINITION_CONTENT_VALIDATOR_ERROR);
-        }
-
         Boolean result = flowDefinitionService.deployFlowDefinition(flowDefinitionDeployParam,flowDefinitionAo);
         return ResponseDataResult.setResponseResult(result);
     }

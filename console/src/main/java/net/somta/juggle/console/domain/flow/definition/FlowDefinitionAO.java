@@ -8,7 +8,6 @@ import net.somta.juggle.console.domain.parameter.vo.OutputParameterVO;
 import net.somta.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 import net.somta.juggle.core.enums.ElementTypeEnum;
 import net.somta.juggle.core.expression.ExpressionManager;
-import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.FlowElement;
 import net.somta.juggle.core.model.Variable;
 import net.somta.juggle.core.model.node.ConditionNode;

@@ -5,7 +5,7 @@ import InputRuleSetting from '@/components/form/InputRuleSetting.vue';
 import {computed, PropType, ref, watch} from 'vue';
 import {ElementType, FlowVariableType, MethodInfo, RawData} from '../../types';
 import {apiService, suiteService} from '@/service';
-import {InputParams, valueType} from '@/typings';
+import {InputParams, OutputParams, valueType} from '@/typings';
 import {useFlowDataInject} from '../../hooks/flow-data';
 import {cloneDeep} from 'lodash-es';
 import {ElMessage} from 'element-plus';
@@ -29,6 +29,7 @@ function getDefaultData() {
       requestType: '',
       requestContentType: '',
       inputParamSchemas: [],
+      outputParamSchemas:[],
       headerFillRules: [],
       inputFillRules: [],
       outputFillRules: [],
@@ -115,6 +116,13 @@ async function onApiChange(apiCode: string) {
         name: item.paramName,
         dataType: item.dataType,
         position: item.paramPosition,
+      };
+    });
+    method.outputParamSchemas= result.apiOutputParams.map((item: OutputParams) => {
+      return {
+        key: item.paramKey,
+        name: item.paramName,
+        dataType: item.dataType,
       };
     });
     headerSourceList.value = result.apiHeaders.map(item => ({ ...item, targetType: valueType.HEADER }));

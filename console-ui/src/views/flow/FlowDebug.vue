@@ -94,14 +94,17 @@ function getParams() {
   const flowInputParams = flowDefine.value?.flowInputParams || [];
   const params: any = {};
   flowInputParams.forEach((param: any) => {
+    const dataType: DataType = param.dataType;
     if (!isEmpty(param.value)) {
-      const dataType: DataType = param.dataType;
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
       } else {
         params[param.paramKey] = param.value;
       }
-      console.log(param);
+    } else {
+      if (dataType.type === 'Boolean') {
+        params[param.paramKey] = true;
+      }
     }
   });
   return params;

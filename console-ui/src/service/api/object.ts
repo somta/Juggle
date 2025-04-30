@@ -27,6 +27,13 @@ export async function queryObjectInfo(objectId: number): ResponseResult<ObjectIn
   return request.get(`/v1/object/info/${objectId}`);
 }
 
+export async function isExistObjectKey(params: {
+  id: number | null;
+  objectKey: string;
+}): ResponseResult<boolean> {
+  return request.post(`/v1/object/exist/key`,params);
+}
+
 export async function objectPage(params: { pageNum: number; pageSize: number; objectName?: string }): ResponsePageResult {
   return request.post('/v1/object/page', params);
 }

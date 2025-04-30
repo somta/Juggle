@@ -10,7 +10,7 @@ public class DataSourceInstanceFactory {
 
     public static Object getDataSourceInstance(DataSource dataSource){
         IDataSourceInstance dataSourceInstance = null;
-        if("MySql".equals(dataSource.getDataSourceType())){
+        if("MYSQL".equals(dataSource.getDataSourceType())){
             dataSourceInstance = new  MySqlDataSourceInstance();
         }
         if(dataSourceInstance != null){
