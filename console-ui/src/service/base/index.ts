@@ -5,7 +5,7 @@ function createRequestInstance() {
   // 创建实例
   const instance = axios.create({
     baseURL: '',
-    timeout: 10000,
+    timeout: 30000,
     headers: {},
   });
 
