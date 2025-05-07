@@ -10,7 +10,7 @@ export default defineUserConfig({
     description: 'juggle是一个可用于微服务接口编排，BFF层，第三方系统对接，私有化定制等场景的完整解决方案',
     head:[
         ['link', { rel: 'icon', href: '/images/favicon.ico' }],
-        ['meta', { name: 'keywords', content: 'juggle,微服务接口编排,bff,定制化开发,流程编排,低代码,AI,零代码'}],
+        ['meta', { name: 'keywords', content: 'juggle,微服务接口编排,bff,定制化开发,流程编排,连接器,低代码,AI,零代码'}],
         [
             "script",
             {},
