@@ -3,7 +3,21 @@ import { ResponseResult } from '@/service/base';
 import { TemplateMarketInfo} from '@/typings';
 
 export async function queryTemplateMarketClassifyList() {
-  return templateMarketAPI.queryTemplateMarketClassifyList();
+  const res = await templateMarketAPI.queryTemplateMarketClassifyList();
+  if (res.success) {
+    const suiteClassifyFilter = {
+      title: "模板分类",
+      key: "templateClassify",
+      options : [{label: "全部",value: ""},
+        ...res.result.map(item => ({
+          value: item.id,
+          label: item.classifyName
+        }))]
+    }
+    return suiteClassifyFilter;
+  } else {
+    return null;
+  }
 }
 
 export async function queryTemplateMarketList(params: Parameters<typeof templateMarketAPI.queryTemplateMarketList>[0]) {

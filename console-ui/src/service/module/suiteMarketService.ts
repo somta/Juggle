@@ -3,7 +3,21 @@ import { ResponseResult } from '@/service/base';
 import {SuiteMarketInfo} from '@/typings';
 
 export async function querySuiteMarketClassifyList() {
-  return suiteMarketAPI.querySuiteMarketClassifyList();
+  const res = await suiteMarketAPI.querySuiteMarketClassifyList();
+  if (res.success) {
+    const suiteClassifyFilter = {
+      title: "套件分类",
+      key: "suiteClassify",
+      options : [{label: "全部",value: ""},
+        ...res.result.map(item => ({
+          value: item.id,
+          label: item.classifyName
+        }))]
+    }
+    return suiteClassifyFilter;
+  } else {
+    return null;
+  }
 }
 
 export async function querySuiteMarketList(params: Parameters<typeof suiteMarketAPI.querySuiteMarketList>[0]) {
