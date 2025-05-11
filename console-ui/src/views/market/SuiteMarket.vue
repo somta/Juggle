@@ -101,7 +101,7 @@ function goToSuiteMarketDetail(suiteId: number) {
       />
       <ClassifyFilter :data="filterData" @change="changeFilter"/>
     </div>
-    <el-row :gutter="20" v-infinite-scroll="loadNextSuiteMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
+    <el-row v-if="suiteMarketList.length" :gutter="20" v-infinite-scroll="loadNextSuiteMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in suiteMarketList" :key="item.id">
         <el-card class="card" @click="goToSuiteMarketDetail(item.id)">
           <div class="card-header">
@@ -116,6 +116,7 @@ function goToSuiteMarketDetail(suiteId: number) {
         </el-card>
       </el-col>
     </el-row>
+    <el-empty v-else/>
     <div v-if="loading" class="loading">数据加载中...</div>
   </div>
 </template>

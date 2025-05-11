@@ -101,7 +101,7 @@ function goToTemplateMarketDetail(templateId: number) {
       />
       <ClassifyFilter :data="filterData" @change="changeFilter"/>
     </div>
-    <el-row :gutter="20" v-infinite-scroll="loadNextTemplateMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
+    <el-row v-if="templateMarketList.length" :gutter="20" v-infinite-scroll="loadNextTemplateMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in templateMarketList" :key="item.id">
         <el-card class="card" @click="goToTemplateMarketDetail(item.id)">
           <div class="card-header">
@@ -121,6 +121,7 @@ function goToTemplateMarketDetail(templateId: number) {
         </el-card>
       </el-col>
     </el-row>
+    <el-empty v-else/>
     <div v-if="loading" class="loading">数据加载中...</div>
   </div>
 </template>
