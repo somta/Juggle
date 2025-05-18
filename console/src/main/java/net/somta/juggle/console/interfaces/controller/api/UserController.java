@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 
@@ -49,7 +50,7 @@ import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERV
  */
 @Tag(name = "用户接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/user")
+@RequestMapping(JUGGLE_API_PREFIX + "/user")
 public class UserController {
 
     private final IUserService userService;

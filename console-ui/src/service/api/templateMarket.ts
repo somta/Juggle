@@ -1,7 +1,8 @@
 import { request, type ResponseResult } from '../base';
+import {JUGGLE_API_PREFIX} from "@/const/application.ts";
 
 export async function queryTemplateMarketClassifyList(): ResponseResult {
-  return request.post('/v1/template/market/classify');
+  return request.post(JUGGLE_API_PREFIX+'/template/market/classify');
 }
 
 export async function queryTemplateMarketList(params: {
@@ -10,20 +11,20 @@ export async function queryTemplateMarketList(params: {
   templateName: string;
   templateClassifyId: number|null;
 }): ResponseResult {
-  return request.post('/v1/template/market',params);
+  return request.post(JUGGLE_API_PREFIX+'/template/market',params);
 }
 
 export async function queryTemplateMarketDetail(templateId: number): ResponseResult {
-  return request.get('/v1/template/market/info/' + templateId);
+  return request.get(JUGGLE_API_PREFIX+'/template/market/info/' + templateId);
 }
 
 export async function useTemplateMarket(templateId: number,bill?:string): ResponseResult {
-  return request.post('/v1/template/market/use', {
+  return request.post(JUGGLE_API_PREFIX+'/template/market/use', {
     templateId: templateId,
     bill: bill
   });
 }
 
 export function queryRecommendTemplateList(templateId: number): ResponseResult  {
-  return request.get('/v1/template/market/recommend/'+templateId);
+  return request.get(JUGGLE_API_PREFIX+'/template/market/recommend/'+templateId);
 }
