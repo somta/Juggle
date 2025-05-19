@@ -52,6 +52,15 @@ public class MyBatisConfiguration {
     @Value("${spring.datasource.password:juggle}")
     private String password;
 
+    @Value("${spring.datasource.maximum-pool-size:100}")
+    private Integer maximumPoolSize;
+
+    @Value("${spring.datasource.minimum-idle:10}")
+    private Integer minimumIdle;
+
+    @Value("${spring.datasource.idle-timeout:60000}")
+    private Integer idleTimeout;
+
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
@@ -59,6 +68,9 @@ public class MyBatisConfiguration {
         dataSource.setJdbcUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+        dataSource.setMaximumPoolSize(maximumPoolSize);
+        dataSource.setMinimumIdle(minimumIdle);
+        dataSource.setIdleTimeout(idleTimeout);
         return dataSource;
     }
 
