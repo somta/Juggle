@@ -14,10 +14,13 @@ public interface FlowVersionMapper extends IBaseMapper {
 
     int deleteFlowVersionByFlowId(Long flowId);
 
+    FlowVersionInfoView queryFlowVersionInfoById(Long flowVersionId);
+
     FlowVersionInfoView queryFlowVersionInfoByKey(FlowVersionQueryVO flowVersionQueryVo);
 
     List<FlowVersionView> queryFlowVersionList(FlowVersionQueryVO flowVersionQueryVO);
 
     String queryLatestVersion(String flowKey);
+
 
 }

@@ -12,6 +12,8 @@ public class FlowVersionInfoView {
 
     private String flowType;
 
+    private String flowVersion;
+
     private Integer flowVersionStatus;
 
     private String flowContent;
@@ -53,6 +55,14 @@ public class FlowVersionInfoView {
 
     public void setFlowType(String flowType) {
         this.flowType = flowType;
+    }
+
+    public String getFlowVersion() {
+        return flowVersion;
+    }
+
+    public void setFlowVersion(String flowVersion) {
+        this.flowVersion = flowVersion;
     }
 
     public Integer getFlowVersionStatus() {

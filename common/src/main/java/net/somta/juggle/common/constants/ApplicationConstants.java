@@ -11,6 +11,8 @@ public class ApplicationConstants {
 
     public static final String JUGGLE_OPEN_API_PREFIX = "/open" + JUGGLE_SERVER_VERSION;
 
+    public static final String COLON = ":";
+
     /**
      * 应用统一前缀
      */
