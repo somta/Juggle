@@ -70,10 +70,6 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
     public Boolean updateFlowVersion(FlowVersionAO flowVersionAo) {
         FlowVersionPO flowVersionPo = IFlowVersionConverter.IMPL.aoToPo(flowVersionAo);
         flowVersionMapper.update(flowVersionPo);
-        if(flowVersionAo.getFlowVersionStatusEnum() == FlowVersionStatusEnum.ENABLE){
-            String flowCacheKey = flowVersionAo.getFlowKey() + COLON + flowVersionAo.getFlowVersion();
-            flowVersionCache.invalidate(flowCacheKey);
-        }
         return true;
     }
 
@@ -110,5 +106,11 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
     public List<FlowVersionView> queryFlowVersionList(FlowVersionQueryVO flowVersionQueryVO) {
         List<FlowVersionView> flowVersionViewList = flowVersionMapper.queryFlowVersionList(flowVersionQueryVO);
         return flowVersionViewList;
+    }
+
+    @Override
+    public void invalidateFlowCache(String flowKey, String flowVersion) {
+        String flowCacheKey = flowKey + COLON + flowVersion;
+        flowVersionCache.invalidate(flowCacheKey);
     }
 }
