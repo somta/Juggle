@@ -6,9 +6,17 @@ ADD console/target/*.jar juggle-server.jar
 
 EXPOSE 9127
 
+ENV BASE_DIR="/home/juggle" \
+    JVM_XMS="1g" \
+    JVM_XMX="1g" \
+    JVM_XMN="512m" \
+    JVM_MS="128m" \
+    JVM_MMS="320m" \
+    JVM_GC_LOG="false" \
+    TIME_ZONE="Asia/Shanghai"
+
 COPY console/src/main/resources/data/application-default.properties /home/juggle/conf/application.properties
 COPY console/src/main/resources/data/db_juggle.mv.db /home/juggle/data/
+COPY console/src/main/resources/data/docker-startup.sh /home/juggle/bin/
 
-ENV JAVA_OPTS=" -Xss228k  -Xmx512m -Xms512m  -Duser.timezone=GMT+08 "
-
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /juggle-server.jar --spring.config.additional-location=/home/juggle/conf/application.properties" ]
+ENTRYPOINT ["sh","/home/juggle/bin/docker-startup.sh"]
