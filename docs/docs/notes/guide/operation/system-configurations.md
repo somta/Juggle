@@ -45,3 +45,14 @@ Juggle提供了丰富的配置适配不同的场景，可以通过修改applicat
 | juggle.cache.redis.sentinel-master | Redis采用哨兵模式时，主服务器名称        | 字符串                                                    | null                     |
 
 ## 二.镜像环境变量配置
+
+| 环境变量名称 | 含义                | 可选值 | 默认值        |
+| ------------ | ------------------- | ------ | ------------- |
+| JVM_XMS      | JVM堆的初始内存     | 字符串 | 1g            |
+| JVM_XMX      | JVM堆的最大内存     | 字符串 | 1g            |
+| JVM_MS       | JVM元空间的初始内存 | 字符串 | 128m          |
+| JVM_MMS      | JVM元空间的最大内存 | 字符串 | 320m          |
+| JVM_GC_LOG   | 是否开启gc日志记录  | 字符串 | false         |
+| TIME_ZONE    | 应用程序时区        | 字符串 | Asia/Shanghai |
+
+## 

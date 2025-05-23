@@ -9,7 +9,6 @@ EXPOSE 9127
 ENV BASE_DIR="/home/juggle" \
     JVM_XMS="1g" \
     JVM_XMX="1g" \
-    JVM_XMN="512m" \
     JVM_MS="128m" \
     JVM_MMS="320m" \
     JVM_GC_LOG="false" \

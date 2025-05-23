@@ -16,11 +16,10 @@ function join_if_exist() {
 #===========================================================================================
 Xms=$(join_if_exist "-Xms" ${JVM_XMS})
 Xmx=$(join_if_exist "-Xmx" ${JVM_XMX})
-Xmn=$(join_if_exist "-Xmn" ${JVM_XMN})
 XX_MS=$(join_if_exist "-XX:MetaspaceSize=" ${JVM_MS})
 XX_MMS=$(join_if_exist "-XX:MaxMetaspaceSize=" ${JVM_MMS})
 
-JAVA_OPT="${JAVA_OPT} $Xms $Xmx $Xmn $XX_MS $XX_MMS"
+JAVA_OPT="${JAVA_OPT} $Xms $Xmx $XX_MS $XX_MMS"
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${BASE_DIR}/logs/java_heapdump.hprof"
 JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8 "
 if [ "${JVM_GC_LOG}" == "true" ]; then
