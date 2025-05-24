@@ -71,6 +71,14 @@ export const userGuide = defineNoteConfig({
             ],
         },
         {
+            text: '测试手册',
+            collapsed: true,
+            prefix: 'test',
+            items: [
+                'performance-test'
+            ],
+        },
+        {
             text: '开源共建',
             collapsed: true,
             prefix: 'open',
