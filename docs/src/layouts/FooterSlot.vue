@@ -49,7 +49,7 @@
       </div>
 
       <div class="footer_copyright">
-        <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备18059311号-3</a> | Copyright © 2018-2024-明天的地平线
+        <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备18059311号-3</a> | Copyright © 2018-2024
       </div>
 
     </div>
