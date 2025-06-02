@@ -32,6 +32,7 @@ export default defineUserConfig({
         hostname: 'https://juggle.plus',
         // 导航栏配置
         navbar: zhNavbar,
+        contributors: false,
         social: [
             { icon: 'github', link: 'https://github.com/somta' }
         ],
