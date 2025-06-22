@@ -1,5 +1,5 @@
 <template>
-  <div class="app-logo">JUGGLE</div>
+  <div class="app-logo"><img src="@/assets/logo.png" alt="juggle logo"/>JUGGLE</div>
 </template>
 <style lang="less" scoped>
 .app-logo {
@@ -10,5 +10,9 @@
   font-size: 26px;
   padding: 0 24px;
   width: 200px;
+  img{
+    width: 60px;
+    height: 60px;
+  }
 }
 </style>
