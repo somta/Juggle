@@ -11,8 +11,8 @@
   padding: 0 24px;
   width: 200px;
   img{
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
   }
 }
 </style>
