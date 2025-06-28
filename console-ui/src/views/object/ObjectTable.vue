@@ -26,8 +26,8 @@ function editRow(row: any) {
   <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header">
     <el-table-column prop="objectKey" label="对象编码" width="200" />
     <el-table-column prop="objectName" label="对象名称" width="300" />
-    <el-table-column prop="objectDesc" label="对象描述" width="520" />
-    <el-table-column label="操作" width="250">
+    <el-table-column prop="objectDesc" label="对象描述" show-overflow-tooltip/>
+    <el-table-column label="操作" width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)"> 删除 </el-button>

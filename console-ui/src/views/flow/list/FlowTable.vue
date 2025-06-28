@@ -38,7 +38,7 @@ function goFlowVersionListPage(flowId: number) {
       </template>
     </el-table-column>
     <el-table-column prop="remark" label="流程描述" show-overflow-tooltip />
-    <el-table-column label="操作" width="250">
+    <el-table-column label="操作" width="130">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="goFlowVersionListPage(scope.row.id)"> 版本列表 </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)"> 删除 </el-button>
