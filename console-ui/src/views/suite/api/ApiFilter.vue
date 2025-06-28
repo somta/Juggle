@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import SuiteSelect from '@/components/form/SuiteSelect.vue';
 const emit = defineEmits(['search']);
 
 const formValue = reactive({
@@ -21,9 +20,6 @@ const onReset = () => {
 </script>
 <template>
   <el-form :inline="true" :model="formValue">
-    <el-form-item label="套件" style="width: 200px">
-      <SuiteSelect v-model="formValue.suiteId" />
-    </el-form-item>
     <el-form-item label="接口名称">
       <el-input v-model="formValue.apiName" placeholder="请输入接口名称" />
     </el-form-item>
