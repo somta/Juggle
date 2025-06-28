@@ -97,5 +97,13 @@ export const userGuide = defineNoteConfig({
                 'donate'
             ],
         },
+        {
+            text: '常见问题',
+            collapsed: true,
+            prefix: 'faq',
+            items: [
+                'suite-faq',
+            ],
+        },
     ],
 })
