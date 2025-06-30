@@ -81,9 +81,7 @@ defineExpose({ open });
           <div id="baseNodes" class="node-types">
             <div class="node-type-name">基础节点</div>
             <div class="node-type" v-for="item in flowNodes" :key="item.type" @click="addNode(item)">
-              <span
-                ><el-icon :size="25"><component :is="item.icon"></component></el-icon
-              ></span>
+              <span class="node-icon"><el-icon :size="25"><component :is="item.icon"></component></el-icon></span>
               <span class="node-text">{{ item.name }}</span>
             </div>
           </div>
@@ -91,7 +89,7 @@ defineExpose({ open });
           <div id="dataNodes" class="node-types">
             <div class="node-type-name">数据节点</div>
             <div class="node-type" v-for="item in flowDataNodes" :key="item.type" @click="addNode(item)">
-              <el-icon :size="25"><component :is="item.icon"></component></el-icon>
+              <span class="node-icon"><el-icon :size="25"><component :is="item.icon"></component></el-icon></span>
               <span class="node-text">{{ item.name }}</span>
             </div>
           </div>
@@ -139,6 +137,10 @@ defineExpose({ open });
     font-size: 14px;
     cursor: pointer;
     border: 1px solid #f0f2f5;
+    .node-icon{
+      width: 25px;
+      height: 25px;
+    }
   }
   .node-text {
     margin: 10px 5px;
