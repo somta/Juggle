@@ -8,7 +8,7 @@ export async function queryTemplateMarketClassifyList() {
     const suiteClassifyFilter = {
       title: "模板分类",
       key: "templateClassify",
-      options : [{label: "全部",value: ""},
+      options : [{label: "全部",value: null},
         ...res.result.map(item => ({
           value: item.id,
           label: item.classifyName

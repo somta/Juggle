@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 
 interface OptionsProps {
-  value: string | number;
+  value: string | number | null;
   label: string;
   icon?: string;
 }

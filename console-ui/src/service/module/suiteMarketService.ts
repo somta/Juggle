@@ -8,7 +8,7 @@ export async function querySuiteMarketClassifyList() {
     const suiteClassifyFilter = {
       title: "套件分类",
       key: "suiteClassify",
-      options : [{label: "全部",value: ""},
+      options : [{label: "全部",value: null},
         ...res.result.map(item => ({
           value: item.id,
           label: item.classifyName

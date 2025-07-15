@@ -10,6 +10,7 @@ export async function querySuiteMarketList(params: {
   pageSize:number;
   suiteName: string;
   suiteClassifyId: number|null;
+  priceStatus: number|null;
 }): ResponseResult {
   return request.post(JUGGLE_API_PREFIX+'/suite/market',params);
 }

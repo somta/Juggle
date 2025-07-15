@@ -10,6 +10,7 @@ export async function queryTemplateMarketList(params: {
   pageSize:number;
   templateName: string;
   templateClassifyId: number|null;
+  priceStatus: number|null;
 }): ResponseResult {
   return request.post(JUGGLE_API_PREFIX+'/template/market',params);
 }

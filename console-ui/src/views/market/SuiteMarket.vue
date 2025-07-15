@@ -11,10 +11,15 @@ const suiteMarketList = ref<Record<string, any>[]>([]);
 const pageNum = ref(1);
 const loading = ref(false);
 const noMoreSuite = ref(false);
-const filterData = ref([]);
+const filterData = ref([{
+  title: "套件价格",
+  key: "priceStatus",
+  options : [{label: "全部",value: null},{label: "免费",value: 0},{label: "付费",value: 1}]
+}]);
 const filterValue = reactive({
   suiteName: '',
   suiteClassifyId: null,
+  priceStatus: null,
 });
 
 querySuiteMarketClassifyList();
@@ -29,6 +34,7 @@ async function changeSuiteName(){
 
 async function changeFilter(val:any){
   filterValue.suiteClassifyId = val.suiteClassify;
+  filterValue.priceStatus = val.priceStatus;
   noMoreSuite.value = false;
   suiteMarketList.value = [];
   await querySuiteMarketList();
@@ -44,7 +50,8 @@ async function loadNextSuiteMarket(){
     pageNum:pageNum.value,
     pageSize:15,
     suiteName:filterValue.suiteName,
-    suiteClassifyId: filterValue.suiteClassifyId
+    suiteClassifyId: filterValue.suiteClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     loading.value = false;
@@ -64,7 +71,8 @@ async function querySuiteMarketList() {
     pageNum:pageNum.value,
     pageSize:15,
     suiteName:filterValue.suiteName,
-    suiteClassifyId: filterValue.suiteClassifyId
+    suiteClassifyId: filterValue.suiteClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     suiteMarketList.value = res.result;
@@ -133,7 +141,6 @@ function goToSuiteMarketDetail(suiteId: number) {
     align-items: center;
     .suite-filter-name {
       width: 500px;
-      margin-bottom: 13px;
     }
   }
 

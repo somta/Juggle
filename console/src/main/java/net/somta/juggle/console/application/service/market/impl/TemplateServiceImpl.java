@@ -59,7 +59,8 @@ public class TemplateServiceImpl implements ITemplateService {
 
     @Override
     public ResponsePaginationDataResult<TemplateMarketDTO> getTemplateMarketList(TemplateMarketQueryParam templateMarketQueryParam) {
-        ResponsePaginationDataResult<TemplateMarketVO> result = templateRepository.queryTemplateMarketList(templateMarketQueryParam.getPageNum(),templateMarketQueryParam.getPageSize(),templateMarketQueryParam.getTemplateName(),templateMarketQueryParam.getTemplateClassifyId());
+        ResponsePaginationDataResult<TemplateMarketVO> result = templateRepository.queryTemplateMarketList(templateMarketQueryParam.getPageNum(),templateMarketQueryParam.getPageSize(),templateMarketQueryParam.getTemplateName()
+                ,templateMarketQueryParam.getTemplateClassifyId(),templateMarketQueryParam.getPriceStatus());
         List<TemplateMarketDTO> templateList = ITemplateAssembler.IMPL.voListToDtoList(result.getResult());
         return ResponsePaginationDataResult.setPaginationDataResult(result.getTotal(),templateList);
     }

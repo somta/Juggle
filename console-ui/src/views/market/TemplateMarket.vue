@@ -11,10 +11,15 @@ const templateMarketList = ref<Record<string, any>[]>([]);
 const pageNum = ref(1);
 const loading = ref(false);
 const noMoreTemplate = ref(false);
-const filterData = ref([]);
+const filterData = ref([{
+  title: "模板价格",
+  key: "priceStatus",
+  options : [{label: "全部",value: null},{label: "免费",value: 0},{label: "付费",value: 1}]
+}]);
 const filterValue = reactive({
   templateName: '',
   templateClassifyId: null,
+  priceStatus: null,
 });
 
 
@@ -29,6 +34,7 @@ async function changeTemplateName(){
 
 async function changeFilter(val:any){
   filterValue.templateClassifyId = val.templateClassify;
+  filterValue.priceStatus = val.priceStatus;
   noMoreTemplate.value = false;
   templateMarketList.value = [];
   await queryTemplateMarketList();
@@ -44,7 +50,8 @@ async function loadNextTemplateMarket(){
     pageNum:pageNum.value,
     pageSize:15,
     templateName:filterValue.templateName,
-    templateClassifyId: filterValue.templateClassifyId
+    templateClassifyId: filterValue.templateClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     loading.value = false;
@@ -64,7 +71,8 @@ async function queryTemplateMarketList() {
     pageNum:pageNum.value,
     pageSize:15,
     templateName:filterValue.templateName,
-    templateClassifyId: filterValue.templateClassifyId
+    templateClassifyId: filterValue.templateClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     templateMarketList.value = res.result;
@@ -138,7 +146,6 @@ function goToTemplateMarketDetail(templateId: number) {
     align-items: center;
     .template-filter-name {
       width: 500px;
-      margin-bottom: 13px;
     }
   }
 
