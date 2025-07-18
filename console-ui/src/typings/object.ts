@@ -1,7 +1,9 @@
+import { DataType } from '@/typings/dataType.ts';
+
 export interface ObjectProperty {
   propKey: string;
   propName: string;
-  dataType: string;
+  dataType: DataType;
 }
 
 export interface ObjectInfo {
