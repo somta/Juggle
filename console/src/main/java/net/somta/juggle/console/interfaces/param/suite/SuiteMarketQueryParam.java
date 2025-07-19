@@ -9,6 +9,7 @@ import net.somta.core.base.page.PageParam;
 public class SuiteMarketQueryParam extends PageParam {
     private String suiteName;
     private Long suiteClassifyId;
+    private Integer priceStatus;
 
     public String getSuiteName() {
         return suiteName;
@@ -24,5 +25,13 @@ public class SuiteMarketQueryParam extends PageParam {
 
     public void setSuiteClassifyId(Long suiteClassifyId) {
         this.suiteClassifyId = suiteClassifyId;
+    }
+
+    public Integer getPriceStatus() {
+        return priceStatus;
+    }
+
+    public void setPriceStatus(Integer priceStatus) {
+        this.priceStatus = priceStatus;
     }
 }

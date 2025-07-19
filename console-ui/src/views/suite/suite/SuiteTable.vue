@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
+
 defineProps({
   dataRows: {
     type: Array,
@@ -10,6 +12,7 @@ defineProps({
   loading: Boolean,
 });
 const emit = defineEmits(['pageChange', 'edit', 'delete']);
+const router = useRouter();
 
 function deleteRow(row: any, index: number) {
   emit('delete', row, index);
@@ -17,6 +20,16 @@ function deleteRow(row: any, index: number) {
 
 function editRow(row: any) {
   emit('edit', row);
+}
+
+function goApiListPage(suiteCode:string,suiteId: number) {
+  router.push({
+    name: 'api-list',
+    params: {
+      suiteCode: suiteCode,
+      suiteId: suiteId,
+    },
+  });
 }
 </script>
 
@@ -41,6 +54,7 @@ function editRow(row: any) {
     <el-table-column label="操作" width="180">
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="editRow(scope.row)"> 编辑 </el-button>
+        <el-button link type="primary" size="small" @click.prevent="goApiListPage(scope.row.suiteCode,scope.row.id)"> 接口列表 </el-button>
         <el-button link type="primary" size="small" @click.prevent="deleteRow(scope.row, scope.$index)"> 删除 </el-button>
       </template>
     </el-table-column>

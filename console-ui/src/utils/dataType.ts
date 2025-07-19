@@ -1,5 +1,5 @@
 import {FlowVariable} from "@/views/flow/design";
-import {DataType} from "@/typings";
+import { DataType, ObjectProperty } from '@/typings';
 
 const DATA_TYPE_TEMP: Map<string, DataType> = new Map();
 
@@ -66,9 +66,6 @@ export function isDataTypeMatch(sourceDataTypeItem: DataType, filterDataType: Da
   if (sourceDataTypeItem === filterDataType) {
     return true;
   }
-  if (sourceDataTypeItem.type == filterDataType.type) {
-    return true;
-  }
 
   if(filterDataType.type == "String" || filterDataType.type == "Integer" ||
       filterDataType.type == "Double" || filterDataType.type == "Boolean" ||
@@ -78,11 +75,29 @@ export function isDataTypeMatch(sourceDataTypeItem: DataType, filterDataType: Da
     }
   }
 
-  /*if(filterDataType.type == "Object"){
+  if(filterDataType.type == "Object"){
+    //都是对象类型，且对象编码一致
     if(sourceDataTypeItem.type == 'Object' && sourceDataTypeItem.objectKey == filterDataType.objectKey){
+      console.log("object", filterDataType,sourceDataTypeItem);
       return true;
     }
-  }*/
+    // 对象属性中有匹配的对象
+    if(sourceDataTypeItem.type == 'Object' && isMatchObjectStructure(filterDataType,sourceDataTypeItem?.objectStructure)){
+       return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * 对象字段是否有匹配属性
+ * @param filterDataType
+ * @param objectStructure
+ */
+function isMatchObjectStructure(filterDataType: DataType, objectStructure: ObjectProperty[] | null | undefined){
+  if(objectStructure && Array.isArray(objectStructure)){
+    return objectStructure.some(prop => prop.dataType.type === filterDataType.type && prop.dataType.objectKey === filterDataType.objectKey);
+  }
   return false;
 }
 

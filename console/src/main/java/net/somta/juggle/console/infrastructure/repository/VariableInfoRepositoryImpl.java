@@ -41,7 +41,6 @@ public class VariableInfoRepositoryImpl implements IVariableInfoRepository {
     @Override
     public List<VariableInfoVO> queryVariableInfoList(Long flowDefinitionId) {
         List<VariableInfoPO> variableInfoPoList = variableInfoMapper.queryVariableInfoListByDefinitionId(flowDefinitionId);
-        List<VariableInfoVO> variableInfoVoList = IVariableInfoConverter.IMPL.poListToVoList(variableInfoPoList);
-        return variableInfoVoList;
+        return IVariableInfoConverter.IMPL.poListToVoList(variableInfoPoList);
     }
 }

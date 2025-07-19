@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
@@ -39,7 +40,7 @@ import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERV
  */
 @Tag(name = "套件接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/suite")
+@RequestMapping(JUGGLE_API_PREFIX + "/suite")
 public class SuiteController {
     private final ISuiteService suiteService;
     private final IApiService apiService;

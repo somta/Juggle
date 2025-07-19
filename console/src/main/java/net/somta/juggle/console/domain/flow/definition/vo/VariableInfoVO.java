@@ -8,6 +8,10 @@ import net.somta.juggle.core.model.DataType;
 public class VariableInfoVO {
 
     /**
+     * variable id
+     */
+    private Long id;
+    /**
      * 变量Key,同一流程内唯一
      */
     private String envKey;
@@ -26,6 +30,14 @@ public class VariableInfoVO {
      * data type
      */
     private DataType dataType;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEnvKey() {
         return envKey;

@@ -26,6 +26,7 @@ import net.somta.juggle.console.interfaces.param.OrderParam;
 import org.springframework.web.bind.annotation.*;
 
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 
@@ -35,7 +36,7 @@ import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERV
  */
 @Tag(name = "订单接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/order")
+@RequestMapping(JUGGLE_API_PREFIX + "/order")
 public class OrderController {
 
     private final IOrderService orderService;

@@ -11,7 +11,7 @@ import java.util.List;
 public interface ITemplateRepository {
     List<TemplateMarketClassifyVO> queryTemplateMarketClassifyList();
 
-    ResponsePaginationDataResult<TemplateMarketVO> queryTemplateMarketList(Integer pageNum, Integer pageSize, String templateName, Long templateClassifyId);
+    ResponsePaginationDataResult<TemplateMarketVO> queryTemplateMarketList(Integer pageNum, Integer pageSize, String templateName, Long templateClassifyId, Integer priceStatus);
 
     TemplateMarketInfoVO queryTemplateMarketInfo(Long templateId,String bill);
 

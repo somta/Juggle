@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 @Tag(name = "模板接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/template")
+@RequestMapping(JUGGLE_API_PREFIX + "/template")
 public class TemplateController {
 
     private final ITemplateService templateService;

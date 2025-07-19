@@ -67,10 +67,10 @@ Juggle提供的各个语言的SDK都是通过传递，通过请求头传递的�
 
 **接口**
 
-| Path         | /open/v1/flow/trigger/{flowVersion}/{flowKey} |
-| ------------ |-----------------------------------------------|
-| Method       | GET                                           |
-| Content-Type | application/json                              |
+| Path         | /open/v1/flow/trigger/{flowVersion}/\{flowKey} |
+| ------------ |------------------------------------------------|
+| Method       | GET                                            |
+| Content-Type | application/json                               |
 
 **入参**
 
@@ -107,10 +107,10 @@ http://localhost:9127/open/v1/flow/trigger/v1/sync_example?juggleToken=eyJ1c2VyS
 
 **接口**
 
-| Path         | /open/v1/flow/trigger/{flowVersion}/{flowKey} |
-| ------------ | --------------------------------------------- |
-| Method       | POST                                          |
-| Content-Type | application/json                              |
+| Path         | /open/v1/flow/trigger/{flowVersion}/\{flowKey} |
+| ------------ |------------------------------------------------|
+| Method       | POST                                           |
+| Content-Type | application/json                               |
 
 **请求头**
 

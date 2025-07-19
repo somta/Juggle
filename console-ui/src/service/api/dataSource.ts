@@ -1,4 +1,5 @@
 import { request, ResponsePageResult, type ResponseResult } from '@/service/base';
+import {JUGGLE_API_PREFIX} from "@/const/application.ts";
 
 export async function addDataSource(params: {
   dataSourceName: string;
@@ -14,11 +15,11 @@ export async function addDataSource(params: {
   maxPoolSize: number;
   queryTimeout: number;
 }): ResponseResult<string> {
-  return request.post(`/v1/datasource/add`, params);
+  return request.post(JUGGLE_API_PREFIX+`/datasource/add`, params);
 }
 
 export async function deleteDataSourceById(datasourceId: number): ResponseResult<boolean> {
-  return request.delete(`/v1/datasource/delete/${datasourceId}`);
+  return request.delete(JUGGLE_API_PREFIX+`/datasource/delete/${datasourceId}`);
 }
 
 export async function updateDataSourceById(params: {
@@ -36,21 +37,21 @@ export async function updateDataSourceById(params: {
   maxPoolSize: number;
   queryTimeout: number;
 }): ResponseResult<boolean> {
-  return request.put(`/v1/datasource/update`, params);
+  return request.put(JUGGLE_API_PREFIX+`/datasource/update`, params);
 }
 
 export async function queryDataSourceInfo(dataSourceId: number): ResponsePageResult<any> {
-  return request.get('/v1/datasource/info/' + dataSourceId);
+  return request.get(JUGGLE_API_PREFIX+'/datasource/info/' + dataSourceId);
 }
 
 export async function dataSourceList(): ResponsePageResult {
-  return request.get('/v1/datasource/list');
+  return request.get(JUGGLE_API_PREFIX+'/datasource/list');
 }
 
 export async function dataSourcePage(params: { pageNum: number; pageSize: number }): ResponsePageResult {
-  return request.post('/v1/datasource/page', params);
+  return request.post(JUGGLE_API_PREFIX+'/datasource/page', params);
 }
 
 export async function connectDataSource(dataSourceId: number): ResponsePageResult<any> {
-  return request.get('/v1/datasource/connect/' + dataSourceId);
+  return request.get(JUGGLE_API_PREFIX+'/datasource/connect/' + dataSourceId);
 }
