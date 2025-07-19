@@ -18,7 +18,7 @@ export const SuiteRoutes = [
         meta: { name: '套件列表' },
       },
       {
-        path: 'api',
+        path: 'api/:suiteCode/:suiteId',
         name: 'api-list',
         component: ApiList,
         meta: { name: '接口列表' },

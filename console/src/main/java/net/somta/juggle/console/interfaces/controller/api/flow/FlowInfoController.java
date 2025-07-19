@@ -26,6 +26,7 @@ import net.somta.juggle.console.interfaces.param.flow.FlowInfoPageParam;
 import net.somta.juggle.console.application.service.flow.IFlowInfoService;
 import org.springframework.web.bind.annotation.*;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
@@ -34,7 +35,7 @@ import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERV
  */
 @Tag(name = "流程信息接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/flow")
+@RequestMapping(JUGGLE_API_PREFIX + "/flow")
 public class FlowInfoController {
 
     private final IFlowInfoService flowInfoService;

@@ -1,5 +1,4 @@
 import * as request from './utils/request';
-import qs from 'query-string';
 import {IConfig} from "./IConfig";
 
 
@@ -17,14 +16,11 @@ export default class JuggleClient {
   async triggerFlow(
     flowVersion: string,
     flowKey: string,
-    triggerData: FlowTriggerDataParam,
-    flowData?: Record<string, any>
+    flowData: FlowTriggerDataParam
   ) {
-    const url =
-      `${this.config.serverAddr}${TRIGGER_FLOW_URL}/${flowVersion}/${flowKey}` +
-      qs.stringify(triggerData);
+    const url = `${this.config.serverAddr}${TRIGGER_FLOW_URL}/${flowVersion}/${flowKey}`;
 
-    const response = await request.get(url, {
+    const response = await request.post(url, flowData,{
       'Juggle-Token': this.config.accessToken,
     });
     return response;

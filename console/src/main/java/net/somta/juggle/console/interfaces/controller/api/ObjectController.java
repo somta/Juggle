@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.object.enums.ObjectErrorEnum.OBJECT_KEY_EXIST;
 
@@ -39,7 +40,7 @@ import static net.somta.juggle.console.domain.object.enums.ObjectErrorEnum.OBJEC
  */
 @Tag(name = "对象接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/object")
+@RequestMapping(JUGGLE_API_PREFIX + "/object")
 public class ObjectController {
 
     private final IObjectService objectService;

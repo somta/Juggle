@@ -126,7 +126,7 @@ public class SuiteServiceImpl implements ISuiteService {
 
     @Override
     public ResponsePaginationDataResult<SuiteDTO> getSuiteMarketList(SuiteMarketQueryParam suiteMarketQueryParam) {
-        ResponsePaginationDataResult<SuiteVO> result = suiteRepository.querySuiteMarketList(suiteMarketQueryParam.getPageNum(),suiteMarketQueryParam.getPageSize(),suiteMarketQueryParam.getSuiteName(),suiteMarketQueryParam.getSuiteClassifyId());
+        ResponsePaginationDataResult<SuiteVO> result = suiteRepository.querySuiteMarketList(suiteMarketQueryParam.getPageNum(),suiteMarketQueryParam.getPageSize(),suiteMarketQueryParam.getSuiteName(),suiteMarketQueryParam.getSuiteClassifyId(),suiteMarketQueryParam.getPriceStatus());
         List<SuiteDTO> suiteList = ISuiteAssembler.IMPL.voListToDtoList(result.getResult());
         return ResponsePaginationDataResult.setPaginationDataResult(result.getTotal(),suiteList);
     }

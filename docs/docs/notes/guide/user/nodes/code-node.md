@@ -24,7 +24,7 @@ permalink: /docs/guide/user/nodes/code-node/
 
 #### a.支持脚本代码
 
-Juggle的代码节点支持Groovy,JavaScript,Python等多种语言代码。
+Juggle的代码节点支持Groovy，JavaScript，Python，Java等多种语言代码。
 
 #### 1.Groovy示例
 
@@ -56,3 +56,26 @@ println(user.name);
 ```
 
 **Groovy新手教程：**https://cloud.tencent.com/developer/chapter/18236
+
+
+
+#### 2.JavaScript示例
+
+在代码节点也允许通过JavaScript脚本来增强流程的能力，下面将详细介绍如何使用JavaScript脚本
+
+##### a.在JavaScript代码中获取和设置流程变量
+
+在JavaScript脚本中通过$var.getVariableValue('变量key')来获取具体的变量，通过$var.setVariableValue('变量key',值);来对变量进行赋值。
+
+```javascript
+// 获取变量
+// var env_name = $var.getVariableValue('变量key');
+// 设置变量
+// $var.setVariableValue('变量key',值);
+
+//例子如下：
+//获取入参变量input_name
+var userName = $var.getVariableValue('input_name')
+//将出参变量的值设置成6666
+$var.setVariableValue('output_userName',6666)
+```

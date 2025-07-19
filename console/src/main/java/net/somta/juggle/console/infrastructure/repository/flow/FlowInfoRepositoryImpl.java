@@ -22,6 +22,7 @@ import net.somta.juggle.console.domain.flow.flowinfo.repository.IFlowInfoReposit
 import net.somta.juggle.console.domain.flow.flowinfo.vo.FlowInfoQueryVO;
 import net.somta.juggle.console.domain.flow.flowinfo.vo.FlowInfoVO;
 import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
+import net.somta.juggle.console.domain.flow.version.repository.IFlowVersionRepository;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowInfoConverter;
 import net.somta.juggle.console.infrastructure.converter.flow.IFlowVersionConverter;
 import net.somta.juggle.console.infrastructure.mapper.flow.FlowInfoMapper;
@@ -43,10 +44,12 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
 
     private final FlowInfoMapper flowInfoMapper;
     private final FlowVersionMapper flowVersionMapper;
+    private final IFlowVersionRepository flowVersionRepository;
 
-    public FlowInfoRepositoryImpl(FlowInfoMapper flowInfoMapper, FlowVersionMapper flowVersionMapper) {
+    public FlowInfoRepositoryImpl(FlowInfoMapper flowInfoMapper, FlowVersionMapper flowVersionMapper, IFlowVersionRepository flowVersionRepository) {
         this.flowInfoMapper = flowInfoMapper;
         this.flowVersionMapper = flowVersionMapper;
+        this.flowVersionRepository = flowVersionRepository;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -92,6 +95,8 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
         flowVersionPo.setCreatedAt(currentDate);
         flowVersionPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
         flowVersionMapper.add(flowVersionPo);
+
+        flowVersionRepository.invalidateFlowCache(flowInfoAo.getFlowKey(),flowInfoAo.getFlowVersion());
         return true;
     }
 }

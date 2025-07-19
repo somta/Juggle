@@ -321,6 +321,15 @@ function hideModel() {
                 </ul>
               </div>
             </div>
+            <div class="item-classify">
+              <div class="item-type" style="height: 100px">系统</div>
+              <div class="item-type-list" style="height: 100px">
+                <ul class="table-item-list">
+                  <li><span class="item-name">用户管理</span></li>
+                  <li><span class="item-name">角色&权限</span></li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="table-right">
             <ul class="option-list">
@@ -365,7 +374,7 @@ function hideModel() {
               <li>
                 <span class="table-con">
                   <label>方法节点/判断节点/赋值节点/mysql节点/代码节点</label>
-                  <label>方法节点/判断节点/赋值节点/数据库节点/代码节点</label>
+                  <label>方法节点/判断节点/赋值节点/数据库节点/代码节点/并行节点</label>
                 </span>
               </li>
               <li>
@@ -474,6 +483,18 @@ function hideModel() {
                 <span class="table-con">
                   <label>MySql数据源</label>
                   <label>多种数据源</label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
+                </span>
+              </li>
+              <li>
+                <span class="table-con">
+                  <label>- -</label>
+                  <label><img alt="" src="/images/choose.png" decoding="async" loading="lazy"></label>
                 </span>
               </li>
               <li>

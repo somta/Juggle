@@ -20,14 +20,10 @@ import IconSetting from "@/components/icons/IconSetting.vue";
         <el-menu-item index="/flow/define">流程定义</el-menu-item>
         <el-menu-item index="/flow/list">流程列表</el-menu-item>
       </el-sub-menu>
-      <el-sub-menu index="3">
-        <template #title>
-          <el-icon><IconInterface /></el-icon>
-          <span>套件</span>
-        </template>
-        <el-menu-item index="/suite/list">套件</el-menu-item>
-        <el-menu-item index="/suite/api">接口</el-menu-item>
-      </el-sub-menu>
+      <el-menu-item index="/suite/list">
+        <el-icon><IconInterface /></el-icon>
+        <span>套件</span>
+      </el-menu-item>
       <el-menu-item index="/object/list">
         <el-icon><Coin /></el-icon>
         <span>对象</span>

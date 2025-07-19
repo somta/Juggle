@@ -13,11 +13,27 @@
 	from t_flow_info i inner join t_flow_version v on i.id = v.flow_id  where v.deleted = 0 and i.flow_key = #{flowKey}
 </select>
 
+<select id="queryFlowVersionInfoById" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="java.lang.Long">
+	select v.id,
+	i.flow_key as flowKey,
+	i.flow_type as flowType,
+	i.flow_name as flowName,
+	v.flow_version as flowVersion,
+	v.flow_version_status as flowVersionStatus,
+	v.flow_content as flowContent,
+	v.inputs as inputs,
+	v.outputs as outputs,
+	v.variables as variables
+	from t_flow_info i left join t_flow_version v on i.id=v.flow_id
+	where v.deleted = 0 and v.id = #{flowVersionId}
+</select>
+
 <select id="queryFlowVersionInfoByKey" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
 	select v.id,
 	i.flow_key as flowKey,
 	i.flow_type as flowType,
 	i.flow_name as flowName,
+	v.flow_version as flowVersion,
 	v.flow_version_status as flowVersionStatus,
     v.flow_content as flowContent,
 	v.inputs as inputs,

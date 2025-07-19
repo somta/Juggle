@@ -53,7 +53,7 @@ function onEdit(data: any) {
   flowContext.update(draft => {
     const index = draft.flowVariables.findIndex(item => item.id === data.id);
     if (index > -1) {
-      draft.flowVariables.splice(index, 1, data);
+      draft.flowVariables.splice(index, 1,cloneDeep(data));
     }
   });
 }

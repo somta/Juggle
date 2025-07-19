@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.*;
 import static net.somta.juggle.console.domain.flow.version.enums.FlowVersionErrorEnum.ENABLE_FLOW_NOT_DELETE;
@@ -46,7 +47,7 @@ import static net.somta.juggle.console.domain.flow.version.enums.FlowVersionErro
  */
 @Tag(name = "流程版本接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/flow/version/")
+@RequestMapping(JUGGLE_API_PREFIX + "/flow/version/")
 public class FlowVersionController {
 
     private final IFlowVersionService flowVersionService;

@@ -23,6 +23,7 @@ public interface IFlowVersionRepository {
 
     List<FlowVersionView> queryFlowVersionList(FlowVersionQueryVO flowVersionQueryVo);
 
+    void invalidateFlowCache(String flowKey, String flowVersion);
 
 
 }

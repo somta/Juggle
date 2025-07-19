@@ -54,7 +54,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
     }
 
     @Override
-    public ResponsePaginationDataResult<TemplateMarketVO> queryTemplateMarketList(Integer pageNum, Integer pageSize, String templateName, Long templateClassifyId) {
+    public ResponsePaginationDataResult<TemplateMarketVO> queryTemplateMarketList(Integer pageNum, Integer pageSize, String templateName, Long templateClassifyId, Integer priceStatus) {
         ResponsePaginationDataResult<TemplateMarketVO> result = new ResponsePaginationDataResult<>();
         Map<String,Object> param = new HashMap<>();
         param.put("pageNum",pageNum);
@@ -64,6 +64,9 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
         }
         if(templateClassifyId != null){
             param.put("templateClassifyId",templateClassifyId);
+        }
+        if(priceStatus != null){
+            param.put("priceStatus",priceStatus);
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

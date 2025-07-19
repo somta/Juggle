@@ -4,28 +4,37 @@ import { suiteMarketService } from '@/service';
 import {ref} from 'vue';
 import {Search} from "@element-plus/icons-vue";
 import { reactive } from 'vue';
+import ClassifyFilter from "@/components/common/ClassifyFilter.vue";
 const router = useRouter();
 const suiteMarketList = ref<Record<string, any>[]>([]);
-const suiteMarketClassifyList = ref<Record<string, any>[]>([]);
 
 const pageNum = ref(1);
 const loading = ref(false);
 const noMoreSuite = ref(false);
+const filterData = ref([{
+  title: "套件价格",
+  key: "priceStatus",
+  options : [{label: "全部",value: null},{label: "免费",value: 0},{label: "付费",value: 1}]
+}]);
 const filterValue = reactive({
   suiteName: '',
   suiteClassifyId: null,
+  priceStatus: null,
 });
 
 querySuiteMarketClassifyList();
 querySuiteMarketList();
 
-async function changeSuiteClassify(){
+async function changeSuiteName(){
   noMoreSuite.value = false;
   suiteMarketList.value = [];
   await querySuiteMarketList();
 }
 
-async function changeSuiteName(){
+
+async function changeFilter(val:any){
+  filterValue.suiteClassifyId = val.suiteClassify;
+  filterValue.priceStatus = val.priceStatus;
   noMoreSuite.value = false;
   suiteMarketList.value = [];
   await querySuiteMarketList();
@@ -41,7 +50,8 @@ async function loadNextSuiteMarket(){
     pageNum:pageNum.value,
     pageSize:15,
     suiteName:filterValue.suiteName,
-    suiteClassifyId: filterValue.suiteClassifyId
+    suiteClassifyId: filterValue.suiteClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     loading.value = false;
@@ -61,7 +71,8 @@ async function querySuiteMarketList() {
     pageNum:pageNum.value,
     pageSize:15,
     suiteName:filterValue.suiteName,
-    suiteClassifyId: filterValue.suiteClassifyId
+    suiteClassifyId: filterValue.suiteClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     suiteMarketList.value = res.result;
@@ -69,9 +80,9 @@ async function querySuiteMarketList() {
 }
 
 async function querySuiteMarketClassifyList() {
-  const res = await suiteMarketService.querySuiteMarketClassifyList();
-  if (res.success) {
-    suiteMarketClassifyList.value = res.result;
+  const suiteClassifyFilter = await suiteMarketService.querySuiteMarketClassifyList();
+  if(suiteClassifyFilter != null){
+    filterData.value.push(suiteClassifyFilter);
   }
 }
 
@@ -89,26 +100,16 @@ function goToSuiteMarketDetail(suiteId: number) {
 <template>
   <div class="suite-market">
     <div class="suite-filter">
-      <el-select
-          v-model="filterValue.suiteClassifyId"
-          style="width: 240px;margin-right: 20px;"
-          @change="changeSuiteClassify"
-      >
-        <el-option label="所有类型" value=""/>
-        <el-option
-            v-for="classify in suiteMarketClassifyList"
-            :key="classify.id"
-            :label="classify.classifyName"
-            :value="classify.id"
-        />
-      </el-select>
       <el-input v-model="filterValue.suiteName"
-          style="width: 300px"
+          class="suite-filter-name"
+          size="large"
+          placeholder="请输入你想查找的套件名称"
           :suffix-icon="Search"
           @change="changeSuiteName"
       />
+      <ClassifyFilter :data="filterData" @change="changeFilter"/>
     </div>
-    <el-row :gutter="20" v-infinite-scroll="loadNextSuiteMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
+    <el-row v-if="suiteMarketList.length" :gutter="20" v-infinite-scroll="loadNextSuiteMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in suiteMarketList" :key="item.id">
         <el-card class="card" @click="goToSuiteMarketDetail(item.id)">
           <div class="card-header">
@@ -123,6 +124,7 @@ function goToSuiteMarketDetail(suiteId: number) {
         </el-card>
       </el-col>
     </el-row>
+    <el-empty v-else/>
     <div v-if="loading" class="loading">数据加载中...</div>
   </div>
 </template>
@@ -132,7 +134,14 @@ function goToSuiteMarketDetail(suiteId: number) {
   padding: 20px;
 
   .suite-filter {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    .suite-filter-name {
+      width: 500px;
+    }
   }
 
   .el-col {

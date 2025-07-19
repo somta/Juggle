@@ -4,29 +4,37 @@ import {templateMarketService} from '@/service';
 import {ref} from 'vue';
 import {Search} from "@element-plus/icons-vue";
 import { reactive } from 'vue';
+import ClassifyFilter from "@/components/common/ClassifyFilter.vue";
 const router = useRouter();
 const templateMarketList = ref<Record<string, any>[]>([]);
-const templateMarketClassifyList = ref<Record<string, any>[]>([]);
 
 const pageNum = ref(1);
 const loading = ref(false);
 const noMoreTemplate = ref(false);
+const filterData = ref([{
+  title: "模板价格",
+  key: "priceStatus",
+  options : [{label: "全部",value: null},{label: "免费",value: 0},{label: "付费",value: 1}]
+}]);
 const filterValue = reactive({
   templateName: '',
   templateClassifyId: null,
+  priceStatus: null,
 });
 
 
 queryTemplateMarketClassifyList();
 queryTemplateMarketList();
 
-async function changeTemplateClassify(){
+async function changeTemplateName(){
   noMoreTemplate.value = false;
   templateMarketList.value = [];
   await queryTemplateMarketList();
 }
 
-async function changeTemplateName(){
+async function changeFilter(val:any){
+  filterValue.templateClassifyId = val.templateClassify;
+  filterValue.priceStatus = val.priceStatus;
   noMoreTemplate.value = false;
   templateMarketList.value = [];
   await queryTemplateMarketList();
@@ -42,7 +50,8 @@ async function loadNextTemplateMarket(){
     pageNum:pageNum.value,
     pageSize:15,
     templateName:filterValue.templateName,
-    templateClassifyId: filterValue.templateClassifyId
+    templateClassifyId: filterValue.templateClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     loading.value = false;
@@ -62,7 +71,8 @@ async function queryTemplateMarketList() {
     pageNum:pageNum.value,
     pageSize:15,
     templateName:filterValue.templateName,
-    templateClassifyId: filterValue.templateClassifyId
+    templateClassifyId: filterValue.templateClassifyId,
+    priceStatus: filterValue.priceStatus,
   });
   if (res.success) {
     templateMarketList.value = res.result;
@@ -70,9 +80,9 @@ async function queryTemplateMarketList() {
 }
 
 async function queryTemplateMarketClassifyList() {
-  const res = await templateMarketService.queryTemplateMarketClassifyList();
-  if (res.success) {
-    templateMarketClassifyList.value = res.result;
+  const templateClassifyFilter = await templateMarketService.queryTemplateMarketClassifyList();
+  if(templateClassifyFilter != null){
+    filterData.value.push(templateClassifyFilter);
   }
 }
 
@@ -90,26 +100,16 @@ function goToTemplateMarketDetail(templateId: number) {
 <template>
   <div class="template-market">
     <div class="template-filter">
-      <el-select
-          v-model="filterValue.templateClassifyId"
-          style="width: 240px;margin-right: 20px;"
-          @change="changeTemplateClassify"
-      >
-        <el-option label="所有类型" value=""/>
-        <el-option
-            v-for="classify in templateMarketClassifyList"
-            :key="classify.id"
-            :label="classify.classifyName"
-            :value="classify.id"
-        />
-      </el-select>
       <el-input v-model="filterValue.templateName"
-          style="width: 300px"
+          class="template-filter-name"
+          size="large"
+          placeholder="请输入你想查找的模板信息"
           :suffix-icon="Search"
           @change="changeTemplateName"
       />
+      <ClassifyFilter :data="filterData" @change="changeFilter"/>
     </div>
-    <el-row :gutter="20" v-infinite-scroll="loadNextTemplateMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
+    <el-row v-if="templateMarketList.length" :gutter="20" v-infinite-scroll="loadNextTemplateMarket" infinite-scroll-delay="500" infinite-scroll-immediate="false">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in templateMarketList" :key="item.id">
         <el-card class="card" @click="goToTemplateMarketDetail(item.id)">
           <div class="card-header">
@@ -129,6 +129,7 @@ function goToTemplateMarketDetail(templateId: number) {
         </el-card>
       </el-col>
     </el-row>
+    <el-empty v-else/>
     <div v-if="loading" class="loading">数据加载中...</div>
   </div>
 </template>
@@ -138,7 +139,14 @@ function goToTemplateMarketDetail(templateId: number) {
   padding: 20px;
 
   .template-filter {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    .template-filter-name {
+      width: 500px;
+    }
   }
 
   .el-col {
