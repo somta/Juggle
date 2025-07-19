@@ -22,6 +22,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
+
 /**
  * @author husong
  * @since 1.0.0
@@ -44,7 +46,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor(tokenService))
-                .addPathPatterns("/v1/**")
-                .excludePathPatterns("/v1/user/login");
+                .addPathPatterns("/api/**")
+                .excludePathPatterns(JUGGLE_API_PREFIX + "/user/login","/pub/**");
     }
 }

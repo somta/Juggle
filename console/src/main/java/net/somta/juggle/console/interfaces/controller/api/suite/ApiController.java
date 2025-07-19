@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.suite.api.enums.ApiErrorEnum.API_NOT_EDIT_ERROR;
 import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
@@ -48,7 +49,7 @@ import static net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEn
  */
 @Tag(name = "API接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/api")
+@RequestMapping(JUGGLE_API_PREFIX + "/api")
 public class ApiController {
 
     private final IApiService apiService;

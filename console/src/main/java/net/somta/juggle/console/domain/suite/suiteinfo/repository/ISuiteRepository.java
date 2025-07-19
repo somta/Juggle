@@ -29,7 +29,7 @@ public interface ISuiteRepository {
 
     List<SuiteMarketClassifyVO> querySuiteMarketClassifyList();
 
-    ResponsePaginationDataResult<SuiteVO> querySuiteMarketList(Integer pageNum,Integer pageSize,String suiteName, Long suiteClassifyId);
+    ResponsePaginationDataResult<SuiteVO> querySuiteMarketList(Integer pageNum,Integer pageSize,String suiteName, Long suiteClassifyId, Integer priceStatus);
 
     SuiteMarketVO querySuiteMarketInfo(Long suiteId,String bill);
 

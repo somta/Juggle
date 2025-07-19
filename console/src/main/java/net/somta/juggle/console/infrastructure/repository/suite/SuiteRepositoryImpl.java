@@ -107,7 +107,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     }
 
     @Override
-    public ResponsePaginationDataResult<SuiteVO> querySuiteMarketList(Integer pageNum,Integer pageSize,String suiteName,Long suiteClassifyId) {
+    public ResponsePaginationDataResult<SuiteVO> querySuiteMarketList(Integer pageNum,Integer pageSize,String suiteName,Long suiteClassifyId, Integer priceStatus) {
         ResponsePaginationDataResult<SuiteVO> result = new ResponsePaginationDataResult<>();
         Map<String,Object> param = new HashMap<>();
         param.put("pageNum",pageNum);
@@ -117,6 +117,9 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
         if(suiteClassifyId != null){
             param.put("suiteClassifyId",suiteClassifyId);
+        }
+        if(priceStatus != null){
+            param.put("priceStatus",priceStatus);
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

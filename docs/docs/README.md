@@ -6,6 +6,7 @@ config:
   -
     type: introduce
     desc: 大幅提高开发效率，为企业降本增效.
+    backgroundImage: ./images/bj.png
     actions:
       -
         theme: brand

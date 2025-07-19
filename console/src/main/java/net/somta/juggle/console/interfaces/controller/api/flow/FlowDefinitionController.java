@@ -37,6 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
 import static net.somta.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static net.somta.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.*;
 import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.*;
@@ -48,7 +49,7 @@ import static net.somta.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.
  **/
 @Tag(name = "流程定义接口")
 @RestController
-@RequestMapping(JUGGLE_SERVER_VERSION + "/flow/definition")
+@RequestMapping(JUGGLE_API_PREFIX + "/flow/definition")
 public class FlowDefinitionController {
     private final static Logger logger = LoggerFactory.getLogger(FlowDefinitionController.class);
 

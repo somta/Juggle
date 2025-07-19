@@ -71,6 +71,14 @@ export const userGuide = defineNoteConfig({
             ],
         },
         {
+            text: '测试手册',
+            collapsed: true,
+            prefix: 'test',
+            items: [
+                'performance-test'
+            ],
+        },
+        {
             text: '开源共建',
             collapsed: true,
             prefix: 'open',
@@ -87,6 +95,14 @@ export const userGuide = defineNoteConfig({
             items: [
                 'get-help',
                 'donate'
+            ],
+        },
+        {
+            text: '常见问题',
+            collapsed: true,
+            prefix: 'faq',
+            items: [
+                'suite-faq',
             ],
         },
     ],

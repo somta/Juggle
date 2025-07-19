@@ -127,7 +127,7 @@ const imageLinks = computed(() => props.imageLinks ? props.imageLinks : [])
   margin-top: 1.5rem;
   font-size: 16px;
   font-weight: 500;
-  color: var(--vp-c-text-hero-text);
+  color: var(--vp-c-text-1);
   border-radius: 5px;
 }
 

@@ -9,6 +9,7 @@ import net.somta.core.base.page.PageParam;
 public class TemplateMarketQueryParam extends PageParam {
     private String templateName;
     private Long templateClassifyId;
+    private Integer priceStatus;
 
     public String getTemplateName() {
         return templateName;
@@ -24,5 +25,13 @@ public class TemplateMarketQueryParam extends PageParam {
 
     public void setTemplateClassifyId(Long templateClassifyId) {
         this.templateClassifyId = templateClassifyId;
+    }
+
+    public Integer getPriceStatus() {
+        return priceStatus;
+    }
+
+    public void setPriceStatus(Integer priceStatus) {
+        this.priceStatus = priceStatus;
     }
 }

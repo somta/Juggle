@@ -16,7 +16,10 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package net.somta.juggle.console.infrastructure.repository.flow;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import net.somta.juggle.console.domain.flow.version.FlowVersionAO;
+import net.somta.juggle.console.domain.flow.version.enums.FlowVersionStatusEnum;
 import net.somta.juggle.console.domain.flow.version.repository.IFlowVersionRepository;
 import net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView;
 import net.somta.juggle.console.domain.flow.version.view.FlowVersionView;
@@ -27,6 +30,9 @@ import net.somta.juggle.console.infrastructure.po.flow.FlowVersionPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static net.somta.juggle.common.constants.ApplicationConstants.COLON;
 
 /**
  * @author husong
@@ -34,6 +40,12 @@ import java.util.List;
  */
 @Repository
 public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
+
+    private static final Cache<String, FlowVersionInfoView> flowVersionCache = Caffeine.newBuilder()
+            .expireAfterAccess(24, TimeUnit.HOURS)
+            .initialCapacity(5)
+            .maximumSize(300)
+            .build();
 
     private final FlowVersionMapper flowVersionMapper;
 
@@ -43,6 +55,11 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
 
     @Override
     public void deleteFlowVersionById(Long flowVersionId) {
+        FlowVersionInfoView flowVersion = flowVersionMapper.queryFlowVersionInfoById(flowVersionId);
+        if(flowVersion != null){
+            String flowCacheKey = flowVersion.getFlowKey() + COLON + flowVersion.getFlowVersion();
+            flowVersionCache.invalidate(flowCacheKey);
+        }
         FlowVersionPO flowVersionPo = new FlowVersionPO();
         flowVersionPo.setId(flowVersionId);
         flowVersionPo.setDeleted(1);
@@ -64,16 +81,24 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
     @Override
     public FlowVersionAO getFlowVersionInfo(Long flowVersionId) {
         FlowVersionPO flowVersionPo = flowVersionMapper.queryById(flowVersionId);
-        FlowVersionAO flowVersionAo = IFlowVersionConverter.IMPL.poToAo(flowVersionPo);
-        return flowVersionAo;
+        return IFlowVersionConverter.IMPL.poToAo(flowVersionPo);
     }
 
     @Override
     public FlowVersionInfoView queryFlowVersionInfoByKey(String flowKey, String flowVersion) {
+        String flowCacheKey = flowKey + COLON + flowVersion;
+        FlowVersionInfoView cacheFlowVersionInfoView =flowVersionCache.getIfPresent(flowCacheKey);
+        if(cacheFlowVersionInfoView != null){
+            return cacheFlowVersionInfoView;
+        }
+
         FlowVersionQueryVO flowVersionQueryVo = new FlowVersionQueryVO();
         flowVersionQueryVo.setFlowKey(flowKey);
         flowVersionQueryVo.setFlowVersion(flowVersion);
         FlowVersionInfoView flowVersionInfoView = flowVersionMapper.queryFlowVersionInfoByKey(flowVersionQueryVo);
+        if(flowVersionInfoView != null){
+            flowVersionCache.put(flowCacheKey,flowVersionInfoView);
+        }
         return flowVersionInfoView;
     }
 
@@ -81,5 +106,11 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
     public List<FlowVersionView> queryFlowVersionList(FlowVersionQueryVO flowVersionQueryVO) {
         List<FlowVersionView> flowVersionViewList = flowVersionMapper.queryFlowVersionList(flowVersionQueryVO);
         return flowVersionViewList;
+    }
+
+    @Override
+    public void invalidateFlowCache(String flowKey, String flowVersion) {
+        String flowCacheKey = flowKey + COLON + flowVersion;
+        flowVersionCache.invalidate(flowCacheKey);
     }
 }
