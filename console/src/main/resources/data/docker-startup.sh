@@ -30,7 +30,6 @@ fi
 # Setting system properties
 #===========================================================================================
 JAVA_OPT="${JAVA_OPT} -Duser.timezone=${TIME_ZONE}"
-JAVA_OPT="${JAVA_OPT} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"
 JAVA_OPT="${JAVA_OPT} -jar /juggle-server.jar"
 JAVA_OPT="${JAVA_OPT} --spring.config.additional-location=${BASE_DIR}/conf/application.properties"
 
