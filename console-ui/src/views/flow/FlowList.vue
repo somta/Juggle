@@ -88,7 +88,7 @@ async function deleteFlowItem(row: any) {
 
 <template>
   <div class="page-flow">
-    <el-container>
+    <el-container class="table-container">
       <el-header class="page-header">
         <FlowFilter @search="onSearch" />
       </el-header>

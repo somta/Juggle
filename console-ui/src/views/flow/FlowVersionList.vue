@@ -95,7 +95,7 @@ async function deleteFlowVersionItem(row: any) {
 
 <template>
   <div class="page-flow">
-    <el-container>
+    <el-container class="table-container">
       <el-header class="page-header">
         <FlowVersionFilter @search="onSearch" />
       </el-header>

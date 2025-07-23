@@ -136,6 +136,7 @@ function goToTemplateMarketDetail(templateId: number) {
 
 <style lang="less" scoped>
 .template-market {
+  background-color: var(--el-bg-color-overlay);
   padding: 20px;
 
   .template-filter {

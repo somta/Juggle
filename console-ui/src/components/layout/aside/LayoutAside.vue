@@ -7,7 +7,7 @@ import IconSetting from "@/components/icons/IconSetting.vue";
 
 <template>
   <div class="layout-aside">
-    <el-menu :default-active="$route.fullPath" class="el-menu-vertical-demo" style="height: 100%" router>
+    <el-menu :default-active="$route.fullPath" :unique-opened="true" class="el-menu-vertical-demo" style="height: 100%" router>
       <!--      <el-menu-item index="/">
         <el-icon><HomeFilled /></el-icon>
         <span>首页</span>
