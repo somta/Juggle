@@ -182,6 +182,7 @@ function resetParams() {
 
 <style lang="less" scoped>
 .flow-debug {
+  background-color: var(--el-bg-color-overlay);
   padding: 24px 40px;
 
   .input-param-body {
