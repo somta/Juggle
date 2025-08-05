@@ -192,7 +192,7 @@ CREATE TABLE `t_data_source` (
    `port` varchar(10) DEFAULT NULL,
    `user_name` varchar(40) DEFAULT NULL,
    `password` varchar(40) DEFAULT NULL,
-   `database_name` varchar(20) DEFAULT NULL,
+   `database_name` varchar(40) DEFAULT NULL,
    `connect_ext_info` varchar(200) DEFAULT NULL,
    `min_pool_size` int(4) DEFAULT NULL,
    `max_pool_size` int(4) DEFAULT NULL,
