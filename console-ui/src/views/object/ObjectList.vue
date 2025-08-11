@@ -123,9 +123,11 @@ async function deleteItem(row: any) {
 </script>
 <template>
   <div class="page-object-list">
+    <div class="search-bar">
+      <ObjectFilter @search="onSearch" />
+    </div>
     <el-container class="table-container">
       <el-header class="page-header">
-        <ObjectFilter @search="onSearch" />
         <el-button :icon="Plus" type="primary" @click="openObjectAdd">新建</el-button>
       </el-header>
       <el-main class="page-body">

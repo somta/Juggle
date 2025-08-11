@@ -132,9 +132,11 @@ function openEdit(row: any) {
 
 <template>
   <div class="page-flow-define">
+    <div class="search-bar">
+      <FlowDefineFilter @search="onSearch" />
+    </div>
     <el-container class="table-container">
       <el-header class="page-header">
-        <FlowDefineFilter @search="onSearch" />
         <el-button :icon="Plus" type="primary" @click="openflowDefineAdd">新建</el-button>
       </el-header>
       <el-main class="page-body">
