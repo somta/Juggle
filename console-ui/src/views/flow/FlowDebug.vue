@@ -103,7 +103,7 @@ function getParams() {
       }
     } else {
       if (dataType.type === 'Boolean') {
-        params[param.paramKey] = true;
+        params[param.paramKey] = false;
       }
     }
   });
