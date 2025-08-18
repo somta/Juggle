@@ -46,7 +46,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor(tokenService))
-                .addPathPatterns("/api/**")
+                .addPathPatterns("/api/**","/open/**")
                 .excludePathPatterns(JUGGLE_API_PREFIX + "/user/login","/pub/**");
     }
 }
