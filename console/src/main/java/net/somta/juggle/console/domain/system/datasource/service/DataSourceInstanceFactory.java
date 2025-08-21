@@ -15,8 +15,9 @@ public class DataSourceInstanceFactory {
         }
         if(dataSourceInstance != null){
             return dataSourceInstance.getDataSourceInstance(dataSource);
+        } else {
+           throw new RuntimeException("数据源为空或连接失败");
         }
-        return null;
     }
 
 

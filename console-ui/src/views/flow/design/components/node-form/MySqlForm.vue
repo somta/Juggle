@@ -8,7 +8,7 @@ import { dataSourceService } from '@/service';
 import { useFlowDataInject } from '@/views/flow/design/hooks/flow-data.ts';
 
 const flowContext = useFlowDataInject();
-type MySqlRawData = RawData & { dataSourceId: number; operationType: string; sql: string; variableKey: string };
+type MySqlRawData = RawData & { dataSourceId: number; operationType: string; sql: string; outputVariableKey: string };
 
 function getDefaultData() {
   return {
@@ -21,7 +21,7 @@ function getDefaultData() {
     dataSourceId: null,
     operationType: '',
     sql: '',
-    variableKey: '',
+    outputVariableKey: '',
   };
 }
 const dataSourceList = ref<Array<{ value: number; label: string }>>([]);
@@ -105,15 +105,15 @@ async function loadDataSourceData() {
       </el-form-item>
       <el-form-item label="操作类型" required>
         <el-select v-model="nodeData.operationType" placeholder="请选择操作类型">
-          <el-option key="CHANGE" label="更改(增/删/改)" value="CHANGE" />
-          <el-option key="QUERY" label="查询" value="QUERY" />
+          <el-option key="change" label="更改(增/删/改)" value="change" />
+          <el-option key="query" label="查询" value="query" />
         </el-select>
       </el-form-item>
       <el-form-item label="SQL语句">
         <CodeEditor ref="codeEditRef" v-model="nodeData.sql" width="480px" height="200px" language="sql" />
       </el-form-item>
-      <el-form-item v-if="nodeData.operationType == 'QUERY'" label="结果输出">
-        <el-select v-model="nodeData.variableKey" placeholder="请选择变量">
+      <el-form-item v-if="nodeData.operationType == 'query'" label="结果输出">
+        <el-select v-model="nodeData.outputVariableKey" placeholder="请选择变量">
           <el-option v-for="item in outputVariableList" :key="item.value" :label="item.label" :value="item.value" >
             <span style="float: left">{{ item.value }}</span>
             <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">{{ item.label }}</span>
@@ -127,5 +127,3 @@ async function loadDataSourceData() {
     </el-form>
   </div>
 </template>
-
-<style lang="less" scoped></style>
