@@ -16,7 +16,7 @@ function getDefaultData() {
     incomings: [],
     elementType: ElementType.CODE,
     language: 'groovy',
-    content: '',
+    content: groovyDemoCode,
   };
 }
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
@@ -41,12 +41,37 @@ watch(
   { immediate: true }
 );
 
+const groovyDemoCode =
+    "// 获取变量\n" +
+    "// const env_name = $var.getVariableValue('变量key');\n" +
+    "// 设置变量\n" +
+    "// $var.setVariableValue('变量key',值);\n" +
+    "// 打印变量\n" +
+    "// println(env_name);\n";
+
 function validate() {
   if (!nodeData.value.name) {
     ElMessage.error('节点名称不能为空');
     return false;
   }
   return true;
+}
+
+/**
+ * 切换语言类型，给出不同的实例代码
+ * @param languageType 语言类型
+ */
+function changeLanguageType(languageType){
+
+  if("groovy" === languageType){
+    nodeData.value.content = groovyDemoCode;
+  }else if("javascript" === languageType){
+    nodeData.value.content =
+        "// 获取变量\n" +
+        "// const env_name = $var.getVariableValue('变量key');\n" +
+        "// 设置变量\n" +
+        "// $var.setVariableValue('变量key',值);\n";
+  }
 }
 
 function onSubmit() {
@@ -73,7 +98,7 @@ function onCancel() {
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="脚本语言">
-        <el-select v-model="nodeData.language" placeholder="请选择脚本语言">
+        <el-select v-model="nodeData.language" placeholder="请选择脚本语言" @change="changeLanguageType">
           <el-option key="groovy" label="Groovy" value="groovy" />
           <el-option key="javascript" label="JavaScript" value="javascript" />
         </el-select>
