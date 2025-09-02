@@ -110,7 +110,7 @@ async function loadDataSourceData() {
         </el-select>
       </el-form-item>
       <el-form-item label="SQL语句">
-        <CodeEditor ref="codeEditRef" v-model="nodeData.sql" width="480px" height="200px" language="sql" />
+        <CodeEditor ref="codeEditRef" v-model="nodeData.sql" height="200px" language="sql" />
       </el-form-item>
       <el-form-item v-if="nodeData.operationType == 'query'" label="结果输出">
         <el-select v-model="nodeData.outputVariableKey" placeholder="请选择变量">

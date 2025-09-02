@@ -105,7 +105,7 @@ function onCancel() {
       </el-form-item>
       <el-form-item label="脚本代码">
         <div class="code-btn"> <el-button @click="codeDialogVisible = true">编辑代码</el-button></div>
-        <CodeEditor ref="codeEditRef" v-model="nodeData.content" width="480px" height="200px" :language="nodeData.language" />
+        <CodeEditor ref="codeEditRef" v-model="nodeData.content" height="200px" :language="nodeData.language" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确定</el-button>
