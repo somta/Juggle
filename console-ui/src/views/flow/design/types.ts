@@ -20,8 +20,8 @@ export type RawData = {
 };
 
 export type MethodInfo = {
-  methodCode: string;
-  suiteCode: string;
+  methodCode: string | null;
+  suiteCode: string | null;
   requestContentType: string;
   requestType: string;
   url: string;
