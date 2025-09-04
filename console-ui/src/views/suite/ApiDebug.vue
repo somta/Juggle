@@ -8,6 +8,7 @@ import {ApiInfo, DataType, InputParams} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
+import {safeTrim} from "@/utils/CommonUtil.ts";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -114,7 +115,7 @@ function getParams() {
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
       } else {
-        params[param.paramKey] = param.value;
+        params[param.paramKey] = safeTrim(param.value);
       }
     } else {
       if (dataType.type === 'Boolean') {
