@@ -32,8 +32,7 @@ createTime: 2025/09/18 18:29:05
 | 发送富文本                   | POST     |    /suite/v1/fei-shu/robot/shareChatId        |                       |                     | {"webhookUrl":"https://o1111","lang":"zh_cn","title":"wo shi title","tagListList":[[{"tag":"text","text":"wo shi text"},{"tag":"a","text":"wo shi href","href":"https://feishu.cn"}]]} |                                                                                                                     |
 
 
-上诉接口的参数说明如下:
-  富文本参数除外, 富文本参数前往飞书文档
+上述接口的参数说明如下:
 
 | 参数           | 说明                             |
 |--------------|--------------------------------|
