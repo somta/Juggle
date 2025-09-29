@@ -43,7 +43,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
         ResponseEntity<ResponseDataResult<List<TemplateMarketClassifyVO>>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/classify/list",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/template/market/classify/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<List<TemplateMarketClassifyVO>>>() {});
@@ -77,7 +77,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
             throw new RuntimeException(e);
         }
         ResponseEntity<ResponsePaginationDataResult<TemplateMarketVO>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/list",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/template/market/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponsePaginationDataResult<TemplateMarketVO>>() {});
@@ -105,7 +105,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
         }
 
         ResponseEntity<ResponseDataResult<TemplateMarketInfoVO>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/info",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/template/market/info",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<TemplateMarketInfoVO>>() {});
@@ -130,7 +130,7 @@ public class TemplateRepositoryImpl implements ITemplateRepository {
         }
 
         ResponseEntity<ResponseDataResult<List<TemplateMarketVO>>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/template/market/recommend",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/template/market/recommend",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<List<TemplateMarketVO>>>() {});
