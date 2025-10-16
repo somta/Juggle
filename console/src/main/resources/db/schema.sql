@@ -41,6 +41,7 @@ CREATE TABLE `t_api` (
  `id` bigint(20) NOT NULL AUTO_INCREMENT,
  `suite_id` bigint(20) DEFAULT NULL,
  `api_code` varchar(100) DEFAULT NULL,
+ `api_protocol` varchar(10) DEFAULT NULL,
  `api_url` varchar(150) DEFAULT NULL,
  `api_name` varchar(50) DEFAULT NULL,
  `api_desc` varchar(200) DEFAULT NULL,
