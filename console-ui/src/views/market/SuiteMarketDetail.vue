@@ -59,7 +59,7 @@ async function handleBuySuiteMarket() {
   await createSuiteOrder();
 }
 
-let timerId;
+let timerId:any;
 async function createSuiteOrder() {
   let suiteId = Number(paramsData.params.suiteId);
   const res = await orderService.createOrder({
