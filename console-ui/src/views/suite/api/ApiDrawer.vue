@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, nextTick } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
-import SuiteSelect from '@/components/form/SuiteSelect.vue';
 import ParamSetting from '@/components/form/ParamSetting.vue';
 import { apiService } from '@/service';
 import type { ApiInfo } from '@/typings';
@@ -32,7 +31,6 @@ function getDefault() {
 }
 const formValue = reactive<ApiInfo>(getDefault());
 const rules = reactive<FormRules>({
-  suiteId: [{ required: true, message: '请选择套件', trigger: 'blur' }],
   apiName: [{ required: true, message: '请输入接口名称', trigger: 'blur' }],
   apiUrl: [
     { required: true, message: '请输入接口地址', trigger: 'blur' },
@@ -104,9 +102,6 @@ defineExpose({ open });
   <ResizableDrawer v-model="dialogVisible" :size="600" :title="title" destroyOnClose drawer-key="API">
     <div class="form">
       <el-form ref="apiFormRef" label-position="top" :model="formValue" :rules="rules">
-        <el-form-item label="套件" prop="suiteId">
-          <SuiteSelect v-model="formValue.suiteId" :auto="true" />
-        </el-form-item>
         <el-form-item label="接口名称" prop="apiName">
           <el-input v-model="formValue.apiName" maxlength="30" />
         </el-form-item>

@@ -85,6 +85,7 @@ async function addApiItem(row: any) {
     });
     row.apiHeaders = headerArray;
   }
+  row.suiteId = Number(paramsData.params.suiteId);
   const res = await apiService.listAdd(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
