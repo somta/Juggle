@@ -114,8 +114,10 @@ function getParams() {
     if (!isEmpty(param.value)) {
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
-      } else {
+      } else if(dataType.type === 'String') {
         params[param.paramKey] = safeTrim(param.value);
+      } else {
+        params[param.paramKey] = param.value;
       }
     } else {
       if (dataType.type === 'Boolean') {
