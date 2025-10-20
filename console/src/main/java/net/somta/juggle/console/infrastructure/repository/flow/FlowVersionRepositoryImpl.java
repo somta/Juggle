@@ -80,8 +80,8 @@ public class FlowVersionRepositoryImpl implements IFlowVersionRepository {
 
     @Override
     public FlowVersionAO getFlowVersionInfo(Long flowVersionId) {
-        FlowVersionPO flowVersionPo = flowVersionMapper.queryById(flowVersionId);
-        return IFlowVersionConverter.IMPL.poToAo(flowVersionPo);
+        FlowVersionInfoView flowVersionInfoView = flowVersionMapper.queryFlowVersionInfoById(flowVersionId);
+        return IFlowVersionConverter.IMPL.viewToAo(flowVersionInfoView);
     }
 
     @Override

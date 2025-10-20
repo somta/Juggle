@@ -1,4 +1,4 @@
-FROM hub.c.163.com/tonight/oracle_jdk_1.8_131:131
+FROM registry.cn-heyuan.aliyuncs.com/somta/base-image:openjdk-1.8-v1
 
 MAINTAINER Gavin somta@qq.com
 

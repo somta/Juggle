@@ -43,7 +43,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
         }
 
         ResponseEntity<ResponseDataResult<CreateOrderVO>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/order/create",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/order/create",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<CreateOrderVO>>() {});
@@ -68,7 +68,7 @@ public class OrderRepositoryImpl implements IOrderRepository {
         }
 
         ResponseEntity<ResponseDataResult<String>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/order/pay/status",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/order/pay/status",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<String>>() {});

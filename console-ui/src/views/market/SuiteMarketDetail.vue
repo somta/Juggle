@@ -59,7 +59,7 @@ async function handleBuySuiteMarket() {
   await createSuiteOrder();
 }
 
-let timerId;
+let timerId:any;
 async function createSuiteOrder() {
   let suiteId = Number(paramsData.params.suiteId);
   const res = await orderService.createOrder({
@@ -246,6 +246,7 @@ async function querySuiteMarketInfo() {
   margin: 0 auto;
   padding: 0 24px 16px 24px;
   background-color: #fff;
+  overflow-y: scroll;
 }
 
 .suite-head {
@@ -279,7 +280,7 @@ async function querySuiteMarketInfo() {
 
   .operation-button {
     margin-left: auto;
-    margin-right: 100px;
+    margin-right: 80px;
     padding-left: 10px;
 
     .btn {

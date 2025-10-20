@@ -8,6 +8,7 @@ import {DataType, FlowDefineInfo} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import {InfoFilled} from "@element-plus/icons-vue";
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
+import {safeTrim} from "@/utils/CommonUtil.ts";
 
 const route = useRoute();
 let paramsData = reactive({
@@ -98,12 +99,14 @@ function getParams() {
     if (!isEmpty(param.value)) {
       if (dataType.type === 'Object' || dataType.type === 'List') {
         params[param.paramKey] = JSON.parse(param.value);
+      }  else if(dataType.type === 'String') {
+        params[param.paramKey] = safeTrim(param.value);
       } else {
         params[param.paramKey] = param.value;
       }
     } else {
       if (dataType.type === 'Boolean') {
-        params[param.paramKey] = true;
+        params[param.paramKey] = false;
       }
     }
   });
@@ -182,6 +185,7 @@ function resetParams() {
 
 <style lang="less" scoped>
 .flow-debug {
+  background-color: var(--el-bg-color-overlay);
   padding: 24px 40px;
 
   .input-param-body {

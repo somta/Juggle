@@ -173,6 +173,7 @@ const handleBasicChange = (val: any) => {
     :size="size"
     style="width: 100%"
     @change="handleChange"
+    :filterable="true"
   />
 </template>
 

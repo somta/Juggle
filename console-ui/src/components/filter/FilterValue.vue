@@ -33,6 +33,15 @@ const innerValue = computed({
   },
 });
 
+const switchValue = computed({
+  get() {
+    return innerValue.value === true
+  },
+  set(newValue) {
+    innerValue.value = newValue
+  }
+})
+
 const currentType = computed(() => {
   return props.dataType?.type;
 });
@@ -45,7 +54,7 @@ const currentType = computed(() => {
       v-model="innerValue"
       :controls="showNumberControls"
       controls-position="right"
-      :max="100000000"
+      :max="9999999999999"
       :precision="0"
       :size="size"
       placeholder="请输入"
@@ -55,6 +64,7 @@ const currentType = computed(() => {
       v-model="innerValue"
       :controls="showNumberControls"
       controls-position="right"
+      :max="9999999999999"
       :precision="2"
       :size="size"
       placeholder="请输入"
@@ -73,7 +83,7 @@ const currentType = computed(() => {
         value-format="YYYY-MM-DD HH:mm:ss"/>
     <el-switch
       v-else-if="currentType === 'Boolean'"
-      v-model="innerValue"
+      v-model="switchValue"
       inline-prompt
       active-text="是"
       inactive-text="否"

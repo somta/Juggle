@@ -92,9 +92,11 @@ async function deleteSuiteItem(row: any) {
 </script>
 <template>
   <div class="page-interface-suite">
-    <el-container>
+    <div class="search-bar">
+      <SuiteFilter @search="onSearch" />
+    </div>
+    <el-container class="table-container">
       <el-header class="page-header">
-        <SuiteFilter @search="onSearch" />
         <el-button :icon="Plus" type="primary" @click="openAdd">新建</el-button>
       </el-header>
       <el-main class="page-body">
