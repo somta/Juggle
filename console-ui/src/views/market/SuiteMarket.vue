@@ -131,6 +131,7 @@ function goToSuiteMarketDetail(suiteId: number) {
 
 <style lang="less" scoped>
 .suite-market {
+  background-color: var(--el-bg-color-overlay);
   padding: 20px;
 
   .suite-filter {

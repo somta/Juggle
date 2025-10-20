@@ -96,7 +96,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
         ResponseEntity<ResponseDataResult<List<SuiteMarketClassifyVO>>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/suite/market/classify/list",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/suite/market/classify/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<List<SuiteMarketClassifyVO>>>() {});
@@ -130,7 +130,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
             throw new RuntimeException(e);
         }
         ResponseEntity<ResponsePaginationDataResult<SuiteVO>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/suite/market/list",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/suite/market/list",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponsePaginationDataResult<SuiteVO>>() {});
@@ -158,7 +158,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         }
 
         ResponseEntity<ResponseDataResult<SuiteMarketVO>> response = restTemplate.exchange(
-                juggleProperties.getOpenServerAddr()+"/open/v1/suite/market/info",
+                juggleProperties.getOpenServerAddr()+"/pub/v1/suite/market/info",
                 HttpMethod.POST,
                 entity,
                 new ParameterizedTypeReference<ResponseDataResult<SuiteMarketVO>>() {});

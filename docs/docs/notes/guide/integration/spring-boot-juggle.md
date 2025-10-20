@@ -19,7 +19,7 @@ SpringBoot作为Java开发最常见的框架，我们提供了对应的Starter�
 <dependency>
    <groupId>net.somta</groupId>
    <artifactId>juggle-spring-boot-starter</artifactId>
-   <version>1.1.1</version>
+   <version>1.1.4</version>
 </dependency>
 ```
 
