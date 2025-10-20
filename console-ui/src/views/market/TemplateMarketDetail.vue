@@ -77,7 +77,7 @@ async function handleBuyTemplateMarket() {
   await createTemplateOrder();
 }
 
-let timerId;
+let timerId:any;
 async function createTemplateOrder() {
   let templateId = Number(paramsData.params.templateId);
   const res = await orderService.createOrder({

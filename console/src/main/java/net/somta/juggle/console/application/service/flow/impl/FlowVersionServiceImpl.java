@@ -64,14 +64,14 @@ public class FlowVersionServiceImpl implements IFlowVersionService {
 
     @Override
     public Boolean updateFlowVersionStatus(FlowVersionAO flowVersionAo) {
+        flowVersionRepository.invalidateFlowCache(flowVersionAo.getFlowKey(),flowVersionAo.getFlowVersion());
         return flowVersionRepository.updateFlowVersion(flowVersionAo);
     }
 
     @Override
     public FlowVersionAO getFlowVersionInfoByKey(String flowKey, String flowVersion) {
         FlowVersionInfoView flowVersionInfoView = flowVersionRepository.queryFlowVersionInfoByKey(flowKey,flowVersion);
-        FlowVersionAO flowVersionAo = IFlowVersionAssembler.IMPL.viewToAo(flowVersionInfoView);
-        return flowVersionAo;
+        return IFlowVersionAssembler.IMPL.viewToAo(flowVersionInfoView);
     }
 
     @Override

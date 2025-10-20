@@ -1,7 +1,7 @@
 version: "3"
 services:
   juggle:
-    image: somta-docker.pkg.coding.net/juggle/juggle-docker/juggle:v4
+    image: somta/juggle:latest
     ports:
       - 9127:9127
     volumes:

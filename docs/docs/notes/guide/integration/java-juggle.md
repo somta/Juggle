@@ -19,7 +19,7 @@ permalink: /docs/guide/integration/java-juggle/
 <dependency>
     <groupId>net.somta</groupId>
     <artifactId>juggle-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 

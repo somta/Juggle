@@ -48,8 +48,8 @@ function buildFullTriggerUrl(triggerUrl: string) {
         {{ buildFullTriggerUrl(scope.row.triggerUrl) }}
       </template>
     </el-table-column>
-    <el-table-column prop="flowVersionRemark" label="版本说明" width="260" show-overflow-tooltip />
-    <el-table-column label="操作" width="250">
+    <el-table-column prop="flowVersionRemark" label="版本说明" show-overflow-tooltip />
+    <el-table-column label="操作" width="260">
       <template #default="scope">
         <el-button link type="primary" size="small" @click.prevent="updateFlowVersionStatus(scope.row)">
           {{ flowVersionStatusOptFormat(scope.row.flowVersionStatus) }}

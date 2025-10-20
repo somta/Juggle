@@ -22,19 +22,23 @@ function getDefaultData() {
     incomings: [],
     elementType: ElementType.METHOD,
     desc: '',
-    method: {
-      methodCode: null as string,
-      suiteCode: null as string,
-      url: '',
-      requestType: '',
-      requestContentType: '',
-      inputParamSchemas: [],
-      outputParamSchemas:[],
-      headerFillRules: [],
-      inputFillRules: [],
-      outputFillRules: [],
-    },
+    method: getMethodDefaultData(),
   };
+}
+
+function getMethodDefaultData() {
+  return {
+    methodCode: null,
+    suiteCode: null,
+    url: '',
+    requestType: '',
+    requestContentType: '',
+    inputParamSchemas: [],
+    outputParamSchemas:[],
+    headerFillRules: [],
+    inputFillRules: [],
+    outputFillRules: [],
+  }
 }
 
 const emit = defineEmits(['update', 'cancel']);
@@ -55,8 +59,10 @@ watch(
   val => {
     if (val !== nodeData.value) {
       nodeData.value = Object.assign(getDefaultData(), cloneDeep(val));
-      if (nodeData.value.method.methodCode) {
+      if (nodeData.value.method?.methodCode) {
         initApiSourceList(nodeData.value.method.methodCode);
+      } else {
+        nodeData.value.method = getMethodDefaultData();
       }
     }
   },
@@ -230,7 +236,6 @@ async function querySuiteList() {
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="套件" required>
-<!--        <SuiteSelect v-model="nodeData.method.suiteId" :auto="true" @change="onSuiteChange" />-->
         <el-select
             :modelValue="nodeData.method.suiteCode"
             placeholder="请选择套件"
