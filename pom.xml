@@ -37,6 +37,8 @@
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <swagger.version>2.2.8</swagger.version>
+        <swagger-parser.version>2.0.25</swagger-parser.version>
     </properties>
 
     <dependencyManagement>
@@ -137,6 +139,17 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.parser.v3</groupId>
+                <artifactId>swagger-parser</artifactId>
+                <version>${swagger-parser.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
