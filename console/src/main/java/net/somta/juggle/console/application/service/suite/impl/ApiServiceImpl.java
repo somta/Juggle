@@ -177,8 +177,12 @@ public class ApiServiceImpl implements IApiService {
             return;
         }
 
+        List<InputParameterVO> inputParamList = resolveInputParamList(components, postOption);
+        List<OutputParameterVO> outputParamList = resolveOutputParamList(components, postOption);
+
         ApiAO apiAO = new ApiAO();
-//        apiAO.setSuiteId();
+        // todo 从外部传来
+        apiAO.setSuiteId(-1L);
         // todo 拼接域名
         String requestPath = "https://juggle.com" + path;
         apiAO.setApiUrl(requestPath);
@@ -187,12 +191,7 @@ public class ApiServiceImpl implements IApiService {
         apiAO.setApiName(postOption.getSummary());
         apiAO.setApiDesc(postOption.getDescription());
         apiAO.initApiCode();
-
-        List<InputParameterVO> inputParamList = resolveInputParamList(components, postOption);
-        List<OutputParameterVO> outputParamList = resolveOutputParamList(components, postOption);
-
         apiAO.initParameterList(inputParamList, outputParamList);
-        System.out.println();
 
     }
 
@@ -200,7 +199,6 @@ public class ApiServiceImpl implements IApiService {
         ApiResponses responses = postOption.getResponses();
         ApiResponse response = responses.get("200");
         Content content = response.getContent();
-        System.out.println(content);
 
         List<OutputParameterVO> parameterList = new ArrayList<>();
         content.forEach((k, v) -> {
@@ -224,16 +222,26 @@ public class ApiServiceImpl implements IApiService {
     private OutputParameterVO createPostOutputParamVO(String name, Schema s, Map<String, Schema> schemas) {
         OutputParameterVO outputParameterVO = new OutputParameterVO();
         outputParameterVO.setParamKey(name);
-        // todo 如果是对象类型，对象名字要从components中拿
-        outputParameterVO.setParamName(getParamName(s));
-        outputParameterVO.setParamDesc(s.getDescription());
+        String paramName = getParamName(s);
+        String desc = s.getDescription();
+        if (StringUtils.isBlank(paramName)) {
+            String $ref = s.get$ref();
+            if (StringUtils.isNotBlank($ref)) {
+                String ref = getRefObjectName(s.get$ref());
+                Schema objSchema = schemas.get(ref);
+                paramName = getParamName(objSchema);
+                desc = objSchema.getDescription();
+            }
+        }
+
+        outputParameterVO.setParamName(paramName);
+        outputParameterVO.setParamDesc(desc);
 
         DataType dataType = createDataType(name, s, schemas);
         outputParameterVO.setDataType(dataType);
         return outputParameterVO;
     }
 
-    // todo 目前只处理了对象，还缺少
     private DataType createDataType(String name, Schema s, Map<String, Schema> schemas) {
         DataTypeEnum typeEnum = DataTypeUtil.from(s);
         // 基础类型处理
@@ -301,7 +309,7 @@ public class ApiServiceImpl implements IApiService {
                     .map(x -> {
                         String name = x.getKey();
                         Schema s = x.getValue();
-                        return createPostInputParamVO(name, s, requiredList);
+                        return createPostInputParamVO(name, s, requiredList, schemas);
                     })
                     .collect(Collectors.toList());
             parameterList.addAll(tmpParamList);
@@ -309,17 +317,27 @@ public class ApiServiceImpl implements IApiService {
         return parameterList;
     }
 
-    private InputParameterVO createPostInputParamVO(String name, Schema s, List<String> requiredList) {
+    private InputParameterVO createPostInputParamVO(String name, Schema s, List<String> requiredList, Map<String, Schema> schemas) {
         InputParameterVO inputParameterVO = new InputParameterVO();
         inputParameterVO.setParamKey(name);
-        inputParameterVO.setParamName(getParamName(s));
+        String paramName = getParamName(s);
+        String desc = s.getDescription();
+        if (StringUtils.isBlank(paramName)) {
+            String $ref = s.get$ref();
+            if (StringUtils.isNotBlank($ref)) {
+                String ref = getRefObjectName(s.get$ref());
+                Schema objSchema = schemas.get(ref);
+                paramName = getParamName(objSchema);
+                desc = objSchema.getDescription();
+            }
+        }
+        inputParameterVO.setParamName(paramName);
+        inputParameterVO.setParamDesc(desc);
+
         inputParameterVO.setParamPosition(ParameterPositionEnum.BODY.getCode());
         inputParameterVO.setRequired(requiredList.contains(name));
-        inputParameterVO.setParamDesc(s.getDescription());
 
-        // TODO 基本类型，如果是对象类型要手动set
-        DataTypeEnum typeEnum = DataTypeUtil.from(s);
-        DataType dataType = new DataType(typeEnum);
+        DataType dataType = createDataType(name, s, schemas);
         inputParameterVO.setDataType(dataType);
         return inputParameterVO;
     }
