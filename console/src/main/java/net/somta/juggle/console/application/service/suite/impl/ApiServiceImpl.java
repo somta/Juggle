@@ -23,6 +23,7 @@ import io.swagger.v3.oas.models.*;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
@@ -54,6 +55,7 @@ import net.somta.juggle.core.http.IHttpClient;
 import net.somta.juggle.core.http.Request;
 import net.somta.juggle.core.model.DataType;
 import net.somta.juggle.core.model.Property;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -242,6 +244,27 @@ public class ApiServiceImpl implements IApiService {
         return outputParameterVO;
     }
 
+    /**
+     * 创建数据类型对象，只处理非对象类型参数
+     *
+     * @param s 当前对象schema
+     * @return 数据类型对象
+     */
+    private DataType createDataType(Schema s) {
+        DataTypeEnum typeEnum = DataTypeUtil.from(s);
+        // 基础类型处理
+        DataType dataType = new DataType(typeEnum);
+        return dataType;
+    }
+
+    /**
+     * 处理对象类型的，兼容处理非对象类型的
+     *
+     * @param name    参数key
+     * @param s       当前对象的schema
+     * @param schemas 所有对象的schema集合，用来查找子对象的schema
+     * @return 数据类型
+     */
     private DataType createDataType(String name, Schema s, Map<String, Schema> schemas) {
         DataTypeEnum typeEnum = DataTypeUtil.from(s);
         // 基础类型处理
@@ -292,10 +315,100 @@ public class ApiServiceImpl implements IApiService {
     }
 
 
-    private List<InputParameterVO> resolveInputParamList(Components components, Operation postOption) {
-        RequestBody requestBody = postOption.getRequestBody();
-        // post请求，requestBody对应的内容
-        Content content = requestBody.getContent();
+    private List<InputParameterVO> resolveInputParamList(Components components, Operation operation) {
+        // 解析查询参数
+        List<InputParameterVO> queryParameterList = resolveQueryParameter(operation);
+        // 解析路径参数
+        List<InputParameterVO> pathParameterList = resolvePathParameter(operation);
+        // 解析请求体参数
+        List<InputParameterVO> bodyParameterList = resolveBodyParameter(components, operation);
+
+        // 整合参数列表
+        ArrayList<InputParameterVO> parameterList = new ArrayList<>(queryParameterList.size() + pathParameterList.size() + bodyParameterList.size());
+        parameterList.addAll(queryParameterList);
+        parameterList.addAll(pathParameterList);
+        parameterList.addAll(bodyParameterList);
+        return parameterList;
+    }
+
+    /**
+     * 处理query类型的入参
+     *
+     * @param operation 请求元数据
+     * @return query参数列表
+     */
+    private List<InputParameterVO> resolveQueryParameter(Operation operation) {
+        List<Parameter> parameters = operation.getParameters();
+        if (CollectionUtils.isEmpty(parameters)) {
+            return Collections.emptyList();
+        }
+        return parameters.stream()
+                .filter(x -> ParameterPositionEnum.QUERY.getCode().equalsIgnoreCase(x.getIn()))
+                .map(this::buildQueryParameter)
+                .collect(Collectors.toList());
+    }
+
+
+    /**
+     * 处理path类型的入参
+     *
+     * @param operation 请求元数据
+     * @return query参数列表
+     */
+    private List<InputParameterVO> resolvePathParameter(Operation operation) {
+        List<Parameter> parameters = operation.getParameters();
+        if (CollectionUtils.isEmpty(parameters)) {
+            return Collections.emptyList();
+        }
+        return parameters.stream()
+                .filter(x -> ParameterPositionEnum.PATH.getCode().equalsIgnoreCase(x.getIn()))
+                .map(this::buildPathParameter)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 构建 查询参数
+     *
+     * @param parameter swagger参数
+     * @return 编排参数
+     */
+    private InputParameterVO buildQueryParameter(Parameter parameter) {
+        InputParameterVO inputParameterVO = new InputParameterVO();
+        inputParameterVO.setParamKey(parameter.getName());
+        inputParameterVO.setParamName(parameter.getDescription());
+        inputParameterVO.setParamDesc(parameter.getDescription());
+        inputParameterVO.setParamPosition(ParameterPositionEnum.QUERY.getCode());
+        inputParameterVO.setRequired(parameter.getRequired());
+        DataType dataType = createDataType(parameter.getSchema());
+        inputParameterVO.setDataType(dataType);
+        return inputParameterVO;
+    }
+
+    private InputParameterVO buildPathParameter(Parameter parameter) {
+        InputParameterVO inputParameterVO = new InputParameterVO();
+        inputParameterVO.setParamKey(parameter.getName());
+        inputParameterVO.setParamName(parameter.getDescription());
+        inputParameterVO.setParamDesc(parameter.getDescription());
+        inputParameterVO.setParamPosition(ParameterPositionEnum.PATH.getCode());
+        inputParameterVO.setRequired(parameter.getRequired());
+        DataType dataType = createDataType(parameter.getSchema());
+        inputParameterVO.setDataType(dataType);
+        return inputParameterVO;
+    }
+
+    /**
+     * 处理放在body请求中的参数
+     *
+     * @param components 所有的参数对象map
+     * @param operation  请求信息
+     * @return body入参列表
+     */
+    private List<InputParameterVO> resolveBodyParameter(Components components, Operation operation) {
+        // 处理body参数
+        Content content = Optional.ofNullable(operation.getRequestBody()).map(RequestBody::getContent).orElse(null);
+        if (Objects.isNull(content)) {
+            return Collections.emptyList();
+        }
 
         List<InputParameterVO> parameterList = new ArrayList<>();
         content.forEach((k, v) -> {
