@@ -204,21 +204,47 @@ public class ApiServiceImpl implements IApiService {
 
         List<OutputParameterVO> parameterList = new ArrayList<>();
         content.forEach((k, v) -> {
-            String refObjectName = getRefObjectName(v);
-            Map<String, Schema> schemas = components.getSchemas();
-            Schema schema = schemas.get(refObjectName);
-
-            Map<String, Schema> properties = schema.getProperties();
-            List<OutputParameterVO> tmpParamList = properties.entrySet().stream()
-                    .map(x -> {
-                        String name = x.getKey();
-                        Schema s = x.getValue();
-                        return createPostOutputParamVO(name, s, schemas);
-                    })
-                    .collect(Collectors.toList());
-            parameterList.addAll(tmpParamList);
+            List<OutputParameterVO> nonObjectOutputParamList = resolveNonObjectOutput(v.getSchema());
+            List<OutputParameterVO> objectOutputParamList = resolveObjectOutput(components, v.getSchema());
+            parameterList.addAll(nonObjectOutputParamList);
+            parameterList.addAll(objectOutputParamList);
         });
         return parameterList;
+    }
+
+    private List<OutputParameterVO> resolveNonObjectOutput(Schema schema) {
+        ArrayList<OutputParameterVO> outputParameterList = new ArrayList<>();
+        if (StringUtils.isBlank(schema.getType())) {
+            return outputParameterList;
+        }
+
+        OutputParameterVO outputParameterVO = new OutputParameterVO();
+        outputParameterVO.setParamKey(StringUtils.EMPTY);
+        outputParameterVO.setParamName(StringUtils.EMPTY);
+        outputParameterVO.setDataType(createDataType(schema));
+        outputParameterVO.setParamDesc(StringUtils.EMPTY);
+        outputParameterList.add(outputParameterVO);
+        return outputParameterList;
+    }
+
+    private List<OutputParameterVO> resolveObjectOutput(Components components, Schema v) {
+        if (StringUtils.isBlank(v.get$ref())) {
+            return Collections.emptyList();
+        }
+
+        String refObjectName = getRefObjectName(v);
+        Map<String, Schema> schemas = components.getSchemas();
+        Schema schema = schemas.get(refObjectName);
+
+        Map<String, Schema> properties = schema.getProperties();
+        List<OutputParameterVO> tmpParamList = properties.entrySet().stream()
+                .map(x -> {
+                    String name = x.getKey();
+                    Schema s = x.getValue();
+                    return createPostOutputParamVO(name, s, schemas);
+                })
+                .collect(Collectors.toList());
+        return tmpParamList;
     }
 
     private OutputParameterVO createPostOutputParamVO(String name, Schema s, Map<String, Schema> schemas) {
@@ -412,7 +438,7 @@ public class ApiServiceImpl implements IApiService {
 
         List<InputParameterVO> parameterList = new ArrayList<>();
         content.forEach((k, v) -> {
-            String refObjectName = getRefObjectName(v);
+            String refObjectName = getRefObjectName(v.getSchema());
             Map<String, Schema> schemas = components.getSchemas();
             Schema schema = schemas.get(refObjectName);
 
@@ -471,8 +497,8 @@ public class ApiServiceImpl implements IApiService {
         return StringUtils.EMPTY;
     }
 
-    private static String getRefObjectName(MediaType v) {
-        String ref = v.getSchema().get$ref();
+    private static String getRefObjectName(Schema v) {
+        String ref = v.get$ref();
         String[] split = ref.split("/");
         String refObject = split[split.length - 1];
         return refObject;
