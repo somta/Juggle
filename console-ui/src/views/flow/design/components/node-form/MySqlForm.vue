@@ -93,7 +93,7 @@ async function loadDataSourceData() {
         <span>{{ nodeData.key }}</span>
       </el-form-item>
       <el-form-item label="节点名称" required>
-        <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
+        <el-input v-model="nodeData.name" maxlength="16" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
         <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
