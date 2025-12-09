@@ -95,7 +95,7 @@ function onCancel() {
         <el-input v-model="nodeData.name" maxlength="16" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
-        <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
+        <el-input v-model="nodeData.desc" maxlength="60" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="脚本语言">
         <el-select v-model="nodeData.language" placeholder="请选择脚本语言" @change="changeLanguageType">
