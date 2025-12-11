@@ -15,6 +15,7 @@ let paramsData = reactive({
   params: route.params,
 });
 
+const loading = ref(false);
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
 let flowResponseJson = ref('');
@@ -50,6 +51,7 @@ async function sendApiDebug() {
   if (!validate()) {
     return;
   }
+  loading.value = true;
   const params = {
     headerData: getHeaders(),
     inputParamData: getParams(),
@@ -66,6 +68,7 @@ async function sendApiDebug() {
       headerValue: value,
     };
   });
+  loading.value = false;
 }
 
 function isEmpty(val: any) {
@@ -141,105 +144,112 @@ function resetParams() {
 </script>
 
 <template>
-  <div class="flow-debug">
-    <el-row :gutter="16">
-      <el-col :span="20">
-        <el-input v-model="apiInfo.apiUrl">
-          <template #prepend>
-            <el-select v-model="apiInfo.apiRequestType" disabled style="width: 115px">
-              <el-option label="GET" value="GET" />
-              <el-option label="POST" value="POST" />
-              <el-option label="PUT" value="PUT" />
-              <el-option label="DELETE" value="DELETE" />
-            </el-select>
-          </template>
-        </el-input>
-      </el-col>
-      <el-col :span="4">
-        <el-button type="primary" @click="sendApiDebug">发送</el-button>
-        <el-button @click="resetParams">重置</el-button>
-      </el-col>
-    </el-row>
-    <el-tabs model-value="inputParam">
-      <el-tab-pane label="请求头" name="headerParam">
-        <div class="input-param-head">
-          <div class="input-param-tr">
-            <div class="input-param-td"></div>
-            <div class="input-param-td">参数编码</div>
-            <div class="input-param-td">参数名称</div>
-            <div class="input-param-td">参数类型</div>
-            <div class="input-param-td td-value">参数值</div>
+  <div class="flow-debug"
+       v-loading="loading"
+       element-loading-text="接口请求中">
+    <div class="flow-debug-content">
+       <div class="debug-header">
+          <div class="debug-url">
+            <el-input v-model="apiInfo.apiUrl">
+              <template #prepend>
+                <el-select v-model="apiInfo.apiRequestType" disabled style="width: 115px">
+                  <el-option label="GET" value="GET" />
+                  <el-option label="POST" value="POST" />
+                  <el-option label="PUT" value="PUT" />
+                  <el-option label="DELETE" value="DELETE" />
+                </el-select>
+              </template>
+            </el-input>
+          </div>
+          <div class="debug-actions">
+            <el-button type="primary" @click="sendApiDebug">发送</el-button>
+            <el-button @click="resetParams">重置</el-button>
           </div>
         </div>
-        <div class="input-param-body">
-          <div class="input-param-tr" v-for="header in apiInfo?.apiHeaders as InputParams[]" :key="header.paramKey">
-            <div class="input-param-td">
-              <template v-if="header.required">*</template>
+       <div class="debug-inputParam">
+        <el-tabs model-value="inputParam">
+          <el-tab-pane label="请求头" name="headerParam">
+            <div class="input-param-head">
+              <div class="input-param-tr">
+                <div class="input-param-td"></div>
+                <div class="input-param-td">参数编码</div>
+                <div class="input-param-td">参数名称</div>
+                <div class="input-param-td">参数类型</div>
+                <div class="input-param-td td-value">参数值</div>
+              </div>
             </div>
-            <div class="input-param-td" :title="header.paramKey">{{ header.paramKey }}</div>
-            <div class="input-param-td" :title="header.paramName">
-              {{ header.paramName }}
-              <el-tooltip v-if="header.paramDesc" effect="dark" placement="top" :content="header.paramDesc">
-                <el-icon><InfoFilled /></el-icon>
-              </el-tooltip>
+            <div class="input-param-body">
+              <div class="input-param-tr" v-for="header in apiInfo?.apiHeaders as InputParams[]" :key="header.paramKey">
+                <div class="input-param-td">
+                  <template v-if="header.required">*</template>
+                </div>
+                <div class="input-param-td" :title="header.paramKey">{{ header.paramKey }}</div>
+                <div class="input-param-td" :title="header.paramName">
+                  {{ header.paramName }}
+                  <el-tooltip v-if="header.paramDesc" effect="dark" placement="top" :content="header.paramDesc">
+                    <el-icon><InfoFilled /></el-icon>
+                  </el-tooltip>
+                </div>
+                <div class="input-param-td">
+                  <DataTypeDisplay :dataType="header.dataType"/>
+                </div>
+                <div class="input-param-td td-value">
+                  <FilterValue v-model="header.value" :dataType="header.dataType" />
+                </div>
+                <div class="input-param-td td-error">{{ header.error || '' }}</div>
+              </div>
             </div>
-            <div class="input-param-td">
-              <DataTypeDisplay :dataType="header.dataType"/>
+          </el-tab-pane>
+          <el-tab-pane label="请求参数" name="inputParam">
+            <div class="input-param-head">
+              <div class="input-param-tr">
+                <div class="input-param-td"></div>
+                <div class="input-param-td">参数编码</div>
+                <div class="input-param-td">参数名称</div>
+                <div class="input-param-td">参数类型</div>
+                <div class="input-param-td td-value">参数值</div>
+              </div>
             </div>
-            <div class="input-param-td td-value">
-              <FilterValue v-model="header.value" :dataType="header.dataType" />
+            <div class="input-param-body">
+              <div class="input-param-tr" v-for="param in apiInfo?.apiInputParams" :key="param.paramKey">
+                <div class="input-param-td">
+                  <template v-if="param.required">*</template>
+                </div>
+                <div class="input-param-td" >{{ param.paramKey }}</div>
+                <div class="input-param-td" :title="param.paramName">
+                  {{ param.paramName }}
+                  <el-tooltip v-if="param.paramDesc" effect="dark" placement="top" :content="param.paramDesc">
+                    <el-icon><InfoFilled /></el-icon>
+                  </el-tooltip>
+                </div>
+                <div class="input-param-td">
+                  <DataTypeDisplay :dataType="param.dataType"/>
+                </div>
+                <div class="input-param-td td-value">
+                  <FilterValue v-model="param.value" :dataType="param.dataType" />
+                </div>
+                <div class="input-param-td td-error">{{ param.error || '' }}</div>
+              </div>
             </div>
-            <div class="input-param-td td-error">{{ header.error || '' }}</div>
-          </div>
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="请求参数" name="inputParam">
-        <div class="input-param-head">
-          <div class="input-param-tr">
-            <div class="input-param-td"></div>
-            <div class="input-param-td">参数编码</div>
-            <div class="input-param-td">参数名称</div>
-            <div class="input-param-td">参数类型</div>
-            <div class="input-param-td td-value">参数值</div>
-          </div>
-        </div>
-        <div class="input-param-body">
-          <div class="input-param-tr" v-for="param in apiInfo?.apiInputParams" :key="param.paramKey">
-            <div class="input-param-td">
-              <template v-if="param.required">*</template>
-            </div>
-            <div class="input-param-td" >{{ param.paramKey }}</div>
-            <div class="input-param-td" :title="param.paramName">
-              {{ param.paramName }}
-              <el-tooltip v-if="param.paramDesc" effect="dark" placement="top" :content="param.paramDesc">
-                <el-icon><InfoFilled /></el-icon>
-              </el-tooltip>
-            </div>
-            <div class="input-param-td">
-              <DataTypeDisplay :dataType="param.dataType"/>
-            </div>
-            <div class="input-param-td td-value">
-              <FilterValue v-model="param.value" :dataType="param.dataType" />
-            </div>
-            <div class="input-param-td td-error">{{ param.error || '' }}</div>
-          </div>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
-
-    <el-tabs model-value="result">
-      <el-tab-pane label="响应内容" name="result">
-        <el-text line-clamp="2">
-          <CodeEditor ref="codeEditRef" v-model="flowResponseJson" width="1000px" height="200px" language="json" />
-        </el-text>
-      </el-tab-pane>
-      <el-tab-pane label="响应头" name="responseHeader">
-        <el-table :data="responseHeaderData" style="width: 100%">
-          <el-table-column prop="headerKey" label="响应头" width="350" />
-          <el-table-column prop="headerValue" label="值" />
-        </el-table>
-      </el-tab-pane>
-    </el-tabs>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+       <div class="debug-result">
+        <el-tabs model-value="result">
+          <el-tab-pane label="响应内容" name="result">
+            <el-text line-clamp="2">
+              <CodeEditor ref="codeEditRef" v-model="flowResponseJson" width="680px" height="200px" language="json" :editor-option="{ lineNumbers: 'off' }"/>
+            </el-text>
+          </el-tab-pane>
+          <el-tab-pane label="响应头" name="responseHeader">
+            <el-table :data="responseHeaderData" style="width: 80%">
+              <el-table-column prop="headerKey" label="响应头" width="350" />
+              <el-table-column prop="headerValue" label="值" />
+            </el-table>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -248,9 +258,25 @@ function resetParams() {
   background-color: var(--el-bg-color-overlay);
   padding: 24px 40px;
 
+  .flow-debug-content {
+    width: 70%;
+    margin-left: 210px;
+  }
+
   .input-param-body {
     color: #666;
   }
+  .debug-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .debug-url{
+      width: 704px;
+      margin-right: 14px;
+    }
+  }
+
   .input-param-tr {
     display: flex;
     font-size: 14px;
