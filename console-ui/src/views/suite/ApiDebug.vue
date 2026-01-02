@@ -3,12 +3,12 @@ import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { apiService } from '@/service';
 import { ElMessage } from 'element-plus';
-import CodeEditor from '@/components/common/CodeEditor.vue';
 import {ApiInfo, DataType, InputParams} from '@/typings';
 import FilterValue from '@/components/filter/FilterValue.vue';
 import { InfoFilled } from '@element-plus/icons-vue';
 import DataTypeDisplay from "@/components/common/DataTypeDisplay.vue";
 import {safeTrim} from "@/utils/CommonUtil.ts";
+import VueJsonPretty from 'vue-json-pretty';
 
 const route = useRoute();
 let paramsData = reactive({
@@ -16,9 +16,8 @@ let paramsData = reactive({
 });
 
 const loading = ref(false);
-const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
 
-let flowResponseJson = ref('');
+let flowResponseJson = ref();
 const apiInfo = ref<ApiInfo>({
   id: null,
   suiteId: null,
@@ -58,7 +57,7 @@ async function sendApiDebug() {
   };
   const res = await apiService.debugApi(paramsData.params.apiId as number, params);
   if (res.success) {
-    flowResponseJson.value = JSON.stringify(res.result);
+    flowResponseJson.value = res.result;
   } else {
     ElMessage({ type: 'error', message: res.errorMsg });
   }
@@ -237,9 +236,14 @@ function resetParams() {
        <div class="debug-result">
         <el-tabs model-value="result">
           <el-tab-pane label="响应内容" name="result">
-            <el-text line-clamp="2">
-              <CodeEditor ref="codeEditRef" v-model="flowResponseJson" width="680px" height="200px" language="json" :editor-option="{ lineNumbers: 'off' }"/>
-            </el-text>
+            <div style="width: 80%">
+              <vue-json-pretty
+                  :data="flowResponseJson"
+                  :deep="3"
+                  show-length
+                  show-line-num
+              />
+            </div>
           </el-tab-pane>
           <el-tab-pane label="响应头" name="responseHeader">
             <el-table :data="responseHeaderData" style="width: 80%">
