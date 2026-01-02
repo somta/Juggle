@@ -9,11 +9,21 @@ import net.somta.core.base.page.PageParam;
 public class SuiteQueryParam extends PageParam {
     private String suiteName;
 
+    private Integer suiteFlag;
+
     public String getSuiteName() {
         return suiteName;
     }
 
     public void setSuiteName(String suiteName) {
         this.suiteName = suiteName;
+    }
+
+    public Integer getSuiteFlag() {
+        return suiteFlag;
+    }
+
+    public void setSuiteFlag(Integer suiteFlag) {
+        this.suiteFlag = suiteFlag;
     }
 }

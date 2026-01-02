@@ -103,6 +103,7 @@ public class SuiteServiceImpl implements ISuiteService {
         Page<SuiteDTO> page = PageHelper.startPage(suiteQueryParam.getPageNum(), suiteQueryParam.getPageSize());
         SuiteQueryVO suiteQueryVo = new SuiteQueryVO();
         suiteQueryVo.setSuiteName(suiteQueryParam.getSuiteName());
+        suiteQueryVo.setSuiteFlag(suiteQueryParam.getSuiteFlag());
         List<SuiteVO> suiteVoList = suiteRepository.querySuiteList(suiteQueryVo);
         List<SuiteDTO> suiteList = ISuiteAssembler.IMPL.voListToDtoList(suiteVoList);
         PageInfo pageInfo = new PageInfo(suiteList);
