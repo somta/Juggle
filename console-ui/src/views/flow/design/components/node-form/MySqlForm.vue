@@ -26,6 +26,7 @@ function getDefaultData() {
 }
 const dataSourceList = ref<Array<{ value: number; label: string }>>([]);
 const codeEditRef = ref<InstanceType<typeof CodeEditor>>();
+const sqlDialogVisible = ref(false);
 
 const emit = defineEmits(['update', 'cancel']);
 const props = defineProps({
@@ -110,6 +111,7 @@ async function loadDataSourceData() {
         </el-select>
       </el-form-item>
       <el-form-item label="SQL语句">
+        <div class="sql-btn"> <el-button @click="sqlDialogVisible = true">编辑SQL</el-button></div>
         <CodeEditor ref="codeEditRef" v-model="nodeData.sql" height="200px" language="sql" />
       </el-form-item>
       <el-form-item v-if="nodeData.operationType == 'query'" label="结果输出">
@@ -125,5 +127,14 @@ async function loadDataSourceData() {
         <el-button @click="onCancel">取消</el-button>
       </el-form-item>
     </el-form>
+    <el-dialog v-model="sqlDialogVisible" title="SQL代码" width="1000">
+      <CodeEditor ref="codeEditRef" v-model="nodeData.sql" width="960px" height="500px" :language="'sql'" />
+    </el-dialog>
   </div>
 </template>
+<style lang="less" scoped>
+.sql-btn{
+  padding-bottom: 5px;
+  margin-left: auto;
+}
+</style>
