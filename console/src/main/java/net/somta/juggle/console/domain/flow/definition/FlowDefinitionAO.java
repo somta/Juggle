@@ -111,8 +111,8 @@ public class FlowDefinitionAO {
             Variable variable = null;
             for (VariableInfoVO variableInfoVo : variableInfoList) {
                 variable = new Variable();
-                variable.setKey(variableInfoVo.getEnvKey());
-                variable.setName(variableInfoVo.getEnvName());
+                variable.setKey(variableInfoVo.getVariableKey());
+                variable.setName(variableInfoVo.getVariableName());
                 variable.setDataType(variableInfoVo.getDataType());
                 variables.add(variable);
             }

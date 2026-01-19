@@ -31,14 +31,14 @@ public interface IVariableInfoConverter {
         for (VariableInfoPO variableInfoPo : variableInfoPoList){
             variableInfoVo = new VariableInfoVO();
             variableInfoVo.setId(variableInfoPo.getId());
-            variableInfoVo.setEnvKey(variableInfoPo.getEnvKey());
-            variableInfoVo.setEnvName(variableInfoPo.getEnvName());
+            variableInfoVo.setVariableKey(variableInfoPo.getVariableKey());
+            variableInfoVo.setVariableName(variableInfoPo.getVariableName());
             try {
                 variableInfoVo.setDataType(JsonSerializeHelper.deserialize(variableInfoPo.getDataType(), DataType.class));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-            variableInfoVo.setEnvType(variableInfoPo.getEnvType());
+            variableInfoVo.setVariableType(variableInfoPo.getVariableType());
             list.add(variableInfoVo);
         }
         return list;
@@ -53,9 +53,9 @@ public interface IVariableInfoConverter {
         Date currentDate = new Date();
         for (VariableInfoVO variableInfoVo : variableInfoVoList) {
             variableInfoPo = new VariableInfoPO();
-            variableInfoPo.setEnvKey(variableInfoVo.getEnvKey());
-            variableInfoPo.setEnvName(variableInfoVo.getEnvName());
-            variableInfoPo.setEnvType(variableInfoVo.getEnvType());
+            variableInfoPo.setVariableKey(variableInfoVo.getVariableKey());
+            variableInfoPo.setVariableName(variableInfoVo.getVariableName());
+            variableInfoPo.setVariableType(variableInfoVo.getVariableType());
             try {
                 variableInfoPo.setDataType(JsonSerializeHelper.serialize(variableInfoVo.getDataType()));
             } catch (JsonProcessingException e) {
