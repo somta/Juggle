@@ -30,11 +30,11 @@ const props = defineProps({
 });
 
 const sourceModel = computed({
-  get: () => props.item.envKey,
+  get: () => props.item.variableKey,
   set: value => {
-    /*const current = props.sourceList.find(item => item.envKey === value);*/
+    /*const current = props.sourceList.find(item => item.variableKey === value);*/
     const current = getVariableDataType(value,props.sourceList as FlowVariable[]);
-    emit('change', { envKey: value, dataType: current.dataType });
+    emit('change', { variableKey: value, dataType: current.dataType });
   },
 });
 
@@ -85,7 +85,7 @@ const isNoValueOperator = computed(() => {
 const filteredTargetList = computed(() => {
   return props.targetList.filter((item: any) => {
     // 不选取自己
-    if (item.envKey === props.item.envKey) {
+    if (item.variableKey === props.item.variableKey) {
       return false;
     }
     // 只能选与自己类型一致的
@@ -98,7 +98,7 @@ const filteredTargetList = computed(() => {
   <div class="filter-item">
     <div class="filter-item-key">
 <!--      <el-select placeholder="请选择" v-model="sourceModel">
-        <el-option v-for="source in sourceList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
+        <el-option v-for="source in sourceList" :key="source.variableKey" :value="source.variableKey" :label="source.variableName" />
       </el-select>-->
       <VariableSelect
           v-model="sourceModel"
@@ -122,7 +122,7 @@ const filteredTargetList = computed(() => {
       <template v-if="!isNoValueOperator">
         <FilterValue v-if="isConstant" v-model="targetModel" :dataType="props.item.dataType" />
         <el-select v-else-if="isVariable" placeholder="请选择" v-model="targetModel">
-          <el-option v-for="source in filteredTargetList" :key="source.envKey" :value="source.envKey" :label="source.envName" />
+          <el-option v-for="source in filteredTargetList" :key="source.variableKey" :value="source.variableKey" :label="source.variableName" />
         </el-select>
       </template>
     </div>

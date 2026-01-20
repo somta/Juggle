@@ -159,12 +159,12 @@ const inputRequiredKeys = ref<string[]>([]);
 
 const inputTargetList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.envType));
+  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.variableType));
 });
 
 const outputTargetList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [FlowVariableType.OUTPUT, FlowVariableType.TEMP].includes(item.envType));
+  return flowVariables.filter(item => [FlowVariableType.OUTPUT, FlowVariableType.TEMP].includes(item.variableType));
 });
 
 function validateParam(param: any) {

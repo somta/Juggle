@@ -49,7 +49,7 @@ watch(
 
 const outputVariableList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => item.envType !== FlowVariableType.INPUT).map((item: any) => ({ label: item.envName, value: item.envKey }));
+  return flowVariables.filter(item => item.variableType !== FlowVariableType.INPUT).map((item: any) => ({ label: item.variableName, value: item.variableKey }));
 });
 
 loadDataSourceData();

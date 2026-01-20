@@ -102,17 +102,17 @@ function isMatchObjectStructure(filterDataType: DataType, objectStructure: Objec
 }
 
 
-export function getVariableDataType(envKey:string, envList:FlowVariable[]){
+export function getVariableDataType(variableKey:string, variableList:FlowVariable[]){
   let variable;
-  if (envKey.includes('.')) {
-    variable = envKey.split('.').reduce((acc, cur) => {
+  if (variableKey.includes('.')) {
+    variable = variableKey.split('.').reduce((acc, cur) => {
       if (acc) {
         return (acc?.dataType?.objectStructure).find((item: any) => item.propKey === cur);
       }
-      return envList.find(item => item.envKey === cur);
+      return variableList.find(item => item.variableKey === cur);
     }, null as any);
   }else{
-    variable = envList.find(item => item.envKey === envKey);
+    variable = variableList.find(item => item.variableKey === variableKey);
   }
   return variable;
 }

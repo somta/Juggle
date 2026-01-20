@@ -5,34 +5,34 @@ import { FormInstance, FormRules } from 'element-plus';
 import { useFlowDataInject } from '../../hooks/flow-data';
 const flowContext = useFlowDataInject();
 type ParamItem = {
-  envKey: string;
-  envName: string;
+  variableKey: string;
+  variableName: string;
   dataType: any;
-  envType: number;
+  variableType: number;
   id: number;
 };
 const emit = defineEmits(['add', 'edit']);
 const formRef = ref<FormInstance>();
 const form = reactive<ParamItem>({
-  envKey: '',
-  envName: '',
+  variableKey: '',
+  variableName: '',
   dataType: null,
-  envType: 3,
+  variableType: 3,
   id: 0,
 });
 const rules = reactive<FormRules>({
-  envKey: [
+  variableKey: [
     { required: true, message: '请输入变量编码', trigger: 'blur' },
     { pattern: /^[a-zA-Z0-9_]+$/, message: '请输入大小写字母或下划线', trigger: 'blur' },
     {
       validator: (_, value, callback) => {
         // 校验唯一性
         // 未改变时不校验
-        if (value === _originalData.envKey) {
+        if (value === _originalData.variableKey) {
           callback();
           return;
         }
-        const item = flowContext.data.value.flowVariables.find(item => item.envKey === value);
+        const item = flowContext.data.value.flowVariables.find(item => item.variableKey === value);
         if (item) {
           callback(new Error('变量编码已存在'));
           return;
@@ -42,17 +42,17 @@ const rules = reactive<FormRules>({
       trigger: 'blur',
     },
   ],
-  envName: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
+  variableName: [{ required: true, message: '请输入变量名称', trigger: 'blur' }],
   dataType: [{ required: true, message: '请选择数据类型', trigger: 'blur' }],
 });
 const visible = ref(false);
 const isEdit = ref(false);
 const add = (maxId: number) => {
   isEdit.value = false;
-  form.envKey = '';
-  form.envName = '';
+  form.variableKey = '';
+  form.variableName = '';
   form.dataType = null;
-  form.envType = 3;
+  form.variableType = 3;
   form.id = maxId;
   _originalData = { ...form };
   visible.value = true;
@@ -87,11 +87,11 @@ defineExpose({ add, edit });
 <template>
   <el-dialog :title="isEdit ? '编辑变量' : '新增中间变量'" v-model="visible" append-to-body :width="400">
     <el-form labelPosition="top" ref="formRef" :model="form" :rules="rules">
-      <el-form-item label="变量键" prop="envKey">
-        <el-input v-model="form.envKey" placeholder="请输入" maxlength="30" />
+      <el-form-item label="变量键" prop="variableKey">
+        <el-input v-model="form.variableKey" placeholder="请输入" maxlength="30" />
       </el-form-item>
-      <el-form-item label="变量名" prop="envName">
-        <el-input v-model="form.envName" placeholder="请输入" maxlength="30" />
+      <el-form-item label="变量名" prop="variableName">
+        <el-input v-model="form.variableName" placeholder="请输入" maxlength="30" />
       </el-form-item>
       <el-form-item label="变量类型" prop="dataType">
         <DataTypeSelect v-model="form.dataType" />

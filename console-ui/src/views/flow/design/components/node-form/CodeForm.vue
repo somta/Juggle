@@ -43,11 +43,11 @@ watch(
 
 const groovyDemoCode =
     "// 获取变量\n" +
-    "// const env_name = $var.getVariableValue('变量key');\n" +
+    "// const variable_name = $var.getVariableValue('变量key');\n" +
     "// 设置变量\n" +
     "// $var.setVariableValue('变量key',值);\n" +
     "// 打印变量\n" +
-    "// println(env_name);\n";
+    "// println(variable_name);\n";
 
 function validate() {
   if (!nodeData.value.name) {
@@ -68,7 +68,7 @@ function changeLanguageType(languageType){
   }else if("javascript" === languageType){
     nodeData.value.content =
         "// 获取变量\n" +
-        "// const env_name = $var.getVariableValue('变量key');\n" +
+        "// const variable_name = $var.getVariableValue('变量key');\n" +
         "// 设置变量\n" +
         "// $var.setVariableValue('变量key',值);\n";
   }
