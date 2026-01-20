@@ -1,26 +1,27 @@
 ---
-title: 普通Java项目集成Juggle
-description: 普通Java项目快速集成Juggle，完成Juggle能力的融入，增强业务系统能力。
+title: Nodejs项目集成Juggle
+description: Nodejs项目快速集成Juggle，完成Juggle能力的融入，增强业务系统能力。
 keywords:
-  - Java集成Juggle
+  - Nodejs集成Juggle
   - 微服务接口
   - 接口编排
-createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/integration/java-juggle/
+createTime: 2026/10/18 15:09:38
+permalink: /docs/guide/integration/nodejs-juggle/
 ---
 
 # 普通Java项目集成Juggle
 
-普通的Java项目也能快速接入Juggle的流程，我们也提供了对应的client，通过该client就能快速接入和触发流程，具体接入步骤如下：
+Nodejs项目也能快速接入Juggle的流程，我们也提供了对应的client，通过该client就能快速接入和触发流程，具体接入步骤如下：
 
-### 1.添加依赖
+### 1.安装依赖
 
-```xml
-<dependency>
-    <groupId>net.somta</groupId>
-    <artifactId>juggle-client</artifactId>
-    <version>1.1.1</version>
-</dependency>
+```sh
+# npm
+npm install juggle-client
+# or yarn
+yarn add juggle-client
+# or pnpm
+pnpm i juggle-client
 ```
 
 ### 2.登录Juggle，申请一个令牌
@@ -29,38 +30,34 @@ permalink: /docs/guide/integration/java-juggle/
 
 ### 3.通过juggleClient调用流程接口
 
-```java
-public static void main(String[] args) throws IOException {
-        //1.实例化Juggle客户端
-        JuggleConfig juggleConfig = new JuggleConfig();
-        juggleConfig.setServerAddr("https://demo.juggle.plus");
-        juggleConfig.setAccessToken("eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcyOTAwODYzOTc5MH0=");
-        JuggleClient juggleClient = JuggleFactory.getClientInstance(juggleConfig);
+```js
+// 引入 pkg
+const JuggleClient = require('juggle-client');
 
-        //2.组装流程参数
-        FlowTriggerDataParam flowTriggerDataParam = new FlowTriggerDataParam();
-        Map<String,Object> data = new HashMap<>();
-        data.put("userName","juggle");
-        data.put("password","123456");
-        data.put("deposit","1000");
-        flowTriggerDataParam.setFlowData(data);
+// 配置信息
+const serverAddr = 'https://demo.juggle.plus';
+const accessToken = 'eyJ1c2VySWQiOjEsInRpbWVzdGFtcCI6MTcyOTAwODYzOTc5MH0=';
 
-        //3.触发流程
-        ResponseDataResult<FlowResultModel> result =    juggleClient.triggerFlow("v1","sync_example",flowTriggerDataParam);
-        FlowResultModel flowResultModel = result.getResult();
-        System.out.println(flowResultModel.getStatus());
-        System.out.println(flowResultModel.getData());
+// 实例初始化
+const juggleClient = new JuggleClient({
+  accessToken,
+  serverAddr,
+});
 
- }
+async function triggerJuggleFlow() {
+  const res1 = await juggleClient.triggerFlow('v1', 'sync_example', {
+    userName: 'juggle',
+    password: '123456',
+    deposit: 1000,
+  });
+  console.log(res1);
+
+  const res2 = await juggleClient.getAsyncFlowResult('222');
+  console.log(res2);
+}
+
+triggerJuggleFlow();
 ```
-
-
-
-:::tip
-
-上诉代码中Juggle服务器的访问地址(serverAddr)和访问凭证(accessToken)，这里并没有采用从配置文件读取的方式，因为在普通的java项目中，并没有统一的配置读取方案，因此交于用户根据实际情况自行实现
-
-:::
 
 ### 4.juggleClient提供方法介绍
 
