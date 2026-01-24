@@ -76,6 +76,15 @@
             <artifactId>caffeine</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>juggle-server</finalName>

@@ -72,19 +72,6 @@ function openDelete(row: any) {
 }
 
 async function addApiItem(row: any) {
-  const paramArray = row.apiHeaders;
-  if (Array.isArray(paramArray) && paramArray.length !== 0) {
-    const headerArray = paramArray.map((item: any) => {
-      return {
-        headerKey: item.paramKey,
-        headerName: item.paramName,
-        dataType: item.dataType,
-        required: item.required,
-        headerDesc: item.paramDesc,
-      };
-    });
-    row.apiHeaders = headerArray;
-  }
   row.suiteId = Number(paramsData.params.suiteId);
   const res = await apiService.listAdd(row);
   if (res.success) {
@@ -96,19 +83,6 @@ async function addApiItem(row: any) {
 }
 
 async function editApiItem(row: any) {
-  const paramArray = row.apiHeaders;
-  if (Array.isArray(paramArray) && paramArray.length !== 0) {
-    const headerArray = paramArray.map((item: any) => {
-      return {
-        headerKey: item.paramKey,
-        headerName: item.paramName,
-        dataType: item.dataType,
-        required: item.required,
-        headerDesc: item.paramDesc,
-      };
-    });
-    row.apiHeaders = headerArray;
-  }
   const res = await apiService.listUpdate(row);
   if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });

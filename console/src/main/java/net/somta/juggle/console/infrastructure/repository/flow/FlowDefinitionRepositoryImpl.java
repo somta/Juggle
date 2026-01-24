@@ -147,16 +147,16 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
 
         if(CollectionUtils.isNotEmpty(flowDefinitionAo.getVariableInfoList())){
             List<VariableInfoVO> middleVariableList = flowDefinitionAo.getVariableInfoList().stream()
-                    .filter(variable -> VariableTypeEnum.MIDDLE_VARIABLE.getCode() == variable.getEnvType())
+                    .filter(variable -> VariableTypeEnum.MIDDLE_VARIABLE.getCode() == variable.getVariableType())
                     .collect(Collectors.toList());
 
             VariableInfoPO middleVariableInfoPo;
             for (VariableInfoVO variableInfo :middleVariableList){
                 middleVariableInfoPo = new VariableInfoPO();
                 middleVariableInfoPo.setFlowDefinitionId(flowDefinitionId);
-                middleVariableInfoPo.setEnvKey(variableInfo.getEnvKey());
-                middleVariableInfoPo.setEnvName(variableInfo.getEnvName());
-                middleVariableInfoPo.setEnvType(VariableTypeEnum.MIDDLE_VARIABLE.getCode());
+                middleVariableInfoPo.setVariableKey(variableInfo.getVariableKey());
+                middleVariableInfoPo.setVariableName(variableInfo.getVariableName());
+                middleVariableInfoPo.setVariableType(VariableTypeEnum.MIDDLE_VARIABLE.getCode());
                 try {
                     middleVariableInfoPo.setDataType(JsonSerializeHelper.serialize(variableInfo.getDataType()));
                 } catch (JsonProcessingException e) {
@@ -172,14 +172,14 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
                 VariableInfoPO variableInfoPo = new VariableInfoPO();
                 variableInfoPo.setFlowDefinitionId(flowDefinitionId);
                 if(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode()){
-                    variableInfoPo.setEnvKey(VariablePrefixEnum.INPUT_VARIABLE_PREFIX.getCode() + parameter.getParamKey());
+                    variableInfoPo.setVariableKey(VariablePrefixEnum.INPUT_VARIABLE_PREFIX.getCode() + parameter.getParamKey());
                 }else if(parameter.getParamType() == ParameterTypeEnum.OUTPUT_PARAM.getCode()){
-                    variableInfoPo.setEnvKey(VariablePrefixEnum.OUTPUT_VARIABLE_PREFIX.getCode() + parameter.getParamKey());
+                    variableInfoPo.setVariableKey(VariablePrefixEnum.OUTPUT_VARIABLE_PREFIX.getCode() + parameter.getParamKey());
                 }else {
-                    variableInfoPo.setEnvKey(parameter.getParamKey());
+                    variableInfoPo.setVariableKey(parameter.getParamKey());
                 }
-                variableInfoPo.setEnvName(parameter.getParamName());
-                variableInfoPo.setEnvType(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode() : VariableTypeEnum.OUTPUT_PARAM_VARIABLE.getCode());
+                variableInfoPo.setVariableName(parameter.getParamName());
+                variableInfoPo.setVariableType(parameter.getParamType() == ParameterTypeEnum.INPUT_PARAM.getCode() ? VariableTypeEnum.INPUT_PARAM_VARIABLE.getCode() : VariableTypeEnum.OUTPUT_PARAM_VARIABLE.getCode());
                 variableInfoPo.setDataType(parameter.getDataType());
                 variableInfoPoList.add(variableInfoPo);
             });

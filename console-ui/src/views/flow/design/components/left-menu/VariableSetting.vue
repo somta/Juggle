@@ -9,23 +9,23 @@ const searchValue = ref('');
 const treeData = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables.map(v => ({
     ...v,
-    label: v.envName,
+    label: v.variableName,
   }));
   return [
     {
       label: '入参变量',
-      envKey: 'in',
-      children: flowVariables.filter(v => v.envType === 1),
+      variableKey: 'in',
+      children: flowVariables.filter(v => v.variableType === 1),
     },
     {
       label: '出参变量',
-      envKey: 'out',
-      children: flowVariables.filter(v => v.envType === 2),
+      variableKey: 'out',
+      children: flowVariables.filter(v => v.variableType === 2),
     },
     {
       label: '中间变量',
-      envKey: 'temp',
-      children: flowVariables.filter(v => v.envType === 3),
+      variableKey: 'temp',
+      children: flowVariables.filter(v => v.variableType === 3),
     },
   ];
 });
@@ -59,7 +59,7 @@ function onEdit(data: any) {
 }
 function onDelete(data: any) {
   flowContext.update(draft => {
-    const index = draft.flowVariables.findIndex(item => item.envKey === data.envKey);
+    const index = draft.flowVariables.findIndex(item => item.variableKey === data.variableKey);
     if (index > -1) {
       draft.flowVariables.splice(index, 1);
     }
@@ -74,7 +74,7 @@ function searchVariable(value: any) {
 
 function filterNode(value: any, data: any) {
   if (!value) return true;
-  return data.label.includes(value) || data.envKey.includes(value);
+  return data.label.includes(value) || data.variableKey.includes(value);
 }
 </script>
 
@@ -92,16 +92,16 @@ function filterNode(value: any, data: any) {
       />
     </div>
     <div class="variable-body">
-      <el-tree ref="treeRef" :data="treeData" node-key="envKey" default-expand-all :filter-node-method="filterNode">
+      <el-tree ref="treeRef" :data="treeData" node-key="variableKey" default-expand-all :filter-node-method="filterNode">
         <template #default="{ node, data }">
           <span class="custom-tree-node">
             <span v-if="data.children" class="custom-tree-node-label">{{ node.label }}</span>
             <template v-else>
               <span class="custom-tree-node-label" :title="node.label">
-                <span>{{ data.envKey }}</span>
+                <span>{{ data.variableKey }}</span>
                 <span class="custom-tree-node-name">{{ node.label }}</span>
               </span>
-              <span class="tree-node-action" v-if="data.envType === 3">
+              <span class="tree-node-action" v-if="data.variableType === 3">
                 <el-icon @click="onEditOpen(data)"><Edit /></el-icon>
                 <el-icon @click="onDelete(data)" style="margin-left: 8px"><Delete /></el-icon>
               </span>

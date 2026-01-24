@@ -20,17 +20,17 @@ public class VariableInfoPO extends BaseModel {
     /**
      * 变量Key,同一流程内唯一
      */
-    private String envKey;
+    private String variableKey;
 
     /**
      * variable name
      */
-    private String envName;
+    private String variableName;
 
     /**
      * variable type 1：入参变量   2：出参变量 3:中间变量
      */
-    private Integer envType;
+    private Integer variableType;
 
     /**
      * data type
@@ -53,28 +53,28 @@ public class VariableInfoPO extends BaseModel {
         this.flowDefinitionId = flowDefinitionId;
     }
 
-    public String getEnvKey() {
-        return envKey;
+    public String getVariableKey() {
+        return variableKey;
     }
 
-    public void setEnvKey(String envKey) {
-        this.envKey = envKey;
+    public void setVariableKey(String variableKey) {
+        this.variableKey = variableKey;
     }
 
-    public String getEnvName() {
-        return envName;
+    public Integer getVariableType() {
+        return variableType;
     }
 
-    public void setEnvName(String envName) {
-        this.envName = envName;
+    public void setVariableType(Integer variableType) {
+        this.variableType = variableType;
     }
 
-    public Integer getEnvType() {
-        return envType;
+    public String getVariableName() {
+        return variableName;
     }
 
-    public void setEnvType(Integer envType) {
-        this.envType = envType;
+    public void setVariableName(String variableName) {
+        this.variableName = variableName;
     }
 
     public String getDataType() {

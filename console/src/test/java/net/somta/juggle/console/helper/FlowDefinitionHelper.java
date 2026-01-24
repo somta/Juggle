@@ -118,7 +118,7 @@ public class FlowDefinitionHelper {
         //第一个或条件表达式
         List<ConditionExpression> conditionExpressions11 = new ArrayList<>();
         ConditionExpression conditionExpression11 = new ConditionExpression();
-        conditionExpression11.setEnvKey("input_name");
+        conditionExpression11.setVariableKey("input_name");
         conditionExpression11.setDataType(new DataType(DataTypeEnum.String));
         //conditionExpression11.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression11.setAssignType(AssignTypeEnum.CONSTANT);
@@ -128,7 +128,7 @@ public class FlowDefinitionHelper {
         //第二个或条件表达式
         List<ConditionExpression> conditionExpressions12 = new ArrayList<>();
         ConditionExpression conditionExpression12 = new ConditionExpression();
-        conditionExpression12.setEnvKey("input_name");
+        conditionExpression12.setVariableKey("input_name");
         conditionExpression12.setDataType(new DataType(DataTypeEnum.String));
         //conditionExpression12.setOperator(OperatorEnum.CONTAINS.getCode());
         conditionExpression12.setAssignType(AssignTypeEnum.CONSTANT);
@@ -152,7 +152,7 @@ public class FlowDefinitionHelper {
         //第一个或条件表达式
         List<ConditionExpression> conditionExpressions21 = new ArrayList<>();
         ConditionExpression conditionExpression21 = new ConditionExpression();
-        conditionExpression21.setEnvKey("input_name");
+        conditionExpression21.setVariableKey("input_name");
         conditionExpression21.setDataType(new DataType(DataTypeEnum.String));
         //conditionExpression21.setOperator(OperatorEnum.EQUAL.getCode());
         conditionExpression21.setAssignType(AssignTypeEnum.CONSTANT);
@@ -238,23 +238,23 @@ public class FlowDefinitionHelper {
         List<VariableInfoVO> variableInfoList = new ArrayList<>();
 
         VariableInfoVO inputVariable1 = new VariableInfoVO();
-        inputVariable1.setEnvKey("input_id");
-        inputVariable1.setEnvName("入参-用户ID变量");
-        inputVariable1.setEnvType(1);
+        inputVariable1.setVariableKey("input_id");
+        inputVariable1.setVariableName("入参-用户ID变量");
+        inputVariable1.setVariableType(1);
         inputVariable1.setDataType(new DataType(DataTypeEnum.String));
         variableInfoList.add(inputVariable1);
 
         VariableInfoVO inputVariable2 = new VariableInfoVO();
-        inputVariable2.setEnvKey("input_name");
-        inputVariable2.setEnvName("入参-用户姓名变量");
-        inputVariable2.setEnvType(1);
+        inputVariable2.setVariableKey("input_name");
+        inputVariable2.setVariableName("入参-用户姓名变量");
+        inputVariable2.setVariableType(1);
         inputVariable2.setDataType(new DataType(DataTypeEnum.String));
         variableInfoList.add(inputVariable2);
 
         VariableInfoVO outputVariable1 = new VariableInfoVO();
-        outputVariable1.setEnvKey("output_userName");
-        outputVariable1.setEnvName("流程出参-用户姓名变量");
-        outputVariable1.setEnvType(2);
+        outputVariable1.setVariableKey("output_userName");
+        outputVariable1.setVariableName("流程出参-用户姓名变量");
+        outputVariable1.setVariableType(2);
         outputVariable1.setDataType(new DataType(DataTypeEnum.String));
         variableInfoList.add(outputVariable1);
 
@@ -266,8 +266,8 @@ public class FlowDefinitionHelper {
         if(CollectionUtils.isNotEmpty(variableInfoVoList)){
             for (VariableInfoVO variableInfoVo : variableInfoVoList) {
                 Variable variable = new Variable();
-                variable.setKey(variableInfoVo.getEnvKey());
-                variable.setName(variableInfoVo.getEnvName());
+                variable.setKey(variableInfoVo.getVariableKey());
+                variable.setName(variableInfoVo.getVariableName());
                 variable.setDataType(variableInfoVo.getDataType());
                 variables.add(variable);
             }

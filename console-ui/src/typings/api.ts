@@ -1,11 +1,11 @@
 import { InputParams, OutputParams } from '@/typings/parameter.ts';
 
 export interface ApiHeader {
-  headerKey: string;
-  headerName: string;
+  paramKey: string;
+  paramName: string;
   dataType: string;
   required: boolean;
-  headerDesc: string;
+  paramDesc: string;
 }
 
 export interface ApiInfo {

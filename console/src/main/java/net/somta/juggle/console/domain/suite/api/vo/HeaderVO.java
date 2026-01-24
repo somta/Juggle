@@ -10,11 +10,11 @@ public class HeaderVO {
     /**
      * header key
      */
-    private String headerKey;
+    private String paramKey;
     /**
      * header 名称
      */
-    private String headerName;
+    private String paramName;
 
     /**
      * header 的数据类型
@@ -23,22 +23,22 @@ public class HeaderVO {
 
     private Boolean required;
 
-    private String headerDesc;
+    private String paramDesc;
 
-    public String getHeaderKey() {
-        return headerKey;
+    public String getParamKey() {
+        return paramKey;
     }
 
-    public void setHeaderKey(String headerKey) {
-        this.headerKey = headerKey;
+    public void setParamKey(String paramKey) {
+        this.paramKey = paramKey;
     }
 
-    public String getHeaderName() {
-        return headerName;
+    public String getParamName() {
+        return paramName;
     }
 
-    public void setHeaderName(String headerName) {
-        this.headerName = headerName;
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
     }
 
     public DataType getDataType() {
@@ -57,11 +57,11 @@ public class HeaderVO {
         this.required = required;
     }
 
-    public String getHeaderDesc() {
-        return headerDesc;
+    public String getParamDesc() {
+        return paramDesc;
     }
 
-    public void setHeaderDesc(String headerDesc) {
-        this.headerDesc = headerDesc;
+    public void setParamDesc(String paramDesc) {
+        this.paramDesc = paramDesc;
     }
 }

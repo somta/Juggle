@@ -5,8 +5,8 @@ import {DataType} from "@/typings";
 const props = defineProps({
   modelValue: String,
   options: Array as PropType<Array<{
-    envName: string;
-    envKey: string;
+    variableName: string;
+    variableKey: string;
     dataType: DataType,
   }>>,
   filterDataType: Object as PropType<DataType>,
@@ -20,8 +20,8 @@ const emit = defineEmits(['update:modelValue', 'change']);
 const innerOptions = computed(() => {
   const result = (props.options || []).map(option => {
     const newItem = {
-      label: option.envName,
-      value: option.envKey,
+      label: option.variableName,
+      value: option.variableKey,
     };
     if(handleShowObject(option.dataType, newItem.value)){
       return {

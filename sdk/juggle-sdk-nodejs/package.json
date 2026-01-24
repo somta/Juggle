@@ -1,16 +1,15 @@
 {
   "name": "juggle-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "juggle (https://juggle.plus) nodejs sdk",
   "scripts": {
     "test": "ts-node test.ts",
-    "clear": "rimraf dist types",
+    "clear": "rimraf dist types cjs esm",
     "build-types": "tsc --declaration -p . -t es2015 --emitDeclarationOnly --outDir types",
     "build": "rollup -c",
     "contributors": "contributors -f plain -o AUTHORS",
-    "clean": "lerna clean --yes; rm -rf ./packages/**/package-lock.json",
-    "bootstrap": "rm -f ./packages/.DS*; lerna bootstrap --no-ci",
-    "release": "rm -f ./packages/.DS*; sh scripts/publish.sh"
+    "clean": "rimraf node_modules cjs esm types",
+    "release": "npm publish"
   },
   "types": "types/index.d.ts",
   "main": "./cjs/index.js",
@@ -40,19 +39,17 @@
     "version": "8, 10"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.1",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.1",
-    "@types/node-fetch": "2",
-    "contributors": "^0.5.1",
-    "lerna": "^3.4.3",
-    "lerna-relinker": "^1.5.0",
-    "rimraf": "^6.0.1",
-    "rollup": "^4.24.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "@rollup/plugin-commonjs": "28.0.1",
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-typescript": "12.1.1",
+    "contributors": "0.5.1",
+    "lerna": "8.1.8",
+    "rimraf": "6.0.1",
+    "rollup": "4.24.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.6.3"
   },
   "dependencies": {
-    "node-fetch": "2"
+    "node-fetch": "3.3.2"
   }
 }

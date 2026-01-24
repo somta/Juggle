@@ -72,15 +72,15 @@ public interface IParameterConverter {
         List<HeaderVO> list = new ArrayList<HeaderVO>( headerPoList.size() );
         for ( ParameterPO parameterPo : headerPoList ) {
             HeaderVO headerVo = new HeaderVO();
-            headerVo.setHeaderKey(parameterPo.getParamKey());
-            headerVo.setHeaderName(parameterPo.getParamName());
+            headerVo.setParamKey(parameterPo.getParamKey());
+            headerVo.setParamName(parameterPo.getParamName());
             try {
                 headerVo.setDataType(JsonSerializeHelper.deserialize(parameterPo.getDataType(),DataType.class));
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
             headerVo.setRequired(parameterPo.getRequired());
-            headerVo.setHeaderDesc(parameterPo.getParamDesc());
+            headerVo.setParamDesc(parameterPo.getParamDesc());
             list.add(headerVo);
         }
         return list;

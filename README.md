@@ -5,12 +5,13 @@
 
 # Juggle
 
+## 项目介绍
+Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
+
+## 演示环境
 Juggle官方文档地址: https://juggle.plus
 
 Juggle演示环境地址: https://demo.juggle.plus/#/login (演示环境可以使用gitee或github登录体验)
-
-## 项目介绍
-Juggle是一个接口编排的低代码工具，通过它可以快速将简单的API编排成一个复杂的接口，编排的接口可以直接给前端使用，极大的提高开发效率，减轻开发成本。
 
 
 ## 什么时候需要Juggle
@@ -131,12 +132,12 @@ sh startup.sh
 
 ## 客户与案例
 <div align = "center"> 
-    <img src="https://juggle.plus/customer/hstong.png" width="33%" style="background-color: #383434"/>
-    <img src="https://juggle.plus/customer/pingankeji.png" width="33%" />
-    <img src="https://juggle.plus/customer/megvii.png" width="33%" />
-    <img src="https://juggle.plus/customer/swsc.png" width="33%" />
-    <img src="https://juggle.plus/customer/xinyucores.png" width="33%" style="background-color: #000"/>
-    <img src="https://juggle.plus/customer/scooper.png" width="33%" />
+    <img src="https://juggle.plus/customer/hstong.png" alt="" width="33%" style="background-color: #383434"/>
+    <img src="https://juggle.plus/customer/pingankeji.png" alt="" width="33%" />
+    <img src="https://juggle.plus/customer/megvii.png" alt="" width="33%" />
+    <img src="https://juggle.plus/customer/swsc.png" alt="" width="33%" />
+    <img src="https://juggle.plus/customer/xinyucores.png" alt="" width="33%" style="background-color: #000"/>
+    <img src="https://juggle.plus/customer/scooper.png" alt="" width="33%" />
 </div>
 
 ## 感恩与支持

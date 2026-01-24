@@ -49,7 +49,7 @@
       </div>
 
       <div class="footer_copyright">
-        <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备18059311号-3</a> | Copyright © 2018-2025 | 灵码科技
+        <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备18059311号-3</a> | Copyright © 2018-2026 | 深圳灵码科技有限公司
       </div>
 
     </div>

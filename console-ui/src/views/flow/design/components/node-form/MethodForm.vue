@@ -159,12 +159,12 @@ const inputRequiredKeys = ref<string[]>([]);
 
 const inputTargetList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.envType));
+  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.variableType));
 });
 
 const outputTargetList = computed(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [FlowVariableType.OUTPUT, FlowVariableType.TEMP].includes(item.envType));
+  return flowVariables.filter(item => [FlowVariableType.OUTPUT, FlowVariableType.TEMP].includes(item.variableType));
 });
 
 function validateParam(param: any) {
@@ -230,10 +230,10 @@ async function querySuiteList() {
         <span>{{ nodeData.key }}</span>
       </el-form-item>
       <el-form-item label="节点名称" required>
-        <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
+        <el-input v-model="nodeData.name" maxlength="16" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
-        <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
+        <el-input v-model="nodeData.desc" maxlength="60" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="套件" required>
         <el-select

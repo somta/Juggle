@@ -57,9 +57,9 @@ export enum FlowVariableType {
 
 export type FlowVariable = {
   dataType: DataType;
-  envKey: string;
-  envName: string;
-  envType: FlowVariableType;
+  variableKey: string;
+  variableName: string;
+  variableType: FlowVariableType;
   id: number;
 };
 

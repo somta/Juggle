@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref } from 'vue';
-import { FormInstance, FormRules } from 'element-plus';
+import {ElMessage, FormInstance, FormRules} from 'element-plus';
 import { ObjectInfo, ObjectProperty } from '@/typings';
 import ParamSetting from '@/components/form/ParamSetting.vue';
 import { objectService } from '@/service';
@@ -57,6 +57,9 @@ async function onSubmit() {
   if (!valid) {
     return;
   }
+  if (!validateObjectProps()) {
+    return;
+  }
 
   objectDrawerVisible.value = false;
   if (editItem.value) {
@@ -96,6 +99,31 @@ function open(item?: Record<string, any>) {
   });
 }
 
+function validateObjectProps(){
+  // 对象属性校验
+  for (const [index, param] of objectFormValue.props.entries()) {
+    const error = validateProps(param);
+    if (error) {
+      ElMessage.error(`对象属性的第${index + 1}行: ${error}`);
+      return false;
+    }
+  }
+  return true;
+}
+
+function validateProps(props: any): string | null {
+  if (!props.paramKey) {
+    return '属性编码不能为空';
+  }
+  if (!/^[a-zA-Z0-9_]+$/.test(props.paramKey)) {
+    return '属性编码只能包含大小写字母数字或下划线';
+  }
+  if (!props.paramName) {
+    return '属性名称不能为空';
+  }
+  return null;
+}
+
 const title = computed(() => {
   if (editItem.value) {
     return '编辑对象';
@@ -120,7 +148,7 @@ defineExpose({ open });
           <el-input type="textarea" v-model="objectFormValue.objectDesc" maxlength="120" />
         </el-form-item>
         <el-form-item label="对象属性">
-          <ParamSetting v-model="objectFormValue.props" addText="新增属性" />
+          <ParamSetting v-model="objectFormValue.props" :paramTypeName="'属性'" addText="新增属性" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

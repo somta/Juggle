@@ -1,5 +1,4 @@
 import { apiAPI } from '../api';
-import { ApiHeader } from '@/typings';
 
 
 export async function listQuery(params: Parameters<typeof apiAPI.listQuery>[0]) {
@@ -19,43 +18,11 @@ export async function listDelete(params: Parameters<typeof apiAPI.listDelete>[0]
 }
 
 export async function queryApiInfo(apiId:number) {
-  const res = await apiAPI.queryApiInfo(apiId);
-  if (res.success) {
-    const headerArray: ApiHeader[] = res.result.apiHeaders;
-    if (Array.isArray(headerArray) && headerArray.length !== 0) {
-      const paramArray = headerArray.map((item: ApiHeader) => {
-        return {
-          paramKey: item.headerKey,
-          paramName: item.headerName,
-          dataType: item.dataType,
-          required: item.required,
-          paramDesc: item.headerDesc,
-        };
-      });
-      res.result.apiHeaders = paramArray as any;
-    }
-  }
-  return res;
+  return apiAPI.queryApiInfo(apiId);
 }
 
 export async function queryApiInfoByCode(apiCode: string) {
-  const res = await apiAPI.queryApiInfoByCode(apiCode);
-  if (res.success) {
-    const headerArray: ApiHeader[] = res.result.apiHeaders;
-    if (Array.isArray(headerArray) && headerArray.length !== 0) {
-      const paramArray = headerArray.map((item: ApiHeader) => {
-        return {
-          paramKey: item.headerKey,
-          paramName: item.headerName,
-          dataType: item.dataType,
-          required: item.required,
-          paramDesc: item.headerDesc,
-        };
-      });
-      res.result.apiHeaders = paramArray as any;
-    }
-  }
-  return res;
+  return apiAPI.queryApiInfoByCode(apiCode);
 }
 
 export async function debugApi(apiId: number, params: { headerData: any; inputParamData: any }) {

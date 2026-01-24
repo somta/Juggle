@@ -86,17 +86,17 @@ function onSourceTypeChange(rowIndex: number) {
 
 function onSourceVarChange(rowIndex: number) {
   const target = rules.value[rowIndex].target;
-  const targetEnv = props.sourceList!.find(item => item.paramKey === target);
+  const targetVariable = props.sourceList!.find(item => item.paramKey === target);
 
   const source = rules.value[rowIndex].source;
-  let sourceEnv = getVariableDataType(source,props.targetList);
-  if(!isDataTypeEqual(targetEnv.dataType,sourceEnv.dataType)){
+  let sourceVariable = getVariableDataType(source,props.targetList);
+  if(!isDataTypeEqual(targetVariable.dataType,sourceVariable.dataType)){
     ElMessage.error('所选变量的数据类型与目标变量数据类型不匹配');
     rules.value[rowIndex].source = '';
     return;
   }
-  //const param = props.sourceList!.find(item => item.envKey === source);
-  rules.value[rowIndex].sourceDataType = sourceEnv.dataType;
+  //const param = props.sourceList!.find(item => item.variableKey === source);
+  rules.value[rowIndex].sourceDataType = sourceVariable.dataType;
   onChange();
 }
 
@@ -114,7 +114,7 @@ function getAvailableSource(target: string, targetDataType: DataType) {
   //console.log(props.sourceList,target,targetDataType)
   return props.targetList!.filter(item => {
     // 不选取自己
-    if (item.envKey === target) {
+    if (item.variableKey === target) {
       return false;
     }
     // 只能选与自己类型一致的

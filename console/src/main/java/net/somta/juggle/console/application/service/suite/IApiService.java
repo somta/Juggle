@@ -18,6 +18,7 @@ public interface IApiService {
 
     /**
      * Add API interface
+     *
      * @param apiAddParam Add API interface parameters
      * @return Boolean
      */
@@ -25,6 +26,7 @@ public interface IApiService {
 
     /**
      * Delete API interface
+     *
      * @param apiId api id
      * @return Boolean
      */
@@ -32,6 +34,7 @@ public interface IApiService {
 
     /**
      * Update API interface information
+     *
      * @param apiUpdateParam Update API interface parameters
      * @return Boolean
      */
@@ -39,6 +42,7 @@ public interface IApiService {
 
     /**
      * Query API interface information
+     *
      * @param apiId api id
      * @return Interface information dto object
      */
@@ -46,6 +50,7 @@ public interface IApiService {
 
     /**
      * Query API interface information
+     *
      * @param apiCode api code
      * @return Interface information dto object
      */
@@ -53,6 +58,7 @@ public interface IApiService {
 
     /**
      * Query API interface information list based on domain ID
+     *
      * @param suiteId suite id
      * @return API interface information list
      */
@@ -62,6 +68,7 @@ public interface IApiService {
 
     /**
      * Query API pagination list
+     *
      * @param apiQueryParam API interface pagination query parameters
      * @return Paging objects for APIs
      */
@@ -69,10 +76,17 @@ public interface IApiService {
 
     /**
      * Debugging API interfaces
-     * @param apiId api id
+     *
+     * @param apiId         api id
      * @param apiDebugParam API interface input parameter data
      * @return Response results of API interface
      */
     Map<String, Object> debugApi(Long apiId, ApiDebugParam apiDebugParam);
 
+    /**
+     * Parse swagger data and save it to the database
+     *
+     * @param swaggerData Swagger data
+     */
+    void parseSwagger(String swaggerData);
 }

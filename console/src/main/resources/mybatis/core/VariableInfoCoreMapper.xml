@@ -7,9 +7,9 @@
 <resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
 	<result column="id" property="id"/>
 	<result column="flow_definition_id" property="flowDefinitionId"/>
-	<result column="env_key" property="envKey"/>
-    <result column="env_name" property="envName"/>
-	<result column="env_type" property="envType"/>
+	<result column="variable_key" property="variableKey"/>
+    <result column="variable_name" property="variableName"/>
+	<result column="variable_type" property="variableType"/>
     <result column="data_type" property="dataType"/>
 	<result column="created_at" property="createdAt"/>
 	<result column="created_by" property="createdBy"/>
@@ -23,12 +23,12 @@
        
 <!-- t_variable_info table all fields -->
 <sql id="Base_Column_List" >
-	id, flow_definition_id, env_key, env_name,env_type,data_type, created_at, created_by, updated_at, updated_by
+	id, flow_definition_id, variable_key, variable_name,variable_type,data_type, created_at, created_by, updated_at, updated_by
 </sql>
    
 <insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.VariableInfoPO" >
-	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type, created_at, created_by, updated_at, updated_by)
-	values (#{id},#{flowDefinitionId},#{envKey},#{envName},#{envType},#{dataType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
+	insert into t_variable_info (id, flow_definition_id, variable_key, variable_name, variable_type, data_type, created_at, created_by, updated_at, updated_by)
+	values (#{id},#{flowDefinitionId},#{variableKey},#{variableName},#{variableType},#{dataType},#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
 <delete id="deleteById" parameterType="java.lang.Long">
@@ -44,14 +44,14 @@
 	<if test="flowDefinitionId != null">
 		flow_definition_id=#{flowDefinitionId},
 	</if>
-	<if test="envKey != null and envKey != ''">
-		env_key=#{envKey},
+	<if test="variableKey != null and variableKey != ''">
+		variable_key=#{variableKey},
 	</if>
-	<if test="envName != null and envName != ''">
-		env_name=#{envName},
+	<if test="variableName != null and variableName != ''">
+		variable_name=#{variableName},
 	</if>
-	<if test="envType != null">
-		env_type=#{envType},
+	<if test="variableType != null">
+		variable_type=#{variableType},
 	</if>
 	<if test="dataType != null and dataType != ''">
 		data_type=#{dataType},
