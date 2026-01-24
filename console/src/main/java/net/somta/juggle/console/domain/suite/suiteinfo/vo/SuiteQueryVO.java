@@ -6,6 +6,7 @@ package net.somta.juggle.console.domain.suite.suiteinfo.vo;
  */
 public class SuiteQueryVO {
     private String suiteName;
+    private Integer suiteFlag;
 
     public String getSuiteName() {
         return suiteName;
@@ -13,5 +14,13 @@ public class SuiteQueryVO {
 
     public void setSuiteName(String suiteName) {
         this.suiteName = suiteName;
+    }
+
+    public Integer getSuiteFlag() {
+        return suiteFlag;
+    }
+
+    public void setSuiteFlag(Integer suiteFlag) {
+        this.suiteFlag = suiteFlag;
     }
 }

@@ -59,7 +59,7 @@ function onChange() {
 
 function onTargetVarChange(rowIndex: number) {
   const target = rules.value[rowIndex].target;
-  const param = props.targetList!.find(item => item.envKey === target);
+  const param = props.targetList!.find(item => item.variableKey === target);
   rules.value[rowIndex].targetDataType = param.dataType;
   onChange();
 }
@@ -77,7 +77,7 @@ function getAvailableSource(source: string) {
 function getAvailableTarget(source: string, sourceDataType: DataType) {
   return props.targetList!.filter(item => {
     // 不选取自己
-    if (item.envKey === source) {
+    if (item.variableKey === source) {
       return false;
     }
     // 只能选与自己类型一致的
@@ -126,14 +126,14 @@ function onSourceChange(rowIndex: number) {
             <el-select v-model="rule.target" size="small" @change="onTargetVarChange(rowIndex)">
               <el-option
                 v-for="item in getAvailableTarget(rule.source, rule.sourceDataType as DataType)"
-                :key="item.envKey"
-                :value="item.envKey"
-                :label="item.envName"
-                :title="item.envName"
+                :key="item.variableKey"
+                :value="item.variableKey"
+                :label="item.variableName"
+                :title="item.variableName"
               >
-                <span style="float: left">{{ item.envKey }}</span>
+                <span style="float: left">{{ item.variableKey }}</span>
                 <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">
-                        {{ item.envName }}
+                        {{ item.variableName }}
                       </span>
               </el-option>
             </el-select>

@@ -24,6 +24,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  paramTypeName: {
+    type: String,
+    default: "参数"
+  },
   dataTypeClassify: String,
   addText: String,
 });
@@ -40,8 +44,8 @@ watch(
 );
 
 const columns = [
-  { name: '参数编码', prop: 'paramKey' },
-  { name: '参数名称', prop: 'paramName' },
+  { name: props.paramTypeName + '编码', prop: 'paramKey' },
+  { name: props.paramTypeName + '名称', prop: 'paramName' },
   { name: '参数位置', prop: 'paramPosition' },
   { name: '数据类型', prop: 'dataType' },
   { name: '必填', prop: 'required' },

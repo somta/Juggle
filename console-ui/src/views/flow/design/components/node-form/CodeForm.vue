@@ -43,11 +43,11 @@ watch(
 
 const groovyDemoCode =
     "// 获取变量\n" +
-    "// const env_name = $var.getVariableValue('变量key');\n" +
+    "// const variable_name = $var.getVariableValue('变量key');\n" +
     "// 设置变量\n" +
     "// $var.setVariableValue('变量key',值);\n" +
     "// 打印变量\n" +
-    "// println(env_name);\n";
+    "// println(variable_name);\n";
 
 function validate() {
   if (!nodeData.value.name) {
@@ -68,7 +68,7 @@ function changeLanguageType(languageType){
   }else if("javascript" === languageType){
     nodeData.value.content =
         "// 获取变量\n" +
-        "// const env_name = $var.getVariableValue('变量key');\n" +
+        "// const variable_name = $var.getVariableValue('变量key');\n" +
         "// 设置变量\n" +
         "// $var.setVariableValue('变量key',值);\n";
   }
@@ -92,10 +92,10 @@ function onCancel() {
         <span>{{ nodeData.key }}</span>
       </el-form-item>
       <el-form-item label="节点名称">
-        <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
+        <el-input v-model="nodeData.name" maxlength="16" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
-        <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
+        <el-input v-model="nodeData.desc" maxlength="60" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="脚本语言">
         <el-select v-model="nodeData.language" placeholder="请选择脚本语言" @change="changeLanguageType">

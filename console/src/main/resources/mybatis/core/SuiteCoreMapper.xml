@@ -22,9 +22,12 @@
 </resultMap>
 
 <sql id="Example_Where_Clause">
-	where 1=1 and deleted=0
+	where deleted=0
 	<if test="suiteName != null and suiteName != ''">
 		and suite_name like concat("%",#{suiteName},"%")
+	</if>
+	<if test="suiteFlag != null">
+		and suite_flag = #{suiteFlag}
 	</if>
 	ORDER BY created_at DESC
 </sql>

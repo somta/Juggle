@@ -45,7 +45,7 @@ function onSubmit() {
 }
 const sourceList = computed(() => {
   // 流程入参/中间变量
-  return flowContext.data.value.flowVariables.filter(item => item.envType === 1 || item.envType === 3);
+  return flowContext.data.value.flowVariables.filter(item => item.variableType === 1 || item.variableType === 3);
 });
 defineExpose({ open });
 </script>

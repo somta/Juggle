@@ -39,15 +39,15 @@ public interface IApiConverter {
             ParameterPO parameterPo = null;
             for (HeaderVO headerVo: headerList) {
                 parameterPo = new ParameterPO();
-                parameterPo.setParamKey(headerVo.getHeaderKey());
-                parameterPo.setParamName(headerVo.getHeaderName());
+                parameterPo.setParamKey(headerVo.getParamKey());
+                parameterPo.setParamName(headerVo.getParamName());
                 parameterPo.setParamType(ParameterTypeEnum.HEADER.getCode());
                 try {
                     parameterPo.setDataType(JsonSerializeHelper.serialize(headerVo.getDataType()));
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
-                parameterPo.setParamDesc(headerVo.getHeaderDesc());
+                parameterPo.setParamDesc(headerVo.getParamDesc());
                 parameterPo.setSourceType(ParameterSourceTypeEnum.API.getCode());
                 parameterPo.setRequired(headerVo.getRequired());
                 parameterPo.setSourceId(sourceId);

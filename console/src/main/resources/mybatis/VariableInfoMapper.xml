@@ -5,17 +5,17 @@
 <mapper namespace="net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper" >
 
 <insert id="batchAddVariable">
-	insert into t_variable_info (id, flow_definition_id, env_key, env_name, env_type, data_type)
+	insert into t_variable_info (id, flow_definition_id, variable_key, variable_name, variable_type, data_type)
 	values
 	<foreach collection ="variableInfoList" item="item" separator =",">
-		(#{item.id},#{item.flowDefinitionId},#{item.envKey},#{item.envName},#{item.envType},#{item.dataType})
+		(#{item.id},#{item.flowDefinitionId},#{item.variableKey},#{item.variableName},#{item.variableType},#{item.dataType})
 	</foreach>
 </insert>
 
 <delete id="deleteVariableByFlowDefinitionId" parameterType="net.somta.juggle.console.domain.flow.definition.vo.VariableDeleteVO">
 	delete from t_variable_info where flow_definition_id=#{flowDefinitionId}
 	<if test="excludeEnvType != null and excludeEnvType != ''">
-		and env_type!=#{excludeEnvType}
+		and variable_type!=#{excludeEnvType}
 	</if>
 </delete>
 

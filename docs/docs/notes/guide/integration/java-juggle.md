@@ -11,7 +11,7 @@ permalink: /docs/guide/integration/java-juggle/
 
 # 普通Java项目集成Juggle
 
-为了方便一个普通的Java项目也能快速接入Juggle的流程，我们也提供了对应的client，通过该client就能快速接入和触发流程，具体接入步骤如下：
+普通的Java项目也能快速接入Juggle的流程，我们也提供了对应的client，通过该client就能快速接入和触发流程，具体接入步骤如下：
 
 ### 1.添加依赖
 

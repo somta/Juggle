@@ -58,13 +58,13 @@ watch(
   { immediate: true }
 );
 
-const targetEnvList = computed<FlowVariable[]>(() => {
+const targetVariableList = computed<FlowVariable[]>(() => {
   return  flowContext.data.value.flowVariables;
 });
 
-const sourceEnvList = computed<FlowVariable[]>(() => {
+const sourceVariableList = computed<FlowVariable[]>(() => {
   const flowVariables = flowContext.data.value.flowVariables;
-  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.envType));
+  return flowVariables.filter(item => [FlowVariableType.INPUT, FlowVariableType.TEMP].includes(item.variableType));
 });
 
 function validate() {
@@ -86,20 +86,20 @@ function onCancel() {
 }
 
 function getAvailableTarget(target: string) {
-  return targetEnvList.value.filter(item => {
+  return targetVariableList.value.filter(item => {
     // 已选参数也能选
-    if (item.envKey === target) {
+    if (item.variableKey === target) {
       return item;
     }
     // 只能选未被选择的参数
-    return !nodeData.value.assignRules.map(item => item.target).includes(item.envKey);
+    return !nodeData.value.assignRules.map(item => item.target).includes(item.variableKey);
   });
 }
 
 function getAvailableSource(target: string, targetDataType: DataType) {
-  return sourceEnvList.value.filter(item => {
+  return sourceVariableList.value.filter(item => {
     // 不选取自己
-    if (item.envKey === target) {
+    if (item.variableKey === target) {
       return false;
     }
 
@@ -108,10 +108,9 @@ function getAvailableSource(target: string, targetDataType: DataType) {
   });
 }
 
-function onTargetEnvChange(rowIndex: number) {
-  console.log('1111')
+function onTargetVariableChange(rowIndex: number) {
   const target = nodeData.value.assignRules[rowIndex].target;
-  let param = targetEnvList.value.find(item => item.envKey === target);
+  let param = targetVariableList.value.find(item => item.variableKey === target);
   nodeData.value.assignRules[rowIndex].source = '';
   nodeData.value.assignRules[rowIndex].sourceDataType = param?.dataType;
   nodeData.value.assignRules[rowIndex].targetDataType = param?.dataType;
@@ -122,19 +121,19 @@ function onAssignTypeChange(rowIndex: number) {
   //nodeData.value.assignRules[rowIndex].sourceDataType = null;
 }
 
-function onSourceEnvChange(rowIndex: number) {
+function onSourceVariableChange(rowIndex: number) {
   const target = nodeData.value.assignRules[rowIndex].target;
-  let targetEnv = getVariableDataType(target,targetEnvList.value);
+  let targetVariable = getVariableDataType(target,targetVariableList.value);
 
   const source =  nodeData.value.assignRules[rowIndex].source;
-  let sourceEnv = getVariableDataType(source,sourceEnvList.value);
-  if(!isDataTypeEqual(targetEnv.dataType,sourceEnv.dataType)){
+  let sourceVariable = getVariableDataType(source,sourceVariableList.value);
+  if(!isDataTypeEqual(targetVariable.dataType,sourceVariable.dataType)){
     ElMessage.error('所选变量的数据类型与目标变量数据类型不匹配');
     nodeData.value.assignRules[rowIndex].source = '';
     return;
   }
-  //const param = sourceEnvList.value.find(item => item.envKey === source);
-  nodeData.value.assignRules[rowIndex].sourceDataType = sourceEnv.dataType;
+  //const param = sourceVariableList.value.find(item => item.variableKey === source);
+  nodeData.value.assignRules[rowIndex].sourceDataType = sourceVariable.dataType;
 }
 
 function addAssignRule() {
@@ -164,10 +163,10 @@ function removeRule(rowIndex: number) {
         <span>{{ nodeData.key }}</span>
       </el-form-item>
       <el-form-item label="节点名称">
-        <el-input v-model="nodeData.name" placeholder="请输入"></el-input>
+        <el-input v-model="nodeData.name" maxlength="16" placeholder="请输入"></el-input>
       </el-form-item>
       <el-form-item label="节点描述">
-        <el-input v-model="nodeData.desc" placeholder="请输入" :rows="2" type="textarea"></el-input>
+        <el-input v-model="nodeData.desc" maxlength="60" placeholder="请输入" :rows="2" type="textarea"></el-input>
       </el-form-item>
       <el-form-item label="赋值规则">
         <div class="rule-setting">
@@ -183,17 +182,17 @@ function removeRule(rowIndex: number) {
             <div class="rule-setting-tr" v-for="(rule, rowIndex) in nodeData.assignRules" :key="rowIndex">
               <template v-for="column in columns" :key="column.prop">
                 <div class="rule-setting-td" v-if="column.prop === 'source'">
-                  <el-select v-model="rule.target" size="small" @change="onTargetEnvChange(rowIndex)">
+                  <el-select v-model="rule.target" size="small" @change="onTargetVariableChange(rowIndex)">
                     <el-option
                         v-for="item in getAvailableTarget(rule.target)"
-                        :key="item.envKey"
-                        :value="item.envKey"
-                        :label="item.envName"
-                        :title="item.envName"
+                        :key="item.variableKey"
+                        :value="item.variableKey"
+                        :label="item.variableName"
+                        :title="item.variableName"
                     >
-                      <span style="float: left">{{ item.envKey }}</span>
+                      <span style="float: left">{{ item.variableKey }}</span>
                       <span style="float: right;color: var(--el-text-color-secondary);font-size: 13px;margin-left: 5px;">
-                        {{ item.envName }}
+                        {{ item.variableName }}
                       </span>
                     </el-option>
                   </el-select>
@@ -218,7 +217,7 @@ function removeRule(rowIndex: number) {
                       size="small"
                       :options="getAvailableSource(rule.target, rule.targetDataType as DataType)"
                       :filterDataType="rule.targetDataType as DataType"
-                      @change="onSourceEnvChange(rowIndex)"
+                      @change="onSourceVariableChange(rowIndex)"
                   />
                 </div>
               </template>

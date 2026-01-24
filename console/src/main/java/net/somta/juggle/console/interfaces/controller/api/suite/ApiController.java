@@ -27,10 +27,7 @@ import net.somta.juggle.console.domain.suite.suiteinfo.enums.SuiteTypeEnum;
 import net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import net.somta.juggle.console.interfaces.dto.suite.ApiInfoDTO;
 import net.somta.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
-import net.somta.juggle.console.interfaces.param.suite.ApiAddParam;
-import net.somta.juggle.console.interfaces.param.suite.ApiDebugParam;
-import net.somta.juggle.console.interfaces.param.suite.ApiQueryParam;
-import net.somta.juggle.console.interfaces.param.suite.ApiUpdateParam;
+import net.somta.juggle.console.interfaces.param.suite.*;
 import net.somta.juggle.console.interfaces.dto.suite.ApiDTO;
 import net.somta.juggle.console.application.service.suite.IApiService;
 import org.springframework.web.bind.annotation.*;
@@ -125,6 +122,13 @@ public class ApiController {
     public ResponseDataResult<Map<String,Object>> debugApi(@PathVariable Long apiId,@RequestBody ApiDebugParam apiDebugParam){
         Map<String,Object> result = apiService.debugApi(apiId,apiDebugParam);
         return ResponseDataResult.setResponseResult(result);
+    }
+
+    @Operation(summary = "解析swagger数据接口新增接口")
+    @PostMapping("/parseSwagger")
+    public ResponseDataResult<Void> parseSwagger(@RequestBody SwaggerParam swaggerParam){
+        apiService.parseSwagger(swaggerParam.getSwaggerData());
+        return ResponseDataResult.setResponseResult();
     }
 
 }

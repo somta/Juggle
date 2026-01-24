@@ -7,6 +7,8 @@ export interface InputParams {
   paramPosition: string;
   required: boolean;
   paramDesc: string;
+  value?: any;
+  error?: string;
 }
 
 export interface OutputParams {

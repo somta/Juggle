@@ -30,7 +30,10 @@ const rules = reactive<FormRules>({
   dataSourceName: [{ required: true, message: '请输入数据源名称', trigger: 'blur' }],
   dataSourceType: [{ required: true, message: '请选择数据源类型', trigger: 'blur' }],
   address: [{ required: true, message: '请输入连接地址', trigger: 'blur' }],
-  port: [{ required: true, message: '请输入连接端口', trigger: 'blur' }],
+  port: [
+    { required: true, message: '请输入连接端口', trigger: 'blur' },
+    { pattern: /^[0-9_]+$/, message: '请输入数字', trigger: 'blur' },
+  ],
   userName: [{ required: true, message: '请输入连接账号', trigger: 'blur' }],
   password: [{ required: true, message: '请输入连接密码', trigger: 'blur' }],
   databaseName: [{ required: true, message: '请输入连接数据库名', trigger: 'blur' }],
@@ -143,17 +146,21 @@ defineExpose({ open });
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="最小连接数" prop="minPoolSize">
-              <el-input-number v-model="formValue.minPoolSize" controls-position="right" />
+              <el-input-number v-model="formValue.minPoolSize" controls-position="right" :min="1" :max="2000" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="最大连接数" prop="maxPoolSize">
-              <el-input-number v-model="formValue.maxPoolSize" class="mx-4" controls-position="right" />
+              <el-input-number v-model="formValue.maxPoolSize" class="mx-4" controls-position="right" :min="1" :max="2000"/>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label="查询超时时间（秒）" prop="queryTimeout">
-          <el-input v-model="formValue.queryTimeout" />
+          <el-input-number v-model="formValue.queryTimeout" controls-position="right" :min="1" :max="600" style="width: 100%">
+            <template #suffix>
+              <span>秒</span>
+            </template>
+          </el-input-number>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确定</el-button>

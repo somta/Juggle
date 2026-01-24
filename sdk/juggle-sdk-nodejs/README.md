@@ -29,7 +29,7 @@ const juggleClient = new JuggleClient({
   serverAddr,
 });
 
-async function r() {
+async function triggerJuggleFlow() {
   const res1 = await juggleClient.triggerFlow('v1', 'sync_example', {
     userName: 'juggle',
     password: '123456',
@@ -41,7 +41,7 @@ async function r() {
   console.log(res2);
 }
 
-r();
+triggerJuggleFlow();
 ```
 
 

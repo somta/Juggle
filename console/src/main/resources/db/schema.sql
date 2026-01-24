@@ -117,9 +117,9 @@ CREATE TABLE `t_parameter` (
 CREATE TABLE `t_variable_info` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `flow_definition_id` bigint(20) DEFAULT NULL,
-    `env_key` varchar(30) DEFAULT NULL,
-    `env_name` varchar(30) DEFAULT NULL,
-    `env_type` int(1) DEFAULT NULL,
+    `variable_key` varchar(30) DEFAULT NULL,
+    `variable_name` varchar(30) DEFAULT NULL,
+    `variable_type` int(1) DEFAULT NULL,
     `data_type` text,
     `created_at` datetime DEFAULT NULL,
     `created_by` int(11) DEFAULT NULL,
