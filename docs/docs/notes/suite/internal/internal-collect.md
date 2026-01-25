@@ -1,12 +1,33 @@
 ---
-title: 随机值
-description: 如何使用随机值套件，并详细介绍随机值套件的方法
+title: 值提取
+description: 如何使用值提取套件，并详细介绍值提取套件的方法
 keywords:
-  - 随机值
+  - JsonPath
   - 唯一值
-  - 随机时间
-permalink: /suite/internal/random.html
+  - 提取字符串中的值
+permalink: /suite/internal/collect.html
 createTime: 2024/10/18 18:29:05
 ---
 
 值提取套件是官方推出的一个套件，主要解决各种从各种复杂的json字符串中提取指定的值，这在接口调用后处理响应数据时非常有用，主要是通过JsonPath的能力
+
+## 提取字符串值
+通过JsonPath表达式从一个字符串中提取一个指定的字符串
+
+## 提取整数值
+通过JsonPath表达式从一个字符串中提取一个指定的整数值
+
+## 提取小值
+通过JsonPath表达式从一个字符串中提取一个指定的小数值
+
+## 提取布尔值
+通过JsonPath表达式从一个字符串中提取一个指定的布尔值
+
+## 提取日期值
+通过JsonPath表达式从一个字符串中提取一个指定的日期值
+
+## 提取时间值
+通过JsonPath表达式从一个字符串中提取一个指定的时间值
+
+## 提取字符串列表值
+通过JsonPath表达式从一个字符串中提取一个指定的字符串列表值

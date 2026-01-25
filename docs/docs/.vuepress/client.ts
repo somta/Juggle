@@ -5,8 +5,8 @@ import {Layout} from "vuepress-theme-plume/client";
 // @ts-ignore
 import VPHomeIntroduce from "../../src/components/VPHomeIntroduce.vue";
 import VPTitle from "../../src/components/VPTitle.vue";
+import VPFlowConfig from "../../src/components/VPFlowConfig.vue";
 import VPPrice from "../../src/components/VPPrice.vue";
-import DocSidebarSlot from "../../src/layouts/DocSidebarSlot.vue";
 import FooterSlot from "../../src/layouts/FooterSlot.vue";
 
 import './styles/index.css'
@@ -15,13 +15,13 @@ import './styles/custom.css'
 export default defineClientConfig({
     layouts:{
         Layout: () => h(Layout, null, {
-            'sidebar-nav-before': () => h(DocSidebarSlot),
             'footer-content': () => h(FooterSlot),
         })
     },
     enhance({ app,router  }) {
         app.component('introduce', VPHomeIntroduce)
         app.component('Title', VPTitle)
+        app.component('FlowConfig', VPFlowConfig)
         app.component('Price', VPPrice)
 
         router.beforeEach((to, from, next) => {
