@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, PropType} from 'vue';
+import {computed, PropType, watch} from 'vue';
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean, Array, Object],
@@ -45,6 +45,16 @@ const switchValue = computed({
 const currentType = computed(() => {
   return props.dataType?.type;
 });
+
+watch(
+    [currentType, () => props.modelValue],
+    ([type, value]) => {
+      if (type === 'Boolean' && (value === null || value === undefined || value === '')) {
+        emit('update:modelValue', false);
+      }
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
