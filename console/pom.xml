@@ -12,8 +12,8 @@
     <artifactId>juggle-console</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
@@ -27,15 +27,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.somta</groupId>
+            <groupId>com.matecoder</groupId>
             <artifactId>juggle-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.somta</groupId>
+            <groupId>com.matecoder</groupId>
             <artifactId>juggle-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.somta</groupId>
+            <groupId>com.matecoder</groupId>
             <artifactId>kernel-common</artifactId>
         </dependency>
         <!-- mysql start -->
@@ -92,7 +92,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.18</version>
+                <version>3.5.10</version>
                 <executions>
                     <execution>
                         <goals>

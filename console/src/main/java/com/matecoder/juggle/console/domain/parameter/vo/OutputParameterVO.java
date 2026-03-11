@@ -1,0 +1,57 @@
+package com.matecoder.juggle.console.domain.parameter.vo;
+
+import com.matecoder.juggle.core.model.DataType;
+
+/**
+ * @author Gavin
+ */
+public class OutputParameterVO {
+
+    /**
+     * 参数key
+     */
+    private String paramKey;
+    /**
+     * 参数名称
+     */
+    private String paramName;
+
+    /**
+     * 参数的数据类型
+     */
+    private DataType dataType;
+
+    private String paramDesc;
+
+    public String getParamKey() {
+        return paramKey;
+    }
+
+    public void setParamKey(String paramKey) {
+        this.paramKey = paramKey;
+    }
+
+    public String getParamName() {
+        return paramName;
+    }
+
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getParamDesc() {
+        return paramDesc;
+    }
+
+    public void setParamDesc(String paramDesc) {
+        this.paramDesc = paramDesc;
+    }
+}

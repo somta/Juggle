@@ -3,6 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.matecoder</groupId>
+        <artifactId>kernel-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/>
+    </parent>
+
     <groupId>net.somta</groupId>
     <artifactId>Juggle</artifactId>
     <version>${revision}</version>
@@ -13,13 +21,13 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <revision>1.5.0</revision>
-        <kernel-dependencies.varsion>1.0.1</kernel-dependencies.varsion>
-        <kernel-core.version>1.0.0</kernel-core.version>
-        <kernel-common.version>1.0.1</kernel-common.version>
-        <juggle-core.version>1.2.0</juggle-core.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <revision>1.6.0</revision>
+        <kernel-core.version>3.3.1</kernel-core.version>
+        <kernel-common.version>3.3.0</kernel-common.version>
+        <kernel-extra.version>3.3.0</kernel-extra.version>
+        <juggle-core.version>1.6.0</juggle-core.version>
         <mybatis-starter.version>2.1.4</mybatis-starter.version>
         <pagehelper.version>5.3.1</pagehelper.version>
         <h2.version>2.2.220</h2.version>
@@ -44,14 +52,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>net.somta</groupId>
-                <artifactId>kernel-dependencies</artifactId>
-                <version>${kernel-dependencies.varsion}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>net.somta</groupId>
+                <groupId>com.matecoder</groupId>
                 <artifactId>juggle-core</artifactId>
                 <version>${juggle-core.version}</version>
             </dependency>
@@ -61,14 +62,19 @@
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.somta</groupId>
+                <groupId>com.matecoder</groupId>
+                <artifactId>kernel-core</artifactId>
+                <version>${kernel-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.matecoder</groupId>
                 <artifactId>kernel-common</artifactId>
                 <version>${kernel-common.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.somta</groupId>
-                <artifactId>kernel-core</artifactId>
-                <version>${kernel-core.version}</version>
+                <groupId>com.matecoder</groupId>
+                <artifactId>kernel-extra</artifactId>
+                <version>${kernel-extra.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>

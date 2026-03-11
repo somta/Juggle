@@ -1,0 +1,58 @@
+/*
+Copyright (C) 2022-2024 husong
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 3
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
+*/
+package com.matecoder.juggle.console.domain.system.token;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.matecoder.common.utils.JsonUtil;
+import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.juggle.console.domain.system.token.vo.OpenApiTokenVO;
+
+import java.util.Base64;
+
+/**
+ * @author husong
+ * @since 1.1.0
+ */
+public class TokenEntity {
+
+
+    public OpenApiTokenVO parseTokenValue(String encoderStr){
+        byte[] decodedBytes = Base64.getUrlDecoder().decode(encoderStr);
+        OpenApiTokenVO openApiTokenVo = null;
+        try {
+            openApiTokenVo = JsonUtil.deserialize(new String(decodedBytes), OpenApiTokenVO.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return openApiTokenVo;
+    }
+
+    public String generateTokenValue(){
+        OpenApiTokenVO openApiTokenVo = new OpenApiTokenVO();
+        openApiTokenVo.setUserId(IdentityContext.getIdentity().getUserId());
+        openApiTokenVo.setTimestamp(System.currentTimeMillis());
+        String tokenString = null;
+        try {
+            tokenString = JsonUtil.serialize(openApiTokenVo);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        String tokenValue = Base64.getUrlEncoder().encodeToString(tokenString.getBytes());
+        return tokenValue;
+    }
+
+}
