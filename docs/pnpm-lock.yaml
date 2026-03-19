@@ -19,13 +19,13 @@ importers:
         specifier: 2.0.0-rc.18
         version: 2.0.0-rc.18(@types/node@20.14.9)(sass-embedded@1.79.4)(typescript@5.5.2)
       rimraf:
-        specifier: ^5.0.7
+        specifier: 5.0.7
         version: 5.0.7
       sass-embedded:
-        specifier: ^1.79.4
+        specifier: 1.79.4
         version: 1.79.4
       typescript:
-        specifier: ^5.5.2
+        specifier: 5.5.2
         version: 5.5.2
       vuepress:
         specifier: 2.0.0-rc.18
@@ -1710,10 +1710,6 @@ packages:
 
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
-
-  lru-cache@10.3.0:
-    resolution: {integrity: sha512-CQl19J/g+Hbjbv4Y3mFNNXFEL/5t/KCg8POCuUqd4rMKjGG+j1ybER83hxV58zL+dFI1PTkt3GNFSHRt+d8qEQ==}
-    engines: {node: 14 || >=16.14}
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
@@ -4417,8 +4413,6 @@ snapshots:
 
   longest-streak@3.1.0: {}
 
-  lru-cache@10.3.0: {}
-
   lru-cache@10.4.3: {}
 
   magic-string@0.30.11:
@@ -4793,7 +4787,7 @@ snapshots:
 
   path-scurry@1.11.1:
     dependencies:
-      lru-cache: 10.3.0
+      lru-cache: 10.4.3
       minipass: 7.1.2
 
   path-type@5.0.0: {}
