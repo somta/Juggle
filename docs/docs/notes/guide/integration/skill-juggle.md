@@ -79,7 +79,7 @@ openclaw gateway restart
 
 
 
-### 1. 同步示例工作流 (sync_example)
+### 1. 同步示例工作流
 
 #### 基本信息
 - **流程版本**: v1
