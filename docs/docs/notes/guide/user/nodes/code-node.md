@@ -6,7 +6,7 @@ keywords:
   - 自定义代码节点
   - 动态代码
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/nodes/code-node/
+permalink: /docs/guide/user/nodes/code-node.html
 ---
 
 # 代码节点

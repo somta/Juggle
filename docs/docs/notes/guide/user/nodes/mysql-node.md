@@ -7,7 +7,7 @@ keywords:
   - 数据源
   - 动态SQL
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/nodes/mysql-node/
+permalink: /docs/guide/user/nodes/mysql-node.html
 ---
 
 # MySql节点

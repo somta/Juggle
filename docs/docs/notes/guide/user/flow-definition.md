@@ -7,7 +7,7 @@ keywords:
   - 流程设计
   - 微服务接口编排
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/flow-definition/
+permalink: /docs/guide/user/flow-definition.html
 ---
 
 # 流程定义

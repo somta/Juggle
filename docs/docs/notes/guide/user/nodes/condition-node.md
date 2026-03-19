@@ -6,7 +6,7 @@ keywords:
   - 判断节点
   - 判断表达式
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/nodes/condition-node/
+permalink: /docs/guide/user/nodes/condition-node.html
 ---
 
 # 判断节点

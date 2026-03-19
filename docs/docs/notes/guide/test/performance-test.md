@@ -5,7 +5,7 @@ keywords:
   - Juggle压力方案
   - juggle性能测试
 createTime: 2025/05/24 15:09:38
-permalink: /docs/guide/test/performance-test/
+permalink: /docs/guide/test/performance-test.html
 ---
 
 ### 1.性能测试背景

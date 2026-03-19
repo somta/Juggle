@@ -6,7 +6,7 @@ keywords:
   - 微服务接口
   - 接口编排
 createTime: 2026/10/18 15:09:38
-permalink: /docs/guide/integration/nodejs-juggle/
+permalink: /docs/guide/integration/nodejs.html
 ---
 
 # 普通Java项目集成Juggle

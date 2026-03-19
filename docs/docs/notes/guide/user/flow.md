@@ -7,7 +7,7 @@ keywords:
   - 流程示例
   - 微服务编排流程
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/flow/
+permalink: /docs/guide/user/flow.html
 ---
 
 # 流程

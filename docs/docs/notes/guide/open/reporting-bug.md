@@ -6,7 +6,7 @@ keywords:
   - 问题报告格式
   - 复现步骤
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/open/reporting-bug/
+permalink: /docs/guide/open/reporting-bug.html
 ---
 
 # 如何提交问题报告

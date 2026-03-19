@@ -6,7 +6,7 @@ keywords:
   - 业务系统集成Juggle
   - Juggle Open API
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/integration/open-api/
+permalink: /docs/guide/integration/api.html
 ---
 
 # OpenApi列表

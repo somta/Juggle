@@ -6,7 +6,7 @@ keywords:
   - 第三方系统集成
   - 微服务接口编排
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/flow-version/
+permalink: /docs/guide/user/flow-version.html
 ---
 
 # 流程版本

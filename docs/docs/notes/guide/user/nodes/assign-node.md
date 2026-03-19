@@ -6,7 +6,7 @@ keywords:
   - 流程赋值
   - juggle编排
 createTime: 2025/4/18 15:09:38
-permalink: /docs/guide/user/nodes/assign-node/
+permalink: /docs/guide/user/nodes/assign-node.html
 ---
 
 # 赋值节点

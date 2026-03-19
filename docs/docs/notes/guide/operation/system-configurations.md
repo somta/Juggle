@@ -6,7 +6,7 @@ keywords:
   - Juggle部署
   - 部署方式
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/operation/system-configurations/
+permalink: /docs/guide/operation/system-configurations.html
 ---
 
 Juggle提供了丰富的配置适配不同的场景，可以通过修改application.properties里面的配置项，下面会详细介绍每个配置的作用和配置方法

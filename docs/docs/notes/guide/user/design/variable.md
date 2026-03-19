@@ -7,7 +7,7 @@ keywords:
   - 条件表达式
   - 变量引擎
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/design/variable/
+permalink: /docs/guide/user/design/variable.html
 ---
 
 # 变量

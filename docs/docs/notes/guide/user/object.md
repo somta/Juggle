@@ -6,7 +6,7 @@ keywords:
   - 领域对象
   - 领域模型
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/object/
+permalink: /docs/guide/user/object.html
 ---
 
 # 对象

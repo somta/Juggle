@@ -5,7 +5,7 @@ keywords:
   - juggle
   - juggle套件常见问题
 createTime: 2025/06/18 15:09:38
-permalink: /docs/guide/faq/suite-faq/
+permalink: /docs/guide/faq/suite-faq.html
 ---
 ## 1.接口不支持单独一个数组作为入参
 在套件中的接口目前是不支持单独传入一个数组作为入参的情况，因为此类接口不具备向下兼容性，后续接口的变动都可能导致之前的流程中该接口的不可用，对于流程来说是毁灭性的，为了整个流程的稳定性和兼容性，在没有优雅方案之前，juggle不会支持此类入参。

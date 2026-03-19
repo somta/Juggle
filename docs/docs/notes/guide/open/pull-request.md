@@ -6,7 +6,7 @@ keywords:
   - PR模板
   - Juggle开源
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/open/pull-request/
+permalink: /docs/guide/open/pull-request.html
 ---
 
 #  Pull Request模板

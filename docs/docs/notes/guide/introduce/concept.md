@@ -6,7 +6,7 @@ keywords:
   - 流程定义
   - 流程版本
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/concept/
+permalink: /docs/guide/concept.html
 ---
 
 #  概念

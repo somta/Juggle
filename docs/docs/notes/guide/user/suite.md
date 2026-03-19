@@ -6,7 +6,7 @@ keywords:
   - API接口
   - 微服务接口编排
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/suite/
+permalink: /docs/guide/user/suite.html
 ---
 
 # 套件

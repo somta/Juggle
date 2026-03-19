@@ -6,7 +6,7 @@ keywords:
   - PR源码
   - Juggle开源贡献
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/open/contributing-flow/
+permalink: /docs/guide/open/contributing-flow.html
 ---
 
 #  如何贡献

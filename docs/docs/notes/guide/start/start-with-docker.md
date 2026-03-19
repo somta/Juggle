@@ -1,7 +1,7 @@
 ---
 title: Juggle Docker 快速开始
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/start/start-with-docker/
+permalink: /docs/guide/start/start-with-docker.html
 ---
 #  Juggle Docker 快速开始
 

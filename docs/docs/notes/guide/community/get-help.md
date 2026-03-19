@@ -6,7 +6,7 @@ keywords:
   - Juggle
   - 帮助信息
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/community/community-get-help/
+permalink: /docs/guide/community/community-get-help.html
 ---
 
 如果您需要有关`Juggle`的帮助,我们将在这里为您提供帮助,以下是获取帮助的一些方法：

@@ -6,7 +6,7 @@ keywords:
   - 微服务接口
   - 接口编排
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/api/
+permalink: /docs/guide/user/api.html
 ---
 
 # 接口

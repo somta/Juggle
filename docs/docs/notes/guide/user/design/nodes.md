@@ -6,7 +6,7 @@ keywords:
   - 方法调用
   - 变量引擎
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/design/nodes/
+permalink: /docs/guide/user/design/nodes.html
 ---
 
 # 节点

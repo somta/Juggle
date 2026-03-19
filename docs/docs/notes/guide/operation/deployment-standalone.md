@@ -6,7 +6,7 @@ keywords:
   - Juggle单机部署
   - 部署方式
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/operation/deployment-standalone/
+permalink: /docs/guide/operation/deployment-standalone.html
 ---
 
 在快速开始章节，我们使用内置的H2数据库，通过多种方式快速部署了Juggle的单机模式，可以参考使用H2数据库的Juggle单机模式部署：[宿主机单机模式部署](https://juggle.plus/docs/guide/start/quick-start) ，[Docker单机模式部署](https://juggle.plus/docs/guide/start/start-with-docker)。

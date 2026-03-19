@@ -6,7 +6,7 @@ keywords:
   - 第三方系统集成框架
   - 定制化开发框架
 createTime: 2024/10/21 10:53:12
-permalink: /docs/guide/introduce/
+permalink: /docs/guide/introduce.html
 ---
 
 ### 概览

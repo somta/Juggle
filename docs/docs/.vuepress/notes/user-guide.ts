@@ -53,7 +53,7 @@ export const userGuide = defineNoteConfig({
                 {
                     text: '系统集成',
                     collapsed: true,
-                    items: ['integration','java-juggle','spring-boot-juggle','nodejs-juggle'],
+                    items: ['integration','java-juggle','spring-boot-juggle','nodejs-juggle','skill-juggle'],
                 },
             ],
         },

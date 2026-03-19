@@ -6,7 +6,7 @@ keywords:
   - 方法节点
   - 系统集成
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/nodes/method-node/
+permalink: /docs/guide/user/nodes/method-node.html
 ---
 
 # 方法节点

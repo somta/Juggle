@@ -121,9 +121,9 @@ sh startup.sh
 ![](/docs/docs/notes/guide/user/images/flow_example.png)
 
 
-示例接口地址：https://www.juggle.plus/docs/guide/user/example-api
+示例接口地址：https://www.juggle.plus/docs/guide/user/example-api.html
 
-示例流程地址：https://www.juggle.plus/docs/guide/user/example-flow
+示例流程地址：https://www.juggle.plus/docs/guide/user/example-flow.html
 
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
@@ -144,7 +144,3 @@ sh startup.sh
 感谢为Juggle功能持续更新日夜奋战的小伙伴们，感谢为项目提出宝贵优化意见的大佬们！
      
      动动您发财的手，点个Star，是对我们更新最大的支持！
-
-## 开源共建
-如果你也有开源的梦想，可以在下面的Juggle功能认领表中领取需求，与我们进行沟通后进行开发哦！
-https://docs.qq.com/sheet/DWVZGZGV0dFhva01s?tab=BB08J2

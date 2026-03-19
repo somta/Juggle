@@ -6,7 +6,7 @@ keywords:
   - Juggle部署
   - 部署方式
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/operation/deployment-overview/
+permalink: /docs/guide/operation/deployment-overview.html
 ---
 
 ### 1.Juggle支持的两种部署模式

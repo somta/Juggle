@@ -6,7 +6,7 @@ keywords:
   - Juggle使用文档
   - Juggle快速开始
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/start/quick-start/
+permalink: /docs/guide/start/quick-start.html
 ---
 
 #  Juggle快速开始

@@ -6,7 +6,7 @@ keywords:
   - 变量表达式
   - 变量引擎
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/data-type-info/
+permalink: /docs/guide/user/data-type-info.html
 ---
 
 # 支持的数据类型

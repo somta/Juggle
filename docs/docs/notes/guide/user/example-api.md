@@ -6,7 +6,7 @@ keywords:
   - mock接口
   - 接口例子
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/user/example-api/
+permalink: /docs/guide/user/example-api.html
 ---
 
 # 示例接口
