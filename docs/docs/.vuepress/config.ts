@@ -34,6 +34,7 @@ export default defineUserConfig({
         hostname: 'https://juggle.plus',
         // 导航栏配置
         navbar: zhNavbar,
+        llmstxt: true,
         collections: [
             userGuide,
             suiteSchool,
