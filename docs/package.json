@@ -17,16 +17,16 @@
   "author": "明天的地平线",
   "license": "ISC",
   "dependencies": {
-    "swiper": "11.2.6",
-    "vue": "3.5.11"
+    "swiper": "11.2.10",
+    "vue": "3.5.17"
   },
   "devDependencies": {
-    "@vuepress/bundler-vite": "2.0.0-rc.22",
+    "@vuepress/bundler-vite": "2.0.0-rc.24",
     "rimraf": "5.0.7",
-    "sass-embedded": "1.86.3",
+    "sass-embedded": "1.89.2",
     "typescript": "5.5.2",
-    "vuepress": "2.0.0-rc.22",
-    "vuepress-theme-plume": "1.0.0-rc.145"
+    "vuepress": "2.0.0-rc.24",
+    "vuepress-theme-plume": "1.0.0-rc.159"
   },
   "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }
