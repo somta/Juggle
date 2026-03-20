@@ -1,8 +1,10 @@
-import { defineNoteConfig } from 'vuepress-theme-plume'
+import {ThemeDocCollection} from "vuepress-theme-plume";
 
-export const userGuide = defineNoteConfig({
+export const userGuide = {
+    type: 'doc',
     dir: 'guide',
-    link: '/docs/guide/',
+    linkPrefix: '/docs/guide/',
+    title: '用户手册',
     sidebar: [
         {
             text: '什么是Juggle？',
@@ -10,12 +12,12 @@ export const userGuide = defineNoteConfig({
             prefix: 'introduce',
             items: ['introduce-index','concept'],
         },
-        {
-            text: '快速开始',
-            collapsed: false,
-            prefix: 'start',
-            items: ['quick-start','start-with-docker','start-with-kubernetes'],
-        },
+         {
+             text: '快速开始',
+             collapsed: false,
+             prefix: 'start',
+             items: ['quick-start','start-with-docker','start-with-kubernetes'],
+         },
         {
             text: '使用手册',
             collapsed: true,
@@ -106,4 +108,4 @@ export const userGuide = defineNoteConfig({
             ],
         },
     ],
-})
+} as ThemeDocCollection

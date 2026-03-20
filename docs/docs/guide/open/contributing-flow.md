@@ -86,6 +86,6 @@ git push origin develop-issue#${issue-number}
 
 #### 8.按照拉取请求模板中的清单创建Pull Request
 
-我们为您提供了[Pull Request模板](/docs/notes/guide/open/pull-request)，填写模板中的信息即可，模板的信息是为了让我们更快验证您提交的PR，以便合并到基础分支，让更多人收益，请您认真填写。
+我们为您提供了[Pull Request模板](/docs/guide/open/pull-request)，填写模板中的信息即可，模板的信息是为了让我们更快验证您提交的PR，以便合并到基础分支，让更多人收益，请您认真填写。
 
 #### 9.如果代码没有问题，我们会把您的修改合并到基础分支中，恭喜您成为Juggle的官方贡献者

@@ -1,8 +1,9 @@
-import { defineNoteConfig } from 'vuepress-theme-plume'
+import {ThemeDocCollection} from "vuepress-theme-plume";
 
-export const changeLog = defineNoteConfig({
+export const changeLog = {
+    type: 'doc',
     dir: 'changelog',
-    link: '/changelog/',
+    title: '更新日志',
     sidebar: [
         {
             text: '1.x版本',
@@ -11,4 +12,4 @@ export const changeLog = defineNoteConfig({
             items: "auto",
         }
     ],
-})
+} as ThemeDocCollection

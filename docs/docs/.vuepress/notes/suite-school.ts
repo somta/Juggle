@@ -1,8 +1,9 @@
-import { defineNoteConfig } from 'vuepress-theme-plume'
+import {ThemeDocCollection} from "vuepress-theme-plume";
 
-export const suiteSchool = defineNoteConfig({
+export const suiteSchool = {
+    type: 'doc',
     dir: 'suite',
-    link: '/suite/',
+    title: '套件学堂',
     sidebar: [
         {
             text: '内置套件',
@@ -22,4 +23,4 @@ export const suiteSchool = defineNoteConfig({
             ],
         }
     ],
-})
+} as ThemeDocCollection

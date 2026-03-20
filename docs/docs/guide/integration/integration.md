@@ -6,7 +6,7 @@ keywords:
   - 系统集成
   - 集成Juggle
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/integration.html
+permalink: /docs/guide/integration/integration.html
 ---
 
 # 业务系统集成Juggle

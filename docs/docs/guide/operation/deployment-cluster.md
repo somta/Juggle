@@ -6,7 +6,7 @@ keywords:
   - Juggle高可用部署
   - 部署Juggle
 createTime: 2024/10/18 15:09:38
-permalink: /docs/guide/operation/deployment-cluster/
+permalink: /docs/guide/operation/deployment-cluster.html
 ---
 
 集群模式主要用于生产环境，要确保Juggle服务的高可用、高扩展、高并发等要求，确保在单节点故障发生时不影响业务的运行。故提出以下几点要求

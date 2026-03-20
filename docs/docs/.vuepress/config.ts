@@ -2,7 +2,9 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
 import {zhNavbar} from "./navbar";
-import {zhNotes} from "./notes";
+import {suiteSchool} from "./notes/suite-school";
+import {userGuide} from "./notes/user-guide";
+import {changeLog} from "./notes/changelog";
 
 export default defineUserConfig({
     lang: 'zh-CN',
@@ -32,11 +34,15 @@ export default defineUserConfig({
         hostname: 'https://juggle.plus',
         // 导航栏配置
         navbar: zhNavbar,
+        collections: [
+            userGuide,
+            suiteSchool,
+            changeLog,
+        ],
         contributors: false,
         social: [
             { icon: 'github', link: 'https://github.com/somta' }
         ],
-        notes: zhNotes,
         footer: { copyright: '<a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备18059311号-3</a> | Copyright © 2018-present' },
     }),
 })
