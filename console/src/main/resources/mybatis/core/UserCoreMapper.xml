@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.UserMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.UserMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.UserPO" >
+<resultMap id="BaseResultMap" type="com.matecoder.juggle.console.infrastructure.po.UserPO" >
 	<result column="id" property="id"/>
 	<result column="user_name" property="userName"/>
 	<result column="password" property="password"/>
@@ -24,7 +24,7 @@
 	id, user_name, password, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.UserPO" >
+<insert id="add" parameterType="com.matecoder.juggle.console.infrastructure.po.UserPO" >
 	insert into t_user (id, user_name, password, deleted, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{userName},#{password},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -33,7 +33,7 @@
 	delete from t_user where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.UserPO" >
+<update id="update" parameterType="com.matecoder.juggle.console.infrastructure.po.UserPO" >
 	update t_user set
 	<trim  suffixOverrides="," >
 		<if test="apiUrl != null and apiUrl != ''">
@@ -65,13 +65,13 @@
 	from t_user where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="com.matecoder.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select count(*)
 	from t_user
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.suite.ApiQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="com.matecoder.juggle.console.interfaces.param.suite.ApiQueryParam">
 	select <include refid="Base_Column_List" />
 	from t_user
 	<include refid="Example_Where_Clause"/>

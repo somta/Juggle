@@ -1,4 +1,4 @@
-package net.somta.juggle.starter.properties;
+package com.matecoder.juggle.starter.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

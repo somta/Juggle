@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.system.DataSourceMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.system.DataSourceMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
+<resultMap id="BaseResultMap" type="com.matecoder.juggle.console.infrastructure.po.system.DataSourcePO" >
 	<result column="id" property="id"/>
 	<result column="data_source_name" property="dataSourceName"/>
 	<result column="data_source_type" property="dataSourceType"/>
@@ -41,7 +41,7 @@
 	id, data_source_name, data_source_type, data_source_desc, address, port, user_name, password, database_name, connect_ext_info, min_pool_size, max_pool_size, query_timeout, data_source_ext_info, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
+<insert id="add" parameterType="com.matecoder.juggle.console.infrastructure.po.system.DataSourcePO" >
 	insert into t_data_source (id, data_source_name, data_source_type, data_source_desc, address, port, user_name, password, database_name, connect_ext_info, min_pool_size, max_pool_size, query_timeout, data_source_ext_info, deleted,created_at, created_by, updated_at, updated_by)
 	values (#{id},#{dataSourceName},#{dataSourceType},#{dataSourceDesc},#{address},#{port},#{userName},#{password},#{databaseName},#{connectExtInfo},#{minPoolSize},#{maxPoolSize},#{queryTimeout},#{dataSourceExtInfo},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -50,7 +50,7 @@
  delete from t_data_source where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.system.DataSourcePO" >
+<update id="update" parameterType="com.matecoder.juggle.console.infrastructure.po.system.DataSourcePO" >
 	update t_data_source set
 	<trim  suffixOverrides="," >
 		<if test="dataSourceName != null and dataSourceName != ''">
@@ -115,13 +115,13 @@
 	from t_data_source where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="com.matecoder.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
 	select count(*)
 	from t_data_source
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="com.matecoder.juggle.console.domain.system.datasource.vo.DataSourceQueryVO">
 	select <include refid="Base_Column_List" />
 	from t_data_source
 	<include refid="Example_Where_Clause"/>

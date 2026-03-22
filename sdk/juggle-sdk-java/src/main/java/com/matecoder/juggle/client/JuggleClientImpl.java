@@ -1,9 +1,9 @@
-package net.somta.juggle.client;
+package com.matecoder.juggle.client;
 
-import net.somta.core.helper.JsonSerializeHelper;
-import net.somta.core.protocol.ResponseDataResult;
-import net.somta.juggle.client.model.FlowResultModel;
-import net.somta.juggle.client.model.FlowTriggerDataParam;
+import com.matecoder.common.utils.JsonUtil;
+import com.matecoder.core.protocol.ResponseDataResult;
+import com.matecoder.juggle.client.model.FlowTriggerDataParam;
+import com.matecoder.juggle.client.model.FlowResultModel;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -12,18 +12,11 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
-import org.apache.hc.core5.http.message.BasicNameValuePair;
-import org.apache.hc.core5.net.URIBuilder;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,7 +45,7 @@ public class JuggleClientImpl implements JuggleClient {
         HttpUriRequestBase request = new HttpPost(url);
         fillCommonHttpHeader(request, juggleConfig.getAccessToken());
         if (triggerData.getFlowData() != null) {
-            String triggerDataJson = JsonSerializeHelper.serialize(triggerData);
+            String triggerDataJson = JsonUtil.serialize(triggerData);
             StringEntity entity = new StringEntity(triggerDataJson, ContentType.APPLICATION_JSON);
             request.setEntity(entity);
         }
@@ -60,7 +53,7 @@ public class JuggleClientImpl implements JuggleClient {
         final HttpClientResponseHandler<ResponseDataResult<FlowResultModel>> responseHandler = response -> {
             HttpEntity entity = response.getEntity();
             String resultContent = EntityUtils.toString(entity);
-            ResponseDataResult<FlowResultModel> result = JsonSerializeHelper.deserialize(resultContent, ResponseDataResult.class, FlowResultModel.class);
+            ResponseDataResult<FlowResultModel> result = JsonUtil.deserialize(resultContent, ResponseDataResult.class, FlowResultModel.class);
             if(entity != null){
                 EntityUtils.consume(entity);
             }
@@ -81,7 +74,7 @@ public class JuggleClientImpl implements JuggleClient {
         final HttpClientResponseHandler<ResponseDataResult<Map<String, Object>>> responseHandler = response -> {
             HttpEntity entity = response.getEntity();
             String resultContent = EntityUtils.toString(entity);
-            ResponseDataResult<Map<String, Object>> result = JsonSerializeHelper.deserialize(resultContent, ResponseDataResult.class, Map.class);
+            ResponseDataResult<Map<String, Object>> result = JsonUtil.deserialize(resultContent, ResponseDataResult.class, Map.class);
             if(entity != null){
                 EntityUtils.consume(entity);
             }

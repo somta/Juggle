@@ -1,4 +1,4 @@
-package net.somta.juggle.client.model;
+package com.matecoder.juggle.client.model;
 
 import java.util.Map;
 

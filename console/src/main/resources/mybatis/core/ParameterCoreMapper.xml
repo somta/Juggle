@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ParameterMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.ParameterMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+<resultMap id="BaseResultMap" type="com.matecoder.juggle.console.infrastructure.po.ParameterPO" >
 	<result column="id" property="id"/>
 	<result column="param_type" property="paramType"/>
 	<result column="param_key" property="paramKey"/>
@@ -27,7 +27,7 @@
 	id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id
 </sql>
    
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+<insert id="add" parameterType="com.matecoder.juggle.console.infrastructure.po.ParameterPO" >
 	insert into t_parameter (id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramPosition},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -36,7 +36,7 @@
 	delete from t_parameter where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+<update id="update" parameterType="com.matecoder.juggle.console.infrastructure.po.ParameterPO" >
 	update t_parameter set
 	<trim  suffixOverrides="," >
 		<if test="paramType != null">

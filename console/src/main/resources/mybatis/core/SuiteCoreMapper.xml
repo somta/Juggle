@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.suite.SuiteMapper">
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.suite.SuiteMapper">
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.suite.SuitePO" >
+<resultMap id="BaseResultMap" type="com.matecoder.juggle.console.infrastructure.po.suite.SuitePO" >
 	<result column="id" property="id"/>
 	<result column="suite_code" property="suiteCode"/>
 	<result column="suite_name" property="suiteName"/>
@@ -37,7 +37,7 @@
 	id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_json, suite_flag, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.suite.SuitePO" >
+<insert id="add" parameterType="com.matecoder.juggle.console.infrastructure.po.suite.SuitePO" >
 	insert into t_suite (id, suite_code, suite_name, suite_classify_id, suite_image, suite_version, suite_desc, suite_help_doc_json, suite_flag,deleted, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{suiteCode},#{suiteName},#{suiteClassifyId},#{suiteImage},#{suiteVersion},#{suiteDesc},#{suiteHelpDocJson},#{suiteFlag},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -46,7 +46,7 @@
  delete from t_suite where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.suite.SuitePO" >
+<update id="update" parameterType="com.matecoder.juggle.console.infrastructure.po.suite.SuitePO" >
 	update t_suite set
 	<trim  suffixOverrides="," >
 	<if test="suiteCode != null and suiteCode != ''">
@@ -96,13 +96,13 @@
 	from t_suite where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="com.matecoder.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO">
 	select count(*)
 	from t_suite
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="com.matecoder.juggle.console.domain.suite.suiteinfo.vo.SuiteQueryVO">
 	select <include refid="Base_Column_List" /> 
 	from t_suite
 	<include refid="Example_Where_Clause"/>

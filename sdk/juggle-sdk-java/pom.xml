@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.somta</groupId>
+    <groupId>com.matecoder</groupId>
     <artifactId>juggle-client</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 
     <name>juggle-client</name>
     <description>juggle java sdk</description>
@@ -42,9 +42,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.somta</groupId>
+            <groupId>com.matecoder</groupId>
             <artifactId>kernel-common</artifactId>
-            <version>1.0.1</version>
+            <version>3.3.0</version>
         </dependency>
     </dependencies>
 

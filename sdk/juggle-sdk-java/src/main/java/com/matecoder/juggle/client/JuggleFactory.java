@@ -1,4 +1,4 @@
-package net.somta.juggle.client;
+package com.matecoder.juggle.client;
 
 /**
  * @author husong

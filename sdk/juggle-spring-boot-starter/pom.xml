@@ -10,9 +10,9 @@
         <relativePath/>
     </parent>
 
-    <groupId>net.somta</groupId>
+    <groupId>com.matecoder</groupId>
     <artifactId>juggle-spring-boot-starter</artifactId>
-    <version>1.1.4</version>
+    <version>1.2.0</version>
 
     <name>juggle-spring-boot-starter</name>
     <description>juggle spring boot starter</description>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>net.somta</groupId>
             <artifactId>juggle-client</artifactId>
-            <version>1.1.1</version>
+            <version>1.2.0</version>
         </dependency>
         <!-- starter start -->
         <dependency>

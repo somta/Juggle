@@ -1,12 +1,12 @@
-package net.somta.juggle.starter.impl;
+package com.matecoder.juggle.starter.impl;
 
+import com.matecoder.juggle.starter.properties.JuggleOpenProperties;
 import net.somta.core.protocol.ResponseDataResult;
-import net.somta.juggle.client.JuggleClient;
-import net.somta.juggle.client.JuggleConfig;
-import net.somta.juggle.client.JuggleFactory;
-import net.somta.juggle.client.model.FlowResultModel;
-import net.somta.juggle.client.model.FlowTriggerDataParam;
-import net.somta.juggle.starter.properties.JuggleOpenProperties;
+import com.matecoder.juggle.client.JuggleClient;
+import com.matecoder.juggle.client.JuggleConfig;
+import com.matecoder.juggle.client.JuggleFactory;
+import com.matecoder.juggle.client.model.FlowResultModel;
+import com.matecoder.juggle.client.model.FlowTriggerDataParam;
 
 import java.io.IOException;
 import java.util.Map;

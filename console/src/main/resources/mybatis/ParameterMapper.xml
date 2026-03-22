@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ParameterMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.ParameterMapper" >
    
-<insert id="addParameter" parameterType="net.somta.juggle.console.infrastructure.po.ParameterPO" >
+<insert id="addParameter" parameterType="com.matecoder.juggle.console.infrastructure.po.ParameterPO" >
 	insert into t_parameter (id, param_type, param_key, param_name, param_position, param_desc, data_type, required, source_type, source_id, deleted, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{paramType},#{paramKey},#{paramName},#{paramPosition},#{paramDesc},#{dataType},#{required},#{sourceType},#{sourceId},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -17,11 +17,11 @@
 	</foreach>
 </insert>
 
-<update id="deleteParameter" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
+<update id="deleteParameter" parameterType="com.matecoder.juggle.console.domain.parameter.vo.ParameterVO">
  update t_parameter set deleted=1 where source_type=#{sourceType} and source_id=#{sourceId}
 </update>
 
-<select id="getParameterListByVO" resultType="net.somta.juggle.console.infrastructure.po.ParameterPO" parameterType="net.somta.juggle.console.domain.parameter.vo.ParameterVO">
+<select id="getParameterListByVO" resultType="com.matecoder.juggle.console.infrastructure.po.ParameterPO" parameterType="com.matecoder.juggle.console.domain.parameter.vo.ParameterVO">
 	select id, param_type, param_key, param_name,param_position, param_desc, data_type, required, source_type, source_id
 	from t_parameter where 1=1 and deleted=0
 	<if test="sourceType != null and sourceType != ''">

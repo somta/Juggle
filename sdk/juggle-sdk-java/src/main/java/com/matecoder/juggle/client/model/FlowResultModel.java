@@ -14,10 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.html>.
 */
-package net.somta.juggle.client.model;
+package com.matecoder.juggle.client.model;
 
 
-import net.somta.juggle.client.enums.FlowStatusEnum;
+import com.matecoder.juggle.client.enums.FlowStatusEnum;
 
 import java.util.Map;
 
@@ -27,6 +27,7 @@ import java.util.Map;
  */
 public class FlowResultModel {
     private String flowInstanceId;
+    private String flowType;
     private FlowStatusEnum status;
     private Map<String,Object> data;
 
@@ -36,6 +37,15 @@ public class FlowResultModel {
 
     public FlowResultModel setFlowInstanceId(String flowInstanceId) {
         this.flowInstanceId = flowInstanceId;
+        return this;
+    }
+
+    public String getFlowType() {
+        return flowType;
+    }
+
+    public FlowResultModel setFlowType(String flowType) {
+        this.flowType = flowType;
         return this;
     }
 

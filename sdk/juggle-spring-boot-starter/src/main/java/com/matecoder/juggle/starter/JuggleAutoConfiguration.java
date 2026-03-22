@@ -1,8 +1,8 @@
-package net.somta.juggle.starter;
+package com.matecoder.juggle.starter;
 
-import net.somta.juggle.starter.impl.IJuggleTemplate;
-import net.somta.juggle.starter.impl.JuggleTemplateImpl;
-import net.somta.juggle.starter.properties.JuggleOpenProperties;
+import com.matecoder.juggle.starter.impl.IJuggleTemplate;
+import com.matecoder.juggle.starter.impl.JuggleTemplateImpl;
+import com.matecoder.juggle.starter.properties.JuggleOpenProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

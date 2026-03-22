@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ObjectMapper" >
-    <resultMap id="objectInfoResultMap" type="net.somta.juggle.console.infrastructure.view.ObjectInfoView">
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.ObjectMapper" >
+    <resultMap id="objectInfoResultMap" type="com.matecoder.juggle.console.infrastructure.view.ObjectInfoView">
         <id column="id" property="id"/>
         <result column="object_key" property="objectKey"/>
         <result column="object_name" property="objectName"/>
         <result column="object_desc" property="objectDesc"/>
-        <collection property="propertyList" ofType="net.somta.juggle.console.domain.object.vo.PropertyVO">
+        <collection property="propertyList" ofType="com.matecoder.juggle.console.domain.object.vo.PropertyVO">
             <result column="param_key" property="propKey"/>
             <result column="param_name" property="propName"/>
             <result column="data_type" property="dataType"/>
@@ -16,7 +16,7 @@
 
     </resultMap>
 
-    <insert id="addObject" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.suite.ApiPO" >
+    <insert id="addObject" useGeneratedKeys="true" keyProperty="id" parameterType="com.matecoder.juggle.console.infrastructure.po.suite.ApiPO" >
         insert into t_object (id, object_key, object_name, object_desc, deleted, created_at, created_by, updated_at, updated_by)
         values (#{id},#{objectKey},#{objectName},#{objectDesc},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
     </insert>

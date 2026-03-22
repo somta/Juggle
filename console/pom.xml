@@ -3,18 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>Juggle</artifactId>
-        <groupId>net.somta</groupId>
-        <version>${revision}</version>
+        <groupId>com.matecoder</groupId>
+        <artifactId>kernel-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>juggle-console</artifactId>
+    <version>${revision}</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>1.6.0</revision>
+        <juggle-core>1.6.0</juggle-core>
+        <juggle-common>1.5.0</juggle-common>
+        <kernel-core.version>3.3.2</kernel-core.version>
+        <kernel-common.version>3.3.0</kernel-common.version>
+        <kernel-extra.version>3.3.0</kernel-extra.version>
+        <mybatis-starter.version>3.0.3</mybatis-starter.version>
+        <pagehelper.version>5.3.1</pagehelper.version>
+        <h2.version>2.2.220</h2.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <swagger.version>2.2.8</swagger.version>
+        <swagger-parser.version>2.0.25</swagger-parser.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,7 +48,6 @@
         <dependency>
             <groupId>com.matecoder</groupId>
             <artifactId>juggle-common</artifactId>
-            <version>1.5.0</version>
         </dependency>
         <dependency>
             <groupId>com.matecoder</groupId>
@@ -88,6 +102,65 @@
         </dependency>
 
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.matecoder</groupId>
+                <artifactId>juggle-core</artifactId>
+                <version>${juggle-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.matecoder</groupId>
+                <artifactId>juggle-common</artifactId>
+                <version>${juggle-common}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.matecoder</groupId>
+                <artifactId>kernel-core</artifactId>
+                <version>${kernel-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.matecoder</groupId>
+                <artifactId>kernel-common</artifactId>
+                <version>${kernel-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.matecoder</groupId>
+                <artifactId>kernel-extra</artifactId>
+                <version>${kernel-extra.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.parser.v3</groupId>
+                <artifactId>swagger-parser</artifactId>
+                <version>${swagger-parser.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <finalName>juggle-server</finalName>
         <plugins>

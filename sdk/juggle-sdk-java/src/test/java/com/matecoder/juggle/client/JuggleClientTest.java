@@ -1,8 +1,8 @@
-package net.somta.juggle.client;
+package com.matecoder.juggle.client;
 
-import net.somta.core.protocol.ResponseDataResult;
-import net.somta.juggle.client.model.FlowResultModel;
-import net.somta.juggle.client.model.FlowTriggerDataParam;
+import com.matecoder.core.protocol.ResponseDataResult;
+import com.matecoder.juggle.client.model.FlowTriggerDataParam;
+import com.matecoder.juggle.client.model.FlowResultModel;
 
 import java.io.IOException;
 import java.util.HashMap;
