@@ -27,7 +27,6 @@ import com.matecoder.juggle.console.application.service.flow.IFlowInfoService;
 import org.springframework.web.bind.annotation.*;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong

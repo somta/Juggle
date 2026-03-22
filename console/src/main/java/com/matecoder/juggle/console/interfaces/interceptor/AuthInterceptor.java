@@ -17,25 +17,20 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package com.matecoder.juggle.console.interfaces.interceptor;
 
 import com.matecoder.common.utils.JsonUtil;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.core.protocol.ResponseDataResult;
-import com.matecoder.juggle.common.identity.IdentityContext;
-import com.matecoder.juggle.common.identity.IdentityVO;
-import com.matecoder.juggle.common.utils.JwtUtil;
+import com.matecoder.core.context.IdentityContext;
+import com.matecoder.core.context.JwtHelper;
+import com.matecoder.juggle.common.constants.ApplicationConstants;
 import com.matecoder.juggle.console.application.service.system.ITokenService;
+import com.matecoder.juggle.console.configuration.JuggleProperties;
 import com.matecoder.juggle.console.domain.system.token.TokenEntity;
 import com.matecoder.juggle.console.domain.system.token.vo.OpenApiTokenVO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_API_PREFIX;
 import static com.matecoder.juggle.console.domain.user.enums.UserErrorEnum.OPEN_API_TOKEN_ERROR;
@@ -47,9 +42,11 @@ import static com.matecoder.juggle.console.domain.user.enums.UserErrorEnum.USER_
  */
 public class AuthInterceptor implements AsyncHandlerInterceptor {
 
+    private final JuggleProperties juggleProperties;
     private final ITokenService tokenService;
 
-    public AuthInterceptor(ITokenService tokenService) {
+    public AuthInterceptor(JuggleProperties juggleProperties, ITokenService tokenService) {
+        this.juggleProperties = juggleProperties;
         this.tokenService = tokenService;
     }
 
@@ -66,12 +63,12 @@ public class AuthInterceptor implements AsyncHandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        IdentityContext.clearIdentity();
+        ApplicationContext.removeIdentityContext();
     }
 
     private boolean handleApi(HttpServletRequest request, HttpServletResponse response,Object handler) throws Exception {
-        String token = request.getHeader(JwtUtil.TOKEN_HEADER_KEY);
-        Boolean isExpired = JwtUtil.verifyExpired(token);
+        String token = request.getHeader(ApplicationConstants.TOKEN_HEADER_KEY);
+        Boolean isExpired = JwtHelper.verifyExpired(token,juggleProperties.getSecretKey());
         if(isExpired){
             //错误信息响应到前台
             response.setContentType("application/json;charset=utf-8");
@@ -79,15 +76,25 @@ public class AuthInterceptor implements AsyncHandlerInterceptor {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
-        IdentityVO identityVo = JwtUtil.parseToken(token);
-        IdentityContext.setIdentity(new IdentityVO(identityVo.getUserId()));
+        IdentityContext identityContext = JwtHelper.parseToken(token,juggleProperties.getSecretKey());
+//        boolean isAllowRequest = hasRequestUrlPerm(identityContext.getUserId(),request.getRequestURI());
+//        if(!isAllowRequest){
+//            response.setContentType("application/json;charset=utf-8");
+//            response.getWriter().print(JsonUtil.serialize(ResponseDataResult.setErrorResponseResult(USER_FORBIDDEN_ERROR)));
+//            response.setStatus(HttpStatus.FORBIDDEN.value());
+//            return false;
+//        }
+
+        ApplicationContext.putIdentityContext(identityContext.getUserId(),identityContext.getTenantId(),null);
+
+
         return AsyncHandlerInterceptor.super.preHandle(request, response, handler);
     }
 
     private boolean handleOpenApi(HttpServletRequest request, HttpServletResponse response,Object handler) throws Exception {
-        String token = request.getHeader(JwtUtil.OPEN_API_HEADER_KEY);
+        String token = request.getHeader(ApplicationConstants.OPEN_API_HEADER_KEY);
         if(StringUtils.isEmpty(token)){
-            token = request.getParameter(JwtUtil.OPEN_API_PARAM_KEY);
+            token = request.getParameter(ApplicationConstants.OPEN_API_PARAM_KEY);
         }
         Boolean tokenExistFlag = tokenService.isExistToken(token);
         if(StringUtils.isEmpty(token) || !tokenExistFlag){
@@ -99,7 +106,7 @@ public class AuthInterceptor implements AsyncHandlerInterceptor {
 
         TokenEntity tokenEntity = new TokenEntity();
         OpenApiTokenVO openApiTokenVo = tokenEntity.parseTokenValue(token);
-        IdentityContext.setIdentity(new IdentityVO(openApiTokenVo.getUserId()));
+        ApplicationContext.putIdentityContext(openApiTokenVo.getUserId(),null,null);
         return AsyncHandlerInterceptor.super.preHandle(request, response, handler);
     }
 }

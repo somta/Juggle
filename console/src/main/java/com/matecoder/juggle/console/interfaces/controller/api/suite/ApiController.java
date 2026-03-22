@@ -26,7 +26,6 @@ import com.matecoder.juggle.console.application.service.suite.ISuiteService;
 import com.matecoder.juggle.console.domain.suite.suiteinfo.enums.SuiteTypeEnum;
 import com.matecoder.juggle.console.domain.suite.suiteinfo.vo.SuiteVO;
 import com.matecoder.juggle.console.interfaces.dto.suite.ApiInfoDTO;
-import com.matecoder.juggle.console.interfaces.dto.suite.SuiteMarketInfoDTO;
 import com.matecoder.juggle.console.interfaces.param.suite.*;
 import com.matecoder.juggle.console.interfaces.dto.suite.ApiDTO;
 import com.matecoder.juggle.console.application.service.suite.IApiService;
@@ -36,9 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static com.matecoder.juggle.console.domain.suite.api.enums.ApiErrorEnum.API_NOT_EDIT_ERROR;
-import static com.matecoder.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
 
 /**
  * @author husong

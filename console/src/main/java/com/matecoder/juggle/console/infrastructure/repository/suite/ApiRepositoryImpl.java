@@ -16,8 +16,8 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package com.matecoder.juggle.console.infrastructure.repository.suite;
 
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.core.exception.BizException;
-import com.matecoder.juggle.common.identity.IdentityContext;
 import com.matecoder.juggle.console.domain.suite.api.ApiAO;
 import com.matecoder.juggle.console.domain.suite.api.enums.ApiErrorEnum;
 import com.matecoder.juggle.console.domain.suite.api.repository.IApiRepository;
@@ -59,7 +59,7 @@ public class ApiRepositoryImpl implements IApiRepository {
     public Boolean addApi(ApiAO apiAo) {
         ApiPO apiPo = IApiConverter.IMPL.aoToPo(apiAo);
         apiPo.setCreatedAt(new Date());
-        apiPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        apiPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         apiMapper.addApi(apiPo);
 
         List<ParameterPO> parameterPoList = getApiParameterPoList(apiAo,apiPo.getId());
@@ -81,7 +81,7 @@ public class ApiRepositoryImpl implements IApiRepository {
     @Override
     public Boolean updateApi(ApiAO apiAo) {
         ApiPO apiPo = IApiConverter.IMPL.aoToPo(apiAo);
-        apiPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        apiPo.setUpdatedBy(ApplicationContext.getIdentityContext().getUserId());
         apiPo.setUpdatedAt(new Date());
         apiMapper.update(apiPo);
 

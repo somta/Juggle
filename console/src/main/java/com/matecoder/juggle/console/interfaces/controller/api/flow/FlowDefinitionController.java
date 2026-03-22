@@ -16,8 +16,6 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package com.matecoder.juggle.console.interfaces.controller.api.flow;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static com.matecoder.juggle.console.domain.flow.definition.enums.FlowDefinitionErrorEnum.*;
 import static com.matecoder.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.*;
 

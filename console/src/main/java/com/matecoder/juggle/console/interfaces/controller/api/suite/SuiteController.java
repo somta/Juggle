@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong

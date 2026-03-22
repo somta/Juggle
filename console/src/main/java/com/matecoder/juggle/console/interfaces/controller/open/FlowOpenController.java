@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static com.matecoder.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.FLOW_KEY_IS_EMPTY;
 import static com.matecoder.juggle.console.domain.flow.flowinfo.enums.FlowErrorEnum.FLOW_NOT_EXIST;
 import static com.matecoder.juggle.console.domain.flow.version.enums.FlowVersionErrorEnum.FLOW_NOT_ENABLE;

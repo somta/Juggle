@@ -1,6 +1,6 @@
 package com.matecoder.juggle.console.infrastructure.repository.system;
 
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.system.datasource.DataSourceAO;
 import com.matecoder.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import com.matecoder.juggle.console.domain.system.datasource.vo.DataSourceQueryVO;
@@ -25,7 +25,7 @@ public class DataSourceRepositoryImpl implements IDataSourceRepository {
     public Long addDataSource(DataSourceAO dataSourceAo) {
         DataSourcePO dataSourcePo = IDataSourceConverter.IMPL.aoToPo(dataSourceAo);
         dataSourcePo.setCreatedAt(new Date());
-        dataSourcePo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        dataSourcePo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         Long dataSourceId = dataSourceMapper.addDataSource(dataSourcePo);
         return dataSourceId;
     }
@@ -39,7 +39,7 @@ public class DataSourceRepositoryImpl implements IDataSourceRepository {
     public Boolean updateDataSource(DataSourceAO dataSourceAo) {
         DataSourcePO dataSourcePo = IDataSourceConverter.IMPL.aoToPo(dataSourceAo);
         dataSourcePo.setUpdatedAt(new Date());
-        dataSourcePo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        dataSourcePo.setUpdatedBy(ApplicationContext.getIdentityContext().getUserId());
         dataSourceMapper.update(dataSourcePo);
         return true;
     }

@@ -21,13 +21,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import com.matecoder.core.protocol.ResponseDataResult;
 import com.matecoder.juggle.console.application.service.IOrderService;
 import com.matecoder.juggle.console.interfaces.dto.OrderDTO;
-import com.matecoder.juggle.console.interfaces.dto.UserDTO;
 import com.matecoder.juggle.console.interfaces.param.OrderParam;
 import org.springframework.web.bind.annotation.*;
 
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 
 /**

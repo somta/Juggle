@@ -16,7 +16,6 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
-        <module>common</module>
         <module>console</module>
     </modules>
 
@@ -55,11 +54,6 @@
                 <groupId>com.matecoder</groupId>
                 <artifactId>juggle-core</artifactId>
                 <version>${juggle-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.somta</groupId>
-                <artifactId>juggle-common</artifactId>
-                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.matecoder</groupId>

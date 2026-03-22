@@ -31,9 +31,11 @@ import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_
 @Configuration
 public class InterceptorConfiguration implements WebMvcConfigurer {
 
+    private final JuggleProperties juggleProperties;
     private final ITokenService tokenService;
 
-    public InterceptorConfiguration(ITokenService tokenService) {
+    public InterceptorConfiguration(JuggleProperties juggleProperties, ITokenService tokenService) {
+        this.juggleProperties = juggleProperties;
         this.tokenService = tokenService;
     }
 
@@ -45,7 +47,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor(tokenService))
+        registry.addInterceptor(new AuthInterceptor(juggleProperties,tokenService))
                 .addPathPatterns("/api/**","/open/**")
                 .excludePathPatterns(JUGGLE_API_PREFIX + "/user/login","/pub/**");
     }

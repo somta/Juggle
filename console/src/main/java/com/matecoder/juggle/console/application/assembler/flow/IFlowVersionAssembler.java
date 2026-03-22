@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_OPEN_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong

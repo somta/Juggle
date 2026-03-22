@@ -16,7 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package com.matecoder.juggle.console.infrastructure.repository.flow;
 
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.flow.flowinfo.FlowInfoAO;
 import com.matecoder.juggle.console.domain.flow.flowinfo.repository.IFlowInfoRepository;
 import com.matecoder.juggle.console.domain.flow.flowinfo.vo.FlowInfoQueryVO;
@@ -85,7 +85,7 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
         if(flowInfoPo == null){
             flowInfoPo = IFlowInfoConverter.IMPL.aoToPo(flowInfoAo);
             flowInfoPo.setCreatedAt(currentDate);
-            flowInfoPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+            flowInfoPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
             flowInfoMapper.addFlowInfo(flowInfoPo);
         }
 
@@ -93,7 +93,7 @@ public class FlowInfoRepositoryImpl implements IFlowInfoRepository {
         flowVersionPo.setFlowId(flowInfoPo.getId());
         flowVersionPo.setFlowVersionStatus(FlowVersionStatusEnum.DISABLED.getCode());
         flowVersionPo.setCreatedAt(currentDate);
-        flowVersionPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        flowVersionPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         flowVersionMapper.add(flowVersionPo);
 
         flowVersionRepository.invalidateFlowCache(flowInfoAo.getFlowKey(),flowInfoAo.getFlowVersion());

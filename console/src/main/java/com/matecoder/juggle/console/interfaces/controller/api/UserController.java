@@ -16,11 +16,13 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package com.matecoder.juggle.console.interfaces.controller.api;
 
+import com.matecoder.core.context.IdentityContext;
+import com.matecoder.core.context.JwtHelper;
+import com.matecoder.juggle.common.constants.ApplicationConstants;
+import com.matecoder.juggle.console.configuration.JuggleProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.matecoder.core.protocol.ResponseDataResult;
-import com.matecoder.juggle.common.identity.IdentityVO;
-import com.matecoder.juggle.common.utils.JwtUtil;
 import com.matecoder.juggle.console.domain.user.UserAO;
 import com.matecoder.juggle.console.domain.user.enums.UserErrorEnum;
 import com.matecoder.juggle.console.interfaces.dto.LoginDTO;
@@ -29,19 +31,14 @@ import com.matecoder.juggle.console.interfaces.listener.JuggleApplicationRunList
 import com.matecoder.juggle.console.interfaces.param.user.LoginParam;
 import com.matecoder.juggle.console.interfaces.param.user.UpdatePasswordParam;
 import com.matecoder.juggle.console.application.service.IUserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 
 /**
@@ -53,9 +50,11 @@ import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_
 @RequestMapping(JUGGLE_API_PREFIX + "/user")
 public class UserController {
 
+    private final JuggleProperties juggleProperties;
     private final IUserService userService;
 
-    public UserController(IUserService userService) {
+    public UserController(JuggleProperties juggleProperties, IUserService userService) {
+        this.juggleProperties = juggleProperties;
         this.userService = userService;
     }
 
@@ -72,8 +71,8 @@ public class UserController {
         }
         if(loginParam.getPassword().equals(userAo.getPassword())){
             Map<String, Object> payload = new HashMap<>(4);
-            payload.put(IdentityVO.USER_ID, userAo.getId().toString());
-            String token = JwtUtil.generateToken(payload);
+            payload.put(IdentityContext.USER_ID, userAo.getId().toString());
+            String token = JwtHelper.generateToken(ApplicationConstants.ISSUER,payload,juggleProperties.getSecretKey());;
             loginDTO.setUserName(userAo.getUserName());
             loginDTO.setToken(token);
             return ResponseDataResult.setResponseResult(loginDTO);
@@ -86,9 +85,9 @@ public class UserController {
     @PostMapping("/getUserInfo")
     public ResponseDataResult<UserDTO> getUserInfo(HttpServletRequest request){
         UserDTO userDTO = new UserDTO();
-        String token = request.getHeader(JwtUtil.TOKEN_HEADER_KEY);
-        IdentityVO identityVo = JwtUtil.parseToken(token);
-        UserAO userAo = userService.queryUserById(identityVo.getUserId());
+        String token = request.getHeader(ApplicationConstants.TOKEN_HEADER_KEY);
+        IdentityContext identityContext = JwtHelper.parseToken(token,juggleProperties.getSecretKey());
+        UserAO userAo = userService.queryUserById(identityContext.getUserId());
         userDTO.setId(userAo.getId());
         userDTO.setUserName(userAo.getUserName());
         return ResponseDataResult.setResponseResult(userDTO);

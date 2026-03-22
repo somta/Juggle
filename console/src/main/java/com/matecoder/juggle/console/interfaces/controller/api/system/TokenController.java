@@ -28,10 +28,7 @@ import com.matecoder.juggle.console.interfaces.param.system.TokenAddParam;
 import com.matecoder.juggle.console.interfaces.param.system.TokenUpdateParam;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 
 /**
  * @author husong

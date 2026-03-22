@@ -18,7 +18,7 @@ package com.matecoder.juggle.console.domain.system.token;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.matecoder.common.utils.JsonUtil;
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.system.token.vo.OpenApiTokenVO;
 
 import java.util.Base64;
@@ -43,7 +43,7 @@ public class TokenEntity {
 
     public String generateTokenValue(){
         OpenApiTokenVO openApiTokenVo = new OpenApiTokenVO();
-        openApiTokenVo.setUserId(IdentityContext.getIdentity().getUserId());
+        openApiTokenVo.setUserId(ApplicationContext.getIdentityContext().getUserId());
         openApiTokenVo.setTimestamp(System.currentTimeMillis());
         String tokenString = null;
         try {

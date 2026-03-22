@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_API_PREFIX;
-import static com.matecoder.juggle.common.constants.ApplicationConstants.JUGGLE_SERVER_VERSION;
 import static com.matecoder.juggle.console.domain.object.enums.ObjectErrorEnum.OBJECT_KEY_EXIST;
 
 /**

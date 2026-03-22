@@ -17,7 +17,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 package com.matecoder.juggle.console.infrastructure.repository.system;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.system.token.repository.ITokenRepository;
 import com.matecoder.juggle.console.domain.system.token.vo.TokenVO;
 import com.matecoder.juggle.console.infrastructure.converter.system.ITokenConverter;
@@ -55,7 +55,7 @@ public class TokenRepositoryImpl implements ITokenRepository {
         tokenPo.setTokenValue(tokenValue);
         tokenPo.setTokenDesc(tokenDesc);
         tokenPo.setCreatedAt(new Date());
-        tokenPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        tokenPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         tokenMapper.add(tokenPo);
     }
 
@@ -72,7 +72,7 @@ public class TokenRepositoryImpl implements ITokenRepository {
         tokenPo.setId(tokenId);
         tokenPo.setTokenDesc(tokenDesc);
         tokenPo.setUpdatedAt(new Date());
-        tokenPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        tokenPo.setUpdatedBy(ApplicationContext.getIdentityContext().getUserId());
         tokenMapper.update(tokenPo);
     }
 

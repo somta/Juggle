@@ -1,8 +1,8 @@
 package com.matecoder.juggle.console.interfaces.param.suite;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
-import javax.validation.constraints.NotBlank;
 
 /**
  * swagger数据参数

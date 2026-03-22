@@ -2,7 +2,7 @@ package com.matecoder.juggle.console.infrastructure.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.matecoder.common.utils.JsonUtil;
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.flow.definition.vo.VariableInfoVO;
 import com.matecoder.juggle.console.infrastructure.po.VariableInfoPO;
 import com.matecoder.juggle.core.model.DataType;
@@ -62,7 +62,7 @@ public interface IVariableInfoConverter {
             }
             variableInfoPo.setFlowDefinitionId(flowDefinitionId);
             variableInfoPo.setCreatedAt(currentDate);
-            variableInfoPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+            variableInfoPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
             list.add(variableInfoPo);
         }
         return list;

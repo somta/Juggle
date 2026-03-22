@@ -16,7 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package com.matecoder.juggle.console.infrastructure.repository;
 
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.object.ObjectAO;
 import com.matecoder.juggle.console.domain.object.repository.IObjectRepository;
 import com.matecoder.juggle.console.domain.object.vo.ObjectVO;
@@ -58,7 +58,7 @@ public class ObjectRepositoryImpl implements IObjectRepository {
         objectPo.setObjectName(objectAo.getObjectName());
         objectPo.setObjectDesc(objectAo.getObjectDesc());
         objectPo.setCreatedAt(new Date());
-        objectPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        objectPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         objectMapper.addObject(objectPo);
 
         List<ParameterPO> propertyPoList = IObjectConverter.IMPL.propertyListToParameterList(objectPo.getId(), objectAo.getPropertyList());
@@ -83,7 +83,7 @@ public class ObjectRepositoryImpl implements IObjectRepository {
         objectPo.setObjectKey(objectAo.getObjectKey());
         objectPo.setObjectName(objectAo.getObjectName());
         objectPo.setObjectDesc(objectAo.getObjectDesc());
-        objectPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        objectPo.setUpdatedBy(ApplicationContext.getIdentityContext().getUserId());
         objectPo.setUpdatedAt(new Date());
         objectMapper.update(objectPo);
 

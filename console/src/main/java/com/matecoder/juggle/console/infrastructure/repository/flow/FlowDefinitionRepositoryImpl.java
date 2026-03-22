@@ -18,7 +18,7 @@ package com.matecoder.juggle.console.infrastructure.repository.flow;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.matecoder.common.utils.JsonUtil;
-import com.matecoder.juggle.common.identity.IdentityContext;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.juggle.console.domain.flow.definition.FlowDefinitionAO;
 import com.matecoder.juggle.console.domain.flow.definition.repository.IFlowDefinitionRepository;
 import com.matecoder.juggle.console.domain.flow.definition.vo.FlowDefinitionInfoQueryVO;
@@ -74,7 +74,7 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     public Long addFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionInfoPo.setCreatedAt(new Date());
-        flowDefinitionInfoPo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        flowDefinitionInfoPo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         Long flowDefinitionId = flowDefinitionMapper.addFlowDefinitionInfo(flowDefinitionInfoPo);
 
         saveParametersAndVariables(flowDefinitionInfoPo.getId(),flowDefinitionAo);
@@ -97,7 +97,7 @@ public class FlowDefinitionRepositoryImpl implements IFlowDefinitionRepository {
     public Boolean updateFlowDefinition(FlowDefinitionAO flowDefinitionAo) {
         FlowDefinitionInfoPO flowDefinitionInfoPo = IFlowDefinitionConverter.IMPL.aoToPo(flowDefinitionAo);
         flowDefinitionInfoPo.setUpdatedAt(new Date());
-        flowDefinitionInfoPo.setUpdatedBy(IdentityContext.getIdentity().getUserId());
+        flowDefinitionInfoPo.setUpdatedBy(ApplicationContext.getIdentityContext().getUserId());
         flowDefinitionMapper.update(flowDefinitionInfoPo);
         parameterMapper.deleteParameter(new ParameterVO(ParameterSourceTypeEnum.FLOW.getCode(), flowDefinitionAo.getId()));
         variableInfoMapper.deleteVariableByFlowDefinitionId(new VariableDeleteVO(flowDefinitionAo.getId(),3));

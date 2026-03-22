@@ -2,9 +2,9 @@ package com.matecoder.juggle.console.infrastructure.repository.suite;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.matecoder.common.utils.JsonUtil;
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.core.protocol.ResponseDataResult;
 import com.matecoder.core.protocol.ResponsePaginationDataResult;
-import com.matecoder.juggle.common.identity.IdentityContext;
 import com.matecoder.juggle.console.configuration.JuggleProperties;
 import com.matecoder.juggle.console.domain.suite.suiteinfo.SuiteEntity;
 import com.matecoder.juggle.console.domain.suite.suiteinfo.repository.ISuiteRepository;
@@ -47,7 +47,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
         suitePo.setSuiteVersion(suiteEntity.getSuiteVersion());
         suitePo.setSuiteFlag(suiteEntity.getSuiteFlag());
         suitePo.setCreatedAt(new Date());
-        suitePo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        suitePo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         suiteMapper.addSuite(suitePo);
         return suitePo.getId();
     }
@@ -56,7 +56,7 @@ public class SuiteRepositoryImpl implements ISuiteRepository {
     public void updateSuite(SuiteEntity suiteEntity) {
         SuitePO suitePo = ISuiteConverter.IMPL.entityToPo(suiteEntity);
         suitePo.setUpdatedAt(new Date());
-        suitePo.setCreatedBy(IdentityContext.getIdentity().getUserId());
+        suitePo.setCreatedBy(ApplicationContext.getIdentityContext().getUserId());
         suiteMapper.update(suitePo);
     }
 
