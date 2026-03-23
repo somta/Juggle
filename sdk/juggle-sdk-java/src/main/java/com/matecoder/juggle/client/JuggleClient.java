@@ -19,7 +19,6 @@ public interface JuggleClient {
      * @param flowKey flow key
      * @param triggerData trigger flow data
      * @return return flow result data
-     * @throws IOException
      */
     ResponseDataResult<FlowResultModel> triggerFlow(String flowVersion, String flowKey, FlowTriggerDataParam triggerData) throws IOException;
 
@@ -27,7 +26,6 @@ public interface JuggleClient {
      * get a async flow data
      * @param flowInstanceId flow instance id
      * @return return async flow result data
-     * @throws IOException
      */
     ResponseDataResult<Map<String,Object>> getAsyncFlowResult(String flowInstanceId) throws IOException;
 }
