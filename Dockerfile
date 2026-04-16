@@ -1,4 +1,4 @@
-FROM registry.cn-heyuan.aliyuncs.com/somta/base-image:openjdk-1.8-v1
+FROM registry.cn-hangzhou.aliyuncs.com/somta/baseimage:eclipse-temurin-jdk-alpine-21.0.5_11
 
 MAINTAINER Gavin somta@qq.com
 
