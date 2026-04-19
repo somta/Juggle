@@ -1,7 +1,7 @@
 package com.matecoder.juggle.starter.impl;
 
+import com.matecoder.core.protocol.ResponseDataResult;
 import com.matecoder.juggle.starter.properties.JuggleOpenProperties;
-import net.somta.core.protocol.ResponseDataResult;
 import com.matecoder.juggle.client.JuggleClient;
 import com.matecoder.juggle.client.JuggleConfig;
 import com.matecoder.juggle.client.JuggleFactory;

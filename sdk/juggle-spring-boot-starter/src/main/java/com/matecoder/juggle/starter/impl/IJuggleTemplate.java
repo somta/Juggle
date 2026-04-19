@@ -1,6 +1,6 @@
 package com.matecoder.juggle.starter.impl;
 
-import net.somta.core.protocol.ResponseDataResult;
+import com.matecoder.core.protocol.ResponseDataResult;
 import com.matecoder.juggle.client.model.FlowResultModel;
 import com.matecoder.juggle.client.model.FlowTriggerDataParam;
 
