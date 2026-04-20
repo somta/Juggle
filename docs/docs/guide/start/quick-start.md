@@ -19,7 +19,7 @@ Juggle依赖Java环境来运行，因此您先要在设备上安装jdk，请保�
 
 a. 64 bit OS，支持 Linux/Unix/Mac/Windows，推荐选用 Linux/Unix/Mac。
 
-b. 64 bit JDK 1.8+；[下载地址](https://maven.apache.org/download.cgi) & [配置](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/)。
+b. 64 bit JDK 21；[jdk-21下载地址](https://www.oracle.com/java/technologies/downloads/#java21) & [配置](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli_jdk_javahome_t/)。
 
 ### 2.下载安装包
 
