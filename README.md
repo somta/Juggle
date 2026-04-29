@@ -73,10 +73,10 @@ Juggle支持创建多种不同类型的流程，不同类型的流程解决不�
 ## 系统截图
 
 1.灵活流程设计
-![](/docs/docs/notes/guide/user/images/flow_example.png)
+![](https://juggle.plus/images/flow_config.png)
 
 2.丰富的套件市场
-![](/docs/docs/notes/guide/market/images/example_suite.png)
+![](https://juggle.plus/images/suite_market.png)
 
 
 ## 快速开始
@@ -118,7 +118,7 @@ sh startup.sh
 ### 5.示例流程
 
 为了让用户更好的上手Juggle，系统自带了示例接口和示例流程，通过示例流程能快速了解Juggle的基础能力，示例流程核心逻辑请移步[示例流程核心逻辑](https://www.juggle.plus/docs/guide/user/example-flow) ，示例流程图如下：
-![](/docs/docs/notes/guide/user/images/flow_example.png)
+![](/docs/images/flow_example.png)
 
 
 示例接口地址：https://www.juggle.plus/docs/guide/user/example-api.html
@@ -128,7 +128,7 @@ sh startup.sh
 ## 交流与学习
 通过如下方式加入，学习更多关于Juggle的知识，添加微信时，请备注**Juggle**，谢谢！
 
-![](/docs/docs/notes/guide/community/images/wxqq.png) 
+![](/docs/images/wxqq.png) 
 
 ## 客户与案例
 <div align = "center"> 
