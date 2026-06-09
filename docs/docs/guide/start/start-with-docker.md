@@ -38,6 +38,8 @@ server.port=9127
 spring.application.name=juggle
 spring.threads.virtual.enabled=true
 spring.jackson.time-zone=Asia/Shanghai
+#tomcat connection count
+server.tomcat.threads.max=1000
 
 ##H2##
 spring.datasource.driver-class-name=org.h2.Driver
