@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
-import {PropType} from "vue";
-const router = useRouter();
+import ApiDebugDrawer from "@/views/suite/api/ApiDebugDrawer.vue";
+import {ref} from "vue";
 defineProps({
   dataRows: {
     type: Array,
@@ -14,6 +13,8 @@ defineProps({
 });
 const emit = defineEmits(['pageChange', 'edit', 'delete']);
 
+const apiDebugDrawerRef = ref();
+
 function deleteRow(row: any, index: number) {
   emit('delete', row, index);
 }
@@ -23,13 +24,7 @@ function editRow(row: any) {
 }
 
 function goApiDebugPage(apiId: number) {
-  const routeData = router.resolve({
-    name: 'api-debug',
-    params: {
-      apiId: apiId,
-    },
-  });
-  window.open(routeData.href, '_blank');
+  apiDebugDrawerRef.value.open(apiId);
 }
 </script>
 <template>
@@ -58,6 +53,7 @@ function goApiDebugPage(apiId: number) {
       @currentChange="(val: number) => $emit('pageChange', val)"
     />
   </div>
+  <ApiDebugDrawer ref="apiDebugDrawerRef" />
 </template>
 <style lang="less" scoped>
 
