@@ -67,7 +67,7 @@ import MainBreadcrumb from '../components/layout/main/MainBreadcrumb.vue';
 
   .layout-router-view {
     height: 100%;
-    border-radius: 4px;
+    border-radius: 12px;
     overflow: auto;
   }
 }
