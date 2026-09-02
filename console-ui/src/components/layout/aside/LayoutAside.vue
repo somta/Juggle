@@ -53,7 +53,7 @@ import IconSetting from "@/components/icons/IconSetting.vue";
   height: 100%;
 }
 .el-menu-item.is-active {
-  background: #ecf5ff !important;
-  border-right: 2px solid #409eff;
+  background: var(--el-color-primary-light-9) !important;
+  border-right: 2px solid var(--el-color-primary);
 }
 </style>

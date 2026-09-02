@@ -63,8 +63,8 @@ function extractColorByName(name) {
     <template #dropdown>
       <el-dropdown-menu>
 <!--        <el-dropdown-item @click="$router.push('/userPO')">用户信息</el-dropdown-item>-->
-        <el-dropdown-item @click="openAboutDialog">关于</el-dropdown-item>
-        <el-dropdown-item @click="logout" divided>退出</el-dropdown-item>
+        <el-dropdown-item @click="openAboutDialog">关于我们</el-dropdown-item>
+        <el-dropdown-item @click="logout" divided>退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
