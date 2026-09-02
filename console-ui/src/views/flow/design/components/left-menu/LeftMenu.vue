@@ -93,7 +93,7 @@ function switchItem(key: string) {
         right: 0;
         width: 2px;
         height: 24px;
-        background-color: #409eff;
+        background-color: var(--el-color-primary);
         opacity: 0;
         transition: opacity 0.3s;
       }
