@@ -4,31 +4,22 @@ package com.matecoder.juggle.console.interfaces.param.user;
  * @author husong
  */
 public class UpdatePasswordParam {
-    private Long userId;
-    private String oldPassword;
-    private String newPassword;
+    private String oldSecret;
+    private String newSecret;
 
-    public Long getUserId() {
-        return userId;
+    public String getOldSecret() {
+        return oldSecret;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setOldSecret(String oldSecret) {
+        this.oldSecret = oldSecret;
     }
 
-    public String getOldPassword() {
-        return oldPassword;
+    public String getNewSecret() {
+        return newSecret;
     }
 
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setNewSecret(String newSecret) {
+        this.newSecret = newSecret;
     }
 }

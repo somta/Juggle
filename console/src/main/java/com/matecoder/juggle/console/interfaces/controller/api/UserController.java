@@ -16,6 +16,7 @@ along with this program; if not, visit <https://www.gnu.org/licenses/gpl-3.0.htm
 */
 package com.matecoder.juggle.console.interfaces.controller.api;
 
+import com.matecoder.core.context.ApplicationContext;
 import com.matecoder.core.context.IdentityContext;
 import com.matecoder.core.context.JwtHelper;
 import com.matecoder.juggle.common.constants.ApplicationConstants;
@@ -94,16 +95,17 @@ public class UserController {
     }
 
     @Operation(summary = "修改密码")
-    @PutMapping("/updatePassword")
-    public ResponseDataResult<Boolean> updatePassword(UpdatePasswordParam updatePasswordParam){
-        UserAO userAo = userService.queryUserById(updatePasswordParam.getUserId());
+    @PostMapping("/secret")
+    public ResponseDataResult<Boolean> updatePassword(@RequestBody UpdatePasswordParam updatePasswordParam){
+        Long userId = ApplicationContext.getIdentityContext().getUserId();
+        UserAO userAo = userService.queryUserById(userId);
         if(userAo == null){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.USER_NOT_EXIST_ERROR);
         }
-        if(!updatePasswordParam.getOldPassword().equals(userAo.getPassword())){
+        if(!updatePasswordParam.getOldSecret().equals(userAo.getPassword())){
             return ResponseDataResult.setErrorResponseResult(UserErrorEnum.OLD_PASSWORD_ERROR);
         }
-        userAo.setPassword(updatePasswordParam.getNewPassword());
+        userAo.setPassword(updatePasswordParam.getNewSecret());
         userService.updateUser(userAo);
         return ResponseDataResult.setResponseResult(true);
     }

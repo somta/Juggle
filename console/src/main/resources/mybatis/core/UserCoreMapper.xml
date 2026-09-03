@@ -36,8 +36,8 @@
 <update id="update" parameterType="com.matecoder.juggle.console.infrastructure.po.UserPO" >
 	update t_user set
 	<trim  suffixOverrides="," >
-		<if test="apiUrl != null and apiUrl != ''">
-			api_url=#{apiUrl},
+		<if test="userName != null and userName != ''">
+			user_name=#{userName},
 		</if>
 		<if test="password != null and password != ''">
 			password=#{password},
