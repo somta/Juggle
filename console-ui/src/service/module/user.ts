@@ -36,3 +36,7 @@ export function getAuth() {
 export function getProductInfo() {
   return userAPI.getProductInfo();
 }
+
+export async function updateAccountSecret(params: Parameters<typeof userAPI.updateAccountSecret>[0]) {
+  return userAPI.updateAccountSecret(params);
+}

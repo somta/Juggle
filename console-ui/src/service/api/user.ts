@@ -12,3 +12,10 @@ export function check() {}
 export function getProductInfo(): ResponseResult<string>  {
   return request.get(JUGGLE_API_PREFIX+'/user/product/info');
 }
+
+export async function updateAccountSecret(params: {
+  oldSecret: string;
+  newSecret: string;
+}): ResponseResult<boolean> {
+  return request.post(JUGGLE_API_PREFIX+`/user/secret`, params);
+}
