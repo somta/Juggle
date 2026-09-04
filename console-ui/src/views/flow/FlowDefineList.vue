@@ -131,7 +131,7 @@ function openEdit(row: any) {
 </script>
 
 <template>
-  <div class="page-flow-define">
+  <div class="page-container page-flow-define">
     <div class="search-bar">
       <FlowDefineFilter @search="onSearch" />
     </div>
