@@ -178,6 +178,11 @@ body {
   overflow: auto;
 }
 
+/* 列表页：内容在表格内滚动，分页固定在底部 */
+.page-container .page-body {
+  overflow: hidden;
+}
+
 .table-container {
   background-color: var(--el-bg-color-overlay);
   border-radius: 12px;
@@ -189,6 +194,14 @@ body {
     font-weight: 600;
   }
 }
+
+.table-wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+}
+
 .table-pagination {
   padding-top: 12px;
   display: flex;

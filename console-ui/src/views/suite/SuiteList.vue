@@ -91,7 +91,7 @@ async function deleteSuiteItem(row: any) {
 }
 </script>
 <template>
-  <div class="page-interface-suite">
+  <div class="page-container page-interface-suite">
     <div class="search-bar">
       <SuiteFilter @search="onSearch" />
     </div>
