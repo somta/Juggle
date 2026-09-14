@@ -36,7 +36,7 @@ function goApiListPage(suiteCode:string,suiteId: number) {
 <template>
   <div class="table-wrapper">
     <el-table v-loading="loading" :data="dataRows" size="large" header-cell-class-name="table-header" height="100%">
-      <el-table-column prop="suiteCode" label="套件图像" width="100" >
+      <el-table-column prop="suiteImage" label="套件图像" width="100" >
         <template #default="scope">
           <img v-if="scope.row.suiteImage" :src="scope.row.suiteImage" @error="e => { const img = e.target as HTMLImageElement; if (img) img.src = '/suite/default.svg'; }" class="suite-image" alt="suite image" />
           <img v-else class="suite-image" >
