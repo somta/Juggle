@@ -1,6 +1,7 @@
 package com.matecoder.juggle.console.application.service.impl;
 
 import com.matecoder.juggle.console.application.service.flow.impl.FlowRuntimeServiceImpl;
+import com.matecoder.juggle.console.application.service.system.IDataSourceManager;
 import com.matecoder.juggle.console.configuration.JuggleProperties;
 import com.matecoder.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import com.matecoder.juggle.console.helper.FlowDefinitionHelper;
@@ -24,7 +25,7 @@ class FlowRuntimeServiceImplTest {
 
     private FlowRuntimeServiceImpl flowRuntimeService;
     @Mock
-    private IDataSourceRepository dataSourceRepository;
+    private IDataSourceManager dataSourceRepository;
 
     @BeforeEach
     public void beforeEach(){
