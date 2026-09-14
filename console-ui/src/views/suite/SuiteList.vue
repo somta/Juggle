@@ -62,7 +62,7 @@ function openDelete(row: any) {
 
 async function addSuiteItem(row: any) {
   const res = await suiteService.addSuite(row);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '新建成功' });
     await querySuitePage();
   } else {
@@ -72,7 +72,7 @@ async function addSuiteItem(row: any) {
 
 async function editSuiteItem(row: any) {
   const res = await suiteService.updateSuite(row);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '编辑成功' });
     await querySuitePage();
   } else {
@@ -82,7 +82,7 @@ async function editSuiteItem(row: any) {
 
 async function deleteSuiteItem(row: any) {
   const res = await suiteService.deleteSuite(row.id);
-  if (res.result) {
+  if (res.success) {
     ElMessage({ type: 'success', message: '删除成功' });
     await querySuitePage();
   } else {
