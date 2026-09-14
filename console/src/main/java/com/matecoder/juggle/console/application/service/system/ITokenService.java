@@ -18,6 +18,7 @@ package com.matecoder.juggle.console.application.service.system;
 
 import com.github.pagehelper.PageInfo;
 import com.matecoder.core.base.page.PageParam;
+import com.matecoder.juggle.console.interfaces.dto.system.TokenDTO;
 import com.matecoder.juggle.console.interfaces.param.system.TokenUpdateParam;
 
 /**
@@ -33,5 +34,5 @@ public interface ITokenService {
 
     Boolean isExistToken(String tokenValue);
 
-    PageInfo getTokenPageList(PageParam pageParam);
+    PageInfo<TokenDTO> getTokenPageList(PageParam pageParam);
 }

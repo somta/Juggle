@@ -40,7 +40,7 @@ public interface IDataSourceService {
 
     List<DataSourceDTO> getAllDataSourceList();
 
-    PageInfo getDataSourcePageList(DataSourceQueryParam dataSourceQueryParam);
+    PageInfo<DataSourceDTO> getDataSourcePageList(DataSourceQueryParam dataSourceQueryParam);
 
     Boolean connectDataSource(Long dataSourceId);
 }

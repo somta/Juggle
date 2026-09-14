@@ -76,11 +76,11 @@ public class DataSourceServiceImpl implements IDataSourceService {
     }
 
     @Override
-    public PageInfo getDataSourcePageList(DataSourceQueryParam dataSourceQueryParam) {
+    public PageInfo<DataSourceDTO> getDataSourcePageList(DataSourceQueryParam dataSourceQueryParam) {
         Page<DataSourceDTO> page = PageHelper.startPage(dataSourceQueryParam.getPageNum(), dataSourceQueryParam.getPageSize());
         List<DataSourceVO> dataSourceVoList = dataSourceRepository.queryDataSourceList(IDataSourceAssembler.IMPL.paramToVo(dataSourceQueryParam));
         List<DataSourceDTO> dataSourceList = IDataSourceAssembler.IMPL.voListToDtoList(dataSourceVoList);
-        PageInfo pageInfo = new PageInfo(dataSourceList);
+        PageInfo<DataSourceDTO> pageInfo = new PageInfo<>(dataSourceList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
     }

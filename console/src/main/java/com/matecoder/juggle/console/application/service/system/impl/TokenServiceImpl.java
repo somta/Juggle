@@ -75,11 +75,11 @@ public class TokenServiceImpl implements ITokenService {
     }
 
     @Override
-    public PageInfo getTokenPageList(PageParam pageParam) {
+    public PageInfo<TokenDTO> getTokenPageList(PageParam pageParam) {
         Page<TokenDTO> page = PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize());
         List<TokenVO> tokenVoList = tokenRepository.queryTokenList();
         List<TokenDTO> tokenDtoList = ITokenAssembler.IMPL.voListToDtoList(tokenVoList);
-        PageInfo pageInfo = new PageInfo(tokenDtoList);
+        PageInfo<TokenDTO> pageInfo = new PageInfo<>(tokenDtoList);
         pageInfo.setTotal(page.getTotal());
         return pageInfo;
     }
