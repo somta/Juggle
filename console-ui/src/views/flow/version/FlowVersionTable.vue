@@ -50,7 +50,7 @@ function buildFullTriggerUrl(triggerUrl: string) {
         </template>
       </el-table-column>
       <el-table-column prop="flowVersionRemark" label="版本说明" show-overflow-tooltip />
-      <el-table-column label="操作" width="260">
+      <el-table-column label="操作" width="160">
         <template #default="scope">
           <el-button link type="primary" size="small" @click.prevent="updateFlowVersionStatus(scope.row)">
             {{ flowVersionStatusOptFormat(scope.row.flowVersionStatus) }}
