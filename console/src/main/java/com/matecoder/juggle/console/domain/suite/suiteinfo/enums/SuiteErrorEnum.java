@@ -10,6 +10,7 @@ public enum SuiteErrorEnum implements IBaseError {
     SUITE_EXIST_API_ERROR(1000,  "该套件下存在接口，无法删除"),
     SUITE_NOT_EXIST_ERROR(1001,  "套件不存在"),
     SUITE_IS_EXIST_ERROR(1002,  "套件%s已存在"),
+    SUITE_ALREADY_INSTALLED_ERROR(1003,  "该套件已安装"),
     ;
 
     private int errorCode;

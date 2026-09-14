@@ -47,6 +47,7 @@ import java.util.List;
 
 import static com.matecoder.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_IS_EXIST_ERROR;
 import static com.matecoder.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_NOT_EXIST_ERROR;
+import static com.matecoder.juggle.console.domain.suite.suiteinfo.enums.SuiteErrorEnum.SUITE_ALREADY_INSTALLED_ERROR;
 
 /**
  * @author husong
@@ -151,6 +152,10 @@ public class SuiteServiceImpl implements ISuiteService {
         SuiteMarketVO suiteMarketVo = suiteRepository.querySuiteMarketInfo(suiteMarketParam.getSuiteId(),suiteMarketParam.getBill());
         if(suiteMarketVo == null){
             throw new BizException(SUITE_NOT_EXIST_ERROR);
+        }
+        SuiteVO existingSuite = suiteRepository.querySuiteByCode(suiteMarketVo.getSuiteCode());
+        if(existingSuite != null){
+            throw new BizException(SUITE_ALREADY_INSTALLED_ERROR);
         }
         SuiteEntity suiteEntity = new SuiteEntity();
         suiteEntity.setSuiteCode(suiteMarketVo.getSuiteCode());
