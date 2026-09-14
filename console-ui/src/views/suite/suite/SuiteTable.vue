@@ -44,7 +44,7 @@ function goApiListPage(suiteCode:string,suiteId: number) {
       </el-table-column>
       <el-table-column prop="suiteCode" label="套件编码" width="180" />
       <el-table-column prop="suiteName" label="套件名称" width="180" />
-      <el-table-column prop="flowType" label="套件类型" width="140">
+      <el-table-column prop="suiteFlag" label="套件类型" width="140">
         <template #default="scope">
           <el-tag v-if="scope.row.suiteFlag == 0" type="info">内置</el-tag>
           <el-tag v-else-if="scope.row.suiteFlag == 1" type="success">官方</el-tag>
