@@ -20,11 +20,10 @@ import com.matecoder.extra.cache.redis.RedisClientBuilder;
 import com.matecoder.extra.cache.redis.client.AbstractRedisClient;
 import com.matecoder.extra.cache.redis.model.RedisConfigItem;
 import com.matecoder.juggle.console.application.service.flow.IFlowRuntimeService;
+import com.matecoder.juggle.console.application.service.system.IDataSourceManager;
 import com.matecoder.juggle.console.configuration.JuggleProperties;
 import com.matecoder.juggle.console.domain.flow.flowinfo.enums.FlowTypeEnum;
 import com.matecoder.juggle.common.param.TriggerDataParam;
-import com.matecoder.juggle.console.application.service.system.impl.DataSourceManager;
-import com.matecoder.juggle.console.domain.system.datasource.repository.IDataSourceRepository;
 import com.matecoder.juggle.core.dispatcher.IDispatcher;
 import com.matecoder.juggle.core.dispatcher.impl.AsyncDispatcher;
 import com.matecoder.juggle.core.dispatcher.impl.SyncDispatcher;
@@ -51,9 +50,9 @@ public class FlowRuntimeServiceImpl implements IFlowRuntimeService {
 
     private final IDispatcher dispatcher = new AsyncDispatcher();
 
-    public FlowRuntimeServiceImpl(JuggleProperties juggleProperties, IDataSourceRepository dataSourceRepository) {
+    public FlowRuntimeServiceImpl(JuggleProperties juggleProperties, IDataSourceManager dataSourceManager) {
         initFlowResultManager(juggleProperties);
-        this.dataSourceManager = new DataSourceManager(dataSourceRepository, juggleProperties);
+        this.dataSourceManager = dataSourceManager;
     }
 
     @Override
