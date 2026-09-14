@@ -1,0 +1,31 @@
+package com.matecoder.juggle.starter;
+
+import com.matecoder.juggle.starter.impl.IJuggleTemplate;
+import com.matecoder.juggle.starter.impl.JuggleTemplateImpl;
+import com.matecoder.juggle.starter.properties.JuggleOpenProperties;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author husong
+ */
+@Configuration
+@EnableConfigurationProperties({JuggleOpenProperties.class})
+public class JuggleAutoConfiguration {
+
+    @Bean
+    public IJuggleTemplate juggleTemplate(JuggleOpenProperties juggleOpenProperties){
+        if (juggleOpenProperties == null) {
+            throw new IllegalArgumentException("juggleOpenProperties is null");
+        }
+        if(StringUtils.isEmpty(juggleOpenProperties.getServerAddr())){
+            throw new IllegalArgumentException("serverAddr is null");
+        }
+        if(StringUtils.isEmpty(juggleOpenProperties.getAccessToken())){
+            throw new IllegalArgumentException("access token is null");
+        }
+        return new JuggleTemplateImpl(juggleOpenProperties);
+    }
+}

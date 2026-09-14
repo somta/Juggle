@@ -5,6 +5,7 @@ import ElementPlus from 'element-plus';
 import 'vue-json-pretty/lib/styles.css';
 import './assets/base.css';
 import 'element-plus/dist/index.css';
+import './assets/app.css';
 import { userService } from './service';
 
 const app = createApp(App);

@@ -2,19 +2,19 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.flow.FlowInfoMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.flow.FlowInfoMapper" >
 
-<insert id="addFlowInfo" useGeneratedKeys="true" keyProperty="id" parameterType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" >
+<insert id="addFlowInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.matecoder.juggle.console.infrastructure.po.flow.FlowInfoPO" >
 	insert into t_flow_info (id, flow_key, flow_name,flow_type, remark,deleted, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{flowKey},#{flowName},#{flowType},#{remark},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
 
-<select id="querySimpleFlowInfo" resultType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.Long">
+<select id="querySimpleFlowInfo" resultType="com.matecoder.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.Long">
 	select id,flow_key,flow_name,flow_type
 	from t_flow_info where deleted = 0 and id = #{flowId}
 </select>
 
-<select id="queryFlowByFlowKey" resultType="net.somta.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.String">
+<select id="queryFlowByFlowKey" resultType="com.matecoder.juggle.console.infrastructure.po.flow.FlowInfoPO" parameterType="java.lang.String">
 	select id,flow_key, flow_name,flow_type, remark
 	from t_flow_info where deleted = 0 and flow_key = #{flowKey}
 </select>

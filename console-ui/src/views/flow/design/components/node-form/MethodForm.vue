@@ -9,6 +9,7 @@ import {InputParams, OutputParams, valueType} from '@/typings';
 import {useFlowDataInject} from '../../hooks/flow-data';
 import {cloneDeep} from 'lodash-es';
 import {ElMessage} from 'element-plus';
+import {isEmpty} from "@/utils/CommonUtil.ts";
 
 const flowContext = useFlowDataInject();
 
@@ -109,7 +110,6 @@ function onSuiteChange(suiteCode:string) {
 }
 
 async function onApiChange(apiCode: string) {
-  console.log("apiCode=",apiCode);
   const res = await apiService.queryApiInfoByCode(apiCode);
   if (res.result) {
     const result = res.result;
@@ -168,7 +168,7 @@ const outputTargetList = computed(() => {
 });
 
 function validateParam(param: any) {
-  if (!param.source) {
+  if (isEmpty(param.source)) {
     return false;
   }
   if (!param.target) {

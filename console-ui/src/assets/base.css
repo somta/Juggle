@@ -6,6 +6,139 @@
   font-weight: normal;
 }
 
+/* ========== 全局统一样式滚动条 start ========== */
+/* WebKit 内核浏览器（Chrome / Edge / Safari / Opera） */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+
+/* 隐藏上下/左右小箭头按钮 */
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: 0;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement,
+::-webkit-scrollbar-button:single-button:vertical:increment,
+::-webkit-scrollbar-button:single-button:horizontal:decrement,
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 边角，当同时出现横向和纵向滚动条时 */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox 浏览器 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c0c4cc transparent;
+}
+
+/* 表格内容区域滚动条 */
+.el-table__body-wrapper::-webkit-scrollbar,
+.el-table__inner-wrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb,
+.el-table__inner-wrapper::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-button,
+.el-table__inner-wrapper::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 侧边栏/菜单滚动条 */
+.el-aside::-webkit-scrollbar,
+.el-menu::-webkit-scrollbar,
+.el-scrollbar__wrap::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.el-aside::-webkit-scrollbar-thumb,
+.el-menu::-webkit-scrollbar-thumb,
+.el-scrollbar__wrap::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+
+.el-aside::-webkit-scrollbar-button,
+.el-menu::-webkit-scrollbar-button,
+.el-scrollbar__wrap::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 抽屉、弹窗滚动条 */
+.el-drawer__body::-webkit-scrollbar,
+.el-dialog__body::-webkit-scrollbar,
+.el-overlay-dialog::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.el-drawer__body::-webkit-scrollbar-thumb,
+.el-dialog__body::-webkit-scrollbar-thumb,
+.el-overlay-dialog::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+
+.el-drawer__body::-webkit-scrollbar-button,
+.el-dialog__body::-webkit-scrollbar-button,
+.el-overlay-dialog::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 下拉选择框滚动条 */
+.el-select-dropdown__wrap::-webkit-scrollbar,
+.el-popper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.el-select-dropdown__wrap::-webkit-scrollbar-thumb,
+.el-popper::-webkit-scrollbar-thumb {
+  background: #c0c4cc;
+  border-radius: 3px;
+}
+
+.el-select-dropdown__wrap::-webkit-scrollbar-button,
+.el-popper::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+/* ========== 全局统一样式滚动条 end ========== */
+
 html,
 body {
   height: 100%;
@@ -19,8 +152,20 @@ body {
   padding: 20px 0 0 20px;
   margin-bottom: 12px;
   background-color: var(--el-bg-color-overlay);
-  border-radius: 4px;
+  border-radius: 12px;
   box-shadow: var(--el-box-shadow-light);
+}
+
+.page-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.page-container > .el-container {
+  flex: 1;
+  min-height: 0;
 }
 
 .page-header {
@@ -33,9 +178,14 @@ body {
   overflow: auto;
 }
 
+/* 列表页：内容在表格内滚动，分页固定在底部 */
+.page-container .page-body {
+  overflow: hidden;
+}
+
 .table-container {
   background-color: var(--el-bg-color-overlay);
-  border-radius: 4px;
+  border-radius: 12px;
 }
 
 .table-header{
@@ -44,8 +194,16 @@ body {
     font-weight: 600;
   }
 }
+
+.table-wrapper {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+}
+
 .table-pagination {
-  padding: 12px 0;
+  padding-top: 12px;
   display: flex;
   flex-direction: row-reverse;
 }

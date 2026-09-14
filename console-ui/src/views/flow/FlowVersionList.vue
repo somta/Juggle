@@ -94,7 +94,7 @@ async function deleteFlowVersionItem(row: any) {
 </script>
 
 <template>
-  <div class="page-flow">
+  <div class="page-container page-flow">
     <div class="search-bar">
       <FlowVersionFilter @search="onSearch" />
     </div>

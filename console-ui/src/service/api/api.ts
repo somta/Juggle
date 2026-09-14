@@ -39,7 +39,7 @@ export async function listDelete(id: number): ResponseResult<boolean> {
   return request.delete(JUGGLE_API_PREFIX+`/api/delete/${id}`);
 }
 
-export async function queryApiInfo(id: number): ResponseResult<ApiInfo> {
+export async function queryApiInfo(id: string): ResponseResult<ApiInfo> {
   return request.get(JUGGLE_API_PREFIX+`/api/info/${id}`);
 }
 
@@ -47,7 +47,7 @@ export async function queryApiInfoByCode(apiCode: string): ResponseResult<ApiInf
   return request.get(JUGGLE_API_PREFIX+`/api/info/code/${apiCode}`);
 }
 
-export function debugApi(apiId: number, params: { headerData: any; inputParamData: any }): ResponseResult<any> {
+export function debugApi(apiId: string, params: { headerData: any; inputParamData: any }): ResponseResult<any> {
   return request.post(JUGGLE_API_PREFIX+`/api/debug/${apiId}`, params);
 }
 

@@ -103,7 +103,7 @@ async function deleteApiItem(row: any) {
 }
 </script>
 <template>
-  <div class="page-interface-list">
+  <div class="page-container page-interface-list">
     <el-container class="table-container">
       <el-header class="page-header">
         <ListFilter @search="onSearch" />

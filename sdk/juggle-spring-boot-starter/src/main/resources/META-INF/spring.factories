@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration= \
-  net.somta.juggle.starter.JuggleAutoConfiguration
+  com.matecoder.juggle.starter.JuggleAutoConfiguration

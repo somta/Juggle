@@ -5,13 +5,13 @@
         <a href="https://www.juggle.plus/" target="_blank" rel="noopener noreferrer">首页</a>
       </li>
       <li>
-        <a href="https://www.juggle.plus/docs/guide/introduce/" target="_blank" rel="noopener noreferrer">文档</a>
+        <a href="https://www.juggle.plus/docs/guide/introduce/introduce.html" target="_blank" rel="noopener noreferrer">文档</a>
       </li>
       <li>
-        <a href="https://www.juggle.plus/blog" target="_blank" rel="noopener noreferrer">博客</a>
+        <a href="https://www.juggle.plus/suite/introduce.html" target="_blank" rel="noopener noreferrer">博客</a>
       </li>
       <li>
-        <a href="https://www.juggle.plus/docs/changelog" target="_blank" rel="noopener noreferrer">更新日志</a>
+        <a href="https://www.juggle.plus/changelog/introduce.html" target="_blank" rel="noopener noreferrer">更新日志</a>
       </li>
     </ul>
   </div>

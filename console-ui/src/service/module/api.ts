@@ -17,7 +17,7 @@ export async function listDelete(params: Parameters<typeof apiAPI.listDelete>[0]
   return apiAPI.listDelete(params);
 }
 
-export async function queryApiInfo(apiId:number) {
+export async function queryApiInfo(apiId:string) {
   return apiAPI.queryApiInfo(apiId);
 }
 
@@ -25,7 +25,7 @@ export async function queryApiInfoByCode(apiCode: string) {
   return apiAPI.queryApiInfoByCode(apiCode);
 }
 
-export async function debugApi(apiId: number, params: { headerData: any; inputParamData: any }) {
+export async function debugApi(apiId: string, params: { headerData: any; inputParamData: any }) {
   return apiAPI.debugApi(apiId, params);
 }
 

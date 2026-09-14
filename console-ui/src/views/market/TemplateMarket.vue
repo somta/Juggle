@@ -190,6 +190,10 @@ function goToTemplateMarketDetail(templateId: number) {
 
   h3{
     margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 17em;
   }
 }
 

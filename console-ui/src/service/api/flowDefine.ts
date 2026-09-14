@@ -50,5 +50,5 @@ export async function debugFlow(
     flowData?: Record<string, any>;
   }
 ): ResponseResult {
-  return request.post(JUGGLE_API_PREFIX+`/flow/definition/debug/${flowKey}`, triggerData);
+  return request.post(JUGGLE_API_PREFIX+`/flow/definition/debug/${flowKey}`, triggerData, { timeout: 60000 * 20 });
 }

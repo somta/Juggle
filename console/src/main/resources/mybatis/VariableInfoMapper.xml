@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.VariableInfoMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.VariableInfoMapper" >
 
 <insert id="batchAddVariable">
 	insert into t_variable_info (id, flow_definition_id, variable_key, variable_name, variable_type, data_type)
@@ -12,7 +12,7 @@
 	</foreach>
 </insert>
 
-<delete id="deleteVariableByFlowDefinitionId" parameterType="net.somta.juggle.console.domain.flow.definition.vo.VariableDeleteVO">
+<delete id="deleteVariableByFlowDefinitionId" parameterType="com.matecoder.juggle.console.domain.flow.definition.vo.VariableDeleteVO">
 	delete from t_variable_info where flow_definition_id=#{flowDefinitionId}
 	<if test="excludeEnvType != null and excludeEnvType != ''">
 		and variable_type!=#{excludeEnvType}

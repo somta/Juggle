@@ -21,15 +21,15 @@ XX_MMS=$(join_if_exist "-XX:MaxMetaspaceSize=" ${JVM_MMS})
 
 JAVA_OPT="${JAVA_OPT} $Xms $Xmx $XX_MS $XX_MMS"
 JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${BASE_DIR}/logs/java_heapdump.hprof"
-JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8 "
 if [ "${JVM_GC_LOG}" == "true" ]; then
-  JAVA_OPT="${JAVA_OPT} -Xloggc:${BASE_DIR}/logs/juggle_gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M"
+  JAVA_OPT="${JAVA_OPT} -Xlog:gc*:file=${BASE_DIR}/logs/juggle_gc.log:time,tags:filecount=10,filesize=102400"
 fi
 
 #===========================================================================================
 # Setting system properties
 #===========================================================================================
 JAVA_OPT="${JAVA_OPT} -Duser.timezone=${TIME_ZONE}"
+JAVA_OPT="${JAVA_OPT} --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED"
 JAVA_OPT="${JAVA_OPT} -jar /juggle-server.jar"
 JAVA_OPT="${JAVA_OPT} --spring.config.additional-location=${BASE_DIR}/conf/application.properties"
 

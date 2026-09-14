@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import {computed, PropType} from 'vue';
+import {computed, PropType, watch} from 'vue';
+import JsonInput from '@/components/common/JsonInput.vue';
+import { DataType } from '@/typings';
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean, Array, Object],
     default: '',
   },
-  dataType: Object,
+  dataType: Object as PropType<DataType>,
   size: {
     type: String as PropType<'large' | 'default' | 'small'>,
     default: 'default',
@@ -25,6 +27,8 @@ const innerValue = computed({
         return null;
       }
       return Number(props.modelValue);
+    } else if ((currentType.value === 'Object' || currentType.value === 'List') && props.modelValue === '') {
+      return null;
     }
     return props.modelValue;
   },
@@ -45,6 +49,16 @@ const switchValue = computed({
 const currentType = computed(() => {
   return props.dataType?.type;
 });
+
+watch(
+    [currentType, () => props.modelValue],
+    ([type, value]) => {
+      if (type === 'Boolean' && (value === null || value === undefined || value === '')) {
+        emit('update:modelValue', false);
+      }
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
@@ -89,6 +103,11 @@ const currentType = computed(() => {
       inactive-text="否"
       :size="size"
       :width="48"
+    />
+    <JsonInput
+      v-else-if="currentType === 'Object' || currentType === 'List'"
+      :dataType="dataType"
+      v-model="innerValue"
     />
     <el-input v-else v-model="innerValue" :size="size" placeholder="请输入" />
   </div>

@@ -1,0 +1,22 @@
+:root {
+    /* 主题色系列 - 紫色 */
+    --el-color-primary: #8748f3;
+    --el-color-primary-light-3: #9c67f6;
+    --el-color-primary-light-5: #b388f8;
+    --el-color-primary-light-7: #d0b6fb;
+    --el-color-primary-light-8: #e0cdfc;
+    --el-color-primary-light-9: #f0e6fe;
+    --el-color-primary-dark-2: #6c3ac2;
+
+    /* 文本色 */
+    --el-text-color-primary: #303133;
+    --el-text-color-secondary: #909399;
+
+    /* 背景和边框 */
+    --el-bg-color: #ffffff;
+    --el-border-color: #e5e7eb;
+    --el-color-danger: #f56c6c;
+
+    /* 按钮园角 */
+    --el-border-radius-base: 8px;
+}

@@ -71,13 +71,13 @@ const title = computed(() => {
 function beforeSuiteImageUpload(file) {
   const isJPG = file.raw.type === 'image/jpeg';
   const isPNG = file.raw.type === 'image/png';
-  const isLt30K = file.size / 1024 < 30;
+  const isLt60K = file.size / 1024 < 60;
   if (!isJPG && !isPNG) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片');
     return false;
   }
-  if (!isLt30K) {
-    ElMessage.error('图片大小不能超过30KB');
+  if (!isLt60K) {
+    ElMessage.error('图片大小不能超过60KB');
     return false;
   }
   convertImageToBase64(file);

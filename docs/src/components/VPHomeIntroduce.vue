@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {PlumeHomeConfigBase, PlumeThemeHeroAction} from 'vuepress-theme-plume'
+import type {ThemeHomeConfigBase} from 'vuepress-theme-plume'
 import { VPHomeBox,VPButton } from 'vuepress-theme-plume/client'
 import { computed } from 'vue'
 import {useData} from "vuepress-theme-plume/client";
@@ -9,13 +9,13 @@ interface ImageLink {
   link?: string;
 }
 
-const props = defineProps<PlumeHomeConfigBase & {
+const props = defineProps<ThemeHomeConfigBase & {
   backgroundImageMask?: number | {
     light?: number;
     dark?: number;
   };
   desc?: string
-  actions: PlumeThemeHeroAction[];
+  actions: [];
   imageLinks: ImageLink[]
 }>()
 

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.ObjectMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.ObjectMapper" >
 <!-- Result Map-->
-<resultMap id="BaseResultMap" type="net.somta.juggle.console.infrastructure.po.ObjectPO" >
+<resultMap id="BaseResultMap" type="com.matecoder.juggle.console.infrastructure.po.ObjectPO" >
 	<result column="id" property="id"/>
 	<result column="object_key" property="objectKey"/>
 	<result column="object_name" property="objectName"/>
@@ -29,7 +29,7 @@
 	id, object_key, object_name, object_desc, created_at, created_by, updated_at, updated_by
 </sql>
 
-<insert id="add" parameterType="net.somta.juggle.console.infrastructure.po.ObjectPO" >
+<insert id="add" parameterType="com.matecoder.juggle.console.infrastructure.po.ObjectPO" >
 	insert into t_object (id, object_key, object_name, object_desc,deleted, created_at, created_by, updated_at, updated_by)
 	values (#{id},#{objectKey},#{objectName},#{objectDesc},0,#{createdAt},#{createdBy},#{updatedAt},#{updatedBy});
 </insert>
@@ -38,7 +38,7 @@
  delete from t_object where id=#{id}
 </delete>
 
-<update id="update" parameterType="net.somta.juggle.console.infrastructure.po.ObjectPO" >
+<update id="update" parameterType="com.matecoder.juggle.console.infrastructure.po.ObjectPO" >
 	update t_object set
 	<trim  suffixOverrides="," >
 		<if test="objectKey != null and objectKey != ''">
@@ -73,13 +73,13 @@
 	from t_object where id = #{id}
 </select>
 
-<select id="queryListCount" resultType="java.lang.Long" parameterType="net.somta.juggle.console.interfaces.param.ObjectQueryParam">
+<select id="queryListCount" resultType="java.lang.Long" parameterType="com.matecoder.juggle.console.interfaces.param.ObjectQueryParam">
 	select count(*)
 	from t_object
 	<include refid="Example_Where_Clause"/>
 </select>
 
-<select id="queryByList" resultMap="BaseResultMap" parameterType="net.somta.juggle.console.interfaces.param.ObjectQueryParam">
+<select id="queryByList" resultMap="BaseResultMap" parameterType="com.matecoder.juggle.console.interfaces.param.ObjectQueryParam">
 	select <include refid="Base_Column_List" />
 	from t_object
 	<include refid="Example_Where_Clause"/>

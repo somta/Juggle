@@ -1,0 +1,60 @@
+package com.matecoder.juggle.console.infrastructure.po;
+
+import com.matecoder.core.base.BaseModel;
+
+/**
+ * @author husong
+ * @since 1.0.0
+ */
+public class ObjectPO extends BaseModel {
+
+    private Long id;
+
+    private String objectKey;
+
+    private String objectName;
+
+    private String objectDesc;
+
+    private Integer deleted;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getObjectKey() {
+        return objectKey;
+    }
+
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+
+    public String getObjectDesc() {
+        return objectDesc;
+    }
+
+    public void setObjectDesc(String objectDesc) {
+        this.objectDesc = objectDesc;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+}

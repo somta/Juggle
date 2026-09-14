@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.somta.juggle.console.infrastructure.mapper.flow.FlowVersionMapper" >
+<mapper namespace="com.matecoder.juggle.console.infrastructure.mapper.flow.FlowVersionMapper" >
 
 <update id="deleteFlowVersionByFlowId" parameterType="java.lang.Long">
 	update t_flow_version set deleted=1 where flow_id=#{flowId}
@@ -13,7 +13,7 @@
 	from t_flow_info i inner join t_flow_version v on i.id = v.flow_id  where v.deleted = 0 and i.flow_key = #{flowKey}
 </select>
 
-<select id="queryFlowVersionInfoById" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="java.lang.Long">
+<select id="queryFlowVersionInfoById" resultType="com.matecoder.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="java.lang.Long">
 	select v.id,
 	i.flow_key as flowKey,
 	i.flow_type as flowType,
@@ -28,7 +28,7 @@
 	where v.deleted = 0 and v.id = #{flowVersionId}
 </select>
 
-<select id="queryFlowVersionInfoByKey" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
+<select id="queryFlowVersionInfoByKey" resultType="com.matecoder.juggle.console.domain.flow.version.view.FlowVersionInfoView" parameterType="com.matecoder.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
 	select v.id,
 	i.flow_key as flowKey,
 	i.flow_type as flowType,
@@ -49,7 +49,7 @@
 	</if>
 </select>
 
-<select id="queryFlowVersionList" resultType="net.somta.juggle.console.domain.flow.version.view.FlowVersionView" parameterType="net.somta.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
+<select id="queryFlowVersionList" resultType="com.matecoder.juggle.console.domain.flow.version.view.FlowVersionView" parameterType="com.matecoder.juggle.console.domain.flow.version.vo.FlowVersionQueryVO">
 	select v.id,
 	       i.flow_key as flowKey,
 	       i.flow_name as flowName,

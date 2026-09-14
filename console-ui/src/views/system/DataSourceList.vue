@@ -92,7 +92,7 @@ async function connectDataSource(row: any) {
 }
 </script>
 <template>
-  <div class="page-interface-token">
+  <div class="page-container page-interface-token">
     <el-container class="table-container">
       <el-header class="page-header">
         <el-button :icon="Plus" type="primary" @click="openAdd">新建</el-button>

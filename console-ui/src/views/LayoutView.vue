@@ -13,9 +13,9 @@ import MainBreadcrumb from '../components/layout/main/MainBreadcrumb.vue';
         <el-aside class="layout-aside"><LayoutAside /></el-aside>
         <el-main class="layout-main">
           <el-container class="layout-main-container">
-            <el-header class="layout-main-header">
+<!--            <el-header class="layout-main-header">
               <MainBreadcrumb />
-            </el-header>
+            </el-header>-->
             <el-main class="layout-main-main">
               <RouterView class="layout-router-view" />
             </el-main>
@@ -67,7 +67,7 @@ import MainBreadcrumb from '../components/layout/main/MainBreadcrumb.vue';
 
   .layout-router-view {
     height: 100%;
-    border-radius: 4px;
+    border-radius: 12px;
     overflow: auto;
   }
 }

@@ -1,0 +1,45 @@
+package com.matecoder.juggle.console.infrastructure.po;
+
+import com.matecoder.core.base.BaseModel;
+
+/**
+ * @author husong
+ */
+public class UserPO extends BaseModel {
+    private Long id;
+    private String userName;
+    private String password;
+    private Integer deleted;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+}

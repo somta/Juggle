@@ -122,7 +122,7 @@ async function deleteItem(row: any) {
 }
 </script>
 <template>
-  <div class="page-object-list">
+  <div class="page-container page-object-list">
     <div class="search-bar">
       <ObjectFilter @search="onSearch" />
     </div>
